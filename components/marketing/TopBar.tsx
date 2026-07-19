@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import { SHELL, SOFT_WASH } from "./tokens";
+import { SHELL } from "./tokens";
 
 /**
  * Ancres de navigation.
@@ -23,9 +23,12 @@ const NAV = [
  * Elle vit dans le layout et non dans le hero, sinon `sticky` la libérerait dès
  * que le hero sort de l'écran.
  *
- * Chrome neutre à deux exceptions près : l'avatar prend `--soft` et le bouton
- * « Commencer » prend `--acc`. Le reste ne bouge pas, pour que la recoloration
- * reste un signal et non un feu d'artifice.
+ * Pas d'avatar : sur une vitrine le visiteur n'est pas connecté, et posé
+ * contre « Se connecter » il se faisait prendre pour le bouton de connexion.
+ *
+ * Chrome neutre à deux exceptions près : l'icône de recherche prend `--soft`
+ * et le bouton « Commencer » prend `--acc`. Le reste ne bouge pas, pour que la
+ * recoloration reste un signal et non un feu d'artifice.
  */
 export function TopBar() {
   const [defile, setDefile] = useState(false);
@@ -46,13 +49,13 @@ export function TopBar() {
           : "border-b border-transparent"
       }`}
     >
-      <div className={`${SHELL} flex h-12 items-center gap-6`}>
+      <div className={`${SHELL} flex h-[52px] items-center gap-6`}>
         <Image
           src="/brand/logo-blanc-et-jaune.png"
           alt="Cloud Paradise"
           width={512}
           height={380}
-          className="h-7 w-auto shrink-0"
+          className="h-9 w-auto shrink-0"
           loading="eager"
         />
 
@@ -72,12 +75,16 @@ export function TopBar() {
         </nav>
 
         <div className="ml-auto flex items-center gap-3.5">
+          {/* Décorative, donc libre de porter l'accent : c'est elle qui fait
+              vivre « tout se recolore » dès la barre, sans se faire prendre
+              pour une commande de compte comme le faisait l'avatar. */}
           <svg
             aria-hidden="true"
+            data-cp-accent
             viewBox="0 0 24 24"
-            className="size-4 shrink-0 text-white/55"
+            className="size-4 shrink-0"
             fill="none"
-            stroke="currentColor"
+            stroke="var(--soft)"
             strokeWidth="2"
           >
             <circle cx="11" cy="11" r="7" />
@@ -86,26 +93,6 @@ export function TopBar() {
 
           <span className="hidden text-xs tabular-nums text-white/55 bar:inline">
             14:32
-          </span>
-
-          {/* Seule pièce du chrome à suivre l'accent, avec le bouton : elle
-              fait vivre la promesse « tout se recolore » dès la barre. */}
-          <span
-            aria-hidden="true"
-            data-cp-accent
-            className="hidden size-6 place-items-center rounded-full bar:grid"
-            style={{ background: SOFT_WASH }}
-          >
-            <svg
-              viewBox="0 0 24 24"
-              className="size-3.5"
-              fill="none"
-              stroke="var(--soft)"
-              strokeWidth="2"
-            >
-              <circle cx="12" cy="8" r="3.5" />
-              <path d="M5 20c0-3.5 3-6 7-6s7 2.5 7 6" strokeLinecap="round" />
-            </svg>
           </span>
 
           <a

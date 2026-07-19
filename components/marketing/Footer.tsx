@@ -33,7 +33,7 @@ export function Footer() {
               alt="Cloud Paradise"
               width={512}
               height={380}
-              className="h-6 w-auto"
+              className="h-10 w-auto"
             />
             <p className="mt-3 text-xs text-[#93a3c2]">© 2026 Cloud Paradise</p>
           </div>
