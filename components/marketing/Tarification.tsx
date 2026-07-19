@@ -26,13 +26,14 @@ const GRILLE = [
 const VEDETTES = ["Documents", "Calcul GPU", "Rendu 3D"] as const;
 
 const CONFIG = {
-  credits: { min: 100, max: 5000, pas: 100, defaut: 1000 },
   /**
-   * VALEUR À AJUSTER — seul chiffre encore inventé de cette section.
-   * Le taux crédits → devise n'a pas été fourni ; d'où la mention « prix
-   * indicatif », à ne retirer qu'une fois le vrai taux en place.
+   * Bornes du curseur — choix d'interface, pas un tarif : elles cadrent
+   * l'estimation sur des montants abordables. À aligner sur les vrais paliers
+   * de recharge quand ils seront arrêtés.
    */
-  prixPour1000: 12,
+  credits: { min: 10, max: 500, pas: 10, defaut: 100 },
+  /** Taux réel : un crédit vaut une unité de devise. */
+  creditEnDevise: 1,
   devise: "$",
 };
 
@@ -148,7 +149,8 @@ function Grille() {
   return (
     <div className="rounded-xl border border-white/10 bg-white/[0.03] px-5 py-4">
       <p className="text-xs text-[#93a3c2]">
-        Coût débité par tâche lancée, en crédits
+        Coût débité par tâche lancée, en crédits — 1 crédit ={" "}
+        {nf.format(CONFIG.creditEnDevise)} {CONFIG.devise}
       </p>
       <dl className="mt-3 flex flex-wrap gap-x-6 gap-y-2.5">
         {GRILLE.map(({ type, cout }) => (
@@ -229,9 +231,12 @@ function Estimateur() {
       </dl>
 
       <div className="mt-5 flex flex-wrap items-baseline justify-between gap-2 border-t border-white/10 pt-4">
+        {/* Le taux est réel, donc plus de « prix indicatif » : la grille se lit
+            directement en devise. */}
         <p className="text-[11px] text-[#93a3c2]">
-          À partir de {nf.format(CONFIG.prixPour1000)} {CONFIG.devise} / 1000
-          crédits · <span className="italic">prix indicatif</span>
+          1 crédit = {nf.format(CONFIG.creditEnDevise)} {CONFIG.devise} — soit{" "}
+          <span className="tabular-nums">{nf.format(credits)}</span>{" "}
+          {CONFIG.devise} pour ce budget.
         </p>
         <a
           href="/tarifs"
