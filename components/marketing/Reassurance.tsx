@@ -82,7 +82,7 @@ function Texte() {
                 color: "var(--acc-text)",
               }}
             >
-              <Icone className="size-4" />
+              <Icone className="size-[18px]" />
             </span>
             <div>
               <p className="text-sm font-medium text-[#eef4ff]">{titre}</p>

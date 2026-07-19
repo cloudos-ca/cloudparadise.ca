@@ -108,7 +108,7 @@ export function Tarification() {
 
         <Reveal
           delay={0.1}
-          className="mt-10 grid items-center gap-8 os:grid-cols-[46fr_54fr] os:gap-12"
+          className="mt-10 grid items-start gap-8 os:grid-cols-[46fr_54fr] os:gap-12"
         >
           <ul className="space-y-5">
             {ARGUMENTS.map(({ Icone, titre, texte }) => (
@@ -122,7 +122,7 @@ export function Tarification() {
                     color: "var(--acc-text)",
                   }}
                 >
-                  <Icone className="size-4" />
+                  <Icone className="size-[18px]" />
                 </span>
                 <div>
                   <p className="text-sm font-medium text-[#eef4ff]">{titre}</p>
@@ -134,11 +134,12 @@ export function Tarification() {
             ))}
           </ul>
 
-          <Estimateur />
-        </Reveal>
-
-        <Reveal delay={0.15} className="mt-10">
-          <Grille />
+          {/* La grille appartient à l'estimateur : même colonne, même largeur,
+              collée dessous. Pleine largeur, elle avait l'air posée à part. */}
+          <div className="space-y-3.5">
+            <Estimateur />
+            <Grille />
+          </div>
         </Reveal>
       </div>
     </section>

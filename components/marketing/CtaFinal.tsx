@@ -43,7 +43,7 @@ export function CtaFinal() {
     <section className="relative overflow-x-clip">
       <div className={`${SHELL} ${SECTION_Y}`}>
         <Reveal>
-          <div className="relative mx-auto max-w-[560px]">
+          <div className="relative mx-auto max-w-[640px]">
             {/* La lueur vit sur le fond de page, derrière la fenêtre : c'est ce
                 qui met le closer en avant, sans lui ajouter de cadre. */}
             <div

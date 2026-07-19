@@ -114,13 +114,17 @@ export function IconCheck(props: IconProps) {
   );
 }
 
+/*
+ * Ces deux glyphes ont été redessinés plus simplement : leur version d'origine
+ * empilait trop de traits pour 16px et se lisait grise à côté des autres.
+ */
 export function IconGift(props: IconProps) {
   return (
     <Glyph {...props}>
       <rect x="3" y="8" width="18" height="4" rx="1" />
+      <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7" />
       <path d="M12 8v13" />
-      <path d="M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7" />
-      <path d="M7.5 8a2.5 2.5 0 0 1 0-5C10 3 12 5.5 12 8c0-2.5 2-5 4.5-5a2.5 2.5 0 0 1 0 5" />
+      <path d="M8.5 8a2.5 2.5 0 1 1 3.5-3.4A2.5 2.5 0 1 1 15.5 8" />
     </Glyph>
   );
 }
@@ -137,12 +141,10 @@ export function IconRefresh(props: IconProps) {
 export function IconAdjustments(props: IconProps) {
   return (
     <Glyph {...props}>
-      <circle cx="14" cy="6" r="2" />
-      <path d="M4 6h8M16 6h4" />
-      <circle cx="8" cy="12" r="2" />
-      <path d="M4 12h2M10 12h10" />
-      <circle cx="17" cy="18" r="2" />
-      <path d="M4 18h11M19 18h1" />
+      <path d="M4 8h5M15 8h5" />
+      <circle cx="12" cy="8" r="2.6" />
+      <path d="M4 16h9M19 16h1" />
+      <circle cx="16" cy="16" r="2.6" />
     </Glyph>
   );
 }
