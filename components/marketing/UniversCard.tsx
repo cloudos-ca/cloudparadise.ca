@@ -4,7 +4,11 @@ import type { ReactNode } from "react";
 
 export type Univers = {
   id: string;
-  /** Nom affiché dans la barre de titre. */
+  /**
+   * Barre de titre : le fichier produit, pas le nom de l'univers.
+   * La fenêtre montre donc un résultat concret, et le h3 nomme la famille —
+   * chacun son rôle, sans redite.
+   */
   nom: string;
   titre: string;
   description: string;

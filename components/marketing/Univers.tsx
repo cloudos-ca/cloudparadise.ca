@@ -142,7 +142,7 @@ const ApercuTech = (
 const UNIVERS: readonly UniversType[] = [
   {
     id: "documents",
-    nom: "Documents",
+    nom: "contrats-fr-en.zip",
     titre: "Documents",
     description: "Traduisez, convertissez et traitez vos fichiers par lots.",
     exemple: "traduire 200 contrats d’un coup.",
@@ -154,7 +154,7 @@ const UNIVERS: readonly UniversType[] = [
   },
   {
     id: "crea",
-    nom: "Créa & média",
+    nom: "promo-4k.mp4",
     titre: "Créa & média",
     description: "Encodez, rendez et exportez sans bloquer votre machine.",
     exemple: "exporter une vidéo 4K sans attendre.",
@@ -166,7 +166,7 @@ const UNIVERS: readonly UniversType[] = [
   },
   {
     id: "tech",
-    nom: "Tech & data",
+    nom: "catalogue.csv",
     titre: "Tech & data",
     description: "Scrapez, interrogez et transformez vos données.",
     exemple: "scraper 10 000 pages en une passe.",
