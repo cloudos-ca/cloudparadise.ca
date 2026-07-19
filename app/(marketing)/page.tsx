@@ -11,9 +11,9 @@ export default function MarketingPage() {
   return (
     <>
       <Hero />
-      <CommentCaMarche />
       <ProblemeSolution />
       <Univers />
+      <CommentCaMarche />
       <Reassurance />
       <Tarification />
       <CtaFinal />
