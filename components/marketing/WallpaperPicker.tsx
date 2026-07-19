@@ -8,24 +8,20 @@ import {
   type Wallpaper,
 } from "./wallpapers";
 
-type WallpaperPickerProps = {
-  /** Conteneur du hero portant les tokens --sky / --acc / --soft. */
-  targetRef: React.RefObject<HTMLElement | null>;
-};
-
-export function WallpaperPicker({ targetRef }: WallpaperPickerProps) {
+export function WallpaperPicker() {
   const [activeId, setActiveId] = useState(DEFAULT_WALLPAPER.id);
 
   async function handleSelect(wp: Wallpaper) {
-    const el = targetRef.current;
-    if (!el) return;
     setActiveId(wp.id);
-    await applyWallpaper(el, wp);
+    // Les tokens vivent sur :root — la page entière suit, pas seulement le hero.
+    await applyWallpaper(document.documentElement, wp);
   }
 
   return (
     <div className="mt-8">
-      <p className="text-xs text-cp-subtle">Changez de fond — tout se recolore</p>
+      <p className="text-xs text-cp-subtle">
+        Changez de fond — tout se recolore
+      </p>
       <div className="mt-3 flex flex-wrap gap-2.5">
         {WALLPAPERS.map((wp) => {
           const isActive = wp.id === activeId;

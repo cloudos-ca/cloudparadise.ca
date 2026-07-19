@@ -5,6 +5,10 @@ import { motion, useReducedMotion } from "framer-motion";
 import { SOFT_WASH } from "./tokens";
 
 type JobPanelProps = {
+  /** Intitulé du job, tel qu'il apparaît en tête de fenêtre. */
+  title: string;
+  /** Mode retenu par l'IA — MEDIA, DOCUMENTS, etc. */
+  chip: string;
   /** Lignes de log, jouées en cascade. */
   logs: readonly string[];
 };
@@ -16,7 +20,7 @@ type JobPanelProps = {
  * repartent donc toujours ensemble. En mouvement réduit, l'état final est rendu
  * d'emblée et aucune boucle n'est armée.
  */
-export function JobPanel({ logs }: JobPanelProps) {
+export function JobPanel({ title, chip, logs }: JobPanelProps) {
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const reduceMotion = useReducedMotion();
   const [cycle, setCycle] = useState(0);
@@ -35,13 +39,13 @@ export function JobPanel({ logs }: JobPanelProps) {
   return (
     <div className="p-4">
       <div className="flex items-center justify-between gap-3">
-        <p className="text-sm font-medium text-white">Rendre une vidéo 4K</p>
+        <p className="text-sm font-medium text-white">{title}</p>
         <span
           data-cp-accent
           className="shrink-0 rounded px-2 py-0.5 text-[10px] font-medium tracking-wide"
           style={{ background: SOFT_WASH, color: "var(--soft)" }}
         >
-          MEDIA
+          {chip}
         </span>
       </div>
 

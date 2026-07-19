@@ -3,7 +3,7 @@
 import { motion, useReducedMotion } from "framer-motion";
 import { WindowCard } from "./WindowCard";
 import { JobPanel } from "./JobPanel";
-import { CHARTE_ACC, CHARTE_SOFT, PANEL, SHELL } from "./tokens";
+import { SHELL } from "./tokens";
 
 /**
  * Rouge d'échec. Hors charte à dessein, et cantonné à la fenêtre de gauche :
@@ -17,36 +17,21 @@ const FAIL_MUTED = "#8f7a74";
 const STUCK_WIDTH = "34%";
 const STUCK_LABEL = "34 % · bloqué";
 
+/**
+ * Un autre univers que le hero, qui montre déjà un rendu vidéo : la vitrine
+ * doit donner à voir que l'app ne fait pas qu'encoder de la vidéo.
+ */
 const CLOUD_LOGS = [
-  "→ encodage GPU h265 · nœud 04",
-  "→ export final.mp4 · 3840×2160",
-  "→ prêt au téléchargement",
+  "→ lecture de 200 fichiers .docx",
+  "→ traduction FR→EN · 200/200",
+  "→ archive prête",
 ] as const;
 
 export function ProblemeSolution() {
   const reduceMotion = Boolean(useReducedMotion());
 
   return (
-    <section
-      style={
-        {
-          "--acc": CHARTE_ACC,
-          "--soft": CHARTE_SOFT,
-        } as React.CSSProperties
-      }
-      className={PANEL}
-    >
-      <div
-        aria-hidden="true"
-        className="absolute inset-0 -z-10"
-        style={{
-          background: [
-            "radial-gradient(500px 240px at 80% 20%, color-mix(in srgb, var(--acc) 12%, transparent), transparent 60%)",
-            "linear-gradient(140deg,#0e1830,#151f38)",
-          ].join(","),
-        }}
-      />
-
+    <section className="relative">
       <div className={`${SHELL} py-14 os:py-20`}>
         <p
           className="text-xs font-medium tracking-wide"
@@ -54,13 +39,14 @@ export function ProblemeSolution() {
         >
           Le problème
         </p>
-        <h2 className="mt-3 max-w-2xl font-display text-[1.6rem] leading-[1.2] font-bold tracking-tight text-[#eef4ff] sm:text-3xl os:text-4xl">
+        <h2 className="mt-3 max-w-[19ch] font-display text-[1.6rem] leading-[1.2] font-bold tracking-tight text-balance text-[#eef4ff] sm:text-3xl os:text-4xl">
           Les tâches lourdes ne devraient pas vous ralentir.
         </h2>
 
         {/* La scène : ça bloque à gauche, ça aboutit à droite, et le regard
-            circule de l'un vers l'autre. */}
-        <div className="mt-12 flex flex-col items-stretch gap-8 os:flex-row os:items-start os:gap-6">
+            circule de l'un vers l'autre. `items-stretch` égalise la hauteur des
+            deux fenêtres, ce qui aligne les légendes qui les suivent. */}
+        <div className="mt-12 flex flex-col items-stretch gap-8 os:flex-row os:gap-4">
           <StuckWindow reduceMotion={reduceMotion} />
           <Flow reduceMotion={reduceMotion} />
           <CloudWindow />
@@ -90,17 +76,19 @@ function StuckWindow({ reduceMotion }: { reduceMotion: boolean }) {
       };
 
   return (
-    <div className="min-w-0 flex-1">
+    <div className="flex min-w-0 flex-1 flex-col">
       <WindowCard
-        title="Encodeur · votre ordinateur"
+        title="Traitement · votre ordinateur"
         accent={FAIL}
         borderColor={FAIL_BORDER}
+        className="flex flex-1 flex-col"
       >
-        <div className="p-4">
-          <div className="flex items-center gap-2.5">
+        <div className="flex flex-1 flex-col p-4">
+          <div className="flex items-center gap-3">
+            {/* Plus gros que dans une fenêtre saine : c'est le signal « ça rame ». */}
             <motion.span
               aria-hidden="true"
-              className="block size-4 shrink-0 rounded-full border-2 border-transparent"
+              className="block size-7 shrink-0 rounded-full border-[3px] border-transparent"
               style={{ borderTopColor: FAIL, borderRightColor: FAIL }}
               animate={reduceMotion ? undefined : { rotate: 360 }}
               transition={
@@ -109,7 +97,7 @@ function StuckWindow({ reduceMotion }: { reduceMotion: boolean }) {
                   : { duration: 0.9, repeat: Infinity, ease: "linear" }
               }
             />
-            <p className="text-sm font-medium text-white">Encodage local…</p>
+            <p className="text-sm font-medium text-white">Traitement local…</p>
           </div>
 
           <motion.p
@@ -149,7 +137,7 @@ function StuckWindow({ reduceMotion }: { reduceMotion: boolean }) {
 function Flow({ reduceMotion }: { reduceMotion: boolean }) {
   return (
     <div
-      className="flex shrink-0 flex-col items-center gap-1 os:mt-20 os:w-40"
+      className="flex shrink-0 flex-col items-center justify-center gap-2 os:w-36 os:self-start os:pt-16"
       aria-hidden="true"
     >
       {/* Empilé, la scène se lit de haut en bas : les chevrons pivotent. */}
@@ -157,12 +145,12 @@ function Flow({ reduceMotion }: { reduceMotion: boolean }) {
         {[0, 1, 2].map((i) => (
           <motion.span
             key={i}
-            className="text-2xl leading-none"
+            className="text-3xl leading-none"
             style={{ color: "var(--acc)" }}
             animate={
               reduceMotion
-                ? { opacity: 0.75 }
-                : { opacity: [0.15, 1, 0.15], x: [-4, 4, -4] }
+                ? { opacity: 0.8 }
+                : { opacity: [0.15, 1, 0.15], x: [-5, 5, -5] }
             }
             transition={
               reduceMotion
@@ -179,7 +167,10 @@ function Flow({ reduceMotion }: { reduceMotion: boolean }) {
           </motion.span>
         ))}
       </div>
-      <p className="mt-2 text-center text-[11px] leading-tight text-cp-subtle">
+      <p
+        className="text-center text-xs leading-snug font-medium text-balance"
+        style={{ color: "var(--soft)" }}
+      >
         Cloud Paradise s’en charge
       </p>
     </div>
@@ -188,9 +179,16 @@ function Flow({ reduceMotion }: { reduceMotion: boolean }) {
 
 function CloudWindow() {
   return (
-    <div className="min-w-0 flex-1">
-      <WindowCard title="Plans · Cloud Paradise">
-        <JobPanel logs={CLOUD_LOGS} />
+    <div className="flex min-w-0 flex-1 flex-col">
+      <WindowCard
+        title="Plans · Cloud Paradise"
+        className="flex flex-1 flex-col"
+      >
+        <JobPanel
+          title="Traduire 200 contrats"
+          chip="DOCUMENTS"
+          logs={CLOUD_LOGS}
+        />
       </WindowCard>
 
       <Caption>

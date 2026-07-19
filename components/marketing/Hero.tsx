@@ -1,13 +1,11 @@
 "use client";
 
 import Image from "next/image";
-import { useRef } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { WindowCard } from "./WindowCard";
 import { WallpaperPicker } from "./WallpaperPicker";
 import { JobPanel } from "./JobPanel";
-import { PANEL, SHELL, SOFT_WASH } from "./tokens";
-import { DEFAULT_ACC, DEFAULT_SKY, DEFAULT_SOFT } from "./wallpapers";
+import { SHELL, SOFT_WASH } from "./tokens";
 
 const JOB_LOGS = [
   "→ Analyse du projet — 1 842 images détectées",
@@ -18,42 +16,10 @@ const JOB_LOGS = [
 const FOLDERS = ["Vidéos", "Blender", "Documents"] as const;
 
 export function Hero() {
-  const rootRef = useRef<HTMLElement>(null);
   const reduceMotion = useReducedMotion();
 
   return (
-    <section
-      ref={rootRef}
-      style={
-        {
-          "--acc": DEFAULT_ACC,
-          "--soft": DEFAULT_SOFT,
-          "--sky": DEFAULT_SKY,
-          "--veil": 0,
-        } as React.CSSProperties
-      }
-      className={PANEL}
-    >
-      {/* Fond : lueur claire en haut à gauche, doublée d'un halo d'accent plus
-          profond côté fenêtres — les deux suivent le fond courant. */}
-      <div
-        aria-hidden="true"
-        className="absolute inset-0 -z-20"
-        style={{
-          background: [
-            `radial-gradient(620px 320px at 16% 10%, color-mix(in srgb, var(--soft) 26%, transparent), transparent 62%)`,
-            `radial-gradient(520px 300px at 78% 78%, color-mix(in srgb, var(--acc) 22%, transparent), transparent 65%)`,
-            `var(--sky)`,
-          ].join(","),
-        }}
-      />
-      {/* Voile de lisibilité, actif uniquement sur les fonds photo. */}
-      <div
-        aria-hidden="true"
-        className="absolute inset-0 -z-10 bg-black/35"
-        style={{ opacity: "var(--veil)" }}
-      />
-
+    <section className="relative">
       <MenuBar />
 
       {/* Hauteur dictée par le contenu : le padding fait respirer, sans étirer
@@ -62,8 +28,8 @@ export function Hero() {
         className={`${SHELL} grid gap-12 py-12 os:grid-cols-[46fr_54fr] os:items-start os:gap-10 os:py-16`}
       >
         {/* Le sélecteur vit dans la colonne texte : sous les boutons en empilé,
-            sous la trust line en deux colonnes. Une seule instance, un seul état. */}
-        <Copy rootRef={rootRef} />
+            sous la trust line en deux colonnes. */}
+        <Copy />
         <Desktop reduceMotion={Boolean(reduceMotion)} />
       </div>
     </section>
@@ -119,7 +85,7 @@ function MenuBar() {
   );
 }
 
-function Copy({ rootRef }: { rootRef: React.RefObject<HTMLElement | null> }) {
+function Copy() {
   return (
     <div className="max-w-xl">
       <span
@@ -173,7 +139,7 @@ function Copy({ rootRef }: { rootRef: React.RefObject<HTMLElement | null> }) {
         Crédits offerts à l’inscription · sans carte
       </p>
 
-      <WallpaperPicker targetRef={rootRef} />
+      <WallpaperPicker />
     </div>
   );
 }
@@ -224,7 +190,7 @@ function Desktop({ reduceMotion }: { reduceMotion: boolean }) {
 
       <motion.div {...front} className="relative z-10 -mt-8 w-[92%]">
         <WindowCard title="Plans · Cloud Paradise">
-          <JobPanel logs={JOB_LOGS} />
+          <JobPanel title="Rendre une vidéo 4K" chip="MEDIA" logs={JOB_LOGS} />
         </WindowCard>
       </motion.div>
     </div>
