@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import { SHELL } from "./tokens";
+import { SHELL, SOFT_WASH } from "./tokens";
 
 /**
  * Ancres de navigation.
@@ -23,8 +23,9 @@ const NAV = [
  * Elle vit dans le layout et non dans le hero, sinon `sticky` la libérerait dès
  * que le hero sort de l'écran.
  *
- * Chrome neutre : elle ne suit pas la recoloration globale. Seul le bouton
- * « Commencer » prend l'accent — c'est la seule action qui doit accrocher.
+ * Chrome neutre à deux exceptions près : l'avatar prend `--soft` et le bouton
+ * « Commencer » prend `--acc`. Le reste ne bouge pas, pour que la recoloration
+ * reste un signal et non un feu d'artifice.
  */
 export function TopBar() {
   const [defile, setDefile] = useState(false);
@@ -87,15 +88,19 @@ export function TopBar() {
             14:32
           </span>
 
+          {/* Seule pièce du chrome à suivre l'accent, avec le bouton : elle
+              fait vivre la promesse « tout se recolore » dès la barre. */}
           <span
             aria-hidden="true"
-            className="hidden size-6 place-items-center rounded-full bg-white/10 bar:grid"
+            data-cp-accent
+            className="hidden size-6 place-items-center rounded-full bar:grid"
+            style={{ background: SOFT_WASH }}
           >
             <svg
               viewBox="0 0 24 24"
-              className="size-3.5 text-white/70"
+              className="size-3.5"
               fill="none"
-              stroke="currentColor"
+              stroke="var(--soft)"
               strokeWidth="2"
             >
               <circle cx="12" cy="8" r="3.5" />
