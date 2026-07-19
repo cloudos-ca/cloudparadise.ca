@@ -9,7 +9,12 @@
 /** Taux réel : un crédit vaut une unité de devise. */
 export const CREDIT_EN_DEVISE = 1;
 
-export const DEVISE = "$";
+/**
+ * Dollar canadien. La forme « $ CA » est celle recommandée en français
+ * canadien ; elle lève l'ambiguïté pour un visiteur hors Canada, ce que le
+ * simple « $ » ne fait pas.
+ */
+export const DEVISE = "$ CA";
 
 /** Crédits offerts à la création du compte. */
 export const CREDITS_OFFERTS = 10;

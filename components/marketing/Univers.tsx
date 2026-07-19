@@ -89,10 +89,12 @@ const ApercuTech = (
         <span className="w-[27%]">prix</span>
         <span className="w-[27%]">stock</span>
       </div>
+      {/* Prix en dollars : le reste de la page annonce du CAD, un catalogue en
+          euros jurerait dans la démonstration. */}
       {[
-        ["/p/1042", "24,90 €", "en stock"],
-        ["/p/1043", "18,50 €", "3 restants"],
-        ["/p/1044", "31,00 €", "en stock"],
+        ["/p/1042", "24,90 $", "en stock"],
+        ["/p/1043", "18,50 $", "3 restants"],
+        ["/p/1044", "31,00 $", "en stock"],
       ].map(([url, prix, stock]) => (
         <div key={url} className="flex gap-2 text-[#8fa0bd]">
           <span className="w-[46%]">{url}</span>
