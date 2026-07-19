@@ -1,5 +1,6 @@
 "use client";
 
+import { IconDatabase, IconFileText, IconMovie } from "./icons";
 import { Reveal } from "./Reveal";
 import { UniversCard, type Univers as UniversType } from "./UniversCard";
 import { SECTION_Y, SHELL } from "./tokens";
@@ -14,42 +15,6 @@ import { SECTION_Y, SHELL } from "./tokens";
 const TEAL = "#35d0c0";
 const CORAIL = "#ef8b6a";
 const BLEU = "#5b9be6";
-
-/** Glyphes Tabler (file-text, movie, database) tracés en inline. */
-const ICON_PROPS = {
-  "aria-hidden": true,
-  viewBox: "0 0 24 24",
-  className: "size-4",
-  fill: "none",
-  stroke: "currentColor",
-  strokeWidth: 2,
-  strokeLinecap: "round",
-  strokeLinejoin: "round",
-} as const;
-
-const IconFileText = (
-  <svg {...ICON_PROPS}>
-    <path d="M14 3v4a1 1 0 0 0 1 1h4" />
-    <path d="M17 21H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7l5 5v11a2 2 0 0 1-2 2z" />
-    <path d="M9 13h6" />
-    <path d="M9 17h4" />
-  </svg>
-);
-
-const IconMovie = (
-  <svg {...ICON_PROPS}>
-    <rect x="4" y="4" width="16" height="16" rx="2" />
-    <path d="M8 4v16M16 4v16M4 12h16M4 8h4M4 16h4M16 8h4M16 16h4" />
-  </svg>
-);
-
-const IconDatabase = (
-  <svg {...ICON_PROPS}>
-    <ellipse cx="12" cy="6" rx="8" ry="3" />
-    <path d="M4 6v6c0 1.7 3.6 3 8 3s8-1.3 8-3V6" />
-    <path d="M4 12v6c0 1.7 3.6 3 8 3s8-1.3 8-3v-6" />
-  </svg>
-);
 
 /* ---------------------------------------------------------------------------
  * Aperçus des résultats — STAND-IN CSS.
@@ -149,7 +114,7 @@ const UNIVERS: readonly UniversType[] = [
     modes: ["Docs", "Auto"],
     couleur: TEAL,
     href: "/exemples/documents",
-    icone: IconFileText,
+    icone: <IconFileText />,
     apercu: ApercuDocuments,
   },
   {
@@ -161,7 +126,7 @@ const UNIVERS: readonly UniversType[] = [
     modes: ["Media", "Render", "GPU"],
     couleur: CORAIL,
     href: "/exemples/media",
-    icone: IconMovie,
+    icone: <IconMovie />,
     apercu: ApercuCrea,
   },
   {
@@ -173,7 +138,7 @@ const UNIVERS: readonly UniversType[] = [
     modes: ["Data", "Scrape", "GPU"],
     couleur: BLEU,
     href: "/exemples/data",
-    icone: IconDatabase,
+    icone: <IconDatabase />,
     apercu: ApercuTech,
   },
 ];

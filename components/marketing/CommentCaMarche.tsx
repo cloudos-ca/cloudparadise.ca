@@ -1,7 +1,7 @@
 "use client";
 
-import type { ReactNode } from "react";
 import { motion, useReducedMotion } from "framer-motion";
+import { IconBolt, IconDownload, IconMessage, IconUpload } from "./icons";
 import { Reveal } from "./Reveal";
 import { SECTION_Y, SHELL } from "./tokens";
 
@@ -10,54 +10,24 @@ const CYCLE = 3.4;
 /** Temps d'illumination d'un rond au passage de l'impulsion. */
 const FLASH = 0.8;
 
-/**
- * Glyphes repris de Tabler (upload, message-2, bolt, download), tracés en
- * inline : le projet n'embarque aucune librairie d'icônes et quatre symboles
- * ne justifient pas une dépendance.
- */
-const ICONS: Record<string, ReactNode> = {
-  upload: (
-    <>
-      <path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2" />
-      <path d="M7 9l5-5l5 5" />
-      <path d="M12 4v12" />
-    </>
-  ),
-  message: (
-    <>
-      <path d="M18 4a3 3 0 0 1 3 3v8a3 3 0 0 1-3 3h-5l-5 3v-3H6a3 3 0 0 1-3-3V7a3 3 0 0 1 3-3z" />
-      <path d="M8 9h8" />
-      <path d="M8 13h6" />
-    </>
-  ),
-  bolt: <path d="M13 3v7h6l-8 11v-7H5l8-11" />,
-  download: (
-    <>
-      <path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2" />
-      <path d="M7 11l5 5l5-5" />
-      <path d="M12 4v12" />
-    </>
-  ),
-};
-
 const STEPS = [
   {
-    icon: "upload",
+    Icone: IconUpload,
     title: "Déposez",
     text: "Glissez vos fichiers ou importez depuis une URL.",
   },
   {
-    icon: "message",
+    Icone: IconMessage,
     title: "Décrivez",
     text: "Dites ce que vous voulez. L’IA planifie et choisit le mode.",
   },
   {
-    icon: "bolt",
+    Icone: IconBolt,
     title: "On exécute",
     text: "Le calcul tourne sur nos nœuds spécialisés.",
   },
   {
-    icon: "download",
+    Icone: IconDownload,
     title: "Récupérez",
     text: "Votre résultat, prêt à télécharger.",
   },
@@ -146,18 +116,9 @@ export function CommentCaMarche() {
                         "color-mix(in srgb, var(--acc) 35%, transparent)",
                     }}
                   />
-                  <svg
-                    aria-hidden="true"
-                    viewBox="0 0 24 24"
-                    className="relative size-5"
-                    fill="none"
-                    stroke="var(--acc)"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  >
-                    {ICONS[step.icon]}
-                  </svg>
+                  <span className="relative" style={{ color: "var(--acc)" }}>
+                    <step.Icone className="size-5" />
+                  </span>
                 </span>
 
                 <p className="mt-4 text-sm font-medium text-[#eef4ff]">
