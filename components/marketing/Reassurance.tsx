@@ -94,13 +94,17 @@ function Texte() {
         ))}
       </ul>
 
-      {/* Barre de statut, comme dans l'app. */}
+      {/* Barre de statut, comme dans l'app.
+          Pas de compte de nœuds : l'afficher ici le ferait passer pour une
+          donnée live alors que rien n'est branché sur l'infra. Le nombre de
+          modes, lui, est une constante d'architecture — et il se recompte sur
+          la section Univers : Docs, Auto, Media, Render, GPU, Data, Scrape. */}
       <p
         data-cp-accent
         className="mt-7 text-xs"
         style={{ color: "var(--soft)" }}
       >
-        9 nœuds actifs · 7 modes de traitement
+        Infrastructure dédiée · 7 modes de traitement
       </p>
     </div>
   );
