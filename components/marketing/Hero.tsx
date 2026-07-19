@@ -1,24 +1,13 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useRef, useState } from "react";
+import { useRef } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { WindowCard } from "./WindowCard";
 import { WallpaperPicker } from "./WallpaperPicker";
+import { JobPanel } from "./JobPanel";
+import { PANEL, SHELL, SOFT_WASH } from "./tokens";
 import { DEFAULT_ACC, DEFAULT_SKY, DEFAULT_SOFT } from "./wallpapers";
-
-/** Fond translucide dérivé d'un token, pour puces et badges. */
-const softWash = "color-mix(in srgb, var(--soft) 16%, transparent)";
-
-/**
- * Gabarit commun à la barre de menu et aux colonnes.
- *
- * Le châssis (bordures, fond, lueurs) va bien d'un bord à l'autre — c'est un
- * écran. Le contenu, lui, reste borné et centré : sur un 32" le texte et les
- * fenêtres gardent la même composition qu'en 1280, au lieu de se retrouver
- * plaqués aux deux extrémités avec un vide au milieu.
- */
-const SHELL = "mx-auto w-full max-w-[1280px] px-6 os:px-10";
 
 const JOB_LOGS = [
   "→ Analyse du projet — 1 842 images détectées",
@@ -30,27 +19,9 @@ const FOLDERS = ["Vidéos", "Blender", "Documents"] as const;
 
 export function Hero() {
   const rootRef = useRef<HTMLElement>(null);
-  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const reduceMotion = useReducedMotion();
 
-  // Pilote unique : progression, logs et badge sont keyés dessus et redémarrent
-  // donc toujours ensemble.
-  const [cycle, setCycle] = useState(0);
-
-  useEffect(() => {
-    return () => {
-      if (timerRef.current) clearTimeout(timerRef.current);
-    };
-  }, []);
-
-  function handleProgressComplete() {
-    if (reduceMotion) return;
-    timerRef.current = setTimeout(() => setCycle((c) => c + 1), 1400);
-  }
-
   return (
-    // La gouttière passe par la largeur, pas par une marge latérale : `mx-auto`
-    // reste ainsi libre de centrer le panneau une fois la largeur max atteinte.
     <section
       ref={rootRef}
       style={
@@ -61,7 +32,7 @@ export function Hero() {
           "--veil": 0,
         } as React.CSSProperties
       }
-      className="relative isolate mx-auto my-3 w-[calc(100%-1.5rem)] max-w-[1600px] overflow-hidden rounded-2xl os:my-6 os:w-[calc(100%-3rem)]"
+      className={PANEL}
     >
       {/* Fond : lueur claire en haut à gauche, doublée d'un halo d'accent plus
           profond côté fenêtres — les deux suivent le fond courant. */}
@@ -93,11 +64,7 @@ export function Hero() {
         {/* Le sélecteur vit dans la colonne texte : sous les boutons en empilé,
             sous la trust line en deux colonnes. Une seule instance, un seul état. */}
         <Copy rootRef={rootRef} />
-        <Desktop
-          cycle={cycle}
-          reduceMotion={Boolean(reduceMotion)}
-          onProgressComplete={handleProgressComplete}
-        />
+        <Desktop reduceMotion={Boolean(reduceMotion)} />
       </div>
     </section>
   );
@@ -132,7 +99,7 @@ function MenuBar() {
           <span
             data-cp-accent
             className="grid size-6 place-items-center rounded-full"
-            style={{ background: softWash }}
+            style={{ background: SOFT_WASH }}
           >
             <svg
               aria-hidden="true"
@@ -158,7 +125,7 @@ function Copy({ rootRef }: { rootRef: React.RefObject<HTMLElement | null> }) {
       <span
         data-cp-accent
         className="inline-block rounded-full px-3 py-1 text-xs font-medium"
-        style={{ background: softWash, color: "var(--soft)" }}
+        style={{ background: SOFT_WASH, color: "var(--soft)" }}
       >
         Un bureau à votre image
       </span>
@@ -211,13 +178,7 @@ function Copy({ rootRef }: { rootRef: React.RefObject<HTMLElement | null> }) {
   );
 }
 
-type DesktopProps = {
-  cycle: number;
-  reduceMotion: boolean;
-  onProgressComplete: () => void;
-};
-
-function Desktop({ cycle, reduceMotion, onProgressComplete }: DesktopProps) {
+function Desktop({ reduceMotion }: { reduceMotion: boolean }) {
   const float = (distance: number, duration: number) =>
     reduceMotion
       ? undefined
@@ -263,80 +224,8 @@ function Desktop({ cycle, reduceMotion, onProgressComplete }: DesktopProps) {
 
       <motion.div {...front} className="relative z-10 -mt-8 w-[92%]">
         <WindowCard title="Plans · Cloud Paradise">
-          <JobPanel
-            cycle={cycle}
-            reduceMotion={reduceMotion}
-            onProgressComplete={onProgressComplete}
-          />
+          <JobPanel logs={JOB_LOGS} />
         </WindowCard>
-      </motion.div>
-    </div>
-  );
-}
-
-function JobPanel({ cycle, reduceMotion, onProgressComplete }: DesktopProps) {
-  return (
-    <div className="p-4">
-      <div className="flex items-center justify-between gap-3">
-        <p className="text-sm font-medium text-white">Rendre une vidéo 4K</p>
-        <span
-          data-cp-accent
-          className="shrink-0 rounded px-2 py-0.5 text-[10px] font-medium tracking-wide"
-          style={{ background: softWash, color: "var(--soft)" }}
-        >
-          MEDIA
-        </span>
-      </div>
-
-      <div className="mt-3 h-1.5 overflow-hidden rounded-full bg-white/10">
-        <motion.div
-          key={`progress-${cycle}`}
-          data-cp-accent
-          className="h-full rounded-full"
-          style={{ background: "var(--acc)" }}
-          initial={{ width: reduceMotion ? "100%" : "12%" }}
-          animate={{ width: "100%" }}
-          transition={{ duration: reduceMotion ? 0 : 3, ease: "easeInOut" }}
-          onAnimationComplete={onProgressComplete}
-        />
-      </div>
-
-      <div className="mt-3 space-y-1">
-        {JOB_LOGS.map((line, i) => (
-          <motion.p
-            key={`log-${cycle}-${i}`}
-            className="font-mono text-[11px] text-cp-log"
-            initial={{ opacity: reduceMotion ? 1 : 0 }}
-            animate={{ opacity: 1 }}
-            transition={{
-              duration: reduceMotion ? 0 : 0.4,
-              delay: reduceMotion ? 0 : i * 0.5,
-            }}
-          >
-            {line}
-          </motion.p>
-        ))}
-      </div>
-
-      <motion.div
-        key={`badge-${cycle}`}
-        className="mt-3"
-        initial={
-          reduceMotion ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.9 }
-        }
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{
-          duration: reduceMotion ? 0 : 0.35,
-          delay: reduceMotion ? 0 : 2.8,
-        }}
-      >
-        <span
-          data-cp-accent
-          className="inline-block rounded-md px-2.5 py-1 text-[11px] font-medium"
-          style={{ background: softWash, color: "var(--soft)" }}
-        >
-          Terminé · télécharger
-        </span>
       </motion.div>
     </div>
   );
