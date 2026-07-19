@@ -1,4 +1,4 @@
-import type { ReactNode } from "react";
+import type { CSSProperties, ReactNode } from "react";
 
 /**
  * Glyphes repris de Tabler, tracés en inline.
@@ -7,10 +7,11 @@ import type { ReactNode } from "react";
  * justifie pas une dépendance. Ils vivent ici plutôt que dans chaque section,
  * pour qu'un même glyphe ne soit pas redessiné à deux endroits.
  */
-type IconProps = { className?: string };
+type IconProps = { className?: string; style?: CSSProperties };
 
 function Glyph({
   className = "size-4",
+  style,
   children,
 }: IconProps & { children: ReactNode }) {
   return (
@@ -18,6 +19,7 @@ function Glyph({
       aria-hidden="true"
       viewBox="0 0 24 24"
       className={className}
+      style={style}
       fill="none"
       stroke="currentColor"
       strokeWidth={2}
@@ -155,6 +157,77 @@ export function IconServer(props: IconProps) {
       <rect x="3" y="4" width="18" height="6" rx="2" />
       <rect x="3" y="14" width="18" height="6" rx="2" />
       <path d="M7 7h.01M7 17h.01" />
+    </Glyph>
+  );
+}
+
+export function IconMail(props: IconProps) {
+  return (
+    <Glyph {...props}>
+      <rect x="3" y="5" width="18" height="14" rx="2" />
+      <path d="M3 7l9 6l9 -6" />
+    </Glyph>
+  );
+}
+
+export function IconPhone(props: IconProps) {
+  return (
+    <Glyph {...props}>
+      <path d="M5 4h4l2 5l-2.5 1.5a11 11 0 0 0 5 5l1.5 -2.5l5 2v4a2 2 0 0 1 -2 2a16 16 0 0 1 -15 -15a2 2 0 0 1 2 -2" />
+    </Glyph>
+  );
+}
+
+export function IconMapPin(props: IconProps) {
+  return (
+    <Glyph {...props}>
+      <circle cx="12" cy="10" r="3" />
+      <path d="M17.7 15.7L12 21.4l-5.7 -5.7a8 8 0 1 1 11.4 0z" />
+    </Glyph>
+  );
+}
+
+export function IconCoin(props: IconProps) {
+  return (
+    <Glyph {...props}>
+      <circle cx="12" cy="12" r="9" />
+      <path d="M14.8 9a2 2 0 0 0 -1.8 -1h-2a1.8 1.8 0 0 0 0 3.5h2a1.8 1.8 0 0 1 0 3.5h-2a2 2 0 0 1 -1.8 -1" />
+      <path d="M12 6v2m0 8v2" />
+    </Glyph>
+  );
+}
+
+export function IconInfinity(props: IconProps) {
+  return (
+    <Glyph {...props}>
+      <path d="M9.828 9.172a4 4 0 1 0 0 5.656a10 10 0 0 0 2.172 -2.828a10 10 0 0 1 2.172 -2.828a4 4 0 1 1 0 5.656a10 10 0 0 1 -2.172 -2.828a10 10 0 0 0 -2.172 -2.828" />
+    </Glyph>
+  );
+}
+
+export function IconChevronDown(props: IconProps) {
+  return (
+    <Glyph {...props}>
+      <path d="M6 9l6 6l6 -6" />
+    </Glyph>
+  );
+}
+
+export function IconSend(props: IconProps) {
+  return (
+    <Glyph {...props}>
+      <path d="M10 14l11 -11" />
+      <path d="M21 3l-6.5 18a.55 .55 0 0 1 -1 0l-3.5 -7l-7 -3.5a.55 .55 0 0 1 0 -1z" />
+    </Glyph>
+  );
+}
+
+export function IconAlert(props: IconProps) {
+  return (
+    <Glyph {...props}>
+      <path d="M12 9v4" />
+      <path d="M10.4 3.9l-8.1 14a1.8 1.8 0 0 0 1.6 2.7h16.2a1.8 1.8 0 0 0 1.6 -2.7l-8.1 -14a1.8 1.8 0 0 0 -3.2 0" />
+      <path d="M12 16h.01" />
     </Glyph>
   );
 }

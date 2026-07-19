@@ -4,17 +4,26 @@ import { SHELL } from "./tokens";
 /**
  * Liens de pied de page.
  *
- * Tous en `#` pour l'instant : mieux vaut une ancre inerte qu'un lien vers une
- * page qui n'existe pas. À brancher quand les pages seront écrites.
+ * La colonne Légal pointe vers de vraies pages ; la colonne Produit reste en
+ * ancres inertes tant que les destinations n'existent pas — mieux vaut un `#`
+ * qu'un lien vers une 404.
  */
 const COLONNES = [
   {
     titre: "Produit",
-    liens: ["Fonctions", "Tarifs", "Se connecter"],
+    liens: [
+      { libelle: "Fonctions", href: "#" },
+      { libelle: "Tarifs", href: "/tarifs" },
+      { libelle: "Se connecter", href: "#" },
+    ],
   },
   {
     titre: "Légal",
-    liens: ["Conditions", "Confidentialité", "Contact"],
+    liens: [
+      { libelle: "Conditions", href: "/conditions" },
+      { libelle: "Confidentialité", href: "/confidentialite" },
+      { libelle: "Contact", href: "/contact" },
+    ],
   },
 ] as const;
 
@@ -33,7 +42,7 @@ export function Footer() {
               alt="Cloud Paradise"
               width={512}
               height={380}
-              className="h-10 w-auto"
+              className="h-[52px] w-auto"
             />
             <p className="mt-3 text-xs text-[#93a3c2]">© 2026 Cloud Paradise</p>
           </div>
@@ -44,13 +53,13 @@ export function Footer() {
                 <div key={titre}>
                   <p className="text-xs font-medium text-white/70">{titre}</p>
                   <ul className="mt-3 space-y-2">
-                    {liens.map((lien) => (
-                      <li key={lien}>
+                    {liens.map(({ libelle, href }) => (
+                      <li key={libelle}>
                         <a
-                          href="#"
+                          href={href}
                           className="text-[13px] text-[#93a3c2] underline-offset-4 hover:text-white hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
                         >
-                          {lien}
+                          {libelle}
                         </a>
                       </li>
                     ))}

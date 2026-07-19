@@ -17,3 +17,12 @@ export const SECTION_Y = "py-12 os:py-14";
 
 /** Fond translucide dérivé de --soft, pour puces et badges. */
 export const SOFT_WASH = "color-mix(in srgb, var(--soft) 16%, transparent)";
+
+/**
+ * Colonne de lecture des pages de texte (légal, contact).
+ *
+ * La landing s'étale sur toute la largeur de SHELL parce qu'elle alterne
+ * fenêtres et colonnes ; du texte suivi, lui, devient pénible au-delà d'une
+ * grosse soixantaine de caractères par ligne — d'où ce plafond plus bas.
+ */
+export const LECTURE = "max-w-[720px]";

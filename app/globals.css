@@ -2,8 +2,12 @@
 
 /*
  * Charte Cloud Paradise.
- * Le jaune est réservé au halo de marque, qui vit dans les fichiers logo :
- * aucune utilité Tailwind ne doit le repeindre.
+ *
+ * Le jaune #edbe54 a deux emplois, et deux seulement : le halo de marque (qui
+ * vit dans les fichiers logo) et l'action de conversion (`--cta` plus bas).
+ * Aucune utilité Tailwind ne le repeint, et rien d'autre ne l'emprunte —
+ * c'est sa rareté qui fait qu'un bouton doré saute aux yeux. Le jour où trois
+ * éléments dorés cohabitent à l'écran, plus aucun ne ressort.
  */
 @theme {
   --color-cp-navy: #1b273d;
@@ -47,6 +51,22 @@
   --soft: #bbecee;
   --sky: linear-gradient(140deg, #151f33, #1b273d);
   --veil: 0;
+
+  /*
+   * Action de conversion. Volontairement ABSENT du set réécrit par
+   * applyWallpaper() : le bouton « Commencer » garde le même or quel que soit
+   * le fond choisi. Deux raisons — il reste reconnaissable d'une page à
+   * l'autre, et l'or tranche sur le navy là où `--acc`, bleu moyen sur fond
+   * bleu, se fondait (séparation de luminance ~9:1 contre ~2,8:1).
+   *
+   * Réservé au bouton principal. Les actions secondaires restent en `--acc`
+   * ou en lien nu : si tout est doré, plus rien n'est doré.
+   */
+  --cta: #edbe54;
+  /* Texte SUR l'or. Le navy profond donne 9,5:1 ; le blanc tombait à 1,9:1. */
+  --cta-texte: #151f33;
+  /* Or très dilué, pour le badge d'offre : même famille, poids moindre. */
+  --cta-wash: color-mix(in srgb, #edbe54 14%, transparent);
 }
 
 body {

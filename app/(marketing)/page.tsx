@@ -5,7 +5,6 @@ import { Univers } from "@/components/marketing/Univers";
 import { Reassurance } from "@/components/marketing/Reassurance";
 import { Tarification } from "@/components/marketing/Tarification";
 import { CtaFinal } from "@/components/marketing/CtaFinal";
-import { Footer } from "@/components/marketing/Footer";
 
 export default function MarketingPage() {
   return (
@@ -17,7 +16,6 @@ export default function MarketingPage() {
       <Reassurance />
       <Tarification />
       <CtaFinal />
-      <Footer />
     </>
   );
 }

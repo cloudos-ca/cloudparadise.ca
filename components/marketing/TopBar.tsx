@@ -2,18 +2,21 @@
 
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import { BoutonCta } from "./BoutonCta";
 import { SHELL } from "./tokens";
 
 /**
  * Ancres de navigation.
  *
- * Elles pointent vers les `id` posés sur les sections. Si une section est
- * renommée ou déplacée, c'est ici que ça se voit.
+ * Les ancres sont préfixées par `/` : la barre vit dans le layout, donc elle
+ * s'affiche aussi sur /tarifs, /contact et les pages légales, où un simple
+ * `#univers` ne pointerait vers rien. « Tarifs » mène désormais à la page
+ * dédiée, pas à la section de la landing.
  */
 const NAV = [
-  { libelle: "Fonctions", href: "#univers" },
-  { libelle: "Tarifs", href: "#tarifs" },
-  { libelle: "Infrastructure", href: "#infrastructure" },
+  { libelle: "Fonctions", href: "/#univers" },
+  { libelle: "Tarifs", href: "/tarifs" },
+  { libelle: "Infrastructure", href: "/#infrastructure" },
 ] as const;
 
 /**
@@ -49,13 +52,16 @@ export function TopBar() {
           : "border-b border-transparent"
       }`}
     >
-      <div className={`${SHELL} flex h-[52px] items-center gap-6`}>
+      <div className={`${SHELL} flex h-[60px] items-center gap-6`}>
+        {/* Lockup empilé (halo / nuage / « paradise ») : la marque n'est lisible
+            qu'à partir d'une certaine hauteur, d'où la barre à 60px pour lui
+            laisser la place. Hauteur explicite + w-auto = ratio 512:380 gardé. */}
         <Image
           src="/brand/logo-blanc-et-jaune.png"
           alt="Cloud Paradise"
           width={512}
           height={380}
-          className="h-9 w-auto shrink-0"
+          className="h-[44px] w-auto shrink-0"
           loading="eager"
         />
 
@@ -102,14 +108,9 @@ export function TopBar() {
             Se connecter
           </a>
 
-          <a
-            href="/inscription"
-            data-cp-accent
-            className="shrink-0 rounded-full px-3.5 py-1.5 text-[13px] font-medium text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
-            style={{ background: "var(--acc)" }}
-          >
+          <BoutonCta href="/inscription" taille="sm" className="shrink-0">
             Commencer
-          </a>
+          </BoutonCta>
 
           <button
             type="button"

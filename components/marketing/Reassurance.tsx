@@ -104,7 +104,9 @@ function Texte() {
         className="mt-7 text-xs"
         style={{ color: "var(--soft)" }}
       >
-        Infrastructure dédiée · 7 modes de traitement
+        {/* Aucun décompte affiché : le nombre de modes bouge avec le produit,
+            et un chiffre figé sur la vitrine devient faux sans prévenir. */}
+        Infrastructure dédiée · un moteur pour chaque tâche
       </p>
     </div>
   );

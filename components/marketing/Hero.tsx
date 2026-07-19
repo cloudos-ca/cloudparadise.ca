@@ -4,7 +4,8 @@ import { motion, useReducedMotion } from "framer-motion";
 import { WindowCard } from "./WindowCard";
 import { WallpaperPicker } from "./WallpaperPicker";
 import { JobPanel } from "./JobPanel";
-import { OFFRE_EN_DEVISE } from "./offre";
+import { BadgeOffre } from "./BadgeOffre";
+import { BoutonCta } from "./BoutonCta";
 import { SECTION_Y, SHELL, SOFT_WASH } from "./tokens";
 
 const JOB_LOGS = [
@@ -59,15 +60,10 @@ function Copy() {
         récupérer le résultat.
       </p>
 
-      <div className="mt-7 flex flex-wrap gap-3">
-        <a
-          href="/inscription"
-          data-cp-accent
-          className="rounded-lg px-5 py-2.5 text-sm font-medium text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
-          style={{ background: "var(--acc)" }}
-        >
+      <div className="mt-7 flex flex-wrap items-center gap-3">
+        <BoutonCta href="/inscription" taille="lg">
           Commencer gratuitement
-        </a>
+        </BoutonCta>
         <a
           href="#demo"
           className="flex items-center gap-2 rounded-lg border border-white/20 px-5 py-2.5 text-sm font-medium text-cp-ghost hover:border-white/40 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
@@ -84,9 +80,9 @@ function Copy() {
         </a>
       </div>
 
-      <p className="mt-4 text-xs text-cp-subtle">
-        {OFFRE_EN_DEVISE} de crédits offerts à l’inscription · sans carte
-      </p>
+      {/* L'offre juste sous le bouton, en or dilué : elle appuie le CTA au
+          lieu de s'excuser en gris trois tailles plus bas. */}
+      <BadgeOffre className="mt-5" />
 
       <WallpaperPicker />
     </div>

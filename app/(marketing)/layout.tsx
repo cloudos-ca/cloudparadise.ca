@@ -1,3 +1,4 @@
+import { Footer } from "@/components/marketing/Footer";
 import { TopBar } from "@/components/marketing/TopBar";
 
 /**
@@ -34,7 +35,11 @@ export default function MarketingLayout({
       {/* La barre vit ici, pas dans le hero : `sticky` la libérerait dès que la
           section qui la contient sort de l'écran. */}
       <TopBar />
-      {children}
+      {/* `flex-1` pousse le pied de page en bas même sur une page courte. */}
+      <div className="flex-1">{children}</div>
+      {/* Barre et pied de page vivent au layout : toutes les pages de la
+          vitrine partagent ainsi le même châssis, sans le réimporter. */}
+      <Footer />
     </main>
   );
 }

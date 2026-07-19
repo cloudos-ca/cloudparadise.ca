@@ -11,6 +11,11 @@ type WindowCardProps = {
   accent?: string;
   /** Bordure du châssis, à surcharger pour une fenêtre en échec. */
   borderColor?: string;
+  /**
+   * Glyphe posé devant le titre, comme l'icône d'application d'une vraie barre
+   * de titre. Décoratif : le titre porte déjà l'information.
+   */
+  icone?: ReactNode;
 };
 
 /**
@@ -25,6 +30,7 @@ export function WindowCard({
   className = "",
   accent = "var(--acc)",
   borderColor = "rgba(255,255,255,.09)",
+  icone,
 }: WindowCardProps) {
   return (
     <div
@@ -41,6 +47,11 @@ export function WindowCard({
             data-cp-accent
           />
         </span>
+        {icone ? (
+          <span aria-hidden="true" className="ml-1 shrink-0 text-white/50">
+            {icone}
+          </span>
+        ) : null}
         <p className="truncate text-xs font-medium text-white/70">{title}</p>
       </div>
       {children}
