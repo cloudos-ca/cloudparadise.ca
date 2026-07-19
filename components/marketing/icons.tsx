@@ -106,6 +106,39 @@ export function IconTerminal(props: IconProps) {
   );
 }
 
+export function IconGift(props: IconProps) {
+  return (
+    <Glyph {...props}>
+      <rect x="3" y="8" width="18" height="4" rx="1" />
+      <path d="M12 8v13" />
+      <path d="M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7" />
+      <path d="M7.5 8a2.5 2.5 0 0 1 0-5C10 3 12 5.5 12 8c0-2.5 2-5 4.5-5a2.5 2.5 0 0 1 0 5" />
+    </Glyph>
+  );
+}
+
+export function IconRefresh(props: IconProps) {
+  return (
+    <Glyph {...props}>
+      <path d="M20 11A8.1 8.1 0 0 0 4.5 9M4 5v4h4" />
+      <path d="M4 13a8.1 8.1 0 0 0 15.5 2M20 19v-4h-4" />
+    </Glyph>
+  );
+}
+
+export function IconAdjustments(props: IconProps) {
+  return (
+    <Glyph {...props}>
+      <circle cx="14" cy="6" r="2" />
+      <path d="M4 6h8M16 6h4" />
+      <circle cx="8" cy="12" r="2" />
+      <path d="M4 12h2M10 12h10" />
+      <circle cx="17" cy="18" r="2" />
+      <path d="M4 18h11M19 18h1" />
+    </Glyph>
+  );
+}
+
 export function IconServer(props: IconProps) {
   return (
     <Glyph {...props}>
