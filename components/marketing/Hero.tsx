@@ -5,7 +5,7 @@ import { motion, useReducedMotion } from "framer-motion";
 import { WindowCard } from "./WindowCard";
 import { WallpaperPicker } from "./WallpaperPicker";
 import { JobPanel } from "./JobPanel";
-import { SHELL, SOFT_WASH } from "./tokens";
+import { SECTION_Y, SHELL, SOFT_WASH } from "./tokens";
 
 const JOB_LOGS = [
   "→ Analyse du projet — 1 842 images détectées",
@@ -25,7 +25,7 @@ export function Hero() {
       {/* Hauteur dictée par le contenu : le padding fait respirer, sans étirer
           le bloc jusqu'en bas de l'écran. */}
       <div
-        className={`${SHELL} grid gap-12 py-12 os:grid-cols-[46fr_54fr] os:items-start os:gap-10 os:py-16`}
+        className={`${SHELL} ${SECTION_Y} grid gap-12 os:grid-cols-[46fr_54fr] os:items-start os:gap-10`}
       >
         {/* Le sélecteur vit dans la colonne texte : sous les boutons en empilé,
             sous la trust line en deux colonnes. */}

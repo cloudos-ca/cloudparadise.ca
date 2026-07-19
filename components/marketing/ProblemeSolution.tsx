@@ -3,7 +3,8 @@
 import { motion, useReducedMotion } from "framer-motion";
 import { WindowCard } from "./WindowCard";
 import { JobPanel } from "./JobPanel";
-import { SHELL } from "./tokens";
+import { Reveal } from "./Reveal";
+import { SECTION_Y, SHELL } from "./tokens";
 
 /**
  * Rouge d'échec. Hors charte à dessein, et cantonné à la fenêtre de gauche :
@@ -32,25 +33,30 @@ export function ProblemeSolution() {
 
   return (
     <section className="relative">
-      <div className={`${SHELL} py-14 os:py-20`}>
-        <p
-          className="text-xs font-medium tracking-wide"
-          style={{ color: "var(--acc)" }}
-        >
-          Le problème
-        </p>
-        <h2 className="mt-3 max-w-[19ch] font-display text-[1.6rem] leading-[1.2] font-bold tracking-tight text-balance text-[#eef4ff] sm:text-3xl os:text-4xl">
-          Les tâches lourdes ne devraient pas vous ralentir.
-        </h2>
+      <div className={`${SHELL} ${SECTION_Y}`}>
+        <Reveal>
+          <p
+            className="text-xs font-medium tracking-wide"
+            style={{ color: "var(--acc)" }}
+          >
+            Le problème
+          </p>
+          <h2 className="mt-3 max-w-[19ch] font-display text-[1.6rem] leading-[1.2] font-bold tracking-tight text-balance text-[#eef4ff] sm:text-3xl os:text-4xl">
+            Les tâches lourdes ne devraient pas vous ralentir.
+          </h2>
+        </Reveal>
 
         {/* La scène : ça bloque à gauche, ça aboutit à droite, et le regard
             circule de l'un vers l'autre. `items-stretch` égalise la hauteur des
             deux fenêtres, ce qui aligne les légendes qui les suivent. */}
-        <div className="mt-12 flex flex-col items-stretch gap-8 os:flex-row os:gap-4">
+        <Reveal
+          delay={0.1}
+          className="mt-10 flex flex-col items-stretch gap-8 os:flex-row os:gap-4"
+        >
           <StuckWindow reduceMotion={reduceMotion} />
           <Flow reduceMotion={reduceMotion} />
           <CloudWindow />
-        </div>
+        </Reveal>
       </div>
     </section>
   );
