@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { Reveal } from "./Reveal";
 import { IconAdjustments, IconGift, IconRefresh } from "./icons";
+import { CREDIT_EN_DEVISE, DEVISE, OFFRE_EN_DEVISE } from "./offre";
 import { SECTION_Y, SHELL } from "./tokens";
 
 /**
@@ -32,9 +33,8 @@ const CONFIG = {
    * de recharge quand ils seront arrêtés.
    */
   credits: { min: 10, max: 500, pas: 10, defaut: 100 },
-  /** Taux réel : un crédit vaut une unité de devise. */
-  creditEnDevise: 1,
-  devise: "$",
+  creditEnDevise: CREDIT_EN_DEVISE,
+  devise: DEVISE,
 };
 
 /** Arrondit à un pas lisible : 33 412 devient 33 400, pas 33 412,33. */
@@ -71,7 +71,7 @@ function equivalences(credits: number) {
 const ARGUMENTS = [
   {
     Icone: IconGift,
-    titre: "Crédits offerts à l’inscription",
+    titre: `${OFFRE_EN_DEVISE} de crédits offerts à l’inscription`,
     texte: "Testez sans sortir votre carte.",
   },
   {

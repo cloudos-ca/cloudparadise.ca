@@ -5,6 +5,7 @@ import { motion, useReducedMotion } from "framer-motion";
 import { WindowCard } from "./WindowCard";
 import { WallpaperPicker } from "./WallpaperPicker";
 import { JobPanel } from "./JobPanel";
+import { OFFRE_EN_DEVISE } from "./offre";
 import { SECTION_Y, SHELL, SOFT_WASH } from "./tokens";
 
 const JOB_LOGS = [
@@ -136,7 +137,7 @@ function Copy() {
       </div>
 
       <p className="mt-4 text-xs text-cp-subtle">
-        Crédits offerts à l’inscription · sans carte
+        {OFFRE_EN_DEVISE} de crédits offerts à l’inscription · sans carte
       </p>
 
       <WallpaperPicker />
