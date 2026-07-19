@@ -38,7 +38,10 @@
  * chaud sur <html> quand on change de fond, et tout le document suit.
  */
 :root {
+  /* Surface : fond de bouton. Assez sombre pour du texte blanc dessus. */
   --acc: #2d66ae;
+  /* Texte : eyebrows, liens, icônes. Assez clair pour ressortir sur le fond. */
+  --acc-text: #6a92c5;
   --soft: #bbecee;
   --sky: linear-gradient(140deg, #151f33, #1b273d);
   --veil: 0;

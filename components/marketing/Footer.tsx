@@ -61,9 +61,8 @@ export function Footer() {
           </nav>
         </div>
 
-        <p className="mt-10 text-xs text-[#6b7a99]">
-          Photos de fond fournies par Unsplash.
-        </p>
+        {/* Le crédit Unsplash a été retiré : les fonds sont des dégradés
+            maison, donc rien à attribuer. À remettre si des photos arrivent. */}
       </div>
     </footer>
   );

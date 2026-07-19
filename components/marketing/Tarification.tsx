@@ -94,7 +94,7 @@ export function Tarification() {
         <Reveal className="text-center">
           <p
             className="text-xs font-medium tracking-wide"
-            style={{ color: "var(--acc)" }}
+            style={{ color: "var(--acc-text)" }}
           >
             Tarification
           </p>
@@ -119,7 +119,7 @@ export function Tarification() {
                   style={{
                     background:
                       "color-mix(in srgb, var(--acc) 15%, transparent)",
-                    color: "var(--acc)",
+                    color: "var(--acc-text)",
                   }}
                 >
                   <Icone className="size-4" />
@@ -243,7 +243,7 @@ function Estimateur() {
           href="/tarifs"
           data-cp-accent
           className="text-xs font-medium underline-offset-4 hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--acc)]"
-          style={{ color: "var(--acc)" }}
+          style={{ color: "var(--acc-text)" }}
         >
           Voir les détails
         </a>

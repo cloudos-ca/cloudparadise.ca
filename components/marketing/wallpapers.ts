@@ -9,8 +9,23 @@
  * recoloré ici : aucun token ne le pilote.
  */
 
-/** Accent vif de la charte — bouton primaire, progression. */
+/**
+ * Deux accents, deux rôles opposés.
+ *
+ * `acc` sert de SURFACE : fond de bouton, remplissage de progression. Il doit
+ * donc être assez sombre pour que du texte blanc reste lisible dessus.
+ * `accText` sert de TEXTE sur le fond sombre : eyebrows, liens, icônes. Il doit
+ * donc être assez clair pour ressortir.
+ *
+ * Un seul token ne peut pas tenir les deux — c'était le cas, et les deux rôles
+ * échouaient au contraste selon le thème. Chaque valeur ci-dessous atteint au
+ * moins 4,5:1 dans son rôle.
+ */
+
+/** Accent vif de la charte — fond de bouton, progression. */
 export const DEFAULT_ACC = "#2d66ae";
+/** Même accent, éclairci pour rester lisible en texte sur le fond. */
+export const DEFAULT_ACC_TEXT = "#6a92c5";
 /** Accent clair de la charte — 2e ligne du titre, puces, badge, avatar. */
 export const DEFAULT_SOFT = "#bbecee";
 /** Fond par défaut — bleu nuit de la charte. */
@@ -26,8 +41,10 @@ export type Wallpaper = {
   swatch: string;
   /** Fond appliqué tel quel — dégradé, ou remplacé par la photo si `image`. */
   sky: string;
-  /** Accent vif ; sur une photo, sert de repli si l'extraction échoue. */
+  /** Accent de surface — fond de bouton. Assez sombre pour du texte blanc. */
   acc: string;
+  /** Accent de texte — eyebrows, liens, icônes. Assez clair sur le fond. */
+  accText: string;
   /** Accent clair ; sur une photo, sert de repli si l'extraction échoue. */
   soft: string;
   /** Photo de fond ; déclenche l'extraction de teintes et le voile. */
@@ -42,6 +59,7 @@ export const WALLPAPERS: readonly Wallpaper[] = [
     swatch: "linear-gradient(140deg,#2d66ae,#bbecee)",
     sky: DEFAULT_SKY,
     acc: DEFAULT_ACC,
+    accText: DEFAULT_ACC_TEXT,
     soft: DEFAULT_SOFT,
   },
   {
@@ -50,7 +68,8 @@ export const WALLPAPERS: readonly Wallpaper[] = [
     aria: "Fond forêt",
     swatch: "linear-gradient(140deg,#2f9e6a,#a6e3c8)",
     sky: "linear-gradient(140deg,#0f2019,#143a2c)",
-    acc: "#2f9e6a",
+    acc: "#278459",
+    accText: "#52ae83",
     soft: "#a6e3c8",
   },
   {
@@ -59,7 +78,8 @@ export const WALLPAPERS: readonly Wallpaper[] = [
     aria: "Fond nébuleuse",
     swatch: "linear-gradient(140deg,#8a5fd0,#d6bff0)",
     sky: "linear-gradient(140deg,#191030,#2a1745)",
-    acc: "#8a5fd0",
+    acc: "#895ece",
+    accText: "#9c77d7",
     soft: "#d6bff0",
   },
   {
@@ -68,7 +88,8 @@ export const WALLPAPERS: readonly Wallpaper[] = [
     aria: "Fond coucher de soleil",
     swatch: "linear-gradient(140deg,#d9743e,#f3c79a)",
     sky: "linear-gradient(140deg,#241019,#3a1c22)",
-    acc: "#d9743e",
+    acc: "#b15f33",
+    accText: "#d9743e",
     soft: "#f3c79a",
   },
   {
@@ -77,7 +98,8 @@ export const WALLPAPERS: readonly Wallpaper[] = [
     aria: "Fond glace",
     swatch: "linear-gradient(140deg,#2f9bcf,#bfe9f4)",
     sky: "linear-gradient(140deg,#08222b,#0f3a45)",
-    acc: "#2f9bcf",
+    acc: "#267da7",
+    accText: "#4ca9d6",
     soft: "#bfe9f4",
   },
 ] as const;
@@ -100,6 +122,7 @@ export async function applyWallpaper(
   // Les valeurs de la fiche s'appliquent d'abord : sur une photo elles servent
   // de repli immédiat, le temps que l'extraction réponde (ou si elle échoue).
   el.style.setProperty("--acc", wp.acc);
+  el.style.setProperty("--acc-text", wp.accText);
   el.style.setProperty("--soft", wp.soft);
 
   if (!image) {

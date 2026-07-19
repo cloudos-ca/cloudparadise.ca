@@ -152,7 +152,7 @@ export function Univers() {
         <Reveal>
           <p
             className="text-xs font-medium tracking-wide"
-            style={{ color: "var(--acc)" }}
+            style={{ color: "var(--acc-text)" }}
           >
             Vos univers
           </p>

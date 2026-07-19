@@ -45,7 +45,7 @@ export function CommentCaMarche() {
         <Reveal>
           <p
             className="text-xs font-medium tracking-wide"
-            style={{ color: "var(--acc)" }}
+            style={{ color: "var(--acc-text)" }}
           >
             Comment ça marche
           </p>
@@ -116,7 +116,10 @@ export function CommentCaMarche() {
                         "color-mix(in srgb, var(--acc) 35%, transparent)",
                     }}
                   />
-                  <span className="relative" style={{ color: "var(--acc)" }}>
+                  <span
+                    className="relative"
+                    style={{ color: "var(--acc-text)" }}
+                  >
                     <step.Icone className="size-5" />
                   </span>
                 </span>

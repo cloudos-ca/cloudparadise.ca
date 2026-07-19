@@ -63,7 +63,7 @@ function Texte() {
     <div>
       <p
         className="text-xs font-medium tracking-wide"
-        style={{ color: "var(--acc)" }}
+        style={{ color: "var(--acc-text)" }}
       >
         La preuve
       </p>
@@ -79,7 +79,7 @@ function Texte() {
               className="mt-0.5 grid size-8 shrink-0 place-items-center rounded-full"
               style={{
                 background: "color-mix(in srgb, var(--acc) 15%, transparent)",
-                color: "var(--acc)",
+                color: "var(--acc-text)",
               }}
             >
               <Icone className="size-4" />

@@ -37,7 +37,7 @@ export function ProblemeSolution() {
         <Reveal>
           <p
             className="text-xs font-medium tracking-wide"
-            style={{ color: "var(--acc)" }}
+            style={{ color: "var(--acc-text)" }}
           >
             Le problème
           </p>
@@ -152,7 +152,7 @@ function Flow({ reduceMotion }: { reduceMotion: boolean }) {
           <motion.span
             key={i}
             className="text-3xl leading-none"
-            style={{ color: "var(--acc)" }}
+            style={{ color: "var(--acc-text)" }}
             animate={
               reduceMotion
                 ? { opacity: 0.8 }
