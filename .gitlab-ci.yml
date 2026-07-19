@@ -1,31 +1,19 @@
-# You can override the included template(s) by including variable overrides
-# SAST customization: https://docs.gitlab.com/user/application_security/sast/#available-cicd-variables
-# Secret Detection customization: https://docs.gitlab.com/user/application_security/secret_detection/pipeline/configure/
-# Dependency Scanning customization: https://docs.gitlab.com/user/application_security/dependency_scanning/dependency_scanning_sbom/#customizing-analyzer-behavior
-# Container Scanning customization: https://docs.gitlab.com/user/application_security/container_scanning/#customizing-analyzer-behavior
-# Note that environment variables can be set in several places
-# See https://docs.gitlab.com/ci/variables/#cicd-variable-precedence
+# Pipeline restreint à l'analyse de sécurité.
+#
+# Auto-DevOps a été retiré volontairement : il embarquait des stages de
+# déploiement (review, staging, canary, production, rollouts incrémentaux) qui
+# n'ont pas de sens sur une vitrine en cours de développement, et qui peuvent
+# tenter un déploiement dès qu'un runner et une cible sont disponibles.
+#
+# Ne restent que les deux analyses demandées, en lecture seule :
+#   - SAST              https://docs.gitlab.com/user/application_security/sast/
+#   - Secret Detection  https://docs.gitlab.com/user/application_security/secret_detection/
+#
+# Les deux templates placent leurs jobs dans le stage `test`.
+
 stages:
-- build
-- test
-- deploy
-- review
-- dast
-- staging
-- canary
-- production
-- incremental rollout 10%
-- incremental rollout 25%
-- incremental rollout 50%
-- incremental rollout 100%
-- performance
-- cleanup
-- secret-detection
-sast:
-  stage: test
+  - test
+
 include:
-- template: Auto-DevOps.gitlab-ci.yml
-variables:
-  SECRET_DETECTION_ENABLED: 'true'
-secret_detection:
-  stage: secret-detection
+  - template: Security/SAST.gitlab-ci.yml
+  - template: Security/Secret-Detection.gitlab-ci.yml
