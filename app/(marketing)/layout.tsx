@@ -1,3 +1,5 @@
+import { TopBar } from "@/components/marketing/TopBar";
+
 /**
  * Layout de la vitrine — volontairement minimal : pas de châssis OS ici.
  *
@@ -29,6 +31,9 @@ export default function MarketingLayout({
         className="fixed inset-0 -z-10 bg-black/35"
         style={{ opacity: "var(--veil)" }}
       />
+      {/* La barre vit ici, pas dans le hero : `sticky` la libérerait dès que la
+          section qui la contient sort de l'écran. */}
+      <TopBar />
       {children}
     </main>
   );

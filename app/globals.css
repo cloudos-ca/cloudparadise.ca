@@ -21,6 +21,8 @@
 
   /* Bascule du hero en deux colonnes — seuil défini par la maquette. */
   --breakpoint-os: 900px;
+  /* Seuil de la barre de menu : en dessous, la nav passe sous un hamburger. */
+  --breakpoint-bar: 760px;
 }
 
 /* `inline` est requis : ces valeurs pointent vers les variables de next/font. */
@@ -56,6 +58,13 @@ body {
  * La transition ne porte que sur les propriétés recolorées : le halo, lui,
  * vit dans le fichier logo et ne bouge jamais.
  */
+/* Les ancres de la barre de menu glissent, sauf si le mouvement est réduit. */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
 @media (prefers-reduced-motion: no-preference) {
   [data-cp-accent] {
     transition:

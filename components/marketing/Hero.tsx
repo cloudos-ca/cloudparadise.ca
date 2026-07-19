@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import { motion, useReducedMotion } from "framer-motion";
 import { WindowCard } from "./WindowCard";
 import { WallpaperPicker } from "./WallpaperPicker";
@@ -21,8 +20,6 @@ export function Hero() {
 
   return (
     <section className="relative">
-      <MenuBar />
-
       {/* Hauteur dictée par le contenu : le padding fait respirer, sans étirer
           le bloc jusqu'en bas de l'écran. */}
       <div
@@ -34,55 +31,6 @@ export function Hero() {
         <Desktop reduceMotion={Boolean(reduceMotion)} />
       </div>
     </section>
-  );
-}
-
-function MenuBar() {
-  return (
-    <div className="border-b border-white/10">
-      <div className={`${SHELL} flex items-center justify-between py-3`}>
-        {/* Lockup empilé (ratio 1.35) : sous ~28px le mot « cloud » décroche. */}
-        <Image
-          src="/brand/logo-blanc-et-jaune.png"
-          alt="Cloud Paradise"
-          width={512}
-          height={380}
-          className="h-7 w-auto"
-          loading="eager"
-        />
-        <div className="flex items-center gap-4">
-          <svg
-            aria-hidden="true"
-            viewBox="0 0 24 24"
-            className="size-4 text-white/60"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-          >
-            <circle cx="11" cy="11" r="7" />
-            <path d="m20 20-3.5-3.5" strokeLinecap="round" />
-          </svg>
-          <span className="text-xs tabular-nums text-white/60">14:32</span>
-          <span
-            data-cp-accent
-            className="grid size-6 place-items-center rounded-full"
-            style={{ background: SOFT_WASH }}
-          >
-            <svg
-              aria-hidden="true"
-              viewBox="0 0 24 24"
-              className="size-3.5"
-              fill="none"
-              stroke="var(--soft)"
-              strokeWidth="2"
-            >
-              <circle cx="12" cy="8" r="3.5" />
-              <path d="M5 20c0-3.5 3-6 7-6s7 2.5 7 6" strokeLinecap="round" />
-            </svg>
-          </span>
-        </div>
-      </div>
-    </div>
   );
 }
 
