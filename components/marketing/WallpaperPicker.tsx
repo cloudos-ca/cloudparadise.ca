@@ -1,0 +1,58 @@
+"use client";
+
+import { useState } from "react";
+import {
+  applyWallpaper,
+  DEFAULT_WALLPAPER,
+  WALLPAPERS,
+  type Wallpaper,
+} from "./wallpapers";
+
+type WallpaperPickerProps = {
+  /** Conteneur du hero portant les tokens --sky / --acc / --soft. */
+  targetRef: React.RefObject<HTMLElement | null>;
+};
+
+export function WallpaperPicker({ targetRef }: WallpaperPickerProps) {
+  const [activeId, setActiveId] = useState(DEFAULT_WALLPAPER.id);
+
+  async function handleSelect(wp: Wallpaper) {
+    const el = targetRef.current;
+    if (!el) return;
+    setActiveId(wp.id);
+    await applyWallpaper(el, wp);
+  }
+
+  return (
+    <div className="mt-8">
+      <p className="text-xs text-cp-subtle">Changez de fond — tout se recolore</p>
+      <div className="mt-3 flex flex-wrap gap-2.5">
+        {WALLPAPERS.map((wp) => {
+          const isActive = wp.id === activeId;
+          return (
+            <button
+              key={wp.id}
+              type="button"
+              onClick={() => handleSelect(wp)}
+              aria-label={wp.aria}
+              aria-pressed={isActive}
+              className={`group flex cursor-pointer flex-col items-center gap-1.5 rounded-lg p-1 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--soft)] ${
+                isActive ? "" : "opacity-70 hover:opacity-100"
+              }`}
+            >
+              <span
+                className={`size-8 rounded-full border transition-transform group-hover:scale-105 ${
+                  isActive
+                    ? "border-white/70 ring-2 ring-white/25"
+                    : "border-white/20"
+                }`}
+                style={{ background: wp.swatch }}
+              />
+              <span className="text-[10px] text-cp-subtle">{wp.label}</span>
+            </button>
+          );
+        })}
+      </div>
+    </div>
+  );
+}

@@ -1,26 +1,50 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/*
+ * Charte Cloud Paradise.
+ * Le jaune est réservé au halo de marque, qui vit dans les fichiers logo :
+ * aucune utilité Tailwind ne doit le repeindre.
+ */
+@theme {
+  --color-cp-navy: #1b273d;
+  --color-cp-blue: #2d66ae;
+  --color-cp-cyan: #bbecee;
+  --color-cp-yellow: #edbe54;
+
+  /* Teintes dérivées, uniquement pour la profondeur et la lisibilité. */
+  --color-cp-navy-deep: #151f33;
+  --color-cp-subtle: #aab7d0;
+  --color-cp-log: #8494b6;
+  --color-cp-ghost: #dbe6fb;
+
+  --font-mono: ui-monospace, "SF Mono", "Cascadia Mono", Menlo, monospace;
+
+  /* Bascule du hero en deux colonnes — seuil défini par la maquette. */
+  --breakpoint-os: 900px;
 }
 
+/* `inline` est requis : ces valeurs pointent vers les variables de next/font. */
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --font-display: var(--font-comfortaa), ui-rounded, system-ui, sans-serif;
+  --font-sans: var(--font-work), ui-sans-serif, system-ui, sans-serif;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--color-cp-navy-deep);
+  color: #ffffff;
+}
+
+/*
+ * Les tokens adaptatifs (--acc, --soft) sont posés en style inline sur le
+ * conteneur du hero pour être corrects dès le SSR, puis réécrits à chaud par
+ * applyWallpaper(). La transition ne porte que sur les propriétés recolorées :
+ * le halo, lui, vit dans le fichier logo et ne bouge jamais.
+ */
+@media (prefers-reduced-motion: no-preference) {
+  [data-cp-accent] {
+    transition:
+      background-color 0.35s,
+      color 0.35s,
+      border-color 0.35s;
+  }
 }
