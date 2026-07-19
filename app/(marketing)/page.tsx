@@ -1,6 +1,7 @@
 import { Hero } from "@/components/marketing/Hero";
 import { ProblemeSolution } from "@/components/marketing/ProblemeSolution";
 import { CommentCaMarche } from "@/components/marketing/CommentCaMarche";
+import { Univers } from "@/components/marketing/Univers";
 
 export default function MarketingPage() {
   return (
@@ -8,7 +9,8 @@ export default function MarketingPage() {
       <Hero />
       <ProblemeSolution />
       <CommentCaMarche />
-      {/* Sections suivantes : modes, tarifs, footer. */}
+      <Univers />
+      {/* Sections suivantes : tarifs, footer. */}
     </>
   );
 }
