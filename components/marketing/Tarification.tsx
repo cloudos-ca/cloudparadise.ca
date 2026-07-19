@@ -88,7 +88,8 @@ const ARGUMENTS = [
 
 export function Tarification() {
   return (
-    <section className="relative">
+    // Cible de « Voir les tarifs », depuis le closer.
+    <section id="tarifs" className="relative scroll-mt-6">
       <div className={`${SHELL} ${SECTION_Y}`}>
         <Reveal className="text-center">
           <p

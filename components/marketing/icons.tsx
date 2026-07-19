@@ -106,6 +106,14 @@ export function IconTerminal(props: IconProps) {
   );
 }
 
+export function IconCheck(props: IconProps) {
+  return (
+    <Glyph {...props}>
+      <path d="M5 12l5 5l9-9" />
+    </Glyph>
+  );
+}
+
 export function IconGift(props: IconProps) {
   return (
     <Glyph {...props}>
