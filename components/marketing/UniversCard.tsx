@@ -1,6 +1,12 @@
 "use client";
 
 import type { ReactNode } from "react";
+import type { Lang } from "./tokens";
+
+const TEXTES = {
+  fr: { exemple: "Par exemple — ", voir: "Voir des exemples" },
+  en: { exemple: "For example — ", voir: "See examples" },
+} as const;
 
 export type Univers = {
   id: string;
@@ -43,7 +49,14 @@ function MediaSlot({ children }: { children: ReactNode }) {
   );
 }
 
-export function UniversCard({ univers }: { univers: Univers }) {
+export function UniversCard({
+  univers,
+  lang = "fr",
+}: {
+  univers: Univers;
+  lang?: Lang;
+}) {
+  const t = TEXTES[lang];
   const {
     nom,
     titre,
@@ -89,7 +102,7 @@ export function UniversCard({ univers }: { univers: Univers }) {
 
         <p className="mt-2.5 text-xs leading-relaxed text-[#93a3c2]">
           <span className="font-medium" style={{ color: "var(--u)" }}>
-            Par exemple —{" "}
+            {t.exemple}
           </span>
           {exemple}
         </p>
@@ -115,7 +128,7 @@ export function UniversCard({ univers }: { univers: Univers }) {
           className="mt-3.5 inline-flex items-center gap-1 text-xs font-medium"
           style={{ color: "var(--u)" }}
         >
-          Voir des exemples
+          {t.voir}
           <span
             aria-hidden="true"
             className="transition-transform duration-200 group-hover:translate-x-0.5 motion-reduce:transition-none"

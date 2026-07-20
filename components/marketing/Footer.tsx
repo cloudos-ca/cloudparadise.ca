@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { SHELL } from "./tokens";
+import { SHELL, type Lang } from "./tokens";
 
 /**
  * Liens de pied de page.
@@ -7,49 +7,75 @@ import { SHELL } from "./tokens";
  * La colonne Légal pointe vers de vraies pages ; la colonne Produit reste en
  * ancres inertes tant que les destinations n'existent pas — mieux vaut un `#`
  * qu'un lien vers une 404.
+ *
+ * Conditions et Confidentialité n'existent qu'en français (le texte légal
+ * n'est pas encore validé) : côté anglais, ces deux liens renvoient quand
+ * même vers la version française plutôt que vers une page `/en` inexistante.
  */
-const COLONNES = [
-  {
-    titre: "Produit",
-    liens: [
-      { libelle: "Fonctions", href: "#" },
-      { libelle: "Tarifs", href: "/tarifs" },
-      { libelle: "Se connecter", href: "#" },
-    ],
-  },
-  {
-    titre: "Légal",
-    liens: [
-      { libelle: "Conditions", href: "/conditions" },
-      { libelle: "Confidentialité", href: "/confidentialite" },
-      { libelle: "Contact", href: "/contact" },
-    ],
-  },
-] as const;
+const COLONNES = {
+  fr: [
+    {
+      titre: "Produit",
+      liens: [
+        { libelle: "Fonctions", href: "/fonctions" },
+        { libelle: "Tarifs", href: "/tarifs" },
+        // Même cible que la barre de menu : `#` ne faisait que remonter en
+        // haut de page, ce qui est pire qu'un lien en attente d'être branché.
+        { libelle: "Se connecter", href: "/connexion" },
+      ],
+    },
+    {
+      titre: "Légal",
+      liens: [
+        { libelle: "Conditions", href: "/conditions" },
+        { libelle: "Confidentialité", href: "/confidentialite" },
+        { libelle: "Contact", href: "/contact" },
+      ],
+    },
+  ],
+  en: [
+    {
+      titre: "Product",
+      liens: [
+        { libelle: "Features", href: "/en/fonctions" },
+        { libelle: "Pricing", href: "/en/tarifs" },
+        { libelle: "Log in", href: "/en/connexion" },
+      ],
+    },
+    {
+      titre: "Legal",
+      liens: [
+        { libelle: "Terms", href: "/conditions" },
+        { libelle: "Privacy", href: "/confidentialite" },
+        { libelle: "Contact", href: "/en/contact" },
+      ],
+    },
+  ],
+} as const;
 
 /**
  * Chrome neutre : le pied de page ne suit pas la recoloration globale. Seul le
  * logo garde ses couleurs, halo compris.
  */
-export function Footer() {
+export function Footer({ lang = "fr" }: { lang?: Lang }) {
   return (
     <footer className="relative border-t border-white/[0.08]">
       <div className={`${SHELL} py-10`}>
         <div className="flex flex-col gap-8 os:flex-row os:justify-between">
           <div>
             <Image
-              src="/brand/logo-blanc-et-jaune.png"
+              src="/brand/logo-blanc-et-jaune.svg"
               alt="Cloud Paradise"
-              width={512}
-              height={380}
-              className="h-[52px] w-auto"
+              width={401}
+              height={295}
+              className="h-[84px] w-auto"
             />
             <p className="mt-3 text-xs text-[#93a3c2]">© 2026 Cloud Paradise</p>
           </div>
 
-          <nav aria-label="Liens de pied de page">
+          <nav aria-label={lang === "en" ? "Footer links" : "Liens de pied de page"}>
             <div className="flex gap-12 os:gap-16">
-              {COLONNES.map(({ titre, liens }) => (
+              {COLONNES[lang].map(({ titre, liens }) => (
                 <div key={titre}>
                   <p className="text-xs font-medium text-white/70">{titre}</p>
                   <ul className="mt-3 space-y-2">

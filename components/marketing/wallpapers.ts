@@ -34,9 +34,9 @@ export const DEFAULT_SKY = "linear-gradient(140deg,#151f33,#1b273d)";
 export type Wallpaper = {
   id: string;
   /** Libellé court affiché sous la puce. */
-  label: string;
+  label: { fr: string; en: string };
   /** Libellé complet pour les lecteurs d'écran. */
-  aria: string;
+  aria: { fr: string; en: string };
   /** Aperçu de la pastille dans le sélecteur. */
   swatch: string;
   /** Fond appliqué tel quel — dégradé, ou remplacé par la photo si `image`. */
@@ -54,8 +54,8 @@ export type Wallpaper = {
 export const WALLPAPERS: readonly Wallpaper[] = [
   {
     id: "ciel",
-    label: "Ciel",
-    aria: "Fond ciel",
+    label: { fr: "Ciel", en: "Sky" },
+    aria: { fr: "Fond ciel", en: "Sky background" },
     swatch: "linear-gradient(140deg,#2d66ae,#bbecee)",
     sky: DEFAULT_SKY,
     acc: DEFAULT_ACC,
@@ -64,8 +64,8 @@ export const WALLPAPERS: readonly Wallpaper[] = [
   },
   {
     id: "foret",
-    label: "Forêt",
-    aria: "Fond forêt",
+    label: { fr: "Forêt", en: "Forest" },
+    aria: { fr: "Fond forêt", en: "Forest background" },
     swatch: "linear-gradient(140deg,#2f9e6a,#a6e3c8)",
     sky: "linear-gradient(140deg,#0f2019,#143a2c)",
     acc: "#278459",
@@ -74,8 +74,8 @@ export const WALLPAPERS: readonly Wallpaper[] = [
   },
   {
     id: "nebuleuse",
-    label: "Nébuleuse",
-    aria: "Fond nébuleuse",
+    label: { fr: "Nébuleuse", en: "Nebula" },
+    aria: { fr: "Fond nébuleuse", en: "Nebula background" },
     swatch: "linear-gradient(140deg,#8a5fd0,#d6bff0)",
     sky: "linear-gradient(140deg,#191030,#2a1745)",
     acc: "#895ece",
@@ -84,8 +84,8 @@ export const WALLPAPERS: readonly Wallpaper[] = [
   },
   {
     id: "coucher",
-    label: "Coucher",
-    aria: "Fond coucher de soleil",
+    label: { fr: "Coucher", en: "Sunset" },
+    aria: { fr: "Fond coucher de soleil", en: "Sunset background" },
     swatch: "linear-gradient(140deg,#d9743e,#f3c79a)",
     sky: "linear-gradient(140deg,#241019,#3a1c22)",
     acc: "#b15f33",
@@ -94,8 +94,8 @@ export const WALLPAPERS: readonly Wallpaper[] = [
   },
   {
     id: "glace",
-    label: "Glace",
-    aria: "Fond glace",
+    label: { fr: "Glace", en: "Ice" },
+    aria: { fr: "Fond glace", en: "Ice background" },
     swatch: "linear-gradient(140deg,#2f9bcf,#bfe9f4)",
     sky: "linear-gradient(140deg,#08222b,#0f3a45)",
     acc: "#267da7",

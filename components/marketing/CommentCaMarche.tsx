@@ -3,41 +3,74 @@
 import { motion, useReducedMotion } from "framer-motion";
 import { IconBolt, IconDownload, IconMessage, IconUpload } from "./icons";
 import { Reveal } from "./Reveal";
-import { SECTION_Y, SHELL } from "./tokens";
+import { SECTION_Y, SHELL, type Lang } from "./tokens";
 
 /** Durée d'un tour complet de l'impulsion, de l'étape 1 à l'étape 4. */
 const CYCLE = 3.4;
 /** Temps d'illumination d'un rond au passage de l'impulsion. */
 const FLASH = 0.8;
 
-const STEPS = [
-  {
-    Icone: IconUpload,
-    title: "Déposez",
-    text: "Glissez vos fichiers ou importez depuis une URL.",
-  },
-  {
-    Icone: IconMessage,
-    title: "Décrivez",
-    text: "Dites ce que vous voulez. L’IA planifie et choisit le mode.",
-  },
-  {
-    Icone: IconBolt,
-    title: "On exécute",
-    text: "Le calcul tourne sur nos nœuds spécialisés.",
-  },
-  {
-    Icone: IconDownload,
-    title: "Récupérez",
-    text: "Votre résultat, prêt à télécharger.",
-  },
-] as const;
+const STEPS = {
+  fr: [
+    {
+      Icone: IconUpload,
+      title: "Déposez",
+      text: "Glissez vos fichiers ou importez depuis une URL.",
+    },
+    {
+      Icone: IconMessage,
+      title: "Décrivez",
+      text: "Dites ce que vous voulez. L’IA planifie et choisit le mode.",
+    },
+    {
+      Icone: IconBolt,
+      title: "On exécute",
+      text: "Le calcul tourne sur nos nœuds spécialisés.",
+    },
+    {
+      Icone: IconDownload,
+      title: "Récupérez",
+      text: "Votre résultat, prêt à télécharger.",
+    },
+  ],
+  en: [
+    {
+      Icone: IconUpload,
+      title: "Upload",
+      text: "Drag in your files or import from a URL.",
+    },
+    {
+      Icone: IconMessage,
+      title: "Describe",
+      text: "Say what you want. The AI plans it and picks the mode.",
+    },
+    {
+      Icone: IconBolt,
+      title: "We run it",
+      text: "The job runs on our specialized nodes.",
+    },
+    {
+      Icone: IconDownload,
+      title: "Get it back",
+      text: "Your result, ready to download.",
+    },
+  ],
+} as const;
 
-export function CommentCaMarche() {
+const TEXTES = {
+  fr: { eyebrow: "Comment ça marche", titre: "Quatre étapes. Zéro configuration." },
+  en: { eyebrow: "How it works", titre: "Four steps. Zero setup." },
+} as const;
+
+export function CommentCaMarche({ lang = "fr" }: { lang?: Lang }) {
   const reduceMotion = Boolean(useReducedMotion());
+  const t = TEXTES[lang];
+  const steps = STEPS[lang];
 
   return (
-    <section className="relative">
+    // Cible de « Voir la démo », depuis le hero : cette section est la
+    // démonstration du parcours. L'ancre pointait jusqu'ici dans le vide.
+    <section id="demo" className="relative scroll-mt-16">
       {/* Troisième amorce volontairement différente : les deux sections
           précédentes ouvrent à gauche, celle-ci est centrée — ce que sa
           composition symétrique en quatre temps appelle de toute façon. */}
@@ -47,10 +80,10 @@ export function CommentCaMarche() {
             className="text-xs font-medium tracking-wide"
             style={{ color: "var(--acc-text)" }}
           >
-            Comment ça marche
+            {t.eyebrow}
           </p>
           <h2 className="mx-auto mt-3 max-w-[20ch] font-display text-[1.6rem] leading-[1.2] font-bold tracking-tight text-balance text-[#eef4ff] sm:text-3xl os:text-4xl">
-            Quatre étapes. Zéro configuration.
+            {t.titre}
           </h2>
         </Reveal>
 
@@ -79,7 +112,7 @@ export function CommentCaMarche() {
           </div>
 
           <ol className="relative grid gap-10 os:grid-cols-4 os:gap-6">
-            {STEPS.map((step, i) => (
+            {steps.map((step, i) => (
               <li
                 key={step.title}
                 className="flex flex-col items-center text-center"
@@ -101,7 +134,7 @@ export function CommentCaMarche() {
                         duration: FLASH,
                         repeat: Infinity,
                         repeatDelay: CYCLE - FLASH,
-                        delay: i * (CYCLE / STEPS.length),
+                        delay: i * (CYCLE / steps.length),
                         ease: "easeInOut",
                       }}
                     />

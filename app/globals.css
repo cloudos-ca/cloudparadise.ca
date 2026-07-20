@@ -93,3 +93,14 @@ body {
       border-color 0.35s;
   }
 }
+
+/*
+ * Le badge flottant que reCAPTCHA v3 injecte dans le coin bas-droit.
+ * Google autorise à le masquer par CSS à condition de garder la mention
+ * « protégé par reCAPTCHA » visible ailleurs — c'est le texte sous le bouton
+ * Envoyer, sur /contact. Sans ça, le badge se serait superposé à la
+ * notification Loi 25, elle aussi ancrée dans ce coin.
+ */
+.grecaptcha-badge {
+  visibility: hidden;
+}

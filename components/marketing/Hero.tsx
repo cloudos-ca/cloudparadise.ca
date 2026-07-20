@@ -6,17 +6,48 @@ import { WallpaperPicker } from "./WallpaperPicker";
 import { JobPanel } from "./JobPanel";
 import { BadgeOffre } from "./BadgeOffre";
 import { BoutonCta } from "./BoutonCta";
-import { SECTION_Y, SHELL, SOFT_WASH } from "./tokens";
+import { SECTION_Y, SHELL, SOFT_WASH, type Lang } from "./tokens";
 
-const JOB_LOGS = [
-  "→ Analyse du projet — 1 842 images détectées",
-  "→ Attribution de 8 GPU · mode MEDIA",
-  "→ Encodage H.265 — 1 842/1 842 images",
-] as const;
+const JOB_LOGS = {
+  fr: [
+    "→ Analyse du projet — 1 842 images détectées",
+    "→ Attribution de 8 GPU · mode MEDIA",
+    "→ Encodage H.265 — 1 842/1 842 images",
+  ],
+  en: [
+    "→ Analyzing project — 1,842 images found",
+    "→ Assigning 8 GPUs · MEDIA mode",
+    "→ Encoding H.265 — 1,842/1,842 images",
+  ],
+} as const;
 
-const FOLDERS = ["Vidéos", "Blender", "Documents"] as const;
+const FOLDERS = {
+  fr: ["Vidéos", "Blender", "Documents"],
+  en: ["Videos", "Blender", "Documents"],
+} as const;
 
-export function Hero() {
+const TEXTES = {
+  fr: {
+    eyebrow: "Un bureau à votre image",
+    titreLigne1: "Décrivez la tâche.",
+    titreLigne2: "On s’occupe du calcul.",
+    texte:
+      "Déposez vos fichiers, dites ce que vous voulez en mots simples. L’IA choisit le bon mode et lance le calcul dans le cloud. Vous n’avez qu’à récupérer le résultat.",
+    cta: "Commencer gratuitement",
+    demo: "Voir la démo",
+  },
+  en: {
+    eyebrow: "A desktop, your way",
+    titreLigne1: "Describe the task.",
+    titreLigne2: "We handle the compute.",
+    texte:
+      "Drop your files, say what you want in plain words. The AI picks the right mode and runs the job in the cloud. You just grab the result.",
+    cta: "Start for free",
+    demo: "See the demo",
+  },
+} as const;
+
+export function Hero({ lang = "fr" }: { lang?: Lang }) {
   const reduceMotion = useReducedMotion();
 
   return (
@@ -28,14 +59,15 @@ export function Hero() {
       >
         {/* Le sélecteur vit dans la colonne texte : sous les boutons en empilé,
             sous la trust line en deux colonnes. */}
-        <Copy />
-        <Desktop reduceMotion={Boolean(reduceMotion)} />
+        <Copy lang={lang} />
+        <Desktop reduceMotion={Boolean(reduceMotion)} lang={lang} />
       </div>
     </section>
   );
 }
 
-function Copy() {
+function Copy({ lang }: { lang: Lang }) {
+  const t = TEXTES[lang];
   return (
     <div className="max-w-xl">
       <span
@@ -43,26 +75,27 @@ function Copy() {
         className="inline-block rounded-full px-3 py-1 text-xs font-medium"
         style={{ background: SOFT_WASH, color: "var(--soft)" }}
       >
-        Un bureau à votre image
+        {t.eyebrow}
       </span>
 
       <h1 className="mt-5 font-display text-[1.75rem] leading-[1.15] font-bold tracking-tight text-white sm:text-4xl os:text-5xl">
-        Décrivez la tâche.
+        {t.titreLigne1}
         <br />
         <span data-cp-accent style={{ color: "var(--soft)" }}>
-          On s’occupe du calcul.
+          {t.titreLigne2}
         </span>
       </h1>
 
       <p className="mt-5 text-base leading-relaxed text-cp-subtle">
-        Déposez vos fichiers, dites ce que vous voulez en mots simples. L’IA
-        choisit le bon mode et lance le calcul dans le cloud. Vous n’avez qu’à
-        récupérer le résultat.
+        {t.texte}
       </p>
 
       <div className="mt-7 flex flex-wrap items-center gap-3">
-        <BoutonCta href="/inscription" taille="lg">
-          Commencer gratuitement
+        <BoutonCta
+          href={lang === "en" ? "/en/inscription" : "/inscription"}
+          taille="lg"
+        >
+          {t.cta}
         </BoutonCta>
         <a
           href="#demo"
@@ -76,20 +109,26 @@ function Copy() {
           >
             <path d="M8 5.5v13l11-6.5z" />
           </svg>
-          Voir la démo
+          {t.demo}
         </a>
       </div>
 
       {/* L'offre juste sous le bouton, en or dilué : elle appuie le CTA au
           lieu de s'excuser en gris trois tailles plus bas. */}
-      <BadgeOffre className="mt-5" />
+      <BadgeOffre className="mt-5" lang={lang} />
 
-      <WallpaperPicker />
+      <WallpaperPicker lang={lang} />
     </div>
   );
 }
 
-function Desktop({ reduceMotion }: { reduceMotion: boolean }) {
+function Desktop({
+  reduceMotion,
+  lang,
+}: {
+  reduceMotion: boolean;
+  lang: Lang;
+}) {
   const float = (distance: number, duration: number) =>
     reduceMotion
       ? undefined
@@ -110,11 +149,11 @@ function Desktop({ reduceMotion }: { reduceMotion: boolean }) {
   return (
     <div className="relative mx-auto w-full max-w-[480px] os:mt-1 os:max-w-[520px]">
       <motion.div {...back} className="ml-auto w-[62%]" aria-hidden="true">
-        <WindowCard title="Fichiers">
+        <WindowCard title={lang === "en" ? "Files" : "Fichiers"}>
           {/* Le padding bas absorbe le recouvrement de la fenêtre de devant :
               c'est le vide qui passe dessous, jamais la dernière ligne. */}
           <ul className="space-y-1.5 p-3 pb-10">
-            {FOLDERS.map((name) => (
+            {FOLDERS[lang].map((name) => (
               <li
                 key={name}
                 className="flex items-center gap-2 text-xs text-white/70"
@@ -135,7 +174,12 @@ function Desktop({ reduceMotion }: { reduceMotion: boolean }) {
 
       <motion.div {...front} className="relative z-10 -mt-8 w-[92%]">
         <WindowCard title="Plans · Cloud Paradise">
-          <JobPanel title="Rendre une vidéo 4K" chip="MEDIA" logs={JOB_LOGS} />
+          <JobPanel
+            title={lang === "en" ? "Render a 4K video" : "Rendre une vidéo 4K"}
+            chip="MEDIA"
+            logs={JOB_LOGS[lang]}
+            lang={lang}
+          />
         </WindowCard>
       </motion.div>
     </div>

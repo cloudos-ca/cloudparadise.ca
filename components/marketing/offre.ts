@@ -1,3 +1,5 @@
+import type { Lang } from "./tokens";
+
 /**
  * Conditions commerciales, en un seul endroit.
  *
@@ -43,25 +45,70 @@ export const RECHARGE_MINIMALE_EN_DEVISE = `${nf.format(
  * l'application (`src/lib/billing/pricing.ts` côté produit). Aucune surface de
  * la vitrine n'affiche leur nombre : ce décompte change avec le produit et un
  * chiffre figé devient faux sans prévenir.
+ *
+ * `type` est un identifiant interne stable, jamais affiché — c'est lui que
+ * lisent `modes.ts` (couleurs) et le typage `TypeTache`. Le texte montré au
+ * visiteur vit dans `libelle`, par langue.
  */
 export const GRILLE = [
-  { type: "IA", cout: 0.1 },
-  { type: "Documents", cout: 0.25 },
-  { type: "Données", cout: 0.25 },
-  { type: "Média", cout: 0.5 },
-  { type: "Scraping", cout: 0.5 },
-  { type: "Calcul GPU", cout: 2 },
-  { type: "Rendu 3D", cout: 3 },
-  // Prix Images à définir — remplacer null par la valeur en crédits quand
-  // décidé. Le mode est déjà listé pour ne pas masquer une partie de l'offre,
-  // mais `null` interdit d'afficher ou de calculer quoi que ce soit avec.
-  { type: "Images", cout: null },
+  { type: "IA", libelle: { fr: "IA", en: "AI" }, cout: 0.1 },
+  {
+    type: "Documents",
+    libelle: { fr: "Documents", en: "Documents" },
+    cout: 0.25,
+  },
+  {
+    type: "Données",
+    libelle: { fr: "Données", en: "Data" },
+    cout: 0.25,
+  },
+  { type: "Média", libelle: { fr: "Média", en: "Media" }, cout: 0.5 },
+  {
+    type: "Scraping",
+    libelle: { fr: "Scraping", en: "Scraping" },
+    cout: 0.5,
+  },
+  {
+    type: "Calcul GPU",
+    libelle: { fr: "Calcul GPU", en: "GPU Compute" },
+    cout: 2,
+  },
+  {
+    type: "Rendu 3D",
+    libelle: { fr: "Rendu 3D", en: "3D Rendering" },
+    cout: 3,
+  },
+  { type: "Images", libelle: { fr: "Images", en: "Images" }, cout: 0.25 },
+  {
+    type: "Génération d'images",
+    libelle: { fr: "Génération d'images", en: "Image Generation" },
+    cout: 2,
+  },
+  {
+    type: "Impression 3D",
+    libelle: { fr: "Impression 3D", en: "3D Printing" },
+    cout: 0.5,
+  },
+  {
+    type: "Simulation",
+    libelle: { fr: "Simulation", en: "Simulation" },
+    cout: 0.5,
+  },
 ] as const;
 
 export type TypeTache = (typeof GRILLE)[number]["type"];
 
+/** Texte affiché pour un type donné, dans la langue demandée. */
+export function libelleDe(type: TypeTache, lang: Lang): string {
+  const ligne = GRILLE.find((g) => g.type === type);
+  if (!ligne) throw new Error(`Type de tâche inconnu : ${type}`);
+  return ligne.libelle[lang];
+}
+
 /** Libellé affiché à la place d'un prix encore indéterminé. */
-export const TARIF_A_VENIR = "Tarif à venir";
+export function tarifAVenir(lang: Lang): string {
+  return lang === "en" ? "Pricing coming soon" : "Tarif à venir";
+}
 
 /**
  * Coût d'un type donné, en crédits — `null` tant que le prix n'est pas arrêté.

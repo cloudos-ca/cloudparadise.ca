@@ -7,8 +7,14 @@ import {
   WALLPAPERS,
   type Wallpaper,
 } from "./wallpapers";
+import type { Lang } from "./tokens";
 
-export function WallpaperPicker() {
+const TEXTE = {
+  fr: "Changez de fond — tout se recolore",
+  en: "Change the background — everything recolors",
+} as const;
+
+export function WallpaperPicker({ lang = "fr" }: { lang?: Lang }) {
   const [activeId, setActiveId] = useState(DEFAULT_WALLPAPER.id);
 
   async function handleSelect(wp: Wallpaper) {
@@ -19,9 +25,7 @@ export function WallpaperPicker() {
 
   return (
     <div className="mt-8">
-      <p className="text-xs text-cp-subtle">
-        Changez de fond — tout se recolore
-      </p>
+      <p className="text-xs text-cp-subtle">{TEXTE[lang]}</p>
       <div className="mt-3 flex flex-wrap gap-2.5">
         {WALLPAPERS.map((wp) => {
           const isActive = wp.id === activeId;
@@ -30,7 +34,7 @@ export function WallpaperPicker() {
               key={wp.id}
               type="button"
               onClick={() => handleSelect(wp)}
-              aria-label={wp.aria}
+              aria-label={wp.aria[lang]}
               aria-pressed={isActive}
               className={`group flex cursor-pointer flex-col items-center gap-1.5 rounded-lg p-1 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--soft)] ${
                 isActive ? "" : "opacity-70 hover:opacity-100"
@@ -44,7 +48,9 @@ export function WallpaperPicker() {
                 }`}
                 style={{ background: wp.swatch }}
               />
-              <span className="text-[10px] text-cp-subtle">{wp.label}</span>
+              <span className="text-[10px] text-cp-subtle">
+                {wp.label[lang]}
+              </span>
             </button>
           );
         })}

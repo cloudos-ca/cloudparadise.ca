@@ -8,6 +8,9 @@
  */
 export const SHELL = "mx-auto w-full max-w-[1280px] px-6 os:px-10";
 
+/** Langue d'affichage — le français reste le défaut partout, l'anglais se demande explicitement. */
+export type Lang = "fr" | "en";
+
 /**
  * Rythme vertical commun. Deux sections voisines additionnent leurs paddings,
  * d'où un intervalle constant de ~112px : assez pour respirer, assez serré

@@ -3,7 +3,7 @@
 import { IconDatabase, IconFileText, IconMovie } from "./icons";
 import { Reveal } from "./Reveal";
 import { UniversCard, type Univers as UniversType } from "./UniversCard";
-import { SECTION_Y, SHELL } from "./tokens";
+import { SECTION_Y, SHELL, type Lang } from "./tokens";
 
 /**
  * Couleurs d'identité des univers.
@@ -106,46 +106,106 @@ const ApercuTech = (
   </div>
 );
 
-const UNIVERS: readonly UniversType[] = [
-  {
-    id: "documents",
-    nom: "contrats-fr-en.zip",
-    titre: "Documents",
-    description: "Traduisez, convertissez et traitez vos fichiers par lots.",
-    exemple: "traduire 200 contrats d’un coup.",
-    modes: ["Docs", "Auto"],
-    couleur: TEAL,
-    href: "/exemples/documents",
-    icone: <IconFileText />,
-    apercu: ApercuDocuments,
-  },
-  {
-    id: "crea",
-    nom: "promo-4k.mp4",
-    titre: "Créa & média",
-    description: "Encodez, rendez et exportez sans bloquer votre machine.",
-    exemple: "exporter une vidéo 4K sans attendre.",
-    modes: ["Media", "Render", "GPU"],
-    couleur: CORAIL,
-    href: "/exemples/media",
-    icone: <IconMovie />,
-    apercu: ApercuCrea,
-  },
-  {
-    id: "tech",
-    nom: "catalogue.csv",
-    titre: "Tech & data",
-    description: "Scrapez, interrogez et transformez vos données.",
-    exemple: "scraper 10 000 pages en une passe.",
-    modes: ["Data", "Scrape", "GPU"],
-    couleur: BLEU,
-    href: "/exemples/data",
-    icone: <IconDatabase />,
-    apercu: ApercuTech,
-  },
-];
+function universDe(lang: Lang): readonly UniversType[] {
+  const chemin = lang === "en" ? "/en/fonctions" : "/fonctions";
+  if (lang === "en") {
+    return [
+      {
+        id: "documents",
+        nom: "contracts-fr-en.zip",
+        titre: "Documents",
+        description: "Translate, convert, and process your files in batches.",
+        exemple: "translate 200 contracts at once.",
+        modes: ["Docs", "Auto"],
+        couleur: TEAL,
+        href: chemin,
+        icone: <IconFileText />,
+        apercu: ApercuDocuments,
+      },
+      {
+        id: "crea",
+        nom: "promo-4k.mp4",
+        titre: "Creative & media",
+        description:
+          "Encode, render, and export without locking up your machine.",
+        exemple: "export a 4K video without waiting.",
+        modes: ["Media", "Render", "GPU"],
+        couleur: CORAIL,
+        href: chemin,
+        icone: <IconMovie />,
+        apercu: ApercuCrea,
+      },
+      {
+        id: "tech",
+        nom: "catalog.csv",
+        titre: "Tech & data",
+        description: "Scrape, query, and transform your data.",
+        exemple: "scrape 10,000 pages in one pass.",
+        modes: ["Data", "Scrape", "GPU"],
+        couleur: BLEU,
+        href: chemin,
+        icone: <IconDatabase />,
+        apercu: ApercuTech,
+      },
+    ];
+  }
+  return [
+    {
+      id: "documents",
+      nom: "contrats-fr-en.zip",
+      titre: "Documents",
+      description: "Traduisez, convertissez et traitez vos fichiers par lots.",
+      exemple: "traduire 200 contrats d’un coup.",
+      modes: ["Docs", "Auto"],
+      couleur: TEAL,
+      href: chemin,
+      icone: <IconFileText />,
+      apercu: ApercuDocuments,
+    },
+    {
+      id: "crea",
+      nom: "promo-4k.mp4",
+      titre: "Créa & média",
+      description: "Encodez, rendez et exportez sans bloquer votre machine.",
+      exemple: "exporter une vidéo 4K sans attendre.",
+      modes: ["Media", "Render", "GPU"],
+      couleur: CORAIL,
+      href: chemin,
+      icone: <IconMovie />,
+      apercu: ApercuCrea,
+    },
+    {
+      id: "tech",
+      nom: "catalogue.csv",
+      titre: "Tech & data",
+      description: "Scrapez, interrogez et transformez vos données.",
+      exemple: "scraper 10 000 pages en une passe.",
+      modes: ["Data", "Scrape", "GPU"],
+      couleur: BLEU,
+      href: chemin,
+      icone: <IconDatabase />,
+      apercu: ApercuTech,
+    },
+  ];
+}
 
-export function Univers() {
+const TEXTES = {
+  fr: {
+    eyebrow: "Vos univers",
+    titre: "Vous faites quoi, vous ?",
+    soustitre: "Cliquez le vôtre — chaque univers a sa propre démo.",
+  },
+  en: {
+    eyebrow: "Your world",
+    titre: "What do you do?",
+    soustitre: "Pick yours — each one comes with its own demo.",
+  },
+} as const;
+
+export function Univers({ lang = "fr" }: { lang?: Lang }) {
+  const t = TEXTES[lang];
+  const univers = universDe(lang);
+
   return (
     <section id="univers" className="relative scroll-mt-16">
       <div className={`${SHELL} ${SECTION_Y}`}>
@@ -154,13 +214,13 @@ export function Univers() {
             className="text-xs font-medium tracking-wide"
             style={{ color: "var(--acc-text)" }}
           >
-            Vos univers
+            {t.eyebrow}
           </p>
           <h2 className="mt-3 font-display text-[1.6rem] leading-[1.2] font-bold tracking-tight text-[#eef4ff] sm:text-3xl os:text-4xl">
-            Vous faites quoi, vous ?
+            {t.titre}
           </h2>
           <p className="mt-3 max-w-[46ch] text-sm leading-relaxed text-[#93a3c2]">
-            Cliquez le vôtre — chaque univers a sa propre démo.
+            {t.soustitre}
           </p>
         </Reveal>
 
@@ -169,8 +229,8 @@ export function Univers() {
             mais par accident. Trois colonnes explicites au-delà du seuil, une
             seule en dessous — c'est exactement la règle voulue. */}
         <Reveal delay={0.1} className="mt-10 grid gap-3.5 os:grid-cols-3">
-          {UNIVERS.map((u) => (
-            <UniversCard key={u.id} univers={u} />
+          {univers.map((u) => (
+            <UniversCard key={u.id} univers={u} lang={lang} />
           ))}
         </Reveal>
       </div>

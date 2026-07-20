@@ -1,21 +1,22 @@
 import { Footer } from "@/components/marketing/Footer";
+import { HtmlLangSync } from "@/components/marketing/HtmlLangSync";
 import { PopupLoi25 } from "@/components/marketing/PopupLoi25";
 import { TopBar } from "@/components/marketing/TopBar";
 
 /**
- * Layout de la vitrine — volontairement minimal : pas de châssis OS ici.
- *
- * La page est une seule pièce : le fond est posé une fois, en `fixed`, et les
- * sections défilent par-dessus sans jamais le recouper. Elles sont donc toutes
- * transparentes ; aucune ne porte son propre dégradé.
+ * Layout de la vitrine anglaise — miroir de `app/(marketing)/layout.tsx`,
+ * avec `lang="en"` posé sur les composants partagés. Volontairement dupliqué
+ * plutôt que paramétré depuis un segment `[lang]` commun : les URLs
+ * françaises actuelles ne bougent pas d'un octet.
  */
-export default function MarketingLayout({
+export default function MarketingLayoutEn({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
     <main className="relative isolate flex flex-1 flex-col">
+      <HtmlLangSync lang="en" />
       <div
         aria-hidden="true"
         className="fixed inset-0 -z-20"
@@ -33,15 +34,10 @@ export default function MarketingLayout({
         className="fixed inset-0 -z-10 bg-black/35"
         style={{ opacity: "var(--veil)" }}
       />
-      {/* La barre vit ici, pas dans le hero : `sticky` la libérerait dès que la
-          section qui la contient sort de l'écran. */}
-      <TopBar />
-      {/* `flex-1` pousse le pied de page en bas même sur une page courte. */}
+      <TopBar lang="en" />
       <div className="flex-1">{children}</div>
-      {/* Barre et pied de page vivent au layout : toutes les pages de la
-          vitrine partagent ainsi le même châssis, sans le réimporter. */}
-      <Footer />
-      <PopupLoi25 />
+      <Footer lang="en" />
+      <PopupLoi25 lang="en" />
     </main>
   );
 }

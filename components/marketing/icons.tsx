@@ -187,6 +187,57 @@ export function IconMapPin(props: IconProps) {
   );
 }
 
+export function IconSparkles(props: IconProps) {
+  return (
+    <Glyph {...props}>
+      <path d="M12 3l1.9 4.6l4.6 1.9l-4.6 1.9l-1.9 4.6l-1.9 -4.6l-4.6 -1.9l4.6 -1.9z" />
+      <path d="M18 15l.9 2.1l2.1 .9l-2.1 .9l-.9 2.1l-.9 -2.1l-2.1 -.9l2.1 -.9z" />
+    </Glyph>
+  );
+}
+
+export function IconWorldSearch(props: IconProps) {
+  return (
+    <Glyph {...props}>
+      <path d="M21 12a9 9 0 1 0 -9 9" />
+      <path d="M3.6 9h16.8M3.6 15h8.4" />
+      <path d="M11.5 3a17 17 0 0 0 0 18" />
+      <path d="M12.5 3a17 17 0 0 1 2.5 9" />
+      <circle cx="18" cy="18" r="3" />
+      <path d="M20.2 20.2L22 22" />
+    </Glyph>
+  );
+}
+
+export function IconCpu(props: IconProps) {
+  return (
+    <Glyph {...props}>
+      <rect x="5" y="5" width="14" height="14" rx="2" />
+      <rect x="9" y="9" width="6" height="6" rx="1" />
+      <path d="M3 10h2M3 14h2M19 10h2M19 14h2M10 3v2M14 3v2M10 19v2M14 19v2" />
+    </Glyph>
+  );
+}
+
+export function IconCube(props: IconProps) {
+  return (
+    <Glyph {...props}>
+      <path d="M12 3l8 4.5v9L12 21l-8 -4.5v-9z" />
+      <path d="M12 12l8 -4.5M12 12v9M12 12L4 7.5" />
+    </Glyph>
+  );
+}
+
+export function IconPhoto(props: IconProps) {
+  return (
+    <Glyph {...props}>
+      <rect x="3" y="5" width="18" height="14" rx="2" />
+      <circle cx="8.5" cy="10" r="1.5" />
+      <path d="M4 16l4.5 -4l3.5 3l3 -2.5l4.5 4" />
+    </Glyph>
+  );
+}
+
 export function IconCoin(props: IconProps) {
   return (
     <Glyph {...props}>
@@ -228,6 +279,37 @@ export function IconAlert(props: IconProps) {
       <path d="M12 9v4" />
       <path d="M10.4 3.9l-8.1 14a1.8 1.8 0 0 0 1.6 2.7h16.2a1.8 1.8 0 0 0 1.6 -2.7l-8.1 -14a1.8 1.8 0 0 0 -3.2 0" />
       <path d="M12 16h.01" />
+    </Glyph>
+  );
+}
+
+export function IconLock(props: IconProps) {
+  return (
+    <Glyph {...props}>
+      <path d="M5 11a2 2 0 0 1 2 -2h10a2 2 0 0 1 2 2v7a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2z" />
+      <path d="M8 11v-4a4 4 0 0 1 8 0v4" />
+    </Glyph>
+  );
+}
+
+export function IconPrinter3d(props: IconProps) {
+  return (
+    <Glyph {...props}>
+      <path d="M4 20h16" />
+      <path d="M8 20v-10l4 -3l4 3v10" />
+      <path d="M8 14.5h8" />
+      <path d="M12 4v3" />
+      <circle cx="12" cy="3" r="1" />
+    </Glyph>
+  );
+}
+
+export function IconFlask(props: IconProps) {
+  return (
+    <Glyph {...props}>
+      <path d="M9 3h6" />
+      <path d="M10 3v6l-5 8.5a1 1 0 0 0 1 1.5h12a1 1 0 0 0 1 -1.5l-5 -8.5v-6" />
+      <path d="M8 15h8" />
     </Glyph>
   );
 }

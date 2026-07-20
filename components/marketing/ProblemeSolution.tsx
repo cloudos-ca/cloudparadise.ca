@@ -4,7 +4,7 @@ import { motion, useReducedMotion } from "framer-motion";
 import { WindowCard } from "./WindowCard";
 import { JobPanel } from "./JobPanel";
 import { Reveal } from "./Reveal";
-import { SECTION_Y, SHELL } from "./tokens";
+import { SECTION_Y, SHELL, type Lang } from "./tokens";
 
 /**
  * Rouge d'échec. Hors charte à dessein, et cantonné à la fenêtre de gauche :
@@ -16,20 +16,58 @@ const FAIL_MUTED = "#8f7a74";
 
 /** Progression figée : elle n'avance jamais, c'est tout le propos. */
 const STUCK_WIDTH = "34%";
-const STUCK_LABEL = "34 % · bloqué";
 
 /**
  * Un autre univers que le hero, qui montre déjà un rendu vidéo : la vitrine
  * doit donner à voir que l'app ne fait pas qu'encoder de la vidéo.
  */
-const CLOUD_LOGS = [
-  "→ lecture de 200 fichiers .docx",
-  "→ traduction FR→EN · 200/200",
-  "→ archive prête",
-] as const;
+const CLOUD_LOGS = {
+  fr: [
+    "→ lecture de 200 fichiers .docx",
+    "→ traduction FR→EN · 200/200",
+    "→ archive prête",
+  ],
+  en: [
+    "→ reading 200 .docx files",
+    "→ translating FR→EN · 200/200",
+    "→ archive ready",
+  ],
+} as const;
 
-export function ProblemeSolution() {
+const TEXTES = {
+  fr: {
+    eyebrow: "Le problème",
+    titre: "Les tâches lourdes ne devraient pas vous ralentir.",
+    stuckTitre: "Traitement · votre ordinateur",
+    stuckLabel: "34 % · bloqué",
+    stuckStatut: "Traitement local…",
+    stuckAlerte: "le ventilateur s’emballe · CPU 98°",
+    stuckLegende:
+      "Ça plante sur les gros fichiers, il faut tout installer, et vous attendez, immobilisé.",
+    flow: "Cloud Paradise s’en charge",
+    cloudTitre: "Traduire 200 contrats",
+    cloudLegende:
+      "Aucune installation. Vous décrivez, l’IA lance le calcul dans le cloud, c’est terminé.",
+  },
+  en: {
+    eyebrow: "The problem",
+    titre: "Heavy tasks shouldn’t slow you down.",
+    stuckTitre: "Processing · your computer",
+    stuckLabel: "34% · stuck",
+    stuckStatut: "Local processing…",
+    stuckAlerte: "fan spinning up · CPU 98°",
+    stuckLegende:
+      "It crashes on big files, you have to install everything, and you wait, stuck.",
+    flow: "Cloud Paradise takes it from here",
+    cloudTitre: "Translate 200 contracts",
+    cloudLegende:
+      "No installation. You describe it, the AI runs the job in the cloud, done.",
+  },
+} as const;
+
+export function ProblemeSolution({ lang = "fr" }: { lang?: Lang }) {
   const reduceMotion = Boolean(useReducedMotion());
+  const t = TEXTES[lang];
 
   return (
     <section className="relative">
@@ -39,10 +77,10 @@ export function ProblemeSolution() {
             className="text-xs font-medium tracking-wide"
             style={{ color: "var(--acc-text)" }}
           >
-            Le problème
+            {t.eyebrow}
           </p>
           <h2 className="mt-3 max-w-[19ch] font-display text-[1.6rem] leading-[1.2] font-bold tracking-tight text-balance text-[#eef4ff] sm:text-3xl os:text-4xl">
-            Les tâches lourdes ne devraient pas vous ralentir.
+            {t.titre}
           </h2>
         </Reveal>
 
@@ -53,14 +91,27 @@ export function ProblemeSolution() {
           delay={0.1}
           className="mt-10 flex flex-col items-stretch gap-8 os:flex-row os:gap-4"
         >
-          <StuckWindow reduceMotion={reduceMotion} />
-          <Flow reduceMotion={reduceMotion} />
-          <CloudWindow />
+          <StuckWindow reduceMotion={reduceMotion} t={t} />
+          <Flow t={t} reduceMotion={reduceMotion} />
+          <CloudWindow t={t} lang={lang} />
         </Reveal>
       </div>
     </section>
   );
 }
+
+type Textes = {
+  eyebrow: string;
+  titre: string;
+  stuckTitre: string;
+  stuckLabel: string;
+  stuckStatut: string;
+  stuckAlerte: string;
+  stuckLegende: string;
+  flow: string;
+  cloudTitre: string;
+  cloudLegende: string;
+};
 
 function Caption({ children }: { children: React.ReactNode }) {
   return (
@@ -68,7 +119,13 @@ function Caption({ children }: { children: React.ReactNode }) {
   );
 }
 
-function StuckWindow({ reduceMotion }: { reduceMotion: boolean }) {
+function StuckWindow({
+  reduceMotion,
+  t,
+}: {
+  reduceMotion: boolean;
+  t: Textes;
+}) {
   // En mouvement réduit, la fenêtre gèle sur l'état « bloqué » : aucune boucle.
   const pulse = reduceMotion
     ? {}
@@ -84,7 +141,7 @@ function StuckWindow({ reduceMotion }: { reduceMotion: boolean }) {
   return (
     <div className="flex min-w-0 flex-1 flex-col">
       <WindowCard
-        title="Traitement · votre ordinateur"
+        title={t.stuckTitre}
         accent={FAIL}
         borderColor={FAIL_BORDER}
         className="flex flex-1 flex-col"
@@ -103,7 +160,7 @@ function StuckWindow({ reduceMotion }: { reduceMotion: boolean }) {
                   : { duration: 0.9, repeat: Infinity, ease: "linear" }
               }
             />
-            <p className="text-sm font-medium text-white">Traitement local…</p>
+            <p className="text-sm font-medium text-white">{t.stuckStatut}</p>
           </div>
 
           <motion.p
@@ -111,7 +168,7 @@ function StuckWindow({ reduceMotion }: { reduceMotion: boolean }) {
             style={{ color: FAIL }}
             {...pulse}
           >
-            {STUCK_LABEL}
+            {t.stuckLabel}
           </motion.p>
 
           {/* Largeur figée, seule l'opacité respire : le job n'avance pas. */}
@@ -127,20 +184,23 @@ function StuckWindow({ reduceMotion }: { reduceMotion: boolean }) {
             className="mt-3 font-mono text-[11px]"
             style={{ color: FAIL_MUTED }}
           >
-            <span aria-hidden="true">⚠</span> le ventilateur s’emballe · CPU 98°
+            <span aria-hidden="true">⚠</span> {t.stuckAlerte}
           </p>
         </div>
       </WindowCard>
 
-      <Caption>
-        Ça plante sur les gros fichiers, il faut tout installer, et vous
-        attendez, immobilisé.
-      </Caption>
+      <Caption>{t.stuckLegende}</Caption>
     </div>
   );
 }
 
-function Flow({ reduceMotion }: { reduceMotion: boolean }) {
+function Flow({
+  reduceMotion,
+  t,
+}: {
+  reduceMotion: boolean;
+  t: Textes;
+}) {
   return (
     <div
       className="flex shrink-0 flex-col items-center justify-center gap-2 os:w-36 os:self-start os:pt-16"
@@ -177,13 +237,13 @@ function Flow({ reduceMotion }: { reduceMotion: boolean }) {
         className="text-center text-xs leading-snug font-medium text-balance"
         style={{ color: "var(--soft)" }}
       >
-        Cloud Paradise s’en charge
+        {t.flow}
       </p>
     </div>
   );
 }
 
-function CloudWindow() {
+function CloudWindow({ t, lang }: { t: Textes; lang: Lang }) {
   return (
     <div className="flex min-w-0 flex-1 flex-col">
       <WindowCard
@@ -191,16 +251,14 @@ function CloudWindow() {
         className="flex flex-1 flex-col"
       >
         <JobPanel
-          title="Traduire 200 contrats"
+          title={t.cloudTitre}
           chip="DOCUMENTS"
-          logs={CLOUD_LOGS}
+          logs={CLOUD_LOGS[lang]}
+          lang={lang}
         />
       </WindowCard>
 
-      <Caption>
-        Aucune installation. Vous décrivez, l’IA lance le calcul dans le cloud,
-        c’est terminé.
-      </Caption>
+      <Caption>{t.cloudLegende}</Caption>
     </div>
   );
 }

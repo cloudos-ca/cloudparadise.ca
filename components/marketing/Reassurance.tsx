@@ -5,38 +5,69 @@ import { motion, useReducedMotion } from "framer-motion";
 import { WindowCard } from "./WindowCard";
 import { Reveal } from "./Reveal";
 import { IconMessage, IconServer, IconTerminal } from "./icons";
-import { SECTION_Y, SHELL, SOFT_WASH } from "./tokens";
+import { SECTION_Y, SHELL, SOFT_WASH, type Lang } from "./tokens";
 
 /** Étapes du plan proposé par l'IA. */
-const PLAN = [
-  "Lecture des .docx",
-  "Traduction FR → EN",
-  "Archive .zip",
-] as const;
+const PLAN = {
+  fr: ["Lecture des .docx", "Traduction FR → EN", "Archive .zip"],
+  en: ["Read the .docx files", "Translate FR → EN", "Zip archive"],
+} as const;
 
-const POINTS = [
-  {
-    Icone: IconMessage,
-    titre: "Vous décrivez, l’IA planifie",
-    texte: "Elle choisit le bon mode et découpe la tâche pour vous.",
+const POINTS = {
+  fr: [
+    {
+      Icone: IconMessage,
+      titre: "Vous décrivez, l’IA planifie",
+      texte: "Elle choisit le bon mode et découpe la tâche pour vous.",
+    },
+    {
+      Icone: IconTerminal,
+      titre: "Tout est visible en direct",
+      texte:
+        "Logs en temps réel, progression, et le résultat prêt à télécharger.",
+    },
+    {
+      Icone: IconServer,
+      titre: "Des nœuds spécialisés",
+      texte: "GPU/CUDA, média, données… le bon matériel pour chaque calcul.",
+    },
+  ],
+  en: [
+    {
+      Icone: IconMessage,
+      titre: "You describe it, the AI plans it",
+      texte: "It picks the right mode and breaks down the task for you.",
+    },
+    {
+      Icone: IconTerminal,
+      titre: "Everything is visible live",
+      texte: "Real-time logs, progress, and a result ready to download.",
+    },
+    {
+      Icone: IconServer,
+      titre: "Specialized nodes",
+      texte: "GPU/CUDA, media, data… the right hardware for every job.",
+    },
+  ],
+} as const;
+
+const TEXTES = {
+  fr: {
+    eyebrow: "La preuve",
+    titre: "Ce n’est pas magique. C’est de l’infrastructure.",
+    statut: "Infrastructure dédiée · un moteur pour chaque tâche",
   },
-  {
-    Icone: IconTerminal,
-    titre: "Tout est visible en direct",
-    texte:
-      "Logs en temps réel, progression, et le résultat prêt à télécharger.",
+  en: {
+    eyebrow: "The proof",
+    titre: "It’s not magic. It’s infrastructure.",
+    statut: "Dedicated infrastructure · one engine per task",
   },
-  {
-    Icone: IconServer,
-    titre: "Des nœuds spécialisés",
-    texte: "GPU/CUDA, média, données… le bon matériel pour chaque calcul.",
-  },
-] as const;
+} as const;
 
 /** Cadence de la conversation, en ms depuis l'entrée dans le viewport. */
 const TEMPS = { bulle: 0, saisie: 600, plan: 1700 };
 
-export function Reassurance() {
+export function Reassurance({ lang = "fr" }: { lang?: Lang }) {
   const reduceMotion = Boolean(useReducedMotion());
 
   return (
@@ -47,10 +78,10 @@ export function Reassurance() {
             sens, donc il ouvre la section une fois empilé. */}
         <div className="grid items-center gap-10 os:grid-cols-[52fr_48fr] os:gap-12">
           <Reveal delay={0.1} className="os:order-2">
-            <Texte />
+            <Texte lang={lang} />
           </Reveal>
           <Reveal className="os:order-1">
-            <Conversation reduceMotion={reduceMotion} />
+            <Conversation reduceMotion={reduceMotion} lang={lang} />
           </Reveal>
         </div>
       </div>
@@ -58,21 +89,22 @@ export function Reassurance() {
   );
 }
 
-function Texte() {
+function Texte({ lang }: { lang: Lang }) {
+  const t = TEXTES[lang];
   return (
     <div>
       <p
         className="text-xs font-medium tracking-wide"
         style={{ color: "var(--acc-text)" }}
       >
-        La preuve
+        {t.eyebrow}
       </p>
       <h2 className="mt-3 max-w-[22ch] font-display text-[1.6rem] leading-[1.2] font-bold tracking-tight text-balance text-[#eef4ff] sm:text-3xl os:text-4xl">
-        Ce n’est pas magique. C’est de l’infrastructure.
+        {t.titre}
       </h2>
 
       <ul className="mt-8 space-y-5">
-        {POINTS.map(({ Icone, titre, texte }) => (
+        {POINTS[lang].map(({ Icone, titre, texte }) => (
           <li key={titre} className="flex gap-3.5">
             <span
               data-cp-accent
@@ -106,7 +138,7 @@ function Texte() {
       >
         {/* Aucun décompte affiché : le nombre de modes bouge avec le produit,
             et un chiffre figé sur la vitrine devient faux sans prévenir. */}
-        Infrastructure dédiée · un moteur pour chaque tâche
+        {t.statut}
       </p>
     </div>
   );
@@ -119,7 +151,13 @@ function Texte() {
  * une démonstration, pas un décor. Purement illustrative, donc masquée aux
  * lecteurs d'écran ; le sens est porté par les trois points texte à côté.
  */
-function Conversation({ reduceMotion }: { reduceMotion: boolean }) {
+function Conversation({
+  reduceMotion,
+  lang,
+}: {
+  reduceMotion: boolean;
+  lang: Lang;
+}) {
   // 0 rien · 1 la demande · 2 l'IA réfléchit · 3 le plan
   const [etape, setEtape] = useState(reduceMotion ? 3 : 0);
   const lance = useRef(false);
@@ -147,7 +185,13 @@ function Conversation({ reduceMotion }: { reduceMotion: boolean }) {
       viewport={{ once: true, amount: 0.35 }}
       whileInView={{}}
     >
-      <WindowCard title="Planification · Cloud Paradise">
+      <WindowCard
+        title={
+          lang === "en"
+            ? "Planning · Cloud Paradise"
+            : "Planification · Cloud Paradise"
+        }
+      >
         <div className="flex min-h-[248px] flex-col gap-3 p-4">
           {etape >= 1 && (
             <Apparition reduceMotion={reduceMotion}>
@@ -160,7 +204,9 @@ function Conversation({ reduceMotion }: { reduceMotion: boolean }) {
                       "color-mix(in srgb, var(--acc) 14%, transparent)",
                   }}
                 >
-                  Traduisez ces 200 contrats en anglais.
+                  {lang === "en"
+                    ? "Translate these 200 contracts to English."
+                    : "Traduisez ces 200 contrats en anglais."}
                 </p>
               </div>
             </Apparition>
@@ -191,7 +237,7 @@ function Conversation({ reduceMotion }: { reduceMotion: boolean }) {
               <div className="rounded-xl rounded-bl-sm border border-white/10 bg-white/5 p-3">
                 <div className="flex items-center justify-between gap-3">
                   <p className="text-xs font-medium text-[#eef4ff]">
-                    Plan proposé
+                    {lang === "en" ? "Proposed plan" : "Plan proposé"}
                   </p>
                   <span
                     data-cp-accent
@@ -203,7 +249,7 @@ function Conversation({ reduceMotion }: { reduceMotion: boolean }) {
                 </div>
 
                 <ol className="mt-2.5 space-y-1.5">
-                  {PLAN.map((etapePlan, i) => (
+                  {PLAN[lang].map((etapePlan, i) => (
                     <li
                       key={etapePlan}
                       className="flex items-center gap-2 text-xs text-[#93a3c2]"
@@ -229,7 +275,7 @@ function Conversation({ reduceMotion }: { reduceMotion: boolean }) {
                   className="mt-3 inline-block rounded-md px-3 py-1.5 text-xs font-medium text-white"
                   style={{ background: "var(--acc)" }}
                 >
-                  Lancer
+                  {lang === "en" ? "Run" : "Lancer"}
                 </span>
               </div>
             </Apparition>

@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
-import { SOFT_WASH } from "./tokens";
+import { SOFT_WASH, type Lang } from "./tokens";
 
 type JobPanelProps = {
   /** Intitulé du job, tel qu'il apparaît en tête de fenêtre. */
@@ -11,7 +11,10 @@ type JobPanelProps = {
   chip: string;
   /** Lignes de log, jouées en cascade. */
   logs: readonly string[];
+  lang?: Lang;
 };
+
+const BADGE = { fr: "Terminé · télécharger", en: "Done · download" } as const;
 
 /**
  * Le job qui tourne, tel qu'il apparaît dans la fenêtre « Plans ».
@@ -20,7 +23,7 @@ type JobPanelProps = {
  * repartent donc toujours ensemble. En mouvement réduit, l'état final est rendu
  * d'emblée et aucune boucle n'est armée.
  */
-export function JobPanel({ title, chip, logs }: JobPanelProps) {
+export function JobPanel({ title, chip, logs, lang = "fr" }: JobPanelProps) {
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const reduceMotion = useReducedMotion();
   const [cycle, setCycle] = useState(0);
@@ -96,7 +99,7 @@ export function JobPanel({ title, chip, logs }: JobPanelProps) {
           className="inline-block rounded-md px-2.5 py-1 text-[11px] font-medium"
           style={{ background: SOFT_WASH, color: "var(--soft)" }}
         >
-          Terminé · télécharger
+          {BADGE[lang]}
         </span>
       </motion.div>
     </div>
