@@ -19,7 +19,7 @@ export const metadata: Metadata = {
   robots: { index: false, follow: true },
 };
 
-const MAJ = "19 juillet 2026";
+const MAJ = "20 juillet 2026";
 
 /** Le responsable désigné au sens de la Loi 25, art. 3.1. */
 const RESPONSABLE = "Maxime Murray";
@@ -211,6 +211,11 @@ const SECTIONS: readonly SectionRedigee[] = [
             texte:
               "la base de données et les fichiers sont hébergés sur notre propre infrastructure (stockage objet auto-hébergé), et non chez un fournisseur infonuagique tiers.",
           },
+          {
+            terme: "Mesure d’audience :",
+            texte:
+              "nous utilisons Matomo, un outil de mesure d’audience auto-hébergé sur notre propre infrastructure — aucune donnée de navigation n’est communiquée à un tiers (notamment pas à Google Analytics). Le suivi ne démarre qu’après votre consentement explicite (voir la section 6).",
+          },
         ],
       },
       "Nous pouvons aussi communiquer des renseignements lorsque la loi l’exige, pour répondre à une demande légale valide, ou pour protéger nos droits, notre sécurité et ceux de nos utilisateurs.",
@@ -228,7 +233,7 @@ const SECTIONS: readonly SectionRedigee[] = [
         </AFaire>
         .
       </>,
-      "À la différence d’un modèle reposant sur des services infonuagiques externes, la très grande majorité des traitements se déroule sur notre propre infrastructure et ne fait pas l’objet d’une communication hors Québec.",
+      "À la différence d’un modèle reposant sur des services infonuagiques externes, la très grande majorité des traitements se déroule sur notre propre infrastructure et ne fait pas l’objet d’une communication hors Québec. C’est aussi le cas des données de mesure d’audience (Matomo), hébergées sur cette même infrastructure.",
       <>
         La seule communication susceptible d’entraîner un traitement hors Québec
         est le traitement des paiements par PayPal. La Loi 25 exige, avant toute
@@ -251,7 +256,22 @@ const SECTIONS: readonly SectionRedigee[] = [
     titre: "Témoins (cookies) et traceurs",
     blocs: [
       "Nous utilisons des témoins strictement nécessaires au fonctionnement du Service, notamment pour maintenir votre session une fois connecté et pour la sécurité. Ces témoins ne peuvent pas être désactivés sans empêcher le Service de fonctionner.",
-      "Nous n’utilisons pas, à ce jour, de témoins publicitaires ni de traceurs de tiers à des fins de mesure d’audience. Cette section devra être révisée dès qu’un outil d’analyse ou de mesure d’audience est ajouté, et un mécanisme de consentement approprié devra alors être mis en place.",
+      {
+        liste: [
+          {
+            terme: "Mesure d’audience — Matomo.",
+            texte:
+              "Nous utilisons Matomo, auto-hébergé sur notre propre infrastructure, pour savoir quelles pages sont consultées, en quel nombre, et quels liens sortants sont cliqués. Aucune donnée n’est transmise à un service tiers (notamment pas à Google Analytics), et ces renseignements ne servent à aucune fin publicitaire.",
+          },
+        ],
+      },
+      "Ce suivi ne démarre qu’après que vous ayez cliqué « Accepter » dans la bannière affichée à votre première visite. Si vous cliquez « Refuser », ou si vous ne faites aucun choix, aucun témoin de mesure d’audience n’est déposé. Vous pouvez changer d’avis en tout temps en effaçant les données de navigation stockées pour ce site depuis les paramètres de votre navigateur, ce qui réaffichera la bannière.",
+      <>
+        <AFaire>
+          À compléter — durée de conservation des données de mesure
+          d’audience, une fois la configuration du serveur Matomo arrêtée
+        </AFaire>
+      </>,
     ],
   },
   {

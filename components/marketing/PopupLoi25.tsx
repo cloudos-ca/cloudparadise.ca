@@ -3,13 +3,10 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
+import { ecrireConsentement, lireConsentement, type Consentement } from "./consentement";
 import { IconLock } from "./icons";
 import { WindowCard } from "./WindowCard";
 import type { Lang } from "./tokens";
-
-type Consentement = "accepte" | "refuse";
-
-const CLE_CONSENTEMENT = "cp-loi25-consentement-v1";
 
 /**
  * Le lien de politique reste vers la page française dans les deux langues :
@@ -51,15 +48,14 @@ export function PopupLoi25({ lang = "fr" }: { lang?: Lang }) {
   const t = TEXTES[lang];
 
   useEffect(() => {
-    const choix = window.localStorage.getItem(CLE_CONSENTEMENT);
-    if (choix === "accepte" || choix === "refuse") return;
+    if (lireConsentement()) return;
 
     const id = window.requestAnimationFrame(() => setVisible(true));
     return () => window.cancelAnimationFrame(id);
   }, []);
 
   const enregistrerChoix = (choix: Consentement) => {
-    window.localStorage.setItem(CLE_CONSENTEMENT, choix);
+    ecrireConsentement(choix);
     setVisible(false);
   };
 
