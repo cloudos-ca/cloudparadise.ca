@@ -134,7 +134,10 @@ export function FenetreCta({
  */
 function Halo({ reduceMotion }: { reduceMotion: boolean }) {
   return (
-    <span aria-hidden="true" className="relative mx-auto block h-12 w-[163px]">
+    <span
+      aria-hidden="true"
+      className="relative mx-auto block h-12 aspect-[401/295]"
+    >
       {/* Le souffle lumineux, séparé du logo : on n'anime qu'une opacité. */}
       {!reduceMotion && (
         <motion.span
