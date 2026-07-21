@@ -1,12 +1,8 @@
 import type { Metadata } from "next";
 import { MatomoAnalytics } from "@/components/marketing/MatomoAnalytics";
-import { SITE_URL } from "@/lib/seo";
+import { SITE_URL, TITRE_ACCUEIL, DESCRIPTION_ACCUEIL } from "@/lib/seo";
 import { comfortaa, workSans } from "./fonts";
 import "./globals.css";
-
-const TITRE_ACCUEIL = "Cloud Paradise — Décrivez la tâche. On s'occupe du calcul.";
-const DESCRIPTION_ACCUEIL =
-  "Déposez vos fichiers, dites ce que vous voulez en mots simples. L'IA choisit le bon mode et lance le calcul dans le cloud. Vous n'avez qu'à récupérer le résultat.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -65,6 +61,13 @@ export default function RootLayout({
       className={`${comfortaa.variable} ${workSans.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col font-sans">
+        {/* Organisation + site : repère stable pour Google, voir JSON_LD
+            ci-dessus. `dangerouslySetInnerHTML` est sans risque ici, le
+            contenu est un objet littéral du code, pas une entrée utilisateur. */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(JSON_LD) }}
+        />
         {children}
         {/* Site entier (FR + EN) : voir MatomoAnalytics.tsx pour la porte de
             consentement. */}

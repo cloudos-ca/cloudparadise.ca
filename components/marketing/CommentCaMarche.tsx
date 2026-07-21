@@ -70,7 +70,7 @@ export function CommentCaMarche({ lang = "fr" }: { lang?: Lang }) {
   return (
     // Cible de « Voir la démo », depuis le hero : cette section est la
     // démonstration du parcours. L'ancre pointait jusqu'ici dans le vide.
-    <section id="demo" className="relative scroll-mt-16">
+    <section id="demo" className="relative scroll-mt-20">
       {/* Troisième amorce volontairement différente : les deux sections
           précédentes ouvrent à gauche, celle-ci est centrée — ce que sa
           composition symétrique en quatre temps appelle de toute façon. */}

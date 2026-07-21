@@ -21,7 +21,7 @@ const COLONNES = {
         { libelle: "Tarifs", href: "/tarifs" },
         // Même cible que la barre de menu : `#` ne faisait que remonter en
         // haut de page, ce qui est pire qu'un lien en attente d'être branché.
-        { libelle: "Se connecter", href: "/connexion" },
+        { libelle: "Se connecter", href: "https://app.cloudparadise.cloud/login" },
       ],
     },
     {
@@ -39,7 +39,7 @@ const COLONNES = {
       liens: [
         { libelle: "Features", href: "/en/fonctions" },
         { libelle: "Pricing", href: "/en/tarifs" },
-        { libelle: "Log in", href: "/en/connexion" },
+        { libelle: "Log in", href: "https://app.cloudparadise.cloud/login" },
       ],
     },
     {
@@ -54,8 +54,10 @@ const COLONNES = {
 } as const;
 
 /**
- * Chrome neutre : le pied de page ne suit pas la recoloration globale. Seul le
- * logo garde ses couleurs, halo compris.
+ * Chrome neutre, à une exception près : la mention de copyright suit
+ * désormais l'accent (`--acc-text`), comme signature discrète que la
+ * recoloration va jusqu'en bas de page. Les colonnes de liens et le logo
+ * (halo compris) restent fixes.
  */
 export function Footer({ lang = "fr" }: { lang?: Lang }) {
   return (
@@ -70,7 +72,13 @@ export function Footer({ lang = "fr" }: { lang?: Lang }) {
               height={295}
               className="h-[84px] w-auto"
             />
-            <p className="mt-3 text-xs text-[#93a3c2]">© 2026 Cloud Paradise</p>
+            <p
+              data-cp-accent
+              className="mt-3 text-xs"
+              style={{ color: "var(--acc-text)" }}
+            >
+              © 2026 Cloud Paradise
+            </p>
           </div>
 
           <nav aria-label={lang === "en" ? "Footer links" : "Liens de pied de page"}>

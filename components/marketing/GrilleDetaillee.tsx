@@ -336,9 +336,8 @@ function Prix({ type, lang }: { type: TypeTache; lang: Lang }) {
 
   return (
     <span
-      data-cp-accent
       className="font-display text-[15px] font-bold tabular-nums"
-      style={{ color: "var(--soft)" }}
+      style={{ color: "var(--cta)" }}
     >
       {nfCredit.format(cout)}
     </span>

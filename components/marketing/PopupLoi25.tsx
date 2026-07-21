@@ -95,7 +95,8 @@ export function PopupLoi25({ lang = "fr" }: { lang?: Lang }) {
             <button
               type="button"
               onClick={() => enregistrerChoix("refuse")}
-              className="cursor-pointer rounded-md border border-white/20 bg-white/[0.04] px-3.5 py-1.5 text-[13px] font-medium text-white transition-colors hover:bg-white/[0.08] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+              data-cp-accent
+              className="cursor-pointer rounded-md border border-[color-mix(in_srgb,var(--acc)_35%,transparent)] bg-white/[0.04] px-3.5 py-1.5 text-[13px] font-medium text-white transition-colors hover:border-[color-mix(in_srgb,var(--acc)_55%,transparent)] hover:bg-white/[0.08] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
             >
               {t.refuser}
             </button>

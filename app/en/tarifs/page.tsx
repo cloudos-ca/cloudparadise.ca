@@ -2,17 +2,40 @@ import type { Metadata } from "next";
 import { BadgeOffre } from "@/components/marketing/BadgeOffre";
 import { Estimateur } from "@/components/marketing/Estimateur";
 import { FaqTarifs } from "@/components/marketing/FaqTarifs";
+import { questionsDe } from "@/components/marketing/faqTarifsContenu";
 import { FenetreCta } from "@/components/marketing/FenetreCta";
 import { GrilleDetaillee } from "@/components/marketing/GrilleDetaillee";
 import { PageEntete } from "@/components/marketing/PageEntete";
 import { Reveal } from "@/components/marketing/Reveal";
-import { IconInfinity, IconRefresh } from "@/components/marketing/icons";
+import { IconCheck, IconInfinity, IconRefresh } from "@/components/marketing/icons";
 import { OFFRE_EN_DEVISE } from "@/components/marketing/offre";
 import { LECTURE, SECTION_Y, SHELL } from "@/components/marketing/tokens";
+import { alternatesBilingues, openGraphPage } from "@/lib/seo";
+
+const PROMESSES = ["Free credits", "No card required", "No subscription"];
+
+const TITRE = "Pricing — Cloud Paradise";
+const DESCRIPTION = `Credits, not a subscription. ${OFFRE_EN_DEVISE} in free credits on signup, plus the full cost breakdown for every processing mode.`;
 
 export const metadata: Metadata = {
-  title: "Pricing — Cloud Paradise",
-  description: `Credits, not a subscription. ${OFFRE_EN_DEVISE} in free credits on signup, plus the full cost breakdown for every processing mode.`,
+  title: TITRE,
+  description: DESCRIPTION,
+  alternates: alternatesBilingues("/tarifs", "/en/tarifs", "en"),
+  openGraph: openGraphPage(TITRE, DESCRIPTION, "en"),
+};
+
+/**
+ * FAQPage en JSON-LD, à partir des mêmes Q/R que l'accordéon affiché plus
+ * bas : une seule source de texte, pas de copie qui pourrait diverger.
+ */
+const FAQ_JSON_LD = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: questionsDe("en").map(({ q, r }) => ({
+    "@type": "Question",
+    name: q,
+    acceptedAnswer: { "@type": "Answer", text: r },
+  })),
 };
 
 /**
@@ -37,6 +60,10 @@ export default function TarifsPageEn() {
     // `overflow-x-clip` : la lueur du CTA déborde volontairement de sa fenêtre
     // et pousserait la page hors cadre sur petit écran sans ce clip.
     <section className="relative overflow-x-clip">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(FAQ_JSON_LD) }}
+      />
       <div className={`${SHELL} ${SECTION_Y}`}>
         {/* 1 — En-tête, le même composant que Contact et les pages légales. */}
         <PageEntete
@@ -110,18 +137,31 @@ export default function TarifsPageEn() {
           <FenetreCta
             lang="en"
             className={`${LECTURE} mx-auto`}
-            soustitre={
-              <>Create your account, your first task follows right away.</>
-            }
+            soustitre={<>Create your account and run your first task today.</>}
             bouton={{
-              href: "/en/inscription",
-              libelle: `Start with ${OFFRE_EN_DEVISE} free`,
+              href: "https://app.cloudparadise.cloud/register",
+              libelle: "Start for free",
             }}
             lien={{
               href: "/en/contact",
               libelle: "Questions? Contact us",
             }}
-          />
+            badgeSansCarte={false}
+          >
+            <ul className="mt-8 flex flex-wrap justify-center gap-x-5 gap-y-2.5">
+              {PROMESSES.map((promesse) => (
+                <li
+                  key={promesse}
+                  className="flex items-center gap-1.5 text-xs text-[#93a3c2]"
+                >
+                  <span data-cp-accent style={{ color: "var(--soft)" }}>
+                    <IconCheck className="size-3.5" />
+                  </span>
+                  {promesse}
+                </li>
+              ))}
+            </ul>
+          </FenetreCta>
         </Reveal>
       </div>
     </section>

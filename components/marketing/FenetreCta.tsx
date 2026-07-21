@@ -1,6 +1,7 @@
 "use client";
 
 import type { ReactNode } from "react";
+import Image from "next/image";
 import { motion, useReducedMotion } from "framer-motion";
 import { BadgeOffre } from "./BadgeOffre";
 import { BoutonCta } from "./BoutonCta";
@@ -12,7 +13,7 @@ const TAGLINE = {
   en: { ligne1: "Describe the task.", ligne2: "We handle the compute." },
 } as const;
 
-/** Jaune de marque. Constante, jamais dérivée de l'accent : le halo ne bouge pas. */
+/** Jaune de marque, pour la lueur derrière le logo — jamais dérivé de l'accent. */
 const HALO = "#edbe54";
 
 type FenetreCtaProps = {
@@ -110,7 +111,8 @@ export function FenetreCta({
               </BoutonCta>
               <a
                 href={lien.href}
-                className="text-xs text-cp-subtle underline-offset-4 hover:text-white hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+                data-cp-accent
+                className="text-xs text-cp-subtle underline-offset-4 hover:text-[var(--acc-text)] hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
               >
                 {lien.libelle}
               </a>
@@ -125,16 +127,15 @@ export function FenetreCta({
 }
 
 /**
- * L'anneau de marque, seul.
+ * Le logo, seul, en clôture de page.
  *
- * Le logo complet vit déjà dans la barre de menu et dans le pied de page ; le
- * redonner ici ferait trois signatures. Le halo suffit à signer la fin de page.
- * Sa couleur est écrite en dur : aucun thème ne doit l'atteindre.
+ * Contrairement au reste de la fenêtre, sa couleur est écrite en dur (fichier
+ * SVG) : aucun thème ne doit l'atteindre.
  */
 function Halo({ reduceMotion }: { reduceMotion: boolean }) {
   return (
-    <span aria-hidden="true" className="relative mx-auto block h-6 w-[104px]">
-      {/* Le souffle lumineux, séparé de l'anneau : on n'anime qu'une opacité. */}
+    <span aria-hidden="true" className="relative mx-auto block h-12 w-[163px]">
+      {/* Le souffle lumineux, séparé du logo : on n'anime qu'une opacité. */}
       {!reduceMotion && (
         <motion.span
           className="absolute inset-0 rounded-[50%]"
@@ -143,14 +144,13 @@ function Halo({ reduceMotion }: { reduceMotion: boolean }) {
           transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
         />
       )}
-      <svg
-        viewBox="0 0 120 34"
-        className="relative h-full w-full"
-        fill="none"
-        preserveAspectRatio="xMidYMid meet"
-      >
-        <ellipse cx="60" cy="17" rx="52" ry="12" stroke={HALO} strokeWidth="7" />
-      </svg>
+      <Image
+        src="/brand/logo-blanc-et-jaune.svg"
+        alt=""
+        width={401}
+        height={295}
+        className="relative h-full w-auto"
+      />
     </span>
   );
 }

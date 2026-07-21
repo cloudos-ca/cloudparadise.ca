@@ -41,7 +41,7 @@ export function CtaFinal({ lang = "fr" }: { lang?: Lang }) {
             badgeSansCarte={false}
             soustitre={<>{t.soustitre}</>}
             bouton={{
-              href: lang === "en" ? "/en/inscription" : "/inscription",
+              href: "https://app.cloudparadise.cloud/register",
               libelle: t.bouton,
             }}
             lien={{

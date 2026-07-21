@@ -92,14 +92,15 @@ function Copy({ lang }: { lang: Lang }) {
 
       <div className="mt-7 flex flex-wrap items-center gap-3">
         <BoutonCta
-          href={lang === "en" ? "/en/inscription" : "/inscription"}
+          href="https://app.cloudparadise.cloud/register"
           taille="lg"
         >
           {t.cta}
         </BoutonCta>
         <a
           href="#demo"
-          className="flex items-center gap-2 rounded-lg border border-white/20 px-5 py-2.5 text-sm font-medium text-cp-ghost hover:border-white/40 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+          data-cp-accent
+          className="flex items-center gap-2 rounded-lg border border-[color-mix(in_srgb,var(--acc)_35%,transparent)] px-5 py-2.5 text-sm font-medium text-cp-ghost hover:border-[color-mix(in_srgb,var(--acc)_65%,transparent)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
         >
           <svg
             aria-hidden="true"

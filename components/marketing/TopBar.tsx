@@ -78,21 +78,23 @@ export function TopBar({ lang = "fr" }: { lang?: Lang }) {
           : "border-b border-transparent"
       }`}
     >
-      <div className={`${SHELL} flex h-[60px] items-center gap-6`}>
+      <div className={`${SHELL} flex h-[78px] items-center gap-6`}>
         {/* Le logo ramène à l'accueil — convention attendue de toute barre de
             site, et le seul retour depuis les pages intérieures depuis que
             « Infrastructure » a quitté la navigation.
             `alt` vide : le texte du lien porte déjà le nom, sinon un lecteur
-            d'écran annoncerait « Cloud Paradise, accueil, Cloud Paradise ». */}
+            d'écran annoncerait « Cloud Paradise, accueil, Cloud Paradise ».
+            `ml-4` : air supplémentaire par rapport au bord gauche, en plus du
+            padding de SHELL partagé avec le reste des sections. */}
         <Link
           href={lang === "en" ? "/en" : "/"}
           aria-label={
             lang === "en" ? "Cloud Paradise — home" : "Cloud Paradise — accueil"
           }
-          className="shrink-0 rounded-sm focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
+          className="ml-4 shrink-0 rounded-sm focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
         >
           {/* Lockup empilé (halo / nuage / « paradise ») : la marque n'est
-              lisible qu'à partir d'une certaine hauteur, d'où la barre à 60px
+              lisible qu'à partir d'une certaine hauteur, d'où la barre à 78px
               pour lui laisser la place. Hauteur explicite + w-auto = ratio
               401:295 gardé. */}
           <Image
@@ -165,14 +167,14 @@ export function TopBar({ lang = "fr" }: { lang?: Lang }) {
           </div>
 
           <a
-            href={lang === "en" ? "/en/connexion" : "/connexion"}
+            href="https://app.cloudparadise.cloud/login"
             className="hidden text-[13px] text-cp-subtle transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white bar:inline"
           >
             {lang === "en" ? "Log in" : "Se connecter"}
           </a>
 
           <BoutonCta
-            href={lang === "en" ? "/en/inscription" : "/inscription"}
+            href="https://app.cloudparadise.cloud/register"
             taille="sm"
             className="shrink-0"
           >
@@ -220,7 +222,7 @@ export function TopBar({ lang = "fr" }: { lang?: Lang }) {
               })),
               {
                 libelle: lang === "en" ? "Log in" : "Se connecter",
-                href: lang === "en" ? "/en/connexion" : "/connexion",
+                href: "https://app.cloudparadise.cloud/login",
               },
             ].map(({ libelle, href }) => (
               <li key={href}>

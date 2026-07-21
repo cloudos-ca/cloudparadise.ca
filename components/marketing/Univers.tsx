@@ -207,7 +207,7 @@ export function Univers({ lang = "fr" }: { lang?: Lang }) {
   const univers = universDe(lang);
 
   return (
-    <section id="univers" className="relative scroll-mt-16">
+    <section id="univers" className="relative scroll-mt-20">
       <div className={`${SHELL} ${SECTION_Y}`}>
         <Reveal>
           <p

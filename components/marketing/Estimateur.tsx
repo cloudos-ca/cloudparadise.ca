@@ -96,9 +96,8 @@ export function Estimateur({
 
       <div className="mt-5 flex items-baseline gap-2">
         <span
-          data-cp-accent
           className="font-display text-3xl font-bold"
-          style={{ color: "var(--soft)" }}
+          style={{ color: "var(--cta)" }}
         >
           {nf.format(credits)}
         </span>
@@ -134,9 +133,8 @@ export function Estimateur({
               ≈
             </span>
             <dt
-              data-cp-accent
               className="font-medium tabular-nums"
-              style={{ color: "var(--soft)" }}
+              style={{ color: "var(--cta)" }}
             >
               {valeur}
             </dt>

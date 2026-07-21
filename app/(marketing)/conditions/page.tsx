@@ -14,6 +14,8 @@ export const metadata: Metadata = {
     "Conditions d’utilisation de Cloud Paradise. Document de structure en cours de rédaction, à faire valider juridiquement.",
   // Une coquille non validée n'a rien à faire dans un index de recherche.
   robots: { index: false, follow: true },
+  // Pas de pendant anglais : un canonical simple, pas de hreflang.
+  alternates: { canonical: "/conditions" },
 };
 
 /**

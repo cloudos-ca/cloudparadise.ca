@@ -4,11 +4,17 @@ import { FenetreContact } from "@/components/marketing/FenetreContact";
 import { PageEntete } from "@/components/marketing/PageEntete";
 import { Reveal } from "@/components/marketing/Reveal";
 import { SECTION_Y, SHELL } from "@/components/marketing/tokens";
+import { alternatesBilingues, openGraphPage } from "@/lib/seo";
+
+const TITRE = "Contact — Cloud Paradise";
+const DESCRIPTION =
+  "Écrivez-nous : courriel, téléphone et adresse de Cloud Paradise, à Amos au Québec.";
 
 export const metadata: Metadata = {
-  title: "Contact — Cloud Paradise",
-  description:
-    "Écrivez-nous : courriel, téléphone et adresse de Cloud Paradise, à Amos au Québec.",
+  title: TITRE,
+  description: DESCRIPTION,
+  alternates: alternatesBilingues("/contact", "/en/contact", "fr"),
+  openGraph: openGraphPage(TITRE, DESCRIPTION, "fr"),
 };
 
 export default function ContactPage() {

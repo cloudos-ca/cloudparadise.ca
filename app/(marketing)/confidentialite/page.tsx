@@ -17,6 +17,8 @@ export const metadata: Metadata = {
     "Comment Cloud Paradise recueille, utilise et protège les renseignements personnels, conformément à la Loi 25.",
   // Reste hors index tant qu'un juriste n'a pas signé le texte.
   robots: { index: false, follow: true },
+  // Pas de pendant anglais : un canonical simple, pas de hreflang.
+  alternates: { canonical: "/confidentialite" },
 };
 
 const MAJ = "20 juillet 2026";

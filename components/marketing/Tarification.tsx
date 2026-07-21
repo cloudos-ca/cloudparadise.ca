@@ -73,7 +73,7 @@ export function Tarification({ lang = "fr" }: { lang?: Lang }) {
   const t = TEXTES[lang];
   return (
     // Cible de « Voir les tarifs », depuis le closer.
-    <section id="tarifs" className="relative scroll-mt-16">
+    <section id="tarifs" className="relative scroll-mt-20">
       <div className={`${SHELL} ${SECTION_Y}`}>
         <Reveal className="text-center">
           <p
@@ -154,9 +154,8 @@ function Grille({ lang }: { lang: Lang }) {
               </dd>
             ) : (
               <dd
-                data-cp-accent
                 className="text-[13px] font-medium tabular-nums"
-                style={{ color: "var(--soft)" }}
+                style={{ color: "var(--cta)" }}
               >
                 {nfCredit.format(cout)}
               </dd>

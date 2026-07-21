@@ -71,7 +71,7 @@ export function Reassurance({ lang = "fr" }: { lang?: Lang }) {
   const reduceMotion = Boolean(useReducedMotion());
 
   return (
-    <section id="infrastructure" className="relative scroll-mt-16">
+    <section id="infrastructure" className="relative scroll-mt-20">
       <div className={`${SHELL} ${SECTION_Y}`}>
         {/* Miroir du hero : le visuel passe à gauche et le texte à droite.
             L'ordre du DOM garde le texte en premier — c'est lui qui porte le

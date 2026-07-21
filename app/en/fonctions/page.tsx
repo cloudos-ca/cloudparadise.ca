@@ -2,14 +2,23 @@ import type { Metadata } from "next";
 import { CommentCaMarche } from "@/components/marketing/CommentCaMarche";
 import { FenetreCta } from "@/components/marketing/FenetreCta";
 import { FenetresModes } from "@/components/marketing/FenetresModes";
+import { IconCheck } from "@/components/marketing/icons";
 import { PageEntete } from "@/components/marketing/PageEntete";
 import { Reveal } from "@/components/marketing/Reveal";
 import { LECTURE, SECTION_Y, SHELL } from "@/components/marketing/tokens";
+import { alternatesBilingues, openGraphPage } from "@/lib/seo";
+
+const PROMESSES = ["Free credits", "No card required", "No subscription"];
+
+const TITRE = "Features — Cloud Paradise";
+const DESCRIPTION =
+  "Documents, data, media, scraping, GPU compute, 3D rendering, images, 3D printing, simulation: describe what you want, the AI picks the right engine and runs the job in the cloud.";
 
 export const metadata: Metadata = {
-  title: "Features — Cloud Paradise",
-  description:
-    "Documents, data, media, scraping, GPU compute, 3D rendering, images, 3D printing, simulation: describe what you want, the AI picks the right engine and runs the job in the cloud.",
+  title: TITRE,
+  description: DESCRIPTION,
+  alternates: alternatesBilingues("/fonctions", "/en/fonctions", "en"),
+  openGraph: openGraphPage(TITRE, DESCRIPTION, "en"),
 };
 
 export default function FonctionsPageEn() {
@@ -46,11 +55,26 @@ export default function FonctionsPageEn() {
             className={`${LECTURE} mx-auto`}
             soustitre={<>Create your account and run your first task today.</>}
             bouton={{
-              href: "/en/inscription",
+              href: "https://app.cloudparadise.cloud/register",
               libelle: "Start for free",
             }}
             lien={{ href: "/en/tarifs", libelle: "See pricing" }}
-          />
+            badgeSansCarte={false}
+          >
+            <ul className="mt-8 flex flex-wrap justify-center gap-x-5 gap-y-2.5">
+              {PROMESSES.map((promesse) => (
+                <li
+                  key={promesse}
+                  className="flex items-center gap-1.5 text-xs text-[#93a3c2]"
+                >
+                  <span data-cp-accent style={{ color: "var(--soft)" }}>
+                    <IconCheck className="size-3.5" />
+                  </span>
+                  {promesse}
+                </li>
+              ))}
+            </ul>
+          </FenetreCta>
         </Reveal>
       </div>
     </section>

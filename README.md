@@ -69,8 +69,12 @@ titre.
 Le halo, lui, ne bouge jamais : il fait partie du fichier logo, donc aucune
 règle CSS ne peut le repeindre.
 
-Sur le reste de la landing, l'accent est fixe (bleu et cyan de la charte). Seul
-le hero fait la démonstration du fond qui change.
+Au-delà du hero, quelques éléments suivent aussi l'accent : la mention de
+copyright du pied de page, le bouton secondaire « Voir la démo » du hero, le
+bouton « Refuser » du bandeau Loi 25, et le lien « Voir les tarifs » des
+fenêtres CTA. Le reste (navigation de la barre de menu, liens du pied de page,
+bouton « Commencer » doré) reste volontairement fixe : la recoloration doit
+rester un signal repérable, pas un effet généralisé.
 
 ## Fonds adaptatifs
 

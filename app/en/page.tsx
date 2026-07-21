@@ -6,11 +6,17 @@ import { Univers } from "@/components/marketing/Univers";
 import { Reassurance } from "@/components/marketing/Reassurance";
 import { Tarification } from "@/components/marketing/Tarification";
 import { CtaFinal } from "@/components/marketing/CtaFinal";
+import { alternatesBilingues, openGraphPage } from "@/lib/seo";
+
+const TITRE = "Cloud Paradise — Describe the task. We handle the compute.";
+const DESCRIPTION =
+  "Drop your files, say what you want in plain words. The AI picks the right mode and runs the job in the cloud. You just grab the result.";
 
 export const metadata: Metadata = {
-  title: "Cloud Paradise — Describe the task. We handle the compute.",
-  description:
-    "Drop your files, say what you want in plain words. The AI picks the right mode and runs the job in the cloud. You just grab the result.",
+  title: TITRE,
+  description: DESCRIPTION,
+  alternates: alternatesBilingues("/", "/en", "en"),
+  openGraph: openGraphPage(TITRE, DESCRIPTION, "en"),
 };
 
 export default function MarketingPageEn() {
