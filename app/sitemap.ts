@@ -1,11 +1,6 @@
 import type { MetadataRoute } from "next";
 import { SITE_URL } from "@/lib/seo";
 
-/**
- * Conditions et confidentialité sont volontairement absentes : elles portent
- * `robots: { index: false }` tant qu'un juriste n'a pas validé le texte, et un
- * sitemap ne doit lister que des pages indexables.
- */
 export default function sitemap(): MetadataRoute.Sitemap {
   const pagesBilingues: Array<{
     fr: string;
@@ -30,6 +25,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
       fr: "/contact",
       en: "/en/contact",
       priority: 0.5,
+      changeFrequency: "yearly",
+    },
+    {
+      fr: "/conditions",
+      en: "/en/conditions",
+      priority: 0.3,
+      changeFrequency: "yearly",
+    },
+    {
+      fr: "/confidentialite",
+      en: "/en/confidentialite",
+      priority: 0.3,
       changeFrequency: "yearly",
     },
   ];

@@ -1,0 +1,64 @@
+"use client";
+
+import { useEffect } from "react";
+
+/**
+ * Dernier recours : ne se déclenche que si un layout racine lui-même plante
+ * (très improbable, ni `(marketing)/layout.tsx` ni `en/layout.tsx` ne font de
+ * traitement de données). Doit fournir son propre `<html>`/`<body>` et rester
+ * simple — pas d'export `metadata` possible sur un Client Component, et mieux
+ * vaut ne dépendre de rien qui pourrait, lui aussi, avoir causé le plantage.
+ */
+export default function GlobalError({
+  error,
+  unstable_retry,
+}: {
+  error: Error & { digest?: string };
+  unstable_retry: () => void;
+}) {
+  useEffect(() => {
+    console.error(error);
+  }, [error]);
+
+  return (
+    <html lang="fr">
+      <body
+        style={{
+          display: "flex",
+          minHeight: "100vh",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
+          gap: "1rem",
+          background: "#1b273d",
+          color: "#eef4ff",
+          fontFamily: "system-ui, sans-serif",
+          textAlign: "center",
+          padding: "2rem",
+        }}
+      >
+        <h1 style={{ fontSize: "1.5rem", fontWeight: 700 }}>
+          Une erreur est survenue.
+        </h1>
+        <p style={{ color: "#93a3c2", maxWidth: "32rem" }}>
+          Réessayez dans un instant. Si le problème persiste, revenez plus
+          tard.
+        </p>
+        <button
+          type="button"
+          onClick={() => unstable_retry()}
+          style={{
+            padding: "0.625rem 1.25rem",
+            borderRadius: "0.5rem",
+            border: "1px solid rgba(255,255,255,.2)",
+            background: "transparent",
+            color: "#eef4ff",
+            cursor: "pointer",
+          }}
+        >
+          Réessayer
+        </button>
+      </body>
+    </html>
+  );
+}

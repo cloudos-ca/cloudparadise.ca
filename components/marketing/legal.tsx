@@ -56,13 +56,19 @@ export function AFaire({ children }: { children: ReactNode }) {
   );
 }
 
-/** Un bloc de texte : soit un paragraphe, soit une liste de points. */
+/**
+ * Un bloc de texte : un paragraphe, une liste de points, ou un élément de
+ * bloc brut (table, citation, liste numérotée…) qui ne doit pas se retrouver
+ * imbriqué dans un `<p>` — imbrication invalide en HTML, et source de
+ * décalages d'hydratation.
+ */
 export type BlocLegal =
   | ReactNode
   | {
       /** Chaque point peut ouvrir sur un terme mis en évidence. */
       liste: readonly { terme?: string; texte: ReactNode }[];
-    };
+    }
+  | { brut: ReactNode };
 
 export type SectionRedigee = {
   titre: string;
@@ -71,6 +77,10 @@ export type SectionRedigee = {
 
 function estListe(bloc: BlocLegal): bloc is { liste: readonly { terme?: string; texte: ReactNode }[] } {
   return typeof bloc === "object" && bloc !== null && "liste" in bloc;
+}
+
+function estBrut(bloc: BlocLegal): bloc is { brut: ReactNode } {
+  return typeof bloc === "object" && bloc !== null && "brut" in bloc;
 }
 
 /**
@@ -122,6 +132,8 @@ export function SectionsRedigees({
                     </li>
                   ))}
                 </ul>
+              ) : estBrut(bloc) ? (
+                <div key={j}>{bloc.brut}</div>
               ) : (
                 <p key={j}>{bloc}</p>
               ),

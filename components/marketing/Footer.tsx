@@ -7,10 +7,6 @@ import { SHELL, type Lang } from "./tokens";
  * La colonne Légal pointe vers de vraies pages ; la colonne Produit reste en
  * ancres inertes tant que les destinations n'existent pas — mieux vaut un `#`
  * qu'un lien vers une 404.
- *
- * Conditions et Confidentialité n'existent qu'en français (le texte légal
- * n'est pas encore validé) : côté anglais, ces deux liens renvoient quand
- * même vers la version française plutôt que vers une page `/en` inexistante.
  */
 const COLONNES = {
   fr: [
@@ -45,8 +41,8 @@ const COLONNES = {
     {
       titre: "Legal",
       liens: [
-        { libelle: "Terms", href: "/conditions" },
-        { libelle: "Privacy", href: "/confidentialite" },
+        { libelle: "Terms", href: "/en/conditions" },
+        { libelle: "Privacy", href: "/en/confidentialite" },
         { libelle: "Contact", href: "/en/contact" },
       ],
     },

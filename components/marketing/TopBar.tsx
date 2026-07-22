@@ -24,16 +24,14 @@ const NAV = [
   { libelle: { fr: "Contact", en: "Contact" }, chemin: "contact" },
 ] as const;
 
-/**
- * Les seules pages qui existent dans les deux langues — Conditions et
- * Confidentialité restent français-seulement tant que le texte légal n'est
- * pas validé, donc pas de pendant `/en` à leur offrir.
- */
+/** Les pages qui existent dans les deux langues. */
 const PAGES_BILINGUES = [
   { fr: "/", en: "/en" },
   { fr: "/fonctions", en: "/en/fonctions" },
   { fr: "/tarifs", en: "/en/tarifs" },
   { fr: "/contact", en: "/en/contact" },
+  { fr: "/conditions", en: "/en/conditions" },
+  { fr: "/confidentialite", en: "/en/confidentialite" },
 ] as const;
 
 /** Chemin équivalent dans l'autre langue, ou la racine de cette langue si la page n'a pas de pendant. */

@@ -1,32 +1,7 @@
-import type { Metadata } from "next";
 import { MatomoAnalytics } from "@/components/marketing/MatomoAnalytics";
-import { SITE_URL, TITRE_ACCUEIL, DESCRIPTION_ACCUEIL } from "@/lib/seo";
-import { comfortaa, workSans } from "./fonts";
-import "./globals.css";
-
-export const metadata: Metadata = {
-  metadataBase: new URL(SITE_URL),
-  title: TITRE_ACCUEIL,
-  description: DESCRIPTION_ACCUEIL,
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: { index: true, follow: true, "max-image-preview": "large" },
-  },
-  openGraph: {
-    title: TITRE_ACCUEIL,
-    description: DESCRIPTION_ACCUEIL,
-    siteName: "Cloud Paradise",
-    locale: "fr_CA",
-    type: "website",
-  },
-  twitter: {
-    card: "summary_large_image",
-  },
-  icons: {
-    icon: "/favicon.ico",
-  },
-};
+import { SITE_URL } from "@/lib/seo";
+import { comfortaa, workSans } from "@/app/fonts";
+import "@/app/globals.css";
 
 /**
  * Organisation + site, en JSON-LD — sert de repère stable à Google pour le
@@ -50,14 +25,24 @@ const JSON_LD = {
   ],
 };
 
-export default function RootLayout({
+/**
+ * Coquille `<html>`/`<body>` partagée par les deux layouts racines (FR et EN).
+ *
+ * Le site a deux layouts racines plutôt qu'un seul avec un `lang` corrigé côté
+ * client : chaque sous-arbre reste ainsi statiquement générable, et `lang` est
+ * correct dès le HTML servi par le serveur (pas seulement après hydratation).
+ * Contrepartie acceptée : naviguer entre FR et EN recharge la page entière.
+ */
+export function RootDocument({
+  lang,
   children,
-}: Readonly<{
+}: {
+  lang: "fr" | "en";
   children: React.ReactNode;
-}>) {
+}) {
   return (
     <html
-      lang="fr"
+      lang={lang}
       className={`${comfortaa.variable} ${workSans.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col font-sans">

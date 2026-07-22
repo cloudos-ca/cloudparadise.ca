@@ -12,6 +12,36 @@ import { COURRIEL } from "@/components/marketing/coordonnees";
 
 const LIMITE_MESSAGE = 5000;
 
+const RATE_LIMIT_FENETRE_MS = 10 * 60 * 1000;
+const RATE_LIMIT_MAX = 5;
+
+/**
+ * Compteur en mémoire, par IP — pas de Redis en place, et le déploiement
+ * Coolify actuel tourne sur une seule instance. Insuffisant si l'app est un
+ * jour répliquée, mais évite qu'un script épuise le quota SMTP ou fasse
+ * blacklister le domaine d'envoi.
+ */
+const compteurParIp = new Map<string, { count: number; resetAt: number }>();
+
+function ipDepassee(request: Request): boolean {
+  const ip =
+    request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ??
+    "inconnue";
+  const maintenant = Date.now();
+  const entree = compteurParIp.get(ip);
+
+  if (!entree || entree.resetAt <= maintenant) {
+    compteurParIp.set(ip, {
+      count: 1,
+      resetAt: maintenant + RATE_LIMIT_FENETRE_MS,
+    });
+    return false;
+  }
+
+  entree.count += 1;
+  return entree.count > RATE_LIMIT_MAX;
+}
+
 type Corps = {
   nom?: string;
   courriel?: string;
@@ -84,6 +114,13 @@ function obtenirTransporteur() {
 }
 
 export async function POST(request: Request) {
+  if (ipDepassee(request)) {
+    return NextResponse.json(
+      { ok: false, erreur: "Trop de tentatives. Réessayez plus tard." },
+      { status: 429 },
+    );
+  }
+
   let corps: Corps;
   try {
     corps = await request.json();

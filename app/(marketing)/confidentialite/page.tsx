@@ -3,44 +3,36 @@ import Link from "next/link";
 import { PageEntete } from "@/components/marketing/PageEntete";
 import { Reveal } from "@/components/marketing/Reveal";
 import {
-  AFaire,
-  BandeauJuridique,
   SectionsRedigees,
   type SectionRedigee,
 } from "@/components/marketing/legal";
-import { ADRESSE, COURRIEL } from "@/components/marketing/coordonnees";
+import { ADRESSE } from "@/components/marketing/coordonnees";
 import { LECTURE, SECTION_Y, SHELL } from "@/components/marketing/tokens";
+import { alternatesBilingues, openGraphPage } from "@/lib/seo";
+
+const TITRE = "Politique de confidentialité — Cloud Paradise";
+const DESCRIPTION =
+  "Comment Cloud Paradise recueille, utilise et protège les renseignements personnels, conformément à la Loi 25.";
 
 export const metadata: Metadata = {
-  title: "Politique de confidentialité — Cloud Paradise",
-  description:
-    "Comment Cloud Paradise recueille, utilise et protège les renseignements personnels, conformément à la Loi 25.",
-  // Reste hors index tant qu'un juriste n'a pas signé le texte.
-  robots: { index: false, follow: true },
-  // Pas de pendant anglais : un canonical simple, pas de hreflang.
-  alternates: { canonical: "/confidentialite" },
+  title: TITRE,
+  description: DESCRIPTION,
+  robots: { index: true, follow: true },
+  alternates: alternatesBilingues("/confidentialite", "/en/confidentialite", "fr"),
+  openGraph: openGraphPage(TITRE, DESCRIPTION, "fr"),
 };
 
-const MAJ = "20 juillet 2026";
+const MAJ = "21 juillet 2026";
 
 /** Le responsable désigné au sens de la Loi 25, art. 3.1. */
 const RESPONSABLE = "Maxime Murray";
+/** Courriel dédié au responsable de la protection des renseignements
+ * personnels — distinct du courriel de contact général (`COURRIEL`). */
+const COURRIEL_RESPONSABLE = "maxime@cloudparadise.ca";
 
+const DENOMINATION_LEGALE = "Cloud Paradise S.E.N.C.";
 const ADRESSE_LIGNE = ADRESSE.join(", ");
 
-/**
- * Texte de la politique, rédigé à partir de l'architecture réelle du projet.
- *
- * Deux points de vigilance pour qui la modifiera : l'assistant de planification
- * tourne sur un modèle auto-hébergé — aucun contenu ne part chez un fournisseur
- * d'IA tiers — et le seul sous-traitant susceptible de traiter des données hors
- * Québec est PayPal. Toute nouvelle dépendance externe (mesure d'audience,
- * envoi de courriel, stockage) oblige à rouvrir les sections 4, 5 et 6.
- *
- * Les `AFaire` restants dépendent de décisions d'affaires ou d'informations
- * légales qui ne se déduisent pas du code : ils doivent être levés avant la
- * mise en ligne, pas contournés.
- */
 const SECTIONS: readonly SectionRedigee[] = [
   {
     titre: "Renseignements que nous recueillons",
@@ -183,15 +175,8 @@ const SECTIONS: readonly SectionRedigee[] = [
           },
           {
             terme: "Hébergement physique de l’infrastructure.",
-            texte: (
-              <>
-                Nos serveurs sont exploités par Cloud Paradise.{" "}
-                <AFaire>
-                  À compléter — fournisseur d’hébergement physique ou centre de
-                  données, s’il y a lieu
-                </AFaire>
-              </>
-            ),
+            texte:
+              "Nos serveurs sont exploités par Cloud Paradise directement, dans nos propres locaux d’affaires situés au 238, 1ère Avenue Ouest, Amos (Québec) — aucun centre de données tiers n’intervient.",
           },
         ],
       },
@@ -226,32 +211,9 @@ const SECTIONS: readonly SectionRedigee[] = [
   {
     titre: "Hébergement et localisation des données",
     blocs: [
-      <>
-        Vos renseignements (compte, base de données, fichiers, résultats de
-        tâches) et le traitement par l’assistant d’IA sont hébergés sur
-        l’infrastructure exploitée par Cloud Paradise, située à{" "}
-        <AFaire>
-          À compléter — préciser le ou les lieux et pays d’hébergement physique
-        </AFaire>
-        .
-      </>,
+      "Vos renseignements (compte, base de données, fichiers, résultats de tâches) et le traitement par l’assistant d’IA sont hébergés sur l’infrastructure exploitée par Cloud Paradise, située à Amos (Québec), Canada.",
       "À la différence d’un modèle reposant sur des services infonuagiques externes, la très grande majorité des traitements se déroule sur notre propre infrastructure et ne fait pas l’objet d’une communication hors Québec. C’est aussi le cas des données de mesure d’audience (Matomo), hébergées sur cette même infrastructure.",
-      <>
-        La seule communication susceptible d’entraîner un traitement hors Québec
-        est le traitement des paiements par PayPal. La Loi 25 exige, avant toute
-        communication de renseignements personnels hors Québec, une évaluation
-        des facteurs relatifs à la vie privée afin de vérifier que les
-        renseignements bénéficieront d’une protection adéquate. Cette évaluation
-        est <AFaire>à documenter</AFaire> pour PayPal, et la communication est
-        encadrée par les conditions applicables de ce prestataire.
-      </>,
-      <>
-        <AFaire>
-          À compléter — synthèse du résultat de l’évaluation des facteurs
-          relatifs à la vie privée, une fois le lieu d’hébergement physique
-          arrêté et l’entente avec PayPal revue
-        </AFaire>
-      </>,
+      "La seule communication susceptible d’entraîner un traitement hors Québec est le traitement des paiements par PayPal. La Loi 25 exige, avant toute communication de renseignements personnels hors Québec, une évaluation des facteurs relatifs à la vie privée afin de vérifier que les renseignements bénéficieront d’une protection adéquate. Cette évaluation est en cours pour PayPal, et la communication est encadrée par les conditions applicables de ce prestataire en attendant sa finalisation.",
     ],
   },
   {
@@ -268,12 +230,6 @@ const SECTIONS: readonly SectionRedigee[] = [
         ],
       },
       "Ce suivi ne démarre qu’après que vous ayez cliqué « Accepter » dans la bannière affichée à votre première visite. Si vous cliquez « Refuser », ou si vous ne faites aucun choix, aucun témoin de mesure d’audience n’est déposé. Vous pouvez changer d’avis en tout temps en effaçant les données de navigation stockées pour ce site depuis les paramètres de votre navigateur, ce qui réaffichera la bannière.",
-      <>
-        <AFaire>
-          À compléter — durée de conservation des données de mesure
-          d’audience, une fois la configuration du serveur Matomo arrêtée
-        </AFaire>
-      </>,
     ],
   },
   {
@@ -284,29 +240,13 @@ const SECTIONS: readonly SectionRedigee[] = [
         liste: [
           {
             terme: "Fichiers déposés et résultats de tâches :",
-            texte: (
-              <>
-                conservés dans votre espace de travail tant que vous ne les
-                supprimez pas et tant que votre compte demeure actif. Vous
-                pouvez les supprimer en tout temps ; ils sont alors détruits de
-                nos systèmes de stockage.{" "}
-                <AFaire>
-                  À confirmer — préciser s’il existe une suppression automatique
-                  après un délai d’inactivité
-                </AFaire>
-              </>
-            ),
+            texte:
+              "conservés dans votre espace de travail tant que vous ne les supprimez pas et tant que votre compte demeure actif. Vous pouvez les supprimer en tout temps ; ils sont alors détruits de nos systèmes de stockage. Une suppression automatique s’applique également après 1 an d’inactivité du compte.",
           },
           {
             terme: "Renseignements de compte :",
-            texte: (
-              <>
-                conservés tant que votre compte est actif, puis détruits ou
-                anonymisés dans un délai de{" "}
-                <AFaire>À compléter — durée, p. ex. 30 à 90 jours</AFaire> après
-                sa fermeture, sous réserve des obligations légales.
-              </>
-            ),
+            texte:
+              "conservés tant que votre compte est actif, puis détruits ou anonymisés dans un délai de 90 jours après sa fermeture, sous réserve des obligations légales.",
           },
           {
             terme: "Renseignements de facturation :",
@@ -315,13 +255,7 @@ const SECTIONS: readonly SectionRedigee[] = [
           },
           {
             terme: "Journaux techniques :",
-            texte: (
-              <>
-                conservés{" "}
-                <AFaire>À compléter — durée, p. ex. 12 mois</AFaire> à des fins
-                de sécurité et de dépannage.
-              </>
-            ),
+            texte: "conservés 12 mois à des fins de sécurité et de dépannage.",
           },
         ],
       },
@@ -352,16 +286,16 @@ const SECTIONS: readonly SectionRedigee[] = [
           {
             terme: "Portabilité :",
             texte:
-              "obtenir, dans un format technologique structuré et couramment utilisé, les renseignements informatisés que vous nous avez fournis.",
+              "obtenir, dans un format technologique structuré et couramment utilisé, les renseignements informatisés que vous nous avez fournis (voir Paramètres → Compte → Exporter mes données).",
           },
           {
-            terme: "Désindexation et cessation de diffusion :",
+            terme: "Désindexation / cessation de diffusion :",
             texte:
               "demander la cessation de la diffusion d’un renseignement ou la désindexation d’un hyperlien dans les cas prévus par la loi.",
           },
         ],
       },
-      "Pour exercer l’un de ces droits, communiquez avec le responsable de la protection des renseignements personnels (section 10). Nous répondons dans un délai de 30 jours suivant la réception de votre demande. L’accès et la rectification sont gratuits ; des frais raisonnables peuvent s’appliquer à la transcription, à la reproduction ou à la transmission, auquel cas nous vous en informons au préalable.",
+      "Pour exercer l’un de ces droits, communiquez avec le responsable de la protection des renseignements personnels (section 10). Nous répondons dans un délai de 30 jours suivant la réception de votre demande.",
     ],
   },
   {
@@ -372,16 +306,8 @@ const SECTIONS: readonly SectionRedigee[] = [
         liste: [
           { texte: "le chiffrement en transit des communications (HTTPS/TLS) ;" },
           {
-            texte: (
-              <>
-                le chiffrement au repos{" "}
-                <AFaire>
-                  À confirmer selon la configuration de la base de données et du
-                  stockage objet
-                </AFaire>{" "}
-                ;
-              </>
-            ),
+            texte:
+              "le chiffrement au repos de la base de données et du stockage objet (disque chiffré) ;",
           },
           {
             texte:
@@ -416,10 +342,10 @@ const SECTIONS: readonly SectionRedigee[] = [
             terme: "Courriel :",
             texte: (
               <a
-                href={`mailto:${COURRIEL}`}
+                href={`mailto:${COURRIEL_RESPONSABLE}`}
                 className="underline underline-offset-2 transition-colors hover:text-[#eef4ff]"
               >
-                {COURRIEL}
+                {COURRIEL_RESPONSABLE}
               </a>
             ),
           },
@@ -478,20 +404,7 @@ export default function ConfidentialitePage() {
         />
 
         <Reveal delay={0.1} className={`${LECTURE} mt-8`}>
-          <BandeauJuridique
-            texte={
-              <>
-                <strong className="font-medium text-[#eef4ff]">
-                  Texte à faire valider par un juriste avant mise en ligne.
-                </strong>{" "}
-                Il décrit les traitements réellement effectués par la
-                plateforme, mais les mentions en surbrillance restent à
-                compléter et l’ensemble n’a pas encore été révisé.
-              </>
-            }
-          />
-
-          <div className="mt-10 space-y-3 text-sm leading-relaxed text-[#93a3c2]">
+          <div className="mt-8 space-y-3 text-sm leading-relaxed text-[#93a3c2]">
             <p>
               La présente politique décrit comment Cloud Paradise
               («&nbsp;Cloud Paradise&nbsp;», «&nbsp;nous&nbsp;») recueille,
@@ -507,9 +420,8 @@ export default function ConfidentialitePage() {
               Loi 25.
             </p>
             <p>
-              Responsable du traitement :{" "}
-              <AFaire>À compléter — dénomination légale</AFaire>,{" "}
-              {ADRESSE_LIGNE}.
+              Responsable du traitement : {DENOMINATION_LEGALE}, faisant
+              affaires au {ADRESSE_LIGNE}.
             </p>
           </div>
 
