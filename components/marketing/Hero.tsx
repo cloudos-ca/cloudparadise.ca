@@ -6,6 +6,7 @@ import { WallpaperPicker } from "./WallpaperPicker";
 import { JobPanel } from "./JobPanel";
 import { BadgeOffre } from "./BadgeOffre";
 import { BoutonCta } from "./BoutonCta";
+import { DemoVideo } from "./DemoVideo";
 import { SECTION_Y, SHELL, SOFT_WASH, type Lang } from "./tokens";
 
 const JOB_LOGS = {
@@ -34,7 +35,6 @@ const TEXTES = {
     texte:
       "Déposez vos fichiers, dites ce que vous voulez en mots simples. L’IA choisit le bon mode et lance le calcul dans le cloud. Vous n’avez qu’à récupérer le résultat.",
     cta: "Commencer gratuitement",
-    demo: "Voir la démo",
   },
   en: {
     eyebrow: "A desktop, your way",
@@ -43,7 +43,6 @@ const TEXTES = {
     texte:
       "Drop your files, say what you want in plain words. The AI picks the right mode and runs the job in the cloud. You just grab the result.",
     cta: "Start for free",
-    demo: "See the demo",
   },
 } as const;
 
@@ -97,21 +96,7 @@ function Copy({ lang }: { lang: Lang }) {
         >
           {t.cta}
         </BoutonCta>
-        <a
-          href="#demo"
-          data-cp-accent
-          className="flex items-center gap-2 rounded-lg border border-[color-mix(in_srgb,var(--acc)_35%,transparent)] px-5 py-2.5 text-sm font-medium text-cp-ghost hover:border-[color-mix(in_srgb,var(--acc)_65%,transparent)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
-        >
-          <svg
-            aria-hidden="true"
-            viewBox="0 0 24 24"
-            className="size-3.5"
-            fill="currentColor"
-          >
-            <path d="M8 5.5v13l11-6.5z" />
-          </svg>
-          {t.demo}
-        </a>
+        <DemoVideo lang={lang} />
       </div>
 
       {/* L'offre juste sous le bouton, en or dilué : elle appuie le CTA au
