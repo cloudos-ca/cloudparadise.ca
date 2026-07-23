@@ -3,6 +3,7 @@ import { BreadcrumbJsonLd } from "@/components/marketing/BreadcrumbJsonLd";
 import { CommentCaMarche } from "@/components/marketing/CommentCaMarche";
 import { FenetreCta } from "@/components/marketing/FenetreCta";
 import { FenetresModes } from "@/components/marketing/FenetresModes";
+import { HreflangLinks } from "@/components/marketing/HreflangLinks";
 import { IconCheck } from "@/components/marketing/icons";
 import { PageEntete } from "@/components/marketing/PageEntete";
 import { Reveal } from "@/components/marketing/Reveal";
@@ -27,6 +28,7 @@ export default function FonctionsPage() {
     // `overflow-x-clip` : la lueur du CTA déborde volontairement de sa fenêtre
     // et pousserait la page hors cadre sur petit écran sans ce clip.
     <section className="relative overflow-x-clip">
+      <HreflangLinks fr="/fonctions" en="/en/fonctions" />
       <BreadcrumbJsonLd
         items={[
           { nom: "Accueil", chemin: "/" },

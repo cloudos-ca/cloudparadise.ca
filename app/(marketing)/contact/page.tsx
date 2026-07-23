@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Script from "next/script";
 import { BreadcrumbJsonLd } from "@/components/marketing/BreadcrumbJsonLd";
 import { FenetreContact } from "@/components/marketing/FenetreContact";
+import { HreflangLinks } from "@/components/marketing/HreflangLinks";
 import { PageEntete } from "@/components/marketing/PageEntete";
 import { Reveal } from "@/components/marketing/Reveal";
 import { SECTION_Y, SHELL } from "@/components/marketing/tokens";
@@ -25,6 +26,7 @@ export default function ContactPage() {
     // défilement — ça ne faisait qu'ajouter un vide sous la barre de menu.
     // C'est le rythme vertical commun qui cadre la page.
     <section className={`relative ${SECTION_Y}`}>
+      <HreflangLinks fr="/contact" en="/en/contact" />
       <BreadcrumbJsonLd
         items={[
           { nom: "Accueil", chemin: "/" },

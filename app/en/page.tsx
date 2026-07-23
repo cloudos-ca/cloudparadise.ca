@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Hero } from "@/components/marketing/Hero";
+import { HreflangLinks } from "@/components/marketing/HreflangLinks";
 import { ProblemeSolution } from "@/components/marketing/ProblemeSolution";
 import { CommentCaMarche } from "@/components/marketing/CommentCaMarche";
 import { Univers } from "@/components/marketing/Univers";
@@ -22,6 +23,7 @@ export const metadata: Metadata = {
 export default function MarketingPageEn() {
   return (
     <>
+      <HreflangLinks fr="/" en="/en" />
       <Hero lang="en" />
       <ProblemeSolution lang="en" />
       <Univers lang="en" />

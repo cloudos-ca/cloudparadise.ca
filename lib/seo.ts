@@ -28,10 +28,18 @@ export const DESCRIPTION_ACCUEIL =
   "Déposez vos fichiers, dites ce que vous voulez en mots simples. L'IA choisit le bon mode et lance le calcul dans le cloud. Vous n'avez qu'à récupérer le résultat.";
 
 /**
- * Alternates hreflang pour une paire de pages FR/EN.
+ * Canonical pour une paire de pages FR/EN.
  *
  * `metadataBase` (posé au layout racine) rend les chemins relatifs suffisants
- * ici : Next les résout en URLs absolues à la génération des balises.
+ * ici : Next les résout en URL absolue à la génération de la balise.
+ *
+ * Ne couvre plus `alternates.languages` (hreflang) : le renderer React 19
+ * bundlé avec cette version de Next sort ces balises avec l'attribut
+ * `hrefLang` (casse camelCase) au lieu de `hreflang`, faute d'alias dans la
+ * table d'attributs de `react-dom-server` — un vrai bug de cette version,
+ * vérifié en comparant le HTML servi en prod au HTML documenté par Next
+ * lui-même. Les pages rendent donc leurs propres balises hreflang via
+ * `HreflangLinks`, en JSX minuscule, pour contourner le bug.
  */
 export function alternatesBilingues(
   cheminFr: string,
@@ -40,11 +48,6 @@ export function alternatesBilingues(
 ): Metadata["alternates"] {
   return {
     canonical: langueCourante === "fr" ? cheminFr : cheminEn,
-    languages: {
-      fr: cheminFr,
-      en: cheminEn,
-      "x-default": cheminFr,
-    },
   };
 }
 

@@ -6,6 +6,7 @@ import { FaqTarifs } from "@/components/marketing/FaqTarifs";
 import { questionsDe } from "@/components/marketing/faqTarifsContenu";
 import { FenetreCta } from "@/components/marketing/FenetreCta";
 import { GrilleDetaillee } from "@/components/marketing/GrilleDetaillee";
+import { HreflangLinks } from "@/components/marketing/HreflangLinks";
 import { PageEntete } from "@/components/marketing/PageEntete";
 import { Reveal } from "@/components/marketing/Reveal";
 import { IconCheck, IconInfinity, IconRefresh } from "@/components/marketing/icons";
@@ -65,6 +66,7 @@ export default function TarifsPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(FAQ_JSON_LD) }}
       />
+      <HreflangLinks fr="/tarifs" en="/en/tarifs" />
       <BreadcrumbJsonLd
         items={[
           { nom: "Accueil", chemin: "/" },

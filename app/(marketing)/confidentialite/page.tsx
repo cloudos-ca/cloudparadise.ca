@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { BreadcrumbJsonLd } from "@/components/marketing/BreadcrumbJsonLd";
+import { HreflangLinks } from "@/components/marketing/HreflangLinks";
 import { PageEntete } from "@/components/marketing/PageEntete";
 import { Reveal } from "@/components/marketing/Reveal";
 import {
@@ -397,6 +398,7 @@ const SECTIONS: readonly SectionRedigee[] = [
 export default function ConfidentialitePage() {
   return (
     <section className="relative">
+      <HreflangLinks fr="/confidentialite" en="/en/confidentialite" />
       <BreadcrumbJsonLd
         items={[
           { nom: "Accueil", chemin: "/" },
