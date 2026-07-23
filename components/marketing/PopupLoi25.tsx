@@ -62,7 +62,7 @@ export function PopupLoi25({ lang = "fr" }: { lang?: Lang }) {
   if (!visible) return null;
 
   return (
-    <motion.aside
+    <motion.div
       role="dialog"
       aria-label={t.dialogue}
       className="fixed right-4 bottom-4 left-4 z-[60] sm:right-6 sm:bottom-6 sm:left-auto sm:w-[360px]"
@@ -114,6 +114,6 @@ export function PopupLoi25({ lang = "fr" }: { lang?: Lang }) {
           </p>
         </div>
       </WindowCard>
-    </motion.aside>
+    </motion.div>
   );
 }
