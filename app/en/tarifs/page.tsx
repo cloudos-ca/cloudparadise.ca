@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { BadgeOffre } from "@/components/marketing/BadgeOffre";
+import { BreadcrumbJsonLd } from "@/components/marketing/BreadcrumbJsonLd";
 import { Estimateur } from "@/components/marketing/Estimateur";
 import { FaqTarifs } from "@/components/marketing/FaqTarifs";
 import { questionsDe } from "@/components/marketing/faqTarifsContenu";
@@ -63,6 +64,12 @@ export default function TarifsPageEn() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(FAQ_JSON_LD) }}
+      />
+      <BreadcrumbJsonLd
+        items={[
+          { nom: "Home", chemin: "/en" },
+          { nom: "Pricing", chemin: "/en/tarifs" },
+        ]}
       />
       <div className={`${SHELL} ${SECTION_Y}`}>
         {/* 1 — En-tête, le même composant que Contact et les pages légales. */}

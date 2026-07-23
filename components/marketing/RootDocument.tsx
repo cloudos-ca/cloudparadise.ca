@@ -1,11 +1,22 @@
 import { MatomoAnalytics } from "@/components/marketing/MatomoAnalytics";
 import { SITE_URL } from "@/lib/seo";
 import { comfortaa, workSans } from "@/app/fonts";
+import {
+  COURRIEL,
+  RUE,
+  VILLE,
+  PROVINCE,
+  CODE_POSTAL,
+  PAYS,
+  TELEPHONE_LIEN,
+} from "@/components/marketing/coordonnees";
 import "@/app/globals.css";
 
 /**
- * Organisation + site, en JSON-LD — sert de repère stable à Google pour le
- * nom de marque et le lien officiel dans les résultats de recherche.
+ * Organisation + site + établissement, en JSON-LD — sert de repère stable à
+ * Google pour le nom de marque, le lien officiel et l'adresse dans les
+ * résultats de recherche. L'adresse vient de `coordonnees.ts`, seule source
+ * de vérité pour ces champs (utilisée aussi par /contact et les pages légales).
  */
 const JSON_LD = {
   "@context": "https://schema.org",
@@ -21,6 +32,21 @@ const JSON_LD = {
       name: "Cloud Paradise",
       url: SITE_URL,
       inLanguage: ["fr-CA", "en-CA"],
+    },
+    {
+      "@type": "LocalBusiness",
+      name: "Cloud Paradise",
+      url: SITE_URL,
+      email: COURRIEL,
+      telephone: TELEPHONE_LIEN,
+      address: {
+        "@type": "PostalAddress",
+        streetAddress: RUE,
+        addressLocality: VILLE,
+        addressRegion: PROVINCE,
+        postalCode: CODE_POSTAL,
+        addressCountry: PAYS,
+      },
     },
   ],
 };

@@ -3,7 +3,7 @@ import { Footer } from "@/components/marketing/Footer";
 import { PopupLoi25 } from "@/components/marketing/PopupLoi25";
 import { RootDocument } from "@/components/marketing/RootDocument";
 import { TopBar } from "@/components/marketing/TopBar";
-import { SITE_URL } from "@/lib/seo";
+import { SITE_URL, ICONS } from "@/lib/seo";
 
 /**
  * Pas de title/description par défaut ici : chaque page `/en/*` définit déjà
@@ -20,9 +20,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
   },
-  icons: {
-    icon: "/favicon.ico",
-  },
+  icons: ICONS,
 };
 
 /**

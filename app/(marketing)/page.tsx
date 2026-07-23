@@ -17,7 +17,7 @@ export const metadata: Metadata = {
   title: TITRE_ACCUEIL,
   description: DESCRIPTION_ACCUEIL,
   alternates: alternatesBilingues("/", "/en", "fr"),
-  openGraph: openGraphPage(TITRE_ACCUEIL, DESCRIPTION_ACCUEIL, "fr"),
+  openGraph: openGraphPage(TITRE_ACCUEIL, DESCRIPTION_ACCUEIL, "fr", ["/opengraph-image"]),
 };
 
 export default function MarketingPage() {

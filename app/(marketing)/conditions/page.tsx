@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { BreadcrumbJsonLd } from "@/components/marketing/BreadcrumbJsonLd";
 import { PageEntete } from "@/components/marketing/PageEntete";
 import { Reveal } from "@/components/marketing/Reveal";
 import {
@@ -26,7 +27,7 @@ export const metadata: Metadata = {
   description: DESCRIPTION,
   robots: { index: true, follow: true },
   alternates: alternatesBilingues("/conditions", "/en/conditions", "fr"),
-  openGraph: openGraphPage(TITRE, DESCRIPTION, "fr"),
+  openGraph: openGraphPage(TITRE, DESCRIPTION, "fr", ["/opengraph-image"]),
 };
 
 const MAJ = "22 juillet 2026";
@@ -563,6 +564,12 @@ const SECTIONS: readonly SectionRedigee[] = [
 export default function ConditionsPage() {
   return (
     <section className="relative">
+      <BreadcrumbJsonLd
+        items={[
+          { nom: "Accueil", chemin: "/" },
+          { nom: "Conditions d’utilisation", chemin: "/conditions" },
+        ]}
+      />
       <div className={`${SHELL} ${SECTION_Y}`}>
         <PageEntete
           eyebrow="Légal"

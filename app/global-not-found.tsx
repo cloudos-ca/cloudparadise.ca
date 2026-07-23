@@ -5,10 +5,12 @@ import { PageEntete } from "@/components/marketing/PageEntete";
 import { BoutonCta } from "@/components/marketing/BoutonCta";
 import { RootDocument } from "@/components/marketing/RootDocument";
 import { LECTURE, SECTION_Y, SHELL } from "@/components/marketing/tokens";
+import { ICONS } from "@/lib/seo";
 
 export const metadata: Metadata = {
   title: "Page introuvable — Cloud Paradise",
   description: "Cette page n'existe pas.",
+  icons: ICONS,
 };
 
 /**

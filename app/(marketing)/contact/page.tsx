@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Script from "next/script";
+import { BreadcrumbJsonLd } from "@/components/marketing/BreadcrumbJsonLd";
 import { FenetreContact } from "@/components/marketing/FenetreContact";
 import { PageEntete } from "@/components/marketing/PageEntete";
 import { Reveal } from "@/components/marketing/Reveal";
@@ -24,6 +25,12 @@ export default function ContactPage() {
     // défilement — ça ne faisait qu'ajouter un vide sous la barre de menu.
     // C'est le rythme vertical commun qui cadre la page.
     <section className={`relative ${SECTION_Y}`}>
+      <BreadcrumbJsonLd
+        items={[
+          { nom: "Accueil", chemin: "/" },
+          { nom: "Contact", chemin: "/contact" },
+        ]}
+      />
       <div className={`${SHELL} w-full`}>
         <PageEntete
           eyebrow="Contact"

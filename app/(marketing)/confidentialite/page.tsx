@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { BreadcrumbJsonLd } from "@/components/marketing/BreadcrumbJsonLd";
 import { PageEntete } from "@/components/marketing/PageEntete";
 import { Reveal } from "@/components/marketing/Reveal";
 import {
@@ -19,7 +20,7 @@ export const metadata: Metadata = {
   description: DESCRIPTION,
   robots: { index: true, follow: true },
   alternates: alternatesBilingues("/confidentialite", "/en/confidentialite", "fr"),
-  openGraph: openGraphPage(TITRE, DESCRIPTION, "fr"),
+  openGraph: openGraphPage(TITRE, DESCRIPTION, "fr", ["/opengraph-image"]),
 };
 
 const MAJ = "21 juillet 2026";
@@ -396,6 +397,12 @@ const SECTIONS: readonly SectionRedigee[] = [
 export default function ConfidentialitePage() {
   return (
     <section className="relative">
+      <BreadcrumbJsonLd
+        items={[
+          { nom: "Accueil", chemin: "/" },
+          { nom: "Politique de confidentialité", chemin: "/confidentialite" },
+        ]}
+      />
       <div className={`${SHELL} ${SECTION_Y}`}>
         <PageEntete
           eyebrow="Légal"

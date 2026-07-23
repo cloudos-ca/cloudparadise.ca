@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { BreadcrumbJsonLd } from "@/components/marketing/BreadcrumbJsonLd";
 import { CommentCaMarche } from "@/components/marketing/CommentCaMarche";
 import { FenetreCta } from "@/components/marketing/FenetreCta";
 import { FenetresModes } from "@/components/marketing/FenetresModes";
@@ -26,6 +27,12 @@ export default function FonctionsPage() {
     // `overflow-x-clip` : la lueur du CTA déborde volontairement de sa fenêtre
     // et pousserait la page hors cadre sur petit écran sans ce clip.
     <section className="relative overflow-x-clip">
+      <BreadcrumbJsonLd
+        items={[
+          { nom: "Accueil", chemin: "/" },
+          { nom: "Fonctions", chemin: "/fonctions" },
+        ]}
+      />
       <div className={`${SHELL} ${SECTION_Y}`}>
         {/* 1 — En-tête, centré comme /tarifs : ces deux pages sont des
             vitrines, pas du texte suivi. */}
