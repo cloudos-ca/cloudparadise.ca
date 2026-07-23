@@ -45,6 +45,28 @@ const nextConfig: NextConfig = {
     globalNotFound: true,
   },
 
+  /**
+   * `www.cloudparadise.ca` répondait 200 sans redirection, en servant le même
+   * contenu que `cloudparadise.ca` (le host canonique partout ailleurs :
+   * `SITE_URL` dans lib/seo.ts, sitemap, hreflang). Un crawler qui visite les
+   * deux hosts voit donc deux pages dupliquées par URL — et sur le host
+   * `www`, aucune balise hreflang ne s'auto-référence puisqu'elles pointent
+   * toutes vers `cloudparadise.ca` : c'est ce qui faisait échouer le check
+   * « self-referencing hreflang » d'un audit SEO malgré des balises par
+   * ailleurs correctes. Redirection permanente vers le host canonique plutôt
+   * que de dupliquer `SITE_URL` par host.
+   */
+  async redirects() {
+    return [
+      {
+        source: "/:path*",
+        has: [{ type: "host", value: "www.cloudparadise.ca" }],
+        destination: "https://cloudparadise.ca/:path*",
+        permanent: true,
+      },
+    ];
+  },
+
   async headers() {
     return [
       {
