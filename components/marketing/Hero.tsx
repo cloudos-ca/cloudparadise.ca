@@ -66,7 +66,7 @@ function Copy({ lang }: { lang: Lang }) {
   const t = TEXTES[lang];
   return (
     <div className="max-w-xl">
-      <h1 className="font-display text-[1.75rem] leading-[1.15] font-bold tracking-tight text-white sm:text-4xl os:text-5xl">
+      <h1 className="font-display text-[2rem] leading-[1.08] font-bold tracking-[-0.02em] text-white sm:text-[2.9rem] os:text-[3.5rem]">
         {t.titreLigne1}
         <br />
         <span data-cp-accent style={{ color: "var(--soft)" }}>
@@ -74,7 +74,7 @@ function Copy({ lang }: { lang: Lang }) {
         </span>
       </h1>
 
-      <p className="mt-5 text-base leading-relaxed text-white/85">
+      <p className="mt-6 text-[17px] leading-relaxed text-white/85">
         {t.texte}
       </p>
 

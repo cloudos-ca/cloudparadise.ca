@@ -110,7 +110,7 @@ export function TroisPiliers({ lang = "fr" }: { lang?: Lang }) {
             <Link
               key={titre}
               href={`${prefixe}${href}`}
-              className="group flex flex-col rounded-xl border border-white/[0.08] bg-[rgba(27,39,61,.55)] p-6 transition-colors hover:border-white/20 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+              className="group flex flex-col rounded-xl border border-white/[0.08] bg-gradient-to-b from-white/[0.05] to-white/[0.01] p-6 shadow-[inset_0_1px_0_rgba(255,255,255,0.05)] transition-[transform,border-color,box-shadow] duration-200 hover:-translate-y-0.5 hover:border-white/20 hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.08),0_18px_40px_-16px_rgba(0,0,0,0.55)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
             >
               {/* Cercle neutre, icône en or : l'or reste un accent-texte, jamais
                   un fond. */}

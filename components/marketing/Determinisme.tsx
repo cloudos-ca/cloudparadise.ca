@@ -76,19 +76,22 @@ export function Determinisme({ lang = "fr" }: { lang?: Lang }) {
               return (
                 <Fragment key={etape}>
                   <div
-                    className="flex min-h-[76px] flex-1 items-center justify-center rounded-xl border px-4 py-4 text-center text-[15px] font-medium"
+                    className="flex min-h-[76px] flex-1 items-center justify-center rounded-xl border bg-gradient-to-b from-white/[0.055] to-white/[0.01] px-4 py-4 text-center text-[15px] font-medium"
                     style={
                       conclusion
                         ? {
-                            background: "rgba(255,255,255,.03)",
                             borderColor:
-                              "color-mix(in srgb, var(--cta) 38%, transparent)",
+                              "color-mix(in srgb, var(--cta) 42%, transparent)",
                             color: "var(--cta)",
+                            // Léger halo doré : la conclusion « rayonne » sans
+                            // fond plein.
+                            boxShadow:
+                              "inset 0 1px 0 rgba(255,255,255,.08), 0 0 24px -8px color-mix(in srgb, var(--cta) 45%, transparent)",
                           }
                         : {
-                            background: "rgba(255,255,255,.03)",
                             borderColor: "rgba(255,255,255,.12)",
                             color: "rgba(255,255,255,.88)",
+                            boxShadow: "inset 0 1px 0 rgba(255,255,255,.06)",
                           }
                     }
                   >

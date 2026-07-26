@@ -140,9 +140,18 @@ export function FamillesApps({ lang = "fr" }: { lang?: Lang }) {
           {t.familles.map(({ Icone, nom, ligne }) => (
             <div
               key={nom}
-              className="flex gap-4 rounded-xl border border-white/[0.08] bg-[rgba(27,39,61,.4)] p-5"
+              className="flex gap-4 rounded-xl border border-white/[0.08] bg-gradient-to-b from-white/[0.04] to-white/[0.01] p-5 shadow-[inset_0_1px_0_rgba(255,255,255,0.04)] transition-colors hover:border-white/15"
             >
-              <span className="grid size-10 shrink-0 place-items-center rounded-lg bg-white/[0.05] text-white/70">
+              {/* Cyan (--soft) : l'accent secondaire de la charte, réservé ici
+                  aux outils, là où l'or reste sur les piliers et la
+                  conversion. */}
+              <span
+                className="grid size-10 shrink-0 place-items-center rounded-lg"
+                style={{
+                  background: "color-mix(in srgb, var(--soft) 12%, transparent)",
+                  color: "var(--soft)",
+                }}
+              >
                 <Icone className="size-[21px]" />
               </span>
               <div className="min-w-0">

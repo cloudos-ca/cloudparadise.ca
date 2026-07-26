@@ -60,10 +60,14 @@ export function Exemples({ lang = "fr" }: { lang?: Lang }) {
         <Reveal delay={0.1} className="mt-8">
           <ul className="max-w-3xl divide-y divide-white/10 border-y border-white/10">
             {t.exemples.map((segments, i) => (
-              <li key={i} className="flex items-baseline gap-3 py-3.5">
+              <li
+                key={i}
+                className="flex items-baseline gap-3 rounded-md py-3.5 transition-colors hover:bg-white/[0.02]"
+              >
                 <span
                   aria-hidden="true"
-                  className="shrink-0 font-mono text-sm text-white/35"
+                  className="shrink-0 font-mono text-sm"
+                  style={{ color: "var(--soft)", opacity: 0.7 }}
                 >
                   →
                 </span>
