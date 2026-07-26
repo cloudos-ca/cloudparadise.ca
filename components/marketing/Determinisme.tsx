@@ -1,5 +1,6 @@
+import { Fragment } from "react";
 import { Reveal } from "./Reveal";
-import { SECTION_Y, SHELL, SOFT_WASH, type Lang } from "./tokens";
+import { SECTION_Y, SHELL, type Lang } from "./tokens";
 
 /**
  * Le différenciateur central, en clair.
@@ -8,10 +9,15 @@ import { SECTION_Y, SHELL, SOFT_WASH, type Lang } from "./tokens";
  * suffit de l'énoncer. Réutilisé sur l'accueil, /calcul et /securite — d'où le
  * `lang` et l'absence de dépendance à un contexte de page.
  *
- * Le petit schéma en quatre temps est STATIQUE, volontairement : un flux animé
- * n'expliquerait rien de plus et contredirait la sobriété demandée. Seul le
- * dernier maillon (« résultat exact ») est mis en avant, parce que c'est lui la
- * promesse.
+ * Composition : en-tête (titre + paragraphe) en haut, puis la chaîne des quatre
+ * étapes en pleine largeur en dessous. La chaîne porte l'argument — c'est un
+ * vrai enchaînement (demande → plan → calcul → résultat), donc les flèches ont
+ * un sens, elles ne décorent pas. Elle est l'élément dominant de la section,
+ * pas un encart de côté.
+ *
+ * Le schéma est STATIQUE, volontairement : un flux animé n'expliquerait rien de
+ * plus et contredirait la sobriété demandée. Seule la conclusion (« résultat
+ * exact ») porte l'or, en texte — c'est l'aboutissement du raisonnement.
  */
 
 const TEXTES = {
@@ -37,70 +43,71 @@ export function Determinisme({ lang = "fr" }: { lang?: Lang }) {
   return (
     <section className="relative">
       <div className={`${SHELL} ${SECTION_Y}`}>
-        <div className="grid items-center gap-10 os:grid-cols-[48fr_52fr] os:gap-14">
-          <Reveal>
-            <p
-              className="text-xs font-medium tracking-wide"
-              style={{ color: "var(--cta)" }}
-            >
-              {t.eyebrow}
-            </p>
-            <h2 className="mt-3 max-w-[20ch] font-display text-[1.55rem] leading-[1.25] font-bold tracking-tight text-balance text-[#eef4ff] sm:text-3xl os:text-[2rem]">
-              {t.titre}
-            </h2>
-            <p className="mt-5 max-w-[52ch] text-sm leading-relaxed text-white/85">
-              {t.texte}
-            </p>
-          </Reveal>
+        {/* En-tête centré. Mesure élargie (max-w-2xl) pour que le titre tienne
+            sur deux lignes plutôt que quatre. */}
+        <Reveal className="mx-auto max-w-2xl text-center">
+          <p
+            className="text-xs font-medium tracking-wide"
+            style={{ color: "var(--cta)" }}
+          >
+            {t.eyebrow}
+          </p>
+          <h2 className="mt-3 font-display text-[1.6rem] leading-[1.2] font-bold tracking-tight text-balance text-[#eef4ff] sm:text-3xl os:text-4xl">
+            {t.titre}
+          </h2>
+          <p className="mx-auto mt-4 max-w-[56ch] text-sm leading-relaxed text-white/85">
+            {t.texte}
+          </p>
+        </Reveal>
 
-          {/* Le schéma : quatre maillons reliés par des chevrons. Empilé sur
-              mobile (chevrons pivotés), en ligne au-delà du seuil. */}
-          <Reveal delay={0.1}>
-            <ol
-              aria-hidden="true"
-              className="flex flex-col items-stretch gap-2 os:flex-row os:items-center os:gap-1.5"
-            >
-              {t.etapes.map((etape, i) => {
-                const dernier = i === t.etapes.length - 1;
-                return (
-                  <li
-                    key={etape}
-                    className="flex items-center gap-2 os:flex-1 os:flex-col os:gap-2 os:text-center"
+        {/* La chaîne, dominante et pleine largeur. Empilée sur mobile (chevrons
+            pivotés vers le bas), en une seule ligne horizontale au-delà du
+            seuil. `items-stretch` + `min-h` garantissent quatre boîtes de même
+            hauteur ; les chevrons, dans un conteneur étiré à contenu centré,
+            tombent au milieu, entre les boîtes. */}
+        <Reveal delay={0.1} className="mt-11">
+          <div
+            aria-hidden="true"
+            className="mx-auto flex max-w-4xl flex-col items-stretch gap-2.5 sm:flex-row sm:gap-2"
+          >
+            {t.etapes.map((etape, i) => {
+              const conclusion = i === t.etapes.length - 1;
+              return (
+                <Fragment key={etape}>
+                  <div
+                    className="flex min-h-[76px] flex-1 items-center justify-center rounded-xl border px-4 py-4 text-center text-[15px] font-medium"
+                    style={
+                      conclusion
+                        ? {
+                            background: "rgba(255,255,255,.03)",
+                            borderColor:
+                              "color-mix(in srgb, var(--cta) 38%, transparent)",
+                            color: "var(--cta)",
+                          }
+                        : {
+                            background: "rgba(255,255,255,.03)",
+                            borderColor: "rgba(255,255,255,.12)",
+                            color: "rgba(255,255,255,.88)",
+                          }
+                    }
                   >
-                    <span
-                      data-cp-accent
-                      className="w-full rounded-lg border px-3 py-2.5 text-[13px] font-medium"
-                      style={
-                        dernier
-                          ? {
-                              background: SOFT_WASH,
-                              borderColor:
-                                "color-mix(in srgb, var(--soft) 30%, transparent)",
-                              color: "var(--soft)",
-                            }
-                          : {
-                              background: "rgba(255,255,255,.04)",
-                              borderColor: "rgba(255,255,255,.12)",
-                              color: "rgba(255,255,255,.85)",
-                            }
-                      }
-                    >
-                      {etape}
-                    </span>
-                    {!dernier && (
+                    {etape}
+                  </div>
+                  {!conclusion && (
+                    <div className="flex shrink-0 items-center justify-center">
                       <span
-                        className="rotate-90 text-lg leading-none os:rotate-0"
-                        style={{ color: "var(--acc-text)" }}
+                        className="rotate-90 text-base leading-none sm:rotate-0"
+                        style={{ color: "var(--cta)", opacity: 0.6 }}
                       >
                         ›
                       </span>
-                    )}
-                  </li>
-                );
-              })}
-            </ol>
-          </Reveal>
-        </div>
+                    </div>
+                  )}
+                </Fragment>
+              );
+            })}
+          </div>
+        </Reveal>
       </div>
     </section>
   );
