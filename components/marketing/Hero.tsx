@@ -2,12 +2,11 @@
 
 import { motion, useReducedMotion } from "framer-motion";
 import { WindowCard } from "./WindowCard";
-import { WallpaperPicker } from "./WallpaperPicker";
 import { JobPanel } from "./JobPanel";
 import { BadgeOffre } from "./BadgeOffre";
 import { BoutonCta } from "./BoutonCta";
 import { DemoVideo } from "./DemoVideo";
-import { SECTION_Y, SHELL, SOFT_WASH, type Lang } from "./tokens";
+import { SECTION_Y, SHELL, type Lang } from "./tokens";
 
 const JOB_LOGS = {
   fr: [
@@ -29,19 +28,17 @@ const FOLDERS = {
 
 const TEXTES = {
   fr: {
-    eyebrow: "Un bureau à votre image",
     titreLigne1: "Décrivez la tâche.",
     titreLigne2: "On s’occupe du calcul.",
     texte:
-      "Déposez vos fichiers, dites ce que vous voulez en mots simples. L’IA choisit le bon mode et lance le calcul dans le cloud. Vous n’avez qu’à récupérer le résultat.",
+      "Votre poste de travail cloud : calcul lourd en langage humain, éditeurs professionnels et collaboration d’équipe. Décrivez ce que vous voulez, on s’occupe du reste — sans rien installer.",
     cta: "Commencer gratuitement",
   },
   en: {
-    eyebrow: "A desktop, your way",
     titreLigne1: "Describe the task.",
     titreLigne2: "We handle the compute.",
     texte:
-      "Drop your files, say what you want in plain words. The AI picks the right mode and runs the job in the cloud. You just grab the result.",
+      "Your cloud workstation: heavy compute in plain language, professional editors and team collaboration. Say what you want, we handle the rest — nothing to install.",
     cta: "Start for free",
   },
 } as const;
@@ -69,15 +66,7 @@ function Copy({ lang }: { lang: Lang }) {
   const t = TEXTES[lang];
   return (
     <div className="max-w-xl">
-      <span
-        data-cp-accent
-        className="inline-block rounded-full px-3 py-1 text-xs font-medium"
-        style={{ background: SOFT_WASH, color: "var(--soft)" }}
-      >
-        {t.eyebrow}
-      </span>
-
-      <h1 className="mt-5 font-display text-[1.75rem] leading-[1.15] font-bold tracking-tight text-white sm:text-4xl os:text-5xl">
+      <h1 className="font-display text-[1.75rem] leading-[1.15] font-bold tracking-tight text-white sm:text-4xl os:text-5xl">
         {t.titreLigne1}
         <br />
         <span data-cp-accent style={{ color: "var(--soft)" }}>
@@ -85,7 +74,7 @@ function Copy({ lang }: { lang: Lang }) {
         </span>
       </h1>
 
-      <p className="mt-5 text-base leading-relaxed text-cp-subtle">
+      <p className="mt-5 text-base leading-relaxed text-white/85">
         {t.texte}
       </p>
 
@@ -102,8 +91,6 @@ function Copy({ lang }: { lang: Lang }) {
       {/* L'offre juste sous le bouton, en or dilué : elle appuie le CTA au
           lieu de s'excuser en gris trois tailles plus bas. */}
       <BadgeOffre className="mt-5" lang={lang} />
-
-      <WallpaperPicker lang={lang} />
     </div>
   );
 }

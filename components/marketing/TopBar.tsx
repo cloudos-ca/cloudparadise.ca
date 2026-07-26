@@ -10,18 +10,21 @@ import { SHELL, type Lang } from "./tokens";
 /**
  * Liens de navigation — desktop et menu mobile lisent tous deux ce tableau.
  *
- * Uniquement de vraies pages : « Infrastructure » a été retiré parce qu'il ne
- * pointait que vers une section de l'accueil, ce qui obligeait à quitter la
- * page courante pour un simple défilement. La barre vit dans le layout et
- * s'affiche sur toutes les pages ; une ancre y est toujours un lien bancal.
+ * Quatre entrées, pas de menu déroulant : les quatre pages qui portent la
+ * décision d'achat. `Fonctions` (référence exhaustive) et `Sécurité`
+ * (souveraineté) vivent au pied de page et dans les liens de fin de section —
+ * on n'encombre pas la barre avec les pages qu'on lit après avoir été
+ * convaincu. Uniquement de vraies pages : jamais d'ancre, la barre s'affiche
+ * partout et une ancre y serait un lien bancal.
  *
  * `chemin` est le segment sans langue ; le lien se construit à l'affichage
- * selon `lang` (`/fonctions` en français, `/en/fonctions` en anglais).
+ * selon `lang` (`/calcul` en français, `/en/calcul` en anglais).
  */
 const NAV = [
-  { libelle: { fr: "Fonctions", en: "Features" }, chemin: "fonctions" },
+  { libelle: { fr: "Plateforme", en: "Platform" }, chemin: "plateforme" },
+  { libelle: { fr: "Calcul", en: "Compute" }, chemin: "calcul" },
+  { libelle: { fr: "Mines", en: "Mining" }, chemin: "mines" },
   { libelle: { fr: "Tarifs", en: "Pricing" }, chemin: "tarifs" },
-  { libelle: { fr: "Contact", en: "Contact" }, chemin: "contact" },
 ] as const;
 
 /** Les pages qui existent dans les deux langues. */

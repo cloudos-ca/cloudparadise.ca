@@ -53,7 +53,7 @@ export function CtaFinal({ lang = "fr" }: { lang?: Lang }) {
               {PROMESSES[lang].map((promesse) => (
                 <li
                   key={promesse}
-                  className="flex items-center gap-1.5 text-xs text-[#93a3c2]"
+                  className="flex items-center gap-1.5 text-xs text-white/85"
                 >
                   <span data-cp-accent style={{ color: "var(--soft)" }}>
                     <IconCheck className="size-3.5" />

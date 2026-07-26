@@ -23,9 +23,9 @@ export const ICONS: Metadata["icons"] = {
  * (valeurs par défaut) et `app/(marketing)/page.tsx` (metadata explicite +
  * alternates), pour ne pas les dupliquer en texte libre à deux endroits. */
 export const TITRE_ACCUEIL =
-  "Cloud Paradise — Décrivez la tâche. On s'occupe du calcul.";
+  "Cloud Paradise — Votre poste de travail cloud";
 export const DESCRIPTION_ACCUEIL =
-  "Déposez vos fichiers, dites ce que vous voulez en mots simples. L'IA choisit le bon mode et lance le calcul dans le cloud. Vous n'avez qu'à récupérer le résultat.";
+  "Un bureau en ligne complet : calcul lourd en langage humain, éditeurs professionnels et collaboration d'équipe. Hébergé au Québec, sans rien installer.";
 
 /**
  * Canonical pour une paire de pages FR/EN.

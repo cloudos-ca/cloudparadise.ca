@@ -78,7 +78,7 @@ export function CommentCaMarche({ lang = "fr" }: { lang?: Lang }) {
         <Reveal>
           <p
             className="text-xs font-medium tracking-wide"
-            style={{ color: "var(--acc-text)" }}
+            style={{ color: "var(--cta)" }}
           >
             {t.eyebrow}
           </p>
@@ -160,7 +160,7 @@ export function CommentCaMarche({ lang = "fr" }: { lang?: Lang }) {
                 <p className="mt-4 text-sm font-medium text-[#eef4ff]">
                   {step.title}
                 </p>
-                <p className="mt-1.5 max-w-[24ch] text-xs leading-relaxed text-[#93a3c2]">
+                <p className="mt-1.5 max-w-[24ch] text-xs leading-relaxed text-white/75">
                   {step.text}
                 </p>
               </li>

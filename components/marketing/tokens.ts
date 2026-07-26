@@ -16,7 +16,7 @@ export type Lang = "fr" | "en";
  * d'où un intervalle constant de ~112px : assez pour respirer, assez serré
  * pour que la page se lise d'un trait plutôt qu'en blocs détachés.
  */
-export const SECTION_Y = "py-12 os:py-14";
+export const SECTION_Y = "py-8 os:py-9";
 
 /** Fond translucide dérivé de --soft, pour puces et badges. */
 export const SOFT_WASH = "color-mix(in srgb, var(--soft) 16%, transparent)";
