@@ -313,3 +313,43 @@ export function IconFlask(props: IconProps) {
     </Glyph>
   );
 }
+
+export function IconSearch(props: IconProps) {
+  return (
+    <Glyph {...props}>
+      <circle cx="11" cy="11" r="7" />
+      <path d="m21 21 -4.35 -4.35" />
+    </Glyph>
+  );
+}
+
+export function IconWindow(props: IconProps) {
+  return (
+    <Glyph {...props}>
+      <rect x="4" y="5" width="16" height="14" rx="2" />
+      <path d="M4 9h16" />
+      <path d="M7 7h.01" />
+    </Glyph>
+  );
+}
+
+export function IconUsers(props: IconProps) {
+  return (
+    <Glyph {...props}>
+      <circle cx="9" cy="7.5" r="3" />
+      <path d="M3.5 20a5.5 5.5 0 0 1 11 0" />
+      <path d="M16 5a3 3 0 0 1 0 6" />
+      <path d="M17 14.6a5.5 5.5 0 0 1 4 5.4" />
+    </Glyph>
+  );
+}
+
+export function IconCalendar(props: IconProps) {
+  return (
+    <Glyph {...props}>
+      <rect x="4" y="5" width="16" height="16" rx="2" />
+      <path d="M4 9h16" />
+      <path d="M8 3v4M16 3v4" />
+    </Glyph>
+  );
+}
