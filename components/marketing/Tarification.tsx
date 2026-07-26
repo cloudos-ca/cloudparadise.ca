@@ -75,17 +75,17 @@ export function Tarification({ lang = "fr" }: { lang?: Lang }) {
     // Cible de « Voir les tarifs », depuis le closer.
     <section id="tarifs" className="relative scroll-mt-20">
       <div className={`${SHELL} ${SECTION_Y}`}>
-        <Reveal className="text-center">
+        <Reveal>
           <p
-            className="text-xs font-medium tracking-wide"
-            style={{ color: "var(--acc-text)" }}
+            className="text-[13px] font-semibold uppercase tracking-[0.12em]"
+            style={{ color: "var(--cta)" }}
           >
             {t.eyebrow}
           </p>
-          <h2 className="mx-auto mt-3 max-w-[22ch] font-display text-[1.6rem] leading-[1.2] font-bold tracking-tight text-balance text-[#eef4ff] sm:text-3xl os:text-4xl">
+          <h2 className="mt-2 max-w-[22ch] font-display text-[1.6rem] leading-[1.2] font-bold tracking-tight text-balance text-[#eef4ff] sm:text-3xl os:text-4xl">
             {t.titre}
           </h2>
-          <p className="mx-auto mt-3 max-w-[52ch] text-sm leading-relaxed text-[#93a3c2]">
+          <p className="mt-3 max-w-[52ch] text-sm leading-relaxed text-white/85">
             {t.soustitre}
           </p>
         </Reveal>
@@ -113,7 +113,7 @@ export function Tarification({ lang = "fr" }: { lang?: Lang }) {
                   </span>
                   <div>
                     <p className="text-sm font-medium text-[#eef4ff]">{titre}</p>
-                    <p className="mt-1 text-[13px] leading-relaxed text-[#93a3c2]">
+                    <p className="mt-1 text-[13px] leading-relaxed text-white/85">
                       {texte}
                     </p>
                   </div>
@@ -136,7 +136,7 @@ export function Tarification({ lang = "fr" }: { lang?: Lang }) {
 function Grille({ lang }: { lang: Lang }) {
   return (
     <div className="rounded-xl border border-white/10 bg-white/[0.03] px-5 py-4">
-      <p className="text-xs text-[#93a3c2]">
+      <p className="text-[13px] text-white/75">
         {lang === "en"
           ? "Cost charged per task, in credits — 1 credit = "
           : "Coût débité par tâche lancée, en crédits — 1 crédit = "}

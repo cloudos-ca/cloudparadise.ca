@@ -165,11 +165,16 @@ export function Estimateur({
         {lienDetails ? (
           <a
             href={lang === "en" ? "/en/tarifs" : "/tarifs"}
-            data-cp-accent
-            className="text-xs font-medium underline-offset-4 hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--acc)]"
-            style={{ color: "var(--acc-text)" }}
+            className="group inline-flex items-center gap-1 text-xs font-medium underline-offset-4 hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+            style={{ color: "var(--cta)" }}
           >
             {t.voirDetails}
+            <span
+              aria-hidden="true"
+              className="transition-transform group-hover:translate-x-0.5"
+            >
+              →
+            </span>
           </a>
         ) : null}
       </div>
