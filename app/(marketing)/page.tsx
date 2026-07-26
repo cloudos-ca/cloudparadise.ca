@@ -4,7 +4,7 @@ import { HreflangLinks } from "@/components/marketing/HreflangLinks";
 import { TroisPiliers } from "@/components/marketing/TroisPiliers";
 import { Determinisme } from "@/components/marketing/Determinisme";
 import { FamillesApps } from "@/components/marketing/FamillesApps";
-import { CommentCaMarche } from "@/components/marketing/CommentCaMarche";
+import { Exemples } from "@/components/marketing/Exemples";
 import { RenvoiMines } from "@/components/marketing/RenvoiMines";
 import { CtaFinal } from "@/components/marketing/CtaFinal";
 import {
@@ -29,7 +29,7 @@ export default function MarketingPage() {
       <TroisPiliers />
       <Determinisme />
       <FamillesApps />
-      <CommentCaMarche />
+      <Exemples />
       <RenvoiMines />
       <CtaFinal />
     </>
