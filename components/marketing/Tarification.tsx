@@ -100,16 +100,19 @@ export function Tarification({ lang = "fr" }: { lang?: Lang }) {
             <ul className="space-y-5">
               {argumentsDe(lang).map(({ Icone, titre, texte }) => (
                 <li key={titre} className="flex gap-3.5">
+                  {/* Même bleu que les icônes de « Vos outils » (`--soft`) :
+                      une seule valeur pour toutes les icônes secondaires de la
+                      page. Même teinte de fond et même taille d'icône (21px),
+                      donc même graisse de trait. */}
                   <span
-                    data-cp-accent
-                    className="mt-0.5 grid size-8 shrink-0 place-items-center rounded-full"
+                    className="mt-0.5 grid size-9 shrink-0 place-items-center rounded-full"
                     style={{
                       background:
-                        "color-mix(in srgb, var(--acc) 15%, transparent)",
-                      color: "var(--acc-text)",
+                        "color-mix(in srgb, var(--soft) 12%, transparent)",
+                      color: "var(--soft)",
                     }}
                   >
-                    <Icone className="size-[18px]" />
+                    <Icone className="size-[21px]" />
                   </span>
                   <div>
                     <p className="text-sm font-medium text-[#eef4ff]">{titre}</p>
