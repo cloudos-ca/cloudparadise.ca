@@ -43,9 +43,10 @@ export function Determinisme({ lang = "fr" }: { lang?: Lang }) {
   return (
     <section className="relative">
       <div className={`${SHELL} ${SECTION_Y}`}>
-        {/* En-tête centré. Mesure élargie (max-w-2xl) pour que le titre tienne
-            sur deux lignes plutôt que quatre. */}
-        <Reveal className="mx-auto max-w-2xl text-center">
+        {/* En-tête aligné à gauche, comme toutes les sections. Mesure élargie
+            (max-w-2xl) pour que le titre tienne sur deux lignes plutôt que
+            quatre. */}
+        <Reveal className="max-w-2xl">
           <p
             className="text-xs font-medium tracking-wide"
             style={{ color: "var(--cta)" }}
@@ -55,7 +56,7 @@ export function Determinisme({ lang = "fr" }: { lang?: Lang }) {
           <h2 className="mt-3 font-display text-[1.6rem] leading-[1.2] font-bold tracking-tight text-balance text-[#eef4ff] sm:text-3xl os:text-4xl">
             {t.titre}
           </h2>
-          <p className="mx-auto mt-4 max-w-[56ch] text-sm leading-relaxed text-white/85">
+          <p className="mt-4 max-w-[56ch] text-sm leading-relaxed text-white/85">
             {t.texte}
           </p>
         </Reveal>

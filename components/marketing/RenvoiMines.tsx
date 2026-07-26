@@ -36,12 +36,14 @@ export function RenvoiMines({ lang = "fr" }: { lang?: Lang }) {
               <span className="font-medium text-[#eef4ff]">{t.lead}</span>{" "}
               {t.texte}
             </p>
-            <span className="inline-flex shrink-0 items-center gap-1.5 text-[13px] font-medium text-white/90">
+            <span
+              className="inline-flex shrink-0 items-center gap-1.5 text-[13px] font-medium"
+              style={{ color: "var(--cta)" }}
+            >
               {t.lien}
               <span
                 aria-hidden="true"
                 className="transition-transform group-hover:translate-x-0.5"
-                style={{ color: "var(--cta)" }}
               >
                 →
               </span>

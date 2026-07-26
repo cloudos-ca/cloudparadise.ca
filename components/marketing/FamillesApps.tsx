@@ -160,13 +160,13 @@ export function FamillesApps({ lang = "fr" }: { lang?: Lang }) {
         <Reveal delay={0.15} className="mt-8">
           <Link
             href={hrefPlateforme}
-            className="group inline-flex items-center gap-1.5 text-sm font-medium text-white/90 underline-offset-4 hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+            className="group inline-flex items-center gap-1.5 text-sm font-medium transition-[filter] hover:brightness-110 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+            style={{ color: "var(--cta)" }}
           >
             {t.lien}
             <span
               aria-hidden="true"
               className="transition-transform group-hover:translate-x-0.5"
-              style={{ color: "var(--cta)" }}
             >
               →
             </span>

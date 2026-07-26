@@ -126,12 +126,14 @@ export function TroisPiliers({ lang = "fr" }: { lang?: Lang }) {
               <p className="mt-2 flex-1 text-sm leading-relaxed text-white/85">
                 {texte}
               </p>
-              <span className="mt-5 inline-flex items-center gap-1.5 text-[13px] font-medium text-white/90">
+              <span
+                className="mt-5 inline-flex items-center gap-1.5 text-[13px] font-medium"
+                style={{ color: "var(--cta)" }}
+              >
                 {lien}
                 <span
                   aria-hidden="true"
                   className="transition-transform group-hover:translate-x-0.5"
-                  style={{ color: "var(--cta)" }}
                 >
                   →
                 </span>
