@@ -1,7 +1,10 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import Image from "next/image";
-import { AncresSections } from "@/components/marketing/AncresSections";
+import {
+  AncresSections,
+  type Ancre,
+} from "@/components/marketing/AncresSections";
 import { BoutonCta } from "@/components/marketing/BoutonCta";
 import { BreadcrumbJsonLd } from "@/components/marketing/BreadcrumbJsonLd";
 import { FenetreCta } from "@/components/marketing/FenetreCta";
@@ -33,6 +36,12 @@ export const metadata: Metadata = {
   alternates: alternatesBilingues("/plateforme", "/en/plateforme", "fr"),
   openGraph: openGraphPage(TITRE, DESCRIPTION, "fr"),
 };
+
+const ANCRES: readonly Ancre[] = [
+  { id: "bureau", libelle: { fr: "Le bureau", en: "The desktop" } },
+  { id: "logiciels", libelle: { fr: "Les logiciels", en: "Software" } },
+  { id: "equipe", libelle: { fr: "L’équipe", en: "The team" } },
+];
 
 type Carte = { Icone: typeof IconWindow; titre: string; texte: string };
 
@@ -161,7 +170,7 @@ export default function PlateformePage() {
       </section>
 
       {/* Barre d'ancres — non collante, état actif en or */}
-      <AncresSections />
+      <AncresSections ancres={ANCRES} />
 
       <SectionAncre
         id="bureau"
