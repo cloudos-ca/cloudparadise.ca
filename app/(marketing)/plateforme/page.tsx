@@ -25,7 +25,7 @@ import { alternatesBilingues, openGraphPage } from "@/lib/seo";
 
 const TITRE = "Plateforme — Cloud Paradise";
 const DESCRIPTION =
-  "Un vrai bureau en ligne : fenêtres, dock, fichiers, éditeurs professionnels et collaboration d’équipe. Le même environnement qu’en local, sans rien installer.";
+  "Un vrai bureau en ligne : fenêtres, dock, fichiers, logiciels professionnels et collaboration d’équipe. Le même environnement qu’en local, sans rien installer.";
 
 export const metadata: Metadata = {
   title: TITRE,
@@ -62,7 +62,7 @@ const BUREAU: Carte[] = [
   },
 ];
 
-const EDITEURS: Carte[] = [
+const LOGICIELS: Carte[] = [
   {
     Icone: IconFileText,
     titre: "Bureautique",
@@ -133,8 +133,9 @@ export default function PlateformePage() {
               Un vrai bureau.
             </h1>
             <p className="mt-6 max-w-[58ch] text-[17px] leading-relaxed text-white/85">
-              Fenêtres, dock, fichiers, plans, équipe. Le même environnement de
-              travail qu’en local, dans votre navigateur, sans rien installer.
+              Fenêtres, dock, fichiers, logiciels, équipe. Le même
+              environnement de travail qu’en local, dans votre navigateur, sans
+              rien installer.
             </p>
             <div className="mt-7 flex flex-wrap items-center gap-x-5 gap-y-3">
               <BoutonCta
@@ -171,8 +172,8 @@ export default function PlateformePage() {
       />
 
       <SectionAncre
-        id="plans"
-        surtitre="Les plans"
+        id="logiciels"
+        surtitre="Les logiciels"
         titre={
           <>
             Vos fichiers ne sortent
@@ -181,7 +182,7 @@ export default function PlateformePage() {
           </>
         }
         texte="Vous ouvrez, vous modifiez, vous enregistrez. Rien à téléverser ailleurs, rien à réimporter ensuite."
-        cartes={EDITEURS}
+        cartes={LOGICIELS}
       >
         <Reveal delay={0.15} className="mt-8">
           <Capture
@@ -206,7 +207,7 @@ export default function PlateformePage() {
         <div className={`${SHELL} ${SECTION_Y}`}>
           <Reveal>
             <FenetreCta
-              soustitre="Créez votre bureau, ouvrez vos éditeurs, invitez votre équipe — dès aujourd’hui."
+              soustitre="Créez votre bureau, ouvrez vos logiciels, invitez votre équipe — dès aujourd’hui."
               bouton={{
                 href: "https://app.cloudparadise.cloud/register",
                 libelle: "Créez votre bureau gratuitement",

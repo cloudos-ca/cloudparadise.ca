@@ -4,8 +4,8 @@ import { useEffect, useState } from "react";
 import { SHELL, type Lang } from "./tokens";
 
 /**
- * Barre d'ancres de /plateforme : trois liens de saut vers #bureau, #editeurs,
- * #equipe. Non collante. L'ancre de la section courante passe en or.
+ * Barre d'ancres de /plateforme : trois liens de saut vers #bureau,
+ * #logiciels, #equipe. Non collante. L'ancre de la section courante passe en or.
  *
  * Seul composant client de la page : l'état actif suit le défilement via
  * `IntersectionObserver` (la page, qui exporte `metadata`, reste serveur, donc
@@ -16,7 +16,7 @@ import { SHELL, type Lang } from "./tokens";
 
 const ANCRES = [
   { id: "bureau", libelle: { fr: "Le bureau", en: "The desktop" } },
-  { id: "plans", libelle: { fr: "Les plans", en: "Plans" } },
+  { id: "logiciels", libelle: { fr: "Les logiciels", en: "Software" } },
   { id: "equipe", libelle: { fr: "L’équipe", en: "The team" } },
 ] as const;
 
