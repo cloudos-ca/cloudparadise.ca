@@ -29,8 +29,8 @@ export default function MarketingPage() {
       <TroisPiliers />
       <Determinisme />
       <FamillesApps />
-      <Tarification />
       <RenvoiMines />
+      <Tarification />
       <CtaFinal />
     </>
   );

@@ -28,8 +28,8 @@ export default function MarketingPageEn() {
       <TroisPiliers lang="en" />
       <Determinisme lang="en" />
       <FamillesApps lang="en" />
-      <Tarification lang="en" />
       <RenvoiMines lang="en" />
+      <Tarification lang="en" />
       <CtaFinal lang="en" />
     </>
   );
