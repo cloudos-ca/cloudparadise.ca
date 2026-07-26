@@ -16,7 +16,7 @@ import { SHELL, type Lang } from "./tokens";
 
 const ANCRES = [
   { id: "bureau", libelle: { fr: "Le bureau", en: "The desktop" } },
-  { id: "editeurs", libelle: { fr: "Les éditeurs", en: "The editors" } },
+  { id: "plans", libelle: { fr: "Les plans", en: "Plans" } },
   { id: "equipe", libelle: { fr: "L’équipe", en: "The team" } },
 ] as const;
 

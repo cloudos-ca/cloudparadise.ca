@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
+import Image from "next/image";
 import { AncresSections } from "@/components/marketing/AncresSections";
 import { BoutonCta } from "@/components/marketing/BoutonCta";
 import { BreadcrumbJsonLd } from "@/components/marketing/BreadcrumbJsonLd";
@@ -119,22 +120,21 @@ export default function PlateformePage() {
         ]}
       />
 
-      {/* Héros */}
+      {/* Héros — texte à gauche, capture du bureau en pleine largeur dessous
+          (le vrai visuel est ultra-large : il respire bien mieux ainsi que
+          coincé dans une colonne). */}
       <section className="relative">
-        <div
-          className={`${SHELL} ${SECTION_Y} grid gap-12 os:grid-cols-[3fr_2fr] os:items-center`}
-        >
-          <Reveal>
+        <div className={`${SHELL} ${SECTION_Y}`}>
+          <Reveal className="max-w-3xl">
             <SurTitre>Plateforme</SurTitre>
-            <h1 className="mt-2 font-display text-[2rem] leading-[1.08] font-bold tracking-[-0.02em] text-balance text-white sm:text-[2.5rem] os:text-[3rem]">
+            <h1 className="mt-2 font-display text-[2rem] leading-[1.08] font-bold tracking-[-0.02em] text-white sm:text-[2.9rem] os:text-[3.35rem]">
               Pas un tableau de bord.
               <br />
               Un vrai bureau.
             </h1>
-            <p className="mt-6 max-w-[54ch] text-[17px] leading-relaxed text-white/85">
-              Fenêtres, dock, fichiers, éditeurs professionnels, équipe. Le même
-              environnement de travail qu’en local, dans votre navigateur, sans
-              rien installer.
+            <p className="mt-6 max-w-[58ch] text-[17px] leading-relaxed text-white/85">
+              Fenêtres, dock, fichiers, plans, équipe. Le même environnement de
+              travail qu’en local, dans votre navigateur, sans rien installer.
             </p>
             <div className="mt-7 flex flex-wrap items-center gap-x-5 gap-y-3">
               <BoutonCta
@@ -147,11 +147,13 @@ export default function PlateformePage() {
             </div>
           </Reveal>
 
-          <Reveal delay={0.1}>
-            <PlaceholderCapture
-              numero={1}
-              titre="Le bureau complet"
-              detail="Plusieurs fenêtres ouvertes"
+          <Reveal delay={0.1} className="mt-12">
+            <Capture
+              src="/plateforme/bureau.jpg"
+              width={2048}
+              height={760}
+              alt="Le bureau Cloud Paradise : fond d’écran, dock d’applications à gauche et barre inférieure."
+              priority
             />
           </Reveal>
         </div>
@@ -169,8 +171,8 @@ export default function PlateformePage() {
       />
 
       <SectionAncre
-        id="editeurs"
-        surtitre="Les éditeurs"
+        id="plans"
+        surtitre="Les plans"
         titre={
           <>
             Vos fichiers ne sortent
@@ -182,11 +184,11 @@ export default function PlateformePage() {
         cartes={EDITEURS}
       >
         <Reveal delay={0.15} className="mt-8">
-          <PlaceholderCapture
-            numero={2}
-            titre="Un éditeur ouvert"
-            detail="Dans le bureau, à côté des autres fenêtres"
-            large
+          <Capture
+            src="/plateforme/plan.jpg"
+            width={2048}
+            height={756}
+            alt="Un plan Cloud Paradise : la conversion d’un document, sa spécification, son exécution et le résultat à télécharger."
           />
         </Reveal>
       </SectionAncre>
@@ -315,37 +317,34 @@ function SectionAncre({
 }
 
 /**
- * Emplacement de capture, clairement identifié comme tel (bordure pointillée,
- * mention « capture à venir ») et prêt à être remplacé par un `<Image>` au même
- * ratio. Aucune fausse capture en CSS.
+ * Capture réelle, encadrée sobrement (bord + ombre, comme les fenêtres du
+ * site). Le visuel porte déjà son propre chrome (barre du bureau, titre de
+ * fenêtre), donc pas de cadre « fenêtre » supplémentaire par-dessus.
  */
-function PlaceholderCapture({
-  numero,
-  titre,
-  detail,
-  large = false,
+function Capture({
+  src,
+  width,
+  height,
+  alt,
+  priority = false,
 }: {
-  numero: number;
-  titre: string;
-  detail: string;
-  large?: boolean;
+  src: string;
+  width: number;
+  height: number;
+  alt: string;
+  priority?: boolean;
 }) {
   return (
-    <div
-      className={`grid w-full place-items-center rounded-xl border border-dashed border-white/20 bg-white/[0.02] ${
-        large ? "aspect-[16/9]" : "aspect-[16/10]"
-      }`}
-    >
-      <div className="px-6 text-center">
-        <IconWindow className="mx-auto size-8 text-white/30" />
-        <p className="mt-3 text-sm font-medium text-white/70">
-          Capture&nbsp;n° {numero} — {titre}
-        </p>
-        <p className="mt-1 text-xs text-white/50">{detail}</p>
-        <p className="mt-3 font-mono text-[11px] text-white/35">
-          Emplacement — capture à venir
-        </p>
-      </div>
+    <div className="overflow-hidden rounded-xl border border-white/10 shadow-[0_24px_50px_-14px_rgba(0,0,0,.55)]">
+      <Image
+        src={src}
+        width={width}
+        height={height}
+        alt={alt}
+        priority={priority}
+        sizes="(min-width: 1280px) 1216px, 100vw"
+        className="h-auto w-full"
+      />
     </div>
   );
 }
