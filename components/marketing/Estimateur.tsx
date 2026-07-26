@@ -101,7 +101,7 @@ export function Estimateur({
         >
           {nf.format(credits)}
         </span>
-        <span className="text-sm text-[#93a3c2]">{t.credits}</span>
+        <span className="text-sm text-white/80">{t.credits}</span>
       </div>
 
       <input
@@ -117,7 +117,7 @@ export function Estimateur({
         className="mt-4 h-4 w-full cursor-pointer appearance-none bg-transparent focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--acc)] [&::-moz-range-progress]:h-1.5 [&::-moz-range-progress]:rounded-full [&::-moz-range-progress]:bg-[var(--acc)] [&::-moz-range-thumb]:size-4 [&::-moz-range-thumb]:cursor-pointer [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:border-0 [&::-moz-range-thumb]:bg-[var(--acc)] [&::-moz-range-track]:h-1.5 [&::-moz-range-track]:rounded-full [&::-moz-range-track]:bg-white/12 [&::-webkit-slider-runnable-track]:h-1.5 [&::-webkit-slider-runnable-track]:rounded-full [&::-webkit-slider-runnable-track]:bg-[linear-gradient(to_right,var(--acc)_var(--pct),rgb(255_255_255/0.12)_var(--pct))] [&::-webkit-slider-thumb]:mt-[-5px] [&::-webkit-slider-thumb]:size-4 [&::-webkit-slider-thumb]:cursor-pointer [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-[var(--acc)]"
       />
 
-      <div className="mt-1 flex justify-between text-[11px] text-[#93a3c2]">
+      <div className="mt-1 flex justify-between text-[11px] text-white/70">
         <span>{nf.format(min)}</span>
         <span>{nf.format(max)}</span>
       </div>
@@ -129,7 +129,7 @@ export function Estimateur({
       >
         {equivalences(credits, lang).map(({ cle, valeur, libelle }) => (
           <div key={cle} className="flex items-baseline gap-2 text-sm">
-            <span aria-hidden="true" className="text-[#93a3c2]">
+            <span aria-hidden="true" className="text-white/60">
               ≈
             </span>
             <dt
@@ -138,7 +138,7 @@ export function Estimateur({
             >
               {valeur}
             </dt>
-            <dd className="text-[#93a3c2]">{libelle}</dd>
+            <dd className="text-white/85">{libelle}</dd>
           </div>
         ))}
       </dl>
@@ -146,7 +146,7 @@ export function Estimateur({
       <div className="mt-5 flex flex-wrap items-baseline justify-between gap-2 border-t border-white/10 pt-4">
         {/* Le taux est réel, donc plus de « prix indicatif » : la grille se lit
             directement en devise. */}
-        <p className="text-[11px] text-[#93a3c2]">
+        <p className="text-[11px] text-white/70">
           {lang === "en" ? (
             <>
               1 credit = {nf.format(CONFIG.creditEnDevise)} {CONFIG.devise} —{" "}
