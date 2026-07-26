@@ -25,7 +25,7 @@ type Pilier = {
 
 const TEXTES = {
   fr: {
-    eyebrow: "Trois piliers",
+    eyebrow: "Ce qu’on fait",
     titre: "Pas un service de calcul. Un poste de travail.",
     piliers: [
       {
@@ -55,7 +55,7 @@ const TEXTES = {
     ] as Pilier[],
   },
   en: {
-    eyebrow: "Three pillars",
+    eyebrow: "What we do",
     titre: "Not a compute service. A workstation.",
     piliers: [
       {
@@ -95,12 +95,12 @@ export function TroisPiliers({ lang = "fr" }: { lang?: Lang }) {
       <div className={`${SHELL} ${SECTION_Y}`}>
         <Reveal>
           <p
-            className="text-xs font-medium tracking-wide"
+            className="text-[13px] font-semibold uppercase tracking-[0.12em]"
             style={{ color: "var(--cta)" }}
           >
             {t.eyebrow}
           </p>
-          <h2 className="mt-3 max-w-[24ch] font-display text-[1.6rem] leading-[1.2] font-bold tracking-tight text-balance text-[#eef4ff] sm:text-3xl os:text-4xl">
+          <h2 className="mt-2 max-w-[24ch] font-display text-[1.6rem] leading-[1.2] font-bold tracking-tight text-balance text-[#eef4ff] sm:text-3xl os:text-4xl">
             {t.titre}
           </h2>
         </Reveal>

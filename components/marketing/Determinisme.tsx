@@ -48,12 +48,12 @@ export function Determinisme({ lang = "fr" }: { lang?: Lang }) {
             quatre. */}
         <Reveal className="max-w-2xl">
           <p
-            className="text-xs font-medium tracking-wide"
+            className="text-[13px] font-semibold uppercase tracking-[0.12em]"
             style={{ color: "var(--cta)" }}
           >
             {t.eyebrow}
           </p>
-          <h2 className="mt-3 font-display text-[1.6rem] leading-[1.2] font-bold tracking-tight text-balance text-[#eef4ff] sm:text-3xl os:text-4xl">
+          <h2 className="mt-2 font-display text-[1.6rem] leading-[1.2] font-bold tracking-tight text-balance text-[#eef4ff] sm:text-3xl os:text-4xl">
             {t.titre}
           </h2>
           <p className="mt-4 max-w-[56ch] text-sm leading-relaxed text-white/85">

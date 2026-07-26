@@ -32,7 +32,7 @@ type Famille = {
 
 const TEXTES = {
   fr: {
-    eyebrow: "L’ampleur",
+    eyebrow: "Vos outils",
     titre: "Un poste de travail, toutes vos apps.",
     soustitre:
       "Les mêmes outils qu’en local, dans le navigateur. Vos fichiers restent dans votre espace, rien à installer, rien à téléverser ailleurs.",
@@ -71,7 +71,7 @@ const TEXTES = {
     ] as Famille[],
   },
   en: {
-    eyebrow: "The breadth",
+    eyebrow: "Your tools",
     titre: "One workstation, all your apps.",
     soustitre:
       "The same tools as on your machine, in the browser. Your files stay in your space — nothing to install, nothing to upload elsewhere.",
@@ -120,12 +120,12 @@ export function FamillesApps({ lang = "fr" }: { lang?: Lang }) {
       <div className={`${SHELL} ${SECTION_Y}`}>
         <Reveal>
           <p
-            className="text-xs font-medium tracking-wide"
+            className="text-[13px] font-semibold uppercase tracking-[0.12em]"
             style={{ color: "var(--cta)" }}
           >
             {t.eyebrow}
           </p>
-          <h2 className="mt-3 max-w-[22ch] font-display text-[1.6rem] leading-[1.2] font-bold tracking-tight text-balance text-[#eef4ff] sm:text-3xl os:text-4xl">
+          <h2 className="mt-2 max-w-[22ch] font-display text-[1.6rem] leading-[1.2] font-bold tracking-tight text-balance text-[#eef4ff] sm:text-3xl os:text-4xl">
             {t.titre}
           </h2>
           <p className="mt-3 max-w-[58ch] text-sm leading-relaxed text-white/85">
