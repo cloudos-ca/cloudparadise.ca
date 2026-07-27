@@ -1,5 +1,4 @@
 import { IconCoin } from "./icons";
-import { TEINTES } from "./modes";
 import { WindowCard } from "./WindowCard";
 import {
   CREDIT_EN_DEVISE,
@@ -75,12 +74,10 @@ const LIGNES: readonly {
   {
     type: "Scraping",
     fait: { fr: "Extraction de pages web", en: "Web page extraction" },
-    // 10 000 pages ne font pas 10 000 tâches : le découpage dépend du site et
-    // du lot. Annoncer un total ici serait une promesse qu'on ne tient pas.
-    note: {
-      fr: "10 000 pages : le coût dépend du découpage en tâches",
-      en: "10,000 pages: cost depends on how the job gets split into tasks",
-    },
+    // Équivalence en tâches, comme les autres lignes : c'est de l'arithmétique
+    // sur le tarif, et ça n'affirme rien sur le nombre de pages qu'une tâche
+    // couvre — règle qui n'est pas établie côté vitrine.
+    exemple: { quantite: 10, unite: { fr: "tâches", en: "tasks" } },
   },
   {
     type: "Calcul GPU",
@@ -219,8 +216,7 @@ export function GrilleDetaillee({ lang = "fr" }: { lang?: Lang }) {
           {LIGNES.map((m) => (
             <li key={m.type} className="p-4">
               <div className="flex items-baseline justify-between gap-3">
-                <p className="flex items-center gap-2 text-sm font-medium text-white">
-                  <Puce type={m.type} />
+                <p className="text-sm font-medium text-white">
                   {libelleDe(m.type, lang)}
                 </p>
                 <Prix type={m.type} lang={lang} />
@@ -257,8 +253,7 @@ export function GrilleDetaillee({ lang = "fr" }: { lang?: Lang }) {
                   className="border-b border-white/[0.06] transition-colors last:border-b-0 even:bg-white/[0.015] hover:bg-white/[0.05]"
                 >
                   <td className="px-4 py-3 align-top">
-                    <span className="flex items-center gap-2.5 text-[13px] font-medium whitespace-nowrap text-white">
-                      <Puce type={m.type} />
+                    <span className="text-[13px] font-medium whitespace-nowrap text-white">
                       {libelleDe(m.type, lang)}
                     </span>
                   </td>
@@ -341,27 +336,6 @@ function Prix({ type, lang }: { type: TypeTache; lang: Lang }) {
     >
       {nfCredit.format(cout)}
     </span>
-  );
-}
-
-/**
- * Puce de ligne, dans la teinte du type de tâche.
- *
- * Un point coloré plus un halo de la même teinte : assez pour distinguer les
- * lignes d'un coup d'œil, trop discret pour virer au bariolage. La couleur ne
- * porte aucune information seule — le nom est juste à côté.
- */
-function Puce({ type }: { type: TypeTache }) {
-  const teinte = TEINTES[type];
-  return (
-    <span
-      aria-hidden="true"
-      className="size-2 shrink-0 rounded-full"
-      style={{
-        background: teinte,
-        boxShadow: `0 0 8px 1px ${teinte}55`,
-      }}
-    />
   );
 }
 

@@ -18,7 +18,6 @@ import { WindowCard } from "@/components/marketing/WindowCard";
 import {
   IconRefresh,
   IconSearch,
-  IconUsers,
   IconWindow,
 } from "@/components/marketing/icons";
 import {
@@ -111,11 +110,6 @@ const FACTURATION = [
     texte:
       "Ouvrir un fichier, le prévisualiser, naviguer dans vos dossiers : gratuit. Seule la génération débite des crédits.",
   },
-  {
-    Icone: IconUsers,
-    titre: "Comptes administrateurs",
-    texte: "Ils ne sont pas facturés.",
-  },
 ] as const;
 
 export default function TarifsPage() {
@@ -151,17 +145,18 @@ export default function TarifsPage() {
               Vous en recevez pour commencer, vous en rachetez quand vous
               voulez.
             </p>
+            {/* Bouton puis badge, dans cet ordre — le même que sur l'accueil :
+                l'offre confirme l'action, elle ne la précède pas. */}
             <div className="mt-7">
-              <BadgeOffre />
-            </div>
-            <div className="mt-6 flex flex-wrap items-center gap-x-5 gap-y-3">
               <BoutonCta
                 href="https://app.cloudparadise.cloud/register"
                 taille="lg"
               >
                 Commencer gratuitement
               </BoutonCta>
-              <LienOr href="#grille">Voir la grille</LienOr>
+            </div>
+            <div className="mt-5">
+              <BadgeOffre />
             </div>
           </Reveal>
         </div>
@@ -306,7 +301,7 @@ export default function TarifsPage() {
           <div className="grid gap-8 os:grid-cols-[2fr_3fr] os:items-start os:gap-12">
             <Reveal>
               <SurTitre>Questions</SurTitre>
-              <TitreSection>Ce qu’on nous demande le plus.</TitreSection>
+              <TitreSection>Avant de commencer.</TitreSection>
             </Reveal>
             <Reveal delay={0.1}>
               <FaqTarifs />
@@ -356,24 +351,5 @@ function TitreSection({ children }: { children: ReactNode }) {
     <h2 className="mt-2 font-display text-[1.6rem] leading-[1.2] font-bold tracking-tight text-balance text-[#eef4ff] sm:text-3xl os:text-4xl">
       {children}
     </h2>
-  );
-}
-
-/** Lien or texte + flèche. */
-function LienOr({ href, children }: { href: string; children: ReactNode }) {
-  return (
-    <a
-      href={href}
-      className="group inline-flex items-center gap-1.5 text-sm font-medium transition-[filter] hover:brightness-110 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
-      style={{ color: "var(--cta)" }}
-    >
-      {children}
-      <span
-        aria-hidden="true"
-        className="transition-transform group-hover:translate-x-0.5"
-      >
-        →
-      </span>
-    </a>
   );
 }
