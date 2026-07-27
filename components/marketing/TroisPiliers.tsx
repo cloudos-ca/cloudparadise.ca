@@ -48,7 +48,7 @@ const TEXTES = {
         Icone: IconLock,
         titre: "Vos données, au Québec",
         texte:
-          "Notre moteur d’IA tourne sur notre matériel, dans un local au Québec. Aucune donnée client ne transite par une API externe.",
+          "Notre modèle de langage tourne sur notre matériel, dans un local au Québec. Vos fichiers ne sont jamais envoyés à un fournisseur d’intelligence artificielle tiers.",
         lien: "La souveraineté",
         href: "/securite",
       },
@@ -78,7 +78,7 @@ const TEXTES = {
         Icone: IconLock,
         titre: "Your data, in Québec",
         texte:
-          "Our AI engine runs on our own hardware, in a facility in Québec. No client data ever passes through an external API.",
+          "Our language model runs on our own hardware, in a facility in Québec. Your files are never sent to a third-party AI provider.",
         lien: "On sovereignty",
         href: "/securite",
       },
