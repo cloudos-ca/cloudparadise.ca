@@ -22,7 +22,7 @@ const nfCredit = new Intl.NumberFormat("fr-CA", {
 const nf = new Intl.NumberFormat("fr-CA");
 
 /**
- * Descriptif de chaque mode.
+ * Descriptif de chaque type de tâche.
  *
  * Uniquement de la copie : aucun prix ici. Les montants viennent de `GRILLE`
  * et les exemples sont *calculés* à partir d'eux — un tarif qui change met donc
@@ -31,9 +31,9 @@ const nf = new Intl.NumberFormat("fr-CA");
  * `exemple` décrit une quantité de tâches ; le coût affiché en est déduit.
  * `note` remplace le calcul quand la facturation dépend du découpage réel —
  * ou quand le tarif n'est pas encore arrêté.
- * `details` détaille un mode qui en regroupe plusieurs.
+ * `details` détaille une ligne qui en regroupe plusieurs.
  */
-const MODES: readonly {
+const LIGNES: readonly {
   type: TypeTache;
   fait: Bilingue;
   details?: { fr: readonly string[]; en: readonly string[] };
@@ -43,8 +43,8 @@ const MODES: readonly {
   {
     type: "IA",
     fait: {
-      fr: "Planification, choix du mode, petites tâches",
-      en: "Planning, mode selection, small tasks",
+      fr: "Planification, choix du traitement, petites tâches",
+      en: "Planning, choice of processing, small tasks",
     },
     exemple: { quantite: 10, unite: { fr: "tâches", en: "tasks" } },
   },
@@ -156,7 +156,7 @@ function coutExemple(type: TypeTache, quantite: number) {
   return Math.round(quantite * cout * 100) / 100;
 }
 
-function libelleExemple(m: (typeof MODES)[number], lang: Lang) {
+function libelleExemple(m: (typeof LIGNES)[number], lang: Lang) {
   if (m.note) return m.note[lang];
   const { quantite, unite } = m.exemple!;
   const total = coutExemple(m.type, quantite);
@@ -181,7 +181,7 @@ function libelleExemple(m: (typeof MODES)[number], lang: Lang) {
 }
 
 /**
- * Grille tarifaire détaillée, un mode par ligne.
+ * Grille tarifaire détaillée, un type de tâche par ligne.
  *
  * Deux rendus pour une seule source : un vrai `<table>` à partir de 900px —
  * c'est de la donnée tabulaire, et un lecteur d'écran doit pouvoir la parcourir
@@ -191,8 +191,8 @@ function libelleExemple(m: (typeof MODES)[number], lang: Lang) {
 const TABLEAU = {
   fr: {
     titre: "Tarifs · Cloud Paradise",
-    caption: "Coût en crédits par tâche lancée, pour chaque mode de traitement",
-    mode: "Mode",
+    caption: "Coût en crédits par tâche lancée, pour chaque type de traitement",
+    tache: "Tâche",
     description: "Description",
     prix: "Prix",
     exemple: "Exemple",
@@ -200,8 +200,8 @@ const TABLEAU = {
   },
   en: {
     titre: "Pricing · Cloud Paradise",
-    caption: "Cost in credits per task, for each processing mode",
-    mode: "Mode",
+    caption: "Cost in credits per task, for each type of processing",
+    tache: "Task",
     description: "Description",
     prix: "Price",
     exemple: "Example",
@@ -216,20 +216,20 @@ export function GrilleDetaillee({ lang = "fr" }: { lang?: Lang }) {
       <WindowCard title={tt.titre} icone={<IconCoin className="size-3.5" />}>
         {/* ---- Cartes : sous 900px ---- */}
         <ul className="divide-y divide-white/[0.06] os:hidden">
-          {MODES.map((m) => (
+          {LIGNES.map((m) => (
             <li key={m.type} className="p-4">
               <div className="flex items-baseline justify-between gap-3">
-                <p className="flex items-center gap-2 text-sm font-medium text-[#eef4ff]">
+                <p className="flex items-center gap-2 text-sm font-medium text-white">
                   <Puce type={m.type} />
                   {libelleDe(m.type, lang)}
                 </p>
                 <Prix type={m.type} lang={lang} />
               </div>
-              <p className="mt-2 text-[13px] leading-relaxed text-[#93a3c2]">
+              <p className="mt-2 text-[13px] leading-relaxed text-white/85">
                 {m.fait[lang]}
               </p>
               <SousLignes details={m.details} lang={lang} />
-              <p className="mt-1.5 text-[12px] leading-relaxed text-[#8494b6]">
+              <p className="mt-1.5 text-[12px] leading-relaxed text-white/70">
                 {libelleExemple(m, lang)}
               </p>
             </li>
@@ -242,14 +242,14 @@ export function GrilleDetaillee({ lang = "fr" }: { lang?: Lang }) {
             <caption className="sr-only">{tt.caption}</caption>
             <thead>
               <tr className="border-b border-white/10">
-                <Th>{tt.mode}</Th>
+                <Th>{tt.tache}</Th>
                 <Th>{tt.description}</Th>
                 <Th className="text-right">{tt.prix}</Th>
                 <Th>{tt.exemple}</Th>
               </tr>
             </thead>
             <tbody>
-              {MODES.map((m) => (
+              {LIGNES.map((m) => (
                 <tr
                   key={m.type}
                   // Zébrure très basse et surlignage au survol : la ligne se
@@ -257,19 +257,19 @@ export function GrilleDetaillee({ lang = "fr" }: { lang?: Lang }) {
                   className="border-b border-white/[0.06] transition-colors last:border-b-0 even:bg-white/[0.015] hover:bg-white/[0.05]"
                 >
                   <td className="px-4 py-3 align-top">
-                    <span className="flex items-center gap-2.5 text-[13px] font-medium whitespace-nowrap text-[#eef4ff]">
+                    <span className="flex items-center gap-2.5 text-[13px] font-medium whitespace-nowrap text-white">
                       <Puce type={m.type} />
                       {libelleDe(m.type, lang)}
                     </span>
                   </td>
-                  <td className="px-4 py-3 align-top text-[13px] leading-relaxed text-[#93a3c2]">
+                  <td className="px-4 py-3 align-top text-[13px] leading-relaxed text-white/85">
                     {m.fait[lang]}
                     <SousLignes details={m.details} lang={lang} />
                   </td>
                   <td className="px-4 py-3 text-right align-top">
                     <Prix type={m.type} lang={lang} />
                   </td>
-                  <td className="px-4 py-3 align-top text-[13px] leading-relaxed text-[#8494b6]">
+                  <td className="px-4 py-3 align-top text-[13px] leading-relaxed text-white/70">
                     {libelleExemple(m, lang)}
                   </td>
                 </tr>
@@ -279,7 +279,7 @@ export function GrilleDetaillee({ lang = "fr" }: { lang?: Lang }) {
         </div>
       </WindowCard>
 
-      <p className="mt-3 text-[12px] text-[#93a3c2]">
+      <p className="mt-3 text-[12px] text-white/70">
         1 {lang === "en" ? "credit" : "crédit"} ={" "}
         {nf.format(CREDIT_EN_DEVISE)} {DEVISE}. {tt.pied}
       </p>
@@ -288,7 +288,7 @@ export function GrilleDetaillee({ lang = "fr" }: { lang?: Lang }) {
 }
 
 /**
- * Détail d'un mode qui en regroupe plusieurs.
+ * Détail d'une ligne qui regroupe plusieurs traitements.
  *
  * Rendu comme une vraie liste : ce sont deux traitements distincts sous un même
  * nom, pas une phrase coupée en deux.
@@ -306,7 +306,7 @@ function SousLignes({
       {details[lang].map((d) => (
         <li
           key={d}
-          className="flex gap-1.5 text-[12px] leading-relaxed text-[#8494b6]"
+          className="flex gap-1.5 text-[12px] leading-relaxed text-white/70"
         >
           <span aria-hidden="true">·</span>
           {d}
@@ -328,7 +328,7 @@ function Prix({ type, lang }: { type: TypeTache; lang: Lang }) {
 
   if (cout === null) {
     return (
-      <span className="text-[12px] whitespace-nowrap text-[#8494b6] italic">
+      <span className="text-[12px] whitespace-nowrap text-white/70 italic">
         {tarifAVenir(lang)}
       </span>
     );
@@ -336,7 +336,7 @@ function Prix({ type, lang }: { type: TypeTache; lang: Lang }) {
 
   return (
     <span
-      className="font-display text-[15px] font-bold tabular-nums"
+      className="font-display text-[16px] font-bold tabular-nums"
       style={{ color: "var(--cta)" }}
     >
       {nfCredit.format(cout)}
@@ -345,11 +345,11 @@ function Prix({ type, lang }: { type: TypeTache; lang: Lang }) {
 }
 
 /**
- * Puce de mode, dans la teinte du mode.
+ * Puce de ligne, dans la teinte du type de tâche.
  *
  * Un point coloré plus un halo de la même teinte : assez pour distinguer les
- * sept lignes d'un coup d'œil, trop discret pour virer au bariolage. La couleur
- * ne porte aucune information seule — le nom du mode est juste à côté.
+ * lignes d'un coup d'œil, trop discret pour virer au bariolage. La couleur ne
+ * porte aucune information seule — le nom est juste à côté.
  */
 function Puce({ type }: { type: TypeTache }) {
   const teinte = TEINTES[type];
@@ -375,7 +375,7 @@ function Th({
   return (
     <th
       scope="col"
-      className={`px-4 py-2.5 text-[11px] font-medium tracking-wide text-white/50 ${className}`}
+      className={`px-4 py-2.5 text-[11px] font-medium tracking-wide text-white/60 ${className}`}
     >
       {children}
     </th>
