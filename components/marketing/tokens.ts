@@ -11,6 +11,19 @@ export const SHELL = "mx-auto w-full max-w-[1280px] px-6 os:px-10";
 /** Langue d'affichage — le français reste le défaut partout, l'anglais se demande explicitement. */
 export type Lang = "fr" | "en";
 
+/** Une chaîne dans les deux langues du site, indexable par `Lang`. */
+export type Bilingue = { fr: string; en: string };
+
+/**
+ * Exemple chiffré d'une ligne de grille tarifaire.
+ *
+ * La quantité est un nombre et non de la copie : elle est multipliée par le
+ * tarif du type pour afficher un total, donc l'écrire dans une chaîne
+ * bilingue la rendrait incalculable — et laisserait le total se désynchroniser
+ * du prix réel.
+ */
+export type Exemple = { quantite: number; unite: Bilingue };
+
 /**
  * Rythme vertical commun. Deux sections voisines additionnent leurs paddings,
  * d'où un intervalle constant de ~112px : assez pour respirer, assez serré

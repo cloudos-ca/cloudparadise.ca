@@ -8,10 +8,7 @@ import {
   tarifAVenir,
   type TypeTache,
 } from "./offre";
-import type { Lang } from "./tokens";
-
-type Bilingue = { fr: string; en: string };
-
+import type { Bilingue, Exemple, Lang } from "./tokens";
 
 /** Deux décimales toujours : les coûts sont des fractions de crédit. */
 const nfCredit = new Intl.NumberFormat("fr-CA", {
@@ -43,7 +40,7 @@ const LIGNES: readonly {
   type: TypeTache;
   fait: Bilingue;
   details?: { fr: readonly string[]; en: readonly string[] };
-  exemple: Bilingue;
+  exemple: Exemple;
 }[] = [
   {
     type: "IA",
@@ -160,24 +157,18 @@ function coutExemple(type: TypeTache, quantite: number) {
 }
 
 function libelleExemple(m: (typeof LIGNES)[number], lang: Lang) {
-  if (m.note) return m.note[lang];
-  const { quantite, unite } = m.exemple!;
+  const { quantite, unite } = m.exemple;
   const total = coutExemple(m.type, quantite);
-  // Sans tarif arrêté, l'exemple ne peut pas se chiffrer : `note` prend le
-  // relais plus haut, ce retour n'est qu'un filet.
+  // Sans tarif arrêté, l'exemple ne peut pas se chiffrer : la colonne Prix dit
+  // déjà « tarif à venir », ce retour vide évite de l'écrire deux fois.
   if (total === null) return "";
   // « ≈ » quand l'arrondi d'affichage masque une décimale, « = » sinon.
   const exact = Number.isInteger(total);
   // « 1 crédit » et non « 1 crédits » : le cas se produit vraiment (10 tâches
   // IA à 0,10 font exactement 1).
-  const unites =
-    lang === "en"
-      ? total <= 1
-        ? "credit"
-        : "credits"
-      : total <= 1
-        ? "crédit"
-        : "crédits";
+  const singulier = lang === "en" ? "credit" : "crédit";
+  const pluriel = lang === "en" ? "credits" : "crédits";
+  const unites = total <= 1 ? singulier : pluriel;
   return `${nf.format(quantite)} ${unite[lang]} ${exact ? "=" : "≈"} ${nf.format(
     total,
   )} ${unites}`;
@@ -212,7 +203,7 @@ const TABLEAU = {
   },
 } as const;
 
-export function GrilleDetaillee({ lang = "fr" }: { lang?: Lang }) {
+export function GrilleDetaillee({ lang = "fr" }: Readonly<{ lang?: Lang }>) {
   const tt = TABLEAU[lang];
   return (
     <div>
@@ -297,10 +288,10 @@ export function GrilleDetaillee({ lang = "fr" }: { lang?: Lang }) {
 function SousLignes({
   details,
   lang,
-}: {
+}: Readonly<{
   details?: { fr: readonly string[]; en: readonly string[] };
   lang: Lang;
-}) {
+}>) {
   if (!details) return null;
   return (
     <ul className="mt-1.5 space-y-1">
@@ -324,7 +315,7 @@ function SousLignes({
  * pour que l'absence de chiffre se lise comme une information et non comme un
  * champ resté vide.
  */
-function Prix({ type, lang }: { type: TypeTache; lang: Lang }) {
+function Prix({ type, lang }: Readonly<{ type: TypeTache; lang: Lang }>) {
   const cout = coutDe(type);
 
   if (cout === null) {
@@ -348,10 +339,10 @@ function Prix({ type, lang }: { type: TypeTache; lang: Lang }) {
 function Th({
   children,
   className = "",
-}: {
+}: Readonly<{
   children: React.ReactNode;
   className?: string;
-}) {
+}>) {
   return (
     <th
       scope="col"
