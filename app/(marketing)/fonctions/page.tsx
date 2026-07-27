@@ -276,10 +276,6 @@ const SECTIONS: readonly SectionFonctions[] = [
         texte: "Votre solde, et une recharge quand vous le voulez.",
       },
       {
-        nom: "Recharge automatique",
-        texte: "Un seuil, un montant : le compte se recharge tout seul.",
-      },
-      {
         nom: "Factures",
         texte: "Vos factures, consultables et téléchargeables depuis votre compte.",
       },

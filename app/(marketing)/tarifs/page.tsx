@@ -16,6 +16,8 @@ import { HreflangLinks } from "@/components/marketing/HreflangLinks";
 import { Reveal } from "@/components/marketing/Reveal";
 import { WindowCard } from "@/components/marketing/WindowCard";
 import {
+  IconAdjustments,
+  IconCheck,
   IconRefresh,
   IconSearch,
   IconWindow,
@@ -87,9 +89,19 @@ function fluxChiffre() {
 }
 
 /**
- * Ce qui est facturé — les quatre points qu'un client découvrait jusqu'ici en
+ * Ce qui est facturé — les cinq points qu'un client découvrait jusqu'ici en
  * cours de route. Icônes en cyan : ce sont des repères de lecture, pas des
  * piliers ; l'or reste aux montants.
+ *
+ * Les deux derniers points sont des garanties, pas des avertissements : le
+ * débit proportionnel et l'essai gratuit répondent à la crainte du paiement à
+ * l'usage. D'où la coche et les curseurs plutôt qu'une icône d'alerte — traiter
+ * le sujet en rouge transformerait un argument en excuse.
+ *
+ * « Essai à blanc » et non « simulation » : la grille, deux sections plus haut,
+ * facture un type de tâche nommé « Simulation ». Deux objets sous le même mot
+ * sur la même page rendraient les deux incompréhensibles — même raison qui
+ * réserve « estimateur » au curseur de budget.
  */
 const FACTURATION = [
   {
@@ -109,6 +121,26 @@ const FACTURATION = [
     titre: "Consulter ne coûte rien",
     texte:
       "Ouvrir un fichier, le prévisualiser, naviguer dans vos dossiers : gratuit. Seule la génération débite des crédits.",
+  },
+  {
+    Icone: IconCheck,
+    titre: "Vous ne payez que ce qui est traité",
+    // « et les 150 résultats sont à vous » n'est pas décoratif : sans cette
+    // clause, la carte dirait qu'on facture un travail que le client ne reçoit
+    // pas. C'est elle qui rend le titre défendable.
+    texte:
+      "Le débit suit l’avancement, fichier par fichier. Si un lot de 200 s’arrête au 150ᵉ, 150 sont débités — et les 150 résultats sont à vous, récupérables tout de suite. Une panne de notre côté est reprise automatiquement, sans nouveau crédit. Si c’est un fichier source qui bloque, on vous dit lequel — vous corrigez et vous relancez sur le même crédit, autant de fois qu’il le faut.",
+  },
+  {
+    Icone: IconAdjustments,
+    titre: "Faites l’essai, voyez le prix, puis lancez",
+    // La dernière phrase est l'engagement le plus fort de la page : aucun cas
+    // ne permet à un débit réel de dépasser le montant affiché. Elle ne se
+    // dilue pas — pas d'astérisque, pas de « dans la plupart des cas », pas de
+    // renvoi aux conditions. Si elle ne peut pas s'écrire telle quelle, c'est
+    // qu'elle est fausse.
+    texte:
+      "L’assistant vous montre ce que la tâche va produire et ce qu’elle va coûter, avant que rien ne soit débité. L’essai à blanc ne coûte rien : vous ajustez jusqu’à ce que ça corresponde, puis vous lancez. Si votre solde ne suffit pas, on vous le dit avant de partir. Et comme le débit suit l’avancement, vous ne paierez jamais plus que le montant affiché.",
   },
 ] as const;
 
@@ -173,7 +205,7 @@ export default function TarifsPage() {
             <TitreSection>Le coût par tâche lancée.</TitreSection>
             <p className="mt-4 max-w-[54ch] text-sm leading-relaxed text-white/85">
               Une petite tâche coûte peu ; un rendu lourd coûte plus. Le montant
-              est débité au lancement.
+              est débité à mesure que la tâche avance.
             </p>
           </Reveal>
           <Reveal delay={0.1} className="mt-10">
@@ -202,95 +234,101 @@ export default function TarifsPage() {
         </div>
       </section>
 
-      {/* 3 — Ce qui est facturé. Les quatre points à gauche, la démonstration
-          chiffrée du flux à droite. */}
+      {/* 3 — Ce qui est facturé. Cinq points et la démonstration chiffrée du
+          flux, en six cases d'une grille à deux colonnes.
+
+          La fenêtre longeait une colonne de cartes ; à cinq cartes, dont deux
+          longues, elle laissait 411 px de vide sous elle. En sixième case, elle
+          ferme la grille : trois rangées pleines, plus de trou latéral. La
+          section ne raccourcit que de 910 à 834 px — des cartes deux fois plus
+          étroites rewrappent — mais c'est le vide qui gênait, pas la hauteur. */}
       <section id="facturation" className="relative scroll-mt-24">
         <div className={`${SHELL} ${SECTION_Y}`}>
           <Reveal className="max-w-2xl">
             <SurTitre>Ce qui est facturé</SurTitre>
             <TitreSection>Ce qui débite des crédits.</TitreSection>
             <p className="mt-4 max-w-[54ch] text-sm leading-relaxed text-white/85">
-              Le compte se débite au lancement d’une tâche. Voici ce qui compte
-              comme une tâche.
+              Le débit suit l’avancement d’une tâche. Voici ce qui compte comme
+              une tâche.
             </p>
           </Reveal>
 
-          <div className="mt-10 grid gap-8 os:grid-cols-[3fr_2fr] os:items-start os:gap-12">
-            <Reveal delay={0.1} className="space-y-3.5">
-              {FACTURATION.map(({ Icone, titre, texte }) => (
-                <div
-                  key={titre}
-                  className="flex gap-4 rounded-xl border border-white/[0.08] bg-gradient-to-b from-white/[0.04] to-white/[0.01] p-5 shadow-[inset_0_1px_0_rgba(255,255,255,0.04)] transition-colors hover:border-white/15"
+          {/* Le `Reveal` porte lui-même la grille : un seul bloc animé pour les
+              six cases, au lieu d'un wrapper par carte. Les cases s'étirent à
+              la hauteur de leur rangée (comportement par défaut d'une grille),
+              d'où des cartes alignées deux à deux sans hauteur écrite. */}
+          <Reveal delay={0.1} className="mt-10 grid gap-3.5 os:grid-cols-2">
+            {FACTURATION.map(({ Icone, titre, texte }) => (
+              <div
+                key={titre}
+                className="flex gap-4 rounded-xl border border-white/[0.08] bg-gradient-to-b from-white/[0.04] to-white/[0.01] p-5 shadow-[inset_0_1px_0_rgba(255,255,255,0.04)] transition-colors hover:border-white/15"
+              >
+                <span
+                  className="grid size-10 shrink-0 place-items-center rounded-lg"
+                  style={{
+                    background:
+                      "color-mix(in srgb, var(--soft) 12%, transparent)",
+                    color: "var(--soft)",
+                  }}
                 >
-                  <span
-                    className="grid size-10 shrink-0 place-items-center rounded-lg"
-                    style={{
-                      background:
-                        "color-mix(in srgb, var(--soft) 12%, transparent)",
-                      color: "var(--soft)",
-                    }}
-                  >
-                    <Icone className="size-[21px]" />
-                  </span>
-                  <div className="min-w-0">
-                    <p className="font-display text-[15px] font-semibold text-white">
-                      {titre}
-                    </p>
-                    <p className="mt-1 text-[13px] leading-relaxed text-white/85">
-                      {texte}
-                    </p>
-                  </div>
+                  <Icone className="size-[21px]" />
+                </span>
+                <div className="min-w-0">
+                  <p className="font-display text-[15px] font-semibold text-white">
+                    {titre}
+                  </p>
+                  <p className="mt-1 text-[13px] leading-relaxed text-white/85">
+                    {texte}
+                  </p>
                 </div>
-              ))}
-            </Reveal>
+              </div>
+            ))}
 
             {/* La découverte après coup qui coûte un client : trois traitements
                 enchaînés, trois débits. Dit une fois en carte, montré une fois
                 en chiffres — avec les vrais tarifs. */}
-            <Reveal delay={0.1}>
-              <WindowCard title="Flux · Cloud Paradise">
-                <div className="p-5">
-                  <p className="text-xs text-white/60">Exemple de flux</p>
-                  <ol className="mt-3.5 space-y-2.5">
-                    {etapes.map(({ type, libelle, cout }, i) => (
-                      <li key={type} className="flex items-center gap-3">
-                        <span
-                          className="grid size-7 shrink-0 place-items-center rounded-lg text-[12px] font-semibold"
-                          style={{
-                            background:
-                              "color-mix(in srgb, var(--soft) 14%, transparent)",
-                            color: "var(--soft)",
-                          }}
-                        >
-                          {i + 1}
-                        </span>
-                        <span className="min-w-0 flex-1 truncate text-sm text-white">
-                          {libelle}
-                        </span>
-                        <span
-                          className="font-display text-sm font-bold tabular-nums"
-                          style={{ color: "var(--cta)" }}
-                        >
-                          {nfCredit.format(cout)}
-                        </span>
-                      </li>
-                    ))}
-                  </ol>
-                  <div className="mt-4 flex items-baseline justify-between gap-3 border-t border-white/10 pt-3.5">
-                    <span className="text-[13px] text-white/85">
-                      {etapes.length} tâches lancées
-                    </span>
-                    <span
-                      className="font-display text-[15px] font-bold tabular-nums"
-                      style={{ color: "var(--cta)" }}
-                    >
-                      {nfCredit.format(total)} {uniteTotal}
-                    </span>
-                  </div>
+            <WindowCard title="Flux · Cloud Paradise">
+              <div className="p-5">
+                <p className="text-xs text-white/60">Exemple de flux</p>
+                <ol className="mt-3.5 space-y-2.5">
+                  {etapes.map(({ type, libelle, cout }, i) => (
+                    <li key={type} className="flex items-center gap-3">
+                      <span
+                        className="grid size-7 shrink-0 place-items-center rounded-lg text-[12px] font-semibold"
+                        style={{
+                          background:
+                            "color-mix(in srgb, var(--soft) 14%, transparent)",
+                          color: "var(--soft)",
+                        }}
+                      >
+                        {i + 1}
+                      </span>
+                      <span className="min-w-0 flex-1 truncate text-sm text-white">
+                        {libelle}
+                      </span>
+                      <span
+                        className="font-display text-sm font-bold tabular-nums"
+                        style={{ color: "var(--cta)" }}
+                      >
+                        {nfCredit.format(cout)}
+                      </span>
+                    </li>
+                  ))}
+                </ol>
+                <div className="mt-4 flex items-baseline justify-between gap-3 border-t border-white/10 pt-3.5">
+                  <span className="text-[13px] text-white/85">
+                    {etapes.length} tâches lancées
+                  </span>
+                  <span
+                    className="font-display text-[15px] font-bold tabular-nums"
+                    style={{ color: "var(--cta)" }}
+                  >
+                    {nfCredit.format(total)} {uniteTotal}
+                  </span>
                 </div>
-              </WindowCard>
-            </Reveal>
-          </div>
+              </div>
+            </WindowCard>
+          </Reveal>
         </div>
       </section>
 
