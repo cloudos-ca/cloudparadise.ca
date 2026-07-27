@@ -272,12 +272,12 @@ export default function MinesPage() {
           <div className="grid gap-8 os:grid-cols-[2fr_3fr] os:items-start os:gap-12">
             <Reveal>
               <SurTitre>Les données ouvertes</SurTitre>
-              <TitreSection>SIGÉOM, chargé par district.</TitreSection>
+              <TitreSection>SIGÉOM, chargé par feuillet.</TitreSection>
             </Reveal>
             <Reveal delay={0.1}>
               <div className="space-y-4 text-[15px] leading-relaxed text-white/85">
                 <p>
-                  Vous importez les couches SIGÉOM par district minier — c’est
+                  Vous importez les couches SIGÉOM par feuillet SNRC — c’est
                   opérationnel.
                 </p>
                 <p>
