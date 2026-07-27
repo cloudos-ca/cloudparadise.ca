@@ -23,21 +23,27 @@ const nf = new Intl.NumberFormat("fr-CA");
 /**
  * Descriptif de chaque type de tâche.
  *
- * Uniquement de la copie : aucun prix ici. Les montants viennent de `GRILLE`
- * et les exemples sont *calculés* à partir d'eux — un tarif qui change met donc
- * l'exemple à jour tout seul, au lieu de le laisser mentir.
+ * Uniquement de la copie : aucun prix ici. Les montants viennent de `GRILLE` et
+ * l'exemple les affiche tels quels — un tarif qui change met donc l'exemple à
+ * jour tout seul, au lieu de le laisser mentir.
  *
- * `exemple` décrit une quantité de tâches ; le coût affiché en est déduit.
- * `note` remplace le calcul quand la facturation dépend du découpage réel —
- * ou quand le tarif n'est pas encore arrêté.
+ * `exemple` décrit **un seul lancement**, et le montant affiché à côté est le
+ * tarif du type, sans multiplication. C'est la règle de facturation réelle :
+ * l'unité débitée est la tâche lancée, jamais le fichier, la page, l'octet ou
+ * la seconde qu'elle traite. Un exemple qui multiplierait un tarif par un
+ * volume (« 200 contrats ≈ 50 crédits ») annoncerait un prix jusqu'à deux
+ * cents fois trop élevé — c'est exactement ce que cette colonne disait avant.
+ *
+ * Seule exception, qui n'en est pas une : la génération d'images produit une
+ * image par tâche, donc l'unité produite et l'unité facturée coïncident.
+ *
  * `details` détaille une ligne qui en regroupe plusieurs.
  */
 const LIGNES: readonly {
   type: TypeTache;
   fait: Bilingue;
   details?: { fr: readonly string[]; en: readonly string[] };
-  exemple?: { quantite: number; unite: Bilingue };
-  note?: Bilingue;
+  exemple: Bilingue;
 }[] = [
   {
     type: "IA",

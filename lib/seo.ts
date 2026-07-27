@@ -25,7 +25,7 @@ export const ICONS: Metadata["icons"] = {
 export const TITRE_ACCUEIL =
   "Cloud Paradise — Votre poste de travail cloud";
 export const DESCRIPTION_ACCUEIL =
-  "Un bureau en ligne complet : calcul lourd en langage humain, logiciels professionnels et collaboration d'équipe. Hébergé au Québec, sans rien installer.";
+  "Un bureau en ligne complet : calcul lourd en langage humain, applications professionnelles et collaboration d'équipe. Hébergé au Québec, sans rien installer.";
 
 /**
  * Canonical pour une paire de pages FR/EN.

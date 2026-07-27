@@ -30,7 +30,7 @@ const TEXTES = {
     titreLigne1: "Décrivez la tâche.",
     titreLigne2: "On s’occupe du calcul.",
     texte:
-      "Votre poste de travail cloud : calcul lourd en langage humain, logiciels professionnels et collaboration d’équipe. Décrivez ce que vous voulez, on s’occupe du reste — sans rien installer.",
+      "Votre poste de travail cloud : calcul lourd en langage humain, applications professionnelles et collaboration d’équipe. Décrivez ce que vous voulez, on s’occupe du reste — sans rien installer.",
     cta: "Commencer gratuitement",
   },
   en: {

@@ -61,6 +61,7 @@ function cheminAutreLangue(pathname: string, lang: Lang): string {
 export function TopBar({ lang = "fr" }: { lang?: Lang }) {
   const [defile, setDefile] = useState(false);
   const [menuOuvert, setMenuOuvert] = useState(false);
+  const heure = useHeureLocale(lang);
   const pathname = usePathname();
   const autreLangue = cheminAutreLangue(pathname, lang);
 
@@ -143,8 +144,11 @@ export function TopBar({ lang = "fr" }: { lang?: Lang }) {
             <path d="m20 20-3.5-3.5" strokeLinecap="round" />
           </svg>
 
-          <span className="hidden text-xs tabular-nums text-white/55 bar:inline">
-            14:32
+          {/* Largeur réservée même vide : l'heure n'arrive qu'après
+              l'hydratation (voir `useHeureLocale`) et sans `min-w` la barre
+              décalerait le sélecteur de langue au premier affichage. */}
+          <span className="hidden min-w-[2.1rem] text-center text-xs tabular-nums text-white/55 bar:inline-block">
+            {heure}
           </span>
 
           {/* Bascule de langue : l'anglais s'arrête aux quatre pages
@@ -256,6 +260,37 @@ export function TopBar({ lang = "fr" }: { lang?: Lang }) {
       )}
     </header>
   );
+}
+
+/**
+ * Heure locale du visiteur, comme l'horloge d'une barre de menus.
+ *
+ * Rend `null` au premier passage — serveur et client doivent produire le même
+ * balisage, et l'heure de rendu du serveur ne serait de toute façon ni la bonne
+ * ni la bonne zone. L'horloge apparaît donc à l'hydratation.
+ *
+ * Format 24 h dans les deux langues : c'est un chrome de système, on veut une
+ * largeur stable et la même lecture que la maquette, pas un « 2:32 p.m. » qui
+ * s'allonge de deux caractères en anglais.
+ */
+function useHeureLocale(lang: Lang): string | null {
+  const [heure, setHeure] = useState<string | null>(null);
+
+  useEffect(() => {
+    const format = new Intl.DateTimeFormat(lang === "en" ? "en-CA" : "fr-CA", {
+      hour: "2-digit",
+      minute: "2-digit",
+      hour12: false,
+    });
+    const tic = () => setHeure(format.format(new Date()));
+    tic();
+    // 15 s : la minute affichée n'est jamais fausse à l'œil, et c'est trois
+    // rendus par minute d'un seul `<span>`.
+    const id = setInterval(tic, 15_000);
+    return () => clearInterval(id);
+  }, [lang]);
+
+  return heure;
 }
 
 /**
