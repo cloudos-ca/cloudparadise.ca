@@ -144,18 +144,10 @@ export default function MinesPage() {
               <TitreSection>Aucun claim ne tombe sans prévenir.</TitreSection>
             </Reveal>
             <Reveal delay={0.1}>
-              <div className="space-y-4 text-[15px] leading-relaxed text-white/85">
-                <p>
-                  Vous suivez vos titres, et le calcul des dates d’expiration
-                  déclenche une alerte avant l’échéance — par courriel et par
-                  notification dans le bureau.
-                </p>
-                <p>Les couches GESTIM se superposent à vos cartes.</p>
-              </div>
-
-              {/* Illustration du geste « alerte dans le bureau » : une maquette
-                  d'interface, sans date ni numéro de titre réels. */}
-              <WindowCard title="Bureau · Cloud Paradise" className="mt-6">
+              {/* Fenêtre en tête de colonne (alignée au titre à gauche, grâce à
+                  `items-start`), texte descriptif dessous : comble le vide sous
+                  l'en-tête. La maquette n'a ni date ni numéro de titre réels. */}
+              <WindowCard title="Bureau · Cloud Paradise">
                 <div className="p-5">
                   <p className="text-xs text-white/60">Notification</p>
                   <div className="mt-3 flex gap-3 rounded-lg border border-white/10 bg-white/[0.03] p-3.5">
@@ -195,6 +187,15 @@ export default function MinesPage() {
                   </div>
                 </div>
               </WindowCard>
+
+              <div className="mt-6 space-y-4 text-[15px] leading-relaxed text-white/85">
+                <p>
+                  Vous suivez vos titres, et le calcul des dates d’expiration
+                  déclenche une alerte avant l’échéance — par courriel et par
+                  notification dans le bureau.
+                </p>
+                <p>Les couches GESTIM se superposent à vos cartes.</p>
+              </div>
             </Reveal>
           </div>
         </div>
