@@ -1,17 +1,17 @@
 import type { Metadata } from "next";
 import { Hero } from "@/components/marketing/Hero";
 import { HreflangLinks } from "@/components/marketing/HreflangLinks";
-import { ProblemeSolution } from "@/components/marketing/ProblemeSolution";
-import { CommentCaMarche } from "@/components/marketing/CommentCaMarche";
-import { Univers } from "@/components/marketing/Univers";
-import { Reassurance } from "@/components/marketing/Reassurance";
+import { TroisPiliers } from "@/components/marketing/TroisPiliers";
+import { Determinisme } from "@/components/marketing/Determinisme";
+import { FamillesApps } from "@/components/marketing/FamillesApps";
 import { Tarification } from "@/components/marketing/Tarification";
+import { RenvoiMines } from "@/components/marketing/RenvoiMines";
 import { CtaFinal } from "@/components/marketing/CtaFinal";
 import { alternatesBilingues, openGraphPage } from "@/lib/seo";
 
-const TITRE = "Cloud Paradise — Describe the task. We handle the compute.";
+const TITRE = "Cloud Paradise — Your cloud workstation";
 const DESCRIPTION =
-  "Drop your files, say what you want in plain words. The AI picks the right mode and runs the job in the cloud. You just grab the result.";
+  "A complete online desktop: heavy compute in plain language, professional software and team collaboration. Hosted in Québec, nothing to install.";
 
 export const metadata: Metadata = {
   title: TITRE,
@@ -25,10 +25,10 @@ export default function MarketingPageEn() {
     <>
       <HreflangLinks fr="/" en="/en" />
       <Hero lang="en" />
-      <ProblemeSolution lang="en" />
-      <Univers lang="en" />
-      <CommentCaMarche lang="en" />
-      <Reassurance lang="en" />
+      <TroisPiliers lang="en" />
+      <Determinisme lang="en" />
+      <FamillesApps lang="en" />
+      <RenvoiMines lang="en" />
       <Tarification lang="en" />
       <CtaFinal lang="en" />
     </>

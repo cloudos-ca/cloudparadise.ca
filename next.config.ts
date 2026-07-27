@@ -19,10 +19,19 @@ import type { NextConfig } from "next";
  *
  * Domaines externes autorisés : reCAPTCHA v3 (google.com, gstatic.com,
  * contact uniquement) et Matomo auto-hébergé (matomo.cloudparadise.cloud).
+ *
+ * `'unsafe-eval'` est ajouté UNIQUEMENT en développement : le mode dev de
+ * React s'appuie sur `eval()` pour certaines fonctions de débogage (overlay
+ * d'erreurs, reconstruction de pile), et son absence déclenche l'avertissement
+ * « eval() is not supported… » remonté par l'overlay Next (« 1 Issue »). React
+ * n'utilise jamais `eval()` en production, donc la CSP de prod reste stricte,
+ * sans `'unsafe-eval'` — aucun impact sur ce qui est servi aux visiteurs.
  */
+const EVAL_DEV = process.env.NODE_ENV === "production" ? "" : " 'unsafe-eval'";
+
 const CSP = [
   "default-src 'self'",
-  "script-src 'self' 'unsafe-inline' https://www.google.com https://www.gstatic.com https://matomo.cloudparadise.cloud",
+  `script-src 'self' 'unsafe-inline'${EVAL_DEV} https://www.google.com https://www.gstatic.com https://matomo.cloudparadise.cloud`,
   "style-src 'self' 'unsafe-inline'",
   "img-src 'self' data: blob:",
   "font-src 'self'",

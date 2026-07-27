@@ -74,15 +74,15 @@ export function CommentCaMarche({ lang = "fr" }: { lang?: Lang }) {
       {/* Troisième amorce volontairement différente : les deux sections
           précédentes ouvrent à gauche, celle-ci est centrée — ce que sa
           composition symétrique en quatre temps appelle de toute façon. */}
-      <div className={`${SHELL} ${SECTION_Y} text-center`}>
+      <div className={`${SHELL} ${SECTION_Y}`}>
         <Reveal>
           <p
-            className="text-xs font-medium tracking-wide"
-            style={{ color: "var(--acc-text)" }}
+            className="text-[13px] font-semibold uppercase tracking-[0.12em]"
+            style={{ color: "var(--cta)" }}
           >
             {t.eyebrow}
           </p>
-          <h2 className="mx-auto mt-3 max-w-[20ch] font-display text-[1.6rem] leading-[1.2] font-bold tracking-tight text-balance text-[#eef4ff] sm:text-3xl os:text-4xl">
+          <h2 className="mt-2 max-w-[20ch] font-display text-[1.6rem] leading-[1.2] font-bold tracking-tight text-balance text-[#eef4ff] sm:text-3xl os:text-4xl">
             {t.titre}
           </h2>
         </Reveal>
@@ -96,9 +96,9 @@ export function CommentCaMarche({ lang = "fr" }: { lang?: Lang }) {
                 aria-hidden="true"
                 className="absolute top-1/2 block size-2 -translate-y-1/2 rounded-full"
                 style={{
-                  background: "var(--acc)",
+                  background: "var(--cta)",
                   boxShadow:
-                    "0 0 12px 3px color-mix(in srgb, var(--acc) 55%, transparent)",
+                    "0 0 12px 3px color-mix(in srgb, var(--cta) 55%, transparent)",
                 }}
                 initial={{ left: "0%" }}
                 animate={{ left: "100%" }}
@@ -160,7 +160,7 @@ export function CommentCaMarche({ lang = "fr" }: { lang?: Lang }) {
                 <p className="mt-4 text-sm font-medium text-[#eef4ff]">
                   {step.title}
                 </p>
-                <p className="mt-1.5 max-w-[24ch] text-xs leading-relaxed text-[#93a3c2]">
+                <p className="mt-1.5 max-w-[24ch] text-xs leading-relaxed text-white/75">
                   {step.text}
                 </p>
               </li>

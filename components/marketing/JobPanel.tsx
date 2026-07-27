@@ -80,6 +80,17 @@ export function JobPanel({ title, chip, logs, lang = "fr" }: JobPanelProps) {
             {line}
           </motion.p>
         ))}
+        {/* Curseur de terminal : la fenêtre a l'air vivante, prête à recevoir
+            la suite. Purement décoratif et masqué en mouvement réduit. */}
+        {!reduceMotion && (
+          <motion.span
+            aria-hidden="true"
+            className="mt-0.5 block h-3 w-[7px] rounded-[1px]"
+            style={{ background: "var(--soft)" }}
+            animate={{ opacity: [1, 0.1, 1] }}
+            transition={{ duration: 1.1, repeat: Infinity, ease: "easeInOut" }}
+          />
+        )}
       </div>
 
       <motion.div

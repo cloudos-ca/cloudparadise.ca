@@ -10,18 +10,21 @@ import { SHELL, type Lang } from "./tokens";
 /**
  * Liens de navigation — desktop et menu mobile lisent tous deux ce tableau.
  *
- * Uniquement de vraies pages : « Infrastructure » a été retiré parce qu'il ne
- * pointait que vers une section de l'accueil, ce qui obligeait à quitter la
- * page courante pour un simple défilement. La barre vit dans le layout et
- * s'affiche sur toutes les pages ; une ancre y est toujours un lien bancal.
+ * Quatre entrées, pas de menu déroulant : les quatre pages qui portent la
+ * décision d'achat. `Fonctions` (référence exhaustive) et `Sécurité`
+ * (souveraineté) vivent au pied de page et dans les liens de fin de section —
+ * on n'encombre pas la barre avec les pages qu'on lit après avoir été
+ * convaincu. Uniquement de vraies pages : jamais d'ancre, la barre s'affiche
+ * partout et une ancre y serait un lien bancal.
  *
  * `chemin` est le segment sans langue ; le lien se construit à l'affichage
- * selon `lang` (`/fonctions` en français, `/en/fonctions` en anglais).
+ * selon `lang` (`/calcul` en français, `/en/calcul` en anglais).
  */
 const NAV = [
-  { libelle: { fr: "Fonctions", en: "Features" }, chemin: "fonctions" },
+  { libelle: { fr: "Plateforme", en: "Platform" }, chemin: "plateforme" },
+  { libelle: { fr: "Calcul", en: "Compute" }, chemin: "calcul" },
+  { libelle: { fr: "Mines", en: "Mining" }, chemin: "mines" },
   { libelle: { fr: "Tarifs", en: "Pricing" }, chemin: "tarifs" },
-  { libelle: { fr: "Contact", en: "Contact" }, chemin: "contact" },
 ] as const;
 
 /** Les pages qui existent dans les deux langues. */
@@ -58,6 +61,7 @@ function cheminAutreLangue(pathname: string, lang: Lang): string {
 export function TopBar({ lang = "fr" }: { lang?: Lang }) {
   const [defile, setDefile] = useState(false);
   const [menuOuvert, setMenuOuvert] = useState(false);
+  const heure = useHeureLocale(lang);
   const pathname = usePathname();
   const autreLangue = cheminAutreLangue(pathname, lang);
 
@@ -140,8 +144,11 @@ export function TopBar({ lang = "fr" }: { lang?: Lang }) {
             <path d="m20 20-3.5-3.5" strokeLinecap="round" />
           </svg>
 
-          <span className="hidden text-xs tabular-nums text-white/55 bar:inline">
-            14:32
+          {/* Largeur réservée même vide : l'heure n'arrive qu'après
+              l'hydratation (voir `useHeureLocale`) et sans `min-w` la barre
+              décalerait le sélecteur de langue au premier affichage. */}
+          <span className="hidden min-w-[2.1rem] text-center text-xs tabular-nums text-white/55 bar:inline-block">
+            {heure}
           </span>
 
           {/* Bascule de langue : l'anglais s'arrête aux quatre pages
@@ -253,6 +260,37 @@ export function TopBar({ lang = "fr" }: { lang?: Lang }) {
       )}
     </header>
   );
+}
+
+/**
+ * Heure locale du visiteur, comme l'horloge d'une barre de menus.
+ *
+ * Rend `null` au premier passage — serveur et client doivent produire le même
+ * balisage, et l'heure de rendu du serveur ne serait de toute façon ni la bonne
+ * ni la bonne zone. L'horloge apparaît donc à l'hydratation.
+ *
+ * Format 24 h dans les deux langues : c'est un chrome de système, on veut une
+ * largeur stable et la même lecture que la maquette, pas un « 2:32 p.m. » qui
+ * s'allonge de deux caractères en anglais.
+ */
+function useHeureLocale(lang: Lang): string | null {
+  const [heure, setHeure] = useState<string | null>(null);
+
+  useEffect(() => {
+    const format = new Intl.DateTimeFormat(lang === "en" ? "en-CA" : "fr-CA", {
+      hour: "2-digit",
+      minute: "2-digit",
+      hour12: false,
+    });
+    const tic = () => setHeure(format.format(new Date()));
+    tic();
+    // 15 s : la minute affichée n'est jamais fausse à l'œil, et c'est trois
+    // rendus par minute d'un seul `<span>`.
+    const id = setInterval(tic, 15_000);
+    return () => clearInterval(id);
+  }, [lang]);
+
+  return heure;
 }
 
 /**

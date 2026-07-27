@@ -20,7 +20,9 @@ type FenetreCtaProps = {
   /** Phrase sous le titre. Le titre, lui, est le même partout : c'est la signature. */
   soustitre: ReactNode;
   bouton: { href: string; libelle: string };
-  lien: { href: string; libelle: string };
+  /** Lien secondaire sous le bouton. Optionnel : une page à sortie unique
+   *  (ex. /securite) n'en met pas. */
+  lien?: { href: string; libelle: string };
   children?: ReactNode;
   /**
    * Badge d'offre au-dessus du bouton. À couper si la page a déjà annoncé
@@ -109,13 +111,15 @@ export function FenetreCta({
               <BoutonCta href={bouton.href} taille="lg">
                 {bouton.libelle}
               </BoutonCta>
-              <a
-                href={lien.href}
-                data-cp-accent
-                className="text-xs text-cp-subtle underline-offset-4 hover:text-[var(--acc-text)] hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
-              >
-                {lien.libelle}
-              </a>
+              {lien ? (
+                <a
+                  href={lien.href}
+                  data-cp-accent
+                  className="text-xs text-cp-subtle underline-offset-4 hover:text-[var(--acc-text)] hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+                >
+                  {lien.libelle}
+                </a>
+              ) : null}
             </div>
 
             {children}

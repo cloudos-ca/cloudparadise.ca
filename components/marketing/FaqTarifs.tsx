@@ -26,7 +26,7 @@ export function FaqTarifs({ lang = "fr" }: { lang?: Lang }) {
   }
 
   return (
-    <ul className="divide-y divide-white/[0.08] overflow-hidden rounded-xl border border-white/10 bg-white/[0.03]">
+    <ul className="divide-y divide-white/[0.08] overflow-hidden rounded-xl border border-white/[0.08] bg-gradient-to-b from-white/[0.04] to-white/[0.01] shadow-[inset_0_1px_0_rgba(255,255,255,0.04)]">
       {questions.map(({ q, r }, i) => {
         const ouverte = ouvertes.has(i);
         return (
@@ -38,17 +38,17 @@ export function FaqTarifs({ lang = "fr" }: { lang?: Lang }) {
                 aria-expanded={ouverte}
                 aria-controls={`faq-panneau-${i}`}
                 id={`faq-bouton-${i}`}
-                className="flex w-full items-center justify-between gap-4 px-4 py-3.5 text-left focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-[var(--acc)]"
+                className="flex w-full items-center justify-between gap-4 px-5 py-4 text-left transition-colors hover:bg-white/[0.03] focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-[var(--cta)]"
               >
-                <span className="text-[13px] font-medium text-[#eef4ff]">
-                  {q}
-                </span>
+                <span className="text-[15px] font-medium text-white">{q}</span>
+                {/* Chevron en or, comme les flèches de liens. Pas de
+                    `data-cp-accent` : l'or ne suit pas la recoloration du
+                    bureau, c'est la couleur d'action, constante partout. */}
                 <IconChevronDown
-                  data-cp-accent
                   className={`size-4 shrink-0 transition-transform duration-200 ${
                     ouverte ? "rotate-180" : ""
                   }`}
-                  style={{ color: "var(--acc-text)" }}
+                  style={{ color: "var(--cta)" }}
                 />
               </button>
             </h3>
@@ -62,7 +62,7 @@ export function FaqTarifs({ lang = "fr" }: { lang?: Lang }) {
               role="region"
               aria-labelledby={`faq-bouton-${i}`}
               hidden={!ouverte}
-              className="px-4 pb-4 text-[13px] leading-relaxed text-[#93a3c2]"
+              className="px-5 pb-5 text-[14px] leading-relaxed text-white/85"
             >
               {r}
             </div>

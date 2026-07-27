@@ -1,14 +1,18 @@
 # Cloud Paradise
 
-> Déposez vos fichiers, dites ce que vous voulez en mots simples. L'IA choisit le bon mode et lance le calcul dans le cloud. Vous n'avez qu'à récupérer le résultat.
+> Un poste de travail complet dans le navigateur : un vrai bureau, des applications professionnelles, et le calcul lourd lancé en langage courant. Décrivez la tâche, on s'occupe du calcul.
 
-Cloud Paradise est un service qui exécute des tâches lourdes (documents, données, média, scraping, calcul GPU, rendu 3D, images, impression 3D, simulation) dans le cloud à partir d'une description en langage naturel : l'IA choisit le bon moteur et lance le calcul. Facturation aux crédits, sans abonnement. Site bilingue français/anglais, entreprise basée à Amos, Québec, Canada.
+Cloud Paradise est un bureau en ligne où l'on travaille (fenêtres, fichiers, bureautique, image, vidéo, audio, 3D, SIG, messagerie, courriel, agenda) et où l'on lance des tâches lourdes en décrivant le résultat voulu : documents, données, images, génération d'images, média, extraction web, calcul GPU, rendu 3D, impression 3D, simulation. L'intelligence artificielle lit la demande et choisit le moteur, mais ne calcule jamais le résultat : un moteur déterministe le produit. Facturation aux crédits, sans abonnement. Serveurs et modèle de langage hébergés au Québec. Site bilingue français/anglais, entreprise basée à Amos, Québec, Canada.
 
 ## Pages (français)
 
 - [Accueil](https://cloudparadise.ca/): présentation du service et du fonctionnement.
-- [Fonctions](https://cloudparadise.ca/fonctions): la liste des modes de traitement disponibles (documents, données, média, scraping, calcul GPU, rendu 3D, images, impression 3D, simulation).
-- [Tarifs](https://cloudparadise.ca/tarifs): modèle de crédits (pas d'abonnement), coût par mode de traitement, estimateur de budget.
+- [Plateforme](https://cloudparadise.ca/plateforme): le bureau en ligne — fenêtres, dock, fichiers, applications professionnelles, bureaux d'équipe.
+- [Calcul](https://cloudparadise.ca/calcul): les tâches lourdes — documents, données, images et vidéos, extraction web, calcul lourd, automatisation.
+- [Mines](https://cloudparadise.ca/mines): l'exploration minière au Québec — titres miniers, forages en trois dimensions, couches SIGÉOM, rapports.
+- [Sécurité](https://cloudparadise.ca/securite): hébergement au Québec sur du matériel appartenant à l'entreprise, modèle de langage exécuté sur place, calcul déterministe, isolation des accès.
+- [Fonctions](https://cloudparadise.ca/fonctions): la liste complète des fonctionnalités du poste de travail, par usage.
+- [Tarifs](https://cloudparadise.ca/tarifs): modèle de crédits (pas d'abonnement), coût par tâche lancée, estimateur de budget.
 - [Contact](https://cloudparadise.ca/contact): coordonnées de l'entreprise.
 - [Conditions d'utilisation](https://cloudparadise.ca/conditions)
 - [Politique de confidentialité](https://cloudparadise.ca/confidentialite)

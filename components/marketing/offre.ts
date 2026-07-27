@@ -65,7 +65,7 @@ export const GRILLE = [
   { type: "Média", libelle: { fr: "Média", en: "Media" }, cout: 0.5 },
   {
     type: "Scraping",
-    libelle: { fr: "Scraping", en: "Scraping" },
+    libelle: { fr: "Extraction web", en: "Scraping" },
     cout: 0.5,
   },
   {
@@ -81,7 +81,9 @@ export const GRILLE = [
   { type: "Images", libelle: { fr: "Images", en: "Images" }, cout: 0.25 },
   {
     type: "Génération d'images",
-    libelle: { fr: "Génération d'images", en: "Image Generation" },
+    // Apostrophe typographique dans le libellé affiché ; l'identifiant `type`,
+    // lui, garde l'apostrophe droite — il n'est jamais montré.
+    libelle: { fr: "Génération d’images", en: "Image Generation" },
     cout: 2,
   },
   {

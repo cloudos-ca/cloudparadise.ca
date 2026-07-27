@@ -47,6 +47,8 @@ type Corps = {
   courriel?: string;
   sujet?: string;
   message?: string;
+  /** Provenance facultative (ex. « exploration » depuis /mines). */
+  source?: string;
   recaptchaToken?: string;
 };
 
@@ -146,6 +148,11 @@ export async function POST(request: Request) {
     );
   }
 
+  // Provenance : facultative, bornée, et confinée au corps texte (aucun
+  // en-tête), donc pas de risque d'injection. Absente sur un envoi ordinaire.
+  const source = corps.source?.trim().slice(0, 60);
+  const ligneSource = source ? `Provenance : ${source}\n` : "";
+
   try {
     await obtenirTransporteur().sendMail({
       from: process.env.SMTP_FROM || process.env.SMTP_USER,
@@ -154,7 +161,7 @@ export async function POST(request: Request) {
       // de recopier son adresse à la main.
       replyTo: corps.courriel,
       subject: `[Site] ${corps.sujet}`,
-      text: `Nom : ${corps.nom}\nCourriel : ${corps.courriel}\n\n${corps.message}`,
+      text: `Nom : ${corps.nom}\nCourriel : ${corps.courriel}\n${ligneSource}\n${corps.message}`,
     });
   } catch (erreur) {
     console.error("Échec de l'envoi du courriel de contact :", erreur);

@@ -17,7 +17,7 @@ import { alternatesBilingues, openGraphPage } from "@/lib/seo";
 const PROMESSES = ["Free credits", "No card required", "No subscription"];
 
 const TITRE = "Pricing — Cloud Paradise";
-const DESCRIPTION = `Credits, not a subscription. ${OFFRE_EN_DEVISE} in free credits on signup, plus the full cost breakdown for every processing mode.`;
+const DESCRIPTION = `Credits, not a subscription. ${OFFRE_EN_DEVISE} in free credits on signup, plus the cost of every task you launch.`;
 
 export const metadata: Metadata = {
   title: TITRE,
@@ -109,8 +109,8 @@ export default function TarifsPageEn() {
             un tableau à quatre colonnes. */}
         <Reveal delay={0.1} className="mt-14">
           <TitreSection
-            titre="The price of each mode"
-            intro="Each task is billed according to the mode it uses. A small task costs little; a heavy render costs more."
+            titre="The cost per task launched"
+            intro="Each task is billed according to the type of processing it uses. A small task costs little; a heavy render costs more."
           />
           <div className="mt-5">
             <GrilleDetaillee lang="en" />
@@ -123,7 +123,7 @@ export default function TarifsPageEn() {
         <Reveal delay={0.1} className="mt-14">
           <TitreSection
             titre="Estimate your budget"
-            intro="Choose an amount of credits: see right away how many tasks it represents, depending on the mode."
+            intro="Choose an amount of credits: see right away how many tasks it represents."
           />
           <div className={`${LECTURE} mx-auto mt-5`}>
             {/* Sans le renvoi « Voir les détails » : il pointerait vers cette

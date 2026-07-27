@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import {
   IconMail,
@@ -43,6 +43,20 @@ type Cle = (typeof CHAMPS)[number]["cle"] | "message";
 type Valeurs = Record<Cle, string>;
 
 const VIDE: Valeurs = { nom: "", courriel: "", sujet: "", message: "" };
+
+/**
+ * Sujets préremplis depuis l'URL (`/contact?sujet=<clé>`).
+ *
+ * La clé sert de tag de provenance (champ `source` caché, repris dans le
+ * courriel), le libellé préremplit le champ Sujet visible. Aujourd'hui une
+ * seule entrée : le bouton « Réservez une démo » de /mines.
+ */
+const SUJETS_PREREMPLIS: Record<string, { fr: string; en: string }> = {
+  exploration: {
+    fr: "Démonstration — exploration minière",
+    en: "Demo — mineral exploration",
+  },
+};
 
 /** Plafond du message, en miroir de `LIMITE_MESSAGE` côté route serveur (`app/api/contact/route.ts`). */
 const LIMITE_MESSAGE = 5000;
@@ -327,6 +341,24 @@ function Composition({ lang }: { lang: Lang }) {
   const [valeurs, setValeurs] = useState<Valeurs>(VIDE);
   const [erreurs, setErreurs] = useState<Partial<Record<Cle, string>>>({});
   const [etat, setEtat] = useState<Etat>("repos");
+  // Provenance, tirée de `?sujet=` : tag caché repris dans le courriel. Lu via
+  // window plutôt que `useSearchParams` pour ne pas imposer de Suspense à la
+  // page — le préremplissage n'a de sens que côté client, au montage.
+  const [source, setSource] = useState("");
+
+  useEffect(() => {
+    const cle = new URLSearchParams(window.location.search).get("sujet");
+    if (!cle) return;
+    const libelle = SUJETS_PREREMPLIS[cle]?.[lang];
+    /* eslint-disable react-hooks/set-state-in-effect --
+       Synchronisation depuis une source navigateur (l'URL) au montage : le
+       rendu statique reste volontairement vide, on remplit après hydratation
+       pour éviter tout décalage. On ne remplit que si le champ est encore vide,
+       pour ne jamais écraser une saisie de l'utilisateur. */
+    setSource(cle);
+    if (libelle) setValeurs((v) => (v.sujet ? v : { ...v, sujet: libelle }));
+    /* eslint-enable react-hooks/set-state-in-effect */
+  }, [lang]);
 
   function modifier(cle: Cle, valeur: string) {
     setValeurs((v) => ({ ...v, [cle]: valeur }));
@@ -355,7 +387,7 @@ function Composition({ lang }: { lang: Lang }) {
       const reponse = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...valeurs, recaptchaToken }),
+        body: JSON.stringify({ ...valeurs, source, recaptchaToken }),
       });
       if (!reponse.ok) throw new Error("Échec de l'envoi");
 
@@ -376,6 +408,10 @@ function Composition({ lang }: { lang: Lang }) {
       <h2 className="sr-only">
         {lang === "en" ? "Contact form" : "Formulaire de contact"}
       </h2>
+
+      {/* Provenance, non éditable et invisible : c'est la valeur envoyée au
+          serveur (et reprise dans le courriel), pas une saisie. */}
+      <input type="hidden" name="source" value={source} readOnly />
 
       {/* Ligne destinataire : elle plante le décor « nouveau message ». Non
           modifiable — c'est la seule adresse possible — donc en texte plutôt
