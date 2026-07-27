@@ -20,13 +20,6 @@ export const metadata: Metadata = {
   openGraph: openGraphPage(TITRE, DESCRIPTION, "fr"),
 };
 
-const ACCES = [
-  "Isolation par utilisateur et par équipe.",
-  "Authentification à deux facteurs par courriel.",
-  "Jetons de session hachés.",
-  "Clés API à portée limitée, avec expiration.",
-];
-
 export default function SecuritePage() {
   return (
     <>
@@ -161,22 +154,16 @@ export default function SecuritePage() {
         </div>
       </section>
 
-      {/* 4 — Les accès */}
+      {/* 4 — Les accès (prose, comme le reste de la page — pas de puces) */}
       <Section2Col surtitre="Les accès" titre="Chacun chez soi.">
-        <ul className="space-y-3">
-          {ACCES.map((item) => (
-            <li key={item} className="flex gap-3">
-              <span
-                aria-hidden="true"
-                className="mt-[0.55rem] size-1.5 shrink-0 rounded-full"
-                style={{ background: "var(--soft)" }}
-              />
-              <span className="text-[15px] leading-relaxed text-white/85">
-                {item}
-              </span>
-            </li>
-          ))}
-        </ul>
+        <div className="space-y-4 text-[15px] leading-relaxed text-white/85">
+          <p>Chaque utilisateur et chaque équipe travaillent isolés.</p>
+          <p>
+            L’accès au compte passe par une authentification à deux facteurs par
+            courriel. Les jetons de session sont hachés, et les clés API ont une
+            portée limitée, avec une date d’expiration.
+          </p>
+        </div>
       </Section2Col>
 
       {/* Closer — une seule sortie, pas de badge crédits ni de lien secondaire. */}
