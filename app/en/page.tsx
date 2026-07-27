@@ -11,7 +11,7 @@ import { alternatesBilingues, openGraphPage } from "@/lib/seo";
 
 const TITRE = "Cloud Paradise — Your cloud workstation";
 const DESCRIPTION =
-  "A complete online desktop: heavy compute in plain language, professional editors and team collaboration. Hosted in Québec, nothing to install.";
+  "A complete online desktop: heavy compute in plain language, professional software and team collaboration. Hosted in Québec, nothing to install.";
 
 export const metadata: Metadata = {
   title: TITRE,

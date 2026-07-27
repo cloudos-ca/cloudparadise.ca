@@ -57,12 +57,12 @@ const TEXTES = {
         nom: "3D et SIG",
         ligne: "Blender et QGIS Desktop, streamés en session éphémère.",
       },
-      {
-        Icone: IconMessage,
-        nom: "Collaboration",
-        ligne: "Messagerie, courriel et agenda partagé.",
-      },
     ] as Famille[],
+    collaboration: {
+      Icone: IconMessage,
+      nom: "Collaboration",
+      ligne: "Messagerie, courriel et agenda partagé.",
+    } as Famille,
   },
   en: {
     eyebrow: "Your tools",
@@ -91,12 +91,12 @@ const TEXTES = {
         nom: "3D and GIS",
         ligne: "Blender and QGIS Desktop, streamed in an ephemeral session.",
       },
-      {
-        Icone: IconMessage,
-        nom: "Collaboration",
-        ligne: "Messaging, email and a shared calendar.",
-      },
     ] as Famille[],
+    collaboration: {
+      Icone: IconMessage,
+      nom: "Collaboration",
+      ligne: "Messaging, email and a shared calendar.",
+    } as Famille,
   },
 } as const;
 
@@ -122,40 +122,22 @@ export function FamillesApps({ lang = "fr" }: { lang?: Lang }) {
           </p>
         </Reveal>
 
-        <Reveal
-          delay={0.1}
-          className="mt-10 grid gap-3.5 sm:grid-cols-2 os:grid-cols-3"
-        >
-          {t.familles.map(({ Icone, nom, ligne }) => (
-            <div
-              key={nom}
-              className="flex gap-4 rounded-xl border border-white/[0.08] bg-gradient-to-b from-white/[0.04] to-white/[0.01] p-5 shadow-[inset_0_1px_0_rgba(255,255,255,0.04)] transition-colors hover:border-white/15"
-            >
-              {/* Cyan (--soft) : l'accent secondaire de la charte, réservé ici
-                  aux outils, là où l'or reste sur les piliers et la
-                  conversion. */}
-              <span
-                className="grid size-10 shrink-0 place-items-center rounded-lg"
-                style={{
-                  background: "color-mix(in srgb, var(--soft) 12%, transparent)",
-                  color: "var(--soft)",
-                }}
-              >
-                <Icone className="size-[21px]" />
-              </span>
-              <div className="min-w-0">
-                <p className="font-display text-[15px] font-semibold text-[#eef4ff]">
-                  {nom}
-                </p>
-                <p className="mt-1 text-[13px] leading-relaxed text-white/75">
-                  {ligne}
-                </p>
-              </div>
-            </div>
+        {/* Les quatre logiciels dans une grille 2×2. */}
+        <Reveal delay={0.1} className="mt-10 grid gap-3.5 sm:grid-cols-2">
+          {t.familles.map((famille) => (
+            <CarteFamille key={famille.nom} famille={famille} />
           ))}
         </Reveal>
 
-        <Reveal delay={0.15} className="mt-8">
+        {/* Collaboration, en pleine largeur sous la grille : ce n'est pas un
+            logiciel comme les quatre autres (messagerie, courriel, agenda) mais
+            la porte vers l'équipe — une forme différente le dit sans l'écrire,
+            et le vide à droite d'une cinquième cellule disparaît. */}
+        <Reveal delay={0.15} className="mt-3.5">
+          <CarteFamille famille={t.collaboration} />
+        </Reveal>
+
+        <Reveal delay={0.2} className="mt-8">
           <Link
             href={hrefPlateforme}
             className="group inline-flex items-center gap-1.5 text-sm font-medium transition-[filter] hover:brightness-110 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
@@ -172,5 +154,37 @@ export function FamillesApps({ lang = "fr" }: { lang?: Lang }) {
         </Reveal>
       </div>
     </section>
+  );
+}
+
+/**
+ * Une cellule d'outil. Rendue à l'identique dans la grille (les quatre
+ * logiciels) et en pleine largeur (Collaboration) : seule la largeur du
+ * conteneur change, jamais la carte.
+ */
+function CarteFamille({ famille }: { famille: Famille }) {
+  const { Icone, nom, ligne } = famille;
+  return (
+    <div className="flex h-full gap-4 rounded-xl border border-white/[0.08] bg-gradient-to-b from-white/[0.04] to-white/[0.01] p-5 shadow-[inset_0_1px_0_rgba(255,255,255,0.04)] transition-colors hover:border-white/15">
+      {/* Cyan (--soft) : l'accent secondaire de la charte, réservé ici aux
+          outils, là où l'or reste sur les piliers et la conversion. */}
+      <span
+        className="grid size-10 shrink-0 place-items-center rounded-lg"
+        style={{
+          background: "color-mix(in srgb, var(--soft) 12%, transparent)",
+          color: "var(--soft)",
+        }}
+      >
+        <Icone className="size-[21px]" />
+      </span>
+      <div className="min-w-0">
+        <p className="font-display text-[15px] font-semibold text-[#eef4ff]">
+          {nom}
+        </p>
+        <p className="mt-1 text-[13px] leading-relaxed text-white/75">
+          {ligne}
+        </p>
+      </div>
+    </div>
   );
 }

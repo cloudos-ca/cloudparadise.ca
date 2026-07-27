@@ -5,18 +5,17 @@ import { WindowCard } from "./WindowCard";
 import { JobPanel } from "./JobPanel";
 import { BadgeOffre } from "./BadgeOffre";
 import { BoutonCta } from "./BoutonCta";
-import { DemoVideo } from "./DemoVideo";
 import { SECTION_Y, SHELL, type Lang } from "./tokens";
 
 const JOB_LOGS = {
   fr: [
     "→ Analyse du projet — 1 842 images détectées",
-    "→ Attribution de 8 GPU · mode MEDIA",
+    "→ Répartition en 12 segments",
     "→ Encodage H.265 — 1 842/1 842 images",
   ],
   en: [
     "→ Analyzing project — 1,842 images found",
-    "→ Assigning 8 GPUs · MEDIA mode",
+    "→ Splitting into 12 segments",
     "→ Encoding H.265 — 1,842/1,842 images",
   ],
 } as const;
@@ -31,14 +30,14 @@ const TEXTES = {
     titreLigne1: "Décrivez la tâche.",
     titreLigne2: "On s’occupe du calcul.",
     texte:
-      "Votre poste de travail cloud : calcul lourd en langage humain, éditeurs professionnels et collaboration d’équipe. Décrivez ce que vous voulez, on s’occupe du reste — sans rien installer.",
+      "Votre poste de travail cloud : calcul lourd en langage humain, logiciels professionnels et collaboration d’équipe. Décrivez ce que vous voulez, on s’occupe du reste — sans rien installer.",
     cta: "Commencer gratuitement",
   },
   en: {
     titreLigne1: "Describe the task.",
     titreLigne2: "We handle the compute.",
     texte:
-      "Your cloud workstation: heavy compute in plain language, professional editors and team collaboration. Say what you want, we handle the rest — nothing to install.",
+      "Your cloud workstation: heavy compute in plain language, professional software and team collaboration. Say what you want, we handle the rest — nothing to install.",
     cta: "Start for free",
   },
 } as const;
@@ -78,14 +77,16 @@ function Copy({ lang }: { lang: Lang }) {
         {t.texte}
       </p>
 
-      <div className="mt-7 flex flex-wrap items-center gap-3">
+      {/* Un seul CTA : « Voir la démo » est retiré tant qu'une capture animée
+          à jour n'existe pas (le composant DemoVideo et la vidéo publique
+          restent en place, hors rendu). */}
+      <div className="mt-7">
         <BoutonCta
           href="https://app.cloudparadise.cloud/register"
           taille="lg"
         >
           {t.cta}
         </BoutonCta>
-        <DemoVideo lang={lang} />
       </div>
 
       {/* L'offre juste sous le bouton, en or dilué : elle appuie le CTA au

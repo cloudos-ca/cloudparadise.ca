@@ -65,7 +65,7 @@ export const GRILLE = [
   { type: "Média", libelle: { fr: "Média", en: "Media" }, cout: 0.5 },
   {
     type: "Scraping",
-    libelle: { fr: "Scraping", en: "Scraping" },
+    libelle: { fr: "Extraction web", en: "Scraping" },
     cout: 0.5,
   },
   {
