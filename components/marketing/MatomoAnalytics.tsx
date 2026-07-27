@@ -8,6 +8,16 @@ import {
   surChangementConsentement,
 } from "./consentement";
 
+/*
+ * File d'attente de Matomo, déclarée sur `Window`.
+ *
+ * C'est ce qui explique le mélange `globalThis` / `window` dans ce fichier, et
+ * la règle est simple : `globalThis` pour tout ce que le DOM fournit
+ * d'origine, `window` uniquement pour `_paq`. Augmenter l'interface `Window`
+ * n'ajoute rien au type de `globalThis` — `globalThis._paq` ne compilerait pas
+ * sans déclarer en plus un `var` global, soit deux déclarations à tenir
+ * synchronisées pour ne rien gagner.
+ */
 declare global {
   interface Window {
     _paq?: unknown[][];
@@ -32,14 +42,14 @@ export function MatomoAnalytics() {
   useEffect(() => {
     // rAF plutôt qu'un appel synchrone : même garde que `PopupLoi25`, pour ne
     // pas déclencher de re-rendu en cascade directement dans l'effet.
-    const id = window.requestAnimationFrame(() =>
+    const id = globalThis.requestAnimationFrame(() =>
       setActif(aAccepteLesTemoinsNonEssentiels()),
     );
     const desabonner = surChangementConsentement(() =>
       setActif(aAccepteLesTemoinsNonEssentiels()),
     );
     return () => {
-      window.cancelAnimationFrame(id);
+      globalThis.cancelAnimationFrame(id);
       desabonner();
     };
   }, []);
@@ -63,7 +73,7 @@ export function MatomoAnalytics() {
     // ignorerait silencieusement les suivants. La boucle réunit les trois
     // appels sans rien changer à ce qui part sur le réseau.
     const commandes = [
-      ["setCustomUrl", window.location.href],
+      ["setCustomUrl", globalThis.location.href],
       ["setDocumentTitle", document.title],
       ["trackPageView"],
     ];
