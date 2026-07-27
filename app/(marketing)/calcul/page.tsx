@@ -201,7 +201,7 @@ export default function CalculPage() {
             </Reveal>
 
             <Reveal delay={0.1} className="mx-auto w-full max-w-[480px]">
-              <WindowCard title="Workflow · Cloud Paradise">
+              <WindowCard title="Flux · Cloud Paradise">
                 <div className="p-5">
                   <ol className="space-y-2.5">
                     {WORKFLOW.map((etape, i) => (

@@ -110,7 +110,8 @@ export default function SecuritePage() {
                   données se font en lecture seule.
                 </p>
                 <p className="font-medium text-white">
-                  Le résultat n’est jamais généré par le modèle. Il est calculé.
+                  Quand vous lancez une tâche de calcul, le résultat est calculé
+                  par un moteur déterministe, jamais rédigé par le modèle.
                 </p>
               </div>
             </Reveal>

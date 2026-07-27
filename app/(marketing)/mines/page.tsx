@@ -8,6 +8,7 @@ import { BoutonCta } from "@/components/marketing/BoutonCta";
 import { BreadcrumbJsonLd } from "@/components/marketing/BreadcrumbJsonLd";
 import { FenetreCta } from "@/components/marketing/FenetreCta";
 import { HreflangLinks } from "@/components/marketing/HreflangLinks";
+import { JobPanel } from "@/components/marketing/JobPanel";
 import { WindowCard } from "@/components/marketing/WindowCard";
 import {
   IconAlert,
@@ -47,6 +48,14 @@ type OperationSig = {
   titre: string;
   texte: string;
 };
+
+/** Chaîne du desurvey : lecture des CSV → calcul → export .geojson. Pas de
+ *  compte de sondages (chiffre métier), seulement les étapes. */
+const FORAGES_LOGS = [
+  "→ lecture des collets X/Y/Z et des relevés de déviation",
+  "→ calcul de desurvey — traces reconstruites",
+  "→ export .geojson prêt pour la visionneuse 3D",
+] as const;
 
 /** Les gestes SIG : des opérations, pas un récit — d'où les cartes courtes. */
 const OPERATIONS_SIG: readonly OperationSig[] = [
@@ -98,10 +107,12 @@ export default function MinesPage() {
           compte gratuit (secondaire). */}
       <section className="relative">
         <div className={`${SHELL} ${SECTION_Y}`}>
-          <Reveal className="max-w-3xl">
+          <Reveal className="max-w-4xl">
             <SurTitre>Exploration minière</SurTitre>
-            <h1 className="mt-2 font-display text-[1.8rem] leading-[1.12] font-bold tracking-[-0.02em] text-white sm:text-[2.3rem] os:text-[2.7rem]">
-              Le poste de travail de l’exploration minière au Québec.
+            <h1 className="mt-2 font-display text-[1.7rem] leading-[1.12] font-bold tracking-[-0.02em] text-white sm:text-[2.15rem] os:text-[2.5rem]">
+              Le poste de travail de
+              <br />
+              l’exploration minière au Québec.
               <br />
               Conçu en Abitibi.
             </h1>
@@ -195,29 +206,35 @@ export default function MinesPage() {
           <div className="grid gap-8 os:grid-cols-[2fr_3fr] os:items-start os:gap-12">
             <Reveal>
               <SurTitre>Les forages</SurTitre>
-              <TitreSection>Vos traces de forage, en trois dimensions.</TitreSection>
+              <TitreSection>
+                De vos relevés à la trace en trois dimensions.
+              </TitreSection>
             </Reveal>
             <Reveal delay={0.1}>
               <div className="space-y-4 text-[15px] leading-relaxed text-white/85">
                 <p>
-                  La visionneuse 3D affiche vos traces de sondage : vous faites
-                  pivoter la vue et suivez chaque forage sur toute sa longueur.
-                  Le desurvey est calculé à partir de vos relevés de déviation.
+                  Vous déposez un ZIP de deux CSV : les collets X/Y/Z et les
+                  relevés de déviation. Le calcul de desurvey produit les traces,
+                  que la visionneuse 3D affiche — vous faites pivoter la vue et
+                  vous suivez chaque forage sur toute sa longueur.
                 </p>
-                <p className="text-[13px] text-white/70">
-                  Format d’entrée accepté :{" "}
-                  <span
-                    className="rounded border border-dashed px-1.5 py-0.5 align-middle text-[12px] font-medium"
-                    style={{
-                      borderColor:
-                        "color-mix(in srgb, var(--cta) 50%, transparent)",
-                      color: "var(--cta)",
-                    }}
-                  >
-                    à confirmer
-                  </span>
+                <p className="text-[13px] leading-relaxed text-white/70">
+                  Entrée du calcul : <Ext>.zip</Ext> de deux <Ext>.csv</Ext>.
+                  Entrée de la visionneuse : le fichier <Ext>.geojson</Ext>{" "}
+                  produit par le desurvey.
                 </p>
               </div>
+
+              {/* La chaîne CSV → desurvey → traces 3D : du calcul déterministe
+                  sur une opération que le public connaît par cœur — d'où la
+                  fenêtre plutôt que la seule description. */}
+              <WindowCard title="Desurvey · Cloud Paradise" className="mt-6">
+                <JobPanel
+                  title="Calculer les traces de forage"
+                  chip="DONNÉES"
+                  logs={FORAGES_LOGS}
+                />
+              </WindowCard>
             </Reveal>
           </div>
         </div>
@@ -229,18 +246,18 @@ export default function MinesPage() {
           <div className="grid gap-8 os:grid-cols-[2fr_3fr] os:items-start os:gap-12">
             <Reveal>
               <SurTitre>Les rapports</SurTitre>
-              <TitreSection>Le brouillon est déjà commencé.</TitreSection>
+              <TitreSection>Le premier jet est déjà écrit.</TitreSection>
             </Reveal>
             <Reveal delay={0.1}>
               <div className="space-y-4 text-[15px] leading-relaxed text-white/85">
                 <p>
-                  À partir de vos travaux, le poste de travail prépare un
-                  brouillon assisté : rapport de travaux statutaires MRNF,
-                  sections d’un rapport NI 43-101.
+                  L’assistant rédige un premier jet à partir des données de
+                  votre projet : rapport de travaux statutaires MRNF, sections
+                  d’un rapport NI 43-101.
                 </p>
                 <p>
-                  Vous reprenez la main, vous complétez, puis vous exportez en
-                  PDF.
+                  Vous lui demandez les modifications en langage courant, vous
+                  révisez, vous corrigez, vous signez. Export PDF.
                 </p>
               </div>
             </Reveal>
@@ -263,8 +280,9 @@ export default function MinesPage() {
                   c’est opérationnel.
                 </p>
                 <p>
-                  Vos autres couches, aux formats de couches courants
-                  compatibles ArcGIS, se superposent par-dessus.
+                  Vos autres couches se superposent par-dessus : <Ext>.gpkg</Ext>,{" "}
+                  <Ext>.geojson</Ext>, <Ext>.kml</Ext>, et <Ext>.zip</Ext> pour
+                  un shapefile compressé.
                 </p>
               </div>
             </Reveal>
@@ -376,6 +394,16 @@ function TitreSection({ children }: { children: ReactNode }) {
     <h2 className="mt-2 font-display text-[1.6rem] leading-[1.2] font-bold tracking-tight text-balance text-[#eef4ff] sm:text-3xl os:text-4xl">
       {children}
     </h2>
+  );
+}
+
+/** Extension de fichier, en mono discret : un géologue lit `.geojson` mieux
+ *  en code qu'en prose. */
+function Ext({ children }: { children: ReactNode }) {
+  return (
+    <code className="rounded bg-white/[0.06] px-1 py-0.5 font-mono text-[0.85em] text-white/80">
+      {children}
+    </code>
   );
 }
 

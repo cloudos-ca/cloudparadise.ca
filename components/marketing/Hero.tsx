@@ -150,7 +150,7 @@ function Desktop({
         <WindowCard title="Plans · Cloud Paradise">
           <JobPanel
             title={lang === "en" ? "Render a 4K video" : "Rendre une vidéo 4K"}
-            chip="MEDIA"
+            chip="MÉDIA"
             logs={JOB_LOGS[lang]}
             lang={lang}
           />
