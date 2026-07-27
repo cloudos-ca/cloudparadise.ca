@@ -303,46 +303,50 @@ function GesteSection({ geste }: { geste: Geste }) {
   return (
     <section id={geste.id} className="relative scroll-mt-24">
       <div className={`${SHELL} ${SECTION_Y}`}>
-        <Reveal className="max-w-2xl">
-          <p className="text-[13px] font-semibold uppercase tracking-[0.12em]">
-            <span style={{ color: "var(--cta)" }}>{geste.surtitre}</span>
-            <span className="font-normal tracking-normal text-white/45 normal-case">
-              {" · facturé "}
-              {factures}
-            </span>
-          </p>
-          <h2 className="mt-2 max-w-[22ch] font-display text-[1.6rem] leading-[1.2] font-bold tracking-tight text-balance text-[#eef4ff] sm:text-3xl os:text-4xl">
-            {geste.titre}
-          </h2>
-          <p className="mt-4 max-w-[60ch] text-sm leading-relaxed text-white/85">
-            {geste.texte}
-          </p>
-        </Reveal>
+        {/* Deux colonnes : en-tête à gauche, exemples à droite. Remplit la
+            largeur au lieu de laisser la moitié droite vide. Empilé sur mobile. */}
+        <div className="grid gap-8 os:grid-cols-[2fr_3fr] os:items-start os:gap-12">
+          <Reveal>
+            <p className="text-[13px] font-semibold uppercase tracking-[0.12em]">
+              <span style={{ color: "var(--cta)" }}>{geste.surtitre}</span>
+              <span className="font-normal tracking-normal text-white/45 normal-case">
+                {" · facturé "}
+                {factures}
+              </span>
+            </p>
+            <h2 className="mt-2 font-display text-[1.6rem] leading-[1.2] font-bold tracking-tight text-balance text-[#eef4ff] sm:text-3xl os:text-4xl">
+              {geste.titre}
+            </h2>
+            <p className="mt-4 text-sm leading-relaxed text-white/85">
+              {geste.texte}
+            </p>
+          </Reveal>
 
-        <Reveal delay={0.1} className="mt-8 max-w-3xl">
-          <ul className="divide-y divide-white/10 overflow-hidden rounded-xl border border-white/10 bg-gradient-to-b from-white/[0.04] to-white/[0.01]">
-            {geste.exemples.map((ex) => (
-              <li
-                key={ex.entree}
-                className="flex flex-wrap items-baseline gap-x-2.5 gap-y-1 px-5 py-4"
-              >
-                <span className="text-sm text-white/70">
-                  <Chiffres>{ex.entree}</Chiffres>
-                </span>
-                <span
-                  aria-hidden="true"
-                  className="text-sm font-semibold"
-                  style={{ color: "var(--cta)" }}
+          <Reveal delay={0.1}>
+            <ul className="divide-y divide-white/10 overflow-hidden rounded-xl border border-white/10 bg-gradient-to-b from-white/[0.04] to-white/[0.01]">
+              {geste.exemples.map((ex) => (
+                <li
+                  key={ex.entree}
+                  className="flex flex-wrap items-baseline gap-x-2.5 gap-y-1 px-5 py-4"
                 >
-                  →
-                </span>
-                <span className="text-sm font-medium text-white">
-                  <Chiffres>{ex.sortie}</Chiffres>
-                </span>
-              </li>
-            ))}
-          </ul>
-        </Reveal>
+                  <span className="text-sm text-white/70">
+                    <Chiffres>{ex.entree}</Chiffres>
+                  </span>
+                  <span
+                    aria-hidden="true"
+                    className="text-sm font-semibold"
+                    style={{ color: "var(--cta)" }}
+                  >
+                    →
+                  </span>
+                  <span className="text-sm font-medium text-white">
+                    <Chiffres>{ex.sortie}</Chiffres>
+                  </span>
+                </li>
+              ))}
+            </ul>
+          </Reveal>
+        </div>
       </div>
     </section>
   );
