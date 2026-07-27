@@ -43,34 +43,33 @@ export function Determinisme({ lang = "fr" }: { lang?: Lang }) {
   return (
     <section className="relative">
       <div className={`${SHELL} ${SECTION_Y}`}>
-        {/* En-tête aligné à gauche, comme toutes les sections. Mesure élargie
-            (max-w-2xl) pour que le titre tienne sur deux lignes plutôt que
-            quatre. */}
-        <Reveal className="max-w-2xl">
-          <p
-            className="text-[13px] font-semibold uppercase tracking-[0.12em]"
-            style={{ color: "var(--cta)" }}
-          >
-            {t.eyebrow}
-          </p>
-          <h2 className="mt-2 font-display text-[1.6rem] leading-[1.2] font-bold tracking-tight text-balance text-[#eef4ff] sm:text-3xl os:text-4xl">
-            {t.titre}
-          </h2>
-          <p className="mt-4 max-w-[56ch] text-sm leading-relaxed text-white/85">
-            {t.texte}
-          </p>
-        </Reveal>
+        {/* Deux colonnes : en-tête à gauche, chaîne à droite — elles se
+            répondent au lieu de laisser l'en-tête flotter seul à gauche. */}
+        <div className="grid items-center gap-10 os:grid-cols-[2fr_3fr] os:gap-12">
+          <Reveal>
+            <p
+              className="text-[13px] font-semibold uppercase tracking-[0.12em]"
+              style={{ color: "var(--cta)" }}
+            >
+              {t.eyebrow}
+            </p>
+            <h2 className="mt-2 font-display text-[1.6rem] leading-[1.2] font-bold tracking-tight text-balance text-[#eef4ff] sm:text-3xl os:text-4xl">
+              {t.titre}
+            </h2>
+            <p className="mt-4 text-sm leading-relaxed text-white/85">
+              {t.texte}
+            </p>
+          </Reveal>
 
-        {/* La chaîne, dominante et pleine largeur. Empilée sur mobile (chevrons
-            pivotés vers le bas), en une seule ligne horizontale au-delà du
-            seuil. `items-stretch` + `min-h` garantissent quatre boîtes de même
-            hauteur ; les chevrons, dans un conteneur étiré à contenu centré,
-            tombent au milieu, entre les boîtes. */}
-        <Reveal delay={0.1} className="mt-11">
-          <div
-            aria-hidden="true"
-            className="mx-auto flex max-w-4xl flex-col items-stretch gap-2.5 sm:flex-row sm:gap-2"
-          >
+          {/* La chaîne, dans la colonne de droite. Empilée sur mobile (chevrons
+              pivotés vers le bas), en ligne au-delà du seuil. `items-stretch` +
+              `min-h` garantissent quatre boîtes de même hauteur ; les chevrons,
+              dans un conteneur étiré à contenu centré, tombent entre les boîtes. */}
+          <Reveal delay={0.1}>
+            <div
+              aria-hidden="true"
+              className="flex flex-col items-stretch gap-2.5 sm:flex-row sm:gap-2"
+            >
             {t.etapes.map((etape, i) => {
               const conclusion = i === t.etapes.length - 1;
               return (
@@ -110,8 +109,9 @@ export function Determinisme({ lang = "fr" }: { lang?: Lang }) {
                 </Fragment>
               );
             })}
-          </div>
-        </Reveal>
+            </div>
+          </Reveal>
+        </div>
       </div>
     </section>
   );
