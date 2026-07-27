@@ -58,9 +58,16 @@ export function MatomoAnalytics() {
       return;
     }
     if (pathname === cheminAuDemarrage.current) return;
-    window._paq?.push(["setCustomUrl", window.location.href]);
-    window._paq?.push(["setDocumentTitle", document.title]);
-    window._paq?.push(["trackPageView"]);
+    // Une commande par `push`, jamais groupées en un seul appel : c'est le
+    // contrat de Matomo, dont le proxy ne lit qu'un tableau à la fois et
+    // ignorerait silencieusement les suivants. La boucle réunit les trois
+    // appels sans rien changer à ce qui part sur le réseau.
+    const commandes = [
+      ["setCustomUrl", window.location.href],
+      ["setDocumentTitle", document.title],
+      ["trackPageView"],
+    ];
+    for (const commande of commandes) window._paq?.push(commande);
   }, [pathname, actif]);
 
   if (!actif) return null;

@@ -389,7 +389,7 @@ const SECTIONS: readonly SectionRedigee[] = [
         >
           cai.gouv.qc.ca
         </a>
-        .
+        {"."}
       </>,
     ],
   },

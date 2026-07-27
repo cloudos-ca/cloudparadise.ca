@@ -231,7 +231,7 @@ export default function PlateformePage() {
 }
 
 /** Sur-titre or, style système de l'accueil — collé au titre. */
-function SurTitre({ children }: { children: ReactNode }) {
+function SurTitre({ children }: Readonly<{ children: ReactNode }>) {
   return (
     <p
       className="text-[13px] font-semibold uppercase tracking-[0.12em]"
@@ -243,7 +243,7 @@ function SurTitre({ children }: { children: ReactNode }) {
 }
 
 /** Lien or texte + flèche, comme partout sur l'accueil. */
-function LienOr({ href, children }: { href: string; children: ReactNode }) {
+function LienOr({ href, children }: Readonly<{ href: string; children: ReactNode }>) {
   return (
     <a
       href={href}
@@ -272,14 +272,14 @@ function SectionAncre({
   texte,
   cartes,
   children,
-}: {
+}: Readonly<{
   id: string;
   surtitre: string;
   titre: ReactNode;
   texte: string;
   cartes: Carte[];
   children?: ReactNode;
-}) {
+}>) {
   return (
     <section id={id} className="relative scroll-mt-24">
       <div className={`${SHELL} ${SECTION_Y}`}>
@@ -337,13 +337,13 @@ function Capture({
   height,
   alt,
   priority = false,
-}: {
+}: Readonly<{
   src: string;
   width: number;
   height: number;
   alt: string;
   priority?: boolean;
-}) {
+}>) {
   return (
     <div className="overflow-hidden rounded-xl border border-white/10 shadow-[0_24px_50px_-14px_rgba(0,0,0,.55)]">
       <Image

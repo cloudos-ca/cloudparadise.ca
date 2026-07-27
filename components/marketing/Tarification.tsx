@@ -69,7 +69,7 @@ const TEXTES = {
   },
 } as const;
 
-export function Tarification({ lang = "fr" }: { lang?: Lang }) {
+export function Tarification({ lang = "fr" }: Readonly<{ lang?: Lang }>) {
   const t = TEXTES[lang];
   return (
     // Cible de « Voir les tarifs », depuis le closer.
@@ -136,7 +136,7 @@ export function Tarification({ lang = "fr" }: { lang?: Lang }) {
 }
 
 /** La grille complète, un seul endroit qui fait foi. */
-function Grille({ lang }: { lang: Lang }) {
+function Grille({ lang }: Readonly<{ lang: Lang }>) {
   return (
     <div className="rounded-xl border border-white/10 bg-white/[0.03] px-5 py-4">
       <p className="text-[13px] text-white/75">

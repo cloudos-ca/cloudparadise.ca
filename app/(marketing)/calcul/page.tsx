@@ -262,7 +262,7 @@ export default function CalculPage() {
 }
 
 /** Sur-titre or, style système. */
-function SurTitre({ children }: { children: ReactNode }) {
+function SurTitre({ children }: Readonly<{ children: ReactNode }>) {
   return (
     <p
       className="text-[13px] font-semibold uppercase tracking-[0.12em]"
@@ -274,7 +274,7 @@ function SurTitre({ children }: { children: ReactNode }) {
 }
 
 /** Lien or texte + flèche. */
-function LienOr({ href, children }: { href: string; children: ReactNode }) {
+function LienOr({ href, children }: Readonly<{ href: string; children: ReactNode }>) {
   return (
     <a
       href={href}
@@ -297,7 +297,7 @@ function LienOr({ href, children }: { href: string; children: ReactNode }) {
  * discrets, blancs à faible opacité), titre, paragraphe, puis la liste
  * entrée → sortie — le cœur de la page.
  */
-function GesteSection({ geste }: { geste: Geste }) {
+function GesteSection({ geste }: Readonly<{ geste: Geste }>) {
   // « facturé X » seulement quand un geste correspond à un seul type facturé.
   // Lister plusieurs noms réintroduirait un comptage : on renvoie alors vers
   // /tarifs par un lien discret plutôt que d'énumérer.
@@ -370,8 +370,13 @@ function GesteSection({ geste }: { geste: Geste }) {
 const NOMBRE =
   /((?<![\p{L}\d.])\d[\d  ]*\d(?![\p{L}\d])|(?<![\p{L}\d.])\d(?![\p{L}\d]))/gu;
 
-function Chiffres({ children }: { children: string }) {
+function Chiffres({ children }: Readonly<{ children: string }>) {
   const segments = children.split(NOMBRE);
+  // Clé par index, et c'est la seule correcte ici : `split` sur un motif à
+  // groupe capturant rend des segments vides aux jointures, donc plusieurs
+  // chaînes identiques dans le même tableau. Une clé tirée du contenu
+  // collisionnerait. La liste est par ailleurs figée — même chaîne d'entrée,
+  // mêmes segments, dans le même ordre, à chaque rendu.
   return (
     <>
       {segments.map((seg, i) =>

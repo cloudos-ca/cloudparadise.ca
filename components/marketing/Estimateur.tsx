@@ -37,12 +37,24 @@ const nf = new Intl.NumberFormat("fr-CA");
  * rien dire. Les vedettes actuelles sont toutes tarifées — ce filtre est un
  * garde-fou pour le jour où l'une d'elles ne le sera plus.
  */
+/**
+ * Granularité de l'arrondi, plus grossière à mesure que le nombre grandit.
+ *
+ * « 1 240 tâches » ne veut rien dire de plus que « 1 240 » arrondi à la
+ * dizaine : sur un ordre de grandeur, les unités sont du bruit.
+ */
+function pasArrondi(nombre: number) {
+  if (nombre >= 1000) return 10;
+  if (nombre >= 100) return 5;
+  return 1;
+}
+
 function equivalences(credits: number, lang: Lang) {
   return VEDETTES.flatMap((type) => {
     const cout = coutDe(type);
     if (cout === null) return [];
     const nombre = credits / cout;
-    const pas = nombre >= 1000 ? 10 : nombre >= 100 ? 5 : 1;
+    const pas = pasArrondi(nombre);
     const nom = libelleDe(type, lang);
     return [
       {
@@ -91,11 +103,11 @@ export function Estimateur({
   lienDetails = true,
   lang = "fr",
   variante = "compact",
-}: {
+}: Readonly<{
   lienDetails?: boolean;
   lang?: Lang;
   variante?: "compact" | "large";
-} = {}) {
+}> = {}) {
   const [credits, setCredits] = useState(CONFIG.credits.defaut);
   const { min, max, pas } = CONFIG.credits;
   const pourcent = ((credits - min) / (max - min)) * 100;

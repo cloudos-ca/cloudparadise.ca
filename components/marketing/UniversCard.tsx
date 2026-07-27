@@ -37,7 +37,7 @@ export type Univers = {
  * balise vidéo en autoplay/muted/loop pour une démo animée. Conserver la
  * hauteur (h-28) et le fond sombre pour que la grille ne bouge pas au swap.
  */
-function MediaSlot({ children }: { children: ReactNode }) {
+function MediaSlot({ children }: Readonly<{ children: ReactNode }>) {
   return (
     <div
       aria-hidden="true"
@@ -52,10 +52,10 @@ function MediaSlot({ children }: { children: ReactNode }) {
 export function UniversCard({
   univers,
   lang = "fr",
-}: {
+}: Readonly<{
   univers: Univers;
   lang?: Lang;
-}) {
+}>) {
   const t = TEXTES[lang];
   const {
     nom,

@@ -62,10 +62,10 @@ const JSON_LD = {
 export function RootDocument({
   lang,
   children,
-}: {
+}: Readonly<{
   lang: "fr" | "en";
   children: React.ReactNode;
-}) {
+}>) {
   return (
     <html
       lang={lang}

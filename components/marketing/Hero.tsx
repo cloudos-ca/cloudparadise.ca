@@ -42,7 +42,7 @@ const TEXTES = {
   },
 } as const;
 
-export function Hero({ lang = "fr" }: { lang?: Lang }) {
+export function Hero({ lang = "fr" }: Readonly<{ lang?: Lang }>) {
   const reduceMotion = useReducedMotion();
 
   return (
@@ -61,7 +61,7 @@ export function Hero({ lang = "fr" }: { lang?: Lang }) {
   );
 }
 
-function Copy({ lang }: { lang: Lang }) {
+function Copy({ lang }: Readonly<{ lang: Lang }>) {
   const t = TEXTES[lang];
   return (
     <div className="max-w-xl">
@@ -99,10 +99,10 @@ function Copy({ lang }: { lang: Lang }) {
 function Desktop({
   reduceMotion,
   lang,
-}: {
+}: Readonly<{
   reduceMotion: boolean;
   lang: Lang;
-}) {
+}>) {
   const float = (distance: number, duration: number) =>
     reduceMotion
       ? undefined

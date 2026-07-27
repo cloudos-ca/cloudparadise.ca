@@ -18,7 +18,7 @@ const TEXTE: Record<Lang, { type: string; prix: string }> = {
  * qu'un prix qui change ne puisse pas diverger d'une page à l'autre sans
  * prévenir. Partagée entre les versions FR et EN.
  */
-export function GrilleTarifaireLegale({ lang }: { lang: Lang }) {
+export function GrilleTarifaireLegale({ lang }: Readonly<{ lang: Lang }>) {
   const t = TEXTE[lang];
   return (
     <div className="overflow-x-auto rounded-lg border border-white/10">

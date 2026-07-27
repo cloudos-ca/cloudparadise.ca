@@ -185,7 +185,7 @@ export default function SecuritePage() {
 }
 
 /** Sur-titre or, style système. */
-function SurTitre({ children }: { children: ReactNode }) {
+function SurTitre({ children }: Readonly<{ children: ReactNode }>) {
   return (
     <p
       className="text-[13px] font-semibold uppercase tracking-[0.12em]"
@@ -201,11 +201,11 @@ function Section2Col({
   surtitre,
   titre,
   children,
-}: {
+}: Readonly<{
   surtitre: string;
   titre: string;
   children: ReactNode;
-}) {
+}>) {
   return (
     <section className="relative">
       <div className={`${SHELL} ${SECTION_Y}`}>

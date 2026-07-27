@@ -65,7 +65,7 @@ const TEXTES = {
   },
 } as const;
 
-export function ProblemeSolution({ lang = "fr" }: { lang?: Lang }) {
+export function ProblemeSolution({ lang = "fr" }: Readonly<{ lang?: Lang }>) {
   const reduceMotion = Boolean(useReducedMotion());
   const t = TEXTES[lang];
 
@@ -113,7 +113,7 @@ type Textes = {
   cloudLegende: string;
 };
 
-function Caption({ children }: { children: React.ReactNode }) {
+function Caption({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <p className="mt-4 text-sm leading-relaxed text-cp-subtle">{children}</p>
   );
@@ -122,10 +122,10 @@ function Caption({ children }: { children: React.ReactNode }) {
 function StuckWindow({
   reduceMotion,
   t,
-}: {
+}: Readonly<{
   reduceMotion: boolean;
   t: Textes;
-}) {
+}>) {
   // En mouvement réduit, la fenêtre gèle sur l'état « bloqué » : aucune boucle.
   const pulse = reduceMotion
     ? {}
@@ -197,10 +197,10 @@ function StuckWindow({
 function Flow({
   reduceMotion,
   t,
-}: {
+}: Readonly<{
   reduceMotion: boolean;
   t: Textes;
-}) {
+}>) {
   return (
     <div
       className="flex shrink-0 flex-col items-center justify-center gap-2 os:w-36 os:self-start os:pt-16"
@@ -243,7 +243,7 @@ function Flow({
   );
 }
 
-function CloudWindow({ t, lang }: { t: Textes; lang: Lang }) {
+function CloudWindow({ t, lang }: Readonly<{ t: Textes; lang: Lang }>) {
   return (
     <div className="flex min-w-0 flex-1 flex-col">
       <WindowCard

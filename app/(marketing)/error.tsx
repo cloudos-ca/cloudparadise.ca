@@ -5,13 +5,17 @@ import { PageEntete } from "@/components/marketing/PageEntete";
 import { BoutonCta } from "@/components/marketing/BoutonCta";
 import { LECTURE, SECTION_Y, SHELL } from "@/components/marketing/tokens";
 
-export default function Error({
+// Nom francisé, et surtout distinct de `Error` : le composant partageait son
+// nom avec le constructeur global, qu'il utilise pourtant dans le type de ses
+// props juste en dessous. Next.js n'exige rien sur ce nom, seul l'export par
+// défaut compte.
+export default function Erreur({
   error,
   unstable_retry,
-}: {
+}: Readonly<{
   error: Error & { digest?: string };
   unstable_retry: () => void;
-}) {
+}>) {
   useEffect(() => {
     console.error(error);
   }, [error]);

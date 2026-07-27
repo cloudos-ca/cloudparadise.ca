@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 
-type WindowCardProps = {
+type WindowCardProps = Readonly<{
   title: string;
   children: ReactNode;
   className?: string;
@@ -16,7 +16,7 @@ type WindowCardProps = {
    * de titre. Décoratif : le titre porte déjà l'information.
    */
   icone?: ReactNode;
-};
+}>;
 
 /**
  * Châssis de fenêtre du web OS.

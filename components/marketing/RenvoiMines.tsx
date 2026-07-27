@@ -44,7 +44,7 @@ const TEXTES = {
   },
 } as const;
 
-export function RenvoiMines({ lang = "fr" }: { lang?: Lang }) {
+export function RenvoiMines({ lang = "fr" }: Readonly<{ lang?: Lang }>) {
   const t = TEXTES[lang];
   return (
     <section className="relative">

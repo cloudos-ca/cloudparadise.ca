@@ -57,7 +57,7 @@ const TEXTES = {
         nom: "3D et SIG",
         ligne: "Blender et QGIS Desktop, streamés en session éphémère.",
       },
-    ] as Famille[],
+    ],
     collaboration: {
       Icone: IconMessage,
       nom: "Collaboration",
@@ -91,7 +91,7 @@ const TEXTES = {
         nom: "3D and GIS",
         ligne: "Blender and QGIS Desktop, streamed in an ephemeral session.",
       },
-    ] as Famille[],
+    ],
     collaboration: {
       Icone: IconMessage,
       nom: "Collaboration",
@@ -100,7 +100,7 @@ const TEXTES = {
   },
 } as const;
 
-export function FamillesApps({ lang = "fr" }: { lang?: Lang }) {
+export function FamillesApps({ lang = "fr" }: Readonly<{ lang?: Lang }>) {
   const t = TEXTES[lang];
   const hrefPlateforme = lang === "en" ? "/en/plateforme" : "/plateforme";
 
@@ -162,7 +162,7 @@ export function FamillesApps({ lang = "fr" }: { lang?: Lang }) {
  * logiciels) et en pleine largeur (Collaboration) : seule la largeur du
  * conteneur change, jamais la carte.
  */
-function CarteFamille({ famille }: { famille: Famille }) {
+function CarteFamille({ famille }: Readonly<{ famille: Famille }>) {
   const { Icone, nom, ligne } = famille;
   return (
     <div className="flex h-full gap-4 rounded-xl border border-white/[0.08] bg-gradient-to-b from-white/[0.04] to-white/[0.01] p-5 shadow-[inset_0_1px_0_rgba(255,255,255,0.04)] transition-colors hover:border-white/15">

@@ -5,11 +5,11 @@
  * leur ferait perdre ce repère. Partagée entre les versions FR et EN de la
  * page.
  */
-export function ListeNumerotee({ items }: { items: readonly string[] }) {
+export function ListeNumerotee({ items }: Readonly<{ items: readonly string[] }>) {
   return (
     <ol className="space-y-2 pl-1">
       {items.map((texte, i) => (
-        <li key={i} className="flex gap-2.5">
+        <li key={texte} className="flex gap-2.5">
           <span aria-hidden="true" className="tabular-nums text-[#93a3c2]">
             {i + 1}.
           </span>

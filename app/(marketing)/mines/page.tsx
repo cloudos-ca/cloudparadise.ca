@@ -381,7 +381,7 @@ export default function MinesPage() {
 }
 
 /** Sur-titre or, style système. */
-function SurTitre({ children }: { children: ReactNode }) {
+function SurTitre({ children }: Readonly<{ children: ReactNode }>) {
   return (
     <p
       className="text-[13px] font-semibold uppercase tracking-[0.12em]"
@@ -393,7 +393,7 @@ function SurTitre({ children }: { children: ReactNode }) {
 }
 
 /** Titre de section, style système, collé au sur-titre. */
-function TitreSection({ children }: { children: ReactNode }) {
+function TitreSection({ children }: Readonly<{ children: ReactNode }>) {
   return (
     <h2 className="mt-2 font-display text-[1.6rem] leading-[1.2] font-bold tracking-tight text-balance text-[#eef4ff] sm:text-3xl os:text-4xl">
       {children}
@@ -403,7 +403,7 @@ function TitreSection({ children }: { children: ReactNode }) {
 
 /** Extension de fichier, en mono discret : un géologue lit `.geojson` mieux
  *  en code qu'en prose. */
-function Ext({ children }: { children: ReactNode }) {
+function Ext({ children }: Readonly<{ children: ReactNode }>) {
   return (
     <code className="rounded bg-white/[0.06] px-1 py-0.5 font-mono text-[0.85em] text-white/80">
       {children}
@@ -412,7 +412,7 @@ function Ext({ children }: { children: ReactNode }) {
 }
 
 /** Lien or texte + flèche. */
-function LienOr({ href, children }: { href: string; children: ReactNode }) {
+function LienOr({ href, children }: Readonly<{ href: string; children: ReactNode }>) {
   return (
     <a
       href={href}

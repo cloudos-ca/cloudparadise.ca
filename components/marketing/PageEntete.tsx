@@ -1,7 +1,7 @@
 import { Reveal } from "./Reveal";
 import { LECTURE } from "./tokens";
 
-type PageEnteteProps = {
+type PageEnteteProps = Readonly<{
   eyebrow: string;
   titre: string;
   /** Ligne d'appoint sous le titre — date de mise à jour, résumé, etc. */
@@ -11,7 +11,7 @@ type PageEnteteProps = {
    * gauche ; /tarifs est une vitrine et suit l'axe médian de la landing.
    */
   centre?: boolean;
-};
+}>;
 
 /**
  * En-tête des pages intérieures.

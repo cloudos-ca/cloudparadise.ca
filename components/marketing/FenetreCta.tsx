@@ -136,7 +136,7 @@ export function FenetreCta({
  * Contrairement au reste de la fenêtre, sa couleur est écrite en dur (fichier
  * SVG) : aucun thème ne doit l'atteindre.
  */
-function Halo({ reduceMotion }: { reduceMotion: boolean }) {
+function Halo({ reduceMotion }: Readonly<{ reduceMotion: boolean }>) {
   return (
     <span
       aria-hidden="true"

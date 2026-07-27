@@ -7,13 +7,13 @@ import type { CSSProperties, ReactNode } from "react";
  * justifie pas une dépendance. Ils vivent ici plutôt que dans chaque section,
  * pour qu'un même glyphe ne soit pas redessiné à deux endroits.
  */
-type IconProps = { className?: string; style?: CSSProperties };
+type IconProps = Readonly<{ className?: string; style?: CSSProperties }>;
 
 function Glyph({
   className = "size-4",
   style,
   children,
-}: IconProps & { children: ReactNode }) {
+}: IconProps & Readonly<{ children: ReactNode }>) {
   return (
     <svg
       aria-hidden="true"

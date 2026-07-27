@@ -62,7 +62,7 @@ const TEXTES = {
   en: { eyebrow: "How it works", titre: "Four steps. Zero setup." },
 } as const;
 
-export function CommentCaMarche({ lang = "fr" }: { lang?: Lang }) {
+export function CommentCaMarche({ lang = "fr" }: Readonly<{ lang?: Lang }>) {
   const reduceMotion = Boolean(useReducedMotion());
   const t = TEXTES[lang];
   const steps = STEPS[lang];

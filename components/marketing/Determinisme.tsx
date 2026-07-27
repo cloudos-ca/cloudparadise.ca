@@ -36,7 +36,7 @@ const TEXTES = {
   },
 } as const;
 
-export function Determinisme({ lang = "fr" }: { lang?: Lang }) {
+export function Determinisme({ lang = "fr" }: Readonly<{ lang?: Lang }>) {
   const t = TEXTES[lang];
 
   return (

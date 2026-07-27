@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, type ReactNode } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import {
   IconMail,
@@ -164,7 +164,7 @@ const COORDONNEES = [
  * droite — la métaphore du client mail porte la page, là où un formulaire posé
  * sur le fond n'aurait été qu'un encadré de plus.
  */
-export function FenetreContact({ lang = "fr" }: { lang?: Lang }) {
+export function FenetreContact({ lang = "fr" }: Readonly<{ lang?: Lang }>) {
   const reduceMotion = useReducedMotion();
 
   // Même respiration que les fenêtres du hero, en plus discret : celle-ci est
@@ -213,7 +213,7 @@ export function FenetreContact({ lang = "fr" }: { lang?: Lang }) {
 }
 
 /** Colonne de gauche : le panneau d'infos, façon barre latérale de client mail. */
-function PanneauCoordonnees({ lang }: { lang: Lang }) {
+function PanneauCoordonnees({ lang }: Readonly<{ lang: Lang }>) {
   return (
     <aside
       // Colonne flex : la ligne d'ambiance est poussée en bas par `mt-auto`,
@@ -290,7 +290,7 @@ function PanneauCoordonnees({ lang }: { lang: Lang }) {
  * d'en face — tout en restant dans la métaphore : c'est la fiche du
  * destinataire, comme dans un vrai client mail.
  */
-function CarteVisite({ lang }: { lang: Lang }) {
+function CarteVisite({ lang }: Readonly<{ lang: Lang }>) {
   const reduceMotion = useReducedMotion();
 
   return (
@@ -336,8 +336,20 @@ function CarteVisite({ lang }: { lang: Lang }) {
 
 type Etat = "repos" | "envoi" | "succes" | "erreur";
 
+/**
+ * Libellé du bouton d'envoi.
+ *
+ * En table plutôt qu'en ternaires croisés (état × langue) : deux axes
+ * indépendants imbriqués se lisent mal, et la table rend visible d'un coup
+ * d'œil qu'aucune combinaison ne manque.
+ */
+const LIBELLE_BOUTON = {
+  fr: { repos: "Envoyer", envoi: "Envoi…" },
+  en: { repos: "Send", envoi: "Sending…" },
+} as const;
+
 /** Colonne de droite : la composition du courriel. */
-function Composition({ lang }: { lang: Lang }) {
+function Composition({ lang }: Readonly<{ lang: Lang }>) {
   const [valeurs, setValeurs] = useState<Valeurs>(VIDE);
   const [erreurs, setErreurs] = useState<Partial<Record<Cle, string>>>({});
   const [etat, setEtat] = useState<Etat>("repos");
@@ -486,96 +498,123 @@ function Composition({ lang }: { lang: Lang }) {
             style={{ background: "var(--acc)" }}
           >
             <IconSend className="size-4" />
-            {etat === "envoi"
-              ? lang === "en"
-                ? "Sending…"
-                : "Envoi…"
-              : lang === "en"
-                ? "Send"
-                : "Envoyer"}
+            {LIBELLE_BOUTON[lang][etat === "envoi" ? "envoi" : "repos"]}
           </button>
 
           {/* Protégé par reCAPTCHA v3 : invisible pour le visiteur, donc pas
               de case à cocher ici — seule cette mention l'annonce, comme
               Google l'exige de tout site qui l'utilise. */}
           <p aria-live="polite" className="text-[11px] leading-relaxed">
-            {etat === "succes" ? (
-              <span className="text-[#dbe6fb]">
-                {lang === "en"
-                  ? "Message sent — we reply within 1 business day."
-                  : "Message envoyé — réponse sous 1 jour ouvrable."}
-              </span>
-            ) : etat === "erreur" ? (
-              <span className="text-red-300">
-                {lang === "en" ? (
-                  <>
-                    Something went wrong. Try again, or email us directly at{" "}
-                    <a
-                      href={`mailto:${COURRIEL}`}
-                      className="underline underline-offset-4 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
-                    >
-                      {COURRIEL}
-                    </a>
-                    .
-                  </>
-                ) : (
-                  <>
-                    L’envoi a échoué. Réessayez, ou écrivez directement à{" "}
-                    <a
-                      href={`mailto:${COURRIEL}`}
-                      className="underline underline-offset-4 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
-                    >
-                      {COURRIEL}
-                    </a>
-                    .
-                  </>
-                )}
-              </span>
-            ) : (
-              <span className="text-[#93a3c2]">
-                {lang === "en" ? (
-                  <>
-                    This site is protected by reCAPTCHA — Google{" "}
-                    <a
-                      href="https://policies.google.com/privacy"
-                      className="underline underline-offset-4 hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
-                    >
-                      Privacy Policy
-                    </a>{" "}
-                    and{" "}
-                    <a
-                      href="https://policies.google.com/terms"
-                      className="underline underline-offset-4 hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
-                    >
-                      Terms of Service
-                    </a>
-                    .
-                  </>
-                ) : (
-                  <>
-                    Ce site est protégé par reCAPTCHA — Google{" "}
-                    <a
-                      href="https://policies.google.com/privacy"
-                      className="underline underline-offset-4 hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
-                    >
-                      Politique de confidentialité
-                    </a>{" "}
-                    et{" "}
-                    <a
-                      href="https://policies.google.com/terms"
-                      className="underline underline-offset-4 hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
-                    >
-                      Conditions d’utilisation
-                    </a>
-                    .
-                  </>
-                )}
-              </span>
-            )}
+            <MessageEtat etat={etat} lang={lang} />
           </p>
         </div>
       </div>
     </div>
+  );
+}
+
+/** Lien mailto vers l'adresse de contact, identique dans les deux langues. */
+function LienCourriel() {
+  return (
+    <a
+      href={`mailto:${COURRIEL}`}
+      className="underline underline-offset-4 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+    >
+      {COURRIEL}
+    </a>
+  );
+}
+
+/** Lien sortant des politiques Google, même habillage pour les deux. */
+function LienGoogle({
+  href,
+  children,
+}: Readonly<{ href: string; children: ReactNode }>) {
+  return (
+    <a
+      href={href}
+      className="underline underline-offset-4 hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+    >
+      {children}
+    </a>
+  );
+}
+
+/**
+ * Ligne d'état sous le bouton d'envoi.
+ *
+ * Trois messages exclusifs pour un même emplacement : envoi réussi, envoi
+ * échoué, et au repos la mention reCAPTCHA que Google impose à tout site qui
+ * l'utilise. Extrait de `Composition` plutôt qu'imbriqué : trois branches
+ * croisées avec deux langues donnaient quatre niveaux de ternaires dans le
+ * JSX, et à eux seuls l'essentiel de la complexité du composant parent. En
+ * sortie de fonction, chaque cas se lit isolément.
+ *
+ * Le point final est écrit `{"."}` et non collé en fin de ligne : JSX supprime
+ * le saut de ligne entre `</a>` et le texte qui suit, donc la ponctuation se
+ * recolle bien au lien — mais rien ne le dit à la lecture. L'accolade rend
+ * l'intention explicite au lieu de la laisser dépendre d'une règle de
+ * découpage des blancs.
+ */
+function MessageEtat({ etat, lang }: Readonly<{ etat: Etat; lang: Lang }>) {
+  if (etat === "succes") {
+    return (
+      <span className="text-[#dbe6fb]">
+        {lang === "en"
+          ? "Message sent — we reply within 1 business day."
+          : "Message envoyé — réponse sous 1 jour ouvrable."}
+      </span>
+    );
+  }
+
+  if (etat === "erreur") {
+    return (
+      <span className="text-red-300">
+        {lang === "en" ? (
+          <>
+            Something went wrong. Try again, or email us directly at{" "}
+            <LienCourriel />
+            {"."}
+          </>
+        ) : (
+          <>
+            L’envoi a échoué. Réessayez, ou écrivez directement à{" "}
+            <LienCourriel />
+            {"."}
+          </>
+        )}
+      </span>
+    );
+  }
+
+  return (
+    <span className="text-[#93a3c2]">
+      {lang === "en" ? (
+        <>
+          This site is protected by reCAPTCHA — Google{" "}
+          <LienGoogle href="https://policies.google.com/privacy">
+            Privacy Policy
+          </LienGoogle>{" "}
+          and{" "}
+          <LienGoogle href="https://policies.google.com/terms">
+            Terms of Service
+          </LienGoogle>
+          {"."}
+        </>
+      ) : (
+        <>
+          Ce site est protégé par reCAPTCHA — Google{" "}
+          <LienGoogle href="https://policies.google.com/privacy">
+            Politique de confidentialité
+          </LienGoogle>{" "}
+          et{" "}
+          <LienGoogle href="https://policies.google.com/terms">
+            Conditions d’utilisation
+          </LienGoogle>
+          {"."}
+        </>
+      )}
+    </span>
   );
 }
 
@@ -587,7 +626,7 @@ function Composition({ lang }: { lang: Lang }) {
  * `<textarea>`, donc il n'y a plus de risque de troncature à signaler ici,
  * juste la limite qui approche.
  */
-function Compteur({ longueur }: { longueur: number }) {
+function Compteur({ longueur }: Readonly<{ longueur: number }>) {
   const alerte = longueur > SEUIL_ALERTE;
 
   return (
@@ -602,7 +641,7 @@ function Compteur({ longueur }: { longueur: number }) {
   );
 }
 
-function Erreur({ cle, message }: { cle: Cle; message?: string }) {
+function Erreur({ cle, message }: Readonly<{ cle: Cle; message?: string }>) {
   if (!message) return null;
   return (
     <p id={`erreur-${cle}`} className="mt-1.5 text-[12px] text-red-300">

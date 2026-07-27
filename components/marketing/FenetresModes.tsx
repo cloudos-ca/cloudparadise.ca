@@ -263,7 +263,7 @@ const MODES: readonly {
  * contenu, et le va-et-vient fatiguerait avant la fin. Deux colonnes tuilées
  * évoquent en plus un bureau, ce que la métaphore appelle.
  */
-export function FenetresModes({ lang = "fr" }: { lang?: Lang }) {
+export function FenetresModes({ lang = "fr" }: Readonly<{ lang?: Lang }>) {
   return (
     <>
       {/* La grille passait directement du H1 de la page aux H3 des fenêtres :
@@ -343,10 +343,10 @@ export function FenetresModes({ lang = "fr" }: { lang?: Lang }) {
 function Apercu({
   teinte,
   Icone,
-}: {
+}: Readonly<{
   teinte: string;
   Icone: (p: { className?: string; style?: CSSProperties }) => ReactNode;
-}) {
+}>) {
   return (
     <div
       aria-hidden="true"

@@ -7,9 +7,9 @@ import { SITE_URL } from "@/lib/seo";
  */
 export function BreadcrumbJsonLd({
   items,
-}: {
+}: Readonly<{
   items: readonly { nom: string; chemin: string }[];
-}) {
+}>) {
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",

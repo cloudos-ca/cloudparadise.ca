@@ -58,7 +58,7 @@ function cheminAutreLangue(pathname: string, lang: Lang): string {
  * et le bouton « Commencer » prend `--acc`. Le reste ne bouge pas, pour que la
  * recoloration reste un signal et non un feu d'artifice.
  */
-export function TopBar({ lang = "fr" }: { lang?: Lang }) {
+export function TopBar({ lang = "fr" }: Readonly<{ lang?: Lang }>) {
   const [defile, setDefile] = useState(false);
   const [menuOuvert, setMenuOuvert] = useState(false);
   const heure = useHeureLocale(lang);
@@ -303,11 +303,11 @@ function SelecteurLangue({
   actif,
   href,
   texte,
-}: {
+}: Readonly<{
   actif: boolean;
   href: string;
   texte: string;
-}) {
+}>) {
   if (actif) {
     return (
       <span aria-current="true" className="font-medium text-white">

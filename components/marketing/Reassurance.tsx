@@ -67,7 +67,7 @@ const TEXTES = {
 /** Cadence de la conversation, en ms depuis l'entrée dans le viewport. */
 const TEMPS = { bulle: 0, saisie: 600, plan: 1700 };
 
-export function Reassurance({ lang = "fr" }: { lang?: Lang }) {
+export function Reassurance({ lang = "fr" }: Readonly<{ lang?: Lang }>) {
   const reduceMotion = Boolean(useReducedMotion());
 
   return (
@@ -89,7 +89,7 @@ export function Reassurance({ lang = "fr" }: { lang?: Lang }) {
   );
 }
 
-function Texte({ lang }: { lang: Lang }) {
+function Texte({ lang }: Readonly<{ lang: Lang }>) {
   const t = TEXTES[lang];
   return (
     <div>
@@ -154,10 +154,10 @@ function Texte({ lang }: { lang: Lang }) {
 function Conversation({
   reduceMotion,
   lang,
-}: {
+}: Readonly<{
   reduceMotion: boolean;
   lang: Lang;
-}) {
+}>) {
   // 0 rien · 1 la demande · 2 l'IA réfléchit · 3 le plan
   const [etape, setEtape] = useState(reduceMotion ? 3 : 0);
   const lance = useRef(false);
@@ -290,10 +290,10 @@ function Conversation({
 function Apparition({
   children,
   reduceMotion,
-}: {
+}: Readonly<{
   children: React.ReactNode;
   reduceMotion: boolean;
-}) {
+}>) {
   if (reduceMotion) return <>{children}</>;
   return (
     <motion.div

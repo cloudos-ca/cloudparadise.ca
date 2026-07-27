@@ -371,7 +371,7 @@ export default function FonctionsPage() {
  * ce que la page est, et elle donne aux moteurs de recherche le couple
  * terme/description plutôt qu'une suite de paragraphes indistincts.
  */
-function SectionListe({ section }: { section: SectionFonctions }) {
+function SectionListe({ section }: Readonly<{ section: SectionFonctions }>) {
   const { id, surtitre, titre, intro, page, entrees } = section;
   return (
     <section id={id} className="relative scroll-mt-24">
@@ -424,7 +424,7 @@ function SectionListe({ section }: { section: SectionFonctions }) {
 }
 
 /** Sur-titre or, style système. */
-function SurTitre({ children }: { children: ReactNode }) {
+function SurTitre({ children }: Readonly<{ children: ReactNode }>) {
   return (
     <p
       className="text-[13px] font-semibold uppercase tracking-[0.12em]"
@@ -443,11 +443,11 @@ function LienOr({
   href,
   children,
   petit = false,
-}: {
+}: Readonly<{
   href: string;
   children: ReactNode;
   petit?: boolean;
-}) {
+}>) {
   return (
     <a
       href={href}

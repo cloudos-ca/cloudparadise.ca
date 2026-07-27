@@ -42,7 +42,7 @@ const TEXTES = {
  *
  * Le choix est mémorisé côté navigateur pour éviter les répétitions.
  */
-export function PopupLoi25({ lang = "fr" }: { lang?: Lang }) {
+export function PopupLoi25({ lang = "fr" }: Readonly<{ lang?: Lang }>) {
   const [visible, setVisible] = useState(false);
   const reduceMotion = Boolean(useReducedMotion());
   const t = TEXTES[lang];
@@ -50,8 +50,8 @@ export function PopupLoi25({ lang = "fr" }: { lang?: Lang }) {
   useEffect(() => {
     if (lireConsentement()) return;
 
-    const id = window.requestAnimationFrame(() => setVisible(true));
-    return () => window.cancelAnimationFrame(id);
+    const id = globalThis.requestAnimationFrame(() => setVisible(true));
+    return () => globalThis.cancelAnimationFrame(id);
   }, []);
 
   const enregistrerChoix = (choix: Consentement) => {

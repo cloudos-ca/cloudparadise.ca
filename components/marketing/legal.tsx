@@ -12,7 +12,7 @@ import { IconAlert } from "./icons";
  * `texte` permet de nuancer l'avertissement : une page encore à l'état de plan
  * et une page rédigée mais non validée ne méritent pas la même phrase.
  */
-export function BandeauJuridique({ texte }: { texte?: ReactNode }) {
+export function BandeauJuridique({ texte }: Readonly<{ texte?: ReactNode }>) {
   return (
     <div
       role="note"
@@ -48,7 +48,7 @@ export function BandeauJuridique({ texte }: { texte?: ReactNode }) {
  * pas laisser un « [À compléter] » se fondre dans la prose et partir en ligne
  * sans que personne ne le voie.
  */
-export function AFaire({ children }: { children: ReactNode }) {
+export function AFaire({ children }: Readonly<{ children: ReactNode }>) {
   return (
     <span className="not-italic" style={{ color: "var(--acc-text)" }}>
       [{children}]
@@ -84,6 +84,48 @@ function estBrut(bloc: BlocLegal): bloc is { brut: ReactNode } {
 }
 
 /**
+ * Un bloc de section : liste à puces, élément brut, ou paragraphe.
+ *
+ * Sorti de `SectionsRedigees` et écrit en retours successifs plutôt qu'en
+ * ternaires enchaînés : trois formes de bloc dans une seule expression
+ * conditionnelle obligeaient à lire les deux branches pour comprendre la
+ * troisième.
+ */
+function Bloc({ bloc }: Readonly<{ bloc: BlocLegal }>) {
+  if (estListe(bloc)) {
+    return (
+      <ul className="space-y-2 pl-1">
+        {bloc.liste.map(({ terme, texte }, k) => (
+          // Même raison que pour les blocs : `texte` est un `ReactNode`, et
+          // `terme` est facultatif — aucune clé de contenu fiable.
+          <li key={k} className="flex gap-2.5">
+            <span
+              aria-hidden="true"
+              className="mt-[0.55em] size-1 shrink-0 rounded-full"
+              style={{ background: "var(--acc-text)" }}
+            />
+            <span>
+              {terme ? (
+                <>
+                  <strong className="font-medium text-[#dbe6fb]">
+                    {terme}
+                  </strong>{" "}
+                </>
+              ) : null}
+              {texte}
+            </span>
+          </li>
+        ))}
+      </ul>
+    );
+  }
+
+  if (estBrut(bloc)) return <div>{bloc.brut}</div>;
+
+  return <p>{bloc}</p>;
+}
+
+/**
  * Rend des sections juridiques rédigées, par opposition à `SectionsLegales` qui
  * n'affiche qu'un plan.
  *
@@ -92,9 +134,9 @@ function estBrut(bloc: BlocLegal): bloc is { brut: ReactNode } {
  */
 export function SectionsRedigees({
   sections,
-}: {
+}: Readonly<{
   sections: readonly SectionRedigee[];
-}) {
+}>) {
   return (
     <div className="space-y-8">
       {sections.map(({ titre, blocs }, i) => (
@@ -109,35 +151,14 @@ export function SectionsRedigees({
             {titre}
           </h2>
           <div className="mt-2 space-y-3 text-sm leading-relaxed text-[#93a3c2]">
-            {blocs.map((bloc, j) =>
-              estListe(bloc) ? (
-                <ul key={j} className="space-y-2 pl-1">
-                  {bloc.liste.map(({ terme, texte }, k) => (
-                    <li key={k} className="flex gap-2.5">
-                      <span
-                        aria-hidden="true"
-                        className="mt-[0.55em] size-1 shrink-0 rounded-full"
-                        style={{ background: "var(--acc-text)" }}
-                      />
-                      <span>
-                        {terme ? (
-                          <>
-                            <strong className="font-medium text-[#dbe6fb]">
-                              {terme}
-                            </strong>{" "}
-                          </>
-                        ) : null}
-                        {texte}
-                      </span>
-                    </li>
-                  ))}
-                </ul>
-              ) : estBrut(bloc) ? (
-                <div key={j}>{bloc.brut}</div>
-              ) : (
-                <p key={j}>{bloc}</p>
-              ),
-            )}
+            {blocs.map((bloc, j) => (
+              // Clé par index : un `BlocLegal` est un `ReactNode` quelconque,
+              // dont on ne peut dériver aucune identité stable. Ce n'est pas
+              // un pis-aller — ces sections viennent d'un tableau de contenu
+              // figé, jamais réordonné ni filtré à l'exécution, et le rendu
+              // est sans état. L'index EST l'identité du bloc.
+              <Bloc key={j} bloc={bloc} />
+            ))}
           </div>
         </section>
       ))}
@@ -160,10 +181,10 @@ export type SectionLegale = {
 export function SectionsLegales({
   sections,
   marqueur = "[À rédiger / à faire valider]",
-}: {
+}: Readonly<{
   sections: readonly SectionLegale[];
   marqueur?: string;
-}) {
+}>) {
   return (
     <div className="space-y-8">
       {sections.map(({ titre, note }, i) => (

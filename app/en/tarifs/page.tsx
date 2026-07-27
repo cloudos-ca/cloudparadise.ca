@@ -184,7 +184,7 @@ export default function TarifsPageEn() {
  * unique à suivre, là où alterner centré et aligné à gauche faisait repartir
  * l'œil d'ailleurs à chaque bloc.
  */
-function TitreSection({ titre, intro }: { titre: string; intro?: string }) {
+function TitreSection({ titre, intro }: Readonly<{ titre: string; intro?: string }>) {
   return (
     <div className="text-center">
       <h2 className="font-display text-lg font-bold tracking-tight text-[#eef4ff]">

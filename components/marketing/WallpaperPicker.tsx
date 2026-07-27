@@ -14,7 +14,7 @@ const TEXTE = {
   en: "Change the background — everything recolors",
 } as const;
 
-export function WallpaperPicker({ lang = "fr" }: { lang?: Lang }) {
+export function WallpaperPicker({ lang = "fr" }: Readonly<{ lang?: Lang }>) {
   const [activeId, setActiveId] = useState(DEFAULT_WALLPAPER.id);
 
   async function handleSelect(wp: Wallpaper) {

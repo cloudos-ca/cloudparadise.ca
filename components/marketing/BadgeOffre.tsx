@@ -23,11 +23,11 @@ export function BadgeOffre({
   sansCarte = true,
   className = "",
   lang = "fr",
-}: {
+}: Readonly<{
   sansCarte?: boolean;
   className?: string;
   lang?: Lang;
-}) {
+}>) {
   const t = TEXTES[lang];
   return (
     <span

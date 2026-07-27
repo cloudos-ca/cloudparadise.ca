@@ -4,12 +4,12 @@ import type { ReactNode } from "react";
 import { useEffect, useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 
-type RevealProps = {
+type RevealProps = Readonly<{
   children: ReactNode;
   /** Décalage pour faire arriver un bloc juste après son titre. */
   delay?: number;
   className?: string;
-};
+}>;
 
 /**
  * Apparition à l'entrée dans le viewport : la section s'assemble quand on
@@ -34,8 +34,8 @@ export function Reveal({ children, delay = 0, className }: RevealProps) {
   const [repliActif, setRepliActif] = useState(false);
 
   useEffect(() => {
-    const repli = window.setTimeout(() => setRepliActif(true), 1500);
-    return () => window.clearTimeout(repli);
+    const repli = globalThis.setTimeout(() => setRepliActif(true), 1500);
+    return () => globalThis.clearTimeout(repli);
   }, []);
 
   if (reduceMotion || repliActif) {

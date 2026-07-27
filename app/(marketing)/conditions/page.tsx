@@ -252,7 +252,7 @@ const SECTIONS: readonly SectionRedigee[] = [
                 >
                   {COURRIEL}
                 </a>
-                .
+                {"."}
               </>
             ),
           },
@@ -399,7 +399,7 @@ const SECTIONS: readonly SectionRedigee[] = [
                 >
                   {COURRIEL}
                 </a>
-                .
+                {"."}
               </>
             ),
           },
@@ -478,7 +478,7 @@ const SECTIONS: readonly SectionRedigee[] = [
         >
           {COURRIEL}
         </a>
-        .
+        {"."}
       </>,
     ],
   },

@@ -31,7 +31,7 @@ const BLEU = "#5b9be6";
  * pulsent pas à l'unisson dans la grille.
  * ------------------------------------------------------------------------- */
 
-type ApercuProps = { delaiDepart?: number };
+type ApercuProps = Readonly<{ delaiDepart?: number }>;
 
 /** Documents : un survol lumineux balaie la page, façon OCR/traduction en cours. */
 function ApercuDocuments({ delaiDepart = 0 }: ApercuProps) {
@@ -302,7 +302,7 @@ const TEXTES = {
   },
 } as const;
 
-export function Univers({ lang = "fr" }: { lang?: Lang }) {
+export function Univers({ lang = "fr" }: Readonly<{ lang?: Lang }>) {
   const t = TEXTES[lang];
   const univers = universDe(lang);
 

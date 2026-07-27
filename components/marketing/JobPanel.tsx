@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { SOFT_WASH, type Lang } from "./tokens";
 
-type JobPanelProps = {
+type JobPanelProps = Readonly<{
   /** Intitulé du job, tel qu'il apparaît en tête de fenêtre. */
   title: string;
   /** Mode retenu par l'IA — MEDIA, DOCUMENTS, etc. */
@@ -12,7 +12,7 @@ type JobPanelProps = {
   /** Lignes de log, jouées en cascade. */
   logs: readonly string[];
   lang?: Lang;
-};
+}>;
 
 const BADGE = { fr: "Terminé · télécharger", en: "Done · download" } as const;
 

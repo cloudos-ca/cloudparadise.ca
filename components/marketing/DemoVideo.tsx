@@ -21,40 +21,80 @@ const SOURCE: Record<Lang, string> = {
  * La vidéo s'affiche dans une `WindowCard` plutôt qu'un lightbox générique :
  * même châssis que le reste du bureau, pour que la démo reste dans le monde
  * du site au lieu d'ouvrir un composant visuellement étranger.
+ *
+ * La fenêtre est un `<dialog>` ouvert par `showModal()`, et non un `<div
+ * role="dialog">` : le navigateur fournit alors le piège à focus, la fermeture
+ * par Échap et le retour du focus au déclencheur. La version précédente
+ * n'avait pas de piège à focus — on tabulait hors de la fenêtre ouverte, dans
+ * une page pourtant masquée par le voile.
  */
-export function DemoVideo({ lang = "fr" }: { lang?: Lang }) {
+export function DemoVideo({ lang = "fr" }: Readonly<{ lang?: Lang }>) {
   const [ouvert, setOuvert] = useState(false);
   const t = TEXTES[lang];
   const titreId = useId();
-  const declencheurRef = useRef<HTMLButtonElement>(null);
+  const dialogueRef = useRef<HTMLDialogElement>(null);
   const fermerRef = useRef<HTMLButtonElement>(null);
   const reduceMotion = useReducedMotion();
 
+  /*
+   * Resynchronisation quand la fermeture ne vient pas de nous.
+   *
+   * Le navigateur peut fermer un `<dialog>` modal de son propre chef — Échap,
+   * et le « close watcher » de Chrome qui l'implémente. Si on le laisse faire,
+   * l'élément se retrouve fermé pendant que React le croit encore ouvert : le
+   * contenu reste monté, le défilement reste bloqué, et le clic suivant sur
+   * « Voir la démo » ne rouvre rien, puisque l'état n'a pas bougé.
+   *
+   * On intercepte donc `cancel` — l'annulation demandée, encore annulable — on
+   * bloque la fermeture native, et on repasse par l'état : React reste la
+   * seule source de vérité, et c'est notre effet qui referme réellement.
+   *
+   * Rien ne s'appuie sur `close`, volontairement : mesuré dans Chrome,
+   * l'événement n'est pas délivré ici alors que `cancel` l'est. Un écouteur
+   * `close` aurait eu l'allure d'un filet de sécurité sans en être un. Ce
+   * n'est pas gênant — aucun chemin du composant n'appelle `close()` en
+   * dehors de l'effet, qui n'agit que lorsque l'état est déjà à jour.
+   *
+   * Écouteur natif plutôt que `onCancel` en JSX : l'événement ne remonte pas,
+   * et on ne veut pas faire dépendre la cohérence de l'état de la manière dont
+   * React le rattache.
+   */
   useEffect(() => {
-    if (!ouvert) return;
+    const dialogue = dialogueRef.current;
+    if (!dialogue) return;
 
-    const declencheur = declencheurRef.current;
+    function surAnnulation(e: Event) {
+      e.preventDefault();
+      setOuvert(false);
+    }
+    dialogue.addEventListener("cancel", surAnnulation);
+    return () => dialogue.removeEventListener("cancel", surAnnulation);
+  }, []);
+
+  useEffect(() => {
+    const dialogue = dialogueRef.current;
+    if (!dialogue) return;
+
+    if (!ouvert) {
+      if (dialogue.open) dialogue.close();
+      return;
+    }
+
+    if (!dialogue.open) dialogue.showModal();
     fermerRef.current?.focus();
 
-    function surTouche(e: KeyboardEvent) {
-      if (e.key === "Escape") setOuvert(false);
-    }
-    document.addEventListener("keydown", surTouche);
-    // Empêche la page de défiler derrière la fenêtre ouverte.
+    // `showModal()` rend l'arrière-plan inerte mais ne bloque pas le
+    // défilement : ça reste à notre charge.
     const overflowPrecedent = document.body.style.overflow;
     document.body.style.overflow = "hidden";
-
     return () => {
-      document.removeEventListener("keydown", surTouche);
       document.body.style.overflow = overflowPrecedent;
-      declencheur?.focus();
     };
   }, [ouvert]);
 
   return (
     <>
       <button
-        ref={declencheurRef}
         type="button"
         onClick={() => setOuvert(true)}
         data-cp-accent
@@ -71,67 +111,88 @@ export function DemoVideo({ lang = "fr" }: { lang?: Lang }) {
         {t.demo}
       </button>
 
-      {ouvert && (
-        <div
-          role="dialog"
-          aria-modal="true"
-          aria-labelledby={titreId}
-          className="fixed inset-0 z-[70] flex items-center justify-center p-4"
-        >
-          {/* Le clic sur le voile ferme la fenêtre ; le contenu arrête sa
-              propagation plus bas pour qu'un clic sur la vidéo ne ferme rien. */}
-          <motion.div
-            aria-hidden="true"
-            className="absolute inset-0 bg-black/70 backdrop-blur-sm"
-            initial={reduceMotion ? undefined : { opacity: 0 }}
-            animate={reduceMotion ? undefined : { opacity: 1 }}
-            transition={{ duration: 0.2 }}
-            onClick={() => setOuvert(false)}
-          />
+      {/* Le `<dialog>` reste monté en permanence — `showModal()` exige que
+          l'élément soit déjà dans le DOM. Son contenu, lui, n'est rendu qu'à
+          l'ouverture : c'est ce qui rejoue l'animation d'entrée à chaque fois,
+          et ça évite de charger la vidéo tant que personne ne l'a demandée.
+          Pas d'`aria-modal` ici : `showModal()` l'implique déjà, le poser à la
+          main est redondant. */}
+      <dialog
+        ref={dialogueRef}
+        aria-labelledby={titreId}
+        /* Le voile animé est rendu à l'intérieur (juste en dessous) : on garde
+           le `::backdrop` natif transparent pour ne pas assombrir deux fois.
+           Le reste neutralise le style par défaut du `<dialog>` — marge
+           automatique, bordure, fond blanc, largeur et hauteur maximales. */
+        className="fixed inset-0 m-0 flex h-full max-h-none w-full max-w-none items-center justify-center border-0 bg-transparent p-4 backdrop:bg-transparent"
+      >
+        {ouvert && (
+          <>
+            {/* Le clic sur le voile ferme la fenêtre ; le contenu arrête sa
+                propagation plus bas pour qu'un clic sur la vidéo ne ferme rien. */}
+            <motion.div
+              aria-hidden="true"
+              className="absolute inset-0 bg-black/70 backdrop-blur-sm"
+              initial={reduceMotion ? undefined : { opacity: 0 }}
+              animate={reduceMotion ? undefined : { opacity: 1 }}
+              transition={{ duration: 0.2 }}
+              onClick={() => setOuvert(false)}
+            />
 
-          <motion.div
-            className="relative w-full max-w-3xl"
-            initial={reduceMotion ? undefined : { opacity: 0, scale: 0.97, y: 8 }}
-            animate={reduceMotion ? undefined : { opacity: 1, scale: 1, y: 0 }}
-            transition={{ duration: 0.25, ease: "easeOut" }}
-          >
-            <WindowCard title={t.titre}>
-              <div className="flex items-center justify-end border-b border-white/10 px-2 py-1">
-                <button
-                  ref={fermerRef}
-                  type="button"
-                  onClick={() => setOuvert(false)}
-                  aria-label={t.fermer}
-                  className="grid size-7 cursor-pointer place-items-center rounded-md text-white/60 hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
-                >
-                  <svg
-                    aria-hidden="true"
-                    viewBox="0 0 24 24"
-                    className="size-4"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
+            <motion.div
+              className="relative w-full max-w-3xl"
+              initial={
+                reduceMotion ? undefined : { opacity: 0, scale: 0.97, y: 8 }
+              }
+              animate={reduceMotion ? undefined : { opacity: 1, scale: 1, y: 0 }}
+              transition={{ duration: 0.25, ease: "easeOut" }}
+            >
+              <WindowCard title={t.titre}>
+                <div className="flex items-center justify-end border-b border-white/10 px-2 py-1">
+                  <button
+                    ref={fermerRef}
+                    type="button"
+                    onClick={() => setOuvert(false)}
+                    aria-label={t.fermer}
+                    className="grid size-7 cursor-pointer place-items-center rounded-md text-white/60 hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
                   >
-                    <path d="M6 6l12 12M18 6L6 18" />
-                  </svg>
-                </button>
-              </div>
-              <span id={titreId} className="sr-only">
-                {t.titre}
-              </span>
-              <video
-                key={SOURCE[lang]}
-                src={SOURCE[lang]}
-                controls
-                autoPlay
-                playsInline
-                className="aspect-video w-full bg-black"
-              />
-            </WindowCard>
-          </motion.div>
-        </div>
-      )}
+                    <svg
+                      aria-hidden="true"
+                      viewBox="0 0 24 24"
+                      className="size-4"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                    >
+                      <path d="M6 6l12 12M18 6L6 18" />
+                    </svg>
+                  </button>
+                </div>
+                <span id={titreId} className="sr-only">
+                  {t.titre}
+                </span>
+                {/* `muted` : le fichier ne contient aucune piste audio (vérifié
+                    au ffprobe — un seul flux h264), donc il n'y a rien à
+                    couper, mais l'attribut garantit que la lecture automatique
+                    ne soit pas bloquée. Pas de `<track>` non plus, pour la même
+                    raison : des sous-titres restituent du son, et il n'y en a
+                    pas. Le jour où la démo est renarrée, la piste devient
+                    obligatoire. */}
+                <video
+                  key={SOURCE[lang]}
+                  src={SOURCE[lang]}
+                  controls
+                  autoPlay
+                  muted
+                  playsInline
+                  className="aspect-video w-full bg-black"
+                />
+              </WindowCard>
+            </motion.div>
+          </>
+        )}
+      </dialog>
     </>
   );
 }

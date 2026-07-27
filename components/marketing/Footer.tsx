@@ -75,7 +75,7 @@ const COLONNES = {
  * recoloration va jusqu'en bas de page. Les colonnes de liens et le logo
  * (halo compris) restent fixes.
  */
-export function Footer({ lang = "fr" }: { lang?: Lang }) {
+export function Footer({ lang = "fr" }: Readonly<{ lang?: Lang }>) {
   return (
     <footer className="relative border-t border-white/[0.08]">
       <div className={`${SHELL} py-10`}>

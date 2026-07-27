@@ -86,7 +86,7 @@ const TEXTES = {
   },
 } as const;
 
-export function TroisPiliers({ lang = "fr" }: { lang?: Lang }) {
+export function TroisPiliers({ lang = "fr" }: Readonly<{ lang?: Lang }>) {
   const t = TEXTES[lang];
   const prefixe = lang === "en" ? "/en" : "";
 

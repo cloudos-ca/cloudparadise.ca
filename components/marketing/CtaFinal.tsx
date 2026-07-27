@@ -27,7 +27,7 @@ const TEXTES = {
  * Le châssis (fenêtre, lueur, halo, flottement) vit dans `FenetreCta`, partagé
  * avec la page /tarifs ; il ne reste ici que ce qui est propre à la landing.
  */
-export function CtaFinal({ lang = "fr" }: { lang?: Lang }) {
+export function CtaFinal({ lang = "fr" }: Readonly<{ lang?: Lang }>) {
   const t = TEXTES[lang];
   return (
     // La lueur déborde volontairement de la fenêtre ; sans ce clip horizontal

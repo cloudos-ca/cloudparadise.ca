@@ -12,7 +12,7 @@ import type { Lang } from "./tokens";
  * tarifs on compare, et refermer la précédente à chaque clic oblige à faire des
  * allers-retours. D'où un `Set` plutôt qu'un index unique.
  */
-export function FaqTarifs({ lang = "fr" }: { lang?: Lang }) {
+export function FaqTarifs({ lang = "fr" }: Readonly<{ lang?: Lang }>) {
   const [ouvertes, setOuvertes] = useState<ReadonlySet<number>>(new Set());
   const questions = questionsDe(lang);
 
@@ -56,16 +56,21 @@ export function FaqTarifs({ lang = "fr" }: { lang?: Lang }) {
                 réponse reste dans le HTML servi, donc lisible par un moteur de
                 recherche et présente sans JavaScript. `hidden` la retire aussi
                 de l'arbre d'accessibilité et de l'ordre de tabulation — la
-                démonter n'apportait que la perte du contenu. */}
-            <div
+                démonter n'apportait que la perte du contenu.
+
+                `<section>` nommée plutôt que `<div role="region">` : une
+                section pourvue d'un nom accessible EST une région, sans avoir à
+                le déclarer. Un rôle posé à la main sur un `<div>` est une
+                promesse que rien ne vérifie ; l'élément natif, lui, ne peut pas
+                mentir. */}
+            <section
               id={`faq-panneau-${i}`}
-              role="region"
               aria-labelledby={`faq-bouton-${i}`}
               hidden={!ouverte}
               className="px-5 pb-5 text-[14px] leading-relaxed text-white/85"
             >
               {r}
-            </div>
+            </section>
           </li>
         );
       })}

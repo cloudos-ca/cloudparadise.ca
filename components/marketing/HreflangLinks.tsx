@@ -13,7 +13,7 @@ import { SITE_URL } from "@/lib/seo";
  *
  * `x-default` pointe vers la version FR : c'est la langue par défaut du site.
  */
-export function HreflangLinks({ fr, en }: { fr: string; en: string }) {
+export function HreflangLinks({ fr, en }: Readonly<{ fr: string; en: string }>) {
   return (
     <>
       <link rel="alternate" hrefLang="fr" href={`${SITE_URL}${fr}`} />

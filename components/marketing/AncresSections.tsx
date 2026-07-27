@@ -22,10 +22,10 @@ export type Ancre = { id: string; libelle: { fr: string; en: string } };
 export function AncresSections({
   ancres,
   lang = "fr",
-}: {
+}: Readonly<{
   ancres: readonly Ancre[];
   lang?: Lang;
-}) {
+}>) {
   const [actif, setActif] = useState<string>(ancres[0]?.id ?? "");
 
   useEffect(() => {
