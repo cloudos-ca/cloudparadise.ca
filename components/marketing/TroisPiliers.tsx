@@ -40,7 +40,7 @@ const TEXTES = {
         Icone: IconCube,
         titre: "Un espace de travail complet",
         texte:
-          "Un vrai bureau en ligne : éditeurs bureautiques, image, vidéo, 3D et SIG, et la collaboration d’équipe. Rien à installer.",
+          "Un vrai bureau en ligne : bureautique, image, vidéo, 3D et SIG, et la collaboration d’équipe. Rien à installer.",
         lien: "Voir la plateforme",
         href: "/plateforme",
       },
@@ -70,7 +70,7 @@ const TEXTES = {
         Icone: IconCube,
         titre: "A complete workspace",
         texte:
-          "A real online desktop: office, image, video, 3D and GIS editors, plus team collaboration. Nothing to install.",
+          "A real online desktop: office, image, video, 3D and GIS, plus team collaboration. Nothing to install.",
         lien: "See the platform",
         href: "/plateforme",
       },

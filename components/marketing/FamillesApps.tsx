@@ -2,7 +2,6 @@ import Link from "next/link";
 import {
   IconCube,
   IconFileText,
-  IconMapPin,
   IconMessage,
   IconMovie,
   IconPhoto,
@@ -45,23 +44,18 @@ const TEXTES = {
       },
       {
         Icone: IconPhoto,
-        nom: "Image & photo",
+        nom: "Image",
         ligne: "Retouche rapide et édition par calques.",
       },
       {
         Icone: IconMovie,
-        nom: "Vidéo & audio",
+        nom: "Vidéo et audio",
         ligne: "Montage et traitement, dans le navigateur.",
       },
       {
         Icone: IconCube,
-        nom: "3D",
-        ligne: "Blender, streamé en session éphémère.",
-      },
-      {
-        Icone: IconMapPin,
-        nom: "Cartographie",
-        ligne: "QGIS Desktop, streamé.",
+        nom: "3D et SIG",
+        ligne: "Blender et QGIS Desktop, streamés en session éphémère.",
       },
       {
         Icone: IconMessage,
@@ -84,23 +78,18 @@ const TEXTES = {
       },
       {
         Icone: IconPhoto,
-        nom: "Image & photo",
+        nom: "Image",
         ligne: "Quick retouching and layer-based editing.",
       },
       {
         Icone: IconMovie,
-        nom: "Video & audio",
+        nom: "Video and audio",
         ligne: "Editing and processing, in the browser.",
       },
       {
         Icone: IconCube,
-        nom: "3D",
-        ligne: "Blender, streamed in an ephemeral session.",
-      },
-      {
-        Icone: IconMapPin,
-        nom: "Mapping",
-        ligne: "QGIS Desktop, streamed.",
+        nom: "3D and GIS",
+        ligne: "Blender and QGIS Desktop, streamed in an ephemeral session.",
       },
       {
         Icone: IconMessage,

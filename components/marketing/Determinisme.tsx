@@ -9,11 +9,10 @@ import { SECTION_Y, SHELL, type Lang } from "./tokens";
  * suffit de l'énoncer. Réutilisé sur l'accueil, /calcul et /securite — d'où le
  * `lang` et l'absence de dépendance à un contexte de page.
  *
- * Composition : en-tête (titre + paragraphe) en haut, puis la chaîne des quatre
- * étapes en pleine largeur en dessous. La chaîne porte l'argument — c'est un
- * vrai enchaînement (demande → plan → calcul → résultat), donc les flèches ont
- * un sens, elles ne décorent pas. Elle est l'élément dominant de la section,
- * pas un encart de côté.
+ * Composition : deux colonnes — en-tête à gauche, chaîne des quatre étapes à
+ * droite (comme toutes les sections sans cartes du site). La chaîne porte
+ * l'argument : c'est un vrai enchaînement (demande → plan → calcul → résultat),
+ * donc les flèches ont un sens, elles ne décorent pas.
  *
  * Le schéma est STATIQUE, volontairement : un flux animé n'expliquerait rien de
  * plus et contredirait la sobriété demandée. Seule la conclusion (« résultat

@@ -37,11 +37,12 @@ export default function SecuritePage() {
           <Reveal className="max-w-2xl">
             <SurTitre>Sécurité</SurTitre>
             <h1 className="mt-2 font-display text-[2rem] leading-[1.1] font-bold tracking-[-0.02em] text-white sm:text-[2.6rem] os:text-[3rem]">
-              Vos données, notre matériel, au Québec.
+              Vos données, notre matériel,
+              <br />
+              au Québec.
             </h1>
             <p className="mt-6 max-w-[56ch] text-[17px] leading-relaxed text-white/85">
-              Quatre choses que nous pouvons affirmer sans détour, et que vous
-              pouvez vérifier en nous posant la question.
+              Quatre choses que nous pouvons affirmer sans détour.
             </p>
             <div className="mt-7">
               <BoutonCta href="/contact" taille="lg">
@@ -172,7 +173,7 @@ export default function SecuritePage() {
           <Reveal>
             <FenetreCta
               badge={false}
-              soustitre="La meilleure vérification, c’est de nous poser la question."
+              soustitre="Posez-nous les questions précises. On y répond."
               bouton={{ href: "/contact", libelle: "Parlez à un humain" }}
             />
           </Reveal>
