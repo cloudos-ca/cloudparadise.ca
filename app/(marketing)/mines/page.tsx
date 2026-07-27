@@ -122,7 +122,7 @@ export default function MinesPage() {
               dans la même région que vous.
             </p>
             <div className="mt-7 flex flex-wrap items-center gap-x-5 gap-y-3">
-              <BoutonCta href="/contact" taille="lg">
+              <BoutonCta href="/contact?sujet=exploration" taille="lg">
                 Réservez une démo
               </BoutonCta>
               <LienOr href="https://app.cloudparadise.cloud/register">
@@ -277,8 +277,8 @@ export default function MinesPage() {
             <Reveal delay={0.1}>
               <div className="space-y-4 text-[15px] leading-relaxed text-white/85">
                 <p>
-                  Vous importez les couches SIGÉOM et MERN par district minier —
-                  c’est opérationnel.
+                  Vous importez les couches SIGÉOM par district minier — c’est
+                  opérationnel.
                 </p>
                 <p>
                   Vos autres couches se superposent par-dessus : <Ext>.gpkg</Ext>,{" "}
@@ -368,7 +368,10 @@ export default function MinesPage() {
             <FenetreCta
               badge={false}
               soustitre="Réservez une démo. On vous montre le poste de travail, adapté à l’exploration."
-              bouton={{ href: "/contact", libelle: "Réservez une démo" }}
+              bouton={{
+                href: "/contact?sujet=exploration",
+                libelle: "Réservez une démo",
+              }}
             />
           </Reveal>
         </div>
