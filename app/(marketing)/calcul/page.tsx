@@ -29,7 +29,7 @@ export const metadata: Metadata = {
 const ANCRES: readonly Ancre[] = [
   { id: "documents", libelle: { fr: "Documents", en: "Documents" } },
   { id: "donnees", libelle: { fr: "Données", en: "Data" } },
-  { id: "medias", libelle: { fr: "Images & vidéos", en: "Images & video" } },
+  { id: "medias", libelle: { fr: "Images et vidéos", en: "Images and video" } },
   { id: "web", libelle: { fr: "Web", en: "Web" } },
   { id: "calcul-lourd", libelle: { fr: "Calcul lourd", en: "Heavy compute" } },
   { id: "automatisation", libelle: { fr: "Automatisation", en: "Automation" } },
@@ -112,7 +112,6 @@ const GESTES: readonly Geste[] = [
     exemples: [
       { entree: "une scène Blender", sortie: "le rendu final, calculé sur GPU" },
       { entree: "un modèle 3D", sortie: "un fichier prêt pour l’impression" },
-      { entree: "un scénario à tester", sortie: "la simulation menée jusqu’au résultat" },
     ],
   },
 ];
@@ -248,7 +247,7 @@ export default function CalculPage() {
         <div className={`${SHELL} ${SECTION_Y}`}>
           <Reveal>
             <FenetreCta
-              soustitre="Une tâche lourde qui traîne ? Décrivez-la, on s’en occupe."
+              soustitre="Décrivez votre première tâche. On s’occupe du reste."
               bouton={{
                 href: "https://app.cloudparadise.cloud/register",
                 libelle: "Lancez votre première tâche",
@@ -299,7 +298,11 @@ function LienOr({ href, children }: { href: string; children: ReactNode }) {
  * entrée → sortie — le cœur de la page.
  */
 function GesteSection({ geste }: { geste: Geste }) {
-  const factures = geste.factures.map((t) => libelleDe(t, "fr")).join(", ");
+  // « facturé X » seulement quand un geste correspond à un seul type facturé.
+  // Lister plusieurs noms réintroduirait un comptage : on renvoie alors vers
+  // /tarifs par un lien discret plutôt que d'énumérer.
+  const nomFacture =
+    geste.factures.length === 1 ? libelleDe(geste.factures[0], "fr") : null;
   return (
     <section id={geste.id} className="relative scroll-mt-24">
       <div className={`${SHELL} ${SECTION_Y}`}>
@@ -309,10 +312,12 @@ function GesteSection({ geste }: { geste: Geste }) {
           <Reveal>
             <p className="text-[13px] font-semibold uppercase tracking-[0.12em]">
               <span style={{ color: "var(--cta)" }}>{geste.surtitre}</span>
-              <span className="font-normal tracking-normal text-white/45 normal-case">
-                {" · facturé "}
-                {factures}
-              </span>
+              {nomFacture && (
+                <span className="font-normal tracking-normal text-white/45 normal-case">
+                  {" · facturé "}
+                  {nomFacture}
+                </span>
+              )}
             </p>
             <h2 className="mt-2 font-display text-[1.6rem] leading-[1.2] font-bold tracking-tight text-balance text-[#eef4ff] sm:text-3xl os:text-4xl">
               {geste.titre}
@@ -320,6 +325,11 @@ function GesteSection({ geste }: { geste: Geste }) {
             <p className="mt-4 text-sm leading-relaxed text-white/85">
               {geste.texte}
             </p>
+            {!nomFacture && (
+              <div className="mt-4">
+                <LienOr href="/tarifs">Voir le détail des tarifs</LienOr>
+              </div>
+            )}
           </Reveal>
 
           <Reveal delay={0.1}>
