@@ -12,12 +12,23 @@ import { SITE_URL } from "@/lib/seo";
  * chaque rendu. La prop standard donne le même HTML sans l'avertissement.
  *
  * `x-default` pointe vers la version FR : c'est la langue par défaut du site.
+ *
+ * `en` est facultatif, et doit être omis tant que la page anglaise n'existe
+ * pas : un `hreflang` vers une URL qui répond 404 est signalé en erreur par la
+ * Search Console, et une paire cassée fait douter des paires valides déclarées
+ * ailleurs. Omis, la page reste correctement déclarée comme française — elle ne
+ * ment simplement pas sur l'existence d'un pendant.
  */
-export function HreflangLinks({ fr, en }: Readonly<{ fr: string; en: string }>) {
+export function HreflangLinks({
+  fr,
+  en,
+}: Readonly<{ fr: string; en?: string }>) {
   return (
     <>
       <link rel="alternate" hrefLang="fr" href={`${SITE_URL}${fr}`} />
-      <link rel="alternate" hrefLang="en" href={`${SITE_URL}${en}`} />
+      {en ? (
+        <link rel="alternate" hrefLang="en" href={`${SITE_URL}${en}`} />
+      ) : null}
       <link rel="alternate" hrefLang="x-default" href={`${SITE_URL}${fr}`} />
     </>
   );

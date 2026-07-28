@@ -127,7 +127,8 @@ const WORKFLOW = ["Extraction web", "Données structurées", "Rapport PDF"] as c
 export default function CalculPage() {
   return (
     <>
-      <HreflangLinks fr="/calcul" en="/en/calcul" />
+      {/* `en` omis tant que /en/calcul n'existe pas — à remettre avec. */}
+      <HreflangLinks fr="/calcul" />
       <BreadcrumbJsonLd
         items={[
           { nom: "Accueil", chemin: "/" },

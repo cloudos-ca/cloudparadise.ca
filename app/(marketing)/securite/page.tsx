@@ -23,7 +23,8 @@ export const metadata: Metadata = {
 export default function SecuritePage() {
   return (
     <>
-      <HreflangLinks fr="/securite" en="/en/securite" />
+      {/* `en` omis tant que /en/securite n'existe pas — à remettre avec. */}
+      <HreflangLinks fr="/securite" />
       <BreadcrumbJsonLd
         items={[
           { nom: "Accueil", chemin: "/" },
