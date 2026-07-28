@@ -300,7 +300,9 @@ const SECTIONS: readonly SectionFonctions[] = [
       {
         // « feuillet SNRC » n'existe nulle part dans le code d'import : la
         // requête se fait par emprise géographique d'un district minier, plus
-        // un thème. Déjà corrigé sur /mines au lot 4.
+        // un thème. Le commentaire disait « déjà corrigé sur /mines » alors que
+        // cette page-là portait encore « feuillet SNRC » ; balayé pour de bon
+        // sur /mines et /en/mines le 2026-07-28.
         nom: "Données ouvertes SIGÉOM",
         texte: "Les couches SIGÉOM, importées par district minier.",
       },

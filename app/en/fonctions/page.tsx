@@ -302,7 +302,7 @@ const SECTIONS: readonly SectionFonctions[] = [
       {
         // « feuillet SNRC » n'existe nulle part dans le code d'import : la
         // requête se fait par emprise géographique d'un district minier, plus
-        // un thème. Écrit ici comme sur la page française, qui fait référence.
+        // un thème. Balayé sur /mines et /en/mines le 2026-07-28.
         nom: "SIGÉOM open data",
         texte: "The SIGÉOM layers, imported by mining district.",
       },

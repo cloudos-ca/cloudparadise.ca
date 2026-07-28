@@ -272,12 +272,16 @@ export default function MinesPage() {
           <div className="grid gap-8 os:grid-cols-[2fr_3fr] os:items-start os:gap-12">
             <Reveal>
               <SurTitre>Les données ouvertes</SurTitre>
-              <TitreSection>SIGÉOM, chargé par feuillet.</TitreSection>
+              <TitreSection>SIGÉOM, chargé par district.</TitreSection>
             </Reveal>
             <Reveal delay={0.1}>
               <div className="space-y-4 text-[15px] leading-relaxed text-white/85">
+                {/* « feuillet SNRC » jusqu'au 2026-07-28 : la requête d'import
+                    ne travaille pas par feuillet mais par emprise géographique
+                    d'un district minier. /fonctions portait déjà la bonne
+                    formulation, cette page était restée en arrière. */}
                 <p>
-                  Vous importez les couches SIGÉOM par feuillet SNRC — c’est
+                  Vous importez les couches SIGÉOM par district minier — c’est
                   opérationnel.
                 </p>
                 <p>
