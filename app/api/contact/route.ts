@@ -52,20 +52,56 @@ type Corps = {
   recaptchaToken?: string;
 };
 
-/** Même règle que côté client — revalidée ici, un client ne doit jamais faire foi seul. */
+/**
+ * Longueurs maximales acceptées, vérifiées avant tout traitement du contenu.
+ *
+ * 254 pour l'adresse : c'est le maximum d'une adresse de courriel selon la
+ * RFC 5321. Les autres bornes sont larges — elles n'existent pas pour
+ * contraindre un visiteur, mais pour qu'aucun champ public n'arrive sans
+ * limite jusqu'au moteur d'expressions régulières ou jusqu'au serveur SMTP.
+ */
+const LIMITES = {
+  nom: 200,
+  courriel: 254,
+  sujet: 200,
+  message: LIMITE_MESSAGE,
+} as const;
+
+/**
+ * Même règle que côté client — revalidée ici, un client ne doit jamais faire
+ * foi seul.
+ *
+ * L'ordre compte : la longueur est vérifiée **avant** l'expression régulière.
+ * `[^\s@]` accepte le point, donc dans `[^\s@]+\.[^\s@]+$` le moteur a
+ * plusieurs découpages possibles et les essaie tous quand l'adresse ne
+ * correspond pas — coût quadratique en la longueur. Cette fonction s'exécute
+ * avant la vérification reCAPTCHA, sur une route publique : sans borne, une
+ * seule requête portant une chaîne de quelques centaines de milliers de
+ * caractères bloquait la boucle d'événements, et le compteur par IP
+ * (5 requêtes / 10 min, en mémoire, une seule instance) n'y suffisait pas.
+ * Sous 254 caractères, le pire cas est négligeable.
+ */
 function champsInvalides(corps: Corps): string[] {
   const invalides: string[] = [];
-  if (!corps.nom?.trim()) invalides.push("nom");
+
+  const nom = corps.nom?.trim() ?? "";
+  if (!nom || nom.length > LIMITES.nom) invalides.push("nom");
+
+  const courriel = corps.courriel?.trim() ?? "";
   if (
-    !corps.courriel?.trim() ||
-    !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(corps.courriel.trim())
+    !courriel ||
+    courriel.length > LIMITES.courriel ||
+    !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(courriel)
   ) {
     invalides.push("courriel");
   }
-  if (!corps.sujet?.trim()) invalides.push("sujet");
-  if (!corps.message?.trim() || corps.message.length > LIMITE_MESSAGE) {
-    invalides.push("message");
-  }
+
+  const sujet = corps.sujet?.trim() ?? "";
+  if (!sujet || sujet.length > LIMITES.sujet) invalides.push("sujet");
+
+  const message = corps.message?.trim() ?? "";
+  if (!message || message.length > LIMITES.message) invalides.push("message");
+
   return invalides;
 }
 

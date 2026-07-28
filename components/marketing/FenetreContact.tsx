@@ -96,6 +96,19 @@ function obtenirJetonRecaptcha(): Promise<string> {
 }
 
 /**
+ * Longueur maximale d'une adresse de courriel selon la RFC 5321.
+ *
+ * Vérifiée avant l'expression régulière, et pas seulement pour écarter une
+ * adresse absurde : `[^\s@]` accepte le point, donc `[^\s@]+\.[^\s@]+$` offre
+ * plusieurs découpages que le moteur essaie tous quand l'adresse ne
+ * correspond pas — coût quadratique. Ici le seul à pouvoir ralentir la page
+ * serait le visiteur lui-même, mais la règle doit rester identique des deux
+ * côtés : la même borne est appliquée dans `app/api/contact/route.ts`, où
+ * l'entrée est publique et où l'absence de limite était exploitable.
+ */
+const LIMITE_COURRIEL = 254;
+
+/**
  * Validation volontairement permissive sur le courriel.
  *
  * Une adresse valide au sens de la RFC accepte des formes que presque aucune
@@ -103,6 +116,12 @@ function obtenirJetonRecaptcha(): Promise<string> {
  * évidentes (pas d'arobase, pas de point après). Le vrai contrôle se fera à
  * l'envoi serveur.
  */
+function courrielMalForme(valeur: string): boolean {
+  return (
+    valeur.length > LIMITE_COURRIEL ||
+    !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(valeur)
+  );
+}
 function valide(valeurs: Valeurs, lang: Lang): Partial<Record<Cle, string>> {
   const erreurs: Partial<Record<Cle, string>> = {};
 
@@ -110,7 +129,7 @@ function valide(valeurs: Valeurs, lang: Lang): Partial<Record<Cle, string>> {
     if (!valeurs.nom.trim()) erreurs.nom = "Enter your name.";
     if (!valeurs.courriel.trim()) {
       erreurs.courriel = "Enter your email.";
-    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(valeurs.courriel.trim())) {
+    } else if (courrielMalForme(valeurs.courriel.trim())) {
       erreurs.courriel = "This email doesn’t look valid.";
     }
     if (!valeurs.sujet.trim()) erreurs.sujet = "Enter a subject.";
@@ -121,7 +140,7 @@ function valide(valeurs: Valeurs, lang: Lang): Partial<Record<Cle, string>> {
   if (!valeurs.nom.trim()) erreurs.nom = "Indiquez votre nom.";
   if (!valeurs.courriel.trim()) {
     erreurs.courriel = "Indiquez votre courriel.";
-  } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(valeurs.courriel.trim())) {
+  } else if (courrielMalForme(valeurs.courriel.trim())) {
     erreurs.courriel = "Ce courriel ne semble pas valide.";
   }
   if (!valeurs.sujet.trim()) erreurs.sujet = "Indiquez un sujet.";

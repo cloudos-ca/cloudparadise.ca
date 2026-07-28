@@ -32,12 +32,37 @@ ENV NEXT_TELEMETRY_DISABLED=1
 RUN addgroup --system --gid 1001 nodejs \
   && adduser --system --uid 1001 nextjs
 
+# Copié sans --chown, donc propriété de root : l'application tourne en `nextjs`
+# et ne peut pas réécrire son propre code. Avec --chown, `server.js`,
+# `node_modules` et les assets appartenaient à l'utilisateur applicatif — une
+# écriture de fichier arbitraire obtenue dans l'app devenait une persistance
+# sur l'image, ce qui n'est plus possible ici.
 COPY --from=builder /app/public ./public
-COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
-COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
+COPY --from=builder /app/.next/standalone ./
+COPY --from=builder /app/.next/static ./.next/static
+
+# Seule exception, et seul répertoire que l'application doit pouvoir écrire :
+# le cache de l'optimiseur d'images. `next/image` sert les JPEG de /plateforme
+# sans `unoptimized`, donc l'optimiseur travaille à l'exécution et écrit dans
+# `.next/cache/images`. Créé ici explicitement : sans lui, `.next` appartient à
+# root et l'app ne peut plus créer son cache — les images passent en 500.
+RUN mkdir -p .next/cache/images && chown -R nextjs:nodejs .next/cache
 
 USER nextjs
 
+# 3025 est le défaut, donc le port de la production, qui ne définit aucune
+# variable `PORT`. L'environnement de développement écoute sur 3030 : le
+# `server.js` de Next standalone lit `process.env.PORT` au démarrage, donc un
+# simple `PORT=3030` en variable d'exécution suffit — rien à changer ici.
+#
+# Le piège, côté Coolify : le champ « Ports Exposes » doit valoir exactement le
+# port sur lequel le conteneur écoute (3025 en prod, 3030 en dev). S'ils
+# divergent, la sonde n'atteint jamais l'application et le déploiement est
+# déclaré en échec alors qu'elle tourne — le log ne parle que d'un health check
+# expiré, jamais du port.
+#
+# `EXPOSE` n'est que de la documentation : il n'ouvre ni ne restreint rien, et
+# n'a pas besoin de suivre `PORT`.
 EXPOSE 3025
 ENV PORT=3025
 ENV HOSTNAME=0.0.0.0
