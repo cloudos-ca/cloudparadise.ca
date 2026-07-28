@@ -3,6 +3,59 @@ import type { Metadata } from "next";
 export const SITE_URL = "https://cloudparadise.ca";
 
 /**
+ * Vrai en production, faux partout ailleurs (dev.cloudparadise.cloud, aperçus,
+ * local).
+ *
+ * Le défaut est « production » **volontairement**, et c'est le point délicat de
+ * ce fichier : c'est un choix de sens de panne. Un environnement hors
+ * production qui oublie la variable reste indexable — le problème qu'on
+ * corrige. Mais l'inverse, un défaut « non-production », désindexerait le vrai
+ * site au premier déploiement qui oublie la variable, et une désindexation se
+ * paie en semaines de retour dans l'index. Entre les deux, on prend le risque
+ * réversible. Conséquence : **c'est l'environnement de dev qui doit déclarer
+ * `SITE_ENV`**, pas la production.
+ *
+ * Lu au build, pas à l'exécution : les métadonnées des pages statiques sont
+ * calculées à la génération, donc une variable posée seulement à l'exécution
+ * n'aurait aucun effet sur le HTML servi. D'où l'`ARG SITE_ENV` du Dockerfile —
+ * côté Coolify, la variable doit être cochée « Build Variable ». Passer par un
+ * `generateMetadata` dynamique aurait rendu tout le site dynamique, ce que le
+ * projet refuse déjà par ailleurs (voir la note CSP de next.config.ts).
+ *
+ * Pas de `NEXT_PUBLIC_` : rien de tout ceci ne descend dans le bundle client.
+ *
+ * `||` et non `??` : le Dockerfile fait `ENV SITE_ENV=${SITE_ENV}`, ce qui pose
+ * une chaîne **vide** quand l'`ARG` n'est pas fourni — c'est-à-dire en
+ * production. `??` ne rattrape que `null`/`undefined`, laisserait passer `""`,
+ * et désindexerait donc exactement l'environnement qu'il faut protéger.
+ */
+export const EST_PRODUCTION =
+  (process.env.SITE_ENV || "production") === "production";
+
+/**
+ * Directives d'indexation, partagées par les deux layouts racines et par les
+ * pages qui redéfinissent leur bloc `robots`.
+ *
+ * Hors production, `noindex, nofollow` — un environnement de préproduction
+ * contient des affirmations non validées et une tarification que l'application
+ * n'applique pas encore ; le `canonical` vers la production atténue mais
+ * n'ordonne rien. `googleBot` est répété explicitement plutôt qu'omis : sans
+ * lui, la balise `max-image-preview:large` disparaîtrait bien, mais on veut la
+ * consigne négative écrite noir sur blanc pour le robot qui compte.
+ */
+export const ROBOTS: Metadata["robots"] = EST_PRODUCTION
+  ? {
+      index: true,
+      follow: true,
+      googleBot: { index: true, follow: true, "max-image-preview": "large" },
+    }
+  : {
+      index: false,
+      follow: false,
+      googleBot: { index: false, follow: false },
+    };
+
+/**
  * Icônes de l'app — partagées entre les deux layouts racines (FR et EN).
  *
  * Pas de détection automatique par convention de fichier ici : `icon.tsx` et

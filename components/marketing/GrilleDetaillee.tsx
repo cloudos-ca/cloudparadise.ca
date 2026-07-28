@@ -24,15 +24,15 @@ const nf = new Intl.NumberFormat("fr-CA");
  * l'exemple les affiche tels quels — un tarif qui change met donc l'exemple à
  * jour tout seul, au lieu de le laisser mentir.
  *
- * `exemple` décrit **un seul lancement**, et le montant affiché à côté est le
- * tarif du type, sans multiplication. C'est la règle de facturation réelle :
- * l'unité débitée est la tâche lancée, jamais le fichier, la page, l'octet ou
- * la seconde qu'elle traite. Un exemple qui multiplierait un tarif par un
- * volume (« 200 contrats ≈ 50 crédits ») annoncerait un prix jusqu'à deux
- * cents fois trop élevé — c'est exactement ce que cette colonne disait avant.
+ * `exemple` décrit un **volume traité**, et le montant affiché à côté est le
+ * tarif du type multiplié par ce volume (voir `coutExemple`). C'est la règle de
+ * facturation réelle : le débit suit l'avancement, unité par unité — « 200
+ * contrats = 50 crédits » est donc exact à 0,25 le contrat.
  *
- * Seule exception, qui n'en est pas une : la génération d'images produit une
- * image par tâche, donc l'unité produite et l'unité facturée coïncident.
+ * Ce commentaire décrivait auparavant la règle inverse (un débit forfaitaire
+ * par tâche, sans multiplication), qui ne correspondait déjà plus au calcul
+ * juste en dessous. Corrigé ici pour que la prochaine relecture ne « répare »
+ * pas le code d'après un commentaire périmé.
  *
  * `details` détaille une ligne qui en regroupe plusieurs.
  */
@@ -182,15 +182,30 @@ function libelleExemple(m: (typeof LIGNES)[number], lang: Lang) {
  * comme telle — et des cartes empilées en dessous, parce qu'un tableau à quatre
  * colonnes à 360px déborde forcément.
  */
-const TABLEAU = {
+const TABLEAU: Record<
+  Lang,
+  {
+    titre: string;
+    caption: string;
+    tache: string;
+    description: string;
+    prix: string;
+    exemple: string;
+    /** Complément sous le tableau. Absent quand la ligne d'équivalence des
+     *  crédits se suffit — c'est le cas en français depuis que le titre de
+     *  section dit déjà « Le coût par tâche » : le répéter en pied n'ajoutait
+     *  rien et rouvrait la question du moment du débit, réglée plus haut par
+     *  « débité à mesure que la tâche avance ». */
+    pied?: string;
+  }
+> = {
   fr: {
     titre: "Tarifs · Cloud Paradise",
-    caption: "Coût en crédits par tâche lancée, pour chaque type de traitement",
+    caption: "Coût en crédits par tâche, pour chaque type de traitement",
     tache: "Tâche",
     description: "Description",
     prix: "Prix",
     exemple: "Exemple",
-    pied: "Coût débité par tâche lancée.",
   },
   en: {
     titre: "Pricing · Cloud Paradise",
@@ -201,7 +216,7 @@ const TABLEAU = {
     exemple: "Example",
     pied: "Cost charged per task.",
   },
-} as const;
+};
 
 export function GrilleDetaillee({ lang = "fr" }: Readonly<{ lang?: Lang }>) {
   const tt = TABLEAU[lang];
@@ -273,7 +288,7 @@ export function GrilleDetaillee({ lang = "fr" }: Readonly<{ lang?: Lang }>) {
 
       <p className="mt-3 text-[12px] text-white/70">
         1 {lang === "en" ? "credit" : "crédit"} ={" "}
-        {nf.format(CREDIT_EN_DEVISE)} {DEVISE}. {tt.pied}
+        {nf.format(CREDIT_EN_DEVISE)} {DEVISE}.{tt.pied ? ` ${tt.pied}` : ""}
       </p>
     </div>
   );

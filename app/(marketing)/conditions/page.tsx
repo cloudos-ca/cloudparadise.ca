@@ -17,7 +17,7 @@ import {
 import { GrilleTarifaireLegale } from "@/components/marketing/GrilleTarifaireLegale";
 import { ListeNumerotee } from "@/components/marketing/ListeNumerotee";
 import { LECTURE, SECTION_Y, SHELL } from "@/components/marketing/tokens";
-import { alternatesBilingues, openGraphPage } from "@/lib/seo";
+import { alternatesBilingues, openGraphPage, ROBOTS } from "@/lib/seo";
 
 const TITRE = "Conditions d’utilisation — Cloud Paradise";
 const DESCRIPTION =
@@ -26,7 +26,7 @@ const DESCRIPTION =
 export const metadata: Metadata = {
   title: TITRE,
   description: DESCRIPTION,
-  robots: { index: true, follow: true },
+  robots: ROBOTS,
   alternates: alternatesBilingues("/conditions", "/en/conditions", "fr"),
   openGraph: openGraphPage(TITRE, DESCRIPTION, "fr", ["/opengraph-image"]),
 };

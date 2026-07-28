@@ -142,7 +142,7 @@ function Grille({ lang }: Readonly<{ lang: Lang }>) {
       <p className="text-[13px] text-white/75">
         {lang === "en"
           ? "Cost charged per task, in credits — 1 credit = "
-          : "Coût débité par tâche lancée, en crédits — 1 crédit = "}
+          : "Coût par tâche, en crédits — 1 crédit = "}
         {nf.format(CREDIT_EN_DEVISE)} {DEVISE}
       </p>
       <dl className="mt-3 flex flex-wrap gap-x-6 gap-y-2.5">

@@ -32,7 +32,7 @@ import { SECTION_Y, SHELL } from "@/components/marketing/tokens";
 import { alternatesBilingues, openGraphPage } from "@/lib/seo";
 
 const TITRE = "Tarifs — Cloud Paradise";
-const DESCRIPTION = `Des crédits, pas d’abonnement. ${OFFRE_EN_DEVISE} de crédits offerts à l’inscription, et le coût de chaque tâche lancée.`;
+const DESCRIPTION = `Des crédits, pas d’abonnement. ${OFFRE_EN_DEVISE} de crédits offerts à l’inscription, et le coût de chaque tâche.`;
 
 export const metadata: Metadata = {
   title: TITRE,
@@ -202,7 +202,7 @@ export default function TarifsPage() {
         <div className={`${SHELL} ${SECTION_Y}`}>
           <Reveal className="max-w-2xl">
             <SurTitre>La grille</SurTitre>
-            <TitreSection>Le coût par tâche lancée.</TitreSection>
+            <TitreSection>Le coût par tâche.</TitreSection>
             <p className="mt-4 max-w-[54ch] text-sm leading-relaxed text-white/85">
               Une petite tâche coûte peu ; un rendu lourd coûte plus. Le montant
               est débité à mesure que la tâche avance.
@@ -317,7 +317,7 @@ export default function TarifsPage() {
                 </ol>
                 <div className="mt-4 flex items-baseline justify-between gap-3 border-t border-white/10 pt-3.5">
                   <span className="text-[13px] text-white/85">
-                    {etapes.length} tâches lancées
+                    {etapes.length} tâches
                   </span>
                   <span
                     className="font-display text-[15px] font-bold tabular-nums"

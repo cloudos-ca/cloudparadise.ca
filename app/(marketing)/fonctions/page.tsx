@@ -77,13 +77,28 @@ const SECTIONS: readonly SectionFonctions[] = [
         texte: "Stockage, dossiers, corbeille, partage, glisser-déposer.",
       },
       {
+        nom: "Connexions Google Drive et OneDrive",
+        texte: "Vos fichiers de Drive et de OneDrive, accessibles depuis votre bureau.",
+      },
+      {
+        // Ici et pas dans « Vos applications » : l'app est `hidden` au registre,
+        // elle ne se lance ni depuis le dock ni depuis le lanceur — s'ouvrir en
+        // double-cliquant un fichier est un comportement du bureau, pas une
+        // application qu'on irait chercher. Le passage aperçu → édition est ce
+        // qui la distingue d'un simple stockage : c'est la partie à dire.
+        nom: "Aperçu des fichiers",
+        texte:
+          "Ouvrez une image, une vidéo ou un son directement dans le bureau, sans téléchargement. Un bouton vous envoie vers l’application d’édition correspondante.",
+      },
+      {
         nom: "Spotlight",
         texte:
           "Recherche plein-texte à l’intérieur de vos fichiers, pas seulement dans leurs noms.",
       },
       {
         nom: "Fond d’écran",
-        texte: "Le fond de votre bureau, au choix.",
+        texte:
+          "Choisissez votre image : l’interface ajuste ses couleurs pour s’accorder avec elle.",
       },
       {
         nom: "Assistant",
@@ -92,7 +107,8 @@ const SECTIONS: readonly SectionFonctions[] = [
       },
       {
         nom: "Documentation intégrée",
-        texte: "La documentation s’ouvre dans le bureau, sans quitter la session.",
+        texte:
+          "Une base de connaissances dans le bureau, qui couvre chaque fonction et chaque application. Elle suit l’évolution du produit.",
       },
       {
         nom: "Notifications",
@@ -123,11 +139,6 @@ const SECTIONS: readonly SectionFonctions[] = [
       { nom: "3D", texte: "Blender, streamé en session éphémère." },
       { nom: "SIG", texte: "QGIS Desktop, streamé en session éphémère." },
       { nom: "Lecteur PDF", texte: "Vos PDF s’ouvrent dans le bureau." },
-      {
-        nom: "Visionneuse",
-        texte:
-          "Un aperçu de vos fichiers — images, vidéos, modèles 3D — sans ouvrir d’application.",
-      },
     ],
   },
   {
@@ -186,10 +197,33 @@ const SECTIONS: readonly SectionFonctions[] = [
         nom: libelleDe("Simulation", "fr"),
         texte: "Vos calculs de simulation, lancés sur notre matériel.",
       },
+      // L'entrée de regroupement reste, et chaque geste prend sa ligne en
+      // dessous : sur une page de référence, c'est la ligne nommée qui répond
+      // au Ctrl-F d'un évaluateur, pas le résumé qui la précède.
       {
         nom: "Géomatique et SIG",
         texte: "Reprojection, croisement de couches, export.",
         lien: MINES,
+      },
+      {
+        nom: "Reprojection",
+        texte: "NAD83 UTM 17N et 18N, MTM.",
+      },
+      {
+        nom: "Desurvey",
+        texte: "De vos relevés de déviation aux traces en trois dimensions.",
+      },
+      {
+        nom: "Anomalies géochimiques",
+        texte: "Repérage et mise en carte de vos résultats.",
+      },
+      {
+        nom: "Ombrage et courbes de niveau",
+        texte: "Le relief, lisible d’un coup d’œil.",
+      },
+      {
+        nom: "Export GPX",
+        texte: "Vos points, exportés pour un GPS Garmin.",
       },
     ],
   },
@@ -214,7 +248,8 @@ const SECTIONS: readonly SectionFonctions[] = [
       },
       {
         nom: "Gestionnaire de téléchargements",
-        texte: "Vos téléchargements en masse, suivis et rangés dans vos fichiers.",
+        texte:
+          "Récupérez un fichier depuis une adresse externe sans passer par votre poste. Vous pouvez fermer votre ordinateur, le téléchargement continue — et il reprend là où il s’était arrêté en cas d’incident.",
       },
     ],
   },
@@ -245,9 +280,12 @@ const SECTIONS: readonly SectionFonctions[] = [
     page: MINES,
     entrees: [
       {
+        // « le calcul des échéances » était faux : GESTIM n'offre aucun service
+        // interrogeable, les dates sont saisies à la main. Ce qui est calculé,
+        // c'est le décompte jusqu'à la date, et c'est lui qui déclenche l'alerte.
         nom: "Titres miniers",
         texte:
-          "Le suivi de vos titres, le calcul des échéances et l’alerte avant l’expiration.",
+          "Vous inscrivez vos titres et leurs échéances ; le décompte est suivi et vous êtes alerté avant la date.",
       },
       {
         nom: "Forages 3D",
@@ -260,8 +298,15 @@ const SECTIONS: readonly SectionFonctions[] = [
           "Un premier jet rédigé à partir des données de votre projet, que vous révisez.",
       },
       {
+        // « feuillet SNRC » n'existe nulle part dans le code d'import : la
+        // requête se fait par emprise géographique d'un district minier, plus
+        // un thème. Déjà corrigé sur /mines au lot 4.
         nom: "Données ouvertes SIGÉOM",
-        texte: "Les couches SIGÉOM, importées par feuillet SNRC.",
+        texte: "Les couches SIGÉOM, importées par district minier.",
+      },
+      {
+        nom: "Import de couches",
+        texte: ".gpkg, .geojson, .kml, et .zip pour un shapefile compressé.",
       },
     ],
   },
@@ -280,8 +325,11 @@ const SECTIONS: readonly SectionFonctions[] = [
         texte: "Vos factures, consultables et téléchargeables depuis votre compte.",
       },
       {
-        nom: "Alerte de crédit bas",
-        texte: "Un avis avant que le solde ne soit à sec.",
+        // Sans lien vers /securite : « Clés API », juste en dessous, en porte
+        // déjà un — deux fois le même renvoi à la suite ne guide plus, il
+        // encombre.
+        nom: "Authentification à deux facteurs",
+        texte: "Un code par courriel à chaque connexion.",
       },
       {
         nom: "Clés API",

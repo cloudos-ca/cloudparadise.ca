@@ -19,6 +19,18 @@ COPY . .
 ARG NEXT_PUBLIC_RECAPTCHA_SITE_KEY
 ENV NEXT_PUBLIC_RECAPTCHA_SITE_KEY=${NEXT_PUBLIC_RECAPTCHA_SITE_KEY}
 
+# Indexation. Non défini = production : le déploiement de production n'a rien
+# à poser et garde `index, follow`. Tout autre environnement (dev, aperçu) doit
+# poser SITE_ENV à autre chose que « production » — n'importe quelle valeur,
+# « dev » par convention — pour basculer les pages en `noindex, nofollow` et le
+# robots.txt en `Disallow: /` (voir lib/seo.ts).
+#
+# Lu à la génération des pages statiques, donc build-time : côté Coolify la
+# variable doit être cochée « Build Variable ». Posée seulement à l'exécution,
+# elle n'aurait aucun effet sur le HTML servi.
+ARG SITE_ENV
+ENV SITE_ENV=${SITE_ENV}
+
 ENV NEXT_TELEMETRY_DISABLED=1
 RUN npm run build
 

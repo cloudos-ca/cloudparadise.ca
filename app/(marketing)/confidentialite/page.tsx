@@ -10,7 +10,7 @@ import {
 } from "@/components/marketing/legal";
 import { ADRESSE } from "@/components/marketing/coordonnees";
 import { LECTURE, SECTION_Y, SHELL } from "@/components/marketing/tokens";
-import { alternatesBilingues, openGraphPage } from "@/lib/seo";
+import { alternatesBilingues, openGraphPage, ROBOTS } from "@/lib/seo";
 
 const TITRE = "Politique de confidentialité — Cloud Paradise";
 const DESCRIPTION =
@@ -19,7 +19,7 @@ const DESCRIPTION =
 export const metadata: Metadata = {
   title: TITRE,
   description: DESCRIPTION,
-  robots: { index: true, follow: true },
+  robots: ROBOTS,
   alternates: alternatesBilingues("/confidentialite", "/en/confidentialite", "fr"),
   openGraph: openGraphPage(TITRE, DESCRIPTION, "fr", ["/opengraph-image"]),
 };

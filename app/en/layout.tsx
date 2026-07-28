@@ -3,7 +3,7 @@ import { Footer } from "@/components/marketing/Footer";
 import { PopupLoi25 } from "@/components/marketing/PopupLoi25";
 import { RootDocument } from "@/components/marketing/RootDocument";
 import { TopBar } from "@/components/marketing/TopBar";
-import { SITE_URL, ICONS } from "@/lib/seo";
+import { SITE_URL, ICONS, ROBOTS } from "@/lib/seo";
 
 /**
  * Pas de title/description par défaut ici : chaque page `/en/*` définit déjà
@@ -12,11 +12,7 @@ import { SITE_URL, ICONS } from "@/lib/seo";
  */
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: { index: true, follow: true, "max-image-preview": "large" },
-  },
+  robots: ROBOTS,
   twitter: {
     card: "summary_large_image",
   },

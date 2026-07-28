@@ -32,7 +32,7 @@ type Famille = {
 const TEXTES = {
   fr: {
     eyebrow: "Vos outils",
-    titre: "Un poste de travail, toutes vos apps.",
+    titre: "Un poste de travail, toutes vos applications.",
     soustitre:
       "Les mêmes outils qu’en local, dans le navigateur. Vos fichiers restent dans votre espace, rien à installer, rien à téléverser ailleurs.",
     lien: "Voir la plateforme",

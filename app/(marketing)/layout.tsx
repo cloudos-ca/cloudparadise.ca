@@ -3,17 +3,19 @@ import { Footer } from "@/components/marketing/Footer";
 import { PopupLoi25 } from "@/components/marketing/PopupLoi25";
 import { RootDocument } from "@/components/marketing/RootDocument";
 import { TopBar } from "@/components/marketing/TopBar";
-import { SITE_URL, TITRE_ACCUEIL, DESCRIPTION_ACCUEIL, ICONS } from "@/lib/seo";
+import {
+  SITE_URL,
+  TITRE_ACCUEIL,
+  DESCRIPTION_ACCUEIL,
+  ICONS,
+  ROBOTS,
+} from "@/lib/seo";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: TITRE_ACCUEIL,
   description: DESCRIPTION_ACCUEIL,
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: { index: true, follow: true, "max-image-preview": "large" },
-  },
+  robots: ROBOTS,
   openGraph: {
     title: TITRE_ACCUEIL,
     description: DESCRIPTION_ACCUEIL,

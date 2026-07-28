@@ -49,7 +49,8 @@ const BUREAU: Carte[] = [
   {
     Icone: IconWindow,
     titre: "Fenêtres et dock",
-    texte: "Déplaçables, empilables, thème jour/nuit, fond d’écran au choix.",
+    texte:
+      "Déplaçables, empilables, thème jour/nuit, fond d’écran qui recolore l’interface.",
   },
   {
     Icone: IconSearch,

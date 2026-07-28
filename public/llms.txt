@@ -12,7 +12,7 @@ Cloud Paradise est un bureau en ligne où l'on travaille (fenêtres, fichiers, b
 - [Mines](https://cloudparadise.ca/mines): l'exploration minière au Québec — titres miniers, forages en trois dimensions, couches SIGÉOM, rapports.
 - [Sécurité](https://cloudparadise.ca/securite): hébergement au Québec sur du matériel appartenant à l'entreprise, modèle de langage exécuté sur place, calcul déterministe, isolation des accès.
 - [Fonctions](https://cloudparadise.ca/fonctions): la liste complète des fonctionnalités du poste de travail, par usage.
-- [Tarifs](https://cloudparadise.ca/tarifs): modèle de crédits (pas d'abonnement), coût par tâche lancée, estimateur de budget.
+- [Tarifs](https://cloudparadise.ca/tarifs): modèle de crédits (pas d'abonnement), coût par tâche, estimateur de budget.
 - [Contact](https://cloudparadise.ca/contact): coordonnées de l'entreprise.
 - [Conditions d'utilisation](https://cloudparadise.ca/conditions)
 - [Politique de confidentialité](https://cloudparadise.ca/confidentialite)

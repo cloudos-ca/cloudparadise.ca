@@ -7,6 +7,6 @@ export const contentType = "image/png";
 export default function Image() {
   return renderOgImage(
     "Payez ce que vous utilisez. Rien de plus.",
-    "Des crédits, pas d’abonnement. Vous ne payez que ce que vous lancez.",
+    "Des crédits, pas d’abonnement. Vous ne payez que ce qui est traité.",
   );
 }

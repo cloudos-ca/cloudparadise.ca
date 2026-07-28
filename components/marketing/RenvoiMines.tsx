@@ -19,7 +19,9 @@ const MOTS_CLES = [
   "desurvey",
   "NI 43-101",
   "SIGÉOM",
-  "NAD83 UTM 17N",
+  // Les deux zones, comme /mines : tronquée à 17N, la pastille se lisait comme
+  // une couverture partielle devant un public qui reconnaît les zones.
+  "NAD83 UTM 17N/18N",
   "GPX Garmin",
 ] as const;
 

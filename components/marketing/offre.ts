@@ -35,7 +35,7 @@ export const RECHARGE_MINIMALE_EN_DEVISE = `${nf.format(
 )} ${DEVISE}`;
 
 /**
- * Grille tarifaire — coût débité en crédits par tâche lancée.
+ * Grille tarifaire — coût en crédits par tâche.
  *
  * Source de vérité unique des prix : la section Tarification de la landing et
  * la page /tarifs lisent toutes les deux ici. Un prix ne doit jamais être
