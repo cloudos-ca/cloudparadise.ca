@@ -17,8 +17,12 @@ import type { NextConfig } from "next";
  * la recoloration du thème (`--acc`, `--soft`, `--sky`) repose sur des
  * attributs `style=""` en ligne dans de nombreux composants.
  *
- * Domaines externes autorisés : reCAPTCHA v3 (google.com, gstatic.com,
- * contact uniquement) et Matomo auto-hébergé (matomo.cloudparadise.cloud).
+ * Un seul domaine externe autorisé : Matomo, auto-hébergé
+ * (matomo.cloudparadise.cloud). google.com et gstatic.com y figuraient pour
+ * reCAPTCHA v3 sur /contact ; le formulaire se protège désormais sans tiers
+ * (voir lib/jetonContact.ts), et plus aucune page n'appelle Google — la CSP le
+ * dit maintenant explicitement. `frame-src` a disparu avec eux : aucune iframe
+ * nulle part, donc `default-src 'self'` suffit.
  *
  * `'unsafe-eval'` est ajouté UNIQUEMENT en développement : le mode dev de
  * React s'appuie sur `eval()` pour certaines fonctions de débogage (overlay
@@ -31,12 +35,12 @@ const EVAL_DEV = process.env.NODE_ENV === "production" ? "" : " 'unsafe-eval'";
 
 const CSP = [
   "default-src 'self'",
-  `script-src 'self' 'unsafe-inline'${EVAL_DEV} https://www.google.com https://www.gstatic.com https://matomo.cloudparadise.cloud`,
+  `script-src 'self' 'unsafe-inline'${EVAL_DEV} https://matomo.cloudparadise.cloud`,
   "style-src 'self' 'unsafe-inline'",
   "img-src 'self' data: blob:",
   "font-src 'self'",
-  "connect-src 'self' https://matomo.cloudparadise.cloud https://www.google.com https://www.gstatic.com",
-  "frame-src https://www.google.com",
+  "connect-src 'self' https://matomo.cloudparadise.cloud",
+  "frame-src 'none'",
   "object-src 'none'",
   "base-uri 'self'",
   "form-action 'self'",

@@ -95,12 +95,41 @@ body {
 }
 
 /*
- * Le badge flottant que reCAPTCHA v3 injecte dans le coin bas-droit.
- * Google autorise à le masquer par CSS à condition de garder la mention
- * « protégé par reCAPTCHA » visible ailleurs — c'est le texte sous le bouton
- * Envoyer, sur /contact. Sans ça, le badge se serait superposé à la
- * notification Loi 25, elle aussi ancrée dans ce coin.
+ * Liens des pages juridiques.
+ *
+ * Traités ici plutôt que sur chaque balise : les Conditions et la Politique de
+ * confidentialité contiennent une trentaine de liens répartis dans des tableaux
+ * de contenu, et les habiller un par un garantissait qu'un nouveau lien
+ * arriverait un jour sans le bon traitement. Or en texte, jamais l'accent bleu
+ * qui les faisait passer pour du corps de texte souligné.
  */
-.grecaptcha-badge {
-  visibility: hidden;
+.prose-legal a {
+  color: var(--cta);
+  text-decoration-line: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+  text-decoration-color: color-mix(in srgb, var(--cta) 45%, transparent);
+  transition: text-decoration-color 0.2s;
+}
+
+.prose-legal a:hover {
+  text-decoration-color: var(--cta);
+}
+
+.prose-legal a:focus-visible {
+  outline: 2px solid #ffffff;
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/*
+ * Pages sobres : les documents juridiques neutralisent les lueurs du fond.
+ *
+ * Le fond vit dans le layout, donc au-dessus de la page dans l'arbre : une page
+ * ne peut pas l'atteindre en descendant. `:has()` inverse la relation — le
+ * `<main>` réagit à la présence du marqueur posé par la page, et éteint la
+ * lueur pour elle seule. Le grain et le fond marine, eux, restent.
+ */
+main:has([data-page-sobre]) [data-lueur] {
+  opacity: 0;
 }

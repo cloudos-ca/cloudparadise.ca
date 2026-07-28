@@ -1,11 +1,12 @@
 import type { Metadata } from "next";
-import Script from "next/script";
+import { connection } from "next/server";
 import { BreadcrumbJsonLd } from "@/components/marketing/BreadcrumbJsonLd";
 import { FenetreContact } from "@/components/marketing/FenetreContact";
 import { HreflangLinks } from "@/components/marketing/HreflangLinks";
 import { PageEntete } from "@/components/marketing/PageEntete";
 import { Reveal } from "@/components/marketing/Reveal";
 import { SECTION_Y, SHELL } from "@/components/marketing/tokens";
+import { emettreJeton } from "@/lib/jetonContact";
 import { alternatesBilingues, openGraphPage } from "@/lib/seo";
 
 const TITRE = "Contact — Cloud Paradise";
@@ -19,7 +20,12 @@ export const metadata: Metadata = {
   openGraph: openGraphPage(TITRE, DESCRIPTION, "en"),
 };
 
-export default function ContactPageEn() {
+export default async function ContactPageEn() {
+  // Voir la version française : le jeton anti-robot porte l'heure de rendu,
+  // donc cette page seule sort du prérendu.
+  await connection();
+  const jeton = emettreJeton();
+
   return (
     // Pas de hauteur minimale forcée : la fenêtre plus le pied de page
     // dépassent déjà l'écran, donc centrer sur `100svh` ne supprimait aucun
@@ -37,22 +43,13 @@ export default function ContactPageEn() {
         <PageEntete
           eyebrow="Contact"
           titre="Contact us"
-          soustitre="A question about the service, pricing, or a specific project? Write to us, we reply."
+          soustitre="The service, pricing, a specific project: write to us."
         />
 
         <Reveal delay={0.1} className="mt-8">
-          <FenetreContact lang="en" />
+          <FenetreContact lang="en" jeton={jeton} />
         </Reveal>
       </div>
-
-      {/* Chargé seulement ici, pas dans le layout : c'est la seule page où le
-          formulaire en a besoin, inutile de le tirer sur tout le site. */}
-      {process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY ? (
-        <Script
-          src={`https://www.google.com/recaptcha/api.js?render=${process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}`}
-          strategy="afterInteractive"
-        />
-      ) : null}
     </section>
   );
 }

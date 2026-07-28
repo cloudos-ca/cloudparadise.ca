@@ -3,8 +3,11 @@ import Link from "next/link";
 import { BreadcrumbJsonLd } from "@/components/marketing/BreadcrumbJsonLd";
 import { HreflangLinks } from "@/components/marketing/HreflangLinks";
 import { PageEntete } from "@/components/marketing/PageEntete";
-import { Reveal } from "@/components/marketing/Reveal";
+import { AncresSections } from "@/components/marketing/AncresSections";
 import {
+  ancresDe,
+  CONTENEUR_LEGAL,
+  GABARIT_LEGAL,
   SectionsRedigees,
   type SectionRedigee,
 } from "@/components/marketing/legal";
@@ -41,32 +44,26 @@ const SECTIONS: readonly SectionRedigee[] = [
     titre: "Who we are",
     blocs: [
       <>
-        The “Cloud Paradise” service (the “<strong className="font-medium text-[#dbe6fb]">Service</strong>”,
-        the “<strong className="font-medium text-[#dbe6fb]">Platform</strong>”) is operated by Cloud
-        Paradise (“<strong className="font-medium text-[#dbe6fb]">Cloud Paradise</strong>”, “we”, “us”,
+        The “Cloud Paradise” service (the “<strong className="font-semibold text-white">Service</strong>”,
+        the “<strong className="font-semibold text-white">Platform</strong>”) is operated by Cloud
+        Paradise (“<strong className="font-semibold text-white">Cloud Paradise</strong>”, “we”, “us”,
         “our”), whose place of business is located at:
       </>,
       {
         brut: (
-          <blockquote className="border-l-2 border-white/15 pl-4 text-[#93a3c2]">
+          <blockquote className="border-l-2 border-white/15 pl-4 text-white/85">
             <p>Cloud Paradise</p>
             <p>{ADRESSE_LIGNE}</p>
             <p>Canada</p>
             <p className="mt-2">
               Email:{" "}
-              <a
-                href={`mailto:${COURRIEL}`}
-                className="underline underline-offset-2 transition-colors hover:text-[#eef4ff]"
-              >
+              <a href={`mailto:${COURRIEL}`}>
                 {COURRIEL}
               </a>
             </p>
             <p>
               Phone:{" "}
-              <a
-                href={`tel:${TELEPHONE_LIEN}`}
-                className="underline underline-offset-2 transition-colors hover:text-[#eef4ff]"
-              >
+              <a href={`tel:${TELEPHONE_LIEN}`}>
                 {TELEPHONE}
               </a>
             </p>
@@ -83,10 +80,7 @@ const SECTIONS: readonly SectionRedigee[] = [
         Service. By creating an account, accessing the Service, or using it,
         you acknowledge that you have read, understood, and agreed to be
         bound by these Terms as well as by our{" "}
-        <Link
-          href="/en/confidentialite"
-          className="underline underline-offset-2 transition-colors hover:text-[#eef4ff]"
-        >
+        <Link href="/en/confidentialite">
           Privacy Policy
         </Link>
         .
@@ -183,10 +177,7 @@ const SECTIONS: readonly SectionRedigee[] = [
                 You are responsible for the confidentiality of your password
                 and for any activity carried out through your account. You
                 agree to notify us without delay at{" "}
-                <a
-                  href={`mailto:${COURRIEL}`}
-                  className="underline underline-offset-2 transition-colors hover:text-[#eef4ff]"
-                >
+                <a href={`mailto:${COURRIEL}`}>
                   {COURRIEL}
                 </a>{" "}
                 of any unauthorized use or any suspected breach of your
@@ -221,7 +212,7 @@ const SECTIONS: readonly SectionRedigee[] = [
         ],
       },
       <>
-        <strong className="font-medium text-[#dbe6fb]">Job pricing.</strong>{" "}
+        <strong className="font-semibold text-white">Job pricing.</strong>{" "}
         The price of each type of job is displayed in the Service and on our
         site before execution. For guidance only, and subject to change,
         per-run rates are approximately:
@@ -249,10 +240,7 @@ const SECTIONS: readonly SectionRedigee[] = [
                 are non-refundable once consumed. Unused credits may be
                 refunded at our discretion or where required by law. For any
                 request, write to{" "}
-                <a
-                  href={`mailto:${COURRIEL}`}
-                  className="underline underline-offset-2 transition-colors hover:text-[#eef4ff]"
-                >
+                <a href={`mailto:${COURRIEL}`}>
                   {COURRIEL}
                 </a>
                 {"."}
@@ -395,10 +383,7 @@ const SECTIONS: readonly SectionRedigee[] = [
               <>
                 You may stop using the Service and request the closure of
                 your account at any time by writing to us at{" "}
-                <a
-                  href={`mailto:${COURRIEL}`}
-                  className="underline underline-offset-2 transition-colors hover:text-[#eef4ff]"
-                >
+                <a href={`mailto:${COURRIEL}`}>
                   {COURRIEL}
                 </a>
                 {"."}
@@ -423,7 +408,7 @@ const SECTIONS: readonly SectionRedigee[] = [
     titre: "Disclaimer of warranties",
     blocs: [
       "To the maximum extent permitted by applicable law, the Service is provided “as is” and “as available”, without warranty of any kind, express or implied, including any implied warranty of merchantability, fitness for a particular purpose, title, or non-infringement, as well as any warranty of continuous availability, error-free operation, or absolute security.",
-      <strong key="reserve" className="block font-medium text-[#dbe6fb]">
+      <strong key="reserve" className="block font-semibold text-white">
         Nothing in this article excludes or limits the warranties or rights
         that applicable law, notably Quebec’s Consumer Protection Act, makes
         mandatory and which cannot be waived by contract.
@@ -446,7 +431,7 @@ const SECTIONS: readonly SectionRedigee[] = [
           },
         ],
       },
-      <strong key="reserve" className="block font-medium text-[#dbe6fb]">
+      <strong key="reserve" className="block font-semibold text-white">
         These limitations do not apply to the extent they would be prohibited
         by applicable law, notably with respect to a consumer within the
         meaning of Quebec’s Consumer Protection Act.
@@ -464,10 +449,7 @@ const SECTIONS: readonly SectionRedigee[] = [
     blocs: [
       <>
         The processing of your personal information is governed by our{" "}
-        <Link
-          href="/en/confidentialite"
-          className="underline underline-offset-2 transition-colors hover:text-[#eef4ff]"
-        >
+        <Link href="/en/confidentialite">
           Privacy Policy
         </Link>
         , which complies with Quebec’s Act respecting the protection of
@@ -475,10 +457,7 @@ const SECTIONS: readonly SectionRedigee[] = [
         Service, you acknowledge that you have reviewed that policy. For any
         question about your personal information or to exercise your rights
         (access, correction, withdrawal), write to{" "}
-        <a
-          href={`mailto:${COURRIEL}`}
-          className="underline underline-offset-2 transition-colors hover:text-[#eef4ff]"
-        >
+        <a href={`mailto:${COURRIEL}`}>
           {COURRIEL}
         </a>
         {"."}
@@ -538,24 +517,18 @@ const SECTIONS: readonly SectionRedigee[] = [
       "For any question relating to these Terms:",
       {
         brut: (
-          <blockquote className="border-l-2 border-white/15 pl-4 text-[#93a3c2]">
-            <p className="text-[#dbe6fb]">Cloud Paradise</p>
+          <blockquote className="border-l-2 border-white/15 pl-4 text-white/85">
+            <p className="text-white">Cloud Paradise</p>
             <p>{ADRESSE_LIGNE}, Canada</p>
             <p className="mt-2">
               Email:{" "}
-              <a
-                href={`mailto:${COURRIEL}`}
-                className="underline underline-offset-2 transition-colors hover:text-[#eef4ff]"
-              >
+              <a href={`mailto:${COURRIEL}`}>
                 {COURRIEL}
               </a>
             </p>
             <p>
               Phone:{" "}
-              <a
-                href={`tel:${TELEPHONE_LIEN}`}
-                className="underline underline-offset-2 transition-colors hover:text-[#eef4ff]"
-              >
+              <a href={`tel:${TELEPHONE_LIEN}`}>
                 {TELEPHONE}
               </a>
             </p>
@@ -566,9 +539,12 @@ const SECTIONS: readonly SectionRedigee[] = [
   },
 ];
 
+/** Voir la version française : référence stable pour l'effet d'`AncresSections`. */
+const ANCRES = ancresDe(SECTIONS);
+
 export default function ConditionsPageEn() {
   return (
-    <section className="relative">
+    <section className="relative" data-page-sobre>
       <HreflangLinks fr="/conditions" en="/en/conditions" />
       <BreadcrumbJsonLd
         items={[
@@ -577,15 +553,29 @@ export default function ConditionsPageEn() {
         ]}
       />
       <div className={`${SHELL} ${SECTION_Y}`}>
-        <PageEntete
-          eyebrow="Legal"
-          titre="Terms of Use"
-          soustitre={`Last updated: ${MAJ} — version ${VERSION}`}
-        />
+        <div className={CONTENEUR_LEGAL}>
+          <PageEntete eyebrow="Legal" titre="Terms of Use" />
+          <p className={`${LECTURE} mt-3 text-[13px] text-white/55`}>
+            Last updated: {MAJ} — version {VERSION}
+          </p>
 
-        <Reveal delay={0.1} className={`${LECTURE} mt-8`}>
-          <SectionsRedigees sections={SECTIONS} />
-        </Reveal>
+          <div className={GABARIT_LEGAL}>
+            <div className="lg:col-start-2 lg:row-start-1">
+              <AncresSections
+                ancres={ANCRES}
+                lang="en"
+                disposition="colonne"
+                titre="Contents"
+              />
+            </div>
+
+            {/* Voir la version française : pas de `Reveal` sur le corps, son
+                repli remontait le sous-arbre sous l'observateur du sommaire. */}
+            <div className="min-w-0 lg:col-start-1 lg:row-start-1">
+              <SectionsRedigees sections={SECTIONS} />
+            </div>
+          </div>
+        </div>
       </div>
     </section>
   );

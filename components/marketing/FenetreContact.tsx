@@ -1,13 +1,8 @@
 "use client";
 
-import { useEffect, useState, type ReactNode } from "react";
+import { useEffect, useState, type FormEvent } from "react";
 import { motion, useReducedMotion } from "framer-motion";
-import {
-  IconMail,
-  IconMapPin,
-  IconPhone,
-  IconSend,
-} from "./icons";
+import { IconMail, IconMapPin, IconPhone, IconSend } from "./icons";
 import { WindowCard } from "./WindowCard";
 import {
   ADRESSE,
@@ -15,7 +10,7 @@ import {
   TELEPHONE,
   TELEPHONE_LIEN,
 } from "./coordonnees";
-import type { Lang } from "./tokens";
+import { SOFT_WASH, type Lang } from "./tokens";
 
 /** Champs texte du volet de composition — l'ordre ici est l'ordre à l'écran. */
 const CHAMPS = [
@@ -62,38 +57,15 @@ const SUJETS_PREREMPLIS: Record<string, { fr: string; en: string }> = {
 const LIMITE_MESSAGE = 5000;
 const SEUIL_ALERTE = 4500;
 
-declare global {
-  interface Window {
-    grecaptcha?: {
-      ready: (callback: () => void) => void;
-      execute: (
-        siteKey: string,
-        options: { action: string },
-      ) => Promise<string>;
-    };
-  }
-}
-
 /**
- * Récupère un jeton reCAPTCHA v3, invisible pour le visiteur.
+ * Rouge de la palette, pas celui de Tailwind.
  *
- * `action: "contact"` doit correspondre à ce que la route serveur attend :
- * un jeton obtenu ailleurs sur le site (une autre action) y est rejeté.
+ * `text-red-300` jurait avec le navy et n'appartenait à aucune des trois
+ * couleurs du site. Ce corail désaturé garde la valeur d'alerte (c'est la seule
+ * teinte chaude non dorée de la page) sans casser l'accord d'ensemble, et tient
+ * environ 8:1 sur le fond de fenêtre.
  */
-function obtenirJetonRecaptcha(): Promise<string> {
-  return new Promise((resolve, reject) => {
-    const cleSite = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY;
-    if (!cleSite || !window.grecaptcha) {
-      reject(new Error("reCAPTCHA indisponible."));
-      return;
-    }
-    window.grecaptcha.ready(() => {
-      window
-        .grecaptcha!.execute(cleSite, { action: "contact" })
-        .then(resolve, reject);
-    });
-  });
-}
+const TEXTE_ERREUR = "#f2a09a";
 
 /**
  * Longueur maximale d'une adresse de courriel selon la RFC 5321.
@@ -122,6 +94,7 @@ function courrielMalForme(valeur: string): boolean {
     !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(valeur)
   );
 }
+
 function valide(valeurs: Valeurs, lang: Lang): Partial<Record<Cle, string>> {
   const erreurs: Partial<Record<Cle, string>> = {};
 
@@ -150,10 +123,10 @@ function valide(valeurs: Valeurs, lang: Lang): Partial<Record<Cle, string>> {
 }
 
 const CHAMP_CLASSES =
-  "mt-1.5 w-full rounded-lg border bg-white/[0.04] px-3 py-2 text-sm text-[#eef4ff] placeholder:text-[#93a3c2]/60 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--acc)]";
+  "mt-1.5 w-full rounded-lg border bg-white/[0.04] px-3 py-2 text-sm text-white placeholder:text-white/40 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white";
 
 const BORDURE = (enErreur: boolean) =>
-  enErreur ? "rgb(248 113 113 / 0.6)" : "rgb(255 255 255 / 0.12)";
+  enErreur ? "rgb(242 160 154 / 0.55)" : "rgb(255 255 255 / 0.14)";
 
 const COORDONNEES = [
   {
@@ -182,8 +155,14 @@ const COORDONNEES = [
  * Tout tient dans une seule fenêtre : panneau d'infos à gauche, composition à
  * droite — la métaphore du client mail porte la page, là où un formulaire posé
  * sur le fond n'aurait été qu'un encadré de plus.
+ *
+ * `jeton` vient du serveur, via la page : c'est la preuve que le formulaire a
+ * été rendu, et sans elle la route refuse l'envoi (voir `lib/jetonContact.ts`).
  */
-export function FenetreContact({ lang = "fr" }: Readonly<{ lang?: Lang }>) {
+export function FenetreContact({
+  lang = "fr",
+  jeton,
+}: Readonly<{ lang?: Lang; jeton: string }>) {
   const reduceMotion = useReducedMotion();
 
   // Même respiration que les fenêtres du hero, en plus discret : celle-ci est
@@ -208,7 +187,7 @@ export function FenetreContact({ lang = "fr" }: Readonly<{ lang?: Lang }>) {
         className="pointer-events-none absolute -inset-x-6 -inset-y-10 -z-10"
         style={{
           background:
-            "radial-gradient(55% 50% at 50% 45%, color-mix(in srgb, var(--acc) 20%, transparent), transparent 72%)",
+            "radial-gradient(55% 50% at 50% 45%, color-mix(in srgb, var(--soft) 14%, transparent), transparent 72%)",
         }}
       />
 
@@ -220,10 +199,16 @@ export function FenetreContact({ lang = "fr" }: Readonly<{ lang?: Lang }>) {
               : "Nouveau message · Cloud Paradise"
           }
           icone={<IconMail className="size-3.5" />}
+          // La 3e pastille prend le cyan de support, pas `--acc` : par défaut
+          // `--acc` vaut #2d66ae, le bleu qui n'apparaît nulle part ailleurs
+          // dans cette fenêtre. `--soft` est déjà la valeur des pastilles
+          // d'icône du volet gauche, et suit la recoloration du bureau comme
+          // elles.
+          accent="var(--soft)"
         >
           <div className="grid os:grid-cols-[34fr_66fr]">
             <PanneauCoordonnees lang={lang} />
-            <Composition lang={lang} />
+            <Composition lang={lang} jeton={jeton} />
           </div>
         </WindowCard>
       </motion.div>
@@ -234,46 +219,45 @@ export function FenetreContact({ lang = "fr" }: Readonly<{ lang?: Lang }>) {
 /** Colonne de gauche : le panneau d'infos, façon barre latérale de client mail. */
 function PanneauCoordonnees({ lang }: Readonly<{ lang: Lang }>) {
   return (
-    <aside
-      // Colonne flex : la ligne d'ambiance est poussée en bas par `mt-auto`,
-      // sinon le panneau — aussi haut que la composition d'en face — laisse un
-      // grand vide sous la dernière coordonnée.
-      // Le filet passe en bas quand la barre latérale repasse au-dessus du
-      // volet de composition : en pile, une bordure droite ne sépare rien.
-      className="flex flex-col border-b border-white/10 bg-black/[0.14] p-5 os:border-r os:border-b-0"
-    >
+    // Le filet passe en bas quand la barre latérale repasse au-dessus du volet
+    // de composition : en pile, une bordure droite ne sépare rien.
+    //
+    // Colonne flex à partir de `os` seulement : c'est là que les deux volets
+    // sont côte à côte et que le volet gauche est étiré à la hauteur du
+    // formulaire. En pile, le rythme redevient simplement vertical.
+    <aside className="border-b border-white/10 bg-black/[0.14] p-5 os:flex os:flex-col os:border-r os:border-b-0">
       {/* Vrais titres de section : la page n'avait que son H1, donc aucune
           structure à parcourir au lecteur d'écran. L'apparence ne change pas. */}
-      <h2 className="text-[11px] font-medium tracking-wide text-white/50">
+      <h2 className="text-[11px] font-medium tracking-wide text-white/55">
         {lang === "en" ? "Contact info" : "Coordonnées"}
       </h2>
 
       <ul className="mt-4 space-y-4">
         {COORDONNEES.map(({ Icone, libelle, lignes, href }) => (
           <li key={libelle.fr} className="flex gap-3">
+            {/* Cyan : la valeur d'icône secondaire du site, la même partout
+                (JobPanel, Réassurance, /mines…). L'accent bleu qui traînait ici
+                n'apparaît nulle part ailleurs dans l'interface. */}
             <span
               data-cp-accent
               className="mt-0.5 grid size-7 shrink-0 place-items-center rounded-full"
-              style={{
-                background: "color-mix(in srgb, var(--acc) 15%, transparent)",
-                color: "var(--acc-text)",
-              }}
+              style={{ background: SOFT_WASH, color: "var(--soft)" }}
             >
               <Icone className="size-4" />
             </span>
             <div className="min-w-0">
-              <p className="text-[13px] font-medium text-[#eef4ff]">
+              <p className="text-[13px] font-medium text-white">
                 {libelle[lang]}
               </p>
               {href ? (
                 <a
                   href={href}
-                  className="mt-0.5 inline-block text-[13px] leading-relaxed break-words text-[#93a3c2] underline-offset-4 hover:text-white hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+                  className="mt-0.5 inline-block text-[13px] leading-relaxed break-words text-white/70 underline-offset-4 hover:text-white hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
                 >
                   {lignes[0]}
                 </a>
               ) : (
-                <p className="mt-0.5 text-[13px] leading-relaxed text-[#93a3c2]">
+                <p className="mt-0.5 text-[13px] leading-relaxed text-white/70">
                   {lignes.map((ligne) => (
                     <span key={ligne} className="block">
                       {ligne}
@@ -286,15 +270,13 @@ function PanneauCoordonnees({ lang }: Readonly<{ lang: Lang }>) {
         ))}
       </ul>
 
-      {/* Ligne d'ambiance, volontairement au conditionnel : c'est un usage
-          observé, pas un engagement de délai. */}
-      {/* Bloc de pied du panneau : c'est lui qui est poussé en bas, pas la
-          seule ligne d'ambiance, sinon la carte s'en détacherait. */}
-      <div className="os:mt-auto">
-        <p className="mt-6 border-t border-white/10 pt-4 text-[11px] leading-relaxed text-[#93a3c2]">
-          {lang === "en"
-            ? "We reply within 1 business day."
-            : "Réponse sous 1 jour ouvrable."}
+      {/* Pied du volet, poussé en bas par `mt-auto`. Les coordonnées restent
+          ancrées en haut : l'écart entre les deux groupes est l'espace libre du
+          volet, plutôt qu'un vide accumulé sous la fiche. `pt-6` garde un
+          intervalle minimal quand le volet est trop court pour en dégager. */}
+      <div className="mt-6 os:mt-auto os:pt-6">
+        <p className="border-t border-white/10 pt-4 text-[11px] leading-relaxed text-white">
+          {lang === "en" ? "We reply quickly." : "On vous répond rapidement."}
         </p>
         <CarteVisite lang={lang} />
       </div>
@@ -303,15 +285,14 @@ function PanneauCoordonnees({ lang }: Readonly<{ lang: Lang }>) {
 }
 
 /**
- * Fiche de contact d'ambiance, en bas du panneau.
+ * Fiche du destinataire, en bas du panneau.
  *
- * Elle remplit le bas de la barre latérale — plus courte que la composition
- * d'en face — tout en restant dans la métaphore : c'est la fiche du
- * destinataire, comme dans un vrai client mail.
+ * Elle reste dans la métaphore : c'est la fiche du contact, comme dans un vrai
+ * client mail. Elle ne dit que ce qui est vrai en permanence — le nom et la
+ * ville. La ligne « En ligne · disponible » qui s'y trouvait était codée en
+ * dur : elle affirmait qu'on répondait à trois heures du matin un dimanche.
  */
 function CarteVisite({ lang }: Readonly<{ lang: Lang }>) {
-  const reduceMotion = useReducedMotion();
-
   return (
     <div className="mt-4 flex items-center gap-3 rounded-lg border border-white/10 bg-white/[0.03] p-3">
       {/* Pastille de marque : l'anneau reprend le jaune du halo tel quel
@@ -319,41 +300,35 @@ function CarteVisite({ lang }: Readonly<{ lang: Lang }>) {
       <span
         aria-hidden="true"
         data-cp-accent
-        className="grid size-9 shrink-0 place-items-center rounded-full font-display text-sm font-bold"
+        className="grid size-9 shrink-0 place-items-center rounded-full font-display text-sm font-bold text-white"
         style={{
-          background: "color-mix(in srgb, var(--acc) 26%, transparent)",
+          background: "color-mix(in srgb, var(--soft) 22%, transparent)",
           boxShadow: "inset 0 0 0 1.5px #edbe54",
-          color: "#eef4ff",
         }}
       >
         C
       </span>
 
       <div className="min-w-0">
-        <p className="truncate text-[13px] font-medium text-[#eef4ff]">
+        <p className="truncate text-[13px] font-medium text-white">
           Cloud Paradise
         </p>
-        <p className="truncate text-[11px] text-[#93a3c2]">
+        <p className="truncate text-[11px] text-white/55">
           {lang === "en" ? "Amos, Quebec" : "Amos, Québec"}
-        </p>
-        <p className="mt-1 flex items-center gap-1.5 text-[11px] text-[#93a3c2]">
-          {/* Décoratif : le texte à côté dit déjà la même chose, un
-              `aria-label` ferait doublon au lecteur d'écran. */}
-          <span
-            aria-hidden="true"
-            className={`size-1.5 shrink-0 rounded-full ${
-              reduceMotion ? "" : "animate-pulse"
-            }`}
-            style={{ background: "#3fbf7f" }}
-          />
-          {lang === "en" ? "Online · available" : "En ligne · disponible"}
         </p>
       </div>
     </div>
   );
 }
 
-type Etat = "repos" | "envoi" | "succes" | "erreur";
+/**
+ * États du volet de composition.
+ *
+ * Les trois échecs sont distincts parce qu'ils appellent trois gestes
+ * différents du visiteur : réessayer, attendre, recharger. Un message unique
+ * « L'envoi a échoué » les confondait tous.
+ */
+type Etat = "repos" | "envoi" | "succes" | "echec" | "debit" | "expire";
 
 /**
  * Libellé du bouton d'envoi.
@@ -368,7 +343,10 @@ const LIBELLE_BOUTON = {
 } as const;
 
 /** Colonne de droite : la composition du courriel. */
-function Composition({ lang }: Readonly<{ lang: Lang }>) {
+function Composition({
+  lang,
+  jeton,
+}: Readonly<{ lang: Lang; jeton: string }>) {
   const [valeurs, setValeurs] = useState<Valeurs>(VIDE);
   const [erreurs, setErreurs] = useState<Partial<Record<Cle, string>>>({});
   const [etat, setEtat] = useState<Etat>("repos");
@@ -376,6 +354,10 @@ function Composition({ lang }: Readonly<{ lang: Lang }>) {
   // window plutôt que `useSearchParams` pour ne pas imposer de Suspense à la
   // page — le préremplissage n'a de sens que côté client, au montage.
   const [source, setSource] = useState("");
+  // Champ piège. Un humain ne le voit pas, ne le tabule pas et ne l'entend pas ;
+  // un robot qui remplit tout ce qu'il trouve le remplit, et le serveur écarte
+  // l'envoi en silence.
+  const [piege, setPiege] = useState("");
 
   useEffect(() => {
     const cle = new URLSearchParams(window.location.search).get("sujet");
@@ -399,7 +381,9 @@ function Composition({ lang }: Readonly<{ lang: Lang }>) {
     if (etat !== "repos") setEtat("repos");
   }
 
-  async function envoyer() {
+  async function envoyer(evenement: FormEvent<HTMLFormElement>) {
+    evenement.preventDefault();
+
     const trouvees = valide(valeurs, lang);
     setErreurs(trouvees);
     if (Object.keys(trouvees).length > 0) {
@@ -414,25 +398,32 @@ function Composition({ lang }: Readonly<{ lang: Lang }>) {
 
     setEtat("envoi");
     try {
-      const recaptchaToken = await obtenirJetonRecaptcha();
       const reponse = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...valeurs, source, recaptchaToken }),
+        body: JSON.stringify({ ...valeurs, source, jeton, piege }),
       });
-      if (!reponse.ok) throw new Error("Échec de l'envoi");
 
-      setEtat("succes");
-      setValeurs(VIDE);
+      if (reponse.ok) {
+        setEtat("succes");
+        setValeurs(VIDE);
+        return;
+      }
+
+      // Le statut porte le diagnostic : 429 = trop d'envois depuis cette
+      // source, 403 = jeton de page expiré (onglet ouvert depuis des heures,
+      // ou serveur redémarré). Tout le reste est un vrai échec.
+      if (reponse.status === 429) setEtat("debit");
+      else if (reponse.status === 403) setEtat("expire");
+      else setEtat("echec");
     } catch {
-      setEtat("erreur");
+      // Réseau coupé : la requête n'est jamais partie.
+      setEtat("echec");
     }
   }
 
   return (
-    // Pas de <form action> : le projet gère tout par handlers, et une
-    // soumission native rechargerait la page pour rien.
-    <div className="p-5 os:p-6">
+    <form onSubmit={envoyer} noValidate className="p-5 os:p-6">
       {/* Le volet de composition n'avait aucun titre : la barre de titre de la
           fenêtre n'en est pas un au sens du document. Annoncé, pas affiché —
           à l'écran, le formulaire se lit de lui-même. */}
@@ -444,15 +435,17 @@ function Composition({ lang }: Readonly<{ lang: Lang }>) {
           serveur (et reprise dans le courriel), pas une saisie. */}
       <input type="hidden" name="source" value={source} readOnly />
 
+      <ChampPiege lang={lang} valeur={piege} onChange={setPiege} />
+
       {/* Ligne destinataire : elle plante le décor « nouveau message ». Non
           modifiable — c'est la seule adresse possible — donc en texte plutôt
           qu'en input désactivé, qui promettrait une saisie inexistante. */}
       <div className="flex items-baseline gap-2 border-b border-white/10 pb-3">
-        <span className="text-[11px] text-[#93a3c2]">
+        <span className="text-[11px] text-white/55">
           {lang === "en" ? "To:" : "À :"}
         </span>
-        <span className="text-[13px] text-[#dbe6fb]">Cloud Paradise</span>
-        <span className="truncate text-[11px] text-[#93a3c2]">
+        <span className="text-[13px] text-white">Cloud Paradise</span>
+        <span className="truncate text-[11px] text-white/55">
           &lt;{COURRIEL}&gt;
         </span>
       </div>
@@ -462,7 +455,7 @@ function Composition({ lang }: Readonly<{ lang: Lang }>) {
           <div key={cle}>
             <label
               htmlFor={`contact-${cle}`}
-              className="text-[13px] font-medium text-[#dbe6fb]"
+              className="text-[13px] font-medium text-white"
             >
               {libelle[lang]}
             </label>
@@ -484,7 +477,7 @@ function Composition({ lang }: Readonly<{ lang: Lang }>) {
         <div>
           <label
             htmlFor="contact-message"
-            className="text-[13px] font-medium text-[#dbe6fb]"
+            className="text-[13px] font-medium text-white"
           >
             Message
           </label>
@@ -508,26 +501,82 @@ function Composition({ lang }: Readonly<{ lang: Lang }>) {
         </div>
 
         <div className="flex flex-wrap items-center gap-x-4 gap-y-2 border-t border-white/10 pt-4">
+          {/* Or plein : c'est l'unique action de la page, donc l'action
+              principale par définition. Comme `BoutonCta`, et pour la même
+              raison, il ne porte pas `data-cp-accent` — la couleur de
+              conversion ne suit pas la recoloration du bureau.
+
+              Sans ombre portée dorée : le halo est un signe de marque, il vit
+              dans le logo. Posé sous un bouton il le dilue, et le système est
+              plat par ailleurs. L'or seul suffit à désigner l'action ; le seul
+              anneau qui reste est celui du focus, net et blanc. */}
           <button
-            type="button"
-            onClick={envoyer}
+            type="submit"
             disabled={etat === "envoi"}
-            data-cp-accent
-            className="flex items-center gap-2 rounded-lg px-5 py-2.5 text-sm font-medium text-white transition-opacity focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white disabled:cursor-not-allowed disabled:opacity-60"
-            style={{ background: "var(--acc)" }}
+            className="flex items-center gap-2 rounded-lg px-5 py-2.5 text-sm font-semibold transition-[filter,transform] duration-150 hover:brightness-110 active:translate-y-px focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white disabled:cursor-not-allowed disabled:opacity-60"
+            style={{
+              background: "var(--cta)",
+              color: "var(--cta-texte)",
+            }}
           >
             <IconSend className="size-4" />
             {LIBELLE_BOUTON[lang][etat === "envoi" ? "envoi" : "repos"]}
           </button>
 
-          {/* Protégé par reCAPTCHA v3 : invisible pour le visiteur, donc pas
-              de case à cocher ici — seule cette mention l'annonce, comme
-              Google l'exige de tout site qui l'utilise. */}
+          {/* Emplacement conservé même au repos : le lecteur d'écran doit
+              trouver la région déjà en place pour en annoncer le changement. */}
           <p aria-live="polite" className="text-[11px] leading-relaxed">
             <MessageEtat etat={etat} lang={lang} />
           </p>
         </div>
       </div>
+    </form>
+  );
+}
+
+/**
+ * Champ piège.
+ *
+ * Hors écran plutôt qu'en `display:none` ou `hidden` : les moissonneurs les
+ * plus sommaires sautent ce qui est explicitement masqué, alors qu'ils
+ * remplissent ce qui est dans le flux. Le nom `entreprise` est choisi pour
+ * paraître légitime à un robot qui décide d'après l'attribut `name`.
+ *
+ * Invisible aux humains sur les trois canaux à la fois : à l'œil (hors cadre),
+ * au clavier (`tabIndex={-1}`) et au lecteur d'écran (`aria-hidden`).
+ */
+function ChampPiege({
+  lang,
+  valeur,
+  onChange,
+}: Readonly<{
+  lang: Lang;
+  valeur: string;
+  onChange: (v: string) => void;
+}>) {
+  return (
+    <div
+      aria-hidden="true"
+      style={{
+        position: "absolute",
+        left: "-9999px",
+        width: 1,
+        height: 1,
+        overflow: "hidden",
+      }}
+    >
+      <label htmlFor="contact-entreprise">
+        {lang === "en" ? "Company" : "Entreprise"}
+      </label>
+      <input
+        id="contact-entreprise"
+        name="entreprise"
+        type="text"
+        tabIndex={-1}
+        autoComplete="off"
+        value={valeur}
+        onChange={(e) => onChange(e.target.value)}
+      />
     </div>
   );
 }
@@ -544,97 +593,68 @@ function LienCourriel() {
   );
 }
 
-/** Lien sortant des politiques Google, même habillage pour les deux. */
-function LienGoogle({
-  href,
-  children,
-}: Readonly<{ href: string; children: ReactNode }>) {
-  return (
-    <a
-      href={href}
-      className="underline underline-offset-4 hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
-    >
-      {children}
-    </a>
-  );
-}
-
 /**
  * Ligne d'état sous le bouton d'envoi.
  *
- * Trois messages exclusifs pour un même emplacement : envoi réussi, envoi
- * échoué, et au repos la mention reCAPTCHA que Google impose à tout site qui
- * l'utilise. Extrait de `Composition` plutôt qu'imbriqué : trois branches
- * croisées avec deux langues donnaient quatre niveaux de ternaires dans le
- * JSX, et à eux seuls l'essentiel de la complexité du composant parent. En
- * sortie de fonction, chaque cas se lit isolément.
+ * Un emplacement, cinq messages exclusifs. Extrait de `Composition` plutôt
+ * qu'imbriqué : autant de branches croisées avec deux langues donnaient des
+ * ternaires sur quatre niveaux dans le JSX, et à eux seuls l'essentiel de la
+ * complexité du composant parent. En sortie de fonction, chaque cas se lit
+ * isolément.
  *
- * Le point final est écrit `{"."}` et non collé en fin de ligne : JSX supprime
- * le saut de ligne entre `</a>` et le texte qui suit, donc la ponctuation se
- * recolle bien au lien — mais rien ne le dit à la lecture. L'accolade rend
- * l'intention explicite au lieu de la laisser dépendre d'une règle de
- * découpage des blancs.
+ * Ni vert ni rouge par défaut : le succès prend le cyan de support du site, les
+ * échecs le corail de la palette. Le point final est écrit `{"."}` et non collé
+ * en fin de ligne — JSX supprime le saut de ligne entre `</a>` et le texte qui
+ * suit, donc la ponctuation se recolle bien au lien, mais rien ne le dit à la
+ * lecture. L'accolade rend l'intention explicite au lieu de la laisser dépendre
+ * d'une règle de découpage des blancs.
  */
 function MessageEtat({ etat, lang }: Readonly<{ etat: Etat; lang: Lang }>) {
   if (etat === "succes") {
     return (
-      <span className="text-[#dbe6fb]">
+      <span data-cp-accent style={{ color: "var(--soft)" }}>
         {lang === "en"
-          ? "Message sent — we reply within 1 business day."
-          : "Message envoyé — réponse sous 1 jour ouvrable."}
+          ? "Message sent — we reply quickly."
+          : "Message envoyé — on vous répond rapidement."}
       </span>
     );
   }
 
-  if (etat === "erreur") {
+  if (etat === "debit") {
     return (
-      <span className="text-red-300">
-        {lang === "en" ? (
-          <>
-            Something went wrong. Try again, or email us directly at{" "}
-            <LienCourriel />
-            {"."}
-          </>
-        ) : (
-          <>
-            L’envoi a échoué. Réessayez, ou écrivez directement à{" "}
-            <LienCourriel />
-            {"."}
-          </>
-        )}
+      <span style={{ color: TEXTE_ERREUR }}>
+        {lang === "en"
+          ? "Too many attempts. Wait a few minutes, or email us directly at "
+          : "Trop de tentatives. Patientez quelques minutes, ou écrivez directement à "}
+        <LienCourriel />
+        {"."}
       </span>
     );
   }
 
-  return (
-    <span className="text-[#93a3c2]">
-      {lang === "en" ? (
-        <>
-          This site is protected by reCAPTCHA — Google{" "}
-          <LienGoogle href="https://policies.google.com/privacy">
-            Privacy Policy
-          </LienGoogle>{" "}
-          and{" "}
-          <LienGoogle href="https://policies.google.com/terms">
-            Terms of Service
-          </LienGoogle>
-          {"."}
-        </>
-      ) : (
-        <>
-          Ce site est protégé par reCAPTCHA — Google{" "}
-          <LienGoogle href="https://policies.google.com/privacy">
-            Politique de confidentialité
-          </LienGoogle>{" "}
-          et{" "}
-          <LienGoogle href="https://policies.google.com/terms">
-            Conditions d’utilisation
-          </LienGoogle>
-          {"."}
-        </>
-      )}
-    </span>
-  );
+  if (etat === "expire") {
+    return (
+      <span style={{ color: TEXTE_ERREUR }}>
+        {lang === "en"
+          ? "This page has been open for a while. Reload it and send again."
+          : "Cette page est ouverte depuis un moment. Rechargez-la et renvoyez."}
+      </span>
+    );
+  }
+
+  if (etat === "echec") {
+    return (
+      <span style={{ color: TEXTE_ERREUR }}>
+        {lang === "en"
+          ? "Something went wrong. Try again, or email us directly at "
+          : "L’envoi a échoué. Réessayez, ou écrivez directement à "}
+        <LienCourriel />
+        {"."}
+      </span>
+    );
+  }
+
+  return null;
 }
 
 /**
@@ -652,8 +672,9 @@ function Compteur({ longueur }: Readonly<{ longueur: number }>) {
     <p
       id="message-compteur"
       className={`mt-1.5 text-right text-[11px] tabular-nums ${
-        alerte ? "text-amber-300" : "text-[#93a3c2]"
+        alerte ? "" : "text-white/55"
       }`}
+      style={alerte ? { color: "var(--cta)" } : undefined}
     >
       {longueur} / {LIMITE_MESSAGE}
     </p>
@@ -663,7 +684,11 @@ function Compteur({ longueur }: Readonly<{ longueur: number }>) {
 function Erreur({ cle, message }: Readonly<{ cle: Cle; message?: string }>) {
   if (!message) return null;
   return (
-    <p id={`erreur-${cle}`} className="mt-1.5 text-[12px] text-red-300">
+    <p
+      id={`erreur-${cle}`}
+      className="mt-1.5 text-[12px]"
+      style={{ color: TEXTE_ERREUR }}
+    >
       {message}
     </p>
   );

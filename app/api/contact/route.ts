@@ -1,13 +1,15 @@
 import { NextResponse } from "next/server";
 import nodemailer from "nodemailer";
 import { COURRIEL } from "@/components/marketing/coordonnees";
+import { empreinteIp, jetonValide } from "@/lib/jetonContact";
 
 /**
  * Route serveur du formulaire de contact.
  *
  * Remplace l'ancien `mailto:` (voir l'historique de `FenetreContact.tsx`) :
- * ici l'envoi est réel, vérifié par reCAPTCHA v3 et journalisé côté serveur
- * en cas d'échec.
+ * ici l'envoi est réel, filtré sans tiers (champ piège, jeton horodaté signé,
+ * limite de débit par empreinte d'IP — voir `lib/jetonContact.ts`) et
+ * journalisé côté serveur en cas d'échec.
  */
 
 const LIMITE_MESSAGE = 5000;
@@ -16,22 +18,55 @@ const RATE_LIMIT_FENETRE_MS = 10 * 60 * 1000;
 const RATE_LIMIT_MAX = 5;
 
 /**
- * Compteur en mémoire, par IP — pas de Redis en place, et le déploiement
- * Coolify actuel tourne sur une seule instance. Insuffisant si l'app est un
- * jour répliquée, mais évite qu'un script épuise le quota SMTP ou fasse
- * blacklister le domaine d'envoi.
+ * Garde-fou de taille de la table, pas une règle de débit.
+ *
+ * La purge ci-dessous suffit en régime normal ; ce plafond n'existe que pour
+ * le cas pathologique d'une avalanche d'IP distinctes dans une même fenêtre,
+ * où la table grossirait plus vite qu'elle n'expire.
  */
-const compteurParIp = new Map<string, { count: number; resetAt: number }>();
+const RATE_LIMIT_ENTREES_MAX = 10_000;
 
-function ipDepassee(request: Request): boolean {
+/**
+ * Compteur en mémoire, indexé par EMPREINTE d'IP — jamais par l'adresse elle-
+ * même. Pas de Redis en place, et le déploiement Coolify actuel tourne sur une
+ * seule instance. Insuffisant si l'app est un jour répliquée, mais évite qu'un
+ * script épuise le quota SMTP ou fasse blacklister le domaine d'envoi.
+ *
+ * Rétention : une entrée vit au plus la durée de sa fenêtre, soit dix minutes.
+ * Rien n'est écrit sur disque, et les soumissions rejetées ne sont pas
+ * journalisées. C'est ce qui tient en une phrase dans la politique de
+ * confidentialité.
+ */
+const compteurs = new Map<string, { count: number; resetAt: number }>();
+
+/**
+ * Retire les entrées expirées à chaque requête.
+ *
+ * Sans ça, une entrée n'était nettoyée que si la même source revenait : la
+ * table grossissait indéfiniment et gardait des traces bien au-delà de la
+ * fenêtre utile. Balayage O(n) sur une table qui compte quelques dizaines
+ * d'entrées — le coût est sans commune mesure avec un envoi SMTP.
+ */
+function purger(maintenant: number): void {
+  for (const [cle, entree] of compteurs) {
+    if (entree.resetAt <= maintenant) compteurs.delete(cle);
+  }
+  if (compteurs.size > RATE_LIMIT_ENTREES_MAX) compteurs.clear();
+}
+
+function debitDepasse(request: Request): boolean {
   const ip =
     request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ??
     "inconnue";
   const maintenant = Date.now();
-  const entree = compteurParIp.get(ip);
+
+  purger(maintenant);
+
+  const cle = empreinteIp(ip);
+  const entree = compteurs.get(cle);
 
   if (!entree || entree.resetAt <= maintenant) {
-    compteurParIp.set(ip, {
+    compteurs.set(cle, {
       count: 1,
       resetAt: maintenant + RATE_LIMIT_FENETRE_MS,
     });
@@ -49,7 +84,10 @@ type Corps = {
   message?: string;
   /** Provenance facultative (ex. « exploration » depuis /mines). */
   source?: string;
-  recaptchaToken?: string;
+  /** Jeton horodaté signé, posé dans la page rendue. */
+  jeton?: string;
+  /** Champ piège : vide chez un humain, rempli par un robot qui remplit tout. */
+  piege?: string;
 };
 
 /**
@@ -75,11 +113,10 @@ const LIMITES = {
  * `[^\s@]` accepte le point, donc dans `[^\s@]+\.[^\s@]+$` le moteur a
  * plusieurs découpages possibles et les essaie tous quand l'adresse ne
  * correspond pas — coût quadratique en la longueur. Cette fonction s'exécute
- * avant la vérification reCAPTCHA, sur une route publique : sans borne, une
- * seule requête portant une chaîne de quelques centaines de milliers de
- * caractères bloquait la boucle d'événements, et le compteur par IP
- * (5 requêtes / 10 min, en mémoire, une seule instance) n'y suffisait pas.
- * Sous 254 caractères, le pire cas est négligeable.
+ * sur une route publique : sans borne, une seule requête portant une chaîne de
+ * quelques centaines de milliers de caractères bloquait la boucle d'événements,
+ * et le compteur par source (5 requêtes / 10 min, en mémoire, une seule
+ * instance) n'y suffisait pas. Sous 254 caractères, le pire cas est négligeable.
  */
 function champsInvalides(corps: Corps): string[] {
   const invalides: string[] = [];
@@ -105,34 +142,6 @@ function champsInvalides(corps: Corps): string[] {
   return invalides;
 }
 
-/**
- * Vérifie le jeton reCAPTCHA v3 auprès de Google.
- *
- * Seuil de score à 0.5 : la valeur par défaut recommandée par Google entre
- * « probablement humain » et « probablement robot ». `action` doit
- * correspondre à celle déclarée côté client (`contact`), sinon un jeton
- * valide obtenu ailleurs sur le site pourrait être rejoué ici.
- */
-async function recaptchaValide(token: string | undefined): Promise<boolean> {
-  const secret = process.env.RECAPTCHA_SECRET_KEY;
-  if (!token || !secret) return false;
-
-  const reponse = await fetch(
-    "https://www.google.com/recaptcha/api/siteverify",
-    {
-      method: "POST",
-      headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      body: new URLSearchParams({ secret, response: token }),
-    },
-  );
-  const donnees = await reponse.json();
-  return (
-    donnees.success === true &&
-    (donnees.score ?? 0) >= 0.5 &&
-    donnees.action === "contact"
-  );
-}
-
 /** Un seul transporteur réutilisé entre les requêtes plutôt que reconnecté à chaque envoi. */
 let transporteur: nodemailer.Transporter | null = null;
 
@@ -152,7 +161,7 @@ function obtenirTransporteur() {
 }
 
 export async function POST(request: Request) {
-  if (ipDepassee(request)) {
+  if (debitDepasse(request)) {
     return NextResponse.json(
       { ok: false, erreur: "Trop de tentatives. Réessayez plus tard." },
       { status: 429 },
@@ -169,6 +178,13 @@ export async function POST(request: Request) {
     );
   }
 
+  // Champ piège rempli : c'est un robot. On répond comme si tout s'était bien
+  // passé — un rejet explicite lui apprendrait quel champ éviter au prochain
+  // essai. Rien n'est envoyé, rien n'est journalisé.
+  if (corps.piege?.trim()) {
+    return NextResponse.json({ ok: true });
+  }
+
   const invalides = champsInvalides(corps);
   if (invalides.length > 0) {
     return NextResponse.json(
@@ -177,10 +193,13 @@ export async function POST(request: Request) {
     );
   }
 
-  if (!(await recaptchaValide(corps.recaptchaToken))) {
+  // Statut distinct du 400 : ici la saisie est bonne, c'est le jeton de page
+  // qui manque, a expiré, ou est arrivé trop vite. Le client peut donc dire au
+  // visiteur de recharger plutôt que de le laisser corriger un champ correct.
+  if (!jetonValide(corps.jeton)) {
     return NextResponse.json(
-      { ok: false, erreur: "Vérification anti-robot échouée." },
-      { status: 400 },
+      { ok: false, erreur: "Session expirée." },
+      { status: 403 },
     );
   }
 
@@ -200,7 +219,13 @@ export async function POST(request: Request) {
       text: `Nom : ${corps.nom}\nCourriel : ${corps.courriel}\n${ligneSource}\n${corps.message}`,
     });
   } catch (erreur) {
-    console.error("Échec de l'envoi du courriel de contact :", erreur);
+    // Le message seul, pas l'objet : une erreur nodemailer transporte
+    // l'enveloppe, donc l'adresse du visiteur, et les journaux du serveur ne
+    // sont pas l'endroit où la conserver.
+    console.error(
+      "Échec de l'envoi du courriel de contact :",
+      erreur instanceof Error ? erreur.message : "cause inconnue",
+    );
     return NextResponse.json(
       { ok: false, erreur: "L'envoi a échoué. Réessayez plus tard." },
       { status: 502 },

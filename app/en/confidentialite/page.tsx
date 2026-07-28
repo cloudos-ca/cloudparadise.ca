@@ -3,8 +3,11 @@ import Link from "next/link";
 import { BreadcrumbJsonLd } from "@/components/marketing/BreadcrumbJsonLd";
 import { HreflangLinks } from "@/components/marketing/HreflangLinks";
 import { PageEntete } from "@/components/marketing/PageEntete";
-import { Reveal } from "@/components/marketing/Reveal";
+import { AncresSections } from "@/components/marketing/AncresSections";
 import {
+  ancresDe,
+  CONTENEUR_LEGAL,
+  GABARIT_LEGAL,
   SectionsRedigees,
   type SectionRedigee,
 } from "@/components/marketing/legal";
@@ -124,7 +127,7 @@ const SECTIONS: readonly SectionRedigee[] = [
       },
       "We do not use your files or your results to train models, nor for advertising profiling purposes. Since the AI model used for the planning assistant is self-hosted, your exchanges are also never used to train a third party’s models. We do not reuse any information for a purpose incompatible with those above without your consent.",
       <>
-        <strong className="font-medium text-[#dbe6fb]">
+        <strong className="font-semibold text-white">
           Automated processing.
         </strong>{" "}
         The planning assistant suggests plans to you, but decisions about
@@ -313,7 +316,7 @@ const SECTIONS: readonly SectionRedigee[] = [
         ],
       },
       <>
-        <strong className="font-medium text-[#dbe6fb]">
+        <strong className="font-semibold text-white">
           Privacy incident.
         </strong>{" "}
         In the event of an incident presenting a risk of serious harm, we take
@@ -333,10 +336,7 @@ const SECTIONS: readonly SectionRedigee[] = [
           {
             terme: "Email:",
             texte: (
-              <a
-                href={`mailto:${COURRIEL_RESPONSABLE}`}
-                className="underline underline-offset-2 transition-colors hover:text-[#eef4ff]"
-              >
+              <a href={`mailto:${COURRIEL_RESPONSABLE}`}>
                 {COURRIEL_RESPONSABLE}
               </a>
             ),
@@ -358,10 +358,7 @@ const SECTIONS: readonly SectionRedigee[] = [
       <>
         For any question relating to this policy or to your personal
         information, contact our privacy officer (section 10) or visit our{" "}
-        <Link
-          href="/en/contact"
-          className="underline underline-offset-2 transition-colors hover:text-[#eef4ff]"
-        >
+        <Link href="/en/contact">
           Contact page
         </Link>
         .
@@ -374,7 +371,6 @@ const SECTIONS: readonly SectionRedigee[] = [
           href="https://www.cai.gouv.qc.ca"
           target="_blank"
           rel="noreferrer"
-          className="underline underline-offset-2 transition-colors hover:text-[#eef4ff]"
         >
           cai.gouv.qc.ca
         </a>
@@ -384,9 +380,12 @@ const SECTIONS: readonly SectionRedigee[] = [
   },
 ];
 
+/** Voir la version française : référence stable pour l'effet d'`AncresSections`. */
+const ANCRES = ancresDe(SECTIONS);
+
 export default function ConfidentialitePageEn() {
   return (
-    <section className="relative">
+    <section className="relative" data-page-sobre>
       <HreflangLinks fr="/confidentialite" en="/en/confidentialite" />
       <BreadcrumbJsonLd
         items={[
@@ -395,36 +394,50 @@ export default function ConfidentialitePageEn() {
         ]}
       />
       <div className={`${SHELL} ${SECTION_Y}`}>
-        <PageEntete
-          eyebrow="Legal"
-          titre="Privacy Policy"
-          soustitre={`Last updated: ${MAJ}`}
-        />
+        <div className={CONTENEUR_LEGAL}>
+          <PageEntete eyebrow="Legal" titre="Privacy Policy" />
+          <p className={`${LECTURE} mt-3 text-[13px] text-white/55`}>
+            Last updated: {MAJ}
+          </p>
 
-        <Reveal delay={0.1} className={`${LECTURE} mt-8`}>
-          <div className="mt-8 space-y-3 text-sm leading-relaxed text-[#93a3c2]">
-            <p>
-              This policy describes how Cloud Paradise (“Cloud Paradise”,
-              “we”) collects, uses, discloses, and protects the personal
-              information of individuals who use its computing platform (the
-              “Service”). It applies to the site, the application, and any
-              feature attached to it.
-            </p>
-            <p>
-              Cloud Paradise is a business established in Quebec and is
-              subject to Quebec’s Act respecting the protection of personal
-              information in the private sector, as amended by “Law 25”.
-            </p>
-            <p>
-              Data controller: {DENOMINATION_LEGALE}, doing business at{" "}
-              {ADRESSE_LIGNE}.
-            </p>
-          </div>
+          <div className={GABARIT_LEGAL}>
+            <div className="lg:col-start-2 lg:row-start-1">
+              <AncresSections
+                ancres={ANCRES}
+                lang="en"
+                disposition="colonne"
+                titre="Contents"
+              />
+            </div>
 
-          <div className="mt-10">
-            <SectionsRedigees sections={SECTIONS} />
+            {/* Voir la version française : pas de `Reveal` sur le corps, son
+                repli remontait le sous-arbre sous l'observateur du sommaire. */}
+            <div className="min-w-0 lg:col-start-1 lg:row-start-1">
+              <div className="prose-legal space-y-4 text-base leading-[1.7] text-white/85">
+                <p>
+                  This policy describes how Cloud Paradise (“Cloud Paradise”,
+                  “we”) collects, uses, discloses, and protects the personal
+                  information of individuals who use its computing platform
+                  (the “Service”). It applies to the site, the application, and
+                  any feature attached to it.
+                </p>
+                <p>
+                  Cloud Paradise is a business established in Quebec and is
+                  subject to Quebec’s Act respecting the protection of personal
+                  information in the private sector, as amended by “Law 25”.
+                </p>
+                <p>
+                  Data controller: {DENOMINATION_LEGALE}, doing business at{" "}
+                  {ADRESSE_LIGNE}.
+                </p>
+              </div>
+
+              <div className="mt-14">
+                <SectionsRedigees sections={SECTIONS} />
+              </div>
+            </div>
           </div>
-        </Reveal>
+        </div>
       </div>
     </section>
   );

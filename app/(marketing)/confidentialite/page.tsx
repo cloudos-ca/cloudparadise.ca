@@ -3,8 +3,11 @@ import Link from "next/link";
 import { BreadcrumbJsonLd } from "@/components/marketing/BreadcrumbJsonLd";
 import { HreflangLinks } from "@/components/marketing/HreflangLinks";
 import { PageEntete } from "@/components/marketing/PageEntete";
-import { Reveal } from "@/components/marketing/Reveal";
+import { AncresSections } from "@/components/marketing/AncresSections";
 import {
+  ancresDe,
+  CONTENEUR_LEGAL,
+  GABARIT_LEGAL,
   SectionsRedigees,
   type SectionRedigee,
 } from "@/components/marketing/legal";
@@ -126,7 +129,7 @@ const SECTIONS: readonly SectionRedigee[] = [
       },
       "Nous n’utilisons pas vos fichiers ni vos résultats pour entraîner des modèles ni à des fins de profilage publicitaire. Le modèle d’IA utilisé pour l’assistant de planification étant auto-hébergé, vos échanges ne servent pas non plus à entraîner des modèles d’un tiers. Nous ne réutilisons aucun renseignement à une fin incompatible avec celles ci-dessus sans votre consentement.",
       <>
-        <strong className="font-medium text-[#dbe6fb]">
+        <strong className="font-semibold text-white">
           Traitement automatisé.
         </strong>{" "}
         L’assistant de planification vous suggère des plans, mais les décisions
@@ -322,7 +325,7 @@ const SECTIONS: readonly SectionRedigee[] = [
         ],
       },
       <>
-        <strong className="font-medium text-[#dbe6fb]">
+        <strong className="font-semibold text-white">
           Incident de confidentialité.
         </strong>{" "}
         En cas d’incident présentant un risque de préjudice sérieux, nous
@@ -343,10 +346,7 @@ const SECTIONS: readonly SectionRedigee[] = [
           {
             terme: "Courriel :",
             texte: (
-              <a
-                href={`mailto:${COURRIEL_RESPONSABLE}`}
-                className="underline underline-offset-2 transition-colors hover:text-[#eef4ff]"
-              >
+              <a href={`mailto:${COURRIEL_RESPONSABLE}`}>
                 {COURRIEL_RESPONSABLE}
               </a>
             ),
@@ -369,10 +369,7 @@ const SECTIONS: readonly SectionRedigee[] = [
         Pour toute question relative à la présente politique ou à vos
         renseignements personnels, communiquez avec notre responsable (section
         10) ou visitez notre{" "}
-        <Link
-          href="/contact"
-          className="underline underline-offset-2 transition-colors hover:text-[#eef4ff]"
-        >
+        <Link href="/contact">
           page Contact
         </Link>
         .
@@ -385,7 +382,6 @@ const SECTIONS: readonly SectionRedigee[] = [
           href="https://www.cai.gouv.qc.ca"
           target="_blank"
           rel="noreferrer"
-          className="underline underline-offset-2 transition-colors hover:text-[#eef4ff]"
         >
           cai.gouv.qc.ca
         </a>
@@ -395,9 +391,13 @@ const SECTIONS: readonly SectionRedigee[] = [
   },
 ];
 
+/** Référence stable, calculée au module : `AncresSections` en dépend par effet. */
+const ANCRES = ancresDe(SECTIONS);
+
 export default function ConfidentialitePage() {
   return (
-    <section className="relative">
+    // `data-page-sobre` éteint la lueur haute du fond — voir /conditions.
+    <section className="relative" data-page-sobre>
       <HreflangLinks fr="/confidentialite" en="/en/confidentialite" />
       <BreadcrumbJsonLd
         items={[
@@ -406,38 +406,56 @@ export default function ConfidentialitePage() {
         ]}
       />
       <div className={`${SHELL} ${SECTION_Y}`}>
-        <PageEntete
-          eyebrow="Légal"
-          titre="Politique de confidentialité"
-          soustitre={`Dernière mise à jour : ${MAJ}`}
-        />
+        <div className={CONTENEUR_LEGAL}>
+          <PageEntete eyebrow="Légal" titre="Politique de confidentialité" />
+          {/* Métadonnée du document — voir /conditions pour le même traitement. */}
+          <p className={`${LECTURE} mt-3 text-[13px] text-white/55`}>
+            Dernière mise à jour : {MAJ}
+          </p>
 
-        <Reveal delay={0.1} className={`${LECTURE} mt-8`}>
-          <div className="mt-8 space-y-3 text-sm leading-relaxed text-[#93a3c2]">
-            <p>
-              La présente politique décrit comment Cloud Paradise
-              («&nbsp;Cloud Paradise&nbsp;», «&nbsp;nous&nbsp;») recueille,
-              utilise, communique et protège les renseignements personnels des
-              personnes qui utilisent sa plateforme de calcul (le
-              «&nbsp;Service&nbsp;»). Elle s’applique au site, à l’application
-              et à toute fonctionnalité qui y est rattachée.
-            </p>
-            <p>
-              Cloud Paradise est une entreprise établie au Québec et est
-              assujettie à la Loi sur la protection des renseignements
-              personnels dans le secteur privé telle que modifiée par la
-              Loi 25.
-            </p>
-            <p>
-              Responsable du traitement : {DENOMINATION_LEGALE}, faisant
-              affaires au {ADRESSE_LIGNE}.
-            </p>
-          </div>
+          <div className={GABARIT_LEGAL}>
+            <div className="lg:col-start-2 lg:row-start-1">
+              <AncresSections
+                ancres={ANCRES}
+                disposition="colonne"
+                titre="Sommaire"
+              />
+            </div>
 
-          <div className="mt-10">
-            <SectionsRedigees sections={SECTIONS} />
+            {/* Pas de `Reveal` ici : son repli de sécurité remplace le
+                `motion.div` par un `div` nu au bout d'1,5 s, ce qui remonte tout
+                le sous-arbre — l'`IntersectionObserver` du sommaire gardait
+                alors les anciens nœuds et ne suivait plus le défilement. */}
+            <div className="min-w-0 lg:col-start-1 lg:row-start-1">
+              {/* Chapeau du document : hors numérotation, donc hors sommaire,
+                  mais au même corps de texte que les sections. */}
+              <div className="prose-legal space-y-4 text-base leading-[1.7] text-white/85">
+                <p>
+                  La présente politique décrit comment Cloud Paradise
+                  («&nbsp;Cloud Paradise&nbsp;», «&nbsp;nous&nbsp;») recueille,
+                  utilise, communique et protège les renseignements personnels
+                  des personnes qui utilisent sa plateforme de calcul (le
+                  «&nbsp;Service&nbsp;»). Elle s’applique au site, à
+                  l’application et à toute fonctionnalité qui y est rattachée.
+                </p>
+                <p>
+                  Cloud Paradise est une entreprise établie au Québec et est
+                  assujettie à la Loi sur la protection des renseignements
+                  personnels dans le secteur privé telle que modifiée par la
+                  Loi 25.
+                </p>
+                <p>
+                  Responsable du traitement : {DENOMINATION_LEGALE}, faisant
+                  affaires au {ADRESSE_LIGNE}.
+                </p>
+              </div>
+
+              <div className="mt-14">
+                <SectionsRedigees sections={SECTIONS} />
+              </div>
+            </div>
           </div>
-        </Reveal>
+        </div>
       </div>
     </section>
   );

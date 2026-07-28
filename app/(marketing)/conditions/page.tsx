@@ -3,8 +3,11 @@ import Link from "next/link";
 import { BreadcrumbJsonLd } from "@/components/marketing/BreadcrumbJsonLd";
 import { HreflangLinks } from "@/components/marketing/HreflangLinks";
 import { PageEntete } from "@/components/marketing/PageEntete";
-import { Reveal } from "@/components/marketing/Reveal";
+import { AncresSections } from "@/components/marketing/AncresSections";
 import {
+  ancresDe,
+  CONTENEUR_LEGAL,
+  GABARIT_LEGAL,
   SectionsRedigees,
   type SectionRedigee,
 } from "@/components/marketing/legal";
@@ -41,32 +44,26 @@ const SECTIONS: readonly SectionRedigee[] = [
     titre: "Qui nous sommes",
     blocs: [
       <>
-        Le service « Cloud Paradise » (le « <strong className="font-medium text-[#dbe6fb]">Service</strong> », la
-        « <strong className="font-medium text-[#dbe6fb]">Plateforme</strong> ») est exploité par Cloud Paradise
-        (« <strong className="font-medium text-[#dbe6fb]">Cloud Paradise</strong> », « nous », « notre », « nos »),
+        Le service « Cloud Paradise » (le « <strong className="font-semibold text-white">Service</strong> », la
+        « <strong className="font-semibold text-white">Plateforme</strong> ») est exploité par Cloud Paradise
+        (« <strong className="font-semibold text-white">Cloud Paradise</strong> », « nous », « notre », « nos »),
         dont l’établissement est situé au :
       </>,
       {
         brut: (
-          <blockquote className="border-l-2 border-white/15 pl-4 text-[#93a3c2]">
+          <blockquote className="border-l-2 border-white/15 pl-4 text-white/85">
             <p>Cloud Paradise</p>
             <p>{ADRESSE_LIGNE}</p>
             <p>Canada</p>
             <p className="mt-2">
               Courriel :{" "}
-              <a
-                href={`mailto:${COURRIEL}`}
-                className="underline underline-offset-2 transition-colors hover:text-[#eef4ff]"
-              >
+              <a href={`mailto:${COURRIEL}`}>
                 {COURRIEL}
               </a>
             </p>
             <p>
               Téléphone :{" "}
-              <a
-                href={`tel:${TELEPHONE_LIEN}`}
-                className="underline underline-offset-2 transition-colors hover:text-[#eef4ff]"
-              >
+              <a href={`tel:${TELEPHONE_LIEN}`}>
                 {TELEPHONE}
               </a>
             </p>
@@ -82,10 +79,7 @@ const SECTIONS: readonly SectionRedigee[] = [
         Les présentes conditions d’utilisation (les « Conditions ») encadrent votre accès au Service et
         son utilisation. En créant un compte, en accédant au Service ou en l’utilisant, vous reconnaissez
         avoir lu, compris et accepté d’être lié par les présentes Conditions ainsi que par notre{" "}
-        <Link
-          href="/confidentialite"
-          className="underline underline-offset-2 transition-colors hover:text-[#eef4ff]"
-        >
+        <Link href="/confidentialite">
           Politique de confidentialité
         </Link>
         .
@@ -181,10 +175,7 @@ const SECTIONS: readonly SectionRedigee[] = [
               <>
                 Vous êtes responsable de la confidentialité de votre mot de passe et de toute activité
                 effectuée au moyen de votre compte. Vous vous engagez à nous aviser sans délai à{" "}
-                <a
-                  href={`mailto:${COURRIEL}`}
-                  className="underline underline-offset-2 transition-colors hover:text-[#eef4ff]"
-                >
+                <a href={`mailto:${COURRIEL}`}>
                   {COURRIEL}
                 </a>{" "}
                 de toute utilisation non autorisée ou de toute atteinte présumée à la sécurité de votre
@@ -219,7 +210,7 @@ const SECTIONS: readonly SectionRedigee[] = [
         ],
       },
       <>
-        <strong className="font-medium text-[#dbe6fb]">Prix des traitements.</strong> Le prix de chaque
+        <strong className="font-semibold text-white">Prix des traitements.</strong> Le prix de chaque
         type de traitement est affiché dans le Service et sur notre site avant l’exécution. À titre
         indicatif seulement, et sous réserve de modification, les tarifs par exécution sont de l’ordre
         de :
@@ -246,10 +237,7 @@ const SECTIONS: readonly SectionRedigee[] = [
                 <em>Loi sur la protection du consommateur</em> du Québec — les crédits achetés ne sont pas
                 remboursables une fois consommés. Les crédits non utilisés peuvent faire l’objet d’un
                 remboursement à notre discrétion ou lorsque la loi l’exige. Pour toute demande, écrivez à{" "}
-                <a
-                  href={`mailto:${COURRIEL}`}
-                  className="underline underline-offset-2 transition-colors hover:text-[#eef4ff]"
-                >
+                <a href={`mailto:${COURRIEL}`}>
                   {COURRIEL}
                 </a>
                 {"."}
@@ -393,10 +381,7 @@ const SECTIONS: readonly SectionRedigee[] = [
               <>
                 Vous pouvez cesser d’utiliser le Service et demander la fermeture de votre compte en tout
                 temps en nous écrivant à{" "}
-                <a
-                  href={`mailto:${COURRIEL}`}
-                  className="underline underline-offset-2 transition-colors hover:text-[#eef4ff]"
-                >
+                <a href={`mailto:${COURRIEL}`}>
                   {COURRIEL}
                 </a>
                 {"."}
@@ -421,7 +406,7 @@ const SECTIONS: readonly SectionRedigee[] = [
     titre: "Exclusion de garanties",
     blocs: [
       "Dans la mesure maximale permise par la loi applicable, le Service est fourni « tel quel » et « selon la disponibilité », sans garantie d’aucune sorte, expresse ou implicite, y compris toute garantie implicite de qualité marchande, d’adéquation à un usage particulier, de titre ou d’absence de contrefaçon, ainsi que toute garantie de disponibilité continue, d’absence d’erreur ou de sécurité absolue.",
-      <strong key="reserve" className="block font-medium text-[#dbe6fb]">
+      <strong key="reserve" className="block font-semibold text-white">
         Rien dans le présent article n’a pour effet d’exclure ou de limiter les garanties ou droits que
         la loi applicable, notamment la Loi sur la protection du consommateur du Québec, rend
         obligatoires et auxquels il ne peut être renoncé par contrat.
@@ -444,7 +429,7 @@ const SECTIONS: readonly SectionRedigee[] = [
           },
         ],
       },
-      <strong key="reserve" className="block font-medium text-[#dbe6fb]">
+      <strong key="reserve" className="block font-semibold text-white">
         Ces limitations ne s’appliquent pas dans la mesure où elles seraient interdites par la loi
         applicable, notamment à l’égard d’un consommateur au sens de la Loi sur la protection du
         consommateur du Québec.
@@ -462,20 +447,14 @@ const SECTIONS: readonly SectionRedigee[] = [
     blocs: [
       <>
         Le traitement de vos renseignements personnels est régi par notre{" "}
-        <Link
-          href="/confidentialite"
-          className="underline underline-offset-2 transition-colors hover:text-[#eef4ff]"
-        >
+        <Link href="/confidentialite">
           Politique de confidentialité
         </Link>
         , conforme à la Loi sur la protection des renseignements personnels dans le secteur privé du
         Québec (« Loi 25 »). En utilisant le Service, vous reconnaissez avoir pris connaissance de cette
         politique. Pour toute question relative à vos renseignements personnels ou pour exercer vos
         droits (accès, rectification, retrait), écrivez à{" "}
-        <a
-          href={`mailto:${COURRIEL}`}
-          className="underline underline-offset-2 transition-colors hover:text-[#eef4ff]"
-        >
+        <a href={`mailto:${COURRIEL}`}>
           {COURRIEL}
         </a>
         {"."}
@@ -534,24 +513,18 @@ const SECTIONS: readonly SectionRedigee[] = [
       "Pour toute question relative aux présentes Conditions :",
       {
         brut: (
-          <blockquote className="border-l-2 border-white/15 pl-4 text-[#93a3c2]">
-            <p className="text-[#dbe6fb]">Cloud Paradise</p>
+          <blockquote className="border-l-2 border-white/15 pl-4 text-white/85">
+            <p className="text-white">Cloud Paradise</p>
             <p>{ADRESSE_LIGNE}, Canada</p>
             <p className="mt-2">
               Courriel :{" "}
-              <a
-                href={`mailto:${COURRIEL}`}
-                className="underline underline-offset-2 transition-colors hover:text-[#eef4ff]"
-              >
+              <a href={`mailto:${COURRIEL}`}>
                 {COURRIEL}
               </a>
             </p>
             <p>
               Téléphone :{" "}
-              <a
-                href={`tel:${TELEPHONE_LIEN}`}
-                className="underline underline-offset-2 transition-colors hover:text-[#eef4ff]"
-              >
+              <a href={`tel:${TELEPHONE_LIEN}`}>
                 {TELEPHONE}
               </a>
             </p>
@@ -562,9 +535,15 @@ const SECTIONS: readonly SectionRedigee[] = [
   },
 ];
 
+/** Référence stable, calculée au module : `AncresSections` en dépend par effet. */
+const ANCRES = ancresDe(SECTIONS);
+
 export default function ConditionsPage() {
   return (
-    <section className="relative">
+    // `data-page-sobre` éteint la lueur haute du fond, pour cette page seule
+    // (voir globals.css) : un document qu'on lit d'un bout à l'autre n'a pas
+    // besoin d'un halo derrière son premier paragraphe.
+    <section className="relative" data-page-sobre>
       <HreflangLinks fr="/conditions" en="/en/conditions" />
       <BreadcrumbJsonLd
         items={[
@@ -573,15 +552,42 @@ export default function ConditionsPage() {
         ]}
       />
       <div className={`${SHELL} ${SECTION_Y}`}>
-        <PageEntete
-          eyebrow="Légal"
-          titre="Conditions d’utilisation"
-          soustitre={`Dernière mise à jour : ${MAJ} — version ${VERSION}`}
-        />
+        <div className={CONTENEUR_LEGAL}>
+          <PageEntete eyebrow="Légal" titre="Conditions d’utilisation" />
+          {/* Métadonnée du document, pas un sous-titre : elle date la version
+              qu'on lit, elle n'annonce pas ce qu'elle contient. Discrète, donc,
+              mais à une taille qui se lit encore. */}
+          <p className={`${LECTURE} mt-3 text-[13px] text-white/55`}>
+            Dernière mise à jour : {MAJ} — version {VERSION}
+          </p>
 
-        <Reveal delay={0.1} className={`${LECTURE} mt-8`}>
-          <SectionsRedigees sections={SECTIONS} />
-        </Reveal>
+          <div className={GABARIT_LEGAL}>
+            {/* Premier dans le DOM, posé à droite à partir de `lg` : au clavier
+                et au lecteur d'écran, un sommaire se rencontre avant le texte
+                qu'il résume, et sur écran étroit il se replie au-dessus. */}
+            <div className="lg:col-start-2 lg:row-start-1">
+              <AncresSections
+                ancres={ANCRES}
+                disposition="colonne"
+                titre="Sommaire"
+              />
+            </div>
+
+            {/* `min-w-0` : sans ça, la colonne se laisse élargir par la grille
+                tarifaire et son `overflow-x-auto` ne contient plus rien.
+
+                Pas de `Reveal` ici : son repli de sécurité remplace le
+                `motion.div` par un `div` nu au bout d'1,5 s, ce qui remonte tout
+                le sous-arbre — l'`IntersectionObserver` du sommaire gardait
+                alors les anciens nœuds et ne suivait plus le défilement. Une
+                apparition unique sur un document de onze mille pixels
+                n'apportait de toute façon rien ; l'en-tête garde la sienne via
+                `PageEntete`. */}
+            <div className="min-w-0 lg:col-start-1 lg:row-start-1">
+              <SectionsRedigees sections={SECTIONS} />
+            </div>
+          </div>
+        </div>
       </div>
     </section>
   );

@@ -1,11 +1,12 @@
 import type { Metadata } from "next";
-import Script from "next/script";
+import { connection } from "next/server";
 import { BreadcrumbJsonLd } from "@/components/marketing/BreadcrumbJsonLd";
 import { FenetreContact } from "@/components/marketing/FenetreContact";
 import { HreflangLinks } from "@/components/marketing/HreflangLinks";
 import { PageEntete } from "@/components/marketing/PageEntete";
 import { Reveal } from "@/components/marketing/Reveal";
 import { SECTION_Y, SHELL } from "@/components/marketing/tokens";
+import { emettreJeton } from "@/lib/jetonContact";
 import { alternatesBilingues, openGraphPage } from "@/lib/seo";
 
 const TITRE = "Contact — Cloud Paradise";
@@ -19,7 +20,14 @@ export const metadata: Metadata = {
   openGraph: openGraphPage(TITRE, DESCRIPTION, "fr"),
 };
 
-export default function ContactPage() {
+export default async function ContactPage() {
+  // Le jeton anti-robot porte l'heure de rendu : il doit donc être émis à la
+  // requête, pas figé au build. `connection()` sort cette page seule du
+  // prérendu — le reste du site demeure statique. Les métadonnées, elles, sont
+  // évaluées à part et restent inchangées.
+  await connection();
+  const jeton = emettreJeton();
+
   return (
     // Pas de hauteur minimale forcée : la fenêtre plus le pied de page
     // dépassent déjà l'écran, donc centrer sur `100svh` ne supprimait aucun
@@ -37,22 +45,13 @@ export default function ContactPage() {
         <PageEntete
           eyebrow="Contact"
           titre="Contactez-nous"
-          soustitre="Une question sur le service, la tarification ou un projet particulier ? Écrivez-nous, on répond."
+          soustitre="Le service, la tarification, un projet particulier : écrivez-nous."
         />
 
         <Reveal delay={0.1} className="mt-8">
-          <FenetreContact />
+          <FenetreContact jeton={jeton} />
         </Reveal>
       </div>
-
-      {/* Chargé seulement ici, pas dans le layout : c'est la seule page où le
-          formulaire en a besoin, inutile de le tirer sur tout le site. */}
-      {process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY ? (
-        <Script
-          src={`https://www.google.com/recaptcha/api.js?render=${process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}`}
-          strategy="afterInteractive"
-        />
-      ) : null}
     </section>
   );
 }

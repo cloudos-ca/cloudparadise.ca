@@ -53,10 +53,22 @@ export default function MarketingLayout({
           className="fixed inset-0 -z-20"
           style={{
             background: [
-              "radial-gradient(760px 420px at 14% 6%, color-mix(in srgb, var(--soft) 20%, transparent), transparent 62%)",
               "radial-gradient(620px 420px at 86% 48%, color-mix(in srgb, var(--acc) 18%, transparent), transparent 64%)",
               "var(--sky)",
             ].join(","),
+          }}
+        />
+        {/* La lueur haute est isolée sur sa propre couche : les pages
+            juridiques l'éteignent via `data-page-sobre` (voir globals.css),
+            ce qu'un dégradé fondu dans la même déclaration que `--sky`
+            n'aurait pas permis sans emporter le fond avec lui. */}
+        <div
+          aria-hidden="true"
+          data-lueur
+          className="fixed inset-0 -z-20"
+          style={{
+            background:
+              "radial-gradient(760px 420px at 14% 6%, color-mix(in srgb, var(--soft) 20%, transparent), transparent 62%)",
           }}
         />
         {/* Grain très léger : de la matière sur le navy, sans motif
