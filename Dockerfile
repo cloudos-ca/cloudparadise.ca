@@ -14,10 +14,17 @@ WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
-# Inlined into the client bundle at build time — must be provided as a
-# Coolify build-time environment variable (not just a runtime one).
-ARG NEXT_PUBLIC_RECAPTCHA_SITE_KEY
-ENV NEXT_PUBLIC_RECAPTCHA_SITE_KEY=${NEXT_PUBLIC_RECAPTCHA_SITE_KEY}
+# Rien d'autre que SITE_ENV ne doit être déclaré ici.
+#
+# Une variable reprise en `ARG` est inscrite dans l'historique de l'image et
+# imprimée en clair dans le journal de déploiement de Coolify — `docker history`
+# la ressort ensuite à qui a l'image. Les identifiants SMTP n'ont donc rien à
+# faire au build : l'application ne les lit qu'à l'exécution, dans le route
+# handler de /api/contact. Côté Coolify, ils doivent rester décochés de
+# « Build Variable ». (Le mot de passe s'est retrouvé en clair dans un journal
+# le 2026-07-28 pour cette raison.)
+#
+# Même chose pour CONTACT_SECRET, lu à l'exécution par lib/jetonContact.ts.
 
 # Indexation. Non défini = production : le déploiement de production n'a rien
 # à poser et garde `index, follow`. Tout autre environnement (dev, aperçu) doit
