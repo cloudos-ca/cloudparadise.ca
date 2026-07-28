@@ -94,8 +94,7 @@ const OPERATIONS_SIG: readonly OperationSig[] = [
 export default function MinesPage() {
   return (
     <>
-      {/* `en` omis tant que /en/mines n'existe pas — à remettre avec. */}
-      <HreflangLinks fr="/mines" />
+      <HreflangLinks fr="/mines" en="/en/mines" />
       <BreadcrumbJsonLd
         items={[
           { nom: "Accueil", chemin: "/" },

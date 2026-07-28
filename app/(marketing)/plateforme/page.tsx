@@ -122,8 +122,7 @@ const EQUIPE: Carte[] = [
 export default function PlateformePage() {
   return (
     <>
-      {/* `en` omis tant que /en/plateforme n'existe pas — à remettre avec. */}
-      <HreflangLinks fr="/plateforme" />
+      <HreflangLinks fr="/plateforme" en="/en/plateforme" />
       <BreadcrumbJsonLd
         items={[
           { nom: "Accueil", chemin: "/" },

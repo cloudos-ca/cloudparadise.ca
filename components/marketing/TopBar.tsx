@@ -27,11 +27,22 @@ const NAV = [
   { libelle: { fr: "Tarifs", en: "Pricing" }, chemin: "tarifs" },
 ] as const;
 
-/** Les pages qui existent dans les deux langues. */
+/**
+ * Les pages qui existent dans les deux langues — aujourd'hui, toutes.
+ *
+ * La liste reste explicite plutôt que déduite : c'est elle qui décide où
+ * atterrit la bascule de langue, et une page ajoutée ici avant que sa
+ * traduction existe enverrait le visiteur sur un 404. Le repli de
+ * `cheminAutreLangue` couvre le cas inverse, sans rien casser.
+ */
 const PAGES_BILINGUES = [
   { fr: "/", en: "/en" },
+  { fr: "/plateforme", en: "/en/plateforme" },
+  { fr: "/calcul", en: "/en/calcul" },
+  { fr: "/mines", en: "/en/mines" },
   { fr: "/fonctions", en: "/en/fonctions" },
   { fr: "/tarifs", en: "/en/tarifs" },
+  { fr: "/securite", en: "/en/securite" },
   { fr: "/contact", en: "/en/contact" },
   { fr: "/conditions", en: "/en/conditions" },
   { fr: "/confidentialite", en: "/en/confidentialite" },
@@ -151,10 +162,10 @@ export function TopBar({ lang = "fr" }: Readonly<{ lang?: Lang }>) {
             {heure}
           </span>
 
-          {/* Bascule de langue : l'anglais s'arrête aux quatre pages
-              traduites, `cheminAutreLangue` ramène à la racine de l'autre
-              langue depuis une page qui n'a pas de pendant (Conditions,
-              Confidentialité). */}
+          {/* Bascule de langue. Toutes les pages ont désormais leur pendant,
+              donc la bascule reste sur place ; `cheminAutreLangue` garde son
+              repli vers la racine de l'autre langue, pour une page qui serait
+              publiée dans une seule langue. */}
           <div className="hidden items-center gap-1 text-[13px] bar:flex">
             <SelecteurLangue
               actif={lang === "fr"}

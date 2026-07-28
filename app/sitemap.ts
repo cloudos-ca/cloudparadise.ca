@@ -1,101 +1,100 @@
 import type { MetadataRoute } from "next";
 import { SITE_URL } from "@/lib/seo";
 
+/**
+ * Toutes les pages du site existent dans les deux langues, donc une seule
+ * liste : chaque entrée produit son URL française, son URL anglaise, et le
+ * couple `hreflang` qui les relie l'une à l'autre.
+ *
+ * Une page ajoutée ici sans son miroir anglais annoncerait un `hreflang` vers
+ * une URL en 404 — une erreur que la Search Console remonte, et qui jette un
+ * doute sur les paires valides déclarées à côté. Une page qui n'existerait que
+ * dans une langue doit donc être déclarée sans `alternates`, pas ajoutée ici.
+ */
+const PAGES: ReadonlyArray<{
+  fr: string;
+  en: string;
+  priority: number;
+  changeFrequency: MetadataRoute.Sitemap[number]["changeFrequency"];
+}> = [
+  { fr: "/", en: "/en", priority: 1, changeFrequency: "weekly" },
+  {
+    fr: "/plateforme",
+    en: "/en/plateforme",
+    priority: 0.8,
+    changeFrequency: "monthly",
+  },
+  {
+    fr: "/calcul",
+    en: "/en/calcul",
+    priority: 0.8,
+    changeFrequency: "monthly",
+  },
+  {
+    fr: "/mines",
+    en: "/en/mines",
+    priority: 0.8,
+    changeFrequency: "monthly",
+  },
+  {
+    fr: "/fonctions",
+    en: "/en/fonctions",
+    priority: 0.8,
+    changeFrequency: "monthly",
+  },
+  {
+    fr: "/tarifs",
+    en: "/en/tarifs",
+    priority: 0.8,
+    changeFrequency: "monthly",
+  },
+  {
+    fr: "/securite",
+    en: "/en/securite",
+    priority: 0.6,
+    changeFrequency: "monthly",
+  },
+  {
+    fr: "/contact",
+    en: "/en/contact",
+    priority: 0.5,
+    changeFrequency: "yearly",
+  },
+  {
+    fr: "/conditions",
+    en: "/en/conditions",
+    priority: 0.3,
+    changeFrequency: "yearly",
+  },
+  {
+    fr: "/confidentialite",
+    en: "/en/confidentialite",
+    priority: 0.3,
+    changeFrequency: "yearly",
+  },
+];
+
 export default function sitemap(): MetadataRoute.Sitemap {
-  const pagesBilingues: Array<{
-    fr: string;
-    en: string;
-    priority: number;
-    changeFrequency: MetadataRoute.Sitemap[number]["changeFrequency"];
-  }> = [
-    { fr: "/", en: "/en", priority: 1, changeFrequency: "weekly" },
-    {
-      fr: "/fonctions",
-      en: "/en/fonctions",
-      priority: 0.8,
-      changeFrequency: "monthly",
-    },
-    {
-      fr: "/tarifs",
-      en: "/en/tarifs",
-      priority: 0.8,
-      changeFrequency: "monthly",
-    },
-    {
-      fr: "/contact",
-      en: "/en/contact",
-      priority: 0.5,
-      changeFrequency: "yearly",
-    },
-    {
-      fr: "/conditions",
-      en: "/en/conditions",
-      priority: 0.3,
-      changeFrequency: "yearly",
-    },
-    {
-      fr: "/confidentialite",
-      en: "/en/confidentialite",
-      priority: 0.3,
-      changeFrequency: "yearly",
-    },
-  ];
-
-  /**
-   * Pages qui n'existent qu'en français, en attendant leur miroir anglais.
-   *
-   * Déclarées sans `alternates` : annoncer un `hreflang` vers une URL qui
-   * répond 404 est une erreur que la Search Console remonte, et qui jette un
-   * doute sur les paires bilingues valides du même fichier. Chacune se déplace
-   * dans `pagesBilingues` le jour où sa version anglaise existe — et pas avant.
-   */
-  const pagesFrancaisSeulement: Array<{
-    fr: string;
-    priority: number;
-    changeFrequency: MetadataRoute.Sitemap[number]["changeFrequency"];
-  }> = [
-    { fr: "/plateforme", priority: 0.8, changeFrequency: "monthly" },
-    { fr: "/calcul", priority: 0.8, changeFrequency: "monthly" },
-    { fr: "/mines", priority: 0.8, changeFrequency: "monthly" },
-    { fr: "/securite", priority: 0.6, changeFrequency: "monthly" },
-  ];
-
   const lastModified = new Date();
 
-  const entreesFrancaisSeulement: MetadataRoute.Sitemap =
-    pagesFrancaisSeulement.map(({ fr, priority, changeFrequency }) => ({
+  return PAGES.flatMap(({ fr, en, priority, changeFrequency }) => [
+    {
       url: `${SITE_URL}${fr}`,
       lastModified,
       changeFrequency,
       priority,
-    }));
-
-  // Littéral étalé plutôt que `.concat()` : `flatMap` infère le type étroit de
-  // ses propres objets, contre lequel les entrées françaises — sans
-  // `alternates` — ne s'assignent pas. Ici c'est le type de retour annoncé de
-  // la fonction qui sert de référence, et il accepte les deux formes.
-  const entreesBilingues = pagesBilingues.flatMap(
-    ({ fr, en, priority, changeFrequency }) => [
-      {
-        url: `${SITE_URL}${fr}`,
-        lastModified,
-        changeFrequency,
-        priority,
-        alternates: {
-          languages: { fr: `${SITE_URL}${fr}`, en: `${SITE_URL}${en}` },
-        },
+      alternates: {
+        languages: { fr: `${SITE_URL}${fr}`, en: `${SITE_URL}${en}` },
       },
-      {
-        url: `${SITE_URL}${en}`,
-        lastModified,
-        changeFrequency,
-        priority,
-        alternates: {
-          languages: { fr: `${SITE_URL}${fr}`, en: `${SITE_URL}${en}` },
-        },
+    },
+    {
+      url: `${SITE_URL}${en}`,
+      lastModified,
+      changeFrequency,
+      priority,
+      alternates: {
+        languages: { fr: `${SITE_URL}${fr}`, en: `${SITE_URL}${en}` },
       },
-    ],
-  );
-
-  return [...entreesBilingues, ...entreesFrancaisSeulement];
+    },
+  ]);
 }
