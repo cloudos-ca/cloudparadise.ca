@@ -9,19 +9,18 @@ import {
 } from "./consentement";
 
 /*
- * File d'attente de Matomo, déclarée sur `Window`.
+ * File d'attente de Matomo.
  *
- * C'est ce qui explique le mélange `globalThis` / `window` dans ce fichier, et
- * la règle est simple : `globalThis` pour tout ce que le DOM fournit
- * d'origine, `window` uniquement pour `_paq`. Augmenter l'interface `Window`
- * n'ajoute rien au type de `globalThis` — `globalThis._paq` ne compilerait pas
- * sans déclarer en plus un `var` global, soit deux déclarations à tenir
- * synchronisées pour ne rien gagner.
+ * Déclarée en `var` global et non en augmentation d'`interface Window` :
+ * augmenter `Window` ne type que `window._paq`, alors qu'un `var` global entre
+ * dans le type de `globalThis` et couvre les deux écritures. Une seule
+ * déclaration, et plus rien n'oblige ce fichier à passer par `window`.
+ *
+ * `var` est imposé par TypeScript — `let` et `const` ne créent pas de propriété
+ * sur l'objet global, donc ne déclarent rien sur `globalThis`.
  */
 declare global {
-  interface Window {
-    _paq?: unknown[][];
-  }
+  var _paq: unknown[][] | undefined;
 }
 
 /**
@@ -77,7 +76,7 @@ export function MatomoAnalytics() {
       ["setDocumentTitle", document.title],
       ["trackPageView"],
     ];
-    for (const commande of commandes) window._paq?.push(commande);
+    for (const commande of commandes) globalThis._paq?.push(commande);
   }, [pathname, actif]);
 
   if (!actif) return null;

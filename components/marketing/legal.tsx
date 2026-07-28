@@ -84,6 +84,39 @@ function estBrut(bloc: BlocLegal): bloc is { brut: ReactNode } {
 }
 
 /**
+ * Apparie des éléments à des clés uniques, dérivées de leur contenu.
+ *
+ * Le contenu juridique est fait de `ReactNode` quelconques, dont aucune
+ * identité ne s'extrait directement. On en tire donc une empreinte, et on
+ * numérote les empreintes identiques : les clés restent uniques sans jamais
+ * retomber sur la position dans le tableau.
+ *
+ * Calculé en amont du rendu plutôt que dans le `map` : la numérotation a
+ * besoin de connaître les éléments déjà vus, ce qu'une expression de clé posée
+ * sur place ne peut pas faire.
+ */
+function avecCles<T>(
+  elements: readonly T[],
+  empreinteDe: (element: T) => string,
+): readonly { cle: string; element: T }[] {
+  const vus = new Map<string, number>();
+  return elements.map((element) => {
+    const empreinte = empreinteDe(element);
+    const rang = vus.get(empreinte) ?? 0;
+    vus.set(empreinte, rang + 1);
+    return { cle: `${empreinte}#${rang}`, element };
+  });
+}
+
+/** Empreinte d'un bloc : son texte s'il en est un, sa nature sinon. */
+function empreinteBloc(bloc: BlocLegal): string {
+  if (typeof bloc === "string") return `texte:${bloc}`;
+  if (estListe(bloc)) return `liste:${bloc.liste.length}`;
+  if (estBrut(bloc)) return "brut";
+  return "noeud";
+}
+
+/**
  * Un bloc de section : liste à puces, élément brut, ou paragraphe.
  *
  * Sorti de `SectionsRedigees` et écrit en retours successifs plutôt qu'en
@@ -95,10 +128,10 @@ function Bloc({ bloc }: Readonly<{ bloc: BlocLegal }>) {
   if (estListe(bloc)) {
     return (
       <ul className="space-y-2 pl-1">
-        {bloc.liste.map(({ terme, texte }, k) => (
-          // Même raison que pour les blocs : `texte` est un `ReactNode`, et
-          // `terme` est facultatif — aucune clé de contenu fiable.
-          <li key={k} className="flex gap-2.5">
+        {avecCles(bloc.liste, (point) =>
+          point.terme ? `terme:${point.terme}` : "point",
+        ).map(({ cle, element: { terme, texte } }) => (
+          <li key={cle} className="flex gap-2.5">
             <span
               aria-hidden="true"
               className="mt-[0.55em] size-1 shrink-0 rounded-full"
@@ -151,13 +184,8 @@ export function SectionsRedigees({
             {titre}
           </h2>
           <div className="mt-2 space-y-3 text-sm leading-relaxed text-[#93a3c2]">
-            {blocs.map((bloc, j) => (
-              // Clé par index : un `BlocLegal` est un `ReactNode` quelconque,
-              // dont on ne peut dériver aucune identité stable. Ce n'est pas
-              // un pis-aller — ces sections viennent d'un tableau de contenu
-              // figé, jamais réordonné ni filtré à l'exécution, et le rendu
-              // est sans état. L'index EST l'identité du bloc.
-              <Bloc key={j} bloc={bloc} />
+            {avecCles(blocs, empreinteBloc).map(({ cle, element }) => (
+              <Bloc key={cle} bloc={element} />
             ))}
           </div>
         </section>
