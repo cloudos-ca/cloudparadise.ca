@@ -33,7 +33,7 @@ import { alternatesBilingues, openGraphPage } from "@/lib/seo";
 import { LIEN_INSCRIPTION } from "@/lib/site";
 
 const TITRE = "Pricing — Cloud Paradise";
-const DESCRIPTION = `Credits, not a subscription. ${OFFRE_EN_DEVISE} in credits on signup, and the cost of every task.`;
+const DESCRIPTION = `Credits, not a subscription. ${OFFRE_EN_DEVISE} in credits on signup, the cost of every task, and an estimator to work out your budget before you start.`;
 
 export const metadata: Metadata = {
   title: TITRE,

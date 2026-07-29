@@ -11,7 +11,7 @@ import { alternatesBilingues, openGraphPage } from "@/lib/seo";
 
 const TITRE = "Security — Cloud Paradise";
 const DESCRIPTION =
-  "Your data, our hardware, in Quebec. The language model runs on our own machines; the AI plans but computes nothing — a deterministic engine produces every result. Isolation per user and per team.";
+  "Your data, our hardware, in Quebec. The language model runs on our own machines and a deterministic engine produces every result. Isolation per team.";
 
 export const metadata: Metadata = {
   title: TITRE,

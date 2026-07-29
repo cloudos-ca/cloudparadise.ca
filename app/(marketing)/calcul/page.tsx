@@ -18,7 +18,7 @@ import { LIEN_INSCRIPTION } from "@/lib/site";
 
 const TITRE = "Calcul — Cloud Paradise";
 const DESCRIPTION =
-  "Un seul endroit pour vos tâches lourdes : documents, données, images et vidéos, web, calcul 3D. Décrivez le résultat voulu ; un moteur déterministe le produit, exact et jamais inventé.";
+  "Un seul endroit pour vos tâches lourdes : documents, données, images et vidéos, web, calcul 3D. Décrivez le résultat ; un moteur déterministe le produit.";
 
 export const metadata: Metadata = {
   title: TITRE,

@@ -29,7 +29,7 @@ import { alternatesBilingues, openGraphPage, ROBOTS } from "@/lib/seo";
 
 const TITRE = "Terms of Use — Cloud Paradise";
 const DESCRIPTION =
-  "Cloud Paradise Terms of Use: account, credits and pricing, acceptable use, content ownership, warranties, and governing law.";
+  "Cloud Paradise Terms of Use: your account, credits and pricing, acceptable use, ownership of your content, warranties, and the governing law.";
 
 export const metadata: Metadata = {
   title: TITRE,

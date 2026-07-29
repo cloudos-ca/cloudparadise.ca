@@ -27,7 +27,7 @@ import { LIEN_INSCRIPTION } from "@/lib/site";
 
 const TITRE = "Mines — Cloud Paradise";
 const DESCRIPTION =
-  "Le poste de travail de l’exploration minière au Québec : suivi des titres et des échéances, forages en trois dimensions, couches SIGÉOM, reprojection et export. Conçu en Abitibi, serveurs au Québec.";
+  "Le poste de travail de l’exploration minière au Québec : titres et échéances, forages en trois dimensions, couches SIGÉOM, export. Conçu en Abitibi.";
 
 export const metadata: Metadata = {
   title: TITRE,

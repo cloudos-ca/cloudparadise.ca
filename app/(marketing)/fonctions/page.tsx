@@ -15,7 +15,7 @@ import { LIEN_INSCRIPTION } from "@/lib/site";
 
 const TITRE = "Fonctions — Cloud Paradise";
 const DESCRIPTION =
-  "La liste complète de ce que le poste de travail sait faire : le bureau, les applications, le calcul, l’automatisation, le travail d’équipe, l’exploration minière et la gestion du compte.";
+  "Tout ce que le poste de travail sait faire : le bureau, les applications, le calcul, l’automatisation, le travail d’équipe, les mines et la gestion du compte.";
 
 export const metadata: Metadata = {
   title: TITRE,

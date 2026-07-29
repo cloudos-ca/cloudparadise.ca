@@ -20,7 +20,7 @@ import { alternatesBilingues, openGraphPage, ROBOTS } from "@/lib/seo";
 
 const TITRE = "Politique de confidentialité — Cloud Paradise";
 const DESCRIPTION =
-  "Comment Cloud Paradise recueille, utilise et protège les renseignements personnels, conformément à la Loi 25.";
+  "Comment Cloud Paradise recueille, utilise et protège les renseignements personnels, conformément à la Loi 25 du Québec. Vos droits et comment les exercer.";
 
 export const metadata: Metadata = {
   title: TITRE,

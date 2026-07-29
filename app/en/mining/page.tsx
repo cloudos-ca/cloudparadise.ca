@@ -27,7 +27,7 @@ import { LIEN_INSCRIPTION } from "@/lib/site";
 
 const TITRE = "Mining — Cloud Paradise";
 const DESCRIPTION =
-  "The workstation for mineral exploration in Quebec: title and expiry tracking, drill holes in three dimensions, SIGÉOM layers, reprojection and export. Built in Abitibi, servers in Quebec.";
+  "The workstation for mineral exploration in Quebec: titles and expiry dates, drill holes in three dimensions, SIGÉOM layers, export. Built in Abitibi.";
 
 export const metadata: Metadata = {
   title: TITRE,

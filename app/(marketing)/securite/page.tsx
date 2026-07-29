@@ -11,7 +11,7 @@ import { alternatesBilingues, openGraphPage } from "@/lib/seo";
 
 const TITRE = "Sécurité — Cloud Paradise";
 const DESCRIPTION =
-  "Vos données, notre matériel, au Québec. Le modèle de langage tourne chez nous ; l’IA planifie mais ne calcule rien — un moteur déterministe produit chaque résultat. Isolation par utilisateur et par équipe.";
+  "Vos données, notre matériel, au Québec. Le modèle de langage tourne chez nous et un moteur déterministe produit chaque résultat. Isolation par équipe.";
 
 export const metadata: Metadata = {
   title: TITRE,

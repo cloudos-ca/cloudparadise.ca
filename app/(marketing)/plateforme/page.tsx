@@ -30,7 +30,7 @@ import { LIEN_INSCRIPTION } from "@/lib/site";
 
 const TITRE = "Plateforme — Cloud Paradise";
 const DESCRIPTION =
-  "Un vrai bureau en ligne : fenêtres, dock, fichiers, applications professionnelles et collaboration d’équipe. Le même environnement qu’en local, sans rien installer.";
+  "Un vrai bureau en ligne : fenêtres, dock, fichiers, applications professionnelles et collaboration d’équipe. Comme en local, sans rien installer.";
 
 export const metadata: Metadata = {
   title: TITRE,

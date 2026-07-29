@@ -18,7 +18,7 @@ import { LIEN_INSCRIPTION } from "@/lib/site";
 
 const TITRE = "Compute — Cloud Paradise";
 const DESCRIPTION =
-  "One place for your heavy tasks: documents, data, images and video, web, 3D compute. Describe the result you want; a deterministic engine produces it — exact, and never invented.";
+  "One place for your heavy tasks: documents, data, images and video, web, 3D compute. Describe the result; a deterministic engine produces it.";
 
 export const metadata: Metadata = {
   title: TITRE,
