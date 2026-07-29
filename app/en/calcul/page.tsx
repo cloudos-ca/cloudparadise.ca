@@ -123,7 +123,12 @@ const HERO_LOGS = [
   "→ spreadsheet ready · 200/200",
 ] as const;
 
-const WORKFLOW = ["Web extraction", "Structured data", "PDF report"] as const;
+// Première étape : « Scraping », le libellé anglais du mode dans `offre.ts` —
+// pas « Web extraction », qui est la traduction littérale du libellé français.
+// La même page facture déjà ce mode sous le nom « Scraping » (voir `factures`
+// plus bas), et deux noms pour une seule notion sur une seule page se lisent
+// comme deux services. Les deux étapes suivantes ne sont pas des modes.
+const WORKFLOW = ["Scraping", "Structured data", "PDF report"] as const;
 
 export default function CalculPageEn() {
   return (
@@ -171,7 +176,7 @@ export default function CalculPageEn() {
               <JobPanel
                 lang="en"
                 title="Extract the due dates from 200 contracts"
-                chip="DOCUMENTS"
+                chip={libelleDe("Documents", "en").toUpperCase()}
                 logs={HERO_LOGS}
               />
             </WindowCard>

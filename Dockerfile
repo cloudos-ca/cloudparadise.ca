@@ -30,7 +30,8 @@ COPY . .
 # à poser et garde `index, follow`. Tout autre environnement (dev, aperçu) doit
 # poser SITE_ENV à autre chose que « production » — n'importe quelle valeur,
 # « dev » par convention — pour basculer les pages en `noindex, nofollow` et le
-# robots.txt en `Disallow: /` (voir lib/seo.ts).
+# robots.txt en `Disallow: /` (voir lib/site.ts, qui lit la variable ; les
+# directives elles-mêmes vivent dans lib/seo.ts et app/robots.ts).
 #
 # Lu à la génération des pages statiques, donc build-time : côté Coolify la
 # variable doit être cochée « Build Variable ». Posée seulement à l'exécution,

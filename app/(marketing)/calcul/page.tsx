@@ -170,7 +170,7 @@ export default function CalculPage() {
             <WindowCard title="Plan · Cloud Paradise">
               <JobPanel
                 title="Extraire les échéances de 200 contrats"
-                chip="DOCUMENTS"
+                chip={libelleDe("Documents", "fr").toUpperCase()}
                 logs={HERO_LOGS}
               />
             </WindowCard>

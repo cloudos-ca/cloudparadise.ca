@@ -10,6 +10,7 @@ import { FenetreCta } from "@/components/marketing/FenetreCta";
 import { HreflangLinks } from "@/components/marketing/HreflangLinks";
 import { JobPanel } from "@/components/marketing/JobPanel";
 import { WindowCard } from "@/components/marketing/WindowCard";
+import { libelleDe } from "@/components/marketing/offre";
 import {
   IconAlert,
   IconCube,
@@ -234,7 +235,7 @@ export default function MinesPageEn() {
                 <JobPanel
                   lang="en"
                   title="Compute the drill hole traces"
-                  chip="DATA"
+                  chip={libelleDe("Données", "en").toUpperCase()}
                   logs={FORAGES_LOGS}
                 />
               </WindowCard>

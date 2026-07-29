@@ -10,6 +10,7 @@ import { FenetreCta } from "@/components/marketing/FenetreCta";
 import { HreflangLinks } from "@/components/marketing/HreflangLinks";
 import { JobPanel } from "@/components/marketing/JobPanel";
 import { WindowCard } from "@/components/marketing/WindowCard";
+import { libelleDe } from "@/components/marketing/offre";
 import {
   IconAlert,
   IconCube,
@@ -233,7 +234,7 @@ export default function MinesPage() {
               <WindowCard title="Desurvey · Cloud Paradise" className="mt-6">
                 <JobPanel
                   title="Calculer les traces de forage"
-                  chip="DONNÉES"
+                  chip={libelleDe("Données", "fr").toUpperCase()}
                   logs={FORAGES_LOGS}
                 />
               </WindowCard>

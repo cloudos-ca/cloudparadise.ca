@@ -18,6 +18,11 @@ import {
   TELEPHONE_LIEN,
 } from "@/components/marketing/coordonnees";
 import { GrilleTarifaireLegale } from "@/components/marketing/GrilleTarifaireLegale";
+// Voir la version française : mêmes montants, même source, devise épelée.
+import {
+  CREDIT_EN_DEVISE,
+  CREDITS_OFFERTS,
+} from "@/components/marketing/offre";
 import { ListeNumerotee } from "@/components/marketing/ListeNumerotee";
 import { LECTURE, SECTION_Y, SHELL } from "@/components/marketing/tokens";
 import { alternatesBilingues, openGraphPage, ROBOTS } from "@/lib/seo";
@@ -201,13 +206,11 @@ const SECTIONS: readonly SectionRedigee[] = [
         liste: [
           {
             terme: "“Pay-as-you-go” model.",
-            texte:
-              "The Service operates on prepaid credits. 1 credit equals 1 Canadian dollar (CAD). Each Job consumes a number of credits depending on the type of engine used.",
+            texte: `The Service operates on prepaid credits. 1 credit equals ${CREDIT_EN_DEVISE} Canadian dollar (CAD). Each Job consumes a number of credits depending on the type of engine used.`,
           },
           {
             terme: "Sign-up credit bonus.",
-            texte:
-              "A welcome amount of credits (currently the equivalent of CAD 10) may be offered when you create your account, no credit card required. This amount is promotional, has no cash value, is non-refundable and non-transferable, and may be changed or withdrawn at any time.",
+            texte: `A welcome amount of credits (currently the equivalent of CAD ${CREDITS_OFFERTS}) may be offered when you create your account, no credit card required. This amount is promotional, has no cash value, is non-refundable and non-transferable, and may be changed or withdrawn at any time.`,
           },
         ],
       },

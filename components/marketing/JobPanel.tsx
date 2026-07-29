@@ -7,7 +7,16 @@ import { SOFT_WASH, type Lang } from "./tokens";
 type JobPanelProps = Readonly<{
   /** Intitulé du job, tel qu'il apparaît en tête de fenêtre. */
   title: string;
-  /** Mode retenu par l'IA — MEDIA, DOCUMENTS, etc. */
+  /**
+   * Mode retenu par l'IA, en capitales.
+   *
+   * Passer `libelleDe(type, lang).toUpperCase()` plutôt qu'un littéral : le
+   * libellé dépend de la langue (« MÉDIA » / « MEDIA », « DONNÉES » / « DATA »,
+   * « EXTRACTION WEB » / « SCRAPING ») et un littéral recopié à la main a déjà
+   * fait afficher un mode sous deux noms. Reste un `string` et non un
+   * `TypeTache` : certaines fenêtres affichent un nom de service (`DOCS` dans
+   * FenetrePlan), qui n'est pas un mode.
+   */
   chip: string;
   /** Lignes de log, jouées en cascade. */
   logs: readonly string[];

@@ -18,6 +18,14 @@ import {
   TELEPHONE_LIEN,
 } from "@/components/marketing/coordonnees";
 import { GrilleTarifaireLegale } from "@/components/marketing/GrilleTarifaireLegale";
+// Les deux montants cités dans l'article « Crédits, tarification et
+// facturation » viennent de la même source que la grille juste en dessous. La
+// devise reste épelée en toutes lettres dans le texte : « $ CA » est la forme
+// d'affichage du site, pas celle d'un document contractuel.
+import {
+  CREDIT_EN_DEVISE,
+  CREDITS_OFFERTS,
+} from "@/components/marketing/offre";
 import { ListeNumerotee } from "@/components/marketing/ListeNumerotee";
 import { LECTURE, SECTION_Y, SHELL } from "@/components/marketing/tokens";
 import { alternatesBilingues, openGraphPage, ROBOTS } from "@/lib/seo";
@@ -199,13 +207,11 @@ const SECTIONS: readonly SectionRedigee[] = [
         liste: [
           {
             terme: "Modèle « à l’usage ».",
-            texte:
-              "Le Service fonctionne par crédits prépayés. 1 crédit équivaut à 1 dollar canadien (CAD). Chaque Traitement consomme un nombre de crédits selon le type de moteur utilisé.",
+            texte: `Le Service fonctionne par crédits prépayés. 1 crédit équivaut à ${CREDIT_EN_DEVISE} dollar canadien (CAD). Chaque Traitement consomme un nombre de crédits selon le type de moteur utilisé.`,
           },
           {
             terme: "Crédits offerts à l’inscription.",
-            texte:
-              "Un montant de bienvenue en crédits (actuellement l’équivalent de 10 $ CAD) peut être offert à la création du compte, sans carte de crédit requise. Ce montant est promotionnel, sans valeur monétaire, non remboursable et non transférable ; il peut être modifié ou retiré en tout temps.",
+            texte: `Un montant de bienvenue en crédits (actuellement l’équivalent de ${CREDITS_OFFERTS} $ CAD) peut être offert à la création du compte, sans carte de crédit requise. Ce montant est promotionnel, sans valeur monétaire, non remboursable et non transférable ; il peut être modifié ou retiré en tout temps.`,
           },
         ],
       },

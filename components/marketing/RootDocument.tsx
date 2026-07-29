@@ -1,5 +1,5 @@
 import { MatomoAnalytics } from "@/components/marketing/MatomoAnalytics";
-import { SITE_URL } from "@/lib/site";
+import { EST_PRODUCTION, SITE_URL } from "@/lib/site";
 import { comfortaa, workSans } from "@/app/fonts";
 import {
   COURRIEL,
@@ -85,9 +85,15 @@ export function RootDocument({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(JSON_LD) }}
         />
         {children}
-        {/* Site entier (FR + EN) : voir MatomoAnalytics.tsx pour la porte de
-            consentement. */}
-        <MatomoAnalytics />
+        {/* Site entier (FR + EN), et production seulement.
+            Le consentement (voir MatomoAnalytics.tsx) est une deuxième porte,
+            pas la première : hors production le composant ne monte pas du tout.
+            Trois raisons plutôt qu'une — le `setCookieDomain` du script est posé
+            sur `.cloudparadise.ca`, qu'un navigateur refuse depuis
+            `dev.cloudparadise.cloud` (chaque page vue y comptait un visiteur
+            neuf) ; l'ID de site est le même qu'en production ; et le trafic de
+            développement se mélangeait donc aux statistiques du vrai site. */}
+        {EST_PRODUCTION ? <MatomoAnalytics /> : null}
       </body>
     </html>
   );
