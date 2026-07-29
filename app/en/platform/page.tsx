@@ -155,7 +155,7 @@ export default function PlateformePageEn() {
               >
                 Create your desktop for free
               </BoutonCta>
-              <LienOr href="/en/tarifs">See pricing</LienOr>
+              <LienOr href="/en/pricing">See pricing</LienOr>
             </div>
           </Reveal>
 
@@ -219,7 +219,7 @@ export default function PlateformePageEn() {
                 href: LIEN_INSCRIPTION,
                 libelle: "Create your desktop for free",
               }}
-              lien={{ href: "/en/tarifs", libelle: "See pricing" }}
+              lien={{ href: "/en/pricing", libelle: "See pricing" }}
             />
           </Reveal>
         </div>

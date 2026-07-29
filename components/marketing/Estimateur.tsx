@@ -195,7 +195,7 @@ export function Estimateur({
       </p>
       {lienDetails ? (
         <a
-          href={lang === "en" ? "/en/tarifs" : "/tarifs"}
+          href={lang === "en" ? "/en/pricing" : "/tarifs"}
           className="group inline-flex items-center gap-1 text-xs font-medium underline-offset-4 hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
           style={{ color: "var(--cta)" }}
         >

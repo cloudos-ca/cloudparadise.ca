@@ -46,7 +46,7 @@ export function CtaFinal({ lang = "fr" }: Readonly<{ lang?: Lang }>) {
               libelle: t.bouton,
             }}
             lien={{
-              href: lang === "en" ? "/en/tarifs" : "/tarifs",
+              href: lang === "en" ? "/en/pricing" : "/tarifs",
               libelle: t.lien,
             }}
           >

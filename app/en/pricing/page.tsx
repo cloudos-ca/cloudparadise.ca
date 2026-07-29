@@ -38,7 +38,7 @@ const DESCRIPTION = `Credits, not a subscription. ${OFFRE_EN_DEVISE} in credits 
 export const metadata: Metadata = {
   title: TITRE,
   description: DESCRIPTION,
-  alternates: alternatesBilingues("/tarifs", "/en/tarifs", "en"),
+  alternates: alternatesBilingues("/tarifs", "/en/pricing", "en"),
   openGraph: openGraphPage(TITRE, DESCRIPTION, "en"),
 };
 
@@ -157,11 +157,11 @@ export default function TarifsPageEn() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(FAQ_JSON_LD) }}
       />
-      <HreflangLinks fr="/tarifs" en="/en/tarifs" />
+      <HreflangLinks fr="/tarifs" en="/en/pricing" />
       <BreadcrumbJsonLd
         items={[
           { nom: "Home", chemin: "/en" },
-          { nom: "Pricing", chemin: "/en/tarifs" },
+          { nom: "Pricing", chemin: "/en/pricing" },
         ]}
       />
 

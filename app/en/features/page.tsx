@@ -51,7 +51,7 @@ type SectionFonctions = {
 const PLATEFORME = { href: "/en/platform", libelle: "See the platform" };
 const CALCUL = { href: "/en/compute", libelle: "See compute" };
 const MINES = { href: "/en/mining", libelle: "See mineral exploration" };
-const TARIFS = { href: "/en/tarifs", libelle: "See pricing" };
+const TARIFS = { href: "/en/pricing", libelle: "See pricing" };
 
 /**
  * Le contenu de la page.
@@ -407,7 +407,7 @@ export default function FonctionsPageEn() {
                 href: LIEN_INSCRIPTION,
                 libelle: "Start for free",
               }}
-              lien={{ href: "/en/tarifs", libelle: "See pricing" }}
+              lien={{ href: "/en/pricing", libelle: "See pricing" }}
             />
           </Reveal>
         </div>

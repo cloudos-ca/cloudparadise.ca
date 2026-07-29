@@ -167,7 +167,7 @@ export default function CalculPageEn() {
               >
                 Run your first task
               </BoutonCta>
-              <LienOr href="/en/tarifs">See pricing</LienOr>
+              <LienOr href="/en/pricing">See pricing</LienOr>
             </div>
           </Reveal>
 
@@ -260,7 +260,7 @@ export default function CalculPageEn() {
                 href: LIEN_INSCRIPTION,
                 libelle: "Run your first task",
               }}
-              lien={{ href: "/en/tarifs", libelle: "See pricing" }}
+              lien={{ href: "/en/pricing", libelle: "See pricing" }}
             />
           </Reveal>
         </div>
@@ -335,7 +335,7 @@ function GesteSection({ geste }: Readonly<{ geste: Geste }>) {
             </p>
             {!nomFacture && (
               <div className="mt-4">
-                <LienOr href="/en/tarifs">See the full pricing</LienOr>
+                <LienOr href="/en/pricing">See the full pricing</LienOr>
               </div>
             )}
           </Reveal>

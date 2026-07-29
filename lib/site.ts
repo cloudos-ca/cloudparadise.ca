@@ -188,7 +188,7 @@ export const PAGES: readonly PageSite[] = [
   },
   {
     fr: "/tarifs",
-    en: "/en/tarifs",
+    en: "/en/pricing",
     priority: 0.8,
     changeFrequency: "monthly",
     titre: { fr: "Tarifs", en: "Pricing" },

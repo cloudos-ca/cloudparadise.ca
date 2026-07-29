@@ -111,6 +111,11 @@ const nextConfig: NextConfig = {
         destination: "/en/features",
         permanent: true,
       },
+      {
+        source: "/en/tarifs",
+        destination: "/en/pricing",
+        permanent: true,
+      },
     ];
   },
 
