@@ -16,18 +16,18 @@ const DESCRIPTION =
 export const metadata: Metadata = {
   title: TITRE,
   description: DESCRIPTION,
-  alternates: alternatesBilingues("/securite", "/en/securite", "en"),
+  alternates: alternatesBilingues("/securite", "/en/security", "en"),
   openGraph: openGraphPage(TITRE, DESCRIPTION, "en"),
 };
 
 export default function SecuritePageEn() {
   return (
     <>
-      <HreflangLinks fr="/securite" en="/en/securite" />
+      <HreflangLinks fr="/securite" en="/en/security" />
       <BreadcrumbJsonLd
         items={[
           { nom: "Home", chemin: "/en" },
-          { nom: "Security", chemin: "/en/securite" },
+          { nom: "Security", chemin: "/en/security" },
         ]}
       />
 

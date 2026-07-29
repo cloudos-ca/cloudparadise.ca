@@ -6,7 +6,7 @@ import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { BoutonCta } from "./BoutonCta";
 import { SHELL, type Lang } from "./tokens";
-import { LIEN_CONNEXION, LIEN_INSCRIPTION } from "@/lib/site";
+import { LIEN_CONNEXION, LIEN_INSCRIPTION, PAGES } from "@/lib/site";
 
 /**
  * Liens de navigation — desktop et menu mobile lisent tous deux ce tableau.
@@ -20,15 +20,41 @@ import { LIEN_CONNEXION, LIEN_INSCRIPTION } from "@/lib/site";
  * voir les tarifs. Uniquement de vraies pages : jamais d'ancre, la barre
  * s'affiche partout et une ancre y serait un lien bancal.
  *
- * `chemin` est le segment sans langue ; le lien se construit à l'affichage
- * selon `lang` (`/calcul` en français, `/en/calcul` en anglais).
+ * `fr` est le chemin français, et il sert de clé : le chemin anglais n'est pas
+ * écrit ici, il est retrouvé dans `PAGES` par `hrefNav`. Les deux langues ne
+ * portent plus le même segment (`/plateforme` contre `/en/platform`), donc un
+ * segment unique préfixé de `/en` ne suffit plus — et le recopier ici rouvrirait
+ * exactement la divergence que `PAGES_BILINGUES` vient de fermer.
  */
 const NAV = [
-  { libelle: { fr: "Plateforme", en: "Platform" }, chemin: "plateforme" },
-  { libelle: { fr: "Calcul", en: "Compute" }, chemin: "calcul" },
-  { libelle: { fr: "Fonctions", en: "Features" }, chemin: "fonctions" },
-  { libelle: { fr: "Tarifs", en: "Pricing" }, chemin: "tarifs" },
+  { libelle: { fr: "Plateforme", en: "Platform" }, fr: "/plateforme" },
+  { libelle: { fr: "Calcul", en: "Compute" }, fr: "/calcul" },
+  { libelle: { fr: "Fonctions", en: "Features" }, fr: "/fonctions" },
+  { libelle: { fr: "Tarifs", en: "Pricing" }, fr: "/tarifs" },
 ] as const;
+
+/**
+ * Les pages qui existent dans les deux langues — aujourd'hui, toutes.
+ *
+ * **Dérivée de `PAGES`, plus recopiée.** Cette liste décide où atterrit la
+ * bascule de langue ; `PAGES` (lib/site.ts) décide de ce qu'annoncent le
+ * sitemap, `llms.txt` et les `hreflang`. Tenues à la main toutes les deux,
+ * elles divergeaient au premier renommage de slug — et la panne est silencieuse
+ * : le build reste vert, seul le lien de bascule meurt. Une seule source, donc,
+ * et `PAGES` est celle qui est déjà consommée par le référencement.
+ *
+ * Le repli de `cheminAutreLangue` couvre toujours la page publiée dans une
+ * seule langue : elle n'a rien à faire dans `PAGES` (elle y annoncerait un
+ * `hreflang` vers un 404), donc elle n'est pas ici non plus.
+ */
+const PAGES_BILINGUES = PAGES.map(({ fr, en }) => ({ fr, en }));
+
+/** Chemin équivalent dans l'autre langue, ou la racine de cette langue si la page n'a pas de pendant. */
+function cheminAutreLangue(pathname: string, lang: Lang): string {
+  const page = PAGES_BILINGUES.find((p) => p[lang] === pathname);
+  if (page) return lang === "fr" ? page.en : page.fr;
+  return lang === "fr" ? "/en" : "/";
+}
 
 /**
  * Chemin absolu d'une entrée de nav, dans la langue affichée.
@@ -36,37 +62,14 @@ const NAV = [
  * Une seule fonction pour les deux rendus (barre et menu mobile) : c'est elle
  * qui garantit que l'URL comparée pour l'état actif est exactement celle du
  * lien, et non une variante reconstruite ailleurs.
- */
-function hrefNav(chemin: string, lang: Lang): string {
-  return lang === "en" ? `/en/${chemin}` : `/${chemin}`;
-}
-
-/**
- * Les pages qui existent dans les deux langues — aujourd'hui, toutes.
  *
- * La liste reste explicite plutôt que déduite : c'est elle qui décide où
- * atterrit la bascule de langue, et une page ajoutée ici avant que sa
- * traduction existe enverrait le visiteur sur un 404. Le repli de
- * `cheminAutreLangue` couvre le cas inverse, sans rien casser.
+ * Le repli `/en` ne peut se produire que si une entrée de `NAV` sort de
+ * `PAGES` — c'est-à-dire une page retirée du référencement mais laissée dans la
+ * barre. Mieux vaut l'accueil anglais qu'un 404.
  */
-const PAGES_BILINGUES = [
-  { fr: "/", en: "/en" },
-  { fr: "/plateforme", en: "/en/plateforme" },
-  { fr: "/calcul", en: "/en/calcul" },
-  { fr: "/mines", en: "/en/mines" },
-  { fr: "/fonctions", en: "/en/fonctions" },
-  { fr: "/tarifs", en: "/en/tarifs" },
-  { fr: "/securite", en: "/en/securite" },
-  { fr: "/contact", en: "/en/contact" },
-  { fr: "/conditions", en: "/en/conditions" },
-  { fr: "/confidentialite", en: "/en/confidentialite" },
-] as const;
-
-/** Chemin équivalent dans l'autre langue, ou la racine de cette langue si la page n'a pas de pendant. */
-function cheminAutreLangue(pathname: string, lang: Lang): string {
-  const page = PAGES_BILINGUES.find((p) => p[lang] === pathname);
-  if (page) return lang === "fr" ? page.en : page.fr;
-  return lang === "fr" ? "/en" : "/";
+function hrefNav(cheminFr: string, lang: Lang): string {
+  if (lang === "fr") return cheminFr;
+  return PAGES_BILINGUES.find((p) => p.fr === cheminFr)?.en ?? "/en";
 }
 
 /**
@@ -139,14 +142,14 @@ export function TopBar({ lang = "fr" }: Readonly<{ lang?: Lang }>) {
           className="hidden bar:block"
         >
           <ul className="flex items-center gap-5">
-            {NAV.map(({ libelle, chemin }) => {
-              const href = hrefNav(chemin, lang);
+            {NAV.map(({ libelle, fr }) => {
+              const href = hrefNav(fr, lang);
               // Égalité stricte, jamais `startsWith` : les six pages sont à
               // plat, et un préfixe ferait s'allumer deux entrées le jour où
               // une sous-page arrive.
               const actif = pathname === href;
               return (
-                <li key={chemin}>
+                <li key={fr}>
                   <a
                     href={href}
                     aria-current={actif ? "page" : undefined}
@@ -266,9 +269,9 @@ export function TopBar({ lang = "fr" }: Readonly<{ lang?: Lang }>) {
         >
           <ul className={`${SHELL} flex flex-col py-2`}>
             {[
-              ...NAV.map(({ libelle, chemin }) => ({
+              ...NAV.map(({ libelle, fr }) => ({
                 libelle: libelle[lang],
-                href: hrefNav(chemin, lang),
+                href: hrefNav(fr, lang),
               })),
               {
                 libelle: lang === "en" ? "Log in" : "Se connecter",

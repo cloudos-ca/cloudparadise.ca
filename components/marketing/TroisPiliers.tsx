@@ -64,7 +64,7 @@ const TEXTES = {
         texte:
           "Describe the task in plain words. The AI picks the method and runs the heavy job for you — no commands, no setup.",
         lien: "Explore compute",
-        href: "/calcul",
+        href: "/compute",
       },
       {
         Icone: IconCube,
@@ -72,7 +72,7 @@ const TEXTES = {
         texte:
           "A real online desktop: office, image, video, 3D and GIS, plus team collaboration. Nothing to install.",
         lien: "See the platform",
-        href: "/plateforme",
+        href: "/platform",
       },
       {
         Icone: IconLock,
@@ -80,7 +80,7 @@ const TEXTES = {
         texte:
           "Our language model runs on our own hardware, in a facility in Québec. Your files are never sent to a third-party AI provider.",
         lien: "On sovereignty",
-        href: "/securite",
+        href: "/security",
       },
     ] as Pilier[],
   },

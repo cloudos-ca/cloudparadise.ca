@@ -35,7 +35,7 @@ export const metadata: Metadata = {
   title: TITRE,
   description: DESCRIPTION,
   robots: ROBOTS,
-  alternates: alternatesBilingues("/conditions", "/en/conditions", "en"),
+  alternates: alternatesBilingues("/conditions", "/en/terms", "en"),
   openGraph: openGraphPage(TITRE, DESCRIPTION, "en", ["/opengraph-image"]),
 };
 
@@ -85,7 +85,7 @@ const SECTIONS: readonly SectionRedigee[] = [
         Service. By creating an account, accessing the Service, or using it,
         you acknowledge that you have read, understood, and agreed to be
         bound by these Terms as well as by our{" "}
-        <Link href="/en/confidentialite">
+        <Link href="/en/privacy">
           Privacy Policy
         </Link>
         .
@@ -452,7 +452,7 @@ const SECTIONS: readonly SectionRedigee[] = [
     blocs: [
       <>
         The processing of your personal information is governed by our{" "}
-        <Link href="/en/confidentialite">
+        <Link href="/en/privacy">
           Privacy Policy
         </Link>
         , which complies with Quebec’s Act respecting the protection of
@@ -548,11 +548,11 @@ const ANCRES = ancresDe(SECTIONS);
 export default function ConditionsPageEn() {
   return (
     <section className="relative" data-page-sobre>
-      <HreflangLinks fr="/conditions" en="/en/conditions" />
+      <HreflangLinks fr="/conditions" en="/en/terms" />
       <BreadcrumbJsonLd
         items={[
           { nom: "Home", chemin: "/en" },
-          { nom: "Terms of Use", chemin: "/en/conditions" },
+          { nom: "Terms of Use", chemin: "/en/terms" },
         ]}
       />
       <div className={`${SHELL} ${SECTION_Y}`}>

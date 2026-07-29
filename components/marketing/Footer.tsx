@@ -55,17 +55,17 @@ const COLONNES = {
     {
       titre: "Product",
       liens: [
-        { libelle: "Platform", href: "/en/plateforme" },
-        { libelle: "Compute", href: "/en/calcul" },
-        { libelle: "Mining", href: "/en/mines" },
-        { libelle: "Pricing", href: "/en/tarifs" },
+        { libelle: "Platform", href: "/en/platform" },
+        { libelle: "Compute", href: "/en/compute" },
+        { libelle: "Mining", href: "/en/mining" },
+        { libelle: "Pricing", href: "/en/pricing" },
       ],
     },
     {
       titre: "Learn more",
       liens: [
-        { libelle: "Features", href: "/en/fonctions" },
-        { libelle: "Security", href: "/en/securite" },
+        { libelle: "Features", href: "/en/features" },
+        { libelle: "Security", href: "/en/security" },
         { libelle: "Log in", href: LIEN_CONNEXION },
       ],
     },
@@ -76,8 +76,8 @@ const COLONNES = {
     {
       titre: "Legal",
       liens: [
-        { libelle: "Terms", href: "/en/conditions" },
-        { libelle: "Privacy", href: "/en/confidentialite" },
+        { libelle: "Terms", href: "/en/terms" },
+        { libelle: "Privacy", href: "/en/privacy" },
       ],
     },
   ],

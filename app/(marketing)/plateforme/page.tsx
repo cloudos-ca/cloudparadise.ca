@@ -35,7 +35,7 @@ const DESCRIPTION =
 export const metadata: Metadata = {
   title: TITRE,
   description: DESCRIPTION,
-  alternates: alternatesBilingues("/plateforme", "/en/plateforme", "fr"),
+  alternates: alternatesBilingues("/plateforme", "/en/platform", "fr"),
   openGraph: openGraphPage(TITRE, DESCRIPTION, "fr"),
 };
 
@@ -124,7 +124,7 @@ const EQUIPE: Carte[] = [
 export default function PlateformePage() {
   return (
     <>
-      <HreflangLinks fr="/plateforme" en="/en/plateforme" />
+      <HreflangLinks fr="/plateforme" en="/en/platform" />
       <BreadcrumbJsonLd
         items={[
           { nom: "Accueil", chemin: "/" },

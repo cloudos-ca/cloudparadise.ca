@@ -23,7 +23,7 @@ const DESCRIPTION =
 export const metadata: Metadata = {
   title: TITRE,
   description: DESCRIPTION,
-  alternates: alternatesBilingues("/calcul", "/en/calcul", "en"),
+  alternates: alternatesBilingues("/calcul", "/en/compute", "en"),
   openGraph: openGraphPage(TITRE, DESCRIPTION, "en"),
 };
 
@@ -133,11 +133,11 @@ const WORKFLOW = ["Scraping", "Structured data", "PDF report"] as const;
 export default function CalculPageEn() {
   return (
     <>
-      <HreflangLinks fr="/calcul" en="/en/calcul" />
+      <HreflangLinks fr="/calcul" en="/en/compute" />
       <BreadcrumbJsonLd
         items={[
           { nom: "Home", chemin: "/en" },
-          { nom: "Compute", chemin: "/en/calcul" },
+          { nom: "Compute", chemin: "/en/compute" },
         ]}
       />
 
@@ -167,7 +167,7 @@ export default function CalculPageEn() {
               >
                 Run your first task
               </BoutonCta>
-              <LienOr href="/en/tarifs">See pricing</LienOr>
+              <LienOr href="/en/pricing">See pricing</LienOr>
             </div>
           </Reveal>
 
@@ -260,7 +260,7 @@ export default function CalculPageEn() {
                 href: LIEN_INSCRIPTION,
                 libelle: "Run your first task",
               }}
-              lien={{ href: "/en/tarifs", libelle: "See pricing" }}
+              lien={{ href: "/en/pricing", libelle: "See pricing" }}
             />
           </Reveal>
         </div>
@@ -335,7 +335,7 @@ function GesteSection({ geste }: Readonly<{ geste: Geste }>) {
             </p>
             {!nomFacture && (
               <div className="mt-4">
-                <LienOr href="/en/tarifs">See the full pricing</LienOr>
+                <LienOr href="/en/pricing">See the full pricing</LienOr>
               </div>
             )}
           </Reveal>

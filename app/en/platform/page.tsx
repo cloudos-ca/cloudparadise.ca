@@ -35,7 +35,7 @@ const DESCRIPTION =
 export const metadata: Metadata = {
   title: TITRE,
   description: DESCRIPTION,
-  alternates: alternatesBilingues("/plateforme", "/en/plateforme", "en"),
+  alternates: alternatesBilingues("/plateforme", "/en/platform", "en"),
   openGraph: openGraphPage(TITRE, DESCRIPTION, "en"),
 };
 
@@ -123,11 +123,11 @@ const EQUIPE: Carte[] = [
 export default function PlateformePageEn() {
   return (
     <>
-      <HreflangLinks fr="/plateforme" en="/en/plateforme" />
+      <HreflangLinks fr="/plateforme" en="/en/platform" />
       <BreadcrumbJsonLd
         items={[
           { nom: "Home", chemin: "/en" },
-          { nom: "Platform", chemin: "/en/plateforme" },
+          { nom: "Platform", chemin: "/en/platform" },
         ]}
       />
 
@@ -155,7 +155,7 @@ export default function PlateformePageEn() {
               >
                 Create your desktop for free
               </BoutonCta>
-              <LienOr href="/en/tarifs">See pricing</LienOr>
+              <LienOr href="/en/pricing">See pricing</LienOr>
             </div>
           </Reveal>
 
@@ -219,7 +219,7 @@ export default function PlateformePageEn() {
                 href: LIEN_INSCRIPTION,
                 libelle: "Create your desktop for free",
               }}
-              lien={{ href: "/en/tarifs", libelle: "See pricing" }}
+              lien={{ href: "/en/pricing", libelle: "See pricing" }}
             />
           </Reveal>
         </div>

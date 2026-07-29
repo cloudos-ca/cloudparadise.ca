@@ -38,7 +38,7 @@ export const metadata: Metadata = {
   title: TITRE,
   description: DESCRIPTION,
   robots: ROBOTS,
-  alternates: alternatesBilingues("/conditions", "/en/conditions", "fr"),
+  alternates: alternatesBilingues("/conditions", "/en/terms", "fr"),
   openGraph: openGraphPage(TITRE, DESCRIPTION, "fr", ["/opengraph-image"]),
 };
 
@@ -550,7 +550,7 @@ export default function ConditionsPage() {
     // (voir globals.css) : un document qu'on lit d'un bout à l'autre n'a pas
     // besoin d'un halo derrière son premier paragraphe.
     <section className="relative" data-page-sobre>
-      <HreflangLinks fr="/conditions" en="/en/conditions" />
+      <HreflangLinks fr="/conditions" en="/en/terms" />
       <BreadcrumbJsonLd
         items={[
           { nom: "Accueil", chemin: "/" },

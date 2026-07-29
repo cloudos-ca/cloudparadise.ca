@@ -26,7 +26,7 @@ export const metadata: Metadata = {
   title: TITRE,
   description: DESCRIPTION,
   robots: ROBOTS,
-  alternates: alternatesBilingues("/confidentialite", "/en/confidentialite", "en"),
+  alternates: alternatesBilingues("/confidentialite", "/en/privacy", "en"),
   openGraph: openGraphPage(TITRE, DESCRIPTION, "en", ["/opengraph-image"]),
 };
 
@@ -388,11 +388,11 @@ const ANCRES = ancresDe(SECTIONS);
 export default function ConfidentialitePageEn() {
   return (
     <section className="relative" data-page-sobre>
-      <HreflangLinks fr="/confidentialite" en="/en/confidentialite" />
+      <HreflangLinks fr="/confidentialite" en="/en/privacy" />
       <BreadcrumbJsonLd
         items={[
           { nom: "Home", chemin: "/en" },
-          { nom: "Privacy Policy", chemin: "/en/confidentialite" },
+          { nom: "Privacy Policy", chemin: "/en/privacy" },
         ]}
       />
       <div className={`${SHELL} ${SECTION_Y}`}>

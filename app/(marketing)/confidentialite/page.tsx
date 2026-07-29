@@ -26,7 +26,7 @@ export const metadata: Metadata = {
   title: TITRE,
   description: DESCRIPTION,
   robots: ROBOTS,
-  alternates: alternatesBilingues("/confidentialite", "/en/confidentialite", "fr"),
+  alternates: alternatesBilingues("/confidentialite", "/en/privacy", "fr"),
   openGraph: openGraphPage(TITRE, DESCRIPTION, "fr", ["/opengraph-image"]),
 };
 
@@ -400,7 +400,7 @@ export default function ConfidentialitePage() {
   return (
     // `data-page-sobre` éteint la lueur haute du fond — voir /conditions.
     <section className="relative" data-page-sobre>
-      <HreflangLinks fr="/confidentialite" en="/en/confidentialite" />
+      <HreflangLinks fr="/confidentialite" en="/en/privacy" />
       <BreadcrumbJsonLd
         items={[
           { nom: "Accueil", chemin: "/" },

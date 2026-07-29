@@ -144,7 +144,7 @@ export const PAGES: readonly PageSite[] = [
   },
   {
     fr: "/plateforme",
-    en: "/en/plateforme",
+    en: "/en/platform",
     priority: 0.8,
     changeFrequency: "monthly",
     titre: { fr: "Plateforme", en: "Platform" },
@@ -155,7 +155,7 @@ export const PAGES: readonly PageSite[] = [
   },
   {
     fr: "/calcul",
-    en: "/en/calcul",
+    en: "/en/compute",
     priority: 0.8,
     changeFrequency: "monthly",
     titre: { fr: "Calcul", en: "Compute" },
@@ -166,7 +166,7 @@ export const PAGES: readonly PageSite[] = [
   },
   {
     fr: "/mines",
-    en: "/en/mines",
+    en: "/en/mining",
     priority: 0.8,
     changeFrequency: "monthly",
     titre: { fr: "Mines", en: "Mining" },
@@ -177,7 +177,7 @@ export const PAGES: readonly PageSite[] = [
   },
   {
     fr: "/fonctions",
-    en: "/en/fonctions",
+    en: "/en/features",
     priority: 0.8,
     changeFrequency: "monthly",
     titre: { fr: "Fonctions", en: "Features" },
@@ -188,7 +188,7 @@ export const PAGES: readonly PageSite[] = [
   },
   {
     fr: "/tarifs",
-    en: "/en/tarifs",
+    en: "/en/pricing",
     priority: 0.8,
     changeFrequency: "monthly",
     titre: { fr: "Tarifs", en: "Pricing" },
@@ -199,7 +199,7 @@ export const PAGES: readonly PageSite[] = [
   },
   {
     fr: "/securite",
-    en: "/en/securite",
+    en: "/en/security",
     priority: 0.6,
     changeFrequency: "monthly",
     titre: { fr: "Sécurité", en: "Security" },
@@ -221,14 +221,14 @@ export const PAGES: readonly PageSite[] = [
   },
   {
     fr: "/conditions",
-    en: "/en/conditions",
+    en: "/en/terms",
     priority: 0.3,
     changeFrequency: "yearly",
     titre: { fr: "Conditions d'utilisation", en: "Terms of Use" },
   },
   {
     fr: "/confidentialite",
-    en: "/en/confidentialite",
+    en: "/en/privacy",
     priority: 0.3,
     changeFrequency: "yearly",
     titre: { fr: "Politique de confidentialité", en: "Privacy Policy" },
