@@ -4,12 +4,12 @@ import { PopupLoi25 } from "@/components/marketing/PopupLoi25";
 import { RootDocument } from "@/components/marketing/RootDocument";
 import { TopBar } from "@/components/marketing/TopBar";
 import {
-  SITE_URL,
   TITRE_ACCUEIL,
   DESCRIPTION_ACCUEIL,
   ICONS,
   ROBOTS,
 } from "@/lib/seo";
+import { SITE_URL } from "@/lib/site";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),

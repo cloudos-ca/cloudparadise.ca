@@ -557,7 +557,7 @@ export default function ConditionsPage() {
           {/* Métadonnée du document, pas un sous-titre : elle date la version
               qu'on lit, elle n'annonce pas ce qu'elle contient. Discrète, donc,
               mais à une taille qui se lit encore. */}
-          <p className={`${LECTURE} mt-3 text-[13px] text-white/55`}>
+          <p className={`${LECTURE} mt-3 text-[13px] text-white/70`}>
             Dernière mise à jour : {MAJ} — version {VERSION}
           </p>
 

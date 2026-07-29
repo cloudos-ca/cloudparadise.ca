@@ -8,6 +8,7 @@ import {
 import { BoutonCta } from "@/components/marketing/BoutonCta";
 import { BreadcrumbJsonLd } from "@/components/marketing/BreadcrumbJsonLd";
 import { FenetreCta } from "@/components/marketing/FenetreCta";
+import { FenetrePlan } from "@/components/marketing/FenetrePlan";
 import { HreflangLinks } from "@/components/marketing/HreflangLinks";
 import { Reveal } from "@/components/marketing/Reveal";
 import {
@@ -25,6 +26,7 @@ import {
 } from "@/components/marketing/icons";
 import { SECTION_Y, SHELL } from "@/components/marketing/tokens";
 import { alternatesBilingues, openGraphPage } from "@/lib/seo";
+import { LIEN_INSCRIPTION } from "@/lib/site";
 
 const TITRE = "Plateforme — Cloud Paradise";
 const DESCRIPTION =
@@ -149,7 +151,7 @@ export default function PlateformePage() {
             </p>
             <div className="mt-7 flex flex-wrap items-center gap-x-5 gap-y-3">
               <BoutonCta
-                href="https://app.cloudparadise.cloud/register"
+                href={LIEN_INSCRIPTION}
                 taille="lg"
               >
                 Créez votre bureau gratuitement
@@ -195,12 +197,7 @@ export default function PlateformePage() {
         cartes={APPLICATIONS}
       >
         <Reveal delay={0.15} className="mt-8">
-          <Capture
-            src="/plateforme/plan.jpg"
-            width={2048}
-            height={756}
-            alt="Un plan Cloud Paradise : la conversion d’un document, sa spécification, son exécution et le résultat à télécharger."
-          />
+          <FenetrePlan />
         </Reveal>
       </SectionAncre>
 
@@ -219,7 +216,7 @@ export default function PlateformePage() {
             <FenetreCta
               soustitre="Créez votre bureau, ouvrez vos applications, invitez votre équipe — dès aujourd’hui."
               bouton={{
-                href: "https://app.cloudparadise.cloud/register",
+                href: LIEN_INSCRIPTION,
                 libelle: "Créez votre bureau gratuitement",
               }}
               lien={{ href: "/tarifs", libelle: "Voir les tarifs" }}

@@ -11,7 +11,10 @@ import {
   SectionsRedigees,
   type SectionRedigee,
 } from "@/components/marketing/legal";
-import { ADRESSE } from "@/components/marketing/coordonnees";
+import {
+  ADRESSE,
+  COURRIEL_RESPONSABLE,
+} from "@/components/marketing/coordonnees";
 import { LECTURE, SECTION_Y, SHELL } from "@/components/marketing/tokens";
 import { alternatesBilingues, openGraphPage, ROBOTS } from "@/lib/seo";
 
@@ -33,7 +36,6 @@ const MAJ = "July 21, 2026";
 const RESPONSABLE = "Maxime Murray";
 /** Email dedicated to the privacy officer — distinct from the general
  * contact email (`COURRIEL`). */
-const COURRIEL_RESPONSABLE = "maxime@cloudparadise.ca";
 
 const DENOMINATION_LEGALE = "Cloud Paradise S.E.N.C.";
 const ADRESSE_LIGNE = ADRESSE.join(", ");
@@ -396,7 +398,7 @@ export default function ConfidentialitePageEn() {
       <div className={`${SHELL} ${SECTION_Y}`}>
         <div className={CONTENEUR_LEGAL}>
           <PageEntete eyebrow="Legal" titre="Privacy Policy" />
-          <p className={`${LECTURE} mt-3 text-[13px] text-white/55`}>
+          <p className={`${LECTURE} mt-3 text-[13px] text-white/70`}>
             Last updated: {MAJ}
           </p>
 

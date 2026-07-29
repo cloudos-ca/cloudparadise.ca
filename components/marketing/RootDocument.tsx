@@ -1,5 +1,5 @@
 import { MatomoAnalytics } from "@/components/marketing/MatomoAnalytics";
-import { SITE_URL } from "@/lib/seo";
+import { SITE_URL } from "@/lib/site";
 import { comfortaa, workSans } from "@/app/fonts";
 import {
   COURRIEL,
@@ -17,6 +17,11 @@ import "@/app/globals.css";
  * Google pour le nom de marque, le lien officiel et l'adresse dans les
  * résultats de recherche. L'adresse vient de `coordonnees.ts`, seule source
  * de vérité pour ces champs (utilisée aussi par /contact et les pages légales).
+ *
+ * `SITE_URL` vient de `lib/site.ts` et suit donc l'environnement : le dev
+ * déclarait jusqu'ici l'organisation et le site sous l'URL de production,
+ * c'est-à-dire qu'il revendiquait l'identité du vrai site depuis une
+ * préproduction qu'on demande par ailleurs de ne pas explorer.
  */
 const JSON_LD = {
   "@context": "https://schema.org",

@@ -1,14 +1,22 @@
 import Image from "next/image";
 import { SHELL, type Lang } from "./tokens";
+import { LIEN_CONNEXION } from "@/lib/site";
 
 /**
  * Liens de pied de page.
  *
- * Trois colonnes : la nav principale (Plateforme/Calcul/Mines/Tarifs), puis les
- * pages qu'on lit une fois convaincu (Fonctions, Sécurité), enfin le légal. Le
- * pied de page est le seul endroit où Fonctions et Sécurité sont accessibles
- * globalement, la barre de menu ne les portant pas. Tous les liens visent de
- * vraies pages — jamais d'ancre inerte.
+ * Quatre colonnes : le produit (Plateforme/Calcul/Mines/Tarifs), les pages
+ * qu'on lit une fois convaincu (Fonctions, Sécurité, connexion), l'entreprise
+ * (Contact), enfin le légal. Le pied de page est le seul endroit où Mines et
+ * Sécurité sont accessibles globalement, la barre de menu ne les portant plus.
+ *
+ * `Contact` a sa propre colonne et non celle du légal : écrire pour joindre
+ * quelqu'un n'est pas un document contractuel, et le ranger à côté des
+ * Conditions laissait entendre qu'il fallait une raison juridique pour nous
+ * écrire. Une colonne d'un seul lien est ici assumée — les hauteurs
+ * descendent 4/3/1/2, ce qui se lit comme un escalier plutôt qu'un trou.
+ *
+ * Tous les liens visent de vraies pages — jamais d'ancre inerte.
  */
 const COLONNES = {
   fr: [
@@ -28,15 +36,18 @@ const COLONNES = {
         { libelle: "Sécurité", href: "/securite" },
         // Même cible que la barre de menu : `#` ne faisait que remonter en
         // haut de page, ce qui est pire qu'un lien en attente d'être branché.
-        { libelle: "Se connecter", href: "https://app.cloudparadise.cloud/login" },
+        { libelle: "Se connecter", href: LIEN_CONNEXION },
       ],
+    },
+    {
+      titre: "Entreprise",
+      liens: [{ libelle: "Contact", href: "/contact" }],
     },
     {
       titre: "Légal",
       liens: [
         { libelle: "Conditions", href: "/conditions" },
         { libelle: "Confidentialité", href: "/confidentialite" },
-        { libelle: "Contact", href: "/contact" },
       ],
     },
   ],
@@ -55,15 +66,18 @@ const COLONNES = {
       liens: [
         { libelle: "Features", href: "/en/fonctions" },
         { libelle: "Security", href: "/en/securite" },
-        { libelle: "Log in", href: "https://app.cloudparadise.cloud/login" },
+        { libelle: "Log in", href: LIEN_CONNEXION },
       ],
+    },
+    {
+      titre: "Company",
+      liens: [{ libelle: "Contact", href: "/en/contact" }],
     },
     {
       titre: "Legal",
       liens: [
         { libelle: "Terms", href: "/en/conditions" },
         { libelle: "Privacy", href: "/en/confidentialite" },
-        { libelle: "Contact", href: "/en/contact" },
       ],
     },
   ],
@@ -107,7 +121,7 @@ export function Footer({ lang = "fr" }: Readonly<{ lang?: Lang }>) {
                       <li key={libelle}>
                         <a
                           href={href}
-                          className="text-[13px] text-[#93a3c2] underline-offset-4 hover:text-white hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+                          className="text-[13px] text-cp-muted underline-offset-4 hover:text-white hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
                         >
                           {libelle}
                         </a>

@@ -14,6 +14,7 @@ import { WindowCard } from "@/components/marketing/WindowCard";
 import { libelleDe, type TypeTache } from "@/components/marketing/offre";
 import { SECTION_Y, SHELL } from "@/components/marketing/tokens";
 import { alternatesBilingues, openGraphPage } from "@/lib/seo";
+import { LIEN_INSCRIPTION } from "@/lib/site";
 
 const TITRE = "Compute — Cloud Paradise";
 const DESCRIPTION =
@@ -156,7 +157,7 @@ export default function CalculPageEn() {
             </p>
             <div className="mt-7 flex flex-wrap items-center gap-x-5 gap-y-3">
               <BoutonCta
-                href="https://app.cloudparadise.cloud/register"
+                href={LIEN_INSCRIPTION}
                 taille="lg"
               >
                 Run your first task
@@ -251,7 +252,7 @@ export default function CalculPageEn() {
               lang="en"
               soustitre="Describe your first task. We take care of the rest."
               bouton={{
-                href: "https://app.cloudparadise.cloud/register",
+                href: LIEN_INSCRIPTION,
                 libelle: "Run your first task",
               }}
               lien={{ href: "/en/tarifs", libelle: "See pricing" }}
@@ -315,7 +316,7 @@ function GesteSection({ geste }: Readonly<{ geste: Geste }>) {
             <p className="text-[13px] font-semibold uppercase tracking-[0.12em]">
               <span style={{ color: "var(--cta)" }}>{geste.surtitre}</span>
               {nomFacture && (
-                <span className="font-normal tracking-normal text-white/45 normal-case">
+                <span className="font-normal tracking-normal text-white/70 normal-case">
                   {" · billed as "}
                   {nomFacture}
                 </span>

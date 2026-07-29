@@ -156,12 +156,18 @@ export default function SecuritePageEn() {
 
       {/* 4 — Les accès (prose, comme le reste de la page — pas de puces) */}
       <Section2Col surtitre="Access" titre="Everyone in their own space.">
+        {/* Voir la note du miroir français : la 2FA par courriel est un
+            plancher, pas un argument de vente. */}
         <div className="space-y-4 text-[15px] leading-relaxed text-white/85">
           <p>Every user and every team works in isolation.</p>
           <p>
-            Access to an account goes through two-factor authentication by
-            email. Session tokens are hashed, and API keys have a limited scope,
-            with an expiry date.
+            Signing in requires a second factor, sent by email. That is a floor,
+            not a selling point: email is the weakest of the second factors, and
+            it is there so that no account rests on a password alone.
+          </p>
+          <p>
+            Session tokens are hashed, and API keys have a limited scope, with
+            an expiry date.
           </p>
         </div>
       </Section2Col>

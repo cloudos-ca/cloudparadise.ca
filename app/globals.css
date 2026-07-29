@@ -18,7 +18,18 @@
   /* Teintes dérivées, uniquement pour la profondeur et la lisibilité. */
   --color-cp-navy-deep: #151f33;
   --color-cp-subtle: #aab7d0;
-  --color-cp-log: #8494b6;
+  /*
+   * Texte secondaire — LE gris-bleu du site, et le seul.
+   *
+   * Remplace trois valeurs voisines qui coexistaient sans se distinguer à
+   * l'œil : #8494b6 (journaux), #93a3c2 (libellés discrets) et #8fa0bd. Toutes
+   * les trois tombaient sous 4,5:1 dès que le contenu défilait sous la lueur
+   * haute du layout — cette lueur est `fixed`, donc n'importe quel paragraphe
+   * finit par passer dessous. Mesurée au pire endroit atteignable (colonne de
+   * gauche, juste sous la barre de menu, fond composité #2f3f51), cette valeur
+   * tient 4,6:1 ; sur une ligne de tableau elle monte à 5,3:1.
+   */
+  --color-cp-muted: #9daac5;
   --color-cp-ghost: #dbe6fb;
 
   --font-mono: ui-monospace, "SF Mono", "Cascadia Mono", Menlo, monospace;
@@ -46,8 +57,15 @@
 :root {
   /* Surface : fond de bouton. Assez sombre pour du texte blanc dessus. */
   --acc: #2d66ae;
-  /* Texte : eyebrows, liens, icônes. Assez clair pour ressortir sur le fond. */
-  --acc-text: #6a92c5;
+  /*
+   * Texte : eyebrows, liens, icônes. Assez clair pour ressortir sur le fond.
+   *
+   * Éclairci de #6a92c5 : cette valeur-là tenait 4,65:1 sur le marine nu, mais
+   * tombait à 3,3:1 dès qu'un paragraphe passait sous la lueur haute. Doit
+   * rester synchronisé avec `accText` du fond « ciel » (wallpapers.ts) — c'est
+   * la même valeur, écrite ici pour le SSR et là-bas pour la recoloration.
+   */
+  --acc-text: #8eacd3;
   --soft: #bbecee;
   --sky: linear-gradient(140deg, #151f33, #1b273d);
   --veil: 0;

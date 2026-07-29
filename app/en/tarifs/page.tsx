@@ -30,6 +30,7 @@ import {
 } from "@/components/marketing/offre";
 import { SECTION_Y, SHELL } from "@/components/marketing/tokens";
 import { alternatesBilingues, openGraphPage } from "@/lib/seo";
+import { LIEN_INSCRIPTION } from "@/lib/site";
 
 const TITRE = "Pricing — Cloud Paradise";
 const DESCRIPTION = `Credits, not a subscription. ${OFFRE_EN_DEVISE} in credits on signup, and the cost of every task.`;
@@ -183,7 +184,7 @@ export default function TarifsPageEn() {
                 l'offre confirme l'action, elle ne la précède pas. */}
             <div className="mt-7">
               <BoutonCta
-                href="https://app.cloudparadise.cloud/register"
+                href={LIEN_INSCRIPTION}
                 taille="lg"
               >
                 Start for free
@@ -359,7 +360,7 @@ export default function TarifsPageEn() {
               badge={false}
               soustitre="Create your account and run your first task today."
               bouton={{
-                href: "https://app.cloudparadise.cloud/register",
+                href: LIEN_INSCRIPTION,
                 libelle: "Start for free",
               }}
               lien={{

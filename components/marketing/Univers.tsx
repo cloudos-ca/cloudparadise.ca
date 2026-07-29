@@ -185,7 +185,7 @@ function ApercuTech({ delaiDepart = 0 }: ApercuProps) {
         {lignes.map(([url, prix, stock], i) => (
           <motion.div
             key={`${url}-${cycle}`}
-            className="flex gap-2 text-[#8fa0bd]"
+            className="flex gap-2 text-cp-muted"
             initial={{ opacity: reduceMotion ? 1 : 0, x: reduceMotion ? 0 : -4 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{
@@ -319,7 +319,7 @@ export function Univers({ lang = "fr" }: Readonly<{ lang?: Lang }>) {
           <h2 className="mt-3 font-display text-[1.6rem] leading-[1.2] font-bold tracking-tight text-[#eef4ff] sm:text-3xl os:text-4xl">
             {t.titre}
           </h2>
-          <p className="mt-3 max-w-[46ch] text-sm leading-relaxed text-[#93a3c2]">
+          <p className="mt-3 max-w-[46ch] text-sm leading-relaxed text-cp-muted">
             {t.soustitre}
           </p>
         </Reveal>

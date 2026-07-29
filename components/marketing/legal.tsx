@@ -294,13 +294,13 @@ export function SectionsLegales({
           <h2 className="font-display text-lg font-bold tracking-tight text-[#eef4ff]">
             <span
               aria-hidden="true"
-              className="mr-2 tabular-nums text-[#93a3c2]"
+              className="mr-2 tabular-nums text-cp-muted"
             >
               {i + 1}.
             </span>
             {titre}
           </h2>
-          <p className="mt-2 text-sm leading-relaxed text-[#93a3c2] italic">
+          <p className="mt-2 text-sm leading-relaxed text-cp-muted italic">
             <span className="not-italic" style={{ color: "var(--acc-text)" }}>
               {marqueur}
             </span>{" "}

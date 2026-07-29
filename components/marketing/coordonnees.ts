@@ -6,6 +6,16 @@
  */
 export const COURRIEL = "info@cloudparadise.ca";
 
+/**
+ * Responsable de la protection des renseignements personnels (loi 25).
+ *
+ * Adresse nominative et non `COURRIEL` : la loi demande une personne
+ * identifiable, pas une boîte partagée. Elle était recopiée à l'identique dans
+ * les deux pages de confidentialité — le genre de doublon qui se corrige une
+ * fois sur deux le jour où la personne change.
+ */
+export const COURRIEL_RESPONSABLE = "maxime@cloudparadise.ca";
+
 /** Affichage local ; `TELEPHONE_LIEN` porte la forme E.164 pour `tel:`. */
 export const TELEPHONE = "873 730-3236";
 export const TELEPHONE_LIEN = "+18737303236";

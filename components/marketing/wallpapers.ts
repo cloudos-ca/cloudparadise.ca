@@ -18,14 +18,20 @@
  * donc être assez clair pour ressortir.
  *
  * Un seul token ne peut pas tenir les deux — c'était le cas, et les deux rôles
- * échouaient au contraste selon le thème. Chaque valeur ci-dessous atteint au
- * moins 4,5:1 dans son rôle.
+ * échouaient au contraste selon le thème.
+ *
+ * Chaque `accText` ci-dessous atteint au moins 4,5:1 **au pire endroit de la
+ * page**, pas seulement sur le fond nu. La nuance compte : les deux lueurs du
+ * layout sont `fixed`, donc tout paragraphe finit par défiler sous la plus
+ * claire, qui éclaircit le fond de ~#1b273d à ~#2f3f51. Les valeurs
+ * précédentes passaient sur le fond nu et échouaient sous la lueur — de 3,1:1
+ * (nébuleuse) à 4,1:1 (glace). Elles ont toutes été éclaircies d'autant.
  */
 
 /** Accent vif de la charte — fond de bouton, progression. */
 export const DEFAULT_ACC = "#2d66ae";
 /** Même accent, éclairci pour rester lisible en texte sur le fond. */
-export const DEFAULT_ACC_TEXT = "#6a92c5";
+export const DEFAULT_ACC_TEXT = "#8eacd3";
 /** Accent clair de la charte — 2e ligne du titre, puces, badge, avatar. */
 export const DEFAULT_SOFT = "#bbecee";
 /** Fond par défaut — bleu nuit de la charte. */
@@ -69,7 +75,7 @@ export const WALLPAPERS: readonly Wallpaper[] = [
     swatch: "linear-gradient(140deg,#2f9e6a,#a6e3c8)",
     sky: "linear-gradient(140deg,#0f2019,#143a2c)",
     acc: "#278459",
-    accText: "#52ae83",
+    accText: "#6ab994",
     soft: "#a6e3c8",
   },
   {
@@ -79,7 +85,7 @@ export const WALLPAPERS: readonly Wallpaper[] = [
     swatch: "linear-gradient(140deg,#8a5fd0,#d6bff0)",
     sky: "linear-gradient(140deg,#191030,#2a1745)",
     acc: "#895ece",
-    accText: "#9c77d7",
+    accText: "#b89ee2",
     soft: "#d6bff0",
   },
   {
@@ -89,7 +95,7 @@ export const WALLPAPERS: readonly Wallpaper[] = [
     swatch: "linear-gradient(140deg,#d9743e,#f3c79a)",
     sky: "linear-gradient(140deg,#241019,#3a1c22)",
     acc: "#b15f33",
-    accText: "#d9743e",
+    accText: "#e39870",
     soft: "#f3c79a",
   },
   {
@@ -99,7 +105,7 @@ export const WALLPAPERS: readonly Wallpaper[] = [
     swatch: "linear-gradient(140deg,#2f9bcf,#bfe9f4)",
     sky: "linear-gradient(140deg,#08222b,#0f3a45)",
     acc: "#267da7",
-    accText: "#4ca9d6",
+    accText: "#61b3db",
     soft: "#bfe9f4",
   },
 ] as const;

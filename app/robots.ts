@@ -1,5 +1,5 @@
 import type { MetadataRoute } from "next";
-import { EST_PRODUCTION, SITE_URL } from "@/lib/seo";
+import { EST_PRODUCTION, SITE_URL } from "@/lib/site";
 
 /**
  * Hors production, tout est interdit et aucun sitemap n'est annoncé.

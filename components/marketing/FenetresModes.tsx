@@ -136,7 +136,13 @@ const MODES: readonly {
   },
   {
     type: "Scraping",
-    nom: { fr: "Scraping", en: "Scraping" },
+    // « Extraction web » en français, comme `offre.ts` — c'est le libellé que
+    // /tarifs et /fonctions affichent. Cette fenêtre était la dernière surface
+    // à dire « Scraping » en français, héritée de l'ancien site : le visiteur
+    // qui passait de /calcul à /tarifs croyait voir deux modes différents. Le
+    // reste de la carte (phrase, puces, techno) disait déjà « extraction web ».
+    // L'anglais garde « Scraping », qui y est le terme courant.
+    nom: { fr: "Extraction web", en: "Scraping" },
     Icone: IconWorldSearch,
     phrase: {
       fr: "Extrayez des données du web à grande échelle.",
@@ -303,7 +309,7 @@ export function FenetresModes({ lang = "fr" }: Readonly<{ lang?: Lang }>) {
                     {puces[lang].map((p) => (
                       <li
                         key={p}
-                        className="flex gap-2 text-[13px] leading-relaxed text-[#93a3c2]"
+                        className="flex gap-2 text-[13px] leading-relaxed text-cp-muted"
                       >
                         <span
                           aria-hidden="true"
@@ -319,7 +325,7 @@ export function FenetresModes({ lang = "fr" }: Readonly<{ lang?: Lang }>) {
                       fenêtres n'ont pas toutes le même nombre de puces, et sans
                       ça les mentions techniques se retrouvaient à des hauteurs
                       différentes d'une colonne à l'autre. */}
-                  <p className="mt-4 border-t border-white/[0.08] pt-3 font-mono text-[11px] leading-relaxed break-words text-[#8494b6] os:mt-auto">
+                  <p className="mt-4 border-t border-white/[0.08] pt-3 font-mono text-[11px] leading-relaxed break-words text-cp-muted os:mt-auto">
                     {techno[lang]}
                   </p>
                 </div>

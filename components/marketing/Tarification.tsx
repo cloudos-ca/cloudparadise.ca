@@ -152,7 +152,7 @@ function Grille({ lang }: Readonly<{ lang: Lang }>) {
             {/* Un mode sans tarif arrêté reste listé — le masquer donnerait une
                 offre incomplète — mais il le dit au lieu d'afficher un prix. */}
             {cout === null ? (
-              <dd className="text-[12px] text-[#8494b6] italic">
+              <dd className="text-[12px] text-cp-muted italic">
                 {tarifAVenir(lang)}
               </dd>
             ) : (

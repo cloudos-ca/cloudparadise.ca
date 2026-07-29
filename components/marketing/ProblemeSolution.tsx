@@ -4,6 +4,7 @@ import { motion, useReducedMotion } from "framer-motion";
 import { WindowCard } from "./WindowCard";
 import { JobPanel } from "./JobPanel";
 import { Reveal } from "./Reveal";
+import { libelleDe } from "./offre";
 import { SECTION_Y, SHELL, type Lang } from "./tokens";
 
 /**
@@ -252,7 +253,7 @@ function CloudWindow({ t, lang }: Readonly<{ t: Textes; lang: Lang }>) {
       >
         <JobPanel
           title={t.cloudTitre}
-          chip="DOCUMENTS"
+          chip={libelleDe("Documents", lang).toUpperCase()}
           logs={CLOUD_LOGS[lang]}
           lang={lang}
         />

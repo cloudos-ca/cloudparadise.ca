@@ -96,11 +96,11 @@ export function UniversCard({
         <h3 className="font-display text-base font-bold text-[#eef4ff]">
           {titre}
         </h3>
-        <p className="mt-1.5 text-xs leading-relaxed text-[#93a3c2]">
+        <p className="mt-1.5 text-xs leading-relaxed text-cp-muted">
           {description}
         </p>
 
-        <p className="mt-2.5 text-xs leading-relaxed text-[#93a3c2]">
+        <p className="mt-2.5 text-xs leading-relaxed text-cp-muted">
           <span className="font-medium" style={{ color: "var(--u)" }}>
             {t.exemple}
           </span>

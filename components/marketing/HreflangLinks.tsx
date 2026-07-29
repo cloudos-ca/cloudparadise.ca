@@ -1,8 +1,16 @@
-import { SITE_URL } from "@/lib/seo";
+import { EST_PRODUCTION, SITE_URL } from "@/lib/site";
 
 /**
  * Balises hreflang rendues à la main, dans le corps de la page (Next les
  * remonte vers `<head>`).
+ *
+ * Rien du tout hors production, pour la même raison que le canonical (voir
+ * `alternatesBilingues`) : `rel="alternate"` est de la même famille que
+ * `rel="canonical"`, et une préproduction qui déclare « la version française
+ * de cette page est sur cloudparadise.ca » revendique les URL de production
+ * depuis un site qu'on demande par ailleurs de ne pas explorer. Un jeu de
+ * hreflang non réciproque — la production ne renvoie évidemment pas vers le
+ * dev — est de toute façon ignoré par Google, donc on ne perd rien à le taire.
  *
  * On utilise la prop React standard `hrefLang` (camelCase) : react-dom la sort
  * en attribut minuscule `hreflang`, la forme attendue par les moteurs. Une
@@ -23,6 +31,8 @@ export function HreflangLinks({
   fr,
   en,
 }: Readonly<{ fr: string; en?: string }>) {
+  if (!EST_PRODUCTION) return null;
+
   return (
     <>
       <link rel="alternate" hrefLang="fr" href={`${SITE_URL}${fr}`} />

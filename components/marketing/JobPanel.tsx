@@ -69,7 +69,7 @@ export function JobPanel({ title, chip, logs, lang = "fr" }: JobPanelProps) {
         {logs.map((line, i) => (
           <motion.p
             key={`log-${cycle}-${i}`}
-            className="font-mono text-[11px] text-cp-log"
+            className="font-mono text-[11px] text-cp-muted"
             initial={{ opacity: reduceMotion ? 1 : 0 }}
             animate={{ opacity: 1 }}
             transition={{

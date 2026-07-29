@@ -158,12 +158,23 @@ export default function SecuritePage() {
 
       {/* 4 — Les accès (prose, comme le reste de la page — pas de puces) */}
       <Section2Col surtitre="Les accès" titre="Chacun chez soi.">
+        {/* La 2FA par courriel est présentée comme un plancher, jamais comme un
+            argument : c'est le plus faible des seconds facteurs, et un acheteur
+            technique le sait. La revendiquer comme une force coûtait la
+            crédibilité des trois autres sections. Aucune promesse de TOTP tant
+            que la date n'est pas tenue par l'équipe — une feuille de route
+            annoncée ici est une dette, pas une fonctionnalité. */}
         <div className="space-y-4 text-[15px] leading-relaxed text-white/85">
           <p>Chaque utilisateur et chaque équipe travaillent isolés.</p>
           <p>
-            L’accès au compte passe par une authentification à deux facteurs par
-            courriel. Les jetons de session sont hachés, et les clés API ont une
-            portée limitée, avec une date d’expiration.
+            L’accès au compte demande un second facteur, envoyé par courriel.
+            C’est un plancher et non un argument : le courriel est le plus
+            faible des seconds facteurs, et il est là pour qu’aucun compte ne
+            repose sur un mot de passe seul.
+          </p>
+          <p>
+            Les jetons de session sont hachés, et les clés API ont une portée
+            limitée, avec une date d’expiration.
           </p>
         </div>
       </Section2Col>

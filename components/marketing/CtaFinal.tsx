@@ -2,6 +2,7 @@ import { FenetreCta } from "./FenetreCta";
 import { Reveal } from "./Reveal";
 import { IconCheck } from "./icons";
 import { SECTION_Y, SHELL, type Lang } from "./tokens";
+import { LIEN_INSCRIPTION } from "@/lib/site";
 
 const PROMESSES = {
   fr: ["Crédits offerts", "Sans carte requise", "Sans abonnement"],
@@ -41,7 +42,7 @@ export function CtaFinal({ lang = "fr" }: Readonly<{ lang?: Lang }>) {
             badgeSansCarte={false}
             soustitre={<>{t.soustitre}</>}
             bouton={{
-              href: "https://app.cloudparadise.cloud/register",
+              href: LIEN_INSCRIPTION,
               libelle: t.bouton,
             }}
             lien={{

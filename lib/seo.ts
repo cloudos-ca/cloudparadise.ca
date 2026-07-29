@@ -1,36 +1,17 @@
 import type { Metadata } from "next";
-
-export const SITE_URL = "https://cloudparadise.ca";
+import { EST_PRODUCTION } from "./site";
 
 /**
- * Vrai en production, faux partout ailleurs (dev.cloudparadise.cloud, aperçus,
- * local).
+ * Ce module ne définit plus d'URL : `lib/site.ts` est la seule définition de
+ * domaine du dépôt. Il n'en réexporte pas non plus — deux chemins d'import
+ * pour la même constante finissent toujours par diverger dans la tête de
+ * quelqu'un. Ce qui a besoin de `SITE_URL` l'importe de `@/lib/site`.
  *
- * Le défaut est « production » **volontairement**, et c'est le point délicat de
- * ce fichier : c'est un choix de sens de panne. Un environnement hors
- * production qui oublie la variable reste indexable — le problème qu'on
- * corrige. Mais l'inverse, un défaut « non-production », désindexerait le vrai
- * site au premier déploiement qui oublie la variable, et une désindexation se
- * paie en semaines de retour dans l'index. Entre les deux, on prend le risque
- * réversible. Conséquence : **c'est l'environnement de dev qui doit déclarer
- * `SITE_ENV`**, pas la production.
- *
- * Lu au build, pas à l'exécution : les métadonnées des pages statiques sont
- * calculées à la génération, donc une variable posée seulement à l'exécution
- * n'aurait aucun effet sur le HTML servi. D'où l'`ARG SITE_ENV` du Dockerfile —
- * côté Coolify, la variable doit être cochée « Build Variable ». Passer par un
- * `generateMetadata` dynamique aurait rendu tout le site dynamique, ce que le
- * projet refuse déjà par ailleurs (voir la note CSP de next.config.ts).
- *
- * Pas de `NEXT_PUBLIC_` : rien de tout ceci ne descend dans le bundle client.
- *
- * `||` et non `??` : le Dockerfile fait `ENV SITE_ENV=${SITE_ENV}`, ce qui pose
- * une chaîne **vide** quand l'`ARG` n'est pas fourni — c'est-à-dire en
- * production. `??` ne rattrape que `null`/`undefined`, laisserait passer `""`,
- * et désindexerait donc exactement l'environnement qu'il faut protéger.
+ * Passer les métadonnées par un `generateMetadata` dynamique pour lire
+ * l'origine de la requête aurait rendu tout le site dynamique, ce que le projet
+ * refuse déjà par ailleurs (voir la note CSP de next.config.ts) : d'où le
+ * pilotage au build par `SITE_ENV`.
  */
-export const EST_PRODUCTION =
-  (process.env.SITE_ENV || "production") === "production";
 
 /**
  * Directives d'indexation, partagées par les deux layouts racines et par les
@@ -38,10 +19,12 @@ export const EST_PRODUCTION =
  *
  * Hors production, `noindex, nofollow` — un environnement de préproduction
  * contient des affirmations non validées et une tarification que l'application
- * n'applique pas encore ; le `canonical` vers la production atténue mais
- * n'ordonne rien. `googleBot` est répété explicitement plutôt qu'omis : sans
- * lui, la balise `max-image-preview:large` disparaîtrait bien, mais on veut la
- * consigne négative écrite noir sur blanc pour le robot qui compte.
+ * n'applique pas encore. `googleBot` est répété explicitement plutôt qu'omis :
+ * sans lui, la balise `max-image-preview:large` disparaîtrait bien, mais on
+ * veut la consigne négative écrite noir sur blanc pour le robot qui compte.
+ *
+ * Se lit avec `alternatesBilingues`, qui retire le `canonical` sur les mêmes
+ * environnements : les deux vont ensemble, voir le pourquoi là-bas.
  */
 export const ROBOTS: Metadata["robots"] = EST_PRODUCTION
   ? {
@@ -86,6 +69,19 @@ export const DESCRIPTION_ACCUEIL =
  * `metadataBase` (posé au layout racine) rend les chemins relatifs suffisants
  * ici : Next les résout en URL absolue à la génération de la balise.
  *
+ * **Hors production, aucun canonical n'est émis.** Une préproduction qui sert
+ * `<link rel="canonical" href="https://cloudparadise.ca/...">` ne se protège
+ * pas — elle demande explicitement que ses pages soient créditées à la
+ * production, c'est-à-dire qu'on lise et qu'on fusionne. C'est le contraire de
+ * ce que `noindex` et le `Disallow: /` du robots.txt demandent, et le signal
+ * contradictoire est exactement le genre d'ambiguïté qu'un moteur tranche à
+ * notre place. Rien vaut mieux qu'une mauvaise consigne : sans canonical, une
+ * page de dev explorée par erreur ne revendique rien.
+ *
+ * `metadataBase` reste posé dans les deux cas : Next refuse au build tout
+ * champ d'URL relatif sans lui (og:image en tête), et lui, contrairement au
+ * canonical, ne donne aucune consigne d'indexation.
+ *
  * Ne couvre plus `alternates.languages` (hreflang) : le renderer React 19
  * bundlé avec cette version de Next sort ces balises avec l'attribut
  * `hrefLang` (casse camelCase) au lieu de `hreflang`, faute d'alias dans la
@@ -99,6 +95,8 @@ export function alternatesBilingues(
   cheminEn: string,
   langueCourante: "fr" | "en",
 ): Metadata["alternates"] {
+  if (!EST_PRODUCTION) return undefined;
+
   return {
     canonical: langueCourante === "fr" ? cheminFr : cheminEn,
   };

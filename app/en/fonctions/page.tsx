@@ -11,6 +11,7 @@ import { Reveal } from "@/components/marketing/Reveal";
 import { libelleDe } from "@/components/marketing/offre";
 import { SECTION_Y, SHELL } from "@/components/marketing/tokens";
 import { alternatesBilingues, openGraphPage } from "@/lib/seo";
+import { LIEN_INSCRIPTION } from "@/lib/site";
 
 const TITRE = "Features — Cloud Paradise";
 const DESCRIPTION =
@@ -331,8 +332,9 @@ const SECTIONS: readonly SectionFonctions[] = [
         // Sans lien vers /securite : « Clés API », juste en dessous, en porte
         // déjà un — deux fois le même renvoi à la suite ne guide plus, il
         // encombre.
-        nom: "Two-factor authentication",
-        texte: "A code by email at every sign-in.",
+        nom: "Second factor at sign-in",
+        texte:
+          "A code by email at every sign-in, so that no account rests on a password alone.",
       },
       {
         nom: "API keys",
@@ -402,7 +404,7 @@ export default function FonctionsPageEn() {
               lang="en"
               soustitre="Create your account and open the desktop — everything listed here is already inside."
               bouton={{
-                href: "https://app.cloudparadise.cloud/register",
+                href: LIEN_INSCRIPTION,
                 libelle: "Start for free",
               }}
               lien={{ href: "/en/tarifs", libelle: "See pricing" }}

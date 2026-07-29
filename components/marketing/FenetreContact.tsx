@@ -123,7 +123,7 @@ function valide(valeurs: Valeurs, lang: Lang): Partial<Record<Cle, string>> {
 }
 
 const CHAMP_CLASSES =
-  "mt-1.5 w-full rounded-lg border bg-white/[0.04] px-3 py-2 text-sm text-white placeholder:text-white/40 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white";
+  "mt-1.5 w-full rounded-lg border bg-white/[0.04] px-3 py-2 text-sm text-white placeholder:text-white/55 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white";
 
 const BORDURE = (enErreur: boolean) =>
   enErreur ? "rgb(242 160 154 / 0.55)" : "rgb(255 255 255 / 0.14)";
@@ -222,13 +222,13 @@ function PanneauCoordonnees({ lang }: Readonly<{ lang: Lang }>) {
     // Le filet passe en bas quand la barre latérale repasse au-dessus du volet
     // de composition : en pile, une bordure droite ne sépare rien.
     //
-    // Colonne flex à partir de `os` seulement : c'est là que les deux volets
-    // sont côte à côte et que le volet gauche est étiré à la hauteur du
-    // formulaire. En pile, le rythme redevient simplement vertical.
-    <aside className="border-b border-white/10 bg-black/[0.14] p-5 os:flex os:flex-col os:border-r os:border-b-0">
+    // Plus de `flex flex-col` : il n'existait que pour porter le `mt-auto` du
+    // bloc du bas (voir plus bas). Le volet est de toute façon étiré à la
+    // hauteur du formulaire par la grille parente, teinte de fond comprise.
+    <aside className="border-b border-white/10 bg-black/[0.14] p-5 os:border-r os:border-b-0">
       {/* Vrais titres de section : la page n'avait que son H1, donc aucune
           structure à parcourir au lecteur d'écran. L'apparence ne change pas. */}
-      <h2 className="text-[11px] font-medium tracking-wide text-white/55">
+      <h2 className="text-[11px] font-medium tracking-wide text-white/70">
         {lang === "en" ? "Contact info" : "Coordonnées"}
       </h2>
 
@@ -270,11 +270,13 @@ function PanneauCoordonnees({ lang }: Readonly<{ lang: Lang }>) {
         ))}
       </ul>
 
-      {/* Pied du volet, poussé en bas par `mt-auto`. Les coordonnées restent
-          ancrées en haut : l'écart entre les deux groupes est l'espace libre du
-          volet, plutôt qu'un vide accumulé sous la fiche. `pt-6` garde un
-          intervalle minimal quand le volet est trop court pour en dégager. */}
-      <div className="mt-6 os:mt-auto os:pt-6">
+      {/* Suite immédiate des coordonnées, et non pied de volet.
+          `mt-auto` collait ce bloc au bas du volet, donc à la hauteur du
+          formulaire d'en face : entre l'adresse et lui s'ouvrait un vide de
+          plusieurs centaines de pixels qui ne séparait rien. Les trois groupes
+          se lisent maintenant d'un trait, et l'espace libre se retrouve là où
+          il ne gêne pas — sous le dernier élément. */}
+      <div className="mt-6">
         <p className="border-t border-white/10 pt-4 text-[11px] leading-relaxed text-white">
           {lang === "en" ? "We reply quickly." : "On vous répond rapidement."}
         </p>
@@ -313,7 +315,7 @@ function CarteVisite({ lang }: Readonly<{ lang: Lang }>) {
         <p className="truncate text-[13px] font-medium text-white">
           Cloud Paradise
         </p>
-        <p className="truncate text-[11px] text-white/55">
+        <p className="truncate text-[11px] text-white/70">
           {lang === "en" ? "Amos, Quebec" : "Amos, Québec"}
         </p>
       </div>
@@ -441,11 +443,11 @@ function Composition({
           modifiable — c'est la seule adresse possible — donc en texte plutôt
           qu'en input désactivé, qui promettrait une saisie inexistante. */}
       <div className="flex items-baseline gap-2 border-b border-white/10 pb-3">
-        <span className="text-[11px] text-white/55">
+        <span className="text-[11px] text-white/70">
           {lang === "en" ? "To:" : "À :"}
         </span>
         <span className="text-[13px] text-white">Cloud Paradise</span>
-        <span className="truncate text-[11px] text-white/55">
+        <span className="truncate text-[11px] text-white/70">
           &lt;{COURRIEL}&gt;
         </span>
       </div>
@@ -483,7 +485,11 @@ function Composition({
           </label>
           <textarea
             id="contact-message"
-            rows={6}
+            // Cinq lignes et non six : c'est le champ qui fixe la hauteur de
+            // toute la fenêtre, et la sixième ne servait qu'à la faire dépasser
+            // le bas de l'écran. Le champ reste redimensionnable (`resize-y`)
+            // pour un message long, et le compteur dit où est la limite.
+            rows={5}
             maxLength={LIMITE_MESSAGE}
             value={valeurs.message}
             onChange={(e) => modifier("message", e.target.value)}
@@ -529,8 +535,45 @@ function Composition({
             <MessageEtat etat={etat} lang={lang} />
           </p>
         </div>
+
+        <MentionFinalite lang={lang} />
       </div>
     </form>
+  );
+}
+
+/**
+ * Mention de finalité, sous le bouton d'envoi.
+ *
+ * Exigée par la loi 25 : la personne doit savoir à quoi servent les
+ * renseignements au moment où elle les fournit, pas après. Elle est donc au
+ * point de collecte plutôt que reléguée à la politique — le lien y mène pour
+ * qui veut le détail.
+ *
+ * Dit ce qui est vrai et rien de plus : la route ne fait qu'expédier un
+ * courriel (voir `app/api/contact/route.ts`), sans base de données ni liste
+ * d'envoi. Promettre moins serait faux ; promettre plus, invérifiable.
+ *
+ * Le lien reste blanc souligné et non doré : l'or de la page désigne l'action
+ * de conversion, et deux dorés côte à côte sous le même bouton n'en laissent
+ * ressortir aucun.
+ */
+function MentionFinalite({ lang }: Readonly<{ lang: Lang }>) {
+  const href = lang === "en" ? "/en/confidentialite" : "/confidentialite";
+
+  return (
+    <p className="text-[12px] leading-relaxed text-white/70">
+      {lang === "en"
+        ? "Your contact details are only used to reply to your message. See our "
+        : "Vos coordonnées servent uniquement à répondre à votre message. Voir notre "}
+      <a
+        href={href}
+        className="text-white underline underline-offset-4 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+      >
+        {lang === "en" ? "privacy policy" : "politique de confidentialité"}
+      </a>
+      {"."}
+    </p>
   );
 }
 
@@ -672,7 +715,7 @@ function Compteur({ longueur }: Readonly<{ longueur: number }>) {
     <p
       id="message-compteur"
       className={`mt-1.5 text-right text-[11px] tabular-nums ${
-        alerte ? "" : "text-white/55"
+        alerte ? "" : "text-white/70"
       }`}
       style={alerte ? { color: "var(--cta)" } : undefined}
     >

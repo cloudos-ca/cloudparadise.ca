@@ -1,4 +1,4 @@
-import { SITE_URL } from "@/lib/seo";
+import { SITE_URL } from "@/lib/site";
 
 /**
  * Fil d'Ariane en JSON-LD, sans rendu visuel — le site n'a pas de fil

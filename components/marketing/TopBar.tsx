@@ -6,16 +6,19 @@ import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { BoutonCta } from "./BoutonCta";
 import { SHELL, type Lang } from "./tokens";
+import { LIEN_CONNEXION, LIEN_INSCRIPTION } from "@/lib/site";
 
 /**
  * Liens de navigation — desktop et menu mobile lisent tous deux ce tableau.
  *
  * Quatre entrées, pas de menu déroulant : les quatre pages qui portent la
- * décision d'achat. `Fonctions` (référence exhaustive) et `Sécurité`
- * (souveraineté) vivent au pied de page et dans les liens de fin de section —
- * on n'encombre pas la barre avec les pages qu'on lit après avoir été
- * convaincu. Uniquement de vraies pages : jamais d'ancre, la barre s'affiche
- * partout et une ancre y serait un lien bancal.
+ * décision d'achat. `Mines` (un secteur parmi d'autres) et `Sécurité`
+ * (souveraineté) sont des entrées secondaires — elles vivent au pied de page
+ * et dans les liens de fin de section, on n'encombre pas la barre avec les
+ * pages qu'on lit après avoir été convaincu. `Fonctions` prend la place de
+ * `Mines` : c'est la référence exhaustive, elle sert à comparer avant d'aller
+ * voir les tarifs. Uniquement de vraies pages : jamais d'ancre, la barre
+ * s'affiche partout et une ancre y serait un lien bancal.
  *
  * `chemin` est le segment sans langue ; le lien se construit à l'affichage
  * selon `lang` (`/calcul` en français, `/en/calcul` en anglais).
@@ -23,9 +26,20 @@ import { SHELL, type Lang } from "./tokens";
 const NAV = [
   { libelle: { fr: "Plateforme", en: "Platform" }, chemin: "plateforme" },
   { libelle: { fr: "Calcul", en: "Compute" }, chemin: "calcul" },
-  { libelle: { fr: "Mines", en: "Mining" }, chemin: "mines" },
+  { libelle: { fr: "Fonctions", en: "Features" }, chemin: "fonctions" },
   { libelle: { fr: "Tarifs", en: "Pricing" }, chemin: "tarifs" },
 ] as const;
+
+/**
+ * Chemin absolu d'une entrée de nav, dans la langue affichée.
+ *
+ * Une seule fonction pour les deux rendus (barre et menu mobile) : c'est elle
+ * qui garantit que l'URL comparée pour l'état actif est exactement celle du
+ * lien, et non une variante reconstruite ailleurs.
+ */
+function hrefNav(chemin: string, lang: Lang): string {
+  return lang === "en" ? `/en/${chemin}` : `/${chemin}`;
+}
 
 /**
  * Les pages qui existent dans les deux langues — aujourd'hui, toutes.
@@ -125,16 +139,28 @@ export function TopBar({ lang = "fr" }: Readonly<{ lang?: Lang }>) {
           className="hidden bar:block"
         >
           <ul className="flex items-center gap-5">
-            {NAV.map(({ libelle, chemin }) => (
-              <li key={chemin}>
-                <a
-                  href={lang === "en" ? `/en/${chemin}` : `/${chemin}`}
-                  className="text-[13px] text-cp-subtle transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
-                >
-                  {libelle[lang]}
-                </a>
-              </li>
-            ))}
+            {NAV.map(({ libelle, chemin }) => {
+              const href = hrefNav(chemin, lang);
+              // Égalité stricte, jamais `startsWith` : les six pages sont à
+              // plat, et un préfixe ferait s'allumer deux entrées le jour où
+              // une sous-page arrive.
+              const actif = pathname === href;
+              return (
+                <li key={chemin}>
+                  <a
+                    href={href}
+                    aria-current={actif ? "page" : undefined}
+                    className={`text-[13px] transition-colors focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white ${
+                      actif
+                        ? "font-medium text-white"
+                        : "text-cp-subtle hover:text-white"
+                    }`}
+                  >
+                    {libelle[lang]}
+                  </a>
+                </li>
+              );
+            })}
           </ul>
         </nav>
 
@@ -157,8 +183,16 @@ export function TopBar({ lang = "fr" }: Readonly<{ lang?: Lang }>) {
 
           {/* Largeur réservée même vide : l'heure n'arrive qu'après
               l'hydratation (voir `useHeureLocale`) et sans `min-w` la barre
-              décalerait le sélecteur de langue au premier affichage. */}
-          <span className="hidden min-w-[2.1rem] text-center text-xs tabular-nums text-white/55 bar:inline-block">
+              décalerait le sélecteur de langue au premier affichage.
+
+              Visible à partir de `os` (900px) et non de `bar` (760px), où la
+              nav apparaît : mesurée, la barre complète en français réclame
+              814px de fenêtre avec l'horloge et 768px sans. Entre 760 et 814px
+              l'horloge était donc prise sur la rangée du bouton, qui est la
+              seule chose que personne ne doit avoir à chercher. Elle est la
+              première à partir parce qu'elle est le seul élément décoratif de
+              la barre. */}
+          <span className="hidden min-w-[2.1rem] text-center text-xs tabular-nums text-white/70 os:inline-block">
             {heure}
           </span>
 
@@ -183,14 +217,14 @@ export function TopBar({ lang = "fr" }: Readonly<{ lang?: Lang }>) {
           </div>
 
           <a
-            href="https://app.cloudparadise.cloud/login"
+            href={LIEN_CONNEXION}
             className="hidden text-[13px] text-cp-subtle transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white bar:inline"
           >
             {lang === "en" ? "Log in" : "Se connecter"}
           </a>
 
           <BoutonCta
-            href="https://app.cloudparadise.cloud/register"
+            href={LIEN_INSCRIPTION}
             taille="sm"
             className="shrink-0"
           >
@@ -234,23 +268,31 @@ export function TopBar({ lang = "fr" }: Readonly<{ lang?: Lang }>) {
             {[
               ...NAV.map(({ libelle, chemin }) => ({
                 libelle: libelle[lang],
-                href: lang === "en" ? `/en/${chemin}` : `/${chemin}`,
+                href: hrefNav(chemin, lang),
               })),
               {
                 libelle: lang === "en" ? "Log in" : "Se connecter",
-                href: "https://app.cloudparadise.cloud/login",
+                href: LIEN_CONNEXION,
               },
-            ].map(({ libelle, href }) => (
-              <li key={href}>
-                <a
-                  href={href}
-                  onClick={() => setMenuOuvert(false)}
-                  className="block py-2.5 text-sm text-cp-subtle transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
-                >
-                  {libelle}
-                </a>
-              </li>
-            ))}
+            ].map(({ libelle, href }) => {
+              const actif = pathname === href;
+              return (
+                <li key={href}>
+                  <a
+                    href={href}
+                    aria-current={actif ? "page" : undefined}
+                    onClick={() => setMenuOuvert(false)}
+                    className={`block py-2.5 text-sm transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white ${
+                      actif
+                        ? "font-medium text-white"
+                        : "text-cp-subtle hover:text-white"
+                    }`}
+                  >
+                    {libelle}
+                  </a>
+                </li>
+              );
+            })}
             <li className="flex items-center gap-1.5 pt-2.5 text-sm">
               <SelecteurLangue
                 actif={lang === "fr"}

@@ -3,7 +3,8 @@ import { Footer } from "@/components/marketing/Footer";
 import { PopupLoi25 } from "@/components/marketing/PopupLoi25";
 import { RootDocument } from "@/components/marketing/RootDocument";
 import { TopBar } from "@/components/marketing/TopBar";
-import { SITE_URL, ICONS, ROBOTS } from "@/lib/seo";
+import { ICONS, ROBOTS } from "@/lib/seo";
+import { SITE_URL } from "@/lib/site";
 
 /**
  * Pas de title/description par défaut ici : chaque page `/en/*` définit déjà

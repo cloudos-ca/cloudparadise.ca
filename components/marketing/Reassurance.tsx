@@ -118,7 +118,7 @@ function Texte({ lang }: Readonly<{ lang: Lang }>) {
             </span>
             <div>
               <p className="text-sm font-medium text-[#eef4ff]">{titre}</p>
-              <p className="mt-1 text-[13px] leading-relaxed text-[#93a3c2]">
+              <p className="mt-1 text-[13px] leading-relaxed text-cp-muted">
                 {texte}
               </p>
             </div>
@@ -252,7 +252,7 @@ function Conversation({
                   {PLAN[lang].map((etapePlan, i) => (
                     <li
                       key={etapePlan}
-                      className="flex items-center gap-2 text-xs text-[#93a3c2]"
+                      className="flex items-center gap-2 text-xs text-cp-muted"
                     >
                       <span
                         data-cp-accent

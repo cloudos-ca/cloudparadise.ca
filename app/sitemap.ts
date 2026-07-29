@@ -1,100 +1,41 @@
 import type { MetadataRoute } from "next";
-import { SITE_URL } from "@/lib/seo";
+import { EST_PRODUCTION, PAGES, urlSite } from "@/lib/site";
 
 /**
- * Toutes les pages du site existent dans les deux langues, donc une seule
- * liste : chaque entrée produit son URL française, son URL anglaise, et le
- * couple `hreflang` qui les relie l'une à l'autre.
+ * Sitemap XML.
  *
- * Une page ajoutée ici sans son miroir anglais annoncerait un `hreflang` vers
- * une URL en 404 — une erreur que la Search Console remonte, et qui jette un
- * doute sur les paires valides déclarées à côté. Une page qui n'existerait que
- * dans une langue doit donc être déclarée sans `alternates`, pas ajoutée ici.
+ * La liste des pages vit dans `lib/site.ts` : `llms.txt` la consomme aussi, et
+ * deux listes tenues à la main finissent par diverger — c'était déjà le cas,
+ * la section anglaise de `llms.txt` n'en comptait que six sur dix.
+ *
+ * **Vide hors production.** Le `Disallow: /` du robots.txt n'annonçait plus le
+ * sitemap, mais l'URL restait devinable et servait vingt adresses de
+ * production depuis le dev : de quoi soumettre par erreur, depuis la
+ * préproduction, un plan du site qui parle du vrai site. Un sitemap vide est
+ * un fichier valide, et il ne dit rien plutôt que de dire faux.
  */
-const PAGES: ReadonlyArray<{
-  fr: string;
-  en: string;
-  priority: number;
-  changeFrequency: MetadataRoute.Sitemap[number]["changeFrequency"];
-}> = [
-  { fr: "/", en: "/en", priority: 1, changeFrequency: "weekly" },
-  {
-    fr: "/plateforme",
-    en: "/en/plateforme",
-    priority: 0.8,
-    changeFrequency: "monthly",
-  },
-  {
-    fr: "/calcul",
-    en: "/en/calcul",
-    priority: 0.8,
-    changeFrequency: "monthly",
-  },
-  {
-    fr: "/mines",
-    en: "/en/mines",
-    priority: 0.8,
-    changeFrequency: "monthly",
-  },
-  {
-    fr: "/fonctions",
-    en: "/en/fonctions",
-    priority: 0.8,
-    changeFrequency: "monthly",
-  },
-  {
-    fr: "/tarifs",
-    en: "/en/tarifs",
-    priority: 0.8,
-    changeFrequency: "monthly",
-  },
-  {
-    fr: "/securite",
-    en: "/en/securite",
-    priority: 0.6,
-    changeFrequency: "monthly",
-  },
-  {
-    fr: "/contact",
-    en: "/en/contact",
-    priority: 0.5,
-    changeFrequency: "yearly",
-  },
-  {
-    fr: "/conditions",
-    en: "/en/conditions",
-    priority: 0.3,
-    changeFrequency: "yearly",
-  },
-  {
-    fr: "/confidentialite",
-    en: "/en/confidentialite",
-    priority: 0.3,
-    changeFrequency: "yearly",
-  },
-];
-
 export default function sitemap(): MetadataRoute.Sitemap {
+  if (!EST_PRODUCTION) return [];
+
   const lastModified = new Date();
 
-  return PAGES.flatMap(({ fr, en, priority, changeFrequency }) => [
-    {
-      url: `${SITE_URL}${fr}`,
-      lastModified,
-      changeFrequency,
-      priority,
-      alternates: {
-        languages: { fr: `${SITE_URL}${fr}`, en: `${SITE_URL}${en}` },
+  return PAGES.flatMap(({ fr, en, priority, changeFrequency }) => {
+    const languages = { fr: urlSite(fr), en: urlSite(en) };
+    return [
+      {
+        url: urlSite(fr),
+        lastModified,
+        changeFrequency,
+        priority,
+        alternates: { languages },
       },
-    },
-    {
-      url: `${SITE_URL}${en}`,
-      lastModified,
-      changeFrequency,
-      priority,
-      alternates: {
-        languages: { fr: `${SITE_URL}${fr}`, en: `${SITE_URL}${en}` },
+      {
+        url: urlSite(en),
+        lastModified,
+        changeFrequency,
+        priority,
+        alternates: { languages },
       },
-    },
-  ]);
+    ];
+  });
 }

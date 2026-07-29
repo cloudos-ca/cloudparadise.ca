@@ -555,7 +555,7 @@ export default function ConditionsPageEn() {
       <div className={`${SHELL} ${SECTION_Y}`}>
         <div className={CONTENEUR_LEGAL}>
           <PageEntete eyebrow="Legal" titre="Terms of Use" />
-          <p className={`${LECTURE} mt-3 text-[13px] text-white/55`}>
+          <p className={`${LECTURE} mt-3 text-[13px] text-white/70`}>
             Last updated: {MAJ} — version {VERSION}
           </p>
 

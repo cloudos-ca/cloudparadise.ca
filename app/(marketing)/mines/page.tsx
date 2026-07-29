@@ -22,6 +22,7 @@ import {
 import { Reveal } from "@/components/marketing/Reveal";
 import { SECTION_Y, SHELL } from "@/components/marketing/tokens";
 import { alternatesBilingues, openGraphPage } from "@/lib/seo";
+import { LIEN_INSCRIPTION } from "@/lib/site";
 
 const TITRE = "Mines — Cloud Paradise";
 const DESCRIPTION =
@@ -125,7 +126,7 @@ export default function MinesPage() {
               <BoutonCta href="/contact?sujet=exploration" taille="lg">
                 Réservez une démo
               </BoutonCta>
-              <LienOr href="https://app.cloudparadise.cloud/register">
+              <LienOr href={LIEN_INSCRIPTION}>
                 Créez votre compte
               </LienOr>
             </div>

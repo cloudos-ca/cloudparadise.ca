@@ -76,7 +76,7 @@ export function AncresSections({
         className="lg:sticky lg:top-28 lg:max-h-[calc(100svh-9rem)] lg:overflow-y-auto"
       >
         {titre ? (
-          <p className="text-[11px] font-semibold tracking-[0.12em] text-white/45 uppercase">
+          <p className="text-[11px] font-semibold tracking-[0.12em] text-white/70 uppercase">
             {titre}
           </p>
         ) : null}

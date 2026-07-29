@@ -8,6 +8,7 @@ import {
 import { BoutonCta } from "@/components/marketing/BoutonCta";
 import { BreadcrumbJsonLd } from "@/components/marketing/BreadcrumbJsonLd";
 import { FenetreCta } from "@/components/marketing/FenetreCta";
+import { FenetrePlan } from "@/components/marketing/FenetrePlan";
 import { HreflangLinks } from "@/components/marketing/HreflangLinks";
 import { Reveal } from "@/components/marketing/Reveal";
 import {
@@ -25,6 +26,7 @@ import {
 } from "@/components/marketing/icons";
 import { SECTION_Y, SHELL } from "@/components/marketing/tokens";
 import { alternatesBilingues, openGraphPage } from "@/lib/seo";
+import { LIEN_INSCRIPTION } from "@/lib/site";
 
 const TITRE = "Platform — Cloud Paradise";
 const DESCRIPTION =
@@ -148,7 +150,7 @@ export default function PlateformePageEn() {
             </p>
             <div className="mt-7 flex flex-wrap items-center gap-x-5 gap-y-3">
               <BoutonCta
-                href="https://app.cloudparadise.cloud/register"
+                href={LIEN_INSCRIPTION}
                 taille="lg"
               >
                 Create your desktop for free
@@ -194,12 +196,7 @@ export default function PlateformePageEn() {
         cartes={APPLICATIONS}
       >
         <Reveal delay={0.15} className="mt-8">
-          <Capture
-            src="/plateforme/plan.jpg"
-            width={2048}
-            height={756}
-            alt="A Cloud Paradise plan: converting a document, its specification, its run and the result to download."
-          />
+          <FenetrePlan lang="en" />
         </Reveal>
       </SectionAncre>
 
@@ -219,7 +216,7 @@ export default function PlateformePageEn() {
               lang="en"
               soustitre="Create your desktop, open your applications, invite your team — today."
               bouton={{
-                href: "https://app.cloudparadise.cloud/register",
+                href: LIEN_INSCRIPTION,
                 libelle: "Create your desktop for free",
               }}
               lien={{ href: "/en/tarifs", libelle: "See pricing" }}

@@ -5,7 +5,9 @@ import { WindowCard } from "./WindowCard";
 import { JobPanel } from "./JobPanel";
 import { BadgeOffre } from "./BadgeOffre";
 import { BoutonCta } from "./BoutonCta";
+import { libelleDe } from "./offre";
 import { SECTION_Y, SHELL, type Lang } from "./tokens";
+import { LIEN_INSCRIPTION } from "@/lib/site";
 
 const JOB_LOGS = {
   fr: [
@@ -82,7 +84,7 @@ function Copy({ lang }: Readonly<{ lang: Lang }>) {
           restent en place, hors rendu). */}
       <div className="mt-7">
         <BoutonCta
-          href="https://app.cloudparadise.cloud/register"
+          href={LIEN_INSCRIPTION}
           taille="lg"
         >
           {t.cta}
@@ -133,8 +135,9 @@ function Desktop({
                 className="flex items-center gap-2 text-xs text-white/70"
               >
                 <svg
+                  aria-hidden="true"
                   viewBox="0 0 24 24"
-                  className="size-4 shrink-0 text-white/35"
+                  className="size-4 shrink-0 text-white/55"
                   fill="currentColor"
                 >
                   <path d="M3 6.5A1.5 1.5 0 0 1 4.5 5h4l2 2h9A1.5 1.5 0 0 1 21 8.5v9a1.5 1.5 0 0 1-1.5 1.5h-15A1.5 1.5 0 0 1 3 17.5z" />
@@ -150,7 +153,10 @@ function Desktop({
         <WindowCard title="Plans · Cloud Paradise">
           <JobPanel
             title={lang === "en" ? "Render a 4K video" : "Rendre une vidéo 4K"}
-            chip="MÉDIA"
+            // Dérivé d'`offre.ts` : le littéral « MÉDIA » s'affichait avec
+            // son accent français sur la page d'accueil anglaise, où le
+            // mode s'appelle « Media ».
+            chip={libelleDe("Média", lang).toUpperCase()}
             logs={JOB_LOGS[lang]}
             lang={lang}
           />
