@@ -77,7 +77,7 @@ const COLONNES = {
       titre: "Legal",
       liens: [
         { libelle: "Terms", href: "/en/terms" },
-        { libelle: "Privacy", href: "/en/confidentialite" },
+        { libelle: "Privacy", href: "/en/privacy" },
       ],
     },
   ],

@@ -560,7 +560,7 @@ function Composition({
  * ressortir aucun.
  */
 function MentionFinalite({ lang }: Readonly<{ lang: Lang }>) {
-  const href = lang === "en" ? "/en/confidentialite" : "/confidentialite";
+  const href = lang === "en" ? "/en/privacy" : "/confidentialite";
 
   return (
     <p className="text-[12px] leading-relaxed text-white/70">

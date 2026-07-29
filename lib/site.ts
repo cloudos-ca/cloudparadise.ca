@@ -228,7 +228,7 @@ export const PAGES: readonly PageSite[] = [
   },
   {
     fr: "/confidentialite",
-    en: "/en/confidentialite",
+    en: "/en/privacy",
     priority: 0.3,
     changeFrequency: "yearly",
     titre: { fr: "Politique de confidentialité", en: "Privacy Policy" },

@@ -126,6 +126,11 @@ const nextConfig: NextConfig = {
         destination: "/en/terms",
         permanent: true,
       },
+      {
+        source: "/en/confidentialite",
+        destination: "/en/privacy",
+        permanent: true,
+      },
     ];
   },
 

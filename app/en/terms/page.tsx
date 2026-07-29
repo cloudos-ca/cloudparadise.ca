@@ -85,7 +85,7 @@ const SECTIONS: readonly SectionRedigee[] = [
         Service. By creating an account, accessing the Service, or using it,
         you acknowledge that you have read, understood, and agreed to be
         bound by these Terms as well as by our{" "}
-        <Link href="/en/confidentialite">
+        <Link href="/en/privacy">
           Privacy Policy
         </Link>
         .
@@ -452,7 +452,7 @@ const SECTIONS: readonly SectionRedigee[] = [
     blocs: [
       <>
         The processing of your personal information is governed by our{" "}
-        <Link href="/en/confidentialite">
+        <Link href="/en/privacy">
           Privacy Policy
         </Link>
         , which complies with Quebec’s Act respecting the protection of
