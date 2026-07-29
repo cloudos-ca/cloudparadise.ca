@@ -13,6 +13,7 @@ import { questionsDe } from "@/components/marketing/faqTarifsContenu";
 import { FenetreCta } from "@/components/marketing/FenetreCta";
 import { GrilleDetaillee } from "@/components/marketing/GrilleDetaillee";
 import { HreflangLinks } from "@/components/marketing/HreflangLinks";
+import { OffreJsonLd } from "@/components/marketing/OffreJsonLd";
 import { Reveal } from "@/components/marketing/Reveal";
 import { WindowCard } from "@/components/marketing/WindowCard";
 import {
@@ -157,6 +158,7 @@ export default function TarifsPageEn() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(FAQ_JSON_LD) }}
       />
+      <OffreJsonLd lang="en" />
       <HreflangLinks fr="/tarifs" en="/en/pricing" />
       <BreadcrumbJsonLd
         items={[
