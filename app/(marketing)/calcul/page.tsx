@@ -369,7 +369,7 @@ function GesteSection({ geste }: Readonly<{ geste: Geste }>) {
  * sont en or.
  */
 const NOMBRE =
-  /((?<![\p{L}\d.])\d[\d  ]*\d(?![\p{L}\d])|(?<![\p{L}\d.])\d(?![\p{L}\d]))/gu;
+  /((?<![\p{L}\d.])\d[\d\u00A0\u0020]*\d(?![\p{L}\d])|(?<![\p{L}\d.])\d(?![\p{L}\d]))/gu;
 
 function Chiffres({ children }: Readonly<{ children: string }>) {
   const segments = children.split(NOMBRE);

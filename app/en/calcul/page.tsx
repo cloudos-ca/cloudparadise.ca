@@ -375,12 +375,17 @@ function GesteSection({ geste }: Readonly<{ geste: Geste }>) {
  * ceux collés à une lettre (« 4K », « H.265 ») — les chiffres mis en évidence
  * sont en or.
  *
- * La virgule est dans la classe, là où la version française porte l'espace :
- * l'anglais groupe les milliers par virgule (« 5,000 »), et sans elle le
- * nombre se dorait en deux morceaux avec le séparateur resté blanc au milieu.
+ * La virgule est dans la classe, en plus des espaces que porte la version
+ * française : l'anglais groupe les milliers par virgule (« 5,000 »), et sans
+ * elle le nombre se dorait en deux morceaux, séparateur resté blanc au milieu.
+ *
+ * Les deux espaces sont échappées plutôt qu'écrites telles quelles : à l'œil
+ * elles sont identiques, et la fine insécable avait déjà été aplatie ici en
+ * espace ordinaire — la classe contenait alors deux fois le même caractère et
+ * ne reconnaissait plus « 5 000 ». Écrites en `\u`, la différence se voit.
  */
 const NOMBRE =
-  /((?<![\p{L}\d.])\d[\d,  ]*\d(?![\p{L}\d])|(?<![\p{L}\d.])\d(?![\p{L}\d]))/gu;
+  /((?<![\p{L}\d.])\d[\d,\u00A0\u0020]*\d(?![\p{L}\d])|(?<![\p{L}\d.])\d(?![\p{L}\d]))/gu;
 
 function Chiffres({ children }: Readonly<{ children: string }>) {
   const segments = children.split(NOMBRE);

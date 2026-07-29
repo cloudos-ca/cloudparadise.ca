@@ -62,7 +62,7 @@ const TEXTES = {
       Icone: IconMessage,
       nom: "Collaboration",
       ligne: "Messagerie, courriel et agenda partagé.",
-    } as Famille,
+    },
   },
   en: {
     eyebrow: "Your tools",
@@ -96,7 +96,7 @@ const TEXTES = {
       Icone: IconMessage,
       nom: "Collaboration",
       ligne: "Messaging, email and a shared calendar.",
-    } as Famille,
+    },
   },
 } as const;
 
