@@ -102,7 +102,7 @@ const TEXTES = {
 
 export function FamillesApps({ lang = "fr" }: Readonly<{ lang?: Lang }>) {
   const t = TEXTES[lang];
-  const hrefPlateforme = lang === "en" ? "/en/plateforme" : "/plateforme";
+  const hrefPlateforme = lang === "en" ? "/en/platform" : "/plateforme";
 
   return (
     <section className="relative">

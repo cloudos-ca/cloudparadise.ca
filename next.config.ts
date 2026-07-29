@@ -77,6 +77,25 @@ const nextConfig: NextConfig = {
         destination: "https://cloudparadise.ca/:path*",
         permanent: true,
       },
+
+      /**
+       * Anciens slugs anglais — les routes `/en/*` portaient les segments
+       * français (`/en/plateforme`, `/en/tarifs`). Ces URL sont indexées : sans
+       * ces règles, chacune passe en 404 et le référencement acquis part avec.
+       *
+       * `permanent: true` émet un **308**, pas un 301. C'est voulu : Google les
+       * traite à l'identique pour la consolidation du signal, et le 308 est le
+       * seul des deux qui garantisse que la méthode ne change pas en route. Ne
+       * pas forcer 301.
+       *
+       * Ces règles sont le seul endroit du dépôt où les anciens slugs doivent
+       * encore apparaître — c'est leur source, pas un oubli de balayage.
+       */
+      {
+        source: "/en/plateforme",
+        destination: "/en/platform",
+        permanent: true,
+      },
     ];
   },
 

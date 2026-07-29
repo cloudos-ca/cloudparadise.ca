@@ -72,7 +72,7 @@ const TEXTES = {
         texte:
           "A real online desktop: office, image, video, 3D and GIS, plus team collaboration. Nothing to install.",
         lien: "See the platform",
-        href: "/plateforme",
+        href: "/platform",
       },
       {
         Icone: IconLock,

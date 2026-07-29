@@ -144,7 +144,7 @@ export const PAGES: readonly PageSite[] = [
   },
   {
     fr: "/plateforme",
-    en: "/en/plateforme",
+    en: "/en/platform",
     priority: 0.8,
     changeFrequency: "monthly",
     titre: { fr: "Plateforme", en: "Platform" },

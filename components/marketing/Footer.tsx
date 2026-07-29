@@ -55,7 +55,7 @@ const COLONNES = {
     {
       titre: "Product",
       liens: [
-        { libelle: "Platform", href: "/en/plateforme" },
+        { libelle: "Platform", href: "/en/platform" },
         { libelle: "Compute", href: "/en/calcul" },
         { libelle: "Mining", href: "/en/mines" },
         { libelle: "Pricing", href: "/en/tarifs" },
