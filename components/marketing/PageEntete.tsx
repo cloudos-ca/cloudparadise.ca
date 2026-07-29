@@ -1,4 +1,3 @@
-import { Reveal } from "./Reveal";
 import { LECTURE } from "./tokens";
 
 type PageEnteteProps = Readonly<{
@@ -24,6 +23,12 @@ type PageEnteteProps = Readonly<{
  * de /calcul, /securite, /mines et des autres. Il portait jusqu'ici
  * `--acc-text`, un bleu-gris pâle en bas de casse qui ne correspondait à aucune
  * autre section du site : ces pages divergeaient sans que ce soit voulu.
+ *
+ * Sans `Reveal`, volontairement : ce bloc porte le `h1`, c'est-à-dire le titre
+ * principal de la page, et il est toujours en haut de l'écran. Le titre d'une
+ * page ne doit dépendre d'aucun JavaScript pour être visible — et de toute
+ * façon, une apparition au défilement n'a rien à révéler sur un bloc que le
+ * visiteur voit déjà. C'est un `div` nu.
  */
 export function PageEntete({
   eyebrow,
@@ -32,7 +37,7 @@ export function PageEntete({
   centre = false,
 }: PageEnteteProps) {
   return (
-    <Reveal className={centre ? `${LECTURE} mx-auto text-center` : LECTURE}>
+    <div className={centre ? `${LECTURE} mx-auto text-center` : LECTURE}>
       <p
         className="text-[13px] font-semibold tracking-[0.12em] uppercase"
         style={{ color: "var(--cta)" }}
@@ -47,6 +52,6 @@ export function PageEntete({
           {soustitre}
         </p>
       ) : null}
-    </Reveal>
+    </div>
   );
 }
