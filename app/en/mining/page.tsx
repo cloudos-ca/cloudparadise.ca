@@ -32,7 +32,7 @@ const DESCRIPTION =
 export const metadata: Metadata = {
   title: TITRE,
   description: DESCRIPTION,
-  alternates: alternatesBilingues("/mines", "/en/mines", "en"),
+  alternates: alternatesBilingues("/mines", "/en/mining", "en"),
   openGraph: openGraphPage(TITRE, DESCRIPTION, "en"),
 };
 
@@ -96,11 +96,11 @@ const OPERATIONS_SIG: readonly OperationSig[] = [
 export default function MinesPageEn() {
   return (
     <>
-      <HreflangLinks fr="/mines" en="/en/mines" />
+      <HreflangLinks fr="/mines" en="/en/mining" />
       <BreadcrumbJsonLd
         items={[
           { nom: "Home", chemin: "/en" },
-          { nom: "Mining", chemin: "/en/mines" },
+          { nom: "Mining", chemin: "/en/mining" },
         ]}
       />
 

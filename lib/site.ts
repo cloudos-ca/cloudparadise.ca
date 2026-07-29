@@ -166,7 +166,7 @@ export const PAGES: readonly PageSite[] = [
   },
   {
     fr: "/mines",
-    en: "/en/mines",
+    en: "/en/mining",
     priority: 0.8,
     changeFrequency: "monthly",
     titre: { fr: "Mines", en: "Mining" },

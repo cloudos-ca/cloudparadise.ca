@@ -41,7 +41,7 @@ const TEXTES = {
     texte:
       "Claim tracking and deadline alerts, 3D drillholes, geochemical anomalies, MRNF and NI 43-101 reports, SIGÉOM layers. Exploration tools, in the same workspace as everything else.",
     lien: "See the Mining page",
-    href: "/en/mines",
+    href: "/en/mining",
     ariaMots: "Supported domain terms",
   },
 } as const;

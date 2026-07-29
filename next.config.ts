@@ -101,6 +101,11 @@ const nextConfig: NextConfig = {
         destination: "/en/compute",
         permanent: true,
       },
+      {
+        source: "/en/mines",
+        destination: "/en/mining",
+        permanent: true,
+      },
     ];
   },
 

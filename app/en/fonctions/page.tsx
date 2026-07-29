@@ -50,7 +50,7 @@ type SectionFonctions = {
 
 const PLATEFORME = { href: "/en/platform", libelle: "See the platform" };
 const CALCUL = { href: "/en/compute", libelle: "See compute" };
-const MINES = { href: "/en/mines", libelle: "See mineral exploration" };
+const MINES = { href: "/en/mining", libelle: "See mineral exploration" };
 const TARIFS = { href: "/en/tarifs", libelle: "See pricing" };
 
 /**
@@ -303,7 +303,7 @@ const SECTIONS: readonly SectionFonctions[] = [
       {
         // « feuillet SNRC » n'existe nulle part dans le code d'import : la
         // requête se fait par emprise géographique d'un district minier, plus
-        // un thème. Balayé sur /mines et /en/mines le 2026-07-28.
+        // un thème. Balayé sur /mines et /en/mining le 2026-07-28.
         nom: "SIGÉOM open data",
         texte: "The SIGÉOM layers, imported by mining district.",
       },
