@@ -23,7 +23,7 @@ const DESCRIPTION =
 export const metadata: Metadata = {
   title: TITRE,
   description: DESCRIPTION,
-  alternates: alternatesBilingues("/calcul", "/en/calcul", "en"),
+  alternates: alternatesBilingues("/calcul", "/en/compute", "en"),
   openGraph: openGraphPage(TITRE, DESCRIPTION, "en"),
 };
 
@@ -133,11 +133,11 @@ const WORKFLOW = ["Scraping", "Structured data", "PDF report"] as const;
 export default function CalculPageEn() {
   return (
     <>
-      <HreflangLinks fr="/calcul" en="/en/calcul" />
+      <HreflangLinks fr="/calcul" en="/en/compute" />
       <BreadcrumbJsonLd
         items={[
           { nom: "Home", chemin: "/en" },
-          { nom: "Compute", chemin: "/en/calcul" },
+          { nom: "Compute", chemin: "/en/compute" },
         ]}
       />
 

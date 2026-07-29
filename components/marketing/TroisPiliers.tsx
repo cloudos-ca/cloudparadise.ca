@@ -64,7 +64,7 @@ const TEXTES = {
         texte:
           "Describe the task in plain words. The AI picks the method and runs the heavy job for you — no commands, no setup.",
         lien: "Explore compute",
-        href: "/calcul",
+        href: "/compute",
       },
       {
         Icone: IconCube,

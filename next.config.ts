@@ -96,6 +96,11 @@ const nextConfig: NextConfig = {
         destination: "/en/platform",
         permanent: true,
       },
+      {
+        source: "/en/calcul",
+        destination: "/en/compute",
+        permanent: true,
+      },
     ];
   },
 

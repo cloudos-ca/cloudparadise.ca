@@ -49,7 +49,7 @@ type SectionFonctions = {
 };
 
 const PLATEFORME = { href: "/en/platform", libelle: "See the platform" };
-const CALCUL = { href: "/en/calcul", libelle: "See compute" };
+const CALCUL = { href: "/en/compute", libelle: "See compute" };
 const MINES = { href: "/en/mines", libelle: "See mineral exploration" };
 const TARIFS = { href: "/en/tarifs", libelle: "See pricing" };
 
