@@ -348,13 +348,76 @@ body {
 }
 
 /*
- * Pages sobres : les documents juridiques neutralisent les lueurs du fond.
+ * Le fond de page — DEUX couches de composition, pas quatre.
+ *
+ * Chaque élément `position: fixed; inset: 0` porteur d'un fond est une couche
+ * que le compositeur gère à chaque frame de défilement. Les deux layouts
+ * racines en posaient quatre : dégradé d'accent + fond marine, lueur haute,
+ * grain, voile. Elles sont repliées ici en deux déclarations `background` :
+ *
+ *   `.fond-page`  — lueur haute, dégradé d'accent, fond marine (trois plans
+ *                   d'une même image de fond, pas trois éléments).
+ *   `.fond-grain` — voile de lisibilité puis grain.
+ *
+ * Les classes vivent ici et non dans les layouts parce qu'il y a deux layouts
+ * racines (FR et EN) : la déclaration recopiée des deux côtés finissait par
+ * diverger.
+ */
+main {
+  /*
+   * La lueur haute passe par une variable, et c'est ce qui permet de la
+   * fusionner avec le reste sans perdre la possibilité de l'éteindre seule.
+   * Elle était isolée sur sa propre couche uniquement pour ça.
+   */
+  --cp-lueur: radial-gradient(
+    760px 420px at 14% 6%,
+    color-mix(in srgb, var(--soft) 20%, transparent),
+    transparent 62%
+  );
+}
+
+/*
+ * Pages sobres : les documents juridiques neutralisent la lueur du fond.
  *
  * Le fond vit dans le layout, donc au-dessus de la page dans l'arbre : une page
  * ne peut pas l'atteindre en descendant. `:has()` inverse la relation — le
- * `<main>` réagit à la présence du marqueur posé par la page, et éteint la
- * lueur pour elle seule. Le grain et le fond marine, eux, restent.
+ * `<main>` réagit à la présence du marqueur posé par la page. Le grain et le
+ * fond marine, eux, restent.
  */
-main:has([data-page-sobre]) [data-lueur] {
-  opacity: 0;
+main:has([data-page-sobre]) {
+  --cp-lueur: none;
+}
+
+.fond-page {
+  background-image:
+    var(--cp-lueur),
+    radial-gradient(
+      620px 420px at 86% 48%,
+      color-mix(in srgb, var(--acc) 18%, transparent),
+      transparent 64%
+    ),
+    var(--sky);
+}
+
+/*
+ * Grain très léger : de la matière sur le navy, sans motif perceptible.
+ *
+ * L'opacité de 0,06 est écrite DANS le SVG (`opacity='.06'` sur le `rect`) et
+ * non sur l'élément : une opacité d'élément se serait appliquée aussi au voile,
+ * qui partage désormais la même couche. `img-src data:` couvre ce data-URI
+ * côté CSP.
+ *
+ * Le voile n'est visible que sur un fond photo (`--veil`, à 0 par défaut) ; à
+ * 0 il ne peint rien, mais il n'a plus besoin d'un élément à lui.
+ */
+.fond-grain {
+  background-image:
+    linear-gradient(
+      rgb(0 0 0 / calc(0.35 * var(--veil))),
+      rgb(0 0 0 / calc(0.35 * var(--veil)))
+    ),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' opacity='.06' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size:
+    auto,
+    140px 140px;
 }
