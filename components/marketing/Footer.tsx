@@ -65,7 +65,7 @@ const COLONNES = {
       titre: "Learn more",
       liens: [
         { libelle: "Features", href: "/en/features" },
-        { libelle: "Security", href: "/en/securite" },
+        { libelle: "Security", href: "/en/security" },
         { libelle: "Log in", href: LIEN_CONNEXION },
       ],
     },

@@ -339,7 +339,7 @@ const SECTIONS: readonly SectionFonctions[] = [
       {
         nom: "API keys",
         texte: "A limited scope, and an expiry date you set.",
-        lien: { href: "/en/securite", libelle: "See security" },
+        lien: { href: "/en/security", libelle: "See security" },
       },
       {
         nom: "Onboarding tour",

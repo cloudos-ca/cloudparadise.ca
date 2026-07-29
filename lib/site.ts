@@ -199,7 +199,7 @@ export const PAGES: readonly PageSite[] = [
   },
   {
     fr: "/securite",
-    en: "/en/securite",
+    en: "/en/security",
     priority: 0.6,
     changeFrequency: "monthly",
     titre: { fr: "Sécurité", en: "Security" },

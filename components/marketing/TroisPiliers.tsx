@@ -80,7 +80,7 @@ const TEXTES = {
         texte:
           "Our language model runs on our own hardware, in a facility in Québec. Your files are never sent to a third-party AI provider.",
         lien: "On sovereignty",
-        href: "/securite",
+        href: "/security",
       },
     ] as Pilier[],
   },
