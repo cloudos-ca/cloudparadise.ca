@@ -80,8 +80,7 @@ function Copy({ lang }: Readonly<{ lang: Lang }>) {
       </p>
 
       {/* Un seul CTA : « Voir la démo » est retiré tant qu'une capture animée
-          à jour n'existe pas (le composant DemoVideo et la vidéo publique
-          restent en place, hors rendu). */}
+          à jour n'existe pas. */}
       <div className="mt-7">
         <BoutonCta
           href={LIEN_INSCRIPTION}
