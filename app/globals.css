@@ -210,6 +210,35 @@ body {
 }
 
 /*
+ * Entrée de la fenêtre de consentement (PopupLoi25).
+ *
+ * En CSS et non en framer-motion : ce composant est monté par les deux layouts
+ * racines, donc la bibliothèque se retrouvait dans le bundle de 100 % des
+ * pages — y compris les Conditions et la Politique de confidentialité, qui
+ * n'animent rien du tout.
+ *
+ * Le composant ne se monte que lorsqu'il devient visible, l'animation joue donc
+ * une fois puis s'arrête. Sans JS, rien ne s'affiche : la fenêtre elle-même
+ * dépend de `localStorage`, il n'y a donc pas de texte à sauver ici.
+ */
+@media (prefers-reduced-motion: no-preference) {
+  .popup-entree {
+    animation: cp-popup-entree 0.4s ease both;
+  }
+}
+
+@keyframes cp-popup-entree {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/*
  * Pages sobres : les documents juridiques neutralisent les lueurs du fond.
  *
  * Le fond vit dans le layout, donc au-dessus de la page dans l'arbre : une page

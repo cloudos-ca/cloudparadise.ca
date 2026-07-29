@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { motion, useReducedMotion } from "framer-motion";
 import { ecrireConsentement, lireConsentement, type Consentement } from "./consentement";
 import { IconLock } from "./icons";
 import { WindowCard } from "./WindowCard";
@@ -44,7 +43,6 @@ const TEXTES = {
  */
 export function PopupLoi25({ lang = "fr" }: Readonly<{ lang?: Lang }>) {
   const [visible, setVisible] = useState(false);
-  const reduceMotion = Boolean(useReducedMotion());
   const t = TEXTES[lang];
 
   useEffect(() => {
@@ -61,14 +59,13 @@ export function PopupLoi25({ lang = "fr" }: Readonly<{ lang?: Lang }>) {
 
   if (!visible) return null;
 
+  // `popup-entree` porte le fondu ; le respect de `prefers-reduced-motion` est
+  // dans la règle CSS, plus dans une branche du composant.
   return (
-    <motion.div
+    <div
       role="dialog"
       aria-label={t.dialogue}
-      className="fixed right-4 bottom-4 left-4 z-[60] sm:right-6 sm:bottom-6 sm:left-auto sm:w-[360px]"
-      initial={reduceMotion ? undefined : { opacity: 0, y: 16 }}
-      animate={reduceMotion ? undefined : { opacity: 1, y: 0 }}
-      transition={{ duration: 0.4, ease: "easeOut" }}
+      className="popup-entree fixed right-4 bottom-4 left-4 z-[60] sm:right-6 sm:bottom-6 sm:left-auto sm:w-[360px]"
     >
       <WindowCard title={t.titre} icone={<IconLock className="size-3.5" />}>
         <div className="px-4 py-4">
@@ -114,6 +111,6 @@ export function PopupLoi25({ lang = "fr" }: Readonly<{ lang?: Lang }>) {
           </p>
         </div>
       </WindowCard>
-    </motion.div>
+    </div>
   );
 }
