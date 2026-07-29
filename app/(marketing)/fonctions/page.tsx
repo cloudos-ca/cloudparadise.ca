@@ -20,7 +20,7 @@ const DESCRIPTION =
 export const metadata: Metadata = {
   title: TITRE,
   description: DESCRIPTION,
-  alternates: alternatesBilingues("/fonctions", "/en/fonctions", "fr"),
+  alternates: alternatesBilingues("/fonctions", "/en/features", "fr"),
   openGraph: openGraphPage(TITRE, DESCRIPTION, "fr"),
 };
 
@@ -363,7 +363,7 @@ const ANCRES: readonly Ancre[] = [
 export default function FonctionsPage() {
   return (
     <>
-      <HreflangLinks fr="/fonctions" en="/en/fonctions" />
+      <HreflangLinks fr="/fonctions" en="/en/features" />
       <BreadcrumbJsonLd
         items={[
           { nom: "Accueil", chemin: "/" },

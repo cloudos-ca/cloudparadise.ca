@@ -106,6 +106,11 @@ const nextConfig: NextConfig = {
         destination: "/en/mining",
         permanent: true,
       },
+      {
+        source: "/en/fonctions",
+        destination: "/en/features",
+        permanent: true,
+      },
     ];
   },
 
