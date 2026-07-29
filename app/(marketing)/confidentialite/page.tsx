@@ -383,7 +383,7 @@ const SECTIONS: readonly SectionRedigee[] = [
         <a
           href="https://www.cai.gouv.qc.ca"
           target="_blank"
-          rel="noreferrer"
+          rel="noopener noreferrer"
         >
           cai.gouv.qc.ca
         </a>
