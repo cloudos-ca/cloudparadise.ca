@@ -352,9 +352,10 @@ function Composition({
   const [valeurs, setValeurs] = useState<Valeurs>(VIDE);
   const [erreurs, setErreurs] = useState<Partial<Record<Cle, string>>>({});
   const [etat, setEtat] = useState<Etat>("repos");
-  // Provenance, tirée de `?sujet=` : tag caché repris dans le courriel. Lu via
-  // window plutôt que `useSearchParams` pour ne pas imposer de Suspense à la
-  // page — le préremplissage n'a de sens que côté client, au montage.
+  // Provenance, tirée de `?sujet=` : tag caché repris dans le courriel. Lu
+  // directement sur `location` plutôt que par `useSearchParams`, pour ne pas
+  // imposer de Suspense à la page — le préremplissage n'a de sens que côté
+  // client, au montage.
   const [source, setSource] = useState("");
   // Champ piège. Un humain ne le voit pas, ne le tabule pas et ne l'entend pas ;
   // un robot qui remplit tout ce qu'il trouve le remplit, et le serveur écarte
@@ -362,7 +363,7 @@ function Composition({
   const [piege, setPiege] = useState("");
 
   useEffect(() => {
-    const cle = new URLSearchParams(window.location.search).get("sujet");
+    const cle = new URLSearchParams(globalThis.location.search).get("sujet");
     if (!cle) return;
     const libelle = SUJETS_PREREMPLIS[cle]?.[lang];
     /* eslint-disable react-hooks/set-state-in-effect --

@@ -91,10 +91,10 @@ export function TopBar({ lang = "fr" }: Readonly<{ lang?: Lang }>) {
   const autreLangue = cheminAutreLangue(pathname, lang);
 
   useEffect(() => {
-    const onScroll = () => setDefile(window.scrollY > 8);
+    const onScroll = () => setDefile(globalThis.scrollY > 8);
     onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    globalThis.addEventListener("scroll", onScroll, { passive: true });
+    return () => globalThis.removeEventListener("scroll", onScroll);
   }, []);
 
   return (

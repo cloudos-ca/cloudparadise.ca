@@ -17,7 +17,9 @@ export function generateImageMetadata() {
   ];
 }
 
-export default async function Icon({ id }: { id: Promise<string | number> }) {
+export default async function Icon({
+  id,
+}: Readonly<{ id: Promise<string | number> }>) {
   const iconId = await id;
   const size = iconId === "512" ? 512 : 192;
 

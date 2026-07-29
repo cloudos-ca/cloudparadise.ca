@@ -16,7 +16,7 @@ const TAGLINE = {
 /** Jaune de marque, pour la lueur derrière le logo — jamais dérivé de l'accent. */
 const HALO = "#edbe54";
 
-type FenetreCtaProps = {
+type FenetreCtaProps = Readonly<{
   /** Phrase sous le titre. Le titre, lui, est le même partout : c'est la signature. */
   soustitre: ReactNode;
   bouton: { href: string; libelle: string };
@@ -37,7 +37,7 @@ type FenetreCtaProps = {
    */
   className?: string;
   lang?: Lang;
-};
+}>;
 
 /**
  * Le closer du site : une fenêtre du bureau posée sur sa propre lueur.

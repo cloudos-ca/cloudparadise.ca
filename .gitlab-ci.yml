@@ -34,8 +34,25 @@ build-sonar:
       - "${SONAR_USER_HOME}/cache"
       - sonar-scanner/
 
+  # Un projet SonarQube par branche.
+  #
+  # L'édition Community n'analyse qu'une seule branche par projet : sans
+  # `sonar.projectKey` distinct, l'analyse de `dev` et celle de `main`
+  # atterrissaient toutes deux dans le projet principal et s'écrasaient l'une
+  # l'autre. Le tableau affichait alors, au hasard du dernier pipeline passé,
+  # l'état d'une branche sous le nom de l'autre.
+  #
+  # `SONAR_PROJECT_KEY_DEV` est une variable de projet GitLab ; à défaut, on
+  # retombe sur la clé de `sonar-project.properties` — le comportement d'avant,
+  # jamais un échec de pipeline.
   script:
-    - sonar-scanner -Dsonar.host.url="${SONAR_HOST_URL}" -Dsonar.token="${SONAR_TOKEN}"
+    - |
+      if [ "$CI_COMMIT_BRANCH" = "dev" ] && [ -n "$SONAR_PROJECT_KEY_DEV" ]; then
+        CLE_PROJET="-Dsonar.projectKey=${SONAR_PROJECT_KEY_DEV}"
+      else
+        CLE_PROJET=""
+      fi
+      sonar-scanner -Dsonar.host.url="${SONAR_HOST_URL}" -Dsonar.token="${SONAR_TOKEN}" ${CLE_PROJET}
   allow_failure: true
   rules:
     - if: $CI_PIPELINE_SOURCE == 'merge_request_event'

@@ -218,13 +218,18 @@ export async function POST(request: Request) {
       subject: `[Site] ${corps.sujet}`,
       text: `Nom : ${corps.nom}\nCourriel : ${corps.courriel}\n${ligneSource}\n${corps.message}`,
     });
-  } catch (erreur) {
+  } catch (error_) {
+    // Seule variable anglaise du fichier : pour un paramètre de `catch`,
+    // l'analyse statique n'accepte que `error` ou un nom finissant par
+    // `Error`. Le reste du code demeure francisé, y compris la clé `erreur`
+    // de la réponse JSON quelques lignes plus bas.
+    //
     // Le message seul, pas l'objet : une erreur nodemailer transporte
     // l'enveloppe, donc l'adresse du visiteur, et les journaux du serveur ne
     // sont pas l'endroit où la conserver.
     console.error(
       "Échec de l'envoi du courriel de contact :",
-      erreur instanceof Error ? erreur.message : "cause inconnue",
+      error_ instanceof Error ? error_.message : "cause inconnue",
     );
     return NextResponse.json(
       { ok: false, erreur: "L'envoi a échoué. Réessayez plus tard." },
