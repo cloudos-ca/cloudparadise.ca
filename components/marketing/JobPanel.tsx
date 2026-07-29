@@ -61,14 +61,19 @@ export function JobPanel({ title, chip, logs, lang = "fr" }: JobPanelProps) {
         </span>
       </div>
 
+      {/* `scaleX` et non `width` : la largeur déclenche un layout à CHAQUE
+          frame, sur l'accueil, /calcul, /mines et /plateforme. `transform` est
+          composée — le compositeur s'en charge, le fil principal ne fait rien.
+          Le nœud animé est vide et occupe toute la barre : rien à déformer
+          dedans, c'est le cas où `scaleX` est sans conséquence. */}
       <div className="mt-3 h-1.5 overflow-hidden rounded-full bg-white/10">
         <motion.div
           key={`progress-${cycle}`}
           data-cp-accent
-          className="h-full rounded-full"
+          className="h-full w-full origin-left rounded-full"
           style={{ background: "var(--acc)" }}
-          initial={{ width: reduceMotion ? "100%" : "12%" }}
-          animate={{ width: "100%" }}
+          initial={{ scaleX: reduceMotion ? 1 : 0.12 }}
+          animate={{ scaleX: 1 }}
           transition={{ duration: reduceMotion ? 0 : 3, ease: "easeInOut" }}
           onAnimationComplete={handleProgressComplete}
         />
