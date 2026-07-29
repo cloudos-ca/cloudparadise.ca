@@ -141,6 +141,75 @@ body {
 }
 
 /*
+ * Apparition au défilement — CSS seul (voir components/marketing/Reveal.tsx).
+ *
+ * L'état par défaut est VISIBLE, et c'est tout l'intérêt : si le JavaScript ne
+ * part jamais — erreur, bloqueur, hydratation échouée — le texte reste lisible.
+ * L'implémentation précédente faisait l'inverse (`opacity:0` par défaut, révélé
+ * par framer-motion) : sans JS, la page était blanche.
+ *
+ * Deux mécanismes distincts, et c'est voulu :
+ *
+ *   - `animation` — joue au premier rendu, sans JS. C'est elle qui anime ce qui
+ *     est déjà à l'écran au chargement. Une animation non suspendue finit
+ *     toujours : même si rien d'autre ne s'exécute, l'élément termine visible.
+ *   - `transition` + `.reveal-init` / `.reveal-in` — pour ce qui est SOUS la
+ *     ligne de flottaison. Le JS n'y touche que parce que ces éléments sont
+ *     hors écran : les masquer ne peut donc jamais provoquer de clignotement.
+ *
+ * `.reveal-init` et `.reveal-in` coupent l'animation (`animation: none`) :
+ * sans ça, son état final en `both` écraserait l'opacité qu'elles posent.
+ */
+.reveal {
+  opacity: 1;
+  transform: none;
+  transition:
+    opacity 0.5s ease,
+    transform 0.5s ease;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .reveal {
+    animation: cp-reveal 0.5s ease both;
+  }
+}
+
+.reveal-init {
+  animation: none;
+  opacity: 0;
+  transform: translateY(12px);
+}
+
+.reveal-in {
+  animation: none;
+  opacity: 1;
+  transform: none;
+}
+
+@keyframes cp-reveal {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Dernier bloc : il doit gagner sur les trois règles ci-dessus. */
+@media (prefers-reduced-motion: reduce) {
+  .reveal,
+  .reveal-init,
+  .reveal-in {
+    opacity: 1;
+    transform: none;
+    transition: none;
+    animation: none;
+  }
+}
+
+/*
  * Pages sobres : les documents juridiques neutralisent les lueurs du fond.
  *
  * Le fond vit dans le layout, donc au-dessus de la page dans l'arbre : une page
