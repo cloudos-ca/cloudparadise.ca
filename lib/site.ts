@@ -221,7 +221,7 @@ export const PAGES: readonly PageSite[] = [
   },
   {
     fr: "/conditions",
-    en: "/en/conditions",
+    en: "/en/terms",
     priority: 0.3,
     changeFrequency: "yearly",
     titre: { fr: "Conditions d'utilisation", en: "Terms of Use" },

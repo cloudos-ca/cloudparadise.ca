@@ -35,7 +35,7 @@ export const metadata: Metadata = {
   title: TITRE,
   description: DESCRIPTION,
   robots: ROBOTS,
-  alternates: alternatesBilingues("/conditions", "/en/conditions", "en"),
+  alternates: alternatesBilingues("/conditions", "/en/terms", "en"),
   openGraph: openGraphPage(TITRE, DESCRIPTION, "en", ["/opengraph-image"]),
 };
 
@@ -548,11 +548,11 @@ const ANCRES = ancresDe(SECTIONS);
 export default function ConditionsPageEn() {
   return (
     <section className="relative" data-page-sobre>
-      <HreflangLinks fr="/conditions" en="/en/conditions" />
+      <HreflangLinks fr="/conditions" en="/en/terms" />
       <BreadcrumbJsonLd
         items={[
           { nom: "Home", chemin: "/en" },
-          { nom: "Terms of Use", chemin: "/en/conditions" },
+          { nom: "Terms of Use", chemin: "/en/terms" },
         ]}
       />
       <div className={`${SHELL} ${SECTION_Y}`}>

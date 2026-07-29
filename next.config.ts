@@ -121,6 +121,11 @@ const nextConfig: NextConfig = {
         destination: "/en/security",
         permanent: true,
       },
+      {
+        source: "/en/conditions",
+        destination: "/en/terms",
+        permanent: true,
+      },
     ];
   },
 
