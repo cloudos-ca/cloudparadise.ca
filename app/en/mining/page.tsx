@@ -25,7 +25,7 @@ import { SECTION_Y, SHELL } from "@/components/marketing/tokens";
 import { alternatesBilingues, openGraphPage } from "@/lib/seo";
 import { LIEN_INSCRIPTION } from "@/lib/site";
 
-const TITRE = "Mining — Cloud Paradise";
+const TITRE = "Mineral exploration in Quebec — Cloud Paradise";
 const DESCRIPTION =
   "The workstation for mineral exploration in Quebec: titles and expiry dates, drill holes in three dimensions, SIGÉOM layers, export. Built in Abitibi.";
 

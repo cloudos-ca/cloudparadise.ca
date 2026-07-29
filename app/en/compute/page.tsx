@@ -16,7 +16,7 @@ import { SECTION_Y, SHELL } from "@/components/marketing/tokens";
 import { alternatesBilingues, openGraphPage } from "@/lib/seo";
 import { LIEN_INSCRIPTION } from "@/lib/site";
 
-const TITRE = "Compute — Cloud Paradise";
+const TITRE = "Heavy compute and 3D rendering — Cloud Paradise";
 const DESCRIPTION =
   "One place for your heavy tasks: documents, data, images and video, web, 3D compute. Describe the result; a deterministic engine produces it.";
 

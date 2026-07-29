@@ -25,7 +25,7 @@ import { SECTION_Y, SHELL } from "@/components/marketing/tokens";
 import { alternatesBilingues, openGraphPage } from "@/lib/seo";
 import { LIEN_INSCRIPTION } from "@/lib/site";
 
-const TITRE = "Mines — Cloud Paradise";
+const TITRE = "Exploration minière au Québec — Cloud Paradise";
 const DESCRIPTION =
   "Le poste de travail de l’exploration minière au Québec : titres et échéances, forages en trois dimensions, couches SIGÉOM, export. Conçu en Abitibi.";
 

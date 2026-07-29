@@ -32,7 +32,7 @@ import { SECTION_Y, SHELL } from "@/components/marketing/tokens";
 import { alternatesBilingues, openGraphPage } from "@/lib/seo";
 import { LIEN_INSCRIPTION } from "@/lib/site";
 
-const TITRE = "Tarifs — Cloud Paradise";
+const TITRE = "Tarifs et crédits, sans abonnement — Cloud Paradise";
 const DESCRIPTION = `Des crédits, pas d’abonnement. ${OFFRE_EN_DEVISE} de crédits offerts à l’inscription, le coût de chaque tâche et un estimateur pour chiffrer votre budget d’avance.`;
 
 export const metadata: Metadata = {
