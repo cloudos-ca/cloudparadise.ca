@@ -1,6 +1,8 @@
 "use client";
 
+import { useRef } from "react";
 import { motion, useReducedMotion } from "framer-motion";
+import { useBoucleActive } from "./useBoucleActive";
 import { WindowCard } from "./WindowCard";
 import { JobPanel } from "./JobPanel";
 import { BadgeOffre } from "./BadgeOffre";
@@ -104,17 +106,24 @@ function Desktop({
   reduceMotion: boolean;
   lang: Lang;
 }>) {
+  const cadre = useRef<HTMLDivElement>(null);
+  // Le hero est en haut de page, donc presque toujours à l'écran — mais
+  // « presque » n'est pas « toujours » : dès qu'on descend d'un écran, ces deux
+  // boucles n'ont plus de raison de tourner, et l'onglet en arrière-plan encore
+  // moins.
+  const anime = useBoucleActive(cadre) && !reduceMotion;
+
   const float = (distance: number, duration: number) =>
-    reduceMotion
-      ? undefined
-      : {
+    anime
+      ? {
           animate: { y: [0, distance, 0] },
           transition: {
             duration,
             repeat: Infinity,
             ease: "easeInOut" as const,
           },
-        };
+        }
+      : { animate: { y: 0 } };
 
   const back = float(-7, 7);
   const front = float(7, 8);
@@ -122,7 +131,10 @@ function Desktop({
   // Le bloc s'aligne sur le haut de la colonne texte et reste calé à gauche de
   // sa colonne : les fenêtres ne partent jamais toucher le bord droit.
   return (
-    <div className="relative mx-auto w-full max-w-[480px] os:mt-1 os:max-w-[520px]">
+    <div
+      ref={cadre}
+      className="relative mx-auto w-full max-w-[480px] os:mt-1 os:max-w-[520px]"
+    >
       <motion.div {...back} className="ml-auto w-[62%]" aria-hidden="true">
         <WindowCard title={lang === "en" ? "Files" : "Fichiers"}>
           {/* Le padding bas absorbe le recouvrement de la fenêtre de devant :

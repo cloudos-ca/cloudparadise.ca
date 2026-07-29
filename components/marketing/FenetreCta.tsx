@@ -1,8 +1,10 @@
 "use client";
 
 import type { ReactNode } from "react";
+import { useRef } from "react";
 import Image from "next/image";
 import { motion, useReducedMotion } from "framer-motion";
+import { useBoucleActive } from "./useBoucleActive";
 import { BadgeOffre } from "./BadgeOffre";
 import { BoutonCta } from "./BoutonCta";
 import { WindowCard } from "./WindowCard";
@@ -58,20 +60,24 @@ export function FenetreCta({
   lang = "fr",
 }: FenetreCtaProps) {
   const reduceMotion = Boolean(useReducedMotion());
+  const cadre = useRef<HTMLDivElement>(null);
+  // Ce composant clôt une vingtaine de pages : sans garde, ses deux boucles
+  // tournent pour chaque visiteur qui ne descend jamais jusqu'ici.
+  const anime = useBoucleActive(cadre) && !reduceMotion;
 
-  const flottement = reduceMotion
-    ? {}
-    : {
+  const flottement = anime
+    ? {
         animate: { y: [0, -6, 0] },
         transition: {
           duration: 9,
           repeat: Infinity,
           ease: "easeInOut" as const,
         },
-      };
+      }
+    : { animate: { y: 0 } };
 
   return (
-    <div className={`relative ${className}`}>
+    <div className={`relative ${className}`} ref={cadre}>
       {/* La lueur vit sur le fond de page, derrière la fenêtre : c'est ce qui
           met le closer en avant, sans lui ajouter de cadre. */}
       <div
@@ -89,7 +95,7 @@ export function FenetreCta({
       >
         <WindowCard title="Cloud Paradise">
           <div className="px-6 py-10 text-center os:px-10">
-            <Halo reduceMotion={reduceMotion} />
+            <Halo anime={anime} />
 
             <h2 className="mt-6 font-display text-[1.6rem] leading-[1.15] font-bold tracking-tight text-white sm:text-3xl">
               {TAGLINE[lang].ligne1}
@@ -136,21 +142,27 @@ export function FenetreCta({
  * Contrairement au reste de la fenêtre, sa couleur est écrite en dur (fichier
  * SVG) : aucun thème ne doit l'atteindre.
  */
-function Halo({ reduceMotion }: Readonly<{ reduceMotion: boolean }>) {
+function Halo({ anime }: Readonly<{ anime: boolean }>) {
   return (
     <span
       aria-hidden="true"
       className="relative mx-auto block h-12 aspect-[401/295]"
     >
-      {/* Le souffle lumineux, séparé du logo : on n'anime qu'une opacité. */}
-      {!reduceMotion && (
-        <motion.span
-          className="absolute inset-0 rounded-[50%]"
-          style={{ boxShadow: `0 0 26px 6px ${HALO}40` }}
-          animate={{ opacity: [0.35, 1, 0.35] }}
-          transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-        />
-      )}
+      {/* Le souffle lumineux, séparé du logo : on n'anime qu'une opacité.
+          Toujours monté, jamais conditionné : monter et démonter le nœud selon
+          la garde ferait entrer et sortir un élément du DOM à chaque passage
+          de la fenêtre à l'écran. C'est l'animation qu'on suspend, pas le
+          nœud — et à l'arrêt il reste à son opacité basse. */}
+      <motion.span
+        className="absolute inset-0 rounded-[50%]"
+        style={{ boxShadow: `0 0 26px 6px ${HALO}40` }}
+        animate={anime ? { opacity: [0.35, 1, 0.35] } : { opacity: 0.35 }}
+        transition={
+          anime
+            ? { duration: 3, repeat: Infinity, ease: "easeInOut" }
+            : { duration: 0 }
+        }
+      />
       <Image
         src="/brand/logo-blanc-et-jaune.svg"
         alt=""
