@@ -1,8 +1,8 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-import { motion, useReducedMotion } from "framer-motion";
+import { useRef } from "react";
 import { SOFT_WASH, type Lang } from "./tokens";
+import { useBoucleActive } from "./useBoucleActive";
 
 type JobPanelProps = Readonly<{
   /** Intitulé du job, tel qu'il apparaît en tête de fenêtre. */
@@ -28,28 +28,25 @@ const BADGE = { fr: "Terminé · télécharger", en: "Done · download" } as con
 /**
  * Le job qui tourne, tel qu'il apparaît dans la fenêtre « Plans ».
  *
- * Un seul pilote de cycle : progression, logs et badge sont keyés dessus et
- * repartent donc toujours ensemble. En mouvement réduit, l'état final est rendu
- * d'emblée et aucune boucle n'est armée.
+ * Entièrement animé en CSS (voir `.job-*` dans globals.css) : progression,
+ * cascade des journaux et badge partagent la même durée de cycle et repartent
+ * donc toujours ensemble, sans que React ne retouche le DOM.
+ *
+ * Ce composant n'a plus d'état, plus de minuterie, plus de `key` incrémentée et
+ * plus de framer-motion. Il ne garde qu'une chose : la garde de visibilité, qui
+ * suspend le cycle quand le panneau sort de l'écran ou que l'onglet passe en
+ * arrière-plan. Sans elle, quatre pages entretiendraient une boucle infinie en
+ * permanence.
+ *
+ * Le respect de `prefers-reduced-motion` est descendu dans le CSS : il n'y a
+ * plus de branche à tenir ici, donc plus de risque qu'un élément l'oublie.
  */
 export function JobPanel({ title, chip, logs, lang = "fr" }: JobPanelProps) {
-  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const reduceMotion = useReducedMotion();
-  const [cycle, setCycle] = useState(0);
-
-  useEffect(() => {
-    return () => {
-      if (timerRef.current) clearTimeout(timerRef.current);
-    };
-  }, []);
-
-  function handleProgressComplete() {
-    if (reduceMotion) return;
-    timerRef.current = setTimeout(() => setCycle((c) => c + 1), 1400);
-  }
+  const cadre = useRef<HTMLDivElement>(null);
+  const anime = useBoucleActive(cadre);
 
   return (
-    <div className="p-4">
+    <div className="p-4" ref={cadre} data-anime={anime ? "true" : "false"}>
       <div className="flex items-center justify-between gap-3">
         <p className="text-sm font-medium text-white">{title}</p>
         <span
@@ -61,64 +58,40 @@ export function JobPanel({ title, chip, logs, lang = "fr" }: JobPanelProps) {
         </span>
       </div>
 
-      {/* `scaleX` et non `width` : la largeur déclenche un layout à CHAQUE
-          frame, sur l'accueil, /calcul, /mines et /plateforme. `transform` est
-          composée — le compositeur s'en charge, le fil principal ne fait rien.
-          Le nœud animé est vide et occupe toute la barre : rien à déformer
-          dedans, c'est le cas où `scaleX` est sans conséquence. */}
+      {/* `scaleX` sur un nœud vide qui occupe toute la barre : `transform` est
+          composée, `width` déclencherait un layout à chaque frame. */}
       <div className="mt-3 h-1.5 overflow-hidden rounded-full bg-white/10">
-        <motion.div
-          key={`progress-${cycle}`}
+        <div
           data-cp-accent
-          className="h-full w-full origin-left rounded-full"
+          className="job-jauge h-full w-full rounded-full"
           style={{ background: "var(--acc)" }}
-          initial={{ scaleX: reduceMotion ? 1 : 0.12 }}
-          animate={{ scaleX: 1 }}
-          transition={{ duration: reduceMotion ? 0 : 3, ease: "easeInOut" }}
-          onAnimationComplete={handleProgressComplete}
         />
       </div>
 
       <div className="mt-3 space-y-1">
         {logs.map((line, i) => (
-          <motion.p
-            key={`log-${cycle}-${i}`}
-            className="font-mono text-[11px] text-cp-muted"
-            initial={{ opacity: reduceMotion ? 1 : 0 }}
-            animate={{ opacity: 1 }}
-            transition={{
-              duration: reduceMotion ? 0 : 0.4,
-              delay: reduceMotion ? 0 : i * 0.5,
-            }}
+          <p
+            key={line}
+            className="job-log font-mono text-[11px] text-cp-muted"
+            // Le décalage porte sur le cycle entier, pas sur une entrée jouée
+            // une fois : chaque ligne garde donc sa place dans la cascade à
+            // chaque tour.
+            style={{ animationDelay: `${i * 0.5}s` }}
           >
             {line}
-          </motion.p>
+          </p>
         ))}
         {/* Curseur de terminal : la fenêtre a l'air vivante, prête à recevoir
-            la suite. Purement décoratif et masqué en mouvement réduit. */}
-        {!reduceMotion && (
-          <motion.span
-            aria-hidden="true"
-            className="mt-0.5 block h-3 w-[7px] rounded-[1px]"
-            style={{ background: "var(--soft)" }}
-            animate={{ opacity: [1, 0.1, 1] }}
-            transition={{ duration: 1.1, repeat: Infinity, ease: "easeInOut" }}
-          />
-        )}
+            la suite. Purement décoratif ; le CSS le masque en mouvement
+            réduit. */}
+        <span
+          aria-hidden="true"
+          className="job-curseur mt-0.5 block h-3 w-[7px] rounded-[1px]"
+          style={{ background: "var(--soft)" }}
+        />
       </div>
 
-      <motion.div
-        key={`badge-${cycle}`}
-        className="mt-3"
-        initial={
-          reduceMotion ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.9 }
-        }
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{
-          duration: reduceMotion ? 0 : 0.35,
-          delay: reduceMotion ? 0 : 2.8,
-        }}
-      >
+      <div className="job-badge mt-3">
         <span
           data-cp-accent
           className="inline-block rounded-md px-2.5 py-1 text-[11px] font-medium"
@@ -126,7 +99,7 @@ export function JobPanel({ title, chip, logs, lang = "fr" }: JobPanelProps) {
         >
           {BADGE[lang]}
         </span>
-      </motion.div>
+      </div>
     </div>
   );
 }
