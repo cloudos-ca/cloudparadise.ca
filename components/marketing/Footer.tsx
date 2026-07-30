@@ -26,8 +26,6 @@ const COLONNES = {
         { libelle: "Plateforme", href: "/plateforme" },
         { libelle: "Calcul", href: "/calcul" },
         { libelle: "Mines", href: "/mines" },
-        // Pas de pendant dans la colonne anglaise : `/en/pme` n'existe pas
-        // encore. Un lien vers une page absente vaut moins qu'un lien manquant.
         { libelle: "PME", href: "/pme" },
         { libelle: "Tarifs", href: "/tarifs" },
       ],
@@ -61,6 +59,7 @@ const COLONNES = {
         { libelle: "Platform", href: "/en/platform" },
         { libelle: "Compute", href: "/en/compute" },
         { libelle: "Mining", href: "/en/mining" },
+        { libelle: "Small business", href: "/en/small-business" },
         { libelle: "Pricing", href: "/en/pricing" },
       ],
     },

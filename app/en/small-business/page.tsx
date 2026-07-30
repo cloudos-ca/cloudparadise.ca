@@ -32,34 +32,34 @@ import {
 } from "@/content/pme";
 
 /**
- * /pme — le poste de travail des PME québécoises.
+ * /en/small-business — miroir anglais de /pme.
  *
- * Calquée sur /mines : même structure de sections, mêmes composants, même
- * rythme vertical. Ce qui change, c'est l'angle — /mines s'adresse à un
- * secteur, /pme à trois métiers (comptabilité, administration, marketing) qui
- * n'ont en commun que de ne pas avoir de département informatique.
+ * Identique au fichier français à ceci près : `LANG`, les chemins internes, le
+ * nom du composant, et la virgule des milliers dans l'expression régulière de
+ * dorure (voir plus bas). Un `diff` avec `app/(marketing)/pme/page.tsx` ne doit
+ * jamais montrer autre chose — c'est la règle du dépôt, et c'est ce qui garde
+ * les deux pages alignées quand l'une bouge.
  *
- * **Toute la copie vit dans `content/pme.fr.ts`**, et rien dans ce fichier.
- * C'est le seul écart de forme avec le reste de la vitrine, et il est
- * volontaire : les versions française et anglaise de cette page ne diront pas
- * la même chose (proximité d'un côté, souveraineté canadienne de l'autre), donc
- * la copie ne peut pas vivre dans des objets `{ fr, en }` où l'une passerait
- * pour la traduction de l'autre. Voir l'en-tête de `content/pme.ts`.
+ * **Le slug n'est pas `/en/pme`** : tout l'arbre anglais est en mots anglais
+ * (`/en/mining`, `/en/compute`, `/en/pricing`), et `small-business` porte
+ * l'intention de recherche mieux que le sigle `smb`, qui est du jargon.
  *
- * Conséquence pratique : le miroir anglais est **ce fichier**, recopié dans
- * `app/en/small-business/page.tsx` avec `LANG` à `"en"` et les chemins
- * inversés. Un `diff` entre les deux ne doit rien montrer d'autre.
+ * **Toute la copie vit dans `content/pme.en.ts`**, et rien dans ce fichier — et
+ * elle ne traduit pas le français. Le français vend la proximité (nos serveurs
+ * sont dans votre région), l'anglais la souveraineté (vos données ne sortent
+ * pas du pays). Même fait, argument inversé. Voir l'en-tête de `content/pme.ts`
+ * pour le pourquoi de deux fichiers plutôt qu'un objet `{ fr, en }`.
  */
 
-/** Locale servie par cette route. Le miroir est `/en/small-business`. */
-const LANG: Lang = "fr";
+/** Locale servie par cette route. Le référent français est `/pme`. */
+const LANG: Lang = "en";
 const C = contenuPme(LANG);
 
 export const metadata: Metadata = {
   title: C.meta.titre,
   description: C.meta.description,
-  alternates: alternatesBilingues("/pme", "/en/small-business", "fr"),
-  openGraph: openGraphPage(C.meta.titre, C.meta.description, "fr"),
+  alternates: alternatesBilingues("/pme", "/en/small-business", "en"),
+  openGraph: openGraphPage(C.meta.titre, C.meta.description, "en"),
 };
 
 /**
@@ -95,14 +95,14 @@ const ICONES_BUDGET: Record<ClePointBudget, typeof IconGift> = {
   consulter: IconSearch,
 };
 
-export default function PmePage() {
+export default function SmallBusinessPage() {
   return (
     <>
       <HreflangLinks fr="/pme" en="/en/small-business" />
       <BreadcrumbJsonLd
         items={[
-          { nom: C.filAriane.accueil, chemin: "/" },
-          { nom: C.filAriane.page, chemin: "/pme" },
+          { nom: C.filAriane.accueil, chemin: "/en" },
+          { nom: C.filAriane.page, chemin: "/en/small-business" },
         ]}
       />
 
@@ -125,7 +125,7 @@ export default function PmePage() {
               {C.hero.texte}
             </p>
             <div className="mt-7 flex flex-wrap items-center gap-x-5 gap-y-3">
-              <BoutonCta href="/contact?sujet=pme" taille="lg">
+              <BoutonCta href="/en/contact?sujet=pme" taille="lg">
                 {C.hero.cta}
               </BoutonCta>
               <LienOr href={LIEN_INSCRIPTION}>{C.hero.lienCompte}</LienOr>
@@ -171,7 +171,7 @@ export default function PmePage() {
           </Reveal>
 
           <Reveal delay={0.15} className="mt-6">
-            <LienOr href="/plateforme">{C.equipe.lien}</LienOr>
+            <LienOr href="/en/platform">{C.equipe.lien}</LienOr>
           </Reveal>
         </div>
       </section>
@@ -188,7 +188,7 @@ export default function PmePage() {
                 {C.budget.texte}
               </p>
               <div className="mt-4">
-                <LienOr href="/tarifs">{C.budget.lien}</LienOr>
+                <LienOr href="/en/pricing">{C.budget.lien}</LienOr>
               </div>
             </Reveal>
 
@@ -240,7 +240,7 @@ export default function PmePage() {
                 ))}
               </div>
               <div className="mt-5">
-                <LienOr href="/securite">{C.donnees.lien}</LienOr>
+                <LienOr href="/en/security">{C.donnees.lien}</LienOr>
               </div>
             </Reveal>
           </div>
@@ -258,7 +258,7 @@ export default function PmePage() {
               // au-dessus — le répéter dans le badge l'affaiblirait.
               badgeSansCarte={false}
               bouton={{
-                href: "/contact?sujet=pme",
+                href: "/en/contact?sujet=pme",
                 libelle: C.closer.bouton,
               }}
               lien={{ href: LIEN_INSCRIPTION, libelle: C.closer.lien }}
@@ -312,7 +312,7 @@ function MetierSection({ metier }: Readonly<{ metier: SectionMetier }>) {
             </p>
             {metier.lienTarifs ? (
               <div className="mt-4">
-                <LienOr href="/tarifs">{metier.lienTarifs}</LienOr>
+                <LienOr href="/en/pricing">{metier.lienTarifs}</LienOr>
               </div>
             ) : null}
           </Reveal>
@@ -420,12 +420,17 @@ function LienOr({
 }
 
 /**
- * Dore les nombres « purs » d'une chaîne (« 200 », « 5 000 »), sans toucher à
+ * Dore les nombres « purs » d'une chaîne (« 200 », « 5,000 »), sans toucher à
  * ceux collés à une lettre (« 4K », « H.265 »). Copie de /calcul — ces quatre
  * helpers sont dupliqués page par page dans ce dépôt, c'est la convention.
+ *
+ * **Seul écart de code avec la page française, et il est assumé** : la classe
+ * accepte la virgule, parce que l'anglais sépare ses milliers avec (« 5,000 »)
+ * là où le français met une espace. Sans elle, « 5,000 photos » se dorerait en
+ * deux morceaux. Même écart, même raison, que `/en/compute`.
  */
 const NOMBRE =
-  /((?<![\p{L}\d.])\d[\d  ]*\d(?![\p{L}\d])|(?<![\p{L}\d.])\d(?![\p{L}\d]))/gu;
+  /((?<![\p{L}\d.])\d[\d,  ]*\d(?![\p{L}\d])|(?<![\p{L}\d.])\d(?![\p{L}\d]))/gu;
 
 function Chiffres({ children }: Readonly<{ children: string }>) {
   const segments = children.split(NOMBRE);

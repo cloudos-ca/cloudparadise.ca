@@ -176,6 +176,19 @@ export const PAGES: readonly PageSite[] = [
     },
   },
   {
+    fr: "/pme",
+    // Pas `/en/pme` : tout l'arbre anglais est en mots anglais, et `smb` est
+    // un sigle de vendeur — `small-business` porte l'intention de recherche.
+    en: "/en/small-business",
+    priority: 0.8,
+    changeFrequency: "monthly",
+    titre: { fr: "PME", en: "Small business" },
+    resume: {
+      fr: "les PME québécoises sans département informatique — comptabilité, administration, marketing, travail d'équipe, crédits.",
+      en: "Canadian small businesses with no IT department — accounting, administration, marketing, teamwork, credits.",
+    },
+  },
+  {
     fr: "/fonctions",
     en: "/en/features",
     priority: 0.8,

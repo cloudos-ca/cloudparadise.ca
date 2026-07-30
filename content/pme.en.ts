@@ -1,175 +1,266 @@
+import { OFFRE_EN_DEVISE } from "@/components/marketing/offre";
 import type { ContenuPme } from "./pme";
 
 /**
- * La copie anglaise de /pme — squelette, pas encore rédigé.
+ * La copie anglaise de /pme — PME canadiennes.
  *
- * **Ce n'est pas une traduction de `pme.fr.ts`, et il ne faut pas la traiter
- * comme telle.** Le français s'adresse aux PME québécoises et vend la
- * proximité ; l'anglais s'adresse aux PME canadiennes, pour qui « au Québec »
- * n'est pas un argument mais une coordonnée. Même fait, angle inversé : les
- * données ne sortent pas du Canada. Passer ce fichier à un traducteur
- * automatique produirait une page correcte et inutile.
+ * **Ce n'est pas la traduction de `pme.fr.ts`, et deux blocs le montrent.** Le
+ * français s'adresse à des PME québécoises et vend la **proximité** : nos
+ * serveurs sont dans la même région que vous. L'anglais s'adresse à une PME de
+ * Toronto ou de Vancouver, pour qui « au Québec » n'est pas un argument mais
+ * une coordonnée — il vend donc la **souveraineté** : vos données ne sortent
+ * pas du pays. Même fait, argument inversé. Le segment (bloc 1) et l'ancrage
+ * (bloc 8) divergent complètement ; les sept autres disent la même chose
+ * autrement.
  *
- * Ce qui n'est **pas** du texte est déjà juste et ne doit pas bouger : les `id`
- * d'ancres (ce sont des cibles de `#lien`), les `cle` d'icônes, et les
- * `factures` — ce sont des identifiants de `offre.ts`, dont `libelleDe()` tire
- * le libellé anglais tout seul.
+ * Orthographe : anglais canadien. `licence` en nom, `catalogue`, `-our`
+ * (favour, behaviour), mais `-ize` (organize, personalized). Séparateur de
+ * milliers : la virgule (`5,000`), pas l'espace du français — c'est pour ça que
+ * la page anglaise dore les nombres avec sa propre expression régulière.
  *
- * Points de vigilance au moment de rédiger :
- *   - `budget.points[0].titre` doit interpoler `OFFRE_EN_DEVISE` (`offre.ts`),
- *     jamais écrire le montant. Vérifier au passage le format : `/en/pricing`
- *     formate ses montants en `en-CA`, `OFFRE_EN_DEVISE` en `fr-CA`.
- *   - `meta.description` : fenêtre 140-160 caractères.
- *   - Ne rien affirmer de plus que le français sur l'hébergement — aucune
- *     certification, aucun audit, aucune conformité nommée. PIPEDA et les lois
- *     de la C.-B. et de l'Alberta se mentionnent comme cadre, pas comme label
- *     obtenu.
- *   - Anglais canadien.
+ * Les `id` restent ceux du français : ce sont des cibles de `#lien`, pas du
+ * texte, et tous les miroirs anglais du site font pareil (`/en/compute` garde
+ * `donnees` et `calcul-lourd`). Les `factures` et les `cle` d'icônes sont eux
+ * aussi des identifiants — `libelleDe()` en tire le libellé anglais tout seul.
+ *
+ * **Aucune mention de PIPEDA, de conformité, de certification ou d'audit.**
+ * Décision du client, et elle est juste : « nos serveurs sont au Canada et vos
+ * fichiers ne partent pas chez un tiers » est un fait vérifiable ; « PIPEDA
+ * compliant » est une revendication juridique — et sous PIPEDA, l'hébergement
+ * au Canada n'est justement pas ce qui détermine la conformité. Les deux ne se
+ * déduisent pas l'un de l'autre. Cette mention appartient au même lot que la
+ * politique de confidentialité : juriste, en même temps que la Loi 25.
  */
 export const PME_EN: ContenuPme = {
   meta: {
-    titre: "TODO — titre EN (souveraineté canadienne, pas « Québec »)",
-    description: "TODO — description EN, 140-160 caractères",
+    titre: "The workstation for Canadian businesses — Cloud Paradise",
+    description:
+      "Accounting, administration, marketing: the workstation for Canadian businesses, with no IT department. Your data stays in Canada, credits not subscriptions.",
   },
 
   og: {
-    alt: "TODO — texte alternatif EN",
-    titre: "TODO — titre de l’image OG",
-    soustitre: "TODO — sous-titre de l’image OG",
+    alt: "Cloud Paradise — Small business",
+    titre: "Small business",
+    soustitre: "The workstation for Canadian businesses",
   },
 
-  filAriane: { accueil: "TODO — Home", page: "TODO — SMB" },
+  filAriane: { accueil: "Home", page: "Small business" },
 
-  facturation: { prefixe: "TODO — billed as", separateur: ", ", joncteur: " and " },
+  facturation: { prefixe: "billed as", separateur: ", ", joncteur: " and " },
 
   hero: {
-    surtitre: "TODO — sur-titre EN",
-    lignes: ["TODO — ligne 1", "TODO — ligne 2", "TODO — ligne 3"],
-    texte: "TODO — paragraphe du héros EN",
-    cta: "TODO — CTA principal EN",
-    lienCompte: "TODO — lien de création de compte EN",
+    surtitre: "For small and medium-sized businesses",
+    lignes: [
+      "The workstation",
+      "for Canadian businesses.",
+      "No IT department required.",
+    ],
+    texte:
+      "Your documents, your numbers and your media in one workspace. Describe what you want back — the heavy work runs on our hardware. Nothing to install, nobody to hire.",
+    cta: "Book a demo",
+    lienCompte: "Create your account",
   },
 
   ancres: [
-    { id: "comptabilite", libelle: "TODO — Accounting" },
-    { id: "administration", libelle: "TODO — Administration" },
-    { id: "marketing", libelle: "TODO — Marketing" },
-    { id: "equipe", libelle: "TODO — Together" },
-    { id: "budget", libelle: "TODO — Budget" },
-    { id: "donnees", libelle: "TODO — Your data" },
+    { id: "comptabilite", libelle: "Accounting" },
+    { id: "administration", libelle: "Administration" },
+    { id: "marketing", libelle: "Marketing" },
+    { id: "equipe", libelle: "Your team" },
+    { id: "budget", libelle: "Pricing" },
+    { id: "donnees", libelle: "Your data" },
   ],
 
   metiers: [
     {
       id: "comptabilite",
-      surtitre: "TODO — sur-titre EN",
+      surtitre: "Accounting",
       factures: ["Données"],
-      titre: "TODO — titre EN",
-      texte: "TODO — paragraphe EN",
+      titre: "From accounting export to dashboard.",
+      texte:
+        "Drop in your exports and ask your question in plain English. Your sources are read-only — nothing you upload is altered.",
       jobEnTete: true,
       job: {
-        titre: "TODO — intitulé de la tâche EN",
-        logs: ["TODO — ligne 1", "TODO — ligne 2", "TODO — ligne 3"],
+        titre: "Cross-reference 12 months of accounting exports",
+        logs: [
+          "→ reading 14 .csv files",
+          "→ cross-referencing by vendor and by month",
+          "→ dashboard ready · 12/12",
+        ],
       },
       transformations: [
-        { entree: "TODO — entrée 1", sortie: "TODO — sortie 1" },
-        { entree: "TODO — entrée 2", sortie: "TODO — sortie 2" },
-        { entree: "TODO — entrée 3", sortie: "TODO — sortie 3" },
-        { entree: "TODO — entrée 4", sortie: "TODO — sortie 4" },
+        {
+          entree: "12 months of accounting exports",
+          sortie: "a cash-flow dashboard",
+        },
+        {
+          entree: "“Revenue by region, this quarter”",
+          sortie: "the answer, without writing a SQL query",
+        },
+        {
+          entree: "200 vendor invoices in PDF",
+          sortie: "a spreadsheet with amounts and dates",
+        },
+        {
+          entree: "a batch of journal entries",
+          sortie: "the outliers, flagged and listed",
+        },
       ],
     },
     {
       id: "administration",
-      surtitre: "TODO — sur-titre EN",
+      surtitre: "Administration",
       factures: ["Documents"],
-      titre: "TODO — titre EN",
-      texte: "TODO — paragraphe EN",
+      titre: "Your files, finally searchable.",
+      texte:
+        "Your files stay in your workspace. You describe the result you want; the contents never leave.",
       transformations: [
-        { entree: "TODO — entrée 1", sortie: "TODO — sortie 1" },
-        { entree: "TODO — entrée 2", sortie: "TODO — sortie 2" },
-        { entree: "TODO — entrée 3", sortie: "TODO — sortie 3" },
-        { entree: "TODO — entrée 4", sortie: "TODO — sortie 4" },
-        { entree: "TODO — entrée 5", sortie: "TODO — sortie 5" },
+        {
+          entree: "200 contracts in PDF",
+          sortie: "a spreadsheet with every renewal date",
+        },
+        {
+          entree: "“Where does this mention warranty?”",
+          sortie: "the exact passages, across every document",
+        },
+        {
+          entree: "one template and a list of 500 clients",
+          sortie: "500 personalized letters",
+        },
+        {
+          entree: "sensitive files",
+          sortie: "an encrypted archive, ready to share",
+        },
+        { entree: "a folder in disarray", sortie: "sorted, renamed, filed" },
       ],
-      lienTarifs: "TODO — lien vers /en/pricing",
+      lienTarifs: "See detailed pricing",
     },
     {
       id: "marketing",
-      surtitre: "TODO — sur-titre EN",
+      surtitre: "Marketing",
+      // Trois types facturés, comme en français : le dernier exemple est une
+      // extraction web. L'étiquette du brief anglais (« Media and Images »)
+      // aurait contredit /en/pricing, exactement comme en français.
       factures: ["Média", "Images", "Scraping"],
-      titre: "TODO — titre EN",
-      texte: "TODO — paragraphe EN",
+      titre: "Your media, in batches.",
+      texte:
+        "Process, encode, generate, sort — without tying up your own machine for three hours.",
       transformations: [
-        { entree: "TODO — entrée 1", sortie: "TODO — sortie 1" },
-        { entree: "TODO — entrée 2", sortie: "TODO — sortie 2" },
-        { entree: "TODO — entrée 3", sortie: "TODO — sortie 3" },
-        { entree: "TODO — entrée 4", sortie: "TODO — sortie 4" },
+        {
+          entree: "5,000 product photos",
+          sortie: "resized and reformatted, all at once",
+        },
+        {
+          entree: "a 4K video",
+          sortie: "re-encoded to H.265, ready to publish",
+        },
+        {
+          entree: "“a banner for the summer promo”",
+          sortie: "the image, generated",
+        },
+        {
+          entree: "a competitor’s online catalogue",
+          sortie: "a spreadsheet of prices and availability",
+        },
       ],
       job: {
-        titre: "TODO — intitulé de la tâche EN",
-        logs: ["TODO — ligne 1", "TODO — ligne 2", "TODO — ligne 3"],
+        titre: "Resize 5,000 product photos",
+        logs: [
+          "→ reading folder — 5,000 images found",
+          "→ converting to three formats",
+          "→ archive ready · 15,000/15,000",
+        ],
       },
     },
   ],
 
   equipe: {
     id: "equipe",
-    surtitre: "TODO — sur-titre EN",
-    titre: "TODO — titre EN",
-    texte: "TODO — paragraphe EN",
+    surtitre: "Your team",
+    titre: "One workspace, your whole team.",
+    texte:
+      "Create team workspaces, invite who you want, approve access. Chat, email and calendar are already in there.",
     cartes: [
-      { cle: "bureaux", titre: "TODO — Team desktops", texte: "TODO — texte EN" },
-      { cle: "messagerie", titre: "TODO — Messaging", texte: "TODO — texte EN" },
-      { cle: "courriel", titre: "TODO — Email", texte: "TODO — texte EN" },
-      { cle: "agenda", titre: "TODO — Calendar", texte: "TODO — texte EN" },
+      {
+        cle: "bureaux",
+        titre: "Team workspaces",
+        texte:
+          "Multiple workspaces, sharing across teams, invitations and access approval.",
+      },
+      {
+        cle: "messagerie",
+        titre: "Messaging",
+        texte: "Channels, direct messages, presence.",
+      },
+      {
+        cle: "courriel",
+        titre: "Email",
+        texte:
+          "Built-in webmail, with an @cloudparadise.ca address you activate from your workspace.",
+      },
+      {
+        cle: "agenda",
+        titre: "Calendar",
+        texte: "Shared calendar and reminders.",
+      },
     ],
-    lien: "TODO — lien vers /en/platform",
+    lien: "See the platform",
   },
 
   budget: {
     id: "budget",
-    surtitre: "TODO — sur-titre EN",
-    titre: "TODO — titre EN",
-    texte: "TODO — paragraphe EN",
+    surtitre: "Pricing",
+    titre: "No per-seat licences. No subscription.",
+    texte:
+      "Credits. You get some to start, you buy more when you want. A small task costs little; a heavy job costs more. Nothing expires.",
     points: [
-      // Interpoler `OFFRE_EN_DEVISE` ici — voir l'en-tête du fichier.
-      { cle: "offert", titre: "TODO — crédits offerts", texte: "TODO — texte EN" },
-      { cle: "traite", titre: "TODO — titre EN", texte: "TODO — texte EN" },
-      { cle: "consulter", titre: "TODO — titre EN", texte: "TODO — texte EN" },
+      {
+        cle: "offert",
+        // Même montant que le français, lu dans `offre.ts`. Il sort formaté en
+        // fr-CA (« 10 $ CA ») : c'est la forme retenue pour toute la vitrine
+        // anglaise, `BadgeOffre` l'affiche déjà telle quelle sur les six pages
+        // /en existantes. Ne pas la reformater ici seule.
+        titre: `${OFFRE_EN_DEVISE} in credits on sign-up`,
+        texte: "Try it without reaching for your card.",
+      },
+      {
+        cle: "traite",
+        titre: "You pay for what gets processed",
+        texte: "Billing follows progress, file by file.",
+      },
+      {
+        cle: "consulter",
+        titre: "Looking costs nothing",
+        texte: "Opening, previewing and browsing your folders are free.",
+      },
     ],
-    lien: "TODO — lien vers /en/pricing",
+    lien: "See pricing",
   },
 
   donnees: {
     id: "donnees",
-    // Le bloc qui diverge le plus. En français : la proximité (« nos serveurs
-    // sont dans votre région »). En anglais : la souveraineté (« vos données
-    // ne quittent pas le Canada »), avec PIPEDA et les lois provinciales de la
-    // C.-B. et de l'Alberta comme cadre légal de référence — cité comme cadre,
-    // jamais comme certification obtenue.
-    surtitre: "TODO — sur-titre EN",
-    titre: "TODO — titre EN, angle souveraineté canadienne",
+    surtitre: "Your data",
+    titre: "Your data stays in Canada.",
     paragraphes: [
-      "TODO — paragraphe 1 : le matériel nous appartient, il est au Canada, ce n’est pas de la capacité louée chez un fournisseur étranger.",
-      "TODO — paragraphe 2 : le modèle de langage tourne sur notre matériel, aucun fournisseur d’IA tiers ne voit vos fichiers.",
+      "Our servers are in Quebec, in a room, on hardware Cloud Paradise owns. This isn’t rented capacity from a foreign cloud provider — your files sit on disks we hold.",
+      "The language model that reads your requests runs on that same hardware. Your files and your requests are never sent to a third-party AI provider, and they never leave the country — which matters when the files are your clients’.",
     ],
-    lien: "TODO — lien vers /en/security",
+    lien: "See security",
   },
 
   closer: {
-    soustitre: "TODO — sous-titre du closer EN",
-    bouton: "TODO — CTA principal EN",
-    lien: "TODO — lien secondaire EN",
+    soustitre:
+      "Book a demo, or create your account and run your first task today.",
+    bouton: "Book a demo",
+    lien: "Create your account →",
   },
 };
 
 /**
- * Faux tant que la copie ci-dessus n'est pas rédigée.
+ * La copie anglaise est écrite : `contenuPme("en")` sert désormais l'anglais.
  *
- * C'est le seul garde-fou entre ces `TODO` et la production : `contenuPme()`
- * sert le français tant que ce drapeau est bas. Il se lève **en même temps**
- * que la dernière chaîne remplacée, pas avant — et la route `/en/pme` ne doit
- * pas exister avant lui non plus, sinon elle publierait une page française
- * sous une URL anglaise.
+ * Le drapeau existait pour empêcher les `TODO` d'atteindre la production tant
+ * que ce fichier n'était qu'un squelette. Il ne se lève qu'avec la route
+ * `/en/...` correspondante — sinon le `hreflang` annoncerait une page qui
+ * n'existe pas.
  */
-export const PME_EN_PRET = false;
+export const PME_EN_PRET = true;
