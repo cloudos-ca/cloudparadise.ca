@@ -42,7 +42,7 @@ export const metadata: Metadata = {
   openGraph: openGraphPage(TITRE, DESCRIPTION, "fr", ["/opengraph-image"]),
 };
 
-const MAJ = "22 juillet 2026";
+const MAJ = "30 juillet 2026";
 const VERSION = "1.0";
 
 const ADRESSE_LIGNE = ADRESSE.join(", ");

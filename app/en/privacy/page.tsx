@@ -30,7 +30,7 @@ export const metadata: Metadata = {
   openGraph: openGraphPage(TITRE, DESCRIPTION, "en", ["/opengraph-image"]),
 };
 
-const MAJ = "July 21, 2026";
+const MAJ = "July 30, 2026";
 
 /** The designated privacy officer under Law 25, s. 3.1. */
 const RESPONSABLE = "Maxime Murray";

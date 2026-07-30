@@ -30,7 +30,7 @@ export const metadata: Metadata = {
   openGraph: openGraphPage(TITRE, DESCRIPTION, "fr", ["/opengraph-image"]),
 };
 
-const MAJ = "21 juillet 2026";
+const MAJ = "30 juillet 2026";
 
 /** Le responsable désigné au sens de la Loi 25, art. 3.1. */
 const RESPONSABLE = "Maxime Murray";
