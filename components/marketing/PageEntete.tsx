@@ -1,7 +1,6 @@
-import { Reveal } from "./Reveal";
 import { LECTURE } from "./tokens";
 
-type PageEnteteProps = {
+type PageEnteteProps = Readonly<{
   eyebrow: string;
   titre: string;
   /** Ligne d'appoint sous le titre — date de mise à jour, résumé, etc. */
@@ -11,14 +10,25 @@ type PageEnteteProps = {
    * gauche ; /tarifs est une vitrine et suit l'axe médian de la landing.
    */
   centre?: boolean;
-};
+}>;
 
 /**
  * En-tête des pages intérieures.
  *
  * Aligné à gauche sur la colonne de lecture par défaut : ces pages sont du
- * texte suivi, pas une vitrine. L'eyebrow reprend la couleur d'accent des
- * sections.
+ * texte suivi, pas une vitrine.
+ *
+ * Le sur-titre suit le traitement verrouillé des pages refondues — majuscules,
+ * or, 0,12em, graisse 600, collé au titre par `mt-2` — identique au `SurTitre`
+ * de /calcul, /securite, /mines et des autres. Il portait jusqu'ici
+ * `--acc-text`, un bleu-gris pâle en bas de casse qui ne correspondait à aucune
+ * autre section du site : ces pages divergeaient sans que ce soit voulu.
+ *
+ * Sans `Reveal`, volontairement : ce bloc porte le `h1`, c'est-à-dire le titre
+ * principal de la page, et il est toujours en haut de l'écran. Le titre d'une
+ * page ne doit dépendre d'aucun JavaScript pour être visible — et de toute
+ * façon, une apparition au défilement n'a rien à révéler sur un bloc que le
+ * visiteur voit déjà. C'est un `div` nu.
  */
 export function PageEntete({
   eyebrow,
@@ -27,21 +37,21 @@ export function PageEntete({
   centre = false,
 }: PageEnteteProps) {
   return (
-    <Reveal className={centre ? `${LECTURE} mx-auto text-center` : LECTURE}>
+    <div className={centre ? `${LECTURE} mx-auto text-center` : LECTURE}>
       <p
-        className="text-xs font-medium tracking-wide"
-        style={{ color: "var(--acc-text)" }}
+        className="text-[13px] font-semibold tracking-[0.12em] uppercase"
+        style={{ color: "var(--cta)" }}
       >
         {eyebrow}
       </p>
-      <h1 className="mt-3 font-display text-[1.7rem] leading-[1.2] font-bold tracking-tight text-balance text-[#eef4ff] sm:text-3xl os:text-4xl">
+      <h1 className="mt-2 font-display text-[1.7rem] leading-[1.2] font-bold tracking-tight text-balance text-[#eef4ff] sm:text-3xl os:text-4xl">
         {titre}
       </h1>
       {soustitre ? (
-        <p className="mt-3 text-sm leading-relaxed text-[#93a3c2]">
+        <p className="mt-3 text-sm leading-relaxed text-white/85">
           {soustitre}
         </p>
       ) : null}
-    </Reveal>
+    </div>
   );
 }

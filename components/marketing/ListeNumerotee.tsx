@@ -5,15 +5,23 @@
  * leur ferait perdre ce repère. Partagée entre les versions FR et EN de la
  * page.
  */
-export function ListeNumerotee({ items }: { items: readonly string[] }) {
+export function ListeNumerotee({ items }: Readonly<{ items: readonly string[] }>) {
   return (
-    <ol className="space-y-2 pl-1">
+    // Même respiration et même marqueur cyan que les listes à puces de
+    // `SectionsRedigees` : les deux formes cohabitent dans une même page, elles
+    // ne doivent pas donner l'impression de venir de deux documents.
+    <ol className="space-y-3">
       {items.map((texte, i) => (
-        <li key={i} className="flex gap-2.5">
-          <span aria-hidden="true" className="tabular-nums text-[#93a3c2]">
+        <li key={texte} className="flex gap-3">
+          <span
+            aria-hidden="true"
+            data-cp-accent
+            className="shrink-0 tabular-nums"
+            style={{ color: "var(--soft)" }}
+          >
             {i + 1}.
           </span>
-          <span>{texte}</span>
+          <span className="min-w-0">{texte}</span>
         </li>
       ))}
     </ol>

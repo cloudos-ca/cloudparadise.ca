@@ -12,16 +12,18 @@ import { useEffect } from "react";
 export default function GlobalError({
   error,
   unstable_retry,
-}: {
+}: Readonly<{
   error: Error & { digest?: string };
   unstable_retry: () => void;
-}) {
+}>) {
   useEffect(() => {
     console.error(error);
   }, [error]);
 
+  // `fr-CA` comme les deux layouts racines (voir RootDocument) : ce
+  // document-ci ne passe pas par eux, l'étiquette est donc écrite en dur.
   return (
-    <html lang="fr">
+    <html lang="fr-CA">
       <body
         style={{
           display: "flex",
@@ -40,7 +42,10 @@ export default function GlobalError({
         <h1 style={{ fontSize: "1.5rem", fontWeight: 700 }}>
           Une erreur est survenue.
         </h1>
-        <p style={{ color: "#93a3c2", maxWidth: "32rem" }}>
+        {/* Valeur littérale et non `text-cp-muted` : global-error remplace le
+            document entier, feuille de styles comprise. C'est le même gris que
+            le token — à garder synchronisé avec `--color-cp-muted`. */}
+        <p style={{ color: "#9daac5", maxWidth: "32rem" }}>
           Réessayez dans un instant. Si le problème persiste, revenez plus
           tard.
         </p>

@@ -69,23 +69,23 @@ const TEXTES = {
   },
 } as const;
 
-export function Tarification({ lang = "fr" }: { lang?: Lang }) {
+export function Tarification({ lang = "fr" }: Readonly<{ lang?: Lang }>) {
   const t = TEXTES[lang];
   return (
     // Cible de « Voir les tarifs », depuis le closer.
     <section id="tarifs" className="relative scroll-mt-20">
       <div className={`${SHELL} ${SECTION_Y}`}>
-        <Reveal className="text-center">
+        <Reveal>
           <p
-            className="text-xs font-medium tracking-wide"
-            style={{ color: "var(--acc-text)" }}
+            className="text-[13px] font-semibold uppercase tracking-[0.12em]"
+            style={{ color: "var(--cta)" }}
           >
             {t.eyebrow}
           </p>
-          <h2 className="mx-auto mt-3 max-w-[22ch] font-display text-[1.6rem] leading-[1.2] font-bold tracking-tight text-balance text-[#eef4ff] sm:text-3xl os:text-4xl">
+          <h2 className="mt-2 max-w-[22ch] font-display text-[1.6rem] leading-[1.2] font-bold tracking-tight text-balance text-[#eef4ff] sm:text-3xl os:text-4xl">
             {t.titre}
           </h2>
-          <p className="mx-auto mt-3 max-w-[52ch] text-sm leading-relaxed text-[#93a3c2]">
+          <p className="mt-3 max-w-[52ch] text-sm leading-relaxed text-white/85">
             {t.soustitre}
           </p>
         </Reveal>
@@ -100,20 +100,23 @@ export function Tarification({ lang = "fr" }: { lang?: Lang }) {
             <ul className="space-y-5">
               {argumentsDe(lang).map(({ Icone, titre, texte }) => (
                 <li key={titre} className="flex gap-3.5">
+                  {/* Même bleu que les icônes de « Vos outils » (`--soft`) :
+                      une seule valeur pour toutes les icônes secondaires de la
+                      page. Même teinte de fond et même taille d'icône (21px),
+                      donc même graisse de trait. */}
                   <span
-                    data-cp-accent
-                    className="mt-0.5 grid size-8 shrink-0 place-items-center rounded-full"
+                    className="mt-0.5 grid size-9 shrink-0 place-items-center rounded-full"
                     style={{
                       background:
-                        "color-mix(in srgb, var(--acc) 15%, transparent)",
-                      color: "var(--acc-text)",
+                        "color-mix(in srgb, var(--soft) 12%, transparent)",
+                      color: "var(--soft)",
                     }}
                   >
-                    <Icone className="size-[18px]" />
+                    <Icone className="size-[21px]" />
                   </span>
                   <div>
                     <p className="text-sm font-medium text-[#eef4ff]">{titre}</p>
-                    <p className="mt-1 text-[13px] leading-relaxed text-[#93a3c2]">
+                    <p className="mt-1 text-[13px] leading-relaxed text-white/85">
                       {texte}
                     </p>
                   </div>
@@ -133,13 +136,13 @@ export function Tarification({ lang = "fr" }: { lang?: Lang }) {
 }
 
 /** La grille complète, un seul endroit qui fait foi. */
-function Grille({ lang }: { lang: Lang }) {
+function Grille({ lang }: Readonly<{ lang: Lang }>) {
   return (
     <div className="rounded-xl border border-white/10 bg-white/[0.03] px-5 py-4">
-      <p className="text-xs text-[#93a3c2]">
+      <p className="text-[13px] text-white/75">
         {lang === "en"
           ? "Cost charged per task, in credits — 1 credit = "
-          : "Coût débité par tâche lancée, en crédits — 1 crédit = "}
+          : "Coût par tâche, en crédits — 1 crédit = "}
         {nf.format(CREDIT_EN_DEVISE)} {DEVISE}
       </p>
       <dl className="mt-3 flex flex-wrap gap-x-6 gap-y-2.5">
@@ -149,7 +152,7 @@ function Grille({ lang }: { lang: Lang }) {
             {/* Un mode sans tarif arrêté reste listé — le masquer donnerait une
                 offre incomplète — mais il le dit au lieu d'afficher un prix. */}
             {cout === null ? (
-              <dd className="text-[12px] text-[#8494b6] italic">
+              <dd className="text-[12px] text-cp-muted italic">
                 {tarifAVenir(lang)}
               </dd>
             ) : (

@@ -1,62 +1,41 @@
 import type { MetadataRoute } from "next";
-import { SITE_URL } from "@/lib/seo";
+import { EST_PRODUCTION, PAGES, urlSite } from "@/lib/site";
 
+/**
+ * Sitemap XML.
+ *
+ * La liste des pages vit dans `lib/site.ts` : `llms.txt` la consomme aussi, et
+ * deux listes tenues à la main finissent par diverger — c'était déjà le cas,
+ * la section anglaise de `llms.txt` n'en comptait que six sur dix.
+ *
+ * **Vide hors production.** Le `Disallow: /` du robots.txt n'annonçait plus le
+ * sitemap, mais l'URL restait devinable et servait vingt adresses de
+ * production depuis le dev : de quoi soumettre par erreur, depuis la
+ * préproduction, un plan du site qui parle du vrai site. Un sitemap vide est
+ * un fichier valide, et il ne dit rien plutôt que de dire faux.
+ */
 export default function sitemap(): MetadataRoute.Sitemap {
-  const pagesBilingues: Array<{
-    fr: string;
-    en: string;
-    priority: number;
-    changeFrequency: MetadataRoute.Sitemap[number]["changeFrequency"];
-  }> = [
-    { fr: "/", en: "/en", priority: 1, changeFrequency: "weekly" },
-    {
-      fr: "/fonctions",
-      en: "/en/fonctions",
-      priority: 0.8,
-      changeFrequency: "monthly",
-    },
-    {
-      fr: "/tarifs",
-      en: "/en/tarifs",
-      priority: 0.8,
-      changeFrequency: "monthly",
-    },
-    {
-      fr: "/contact",
-      en: "/en/contact",
-      priority: 0.5,
-      changeFrequency: "yearly",
-    },
-    {
-      fr: "/conditions",
-      en: "/en/conditions",
-      priority: 0.3,
-      changeFrequency: "yearly",
-    },
-    {
-      fr: "/confidentialite",
-      en: "/en/confidentialite",
-      priority: 0.3,
-      changeFrequency: "yearly",
-    },
-  ];
+  if (!EST_PRODUCTION) return [];
 
   const lastModified = new Date();
 
-  return pagesBilingues.flatMap(({ fr, en, priority, changeFrequency }) => [
-    {
-      url: `${SITE_URL}${fr}`,
-      lastModified,
-      changeFrequency,
-      priority,
-      alternates: { languages: { fr: `${SITE_URL}${fr}`, en: `${SITE_URL}${en}` } },
-    },
-    {
-      url: `${SITE_URL}${en}`,
-      lastModified,
-      changeFrequency,
-      priority,
-      alternates: { languages: { fr: `${SITE_URL}${fr}`, en: `${SITE_URL}${en}` } },
-    },
-  ]);
+  return PAGES.flatMap(({ fr, en, priority, changeFrequency }) => {
+    const languages = { fr: urlSite(fr), en: urlSite(en) };
+    return [
+      {
+        url: urlSite(fr),
+        lastModified,
+        changeFrequency,
+        priority,
+        alternates: { languages },
+      },
+      {
+        url: urlSite(en),
+        lastModified,
+        changeFrequency,
+        priority,
+        alternates: { languages },
+      },
+    ];
+  });
 }

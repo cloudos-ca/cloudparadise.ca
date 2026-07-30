@@ -12,7 +12,7 @@ const CLE = "cp-loi25-consentement-v1";
 const EVENEMENT = "cp-consentement-change";
 
 export function lireConsentement(): Consentement | null {
-  const valeur = window.localStorage.getItem(CLE);
+  const valeur = globalThis.localStorage.getItem(CLE);
   return valeur === "accepte" || valeur === "refuse" ? valeur : null;
 }
 
@@ -25,8 +25,8 @@ export function lireConsentement(): Consentement | null {
  * d'arriver sans recharger la page.
  */
 export function ecrireConsentement(choix: Consentement): void {
-  window.localStorage.setItem(CLE, choix);
-  window.dispatchEvent(new Event(EVENEMENT));
+  globalThis.localStorage.setItem(CLE, choix);
+  globalThis.dispatchEvent(new Event(EVENEMENT));
 }
 
 export function aAccepteLesTemoinsNonEssentiels(): boolean {
@@ -35,6 +35,6 @@ export function aAccepteLesTemoinsNonEssentiels(): boolean {
 
 /** S'abonne aux changements de consentement ; retourne la fonction de désabonnement. */
 export function surChangementConsentement(callback: () => void): () => void {
-  window.addEventListener(EVENEMENT, callback);
-  return () => window.removeEventListener(EVENEMENT, callback);
+  globalThis.addEventListener(EVENEMENT, callback);
+  return () => globalThis.removeEventListener(EVENEMENT, callback);
 }

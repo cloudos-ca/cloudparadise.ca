@@ -24,12 +24,12 @@ export function BoutonCta({
   children,
   taille = "md",
   className = "",
-}: {
+}: Readonly<{
   href: string;
   children: ReactNode;
   taille?: Taille;
   className?: string;
-}) {
+}>) {
   return (
     <a
       href={href}

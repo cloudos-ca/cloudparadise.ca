@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 
-type WindowCardProps = {
+type WindowCardProps = Readonly<{
   title: string;
   children: ReactNode;
   className?: string;
@@ -16,7 +16,7 @@ type WindowCardProps = {
    * de titre. Décoratif : le titre porte déjà l'information.
    */
   icone?: ReactNode;
-};
+}>;
 
 /**
  * Châssis de fenêtre du web OS.
@@ -34,8 +34,14 @@ export function WindowCard({
 }: WindowCardProps) {
   return (
     <div
-      style={{ borderColor }}
-      className={`overflow-hidden rounded-xl border bg-[rgba(27,39,61,.9)] shadow-2xl shadow-black/40 backdrop-blur-sm ${className}`}
+      style={{
+        borderColor,
+        // Ombre portée profonde + fin liseré clair en haut : la fenêtre décolle
+        // du fond et prend un aspect « verre » sans recourir à une image.
+        boxShadow:
+          "0 24px 50px -14px rgba(0,0,0,.55), inset 0 1px 0 rgba(255,255,255,.07)",
+      }}
+      className={`overflow-hidden rounded-xl border bg-gradient-to-b from-[rgba(33,47,72,.92)] to-[rgba(23,34,54,.92)] backdrop-blur-sm ${className}`}
     >
       <div className="flex items-center gap-2 border-b border-white/10 px-3 py-2">
         <span className="flex gap-1.5" aria-hidden="true">

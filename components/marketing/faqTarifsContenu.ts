@@ -11,7 +11,12 @@ const nf = new Intl.NumberFormat("fr-CA");
  * — ne jamais réécrire un prix en toutes lettres dans une réponse.
  *
  * Ce sont des engagements commerciaux réels : ne rien y ajouter qui n'ait été
- * validé (aucune garantie de remboursement, de délai ou de disponibilité).
+ * validé (aucune garantie de remboursement, de délai ou de disponibilité). Les
+ * réponses doivent rester alignées sur les conditions d'utilisation — c'est le
+ * texte qui engage, et une réponse plus tranchée que lui devient un litige.
+ *
+ * Aucune question sur l'abonnement : les paliers mensuels sont désactivés, et
+ * la page /tarifs n'en dit rien sous aucune forme.
  *
  * Module à part, sans `"use client"` : `FaqTarifs.tsx` (client, pour
  * l'accordéon) et les pages /tarifs (serveur, pour le JSON-LD `FAQPage`)
@@ -31,11 +36,7 @@ export function questionsDe(lang: Lang): readonly { q: string; r: string }[] {
       },
       {
         q: "Are there refunds?",
-        r: "Credit purchases are non-refundable. Unused credits, however, remain available indefinitely (they don’t expire).",
-      },
-      {
-        q: "Do I need to subscribe?",
-        r: "No. No subscription: you only pay for the credits you choose to add, whenever you want.",
+        r: "Credits already spent are non-refundable. Unused credits stay available indefinitely — they don’t expire. For any request, write to us; the terms of use set out the cases provided for.",
       },
     ];
   }
@@ -50,11 +51,7 @@ export function questionsDe(lang: Lang): readonly { q: string; r: string }[] {
     },
     {
       q: "Y a-t-il des remboursements ?",
-      r: "Les achats de crédits ne sont pas remboursables. Les crédits inutilisés restent toutefois disponibles indéfiniment (ils n’expirent pas).",
-    },
-    {
-      q: "Dois-je m’abonner ?",
-      r: "Non. Aucun abonnement : vous ne payez que les crédits que vous choisissez d’ajouter, quand vous le voulez.",
+      r: "Les crédits déjà consommés ne sont pas remboursables. Les crédits inutilisés, eux, restent disponibles indéfiniment — ils n’expirent pas. Pour toute demande, écrivez-nous ; les conditions d’utilisation détaillent les cas prévus.",
     },
   ];
 }

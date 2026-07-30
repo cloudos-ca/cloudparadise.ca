@@ -1,6 +1,42 @@
 import type { Metadata } from "next";
+import { EST_PRODUCTION } from "./site";
 
-export const SITE_URL = "https://cloudparadise.ca";
+/**
+ * Ce module ne définit plus d'URL : `lib/site.ts` est la seule définition de
+ * domaine du dépôt. Il n'en réexporte pas non plus — deux chemins d'import
+ * pour la même constante finissent toujours par diverger dans la tête de
+ * quelqu'un. Ce qui a besoin de `SITE_URL` l'importe de `@/lib/site`.
+ *
+ * Passer les métadonnées par un `generateMetadata` dynamique pour lire
+ * l'origine de la requête aurait rendu tout le site dynamique, ce que le projet
+ * refuse déjà par ailleurs (voir la note CSP de next.config.ts) : d'où le
+ * pilotage au build par `SITE_ENV`.
+ */
+
+/**
+ * Directives d'indexation, partagées par les deux layouts racines et par les
+ * pages qui redéfinissent leur bloc `robots`.
+ *
+ * Hors production, `noindex, nofollow` — un environnement de préproduction
+ * contient des affirmations non validées et une tarification que l'application
+ * n'applique pas encore. `googleBot` est répété explicitement plutôt qu'omis :
+ * sans lui, la balise `max-image-preview:large` disparaîtrait bien, mais on
+ * veut la consigne négative écrite noir sur blanc pour le robot qui compte.
+ *
+ * Se lit avec `alternatesBilingues`, qui retire le `canonical` sur les mêmes
+ * environnements : les deux vont ensemble, voir le pourquoi là-bas.
+ */
+export const ROBOTS: Metadata["robots"] = EST_PRODUCTION
+  ? {
+      index: true,
+      follow: true,
+      googleBot: { index: true, follow: true, "max-image-preview": "large" },
+    }
+  : {
+      index: false,
+      follow: false,
+      googleBot: { index: false, follow: false },
+    };
 
 /**
  * Icônes de l'app — partagées entre les deux layouts racines (FR et EN).
@@ -23,15 +59,28 @@ export const ICONS: Metadata["icons"] = {
  * (valeurs par défaut) et `app/(marketing)/page.tsx` (metadata explicite +
  * alternates), pour ne pas les dupliquer en texte libre à deux endroits. */
 export const TITRE_ACCUEIL =
-  "Cloud Paradise — Décrivez la tâche. On s'occupe du calcul.";
+  "Cloud Paradise — Votre poste de travail cloud";
 export const DESCRIPTION_ACCUEIL =
-  "Déposez vos fichiers, dites ce que vous voulez en mots simples. L'IA choisit le bon mode et lance le calcul dans le cloud. Vous n'avez qu'à récupérer le résultat.";
+  "Un bureau en ligne complet : calcul lourd en langage humain, applications professionnelles et collaboration d'équipe. Hébergé au Québec, sans rien installer.";
 
 /**
  * Canonical pour une paire de pages FR/EN.
  *
  * `metadataBase` (posé au layout racine) rend les chemins relatifs suffisants
  * ici : Next les résout en URL absolue à la génération de la balise.
+ *
+ * **Hors production, aucun canonical n'est émis.** Une préproduction qui sert
+ * `<link rel="canonical" href="https://cloudparadise.ca/...">` ne se protège
+ * pas — elle demande explicitement que ses pages soient créditées à la
+ * production, c'est-à-dire qu'on lise et qu'on fusionne. C'est le contraire de
+ * ce que `noindex` et le `Disallow: /` du robots.txt demandent, et le signal
+ * contradictoire est exactement le genre d'ambiguïté qu'un moteur tranche à
+ * notre place. Rien vaut mieux qu'une mauvaise consigne : sans canonical, une
+ * page de dev explorée par erreur ne revendique rien.
+ *
+ * `metadataBase` reste posé dans les deux cas : Next refuse au build tout
+ * champ d'URL relatif sans lui (og:image en tête), et lui, contrairement au
+ * canonical, ne donne aucune consigne d'indexation.
  *
  * Ne couvre plus `alternates.languages` (hreflang) : le renderer React 19
  * bundlé avec cette version de Next sort ces balises avec l'attribut
@@ -46,6 +95,8 @@ export function alternatesBilingues(
   cheminEn: string,
   langueCourante: "fr" | "en",
 ): Metadata["alternates"] {
+  if (!EST_PRODUCTION) return undefined;
+
   return {
     canonical: langueCourante === "fr" ? cheminFr : cheminEn,
   };

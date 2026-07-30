@@ -3,34 +3,39 @@ import Link from "next/link";
 import { BreadcrumbJsonLd } from "@/components/marketing/BreadcrumbJsonLd";
 import { HreflangLinks } from "@/components/marketing/HreflangLinks";
 import { PageEntete } from "@/components/marketing/PageEntete";
-import { Reveal } from "@/components/marketing/Reveal";
+import { AncresSections } from "@/components/marketing/AncresSections";
 import {
+  ancresDe,
+  CONTENEUR_LEGAL,
+  GABARIT_LEGAL,
   SectionsRedigees,
   type SectionRedigee,
 } from "@/components/marketing/legal";
-import { ADRESSE } from "@/components/marketing/coordonnees";
+import {
+  ADRESSE,
+  COURRIEL_RESPONSABLE,
+} from "@/components/marketing/coordonnees";
 import { LECTURE, SECTION_Y, SHELL } from "@/components/marketing/tokens";
-import { alternatesBilingues, openGraphPage } from "@/lib/seo";
+import { alternatesBilingues, openGraphPage, ROBOTS } from "@/lib/seo";
 
 const TITRE = "Politique de confidentialité — Cloud Paradise";
 const DESCRIPTION =
-  "Comment Cloud Paradise recueille, utilise et protège les renseignements personnels, conformément à la Loi 25.";
+  "Comment Cloud Paradise recueille, utilise et protège les renseignements personnels, conformément à la Loi 25 du Québec. Vos droits et comment les exercer.";
 
 export const metadata: Metadata = {
   title: TITRE,
   description: DESCRIPTION,
-  robots: { index: true, follow: true },
-  alternates: alternatesBilingues("/confidentialite", "/en/confidentialite", "fr"),
+  robots: ROBOTS,
+  alternates: alternatesBilingues("/confidentialite", "/en/privacy", "fr"),
   openGraph: openGraphPage(TITRE, DESCRIPTION, "fr", ["/opengraph-image"]),
 };
 
-const MAJ = "21 juillet 2026";
+const MAJ = "30 juillet 2026";
 
 /** Le responsable désigné au sens de la Loi 25, art. 3.1. */
 const RESPONSABLE = "Maxime Murray";
 /** Courriel dédié au responsable de la protection des renseignements
  * personnels — distinct du courriel de contact général (`COURRIEL`). */
-const COURRIEL_RESPONSABLE = "maxime@cloudparadise.ca";
 
 const DENOMINATION_LEGALE = "Cloud Paradise S.E.N.C.";
 const ADRESSE_LIGNE = ADRESSE.join(", ");
@@ -126,7 +131,7 @@ const SECTIONS: readonly SectionRedigee[] = [
       },
       "Nous n’utilisons pas vos fichiers ni vos résultats pour entraîner des modèles ni à des fins de profilage publicitaire. Le modèle d’IA utilisé pour l’assistant de planification étant auto-hébergé, vos échanges ne servent pas non plus à entraîner des modèles d’un tiers. Nous ne réutilisons aucun renseignement à une fin incompatible avec celles ci-dessus sans votre consentement.",
       <>
-        <strong className="font-medium text-[#dbe6fb]">
+        <strong className="font-semibold text-white">
           Traitement automatisé.
         </strong>{" "}
         L’assistant de planification vous suggère des plans, mais les décisions
@@ -243,17 +248,22 @@ const SECTIONS: readonly SectionRedigee[] = [
           {
             terme: "Fichiers déposés et résultats de tâches :",
             texte:
-              "conservés dans votre espace de travail tant que vous ne les supprimez pas et tant que votre compte demeure actif. Vous pouvez les supprimer en tout temps ; ils sont alors détruits de nos systèmes de stockage. Une suppression automatique s’applique également après 1 an d’inactivité du compte.",
+              "conservés dans votre espace de travail jusqu’à ce que vous les supprimiez. Les fichiers que vous téléversez ne sont pas effacés une fois la tâche terminée : ils demeurent chez vous au même titre que les résultats. Vous pouvez les supprimer en tout temps ; ils sont alors détruits de nos systèmes de stockage. Cette conservation connaît une limite : après 1 an d’inactivité du compte, ils sont supprimés automatiquement.",
           },
           {
-            terme: "Renseignements de compte :",
+            terme: "Suppression de votre compte :",
             texte:
-              "conservés tant que votre compte est actif, puis détruits ou anonymisés dans un délai de 90 jours après sa fermeture, sous réserve des obligations légales.",
+              "lorsque vous demandez la suppression de votre compte, un délai de grâce de 30 jours s’ouvre. Pendant ces 30 jours, vous pouvez annuler votre demande et retrouver votre compte intact. Ce délai porte sur l’ensemble du compte : vos fichiers, vos résultats et vos renseignements de compte.",
           },
           {
-            terme: "Renseignements de facturation :",
+            terme: "Purge définitive :",
             texte:
-              "conservés selon les délais exigés par la loi fiscale et comptable applicable.",
+              "à l’expiration de ces 30 jours, tous vos fichiers et toutes les données de votre compte sont purgés définitivement. Seules vos factures sont conservées au-delà.",
+          },
+          {
+            terme: "Factures :",
+            texte:
+              "conservées six (6) ans, seule exception à la purge, pour répondre aux obligations fiscales et comptables.",
           },
           {
             terme: "Journaux techniques :",
@@ -322,7 +332,7 @@ const SECTIONS: readonly SectionRedigee[] = [
         ],
       },
       <>
-        <strong className="font-medium text-[#dbe6fb]">
+        <strong className="font-semibold text-white">
           Incident de confidentialité.
         </strong>{" "}
         En cas d’incident présentant un risque de préjudice sérieux, nous
@@ -343,10 +353,7 @@ const SECTIONS: readonly SectionRedigee[] = [
           {
             terme: "Courriel :",
             texte: (
-              <a
-                href={`mailto:${COURRIEL_RESPONSABLE}`}
-                className="underline underline-offset-2 transition-colors hover:text-[#eef4ff]"
-              >
+              <a href={`mailto:${COURRIEL_RESPONSABLE}`}>
                 {COURRIEL_RESPONSABLE}
               </a>
             ),
@@ -369,10 +376,7 @@ const SECTIONS: readonly SectionRedigee[] = [
         Pour toute question relative à la présente politique ou à vos
         renseignements personnels, communiquez avec notre responsable (section
         10) ou visitez notre{" "}
-        <Link
-          href="/contact"
-          className="underline underline-offset-2 transition-colors hover:text-[#eef4ff]"
-        >
+        <Link href="/contact">
           page Contact
         </Link>
         .
@@ -384,21 +388,24 @@ const SECTIONS: readonly SectionRedigee[] = [
         <a
           href="https://www.cai.gouv.qc.ca"
           target="_blank"
-          rel="noreferrer"
-          className="underline underline-offset-2 transition-colors hover:text-[#eef4ff]"
+          rel="noopener noreferrer"
         >
           cai.gouv.qc.ca
         </a>
-        .
+        {"."}
       </>,
     ],
   },
 ];
 
+/** Référence stable, calculée au module : `AncresSections` en dépend par effet. */
+const ANCRES = ancresDe(SECTIONS);
+
 export default function ConfidentialitePage() {
   return (
-    <section className="relative">
-      <HreflangLinks fr="/confidentialite" en="/en/confidentialite" />
+    // `data-page-sobre` éteint la lueur haute du fond — voir /conditions.
+    <section className="relative" data-page-sobre>
+      <HreflangLinks fr="/confidentialite" en="/en/privacy" />
       <BreadcrumbJsonLd
         items={[
           { nom: "Accueil", chemin: "/" },
@@ -406,38 +413,56 @@ export default function ConfidentialitePage() {
         ]}
       />
       <div className={`${SHELL} ${SECTION_Y}`}>
-        <PageEntete
-          eyebrow="Légal"
-          titre="Politique de confidentialité"
-          soustitre={`Dernière mise à jour : ${MAJ}`}
-        />
+        <div className={CONTENEUR_LEGAL}>
+          <PageEntete eyebrow="Légal" titre="Politique de confidentialité" />
+          {/* Métadonnée du document — voir /conditions pour le même traitement. */}
+          <p className={`${LECTURE} mt-3 text-[13px] text-white/70`}>
+            Dernière mise à jour : {MAJ}
+          </p>
 
-        <Reveal delay={0.1} className={`${LECTURE} mt-8`}>
-          <div className="mt-8 space-y-3 text-sm leading-relaxed text-[#93a3c2]">
-            <p>
-              La présente politique décrit comment Cloud Paradise
-              («&nbsp;Cloud Paradise&nbsp;», «&nbsp;nous&nbsp;») recueille,
-              utilise, communique et protège les renseignements personnels des
-              personnes qui utilisent sa plateforme de calcul (le
-              «&nbsp;Service&nbsp;»). Elle s’applique au site, à l’application
-              et à toute fonctionnalité qui y est rattachée.
-            </p>
-            <p>
-              Cloud Paradise est une entreprise établie au Québec et est
-              assujettie à la Loi sur la protection des renseignements
-              personnels dans le secteur privé telle que modifiée par la
-              Loi 25.
-            </p>
-            <p>
-              Responsable du traitement : {DENOMINATION_LEGALE}, faisant
-              affaires au {ADRESSE_LIGNE}.
-            </p>
-          </div>
+          <div className={GABARIT_LEGAL}>
+            <div className="lg:col-start-2 lg:row-start-1">
+              <AncresSections
+                ancres={ANCRES}
+                disposition="colonne"
+                titre="Sommaire"
+              />
+            </div>
 
-          <div className="mt-10">
-            <SectionsRedigees sections={SECTIONS} />
+            {/* Pas de `Reveal` ici : son repli de sécurité remplace le
+                `motion.div` par un `div` nu au bout d'1,5 s, ce qui remonte tout
+                le sous-arbre — l'`IntersectionObserver` du sommaire gardait
+                alors les anciens nœuds et ne suivait plus le défilement. */}
+            <div className="min-w-0 lg:col-start-1 lg:row-start-1">
+              {/* Chapeau du document : hors numérotation, donc hors sommaire,
+                  mais au même corps de texte que les sections. */}
+              <div className="prose-legal space-y-4 text-base leading-[1.7] text-white/85">
+                <p>
+                  La présente politique décrit comment Cloud Paradise
+                  («&nbsp;Cloud Paradise&nbsp;», «&nbsp;nous&nbsp;») recueille,
+                  utilise, communique et protège les renseignements personnels
+                  des personnes qui utilisent sa plateforme de calcul (le
+                  «&nbsp;Service&nbsp;»). Elle s’applique au site, à
+                  l’application et à toute fonctionnalité qui y est rattachée.
+                </p>
+                <p>
+                  Cloud Paradise est une entreprise établie au Québec et est
+                  assujettie à la Loi sur la protection des renseignements
+                  personnels dans le secteur privé telle que modifiée par la
+                  Loi 25.
+                </p>
+                <p>
+                  Responsable du traitement : {DENOMINATION_LEGALE}, faisant
+                  affaires au {ADRESSE_LIGNE}.
+                </p>
+              </div>
+
+              <div className="mt-14">
+                <SectionsRedigees sections={SECTIONS} />
+              </div>
+            </div>
           </div>
-        </Reveal>
+        </div>
       </div>
     </section>
   );

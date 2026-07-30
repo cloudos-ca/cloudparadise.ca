@@ -1,23 +1,25 @@
 "use client";
 
+import { useRef } from "react";
 import { motion, useReducedMotion } from "framer-motion";
+import { useBoucleActive } from "./useBoucleActive";
 import { WindowCard } from "./WindowCard";
-import { WallpaperPicker } from "./WallpaperPicker";
 import { JobPanel } from "./JobPanel";
 import { BadgeOffre } from "./BadgeOffre";
 import { BoutonCta } from "./BoutonCta";
-import { DemoVideo } from "./DemoVideo";
-import { SECTION_Y, SHELL, SOFT_WASH, type Lang } from "./tokens";
+import { libelleDe } from "./offre";
+import { SECTION_Y, SHELL, type Lang } from "./tokens";
+import { LIEN_INSCRIPTION } from "@/lib/site";
 
 const JOB_LOGS = {
   fr: [
     "→ Analyse du projet — 1 842 images détectées",
-    "→ Attribution de 8 GPU · mode MEDIA",
+    "→ Répartition en 12 segments",
     "→ Encodage H.265 — 1 842/1 842 images",
   ],
   en: [
     "→ Analyzing project — 1,842 images found",
-    "→ Assigning 8 GPUs · MEDIA mode",
+    "→ Splitting into 12 segments",
     "→ Encoding H.265 — 1,842/1,842 images",
   ],
 } as const;
@@ -29,24 +31,22 @@ const FOLDERS = {
 
 const TEXTES = {
   fr: {
-    eyebrow: "Un bureau à votre image",
     titreLigne1: "Décrivez la tâche.",
     titreLigne2: "On s’occupe du calcul.",
     texte:
-      "Déposez vos fichiers, dites ce que vous voulez en mots simples. L’IA choisit le bon mode et lance le calcul dans le cloud. Vous n’avez qu’à récupérer le résultat.",
+      "Votre poste de travail cloud : calcul lourd en langage humain, applications professionnelles et collaboration d’équipe. Décrivez ce que vous voulez, on s’occupe du reste — sans rien installer.",
     cta: "Commencer gratuitement",
   },
   en: {
-    eyebrow: "A desktop, your way",
     titreLigne1: "Describe the task.",
     titreLigne2: "We handle the compute.",
     texte:
-      "Drop your files, say what you want in plain words. The AI picks the right mode and runs the job in the cloud. You just grab the result.",
+      "Your cloud workstation: heavy compute in plain language, professional software and team collaboration. Say what you want, we handle the rest — nothing to install.",
     cta: "Start for free",
   },
 } as const;
 
-export function Hero({ lang = "fr" }: { lang?: Lang }) {
+export function Hero({ lang = "fr" }: Readonly<{ lang?: Lang }>) {
   const reduceMotion = useReducedMotion();
 
   return (
@@ -65,19 +65,11 @@ export function Hero({ lang = "fr" }: { lang?: Lang }) {
   );
 }
 
-function Copy({ lang }: { lang: Lang }) {
+function Copy({ lang }: Readonly<{ lang: Lang }>) {
   const t = TEXTES[lang];
   return (
     <div className="max-w-xl">
-      <span
-        data-cp-accent
-        className="inline-block rounded-full px-3 py-1 text-xs font-medium"
-        style={{ background: SOFT_WASH, color: "var(--soft)" }}
-      >
-        {t.eyebrow}
-      </span>
-
-      <h1 className="mt-5 font-display text-[1.75rem] leading-[1.15] font-bold tracking-tight text-white sm:text-4xl os:text-5xl">
+      <h1 className="font-display text-[2rem] leading-[1.08] font-bold tracking-[-0.02em] text-white sm:text-[2.9rem] os:text-[3.5rem]">
         {t.titreLigne1}
         <br />
         <span data-cp-accent style={{ color: "var(--soft)" }}>
@@ -85,25 +77,24 @@ function Copy({ lang }: { lang: Lang }) {
         </span>
       </h1>
 
-      <p className="mt-5 text-base leading-relaxed text-cp-subtle">
+      <p className="mt-6 text-[17px] leading-relaxed text-white/85">
         {t.texte}
       </p>
 
-      <div className="mt-7 flex flex-wrap items-center gap-3">
+      {/* Un seul CTA : « Voir la démo » est retiré tant qu'une capture animée
+          à jour n'existe pas. */}
+      <div className="mt-7">
         <BoutonCta
-          href="https://app.cloudparadise.cloud/register"
+          href={LIEN_INSCRIPTION}
           taille="lg"
         >
           {t.cta}
         </BoutonCta>
-        <DemoVideo lang={lang} />
       </div>
 
       {/* L'offre juste sous le bouton, en or dilué : elle appuie le CTA au
           lieu de s'excuser en gris trois tailles plus bas. */}
       <BadgeOffre className="mt-5" lang={lang} />
-
-      <WallpaperPicker lang={lang} />
     </div>
   );
 }
@@ -111,21 +102,28 @@ function Copy({ lang }: { lang: Lang }) {
 function Desktop({
   reduceMotion,
   lang,
-}: {
+}: Readonly<{
   reduceMotion: boolean;
   lang: Lang;
-}) {
+}>) {
+  const cadre = useRef<HTMLDivElement>(null);
+  // Le hero est en haut de page, donc presque toujours à l'écran — mais
+  // « presque » n'est pas « toujours » : dès qu'on descend d'un écran, ces deux
+  // boucles n'ont plus de raison de tourner, et l'onglet en arrière-plan encore
+  // moins.
+  const anime = useBoucleActive(cadre) && !reduceMotion;
+
   const float = (distance: number, duration: number) =>
-    reduceMotion
-      ? undefined
-      : {
+    anime
+      ? {
           animate: { y: [0, distance, 0] },
           transition: {
             duration,
             repeat: Infinity,
             ease: "easeInOut" as const,
           },
-        };
+        }
+      : { animate: { y: 0 } };
 
   const back = float(-7, 7);
   const front = float(7, 8);
@@ -133,7 +131,10 @@ function Desktop({
   // Le bloc s'aligne sur le haut de la colonne texte et reste calé à gauche de
   // sa colonne : les fenêtres ne partent jamais toucher le bord droit.
   return (
-    <div className="relative mx-auto w-full max-w-[480px] os:mt-1 os:max-w-[520px]">
+    <div
+      ref={cadre}
+      className="relative mx-auto w-full max-w-[480px] os:mt-1 os:max-w-[520px]"
+    >
       <motion.div {...back} className="ml-auto w-[62%]" aria-hidden="true">
         <WindowCard title={lang === "en" ? "Files" : "Fichiers"}>
           {/* Le padding bas absorbe le recouvrement de la fenêtre de devant :
@@ -145,8 +146,9 @@ function Desktop({
                 className="flex items-center gap-2 text-xs text-white/70"
               >
                 <svg
+                  aria-hidden="true"
                   viewBox="0 0 24 24"
-                  className="size-4 shrink-0 text-white/35"
+                  className="size-4 shrink-0 text-white/55"
                   fill="currentColor"
                 >
                   <path d="M3 6.5A1.5 1.5 0 0 1 4.5 5h4l2 2h9A1.5 1.5 0 0 1 21 8.5v9a1.5 1.5 0 0 1-1.5 1.5h-15A1.5 1.5 0 0 1 3 17.5z" />
@@ -162,7 +164,10 @@ function Desktop({
         <WindowCard title="Plans · Cloud Paradise">
           <JobPanel
             title={lang === "en" ? "Render a 4K video" : "Rendre une vidéo 4K"}
-            chip="MEDIA"
+            // Dérivé d'`offre.ts` : le littéral « MÉDIA » s'affichait avec
+            // son accent français sur la page d'accueil anglaise, où le
+            // mode s'appelle « Media ».
+            chip={libelleDe("Média", lang).toUpperCase()}
             logs={JOB_LOGS[lang]}
             lang={lang}
           />

@@ -1,31 +1,54 @@
 import Image from "next/image";
 import { SHELL, type Lang } from "./tokens";
+import { LIEN_CONNEXION } from "@/lib/site";
 
 /**
  * Liens de pied de page.
  *
- * La colonne Légal pointe vers de vraies pages ; la colonne Produit reste en
- * ancres inertes tant que les destinations n'existent pas — mieux vaut un `#`
- * qu'un lien vers une 404.
+ * Quatre colonnes : le produit (Plateforme/Calcul/Mines/Tarifs), les pages
+ * qu'on lit une fois convaincu (Fonctions, Sécurité, connexion), l'entreprise
+ * (Contact), enfin le légal. Le pied de page est le seul endroit où Mines et
+ * Sécurité sont accessibles globalement, la barre de menu ne les portant plus.
+ *
+ * `Contact` a sa propre colonne et non celle du légal : écrire pour joindre
+ * quelqu'un n'est pas un document contractuel, et le ranger à côté des
+ * Conditions laissait entendre qu'il fallait une raison juridique pour nous
+ * écrire. Une colonne d'un seul lien est ici assumée — les hauteurs
+ * descendent 4/3/1/2, ce qui se lit comme un escalier plutôt qu'un trou.
+ *
+ * Tous les liens visent de vraies pages — jamais d'ancre inerte.
  */
 const COLONNES = {
   fr: [
     {
       titre: "Produit",
       liens: [
-        { libelle: "Fonctions", href: "/fonctions" },
+        { libelle: "Plateforme", href: "/plateforme" },
+        { libelle: "Calcul", href: "/calcul" },
+        { libelle: "Mines", href: "/mines" },
+        { libelle: "PME", href: "/pme" },
         { libelle: "Tarifs", href: "/tarifs" },
+      ],
+    },
+    {
+      titre: "En savoir plus",
+      liens: [
+        { libelle: "Fonctions", href: "/fonctions" },
+        { libelle: "Sécurité", href: "/securite" },
         // Même cible que la barre de menu : `#` ne faisait que remonter en
         // haut de page, ce qui est pire qu'un lien en attente d'être branché.
-        { libelle: "Se connecter", href: "https://app.cloudparadise.cloud/login" },
+        { libelle: "Se connecter", href: LIEN_CONNEXION },
       ],
+    },
+    {
+      titre: "Entreprise",
+      liens: [{ libelle: "Contact", href: "/contact" }],
     },
     {
       titre: "Légal",
       liens: [
         { libelle: "Conditions", href: "/conditions" },
         { libelle: "Confidentialité", href: "/confidentialite" },
-        { libelle: "Contact", href: "/contact" },
       ],
     },
   ],
@@ -33,17 +56,30 @@ const COLONNES = {
     {
       titre: "Product",
       liens: [
-        { libelle: "Features", href: "/en/fonctions" },
-        { libelle: "Pricing", href: "/en/tarifs" },
-        { libelle: "Log in", href: "https://app.cloudparadise.cloud/login" },
+        { libelle: "Platform", href: "/en/platform" },
+        { libelle: "Compute", href: "/en/compute" },
+        { libelle: "Mining", href: "/en/mining" },
+        { libelle: "Small business", href: "/en/small-business" },
+        { libelle: "Pricing", href: "/en/pricing" },
       ],
+    },
+    {
+      titre: "Learn more",
+      liens: [
+        { libelle: "Features", href: "/en/features" },
+        { libelle: "Security", href: "/en/security" },
+        { libelle: "Log in", href: LIEN_CONNEXION },
+      ],
+    },
+    {
+      titre: "Company",
+      liens: [{ libelle: "Contact", href: "/en/contact" }],
     },
     {
       titre: "Legal",
       liens: [
-        { libelle: "Terms", href: "/en/conditions" },
-        { libelle: "Privacy", href: "/en/confidentialite" },
-        { libelle: "Contact", href: "/en/contact" },
+        { libelle: "Terms", href: "/en/terms" },
+        { libelle: "Privacy", href: "/en/privacy" },
       ],
     },
   ],
@@ -55,7 +91,7 @@ const COLONNES = {
  * recoloration va jusqu'en bas de page. Les colonnes de liens et le logo
  * (halo compris) restent fixes.
  */
-export function Footer({ lang = "fr" }: { lang?: Lang }) {
+export function Footer({ lang = "fr" }: Readonly<{ lang?: Lang }>) {
   return (
     <footer className="relative border-t border-white/[0.08]">
       <div className={`${SHELL} py-10`}>
@@ -78,7 +114,7 @@ export function Footer({ lang = "fr" }: { lang?: Lang }) {
           </div>
 
           <nav aria-label={lang === "en" ? "Footer links" : "Liens de pied de page"}>
-            <div className="flex gap-12 os:gap-16">
+            <div className="flex flex-wrap gap-x-12 gap-y-8 os:gap-16">
               {COLONNES[lang].map(({ titre, liens }) => (
                 <div key={titre}>
                   <p className="text-xs font-medium text-white/70">{titre}</p>
@@ -87,7 +123,7 @@ export function Footer({ lang = "fr" }: { lang?: Lang }) {
                       <li key={libelle}>
                         <a
                           href={href}
-                          className="text-[13px] text-[#93a3c2] underline-offset-4 hover:text-white hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+                          className="text-[13px] text-cp-muted underline-offset-4 hover:text-white hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
                         >
                           {libelle}
                         </a>

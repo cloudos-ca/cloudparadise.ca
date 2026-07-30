@@ -23,11 +23,11 @@ export function BadgeOffre({
   sansCarte = true,
   className = "",
   lang = "fr",
-}: {
+}: Readonly<{
   sansCarte?: boolean;
   className?: string;
   lang?: Lang;
-}) {
+}>) {
   const t = TEXTES[lang];
   return (
     <span
@@ -49,8 +49,12 @@ export function BadgeOffre({
           {OFFRE_EN_DEVISE}
         </strong>{" "}
         {t.credits}
+        {/* Pas le gris secondaire du site ici : le fond de la pastille est un
+            or dilué, donc plus clair que la page, et `--color-cp-muted` y
+            tombait à 4,35:1. Un blanc à 75 % tient 5,5:1 sur ce fond-là tout
+            en restant en retrait du `#dbe6fb` de la phrase. */}
         {sansCarte ? (
-          <span className="text-[#93a3c2]">{t.sansCarte}</span>
+          <span className="text-white/75">{t.sansCarte}</span>
         ) : null}
       </span>
     </span>

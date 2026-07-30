@@ -1,5 +1,5 @@
 import { MatomoAnalytics } from "@/components/marketing/MatomoAnalytics";
-import { SITE_URL } from "@/lib/seo";
+import { EST_PRODUCTION, SITE_URL } from "@/lib/site";
 import { comfortaa, workSans } from "@/app/fonts";
 import {
   COURRIEL,
@@ -17,6 +17,11 @@ import "@/app/globals.css";
  * Google pour le nom de marque, le lien officiel et l'adresse dans les
  * résultats de recherche. L'adresse vient de `coordonnees.ts`, seule source
  * de vérité pour ces champs (utilisée aussi par /contact et les pages légales).
+ *
+ * `SITE_URL` vient de `lib/site.ts` et suit donc l'environnement : le dev
+ * déclarait jusqu'ici l'organisation et le site sous l'URL de production,
+ * c'est-à-dire qu'il revendiquait l'identité du vrai site depuis une
+ * préproduction qu'on demande par ailleurs de ne pas explorer.
  */
 const JSON_LD = {
   "@context": "https://schema.org",
@@ -58,17 +63,25 @@ const JSON_LD = {
  * client : chaque sous-arbre reste ainsi statiquement générable, et `lang` est
  * correct dès le HTML servi par le serveur (pas seulement après hydratation).
  * Contrepartie acceptée : naviguer entre FR et EN recharge la page entière.
+ *
+ * La prop reste `"fr" | "en"` — c'est l'identifiant de sous-arbre que passent
+ * les deux layouts racines et `global-not-found`. La traduction en étiquette
+ * BCP 47 se fait ici, au seul endroit qui écrit l'attribut : le site déclarait
+ * `lang="fr"` là où `openGraph.locale` dit `fr_CA` et le `WebSite` ci-dessus
+ * `inLanguage: "fr-CA"`, soit trois façons de nommer la même langue. C'est
+ * `fr-CA` qui est juste — la variante québécoise, celle de la tarification en
+ * dollars canadiens et des textes légaux qui citent la Loi 25.
  */
 export function RootDocument({
   lang,
   children,
-}: {
+}: Readonly<{
   lang: "fr" | "en";
   children: React.ReactNode;
-}) {
+}>) {
   return (
     <html
-      lang={lang}
+      lang={lang === "en" ? "en-CA" : "fr-CA"}
       className={`${comfortaa.variable} ${workSans.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col font-sans">
@@ -80,9 +93,15 @@ export function RootDocument({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(JSON_LD) }}
         />
         {children}
-        {/* Site entier (FR + EN) : voir MatomoAnalytics.tsx pour la porte de
-            consentement. */}
-        <MatomoAnalytics />
+        {/* Site entier (FR + EN), et production seulement.
+            Le consentement (voir MatomoAnalytics.tsx) est une deuxième porte,
+            pas la première : hors production le composant ne monte pas du tout.
+            Trois raisons plutôt qu'une — le `setCookieDomain` du script est posé
+            sur `.cloudparadise.ca`, qu'un navigateur refuse depuis
+            `dev.cloudparadise.cloud` (chaque page vue y comptait un visiteur
+            neuf) ; l'ID de site est le même qu'en production ; et le trafic de
+            développement se mélangeait donc aux statistiques du vrai site. */}
+        {EST_PRODUCTION ? <MatomoAnalytics /> : null}
       </body>
     </html>
   );

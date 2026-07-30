@@ -1,4 +1,4 @@
-import { SITE_URL } from "@/lib/seo";
+import { SITE_URL } from "@/lib/site";
 
 /**
  * Fil d'Ariane en JSON-LD, sans rendu visuel — le site n'a pas de fil
@@ -7,9 +7,9 @@ import { SITE_URL } from "@/lib/seo";
  */
 export function BreadcrumbJsonLd({
   items,
-}: {
+}: Readonly<{
   items: readonly { nom: string; chemin: string }[];
-}) {
+}>) {
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",

@@ -1,31 +1,45 @@
-import type { JSX } from "react";
-import { SITE_URL } from "@/lib/seo";
+import { EST_PRODUCTION, SITE_URL } from "@/lib/site";
 
 /**
- * Balises hreflang rendues à la main.
+ * Balises hreflang rendues à la main, dans le corps de la page (Next les
+ * remonte vers `<head>`).
  *
- * Contourne un bug du renderer React 19 bundlé avec cette version de Next :
- * `metadata.alternates.languages` produit un attribut `hrefLang` (casse
- * camelCase) au lieu de `hreflang`, faute d'alias pour cette prop dans
- * `react-dom-server`. Un `<link>` dont l'attribut est littéralement en
- * minuscules passe par le même mécanisme de hoisting vers `<head>` que les
- * balises générées par Next, sans passer par la prop cassée — donc sans le
- * bug. Les types de `link` n'exposent que `hrefLang` (camelCase) : l'objet
- * est donc construit hors JSX puis étalé, pour poser la vraie clé `hreflang`
- * au moment du rendu plutôt que celle que TypeScript propose.
+ * Rien du tout hors production, pour la même raison que le canonical (voir
+ * `alternatesBilingues`) : `rel="alternate"` est de la même famille que
+ * `rel="canonical"`, et une préproduction qui déclare « la version française
+ * de cette page est sur cloudparadise.ca » revendique les URL de production
+ * depuis un site qu'on demande par ailleurs de ne pas explorer. Un jeu de
+ * hreflang non réciproque — la production ne renvoie évidemment pas vers le
+ * dev — est de toute façon ignoré par Google, donc on ne perd rien à le taire.
+ *
+ * On utilise la prop React standard `hrefLang` (camelCase) : react-dom la sort
+ * en attribut minuscule `hreflang`, la forme attendue par les moteurs. Une
+ * version antérieure forçait la clé `hreflang` en minuscules via un cast, ce
+ * qui produisait bien l'attribut voulu mais déclenchait l'avertissement dev
+ * « Invalid DOM property `hreflang` » (le « 1 Issue » de l'overlay Next) à
+ * chaque rendu. La prop standard donne le même HTML sans l'avertissement.
  *
  * `x-default` pointe vers la version FR : c'est la langue par défaut du site.
+ *
+ * `en` est facultatif, et doit être omis tant que la page anglaise n'existe
+ * pas : un `hreflang` vers une URL qui répond 404 est signalé en erreur par la
+ * Search Console, et une paire cassée fait douter des paires valides déclarées
+ * ailleurs. Omis, la page reste correctement déclarée comme française — elle ne
+ * ment simplement pas sur l'existence d'un pendant.
  */
-function attributsLien(hreflang: string, href: string) {
-  return { rel: "alternate", hreflang, href } as unknown as JSX.IntrinsicElements["link"];
-}
+export function HreflangLinks({
+  fr,
+  en,
+}: Readonly<{ fr: string; en?: string }>) {
+  if (!EST_PRODUCTION) return null;
 
-export function HreflangLinks({ fr, en }: { fr: string; en: string }) {
   return (
     <>
-      <link {...attributsLien("fr", `${SITE_URL}${fr}`)} />
-      <link {...attributsLien("en", `${SITE_URL}${en}`)} />
-      <link {...attributsLien("x-default", `${SITE_URL}${fr}`)} />
+      <link rel="alternate" hrefLang="fr" href={`${SITE_URL}${fr}`} />
+      {en ? (
+        <link rel="alternate" hrefLang="en" href={`${SITE_URL}${en}`} />
+      ) : null}
+      <link rel="alternate" hrefLang="x-default" href={`${SITE_URL}${fr}`} />
     </>
   );
 }

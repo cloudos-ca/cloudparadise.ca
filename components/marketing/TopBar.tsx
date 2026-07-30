@@ -6,39 +6,81 @@ import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { BoutonCta } from "./BoutonCta";
 import { SHELL, type Lang } from "./tokens";
+import { LIEN_CONNEXION, LIEN_INSCRIPTION, PAGES } from "@/lib/site";
 
 /**
  * Liens de navigation — desktop et menu mobile lisent tous deux ce tableau.
  *
- * Uniquement de vraies pages : « Infrastructure » a été retiré parce qu'il ne
- * pointait que vers une section de l'accueil, ce qui obligeait à quitter la
- * page courante pour un simple défilement. La barre vit dans le layout et
- * s'affiche sur toutes les pages ; une ancre y est toujours un lien bancal.
+ * Cinq entrées, pas de menu déroulant : les cinq pages qui portent la décision
+ * d'achat. `Mines` (un secteur parmi d'autres) et `Sécurité` (souveraineté)
+ * sont des entrées secondaires — elles vivent au pied de page et dans les liens
+ * de fin de section, on n'encombre pas la barre avec les pages qu'on lit après
+ * avoir été convaincu. `Fonctions` garde sa place juste avant `Tarifs` : c'est
+ * la référence exhaustive, elle sert à comparer avant d'aller voir les prix.
+ * Uniquement de vraies pages : jamais d'ancre, la barre s'affiche partout et
+ * une ancre y serait un lien bancal.
  *
- * `chemin` est le segment sans langue ; le lien se construit à l'affichage
- * selon `lang` (`/fonctions` en français, `/en/fonctions` en anglais).
+ * `PME` entre en troisième position le 2026-07-30 : c'est devenu le segment
+ * d'acquisition principal, celui qui arrive par la recherche organique. Les
+ * mines restent servies, mais démarchées en direct — elles n'ont donc pas
+ * besoin de la barre. Rang dans la barre = poids commercial, et l'accueil dit
+ * la même chose dans le même ordre (`RenvoiPme` avant `RenvoiMines`).
+ *
+ * `fr` est le chemin français, et il sert de clé : le chemin anglais n'est pas
+ * écrit ici, il est retrouvé dans `PAGES` par `hrefNav`. Les deux langues ne
+ * portent plus le même segment (`/plateforme` contre `/en/platform`), donc un
+ * segment unique préfixé de `/en` ne suffit plus — et le recopier ici rouvrirait
+ * exactement la divergence que `PAGES_BILINGUES` vient de fermer.
  */
 const NAV = [
-  { libelle: { fr: "Fonctions", en: "Features" }, chemin: "fonctions" },
-  { libelle: { fr: "Tarifs", en: "Pricing" }, chemin: "tarifs" },
-  { libelle: { fr: "Contact", en: "Contact" }, chemin: "contact" },
+  { libelle: { fr: "Plateforme", en: "Platform" }, fr: "/plateforme" },
+  { libelle: { fr: "Calcul", en: "Compute" }, fr: "/calcul" },
+  // « Small business » et non « SMEs » : c'est déjà le libellé du pied de page,
+  // du fil d'Ariane et du titre Open Graph de la page, et c'est le terme
+  // cherché en anglais canadien — le même raisonnement que celui qui a donné le
+  // slug `/en/small-business` plutôt que `/en/smb` (voir `PAGES`, lib/site.ts).
+  { libelle: { fr: "PME", en: "Small business" }, fr: "/pme" },
+  { libelle: { fr: "Fonctions", en: "Features" }, fr: "/fonctions" },
+  { libelle: { fr: "Tarifs", en: "Pricing" }, fr: "/tarifs" },
 ] as const;
 
-/** Les pages qui existent dans les deux langues. */
-const PAGES_BILINGUES = [
-  { fr: "/", en: "/en" },
-  { fr: "/fonctions", en: "/en/fonctions" },
-  { fr: "/tarifs", en: "/en/tarifs" },
-  { fr: "/contact", en: "/en/contact" },
-  { fr: "/conditions", en: "/en/conditions" },
-  { fr: "/confidentialite", en: "/en/confidentialite" },
-] as const;
+/**
+ * Les pages qui existent dans les deux langues — aujourd'hui, toutes.
+ *
+ * **Dérivée de `PAGES`, plus recopiée.** Cette liste décide où atterrit la
+ * bascule de langue ; `PAGES` (lib/site.ts) décide de ce qu'annoncent le
+ * sitemap, `llms.txt` et les `hreflang`. Tenues à la main toutes les deux,
+ * elles divergeaient au premier renommage de slug — et la panne est silencieuse
+ * : le build reste vert, seul le lien de bascule meurt. Une seule source, donc,
+ * et `PAGES` est celle qui est déjà consommée par le référencement.
+ *
+ * Le repli de `cheminAutreLangue` couvre toujours la page publiée dans une
+ * seule langue : elle n'a rien à faire dans `PAGES` (elle y annoncerait un
+ * `hreflang` vers un 404), donc elle n'est pas ici non plus.
+ */
+const PAGES_BILINGUES = PAGES.map(({ fr, en }) => ({ fr, en }));
 
 /** Chemin équivalent dans l'autre langue, ou la racine de cette langue si la page n'a pas de pendant. */
 function cheminAutreLangue(pathname: string, lang: Lang): string {
   const page = PAGES_BILINGUES.find((p) => p[lang] === pathname);
   if (page) return lang === "fr" ? page.en : page.fr;
   return lang === "fr" ? "/en" : "/";
+}
+
+/**
+ * Chemin absolu d'une entrée de nav, dans la langue affichée.
+ *
+ * Une seule fonction pour les deux rendus (barre et menu mobile) : c'est elle
+ * qui garantit que l'URL comparée pour l'état actif est exactement celle du
+ * lien, et non une variante reconstruite ailleurs.
+ *
+ * Le repli `/en` ne peut se produire que si une entrée de `NAV` sort de
+ * `PAGES` — c'est-à-dire une page retirée du référencement mais laissée dans la
+ * barre. Mieux vaut l'accueil anglais qu'un 404.
+ */
+function hrefNav(cheminFr: string, lang: Lang): string {
+  if (lang === "fr") return cheminFr;
+  return PAGES_BILINGUES.find((p) => p.fr === cheminFr)?.en ?? "/en";
 }
 
 /**
@@ -55,17 +97,18 @@ function cheminAutreLangue(pathname: string, lang: Lang): string {
  * et le bouton « Commencer » prend `--acc`. Le reste ne bouge pas, pour que la
  * recoloration reste un signal et non un feu d'artifice.
  */
-export function TopBar({ lang = "fr" }: { lang?: Lang }) {
+export function TopBar({ lang = "fr" }: Readonly<{ lang?: Lang }>) {
   const [defile, setDefile] = useState(false);
   const [menuOuvert, setMenuOuvert] = useState(false);
+  const heure = useHeureLocale(lang);
   const pathname = usePathname();
   const autreLangue = cheminAutreLangue(pathname, lang);
 
   useEffect(() => {
-    const onScroll = () => setDefile(window.scrollY > 8);
+    const onScroll = () => setDefile(globalThis.scrollY > 8);
     onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    globalThis.addEventListener("scroll", onScroll, { passive: true });
+    return () => globalThis.removeEventListener("scroll", onScroll);
   }, []);
 
   return (
@@ -110,16 +153,28 @@ export function TopBar({ lang = "fr" }: { lang?: Lang }) {
           className="hidden bar:block"
         >
           <ul className="flex items-center gap-5">
-            {NAV.map(({ libelle, chemin }) => (
-              <li key={chemin}>
-                <a
-                  href={lang === "en" ? `/en/${chemin}` : `/${chemin}`}
-                  className="text-[13px] text-cp-subtle transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
-                >
-                  {libelle[lang]}
-                </a>
-              </li>
-            ))}
+            {NAV.map(({ libelle, fr }) => {
+              const href = hrefNav(fr, lang);
+              // Égalité stricte, jamais `startsWith` : les six pages sont à
+              // plat, et un préfixe ferait s'allumer deux entrées le jour où
+              // une sous-page arrive.
+              const actif = pathname === href;
+              return (
+                <li key={fr}>
+                  <a
+                    href={href}
+                    aria-current={actif ? "page" : undefined}
+                    className={`text-[13px] transition-colors focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white ${
+                      actif
+                        ? "font-medium text-white"
+                        : "text-cp-subtle hover:text-white"
+                    }`}
+                  >
+                    {libelle[lang]}
+                  </a>
+                </li>
+              );
+            })}
           </ul>
         </nav>
 
@@ -140,14 +195,26 @@ export function TopBar({ lang = "fr" }: { lang?: Lang }) {
             <path d="m20 20-3.5-3.5" strokeLinecap="round" />
           </svg>
 
-          <span className="hidden text-xs tabular-nums text-white/55 bar:inline">
-            14:32
+          {/* Largeur réservée même vide : l'heure n'arrive qu'après
+              l'hydratation (voir `useHeureLocale`) et sans `min-w` la barre
+              décalerait le sélecteur de langue au premier affichage.
+
+              Visible à partir de `horloge` (960px) et non de `bar` (840px), où
+              la nav apparaît : à cinq entrées, la barre réclame 815px de
+              fenêtre en français sans elle, et 894px avec. Entre les deux,
+              l'horloge serait donc prise sur la rangée du bouton, qui est la
+              seule chose que personne ne doit avoir à chercher. Elle est la
+              première à partir parce qu'elle est le seul élément décoratif de
+              la barre — d'où son seuil à elle, séparé de `os` depuis qu'elle
+              n'y tenait plus qu'à 6px près. */}
+          <span className="hidden min-w-[2.1rem] text-center text-xs tabular-nums text-white/70 horloge:inline-block">
+            {heure}
           </span>
 
-          {/* Bascule de langue : l'anglais s'arrête aux quatre pages
-              traduites, `cheminAutreLangue` ramène à la racine de l'autre
-              langue depuis une page qui n'a pas de pendant (Conditions,
-              Confidentialité). */}
+          {/* Bascule de langue. Toutes les pages ont désormais leur pendant,
+              donc la bascule reste sur place ; `cheminAutreLangue` garde son
+              repli vers la racine de l'autre langue, pour une page qui serait
+              publiée dans une seule langue. */}
           <div className="hidden items-center gap-1 text-[13px] bar:flex">
             <SelecteurLangue
               actif={lang === "fr"}
@@ -165,14 +232,14 @@ export function TopBar({ lang = "fr" }: { lang?: Lang }) {
           </div>
 
           <a
-            href="https://app.cloudparadise.cloud/login"
+            href={LIEN_CONNEXION}
             className="hidden text-[13px] text-cp-subtle transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white bar:inline"
           >
             {lang === "en" ? "Log in" : "Se connecter"}
           </a>
 
           <BoutonCta
-            href="https://app.cloudparadise.cloud/register"
+            href={LIEN_INSCRIPTION}
             taille="sm"
             className="shrink-0"
           >
@@ -214,25 +281,33 @@ export function TopBar({ lang = "fr" }: { lang?: Lang }) {
         >
           <ul className={`${SHELL} flex flex-col py-2`}>
             {[
-              ...NAV.map(({ libelle, chemin }) => ({
+              ...NAV.map(({ libelle, fr }) => ({
                 libelle: libelle[lang],
-                href: lang === "en" ? `/en/${chemin}` : `/${chemin}`,
+                href: hrefNav(fr, lang),
               })),
               {
                 libelle: lang === "en" ? "Log in" : "Se connecter",
-                href: "https://app.cloudparadise.cloud/login",
+                href: LIEN_CONNEXION,
               },
-            ].map(({ libelle, href }) => (
-              <li key={href}>
-                <a
-                  href={href}
-                  onClick={() => setMenuOuvert(false)}
-                  className="block py-2.5 text-sm text-cp-subtle transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
-                >
-                  {libelle}
-                </a>
-              </li>
-            ))}
+            ].map(({ libelle, href }) => {
+              const actif = pathname === href;
+              return (
+                <li key={href}>
+                  <a
+                    href={href}
+                    aria-current={actif ? "page" : undefined}
+                    onClick={() => setMenuOuvert(false)}
+                    className={`block py-2.5 text-sm transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white ${
+                      actif
+                        ? "font-medium text-white"
+                        : "text-cp-subtle hover:text-white"
+                    }`}
+                  >
+                    {libelle}
+                  </a>
+                </li>
+              );
+            })}
             <li className="flex items-center gap-1.5 pt-2.5 text-sm">
               <SelecteurLangue
                 actif={lang === "fr"}
@@ -256,6 +331,37 @@ export function TopBar({ lang = "fr" }: { lang?: Lang }) {
 }
 
 /**
+ * Heure locale du visiteur, comme l'horloge d'une barre de menus.
+ *
+ * Rend `null` au premier passage — serveur et client doivent produire le même
+ * balisage, et l'heure de rendu du serveur ne serait de toute façon ni la bonne
+ * ni la bonne zone. L'horloge apparaît donc à l'hydratation.
+ *
+ * Format 24 h dans les deux langues : c'est un chrome de système, on veut une
+ * largeur stable et la même lecture que la maquette, pas un « 2:32 p.m. » qui
+ * s'allonge de deux caractères en anglais.
+ */
+function useHeureLocale(lang: Lang): string | null {
+  const [heure, setHeure] = useState<string | null>(null);
+
+  useEffect(() => {
+    const format = new Intl.DateTimeFormat(lang === "en" ? "en-CA" : "fr-CA", {
+      hour: "2-digit",
+      minute: "2-digit",
+      hour12: false,
+    });
+    const tic = () => setHeure(format.format(new Date()));
+    tic();
+    // 15 s : la minute affichée n'est jamais fausse à l'œil, et c'est trois
+    // rendus par minute d'un seul `<span>`.
+    const id = setInterval(tic, 15_000);
+    return () => clearInterval(id);
+  }, [lang]);
+
+  return heure;
+}
+
+/**
  * Un des deux côtés du sélecteur de langue.
  *
  * La langue active n'est pas un lien — se cliquer soi-même ne fait rien
@@ -265,11 +371,11 @@ function SelecteurLangue({
   actif,
   href,
   texte,
-}: {
+}: Readonly<{
   actif: boolean;
   href: string;
   texte: string;
-}) {
+}>) {
   if (actif) {
     return (
       <span aria-current="true" className="font-medium text-white">

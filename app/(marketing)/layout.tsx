@@ -3,17 +3,19 @@ import { Footer } from "@/components/marketing/Footer";
 import { PopupLoi25 } from "@/components/marketing/PopupLoi25";
 import { RootDocument } from "@/components/marketing/RootDocument";
 import { TopBar } from "@/components/marketing/TopBar";
-import { SITE_URL, TITRE_ACCUEIL, DESCRIPTION_ACCUEIL, ICONS } from "@/lib/seo";
+import {
+  TITRE_ACCUEIL,
+  DESCRIPTION_ACCUEIL,
+  ICONS,
+  ROBOTS,
+} from "@/lib/seo";
+import { SITE_URL } from "@/lib/site";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: TITRE_ACCUEIL,
   description: DESCRIPTION_ACCUEIL,
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: { index: true, follow: true, "max-image-preview": "large" },
-  },
+  robots: ROBOTS,
   openGraph: {
     title: TITRE_ACCUEIL,
     description: DESCRIPTION_ACCUEIL,
@@ -46,22 +48,14 @@ export default function MarketingLayout({
   return (
     <RootDocument lang="fr">
       <main className="relative isolate flex flex-1 flex-col">
+        {/* Deux couches de composition, et deux seulement — leur contenu vit
+            dans `globals.css` (`.fond-page`, `.fond-grain`), partagé avec le
+            layout anglais. Le compositeur gère chacune à chaque frame de
+            défilement ; il y en avait quatre. */}
+        <div aria-hidden="true" className="fond-page fixed inset-0 -z-20" />
         <div
           aria-hidden="true"
-          className="fixed inset-0 -z-20"
-          style={{
-            background: [
-              "radial-gradient(760px 420px at 14% 6%, color-mix(in srgb, var(--soft) 20%, transparent), transparent 62%)",
-              "radial-gradient(620px 420px at 86% 48%, color-mix(in srgb, var(--acc) 18%, transparent), transparent 64%)",
-              "var(--sky)",
-            ].join(","),
-          }}
-        />
-        {/* Voile de lisibilité, actif uniquement sur les fonds photo. */}
-        <div
-          aria-hidden="true"
-          className="fixed inset-0 -z-10 bg-black/35"
-          style={{ opacity: "var(--veil)" }}
+          className="fond-grain pointer-events-none fixed inset-0 -z-10"
         />
         {/* La barre vit ici, pas dans le hero : `sticky` la libérerait dès que
             la section qui la contient sort de l'écran. */}

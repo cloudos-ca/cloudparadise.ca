@@ -1,12 +1,12 @@
-import { OG_SIZE, renderOgImage } from "@/lib/ogImage";
+import { renderOgImage } from "@/lib/ogImage";
 
 export const alt = "Cloud Paradise — Fonctions";
-export const size = OG_SIZE;
+export { OG_SIZE as size } from "@/lib/ogImage";
 export const contentType = "image/png";
 
 export default function Image() {
   return renderOgImage(
-    "Un seul endroit. Toutes vos tâches lourdes.",
-    "Décrivez ce que vous voulez : l’IA choisit le bon moteur et lance le calcul dans le cloud.",
+    "Tout ce que le poste de travail sait faire.",
+    "La liste complète, par usage. Ce qui est ici est disponible aujourd’hui.",
   );
 }

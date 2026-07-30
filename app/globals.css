@@ -18,15 +18,54 @@
   /* Teintes dérivées, uniquement pour la profondeur et la lisibilité. */
   --color-cp-navy-deep: #151f33;
   --color-cp-subtle: #aab7d0;
-  --color-cp-log: #8494b6;
+  /*
+   * Texte secondaire — LE gris-bleu du site, et le seul.
+   *
+   * Remplace trois valeurs voisines qui coexistaient sans se distinguer à
+   * l'œil : #8494b6 (journaux), #93a3c2 (libellés discrets) et #8fa0bd. Toutes
+   * les trois tombaient sous 4,5:1 dès que le contenu défilait sous la lueur
+   * haute du layout — cette lueur est `fixed`, donc n'importe quel paragraphe
+   * finit par passer dessous. Mesurée au pire endroit atteignable (colonne de
+   * gauche, juste sous la barre de menu, fond composité #2f3f51), cette valeur
+   * tient 4,6:1 ; sur une ligne de tableau elle monte à 5,3:1.
+   */
+  --color-cp-muted: #9daac5;
   --color-cp-ghost: #dbe6fb;
 
   --font-mono: ui-monospace, "SF Mono", "Cascadia Mono", Menlo, monospace;
 
   /* Bascule du hero en deux colonnes — seuil défini par la maquette. */
   --breakpoint-os: 900px;
-  /* Seuil de la barre de menu : en dessous, la nav passe sous un hamburger. */
-  --breakpoint-bar: 760px;
+  /* Seuil de la barre de menu : en dessous, la nav passe sous un hamburger.
+   *
+   * 840 et non 760 depuis l'entrée de « PME » dans la nav (2026-07-30).
+   *
+   * Rien dans cette barre ne se replie : les libellés de nav, le logo et le
+   * bouton ont tous une largeur de contenu incompressible. Trop à l'étroit,
+   * elle ne casse donc pas en deux lignes — elle déborde à droite, et c'est le
+   * bouton « Commencer » qui sort du cadre. À 760, le débordement mesuré était
+   * de 55px en français.
+   *
+   * Mesuré à cinq entrées, horloge masquée, padding px-6 : le contenu réclame
+   * 767px en français et 752px en anglais, soit 815 et 800px de fenêtre. C'est
+   * le **français** le pire cas — « Se connecter » et « Commencer » sont plus
+   * longs que « Log in » et « Get started », ce qui dépasse le surcoût de
+   * « Small business » dans la nav. 840 laisse donc 25px au pire cas.
+   *
+   * Si un libellé s'allonge, c'est ce nombre qu'il faut remesurer : écraser
+   * `header > div` à 400px et lire son `scrollWidth`, qui rend alors la largeur
+   * réelle du contenu. Voir aussi `--breakpoint-horloge`. */
+  --breakpoint-bar: 840px;
+  /* Seuil de l'horloge de la barre de menu.
+   *
+   * Distinct de `os` depuis le 2026-07-30. L'horloge coûte 47px (sa largeur
+   * plus le gap), ce qui porte le contenu de la barre à 814px en français —
+   * 894px de fenêtre une fois le padding px-10 compté. Accrochée à `os`
+   * (900px), elle ne laissait que 6px de marge : le premier libellé qui
+   * s'allonge faisait déborder la barre. Elle a son propre seuil parce qu'elle
+   * est le seul élément décoratif de la barre, donc le premier à devoir
+   * partir. */
+  --breakpoint-horloge: 960px;
 }
 
 /* `inline` est requis : ces valeurs pointent vers les variables de next/font. */
@@ -46,8 +85,15 @@
 :root {
   /* Surface : fond de bouton. Assez sombre pour du texte blanc dessus. */
   --acc: #2d66ae;
-  /* Texte : eyebrows, liens, icônes. Assez clair pour ressortir sur le fond. */
-  --acc-text: #6a92c5;
+  /*
+   * Texte : eyebrows, liens, icônes. Assez clair pour ressortir sur le fond.
+   *
+   * Éclairci de #6a92c5 : cette valeur-là tenait 4,65:1 sur le marine nu, mais
+   * tombait à 3,3:1 dès qu'un paragraphe passait sous la lueur haute. Doit
+   * rester synchronisé avec `accText` du fond « ciel » (wallpapers.ts) — c'est
+   * la même valeur, écrite ici pour le SSR et là-bas pour la recoloration.
+   */
+  --acc-text: #8eacd3;
   --soft: #bbecee;
   --sky: linear-gradient(140deg, #151f33, #1b273d);
   --veil: 0;
@@ -95,12 +141,311 @@ body {
 }
 
 /*
- * Le badge flottant que reCAPTCHA v3 injecte dans le coin bas-droit.
- * Google autorise à le masquer par CSS à condition de garder la mention
- * « protégé par reCAPTCHA » visible ailleurs — c'est le texte sous le bouton
- * Envoyer, sur /contact. Sans ça, le badge se serait superposé à la
- * notification Loi 25, elle aussi ancrée dans ce coin.
+ * Liens des pages juridiques.
+ *
+ * Traités ici plutôt que sur chaque balise : les Conditions et la Politique de
+ * confidentialité contiennent une trentaine de liens répartis dans des tableaux
+ * de contenu, et les habiller un par un garantissait qu'un nouveau lien
+ * arriverait un jour sans le bon traitement. Or en texte, jamais l'accent bleu
+ * qui les faisait passer pour du corps de texte souligné.
  */
-.grecaptcha-badge {
-  visibility: hidden;
+.prose-legal a {
+  color: var(--cta);
+  text-decoration-line: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+  text-decoration-color: color-mix(in srgb, var(--cta) 45%, transparent);
+  transition: text-decoration-color 0.2s;
+}
+
+.prose-legal a:hover {
+  text-decoration-color: var(--cta);
+}
+
+.prose-legal a:focus-visible {
+  outline: 2px solid #ffffff;
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/*
+ * Apparition au défilement — CSS seul (voir components/marketing/Reveal.tsx).
+ *
+ * L'état par défaut est VISIBLE, et c'est tout l'intérêt : si le JavaScript ne
+ * part jamais — erreur, bloqueur, hydratation échouée — le texte reste lisible.
+ * L'implémentation précédente faisait l'inverse (`opacity:0` par défaut, révélé
+ * par framer-motion) : sans JS, la page était blanche.
+ *
+ * Deux mécanismes distincts, et c'est voulu :
+ *
+ *   - `animation` — joue au premier rendu, sans JS. C'est elle qui anime ce qui
+ *     est déjà à l'écran au chargement. Une animation non suspendue finit
+ *     toujours : même si rien d'autre ne s'exécute, l'élément termine visible.
+ *   - `transition` + `.reveal-init` / `.reveal-in` — pour ce qui est SOUS la
+ *     ligne de flottaison. Le JS n'y touche que parce que ces éléments sont
+ *     hors écran : les masquer ne peut donc jamais provoquer de clignotement.
+ *
+ * `.reveal-init` et `.reveal-in` coupent l'animation (`animation: none`) :
+ * sans ça, son état final en `both` écraserait l'opacité qu'elles posent.
+ */
+.reveal {
+  opacity: 1;
+  transform: none;
+  transition:
+    opacity 0.5s ease,
+    transform 0.5s ease;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .reveal {
+    animation: cp-reveal 0.5s ease both;
+  }
+}
+
+.reveal-init {
+  animation: none;
+  opacity: 0;
+  transform: translateY(12px);
+}
+
+.reveal-in {
+  animation: none;
+  opacity: 1;
+  transform: none;
+}
+
+@keyframes cp-reveal {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Dernier bloc : il doit gagner sur les trois règles ci-dessus. */
+@media (prefers-reduced-motion: reduce) {
+  .reveal,
+  .reveal-init,
+  .reveal-in {
+    opacity: 1;
+    transform: none;
+    transition: none;
+    animation: none;
+  }
+}
+
+/*
+ * Entrée de la fenêtre de consentement (PopupLoi25).
+ *
+ * En CSS et non en framer-motion : ce composant est monté par les deux layouts
+ * racines, donc la bibliothèque se retrouvait dans le bundle de 100 % des
+ * pages — y compris les Conditions et la Politique de confidentialité, qui
+ * n'animent rien du tout.
+ *
+ * Le composant ne se monte que lorsqu'il devient visible, l'animation joue donc
+ * une fois puis s'arrête. Sans JS, rien ne s'affiche : la fenêtre elle-même
+ * dépend de `localStorage`, il n'y a donc pas de texte à sauver ici.
+ */
+@media (prefers-reduced-motion: no-preference) {
+  .popup-entree {
+    animation: cp-popup-entree 0.4s ease both;
+  }
+}
+
+@keyframes cp-popup-entree {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/*
+ * Le job qui tourne (JobPanel) — cycle en CSS.
+ *
+ * Remplace un remontage : le composant incrémentait une `key` depuis un
+ * `setTimeout` armé par `onAnimationComplete`, ce qui recréait tout son
+ * sous-arbre toutes les 4,4 s — DOM détruit et reconstruit, repaint complet,
+ * état des enfants perdu. Le profil montrait un pic de scripting et de layout à
+ * intervalle fixe. Ici, une seule animation par élément, en boucle, sans que
+ * React ne touche au DOM après le montage.
+ *
+ * Une durée de cycle unique, 4,4 s (3 s de progression + 1,4 s de pause), et
+ * les pourcentages de chaque `@keyframes` sont calculés dessus : 3/4,4 = 68,2 %
+ * pour la fin de la jauge, 2,8/4,4 = 63,6 % pour l'arrivée du badge.
+ *
+ * `running` par défaut, `paused` quand le panneau sort de l'écran ou que
+ * l'onglet passe en arrière-plan (`data-anime`, posé par `useBoucleActive`).
+ * Dans ce sens-là et pas l'inverse : `paused` par défaut figerait les lignes de
+ * journal à `opacity:0` si le JS ne partait jamais.
+ */
+.job-jauge {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+.job-log,
+.job-badge {
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .job-jauge {
+    animation: cp-job-jauge 4.4s ease-in-out infinite;
+  }
+
+  .job-log {
+    animation: cp-job-log 4.4s linear infinite both;
+  }
+
+  .job-badge {
+    animation: cp-job-badge 4.4s ease-out infinite both;
+  }
+
+  .job-curseur {
+    animation: cp-job-curseur 1.1s ease-in-out infinite;
+  }
+
+  [data-anime="false"] .job-jauge,
+  [data-anime="false"] .job-log,
+  [data-anime="false"] .job-badge,
+  [data-anime="false"] .job-curseur {
+    animation-play-state: paused;
+  }
+}
+
+@keyframes cp-job-jauge {
+  0% {
+    transform: scaleX(0.12);
+  }
+  68.2% {
+    transform: scaleX(1);
+  }
+  100% {
+    transform: scaleX(1);
+  }
+}
+
+@keyframes cp-job-log {
+  0% {
+    opacity: 0;
+  }
+  9.1% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes cp-job-badge {
+  0%,
+  63.6% {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  71.6%,
+  100% {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes cp-job-curseur {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.1;
+  }
+}
+
+/* Le curseur est décoratif : en mouvement réduit il ne clignote pas, il
+   disparaît — c'est ce que faisait déjà le composant. */
+@media (prefers-reduced-motion: reduce) {
+  .job-curseur {
+    display: none;
+  }
+}
+
+/*
+ * Le fond de page — DEUX couches de composition, pas quatre.
+ *
+ * Chaque élément `position: fixed; inset: 0` porteur d'un fond est une couche
+ * que le compositeur gère à chaque frame de défilement. Les deux layouts
+ * racines en posaient quatre : dégradé d'accent + fond marine, lueur haute,
+ * grain, voile. Elles sont repliées ici en deux déclarations `background` :
+ *
+ *   `.fond-page`  — lueur haute, dégradé d'accent, fond marine (trois plans
+ *                   d'une même image de fond, pas trois éléments).
+ *   `.fond-grain` — voile de lisibilité puis grain.
+ *
+ * Les classes vivent ici et non dans les layouts parce qu'il y a deux layouts
+ * racines (FR et EN) : la déclaration recopiée des deux côtés finissait par
+ * diverger.
+ */
+main {
+  /*
+   * La lueur haute passe par une variable, et c'est ce qui permet de la
+   * fusionner avec le reste sans perdre la possibilité de l'éteindre seule.
+   * Elle était isolée sur sa propre couche uniquement pour ça.
+   */
+  --cp-lueur: radial-gradient(
+    760px 420px at 14% 6%,
+    color-mix(in srgb, var(--soft) 20%, transparent),
+    transparent 62%
+  );
+}
+
+/*
+ * Pages sobres : les documents juridiques neutralisent la lueur du fond.
+ *
+ * Le fond vit dans le layout, donc au-dessus de la page dans l'arbre : une page
+ * ne peut pas l'atteindre en descendant. `:has()` inverse la relation — le
+ * `<main>` réagit à la présence du marqueur posé par la page. Le grain et le
+ * fond marine, eux, restent.
+ */
+main:has([data-page-sobre]) {
+  --cp-lueur: none;
+}
+
+.fond-page {
+  background-image:
+    var(--cp-lueur),
+    radial-gradient(
+      620px 420px at 86% 48%,
+      color-mix(in srgb, var(--acc) 18%, transparent),
+      transparent 64%
+    ),
+    var(--sky);
+}
+
+/*
+ * Grain très léger : de la matière sur le navy, sans motif perceptible.
+ *
+ * L'opacité de 0,06 est écrite DANS le SVG (`opacity='.06'` sur le `rect`) et
+ * non sur l'élément : une opacité d'élément se serait appliquée aussi au voile,
+ * qui partage désormais la même couche. `img-src data:` couvre ce data-URI
+ * côté CSP.
+ *
+ * Le voile n'est visible que sur un fond photo (`--veil`, à 0 par défaut) ; à
+ * 0 il ne peint rien, mais il n'a plus besoin d'un élément à lui.
+ */
+.fond-grain {
+  background-image:
+    linear-gradient(
+      rgb(0 0 0 / calc(0.35 * var(--veil))),
+      rgb(0 0 0 / calc(0.35 * var(--veil)))
+    ),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' opacity='.06' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size:
+    auto,
+    140px 140px;
 }

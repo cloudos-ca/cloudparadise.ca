@@ -8,10 +8,19 @@ import {
   surChangementConsentement,
 } from "./consentement";
 
+/*
+ * File d'attente de Matomo.
+ *
+ * Déclarée en `var` global et non en augmentation d'`interface Window` :
+ * augmenter `Window` ne type que `window._paq`, alors qu'un `var` global entre
+ * dans le type de `globalThis` et couvre les deux écritures. Une seule
+ * déclaration, et plus rien n'oblige ce fichier à passer par `window`.
+ *
+ * `var` est imposé par TypeScript — `let` et `const` ne créent pas de propriété
+ * sur l'objet global, donc ne déclarent rien sur `globalThis`.
+ */
 declare global {
-  interface Window {
-    _paq?: unknown[][];
-  }
+  var _paq: unknown[][] | undefined;
 }
 
 /**
@@ -32,14 +41,14 @@ export function MatomoAnalytics() {
   useEffect(() => {
     // rAF plutôt qu'un appel synchrone : même garde que `PopupLoi25`, pour ne
     // pas déclencher de re-rendu en cascade directement dans l'effet.
-    const id = window.requestAnimationFrame(() =>
+    const id = globalThis.requestAnimationFrame(() =>
       setActif(aAccepteLesTemoinsNonEssentiels()),
     );
     const desabonner = surChangementConsentement(() =>
       setActif(aAccepteLesTemoinsNonEssentiels()),
     );
     return () => {
-      window.cancelAnimationFrame(id);
+      globalThis.cancelAnimationFrame(id);
       desabonner();
     };
   }, []);
@@ -58,9 +67,16 @@ export function MatomoAnalytics() {
       return;
     }
     if (pathname === cheminAuDemarrage.current) return;
-    window._paq?.push(["setCustomUrl", window.location.href]);
-    window._paq?.push(["setDocumentTitle", document.title]);
-    window._paq?.push(["trackPageView"]);
+    // Une commande par `push`, jamais groupées en un seul appel : c'est le
+    // contrat de Matomo, dont le proxy ne lit qu'un tableau à la fois et
+    // ignorerait silencieusement les suivants. La boucle réunit les trois
+    // appels sans rien changer à ce qui part sur le réseau.
+    const commandes = [
+      ["setCustomUrl", globalThis.location.href],
+      ["setDocumentTitle", document.title],
+      ["trackPageView"],
+    ];
+    for (const commande of commandes) globalThis._paq?.push(commande);
   }, [pathname, actif]);
 
   if (!actif) return null;

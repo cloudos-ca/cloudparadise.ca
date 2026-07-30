@@ -2,6 +2,7 @@ import { FenetreCta } from "./FenetreCta";
 import { Reveal } from "./Reveal";
 import { IconCheck } from "./icons";
 import { SECTION_Y, SHELL, type Lang } from "./tokens";
+import { LIEN_INSCRIPTION } from "@/lib/site";
 
 const PROMESSES = {
   fr: ["Crédits offerts", "Sans carte requise", "Sans abonnement"],
@@ -27,7 +28,7 @@ const TEXTES = {
  * Le châssis (fenêtre, lueur, halo, flottement) vit dans `FenetreCta`, partagé
  * avec la page /tarifs ; il ne reste ici que ce qui est propre à la landing.
  */
-export function CtaFinal({ lang = "fr" }: { lang?: Lang }) {
+export function CtaFinal({ lang = "fr" }: Readonly<{ lang?: Lang }>) {
   const t = TEXTES[lang];
   return (
     // La lueur déborde volontairement de la fenêtre ; sans ce clip horizontal
@@ -41,11 +42,11 @@ export function CtaFinal({ lang = "fr" }: { lang?: Lang }) {
             badgeSansCarte={false}
             soustitre={<>{t.soustitre}</>}
             bouton={{
-              href: "https://app.cloudparadise.cloud/register",
+              href: LIEN_INSCRIPTION,
               libelle: t.bouton,
             }}
             lien={{
-              href: lang === "en" ? "/en/tarifs" : "/tarifs",
+              href: lang === "en" ? "/en/pricing" : "/tarifs",
               libelle: t.lien,
             }}
           >
@@ -53,7 +54,7 @@ export function CtaFinal({ lang = "fr" }: { lang?: Lang }) {
               {PROMESSES[lang].map((promesse) => (
                 <li
                   key={promesse}
-                  className="flex items-center gap-1.5 text-xs text-[#93a3c2]"
+                  className="flex items-center gap-1.5 text-xs text-white/85"
                 >
                   <span data-cp-accent style={{ color: "var(--soft)" }}>
                     <IconCheck className="size-3.5" />
