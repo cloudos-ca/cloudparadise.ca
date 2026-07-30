@@ -1,5 +1,4 @@
 import type { ReactNode } from "react";
-import { IconAlert } from "./icons";
 import type { Ancre } from "./AncresSections";
 
 /**
@@ -61,45 +60,16 @@ export function ancresDe(sections: readonly SectionRedigee[]): readonly Ancre[] 
   }));
 }
 
-/**
- * Bandeau d'avertissement des pages juridiques.
+/*
+ * `BandeauJuridique` vivait ici — le bandeau « modèle à faire valider par un
+ * juriste » des pages légales. Retiré le 2026-07-30 : les quatre pages ne
+ * l'importaient plus, et un composant d'avertissement qui survit à
+ * l'avertissement finit par être remis quelque part par réflexe.
  *
- * Non négociable tant que le texte n'est pas validé : ces pages ressemblent à
- * des conditions d'utilisation, donc sans avertissement explicite un visiteur —
- * ou l'équipe elle-même — les prendrait pour du contenu opposable. Le bandeau
- * disparaît quand un juriste a signé, pas avant.
- *
- * `texte` permet de nuancer l'avertissement : une page encore à l'état de plan
- * et une page rédigée mais non validée ne méritent pas la même phrase.
+ * Ce qui reste de la mécanique de brouillon — `AFaire` et `SectionsLegales`
+ * juste en dessous — est lui aussi orphelin, mais sort du périmètre du lot qui
+ * a retiré le bandeau. À supprimer avec le prochain qui y touche.
  */
-export function BandeauJuridique({ texte }: Readonly<{ texte?: ReactNode }>) {
-  return (
-    <div
-      role="note"
-      className="flex gap-3 rounded-xl border p-4"
-      style={{
-        background: "color-mix(in srgb, var(--acc) 12%, transparent)",
-        borderColor: "color-mix(in srgb, var(--acc) 32%, transparent)",
-      }}
-    >
-      <IconAlert
-        className="mt-0.5 size-[18px] shrink-0"
-        style={{ color: "var(--acc-text)" }}
-      />
-      <p className="text-[13px] leading-relaxed text-[#dbe6fb]">
-        {texte ?? (
-          <>
-            <strong className="font-medium text-[#eef4ff]">
-              Modèle à faire valider par un juriste avant mise en ligne.
-            </strong>{" "}
-            Le texte ci-dessous est un placeholder de structure, pas un avis
-            juridique.
-          </>
-        )}
-      </p>
-    </div>
-  );
-}
 
 /**
  * Marque un trou de rédaction au milieu d'un texte par ailleurs définitif.
