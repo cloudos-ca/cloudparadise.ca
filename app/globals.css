@@ -36,8 +36,36 @@
 
   /* Bascule du hero en deux colonnes — seuil défini par la maquette. */
   --breakpoint-os: 900px;
-  /* Seuil de la barre de menu : en dessous, la nav passe sous un hamburger. */
-  --breakpoint-bar: 760px;
+  /* Seuil de la barre de menu : en dessous, la nav passe sous un hamburger.
+   *
+   * 840 et non 760 depuis l'entrée de « PME » dans la nav (2026-07-30).
+   *
+   * Rien dans cette barre ne se replie : les libellés de nav, le logo et le
+   * bouton ont tous une largeur de contenu incompressible. Trop à l'étroit,
+   * elle ne casse donc pas en deux lignes — elle déborde à droite, et c'est le
+   * bouton « Commencer » qui sort du cadre. À 760, le débordement mesuré était
+   * de 55px en français.
+   *
+   * Mesuré à cinq entrées, horloge masquée, padding px-6 : le contenu réclame
+   * 767px en français et 752px en anglais, soit 815 et 800px de fenêtre. C'est
+   * le **français** le pire cas — « Se connecter » et « Commencer » sont plus
+   * longs que « Log in » et « Get started », ce qui dépasse le surcoût de
+   * « Small business » dans la nav. 840 laisse donc 25px au pire cas.
+   *
+   * Si un libellé s'allonge, c'est ce nombre qu'il faut remesurer : écraser
+   * `header > div` à 400px et lire son `scrollWidth`, qui rend alors la largeur
+   * réelle du contenu. Voir aussi `--breakpoint-horloge`. */
+  --breakpoint-bar: 840px;
+  /* Seuil de l'horloge de la barre de menu.
+   *
+   * Distinct de `os` depuis le 2026-07-30. L'horloge coûte 47px (sa largeur
+   * plus le gap), ce qui porte le contenu de la barre à 814px en français —
+   * 894px de fenêtre une fois le padding px-10 compté. Accrochée à `os`
+   * (900px), elle ne laissait que 6px de marge : le premier libellé qui
+   * s'allonge faisait déborder la barre. Elle a son propre seuil parce qu'elle
+   * est le seul élément décoratif de la barre, donc le premier à devoir
+   * partir. */
+  --breakpoint-horloge: 960px;
 }
 
 /* `inline` est requis : ces valeurs pointent vers les variables de next/font. */

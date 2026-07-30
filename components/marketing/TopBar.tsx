@@ -11,14 +11,20 @@ import { LIEN_CONNEXION, LIEN_INSCRIPTION, PAGES } from "@/lib/site";
 /**
  * Liens de navigation — desktop et menu mobile lisent tous deux ce tableau.
  *
- * Quatre entrées, pas de menu déroulant : les quatre pages qui portent la
- * décision d'achat. `Mines` (un secteur parmi d'autres) et `Sécurité`
- * (souveraineté) sont des entrées secondaires — elles vivent au pied de page
- * et dans les liens de fin de section, on n'encombre pas la barre avec les
- * pages qu'on lit après avoir été convaincu. `Fonctions` prend la place de
- * `Mines` : c'est la référence exhaustive, elle sert à comparer avant d'aller
- * voir les tarifs. Uniquement de vraies pages : jamais d'ancre, la barre
- * s'affiche partout et une ancre y serait un lien bancal.
+ * Cinq entrées, pas de menu déroulant : les cinq pages qui portent la décision
+ * d'achat. `Mines` (un secteur parmi d'autres) et `Sécurité` (souveraineté)
+ * sont des entrées secondaires — elles vivent au pied de page et dans les liens
+ * de fin de section, on n'encombre pas la barre avec les pages qu'on lit après
+ * avoir été convaincu. `Fonctions` garde sa place juste avant `Tarifs` : c'est
+ * la référence exhaustive, elle sert à comparer avant d'aller voir les prix.
+ * Uniquement de vraies pages : jamais d'ancre, la barre s'affiche partout et
+ * une ancre y serait un lien bancal.
+ *
+ * `PME` entre en troisième position le 2026-07-30 : c'est devenu le segment
+ * d'acquisition principal, celui qui arrive par la recherche organique. Les
+ * mines restent servies, mais démarchées en direct — elles n'ont donc pas
+ * besoin de la barre. Rang dans la barre = poids commercial, et l'accueil dit
+ * la même chose dans le même ordre (`RenvoiPme` avant `RenvoiMines`).
  *
  * `fr` est le chemin français, et il sert de clé : le chemin anglais n'est pas
  * écrit ici, il est retrouvé dans `PAGES` par `hrefNav`. Les deux langues ne
@@ -29,6 +35,11 @@ import { LIEN_CONNEXION, LIEN_INSCRIPTION, PAGES } from "@/lib/site";
 const NAV = [
   { libelle: { fr: "Plateforme", en: "Platform" }, fr: "/plateforme" },
   { libelle: { fr: "Calcul", en: "Compute" }, fr: "/calcul" },
+  // « Small business » et non « SMEs » : c'est déjà le libellé du pied de page,
+  // du fil d'Ariane et du titre Open Graph de la page, et c'est le terme
+  // cherché en anglais canadien — le même raisonnement que celui qui a donné le
+  // slug `/en/small-business` plutôt que `/en/smb` (voir `PAGES`, lib/site.ts).
+  { libelle: { fr: "PME", en: "Small business" }, fr: "/pme" },
   { libelle: { fr: "Fonctions", en: "Features" }, fr: "/fonctions" },
   { libelle: { fr: "Tarifs", en: "Pricing" }, fr: "/tarifs" },
 ] as const;
@@ -188,14 +199,15 @@ export function TopBar({ lang = "fr" }: Readonly<{ lang?: Lang }>) {
               l'hydratation (voir `useHeureLocale`) et sans `min-w` la barre
               décalerait le sélecteur de langue au premier affichage.
 
-              Visible à partir de `os` (900px) et non de `bar` (760px), où la
-              nav apparaît : mesurée, la barre complète en français réclame
-              814px de fenêtre avec l'horloge et 768px sans. Entre 760 et 814px
-              l'horloge était donc prise sur la rangée du bouton, qui est la
+              Visible à partir de `horloge` (960px) et non de `bar` (840px), où
+              la nav apparaît : à cinq entrées, la barre réclame 815px de
+              fenêtre en français sans elle, et 894px avec. Entre les deux,
+              l'horloge serait donc prise sur la rangée du bouton, qui est la
               seule chose que personne ne doit avoir à chercher. Elle est la
               première à partir parce qu'elle est le seul élément décoratif de
-              la barre. */}
-          <span className="hidden min-w-[2.1rem] text-center text-xs tabular-nums text-white/70 os:inline-block">
+              la barre — d'où son seuil à elle, séparé de `os` depuis qu'elle
+              n'y tenait plus qu'à 6px près. */}
+          <span className="hidden min-w-[2.1rem] text-center text-xs tabular-nums text-white/70 horloge:inline-block">
             {heure}
           </span>
 

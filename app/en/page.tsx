@@ -5,6 +5,7 @@ import { TroisPiliers } from "@/components/marketing/TroisPiliers";
 import { Determinisme } from "@/components/marketing/Determinisme";
 import { FamillesApps } from "@/components/marketing/FamillesApps";
 import { Tarification } from "@/components/marketing/Tarification";
+import { RenvoiPme } from "@/components/marketing/RenvoiPme";
 import { RenvoiMines } from "@/components/marketing/RenvoiMines";
 import { CtaFinal } from "@/components/marketing/CtaFinal";
 import { alternatesBilingues, openGraphPage } from "@/lib/seo";
@@ -28,6 +29,9 @@ export default function MarketingPageEn() {
       <TroisPiliers lang="en" />
       <Determinisme lang="en" />
       <FamillesApps lang="en" />
+      {/* PME avant Mines : segment d'acquisition principal d'abord, verticale
+          de démarchage ensuite. L'ordre de ces deux lignes est la hiérarchie. */}
+      <RenvoiPme lang="en" />
       <RenvoiMines lang="en" />
       <Tarification lang="en" />
       <CtaFinal lang="en" />

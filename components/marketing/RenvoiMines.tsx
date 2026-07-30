@@ -11,6 +11,15 @@ import { SECTION_Y, SHELL, type Lang } from "./tokens";
  *
  * En-tête à gauche, comme toutes les sections. Le lien renvoie à /mines, seul
  * appel à l'action de la section.
+ *
+ * **Placée après `RenvoiPme` depuis le 2026-07-30**, et le paragraphe a été
+ * resserré pour que la hiérarchie se lise : les PME arrivent par la recherche
+ * organique, les mines se travaillent en démarchage direct.
+ *
+ * Rien n'a été retiré du fond. Le resserrage n'a enlevé que « NI 43-101 » et
+ * « SIGÉOM », parce que les deux sont en pastilles quarante pixels plus bas et
+ * que les dire deux fois allongeait le bloc sans rien apprendre. Les capacités,
+ * elles, sont toutes restées — alertes d'échéance comprise.
  */
 
 /** Termes métier, identiques FR/EN : ce sont des noms propres et des normes. */
@@ -30,7 +39,7 @@ const TEXTES = {
     eyebrow: "Exploration minière",
     titre: "Conçu en Abitibi, pour le terrain québécois.",
     texte:
-      "Suivi des claims et alertes d’échéance, forages 3D, anomalies géochimiques, rapports MRNF et NI 43-101, couches SIGÉOM. Les outils de l’exploration, dans le même espace de travail que le reste.",
+      "Suivi des claims et alertes d’échéance, forages 3D, anomalies géochimiques, rapports MRNF. Les outils de l’exploration, dans le même espace de travail que le reste.",
     lien: "Voir la page Mines",
     href: "/mines",
     ariaMots: "Termes métier pris en charge",
@@ -39,7 +48,7 @@ const TEXTES = {
     eyebrow: "Mineral exploration",
     titre: "Built in Abitibi, for Québec field conditions.",
     texte:
-      "Claim tracking and deadline alerts, 3D drillholes, geochemical anomalies, MRNF and NI 43-101 reports, SIGÉOM layers. Exploration tools, in the same workspace as everything else.",
+      "Claim tracking and deadline alerts, 3D drillholes, geochemical anomalies, MRNF reports. Exploration tools, in the same workspace as everything else.",
     lien: "See the Mining page",
     href: "/en/mining",
     ariaMots: "Supported domain terms",
