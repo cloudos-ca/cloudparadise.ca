@@ -141,13 +141,283 @@ body {
 }
 
 /*
- * Pages sobres : les documents juridiques neutralisent les lueurs du fond.
+ * Apparition au défilement — CSS seul (voir components/marketing/Reveal.tsx).
+ *
+ * L'état par défaut est VISIBLE, et c'est tout l'intérêt : si le JavaScript ne
+ * part jamais — erreur, bloqueur, hydratation échouée — le texte reste lisible.
+ * L'implémentation précédente faisait l'inverse (`opacity:0` par défaut, révélé
+ * par framer-motion) : sans JS, la page était blanche.
+ *
+ * Deux mécanismes distincts, et c'est voulu :
+ *
+ *   - `animation` — joue au premier rendu, sans JS. C'est elle qui anime ce qui
+ *     est déjà à l'écran au chargement. Une animation non suspendue finit
+ *     toujours : même si rien d'autre ne s'exécute, l'élément termine visible.
+ *   - `transition` + `.reveal-init` / `.reveal-in` — pour ce qui est SOUS la
+ *     ligne de flottaison. Le JS n'y touche que parce que ces éléments sont
+ *     hors écran : les masquer ne peut donc jamais provoquer de clignotement.
+ *
+ * `.reveal-init` et `.reveal-in` coupent l'animation (`animation: none`) :
+ * sans ça, son état final en `both` écraserait l'opacité qu'elles posent.
+ */
+.reveal {
+  opacity: 1;
+  transform: none;
+  transition:
+    opacity 0.5s ease,
+    transform 0.5s ease;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .reveal {
+    animation: cp-reveal 0.5s ease both;
+  }
+}
+
+.reveal-init {
+  animation: none;
+  opacity: 0;
+  transform: translateY(12px);
+}
+
+.reveal-in {
+  animation: none;
+  opacity: 1;
+  transform: none;
+}
+
+@keyframes cp-reveal {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Dernier bloc : il doit gagner sur les trois règles ci-dessus. */
+@media (prefers-reduced-motion: reduce) {
+  .reveal,
+  .reveal-init,
+  .reveal-in {
+    opacity: 1;
+    transform: none;
+    transition: none;
+    animation: none;
+  }
+}
+
+/*
+ * Entrée de la fenêtre de consentement (PopupLoi25).
+ *
+ * En CSS et non en framer-motion : ce composant est monté par les deux layouts
+ * racines, donc la bibliothèque se retrouvait dans le bundle de 100 % des
+ * pages — y compris les Conditions et la Politique de confidentialité, qui
+ * n'animent rien du tout.
+ *
+ * Le composant ne se monte que lorsqu'il devient visible, l'animation joue donc
+ * une fois puis s'arrête. Sans JS, rien ne s'affiche : la fenêtre elle-même
+ * dépend de `localStorage`, il n'y a donc pas de texte à sauver ici.
+ */
+@media (prefers-reduced-motion: no-preference) {
+  .popup-entree {
+    animation: cp-popup-entree 0.4s ease both;
+  }
+}
+
+@keyframes cp-popup-entree {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/*
+ * Le job qui tourne (JobPanel) — cycle en CSS.
+ *
+ * Remplace un remontage : le composant incrémentait une `key` depuis un
+ * `setTimeout` armé par `onAnimationComplete`, ce qui recréait tout son
+ * sous-arbre toutes les 4,4 s — DOM détruit et reconstruit, repaint complet,
+ * état des enfants perdu. Le profil montrait un pic de scripting et de layout à
+ * intervalle fixe. Ici, une seule animation par élément, en boucle, sans que
+ * React ne touche au DOM après le montage.
+ *
+ * Une durée de cycle unique, 4,4 s (3 s de progression + 1,4 s de pause), et
+ * les pourcentages de chaque `@keyframes` sont calculés dessus : 3/4,4 = 68,2 %
+ * pour la fin de la jauge, 2,8/4,4 = 63,6 % pour l'arrivée du badge.
+ *
+ * `running` par défaut, `paused` quand le panneau sort de l'écran ou que
+ * l'onglet passe en arrière-plan (`data-anime`, posé par `useBoucleActive`).
+ * Dans ce sens-là et pas l'inverse : `paused` par défaut figerait les lignes de
+ * journal à `opacity:0` si le JS ne partait jamais.
+ */
+.job-jauge {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+.job-log,
+.job-badge {
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .job-jauge {
+    animation: cp-job-jauge 4.4s ease-in-out infinite;
+  }
+
+  .job-log {
+    animation: cp-job-log 4.4s linear infinite both;
+  }
+
+  .job-badge {
+    animation: cp-job-badge 4.4s ease-out infinite both;
+  }
+
+  .job-curseur {
+    animation: cp-job-curseur 1.1s ease-in-out infinite;
+  }
+
+  [data-anime="false"] .job-jauge,
+  [data-anime="false"] .job-log,
+  [data-anime="false"] .job-badge,
+  [data-anime="false"] .job-curseur {
+    animation-play-state: paused;
+  }
+}
+
+@keyframes cp-job-jauge {
+  0% {
+    transform: scaleX(0.12);
+  }
+  68.2% {
+    transform: scaleX(1);
+  }
+  100% {
+    transform: scaleX(1);
+  }
+}
+
+@keyframes cp-job-log {
+  0% {
+    opacity: 0;
+  }
+  9.1% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes cp-job-badge {
+  0%,
+  63.6% {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  71.6%,
+  100% {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes cp-job-curseur {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.1;
+  }
+}
+
+/* Le curseur est décoratif : en mouvement réduit il ne clignote pas, il
+   disparaît — c'est ce que faisait déjà le composant. */
+@media (prefers-reduced-motion: reduce) {
+  .job-curseur {
+    display: none;
+  }
+}
+
+/*
+ * Le fond de page — DEUX couches de composition, pas quatre.
+ *
+ * Chaque élément `position: fixed; inset: 0` porteur d'un fond est une couche
+ * que le compositeur gère à chaque frame de défilement. Les deux layouts
+ * racines en posaient quatre : dégradé d'accent + fond marine, lueur haute,
+ * grain, voile. Elles sont repliées ici en deux déclarations `background` :
+ *
+ *   `.fond-page`  — lueur haute, dégradé d'accent, fond marine (trois plans
+ *                   d'une même image de fond, pas trois éléments).
+ *   `.fond-grain` — voile de lisibilité puis grain.
+ *
+ * Les classes vivent ici et non dans les layouts parce qu'il y a deux layouts
+ * racines (FR et EN) : la déclaration recopiée des deux côtés finissait par
+ * diverger.
+ */
+main {
+  /*
+   * La lueur haute passe par une variable, et c'est ce qui permet de la
+   * fusionner avec le reste sans perdre la possibilité de l'éteindre seule.
+   * Elle était isolée sur sa propre couche uniquement pour ça.
+   */
+  --cp-lueur: radial-gradient(
+    760px 420px at 14% 6%,
+    color-mix(in srgb, var(--soft) 20%, transparent),
+    transparent 62%
+  );
+}
+
+/*
+ * Pages sobres : les documents juridiques neutralisent la lueur du fond.
  *
  * Le fond vit dans le layout, donc au-dessus de la page dans l'arbre : une page
  * ne peut pas l'atteindre en descendant. `:has()` inverse la relation — le
- * `<main>` réagit à la présence du marqueur posé par la page, et éteint la
- * lueur pour elle seule. Le grain et le fond marine, eux, restent.
+ * `<main>` réagit à la présence du marqueur posé par la page. Le grain et le
+ * fond marine, eux, restent.
  */
-main:has([data-page-sobre]) [data-lueur] {
-  opacity: 0;
+main:has([data-page-sobre]) {
+  --cp-lueur: none;
+}
+
+.fond-page {
+  background-image:
+    var(--cp-lueur),
+    radial-gradient(
+      620px 420px at 86% 48%,
+      color-mix(in srgb, var(--acc) 18%, transparent),
+      transparent 64%
+    ),
+    var(--sky);
+}
+
+/*
+ * Grain très léger : de la matière sur le navy, sans motif perceptible.
+ *
+ * L'opacité de 0,06 est écrite DANS le SVG (`opacity='.06'` sur le `rect`) et
+ * non sur l'élément : une opacité d'élément se serait appliquée aussi au voile,
+ * qui partage désormais la même couche. `img-src data:` couvre ce data-URI
+ * côté CSP.
+ *
+ * Le voile n'est visible que sur un fond photo (`--veil`, à 0 par défaut) ; à
+ * 0 il ne peint rien, mais il n'a plus besoin d'un élément à lui.
+ */
+.fond-grain {
+  background-image:
+    linear-gradient(
+      rgb(0 0 0 / calc(0.35 * var(--veil))),
+      rgb(0 0 0 / calc(0.35 * var(--veil)))
+    ),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' opacity='.06' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size:
+    auto,
+    140px 140px;
 }

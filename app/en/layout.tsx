@@ -35,46 +35,14 @@ export default function MarketingLayoutEn({
   return (
     <RootDocument lang="en">
       <main className="relative isolate flex flex-1 flex-col">
+        {/* Deux couches de composition, et deux seulement — leur contenu vit
+            dans `globals.css` (`.fond-page`, `.fond-grain`), partagé avec le
+            layout français. Le compositeur gère chacune à chaque frame de
+            défilement ; il y en avait quatre. */}
+        <div aria-hidden="true" className="fond-page fixed inset-0 -z-20" />
         <div
           aria-hidden="true"
-          className="fixed inset-0 -z-20"
-          style={{
-            background: [
-              "radial-gradient(620px 420px at 86% 48%, color-mix(in srgb, var(--acc) 18%, transparent), transparent 64%)",
-              "var(--sky)",
-            ].join(","),
-          }}
-        />
-        {/* La lueur haute est isolée sur sa propre couche : les pages
-            juridiques l'éteignent via `data-page-sobre` (voir globals.css),
-            ce qu'un dégradé fondu dans la même déclaration que `--sky`
-            n'aurait pas permis sans emporter le fond avec lui. */}
-        <div
-          aria-hidden="true"
-          data-lueur
-          className="fixed inset-0 -z-20"
-          style={{
-            background:
-              "radial-gradient(760px 420px at 14% 6%, color-mix(in srgb, var(--soft) 20%, transparent), transparent 62%)",
-          }}
-        />
-        {/* Grain très léger : de la matière sur le navy, sans motif
-            perceptible. Posé une fois au layout, donc valable sur tout le
-            site. `img-src data:` couvre ce data-URI côté CSP. */}
-        <div
-          aria-hidden="true"
-          className="pointer-events-none fixed inset-0 -z-10 opacity-[0.06]"
-          style={{
-            backgroundImage:
-              "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E\")",
-            backgroundSize: "140px 140px",
-          }}
-        />
-        {/* Voile de lisibilité, actif uniquement sur les fonds photo. */}
-        <div
-          aria-hidden="true"
-          className="fixed inset-0 -z-10 bg-black/35"
-          style={{ opacity: "var(--veil)" }}
+          className="fond-grain pointer-events-none fixed inset-0 -z-10"
         />
         <TopBar lang="en" />
         <div className="flex-1">{children}</div>

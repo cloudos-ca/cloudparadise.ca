@@ -1,8 +1,9 @@
 "use client";
 
-import { useEffect, useState, type FormEvent } from "react";
+import { useEffect, useRef, useState, type FormEvent } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { IconMail, IconMapPin, IconPhone, IconSend } from "./icons";
+import { useBoucleActive } from "./useBoucleActive";
 import { WindowCard } from "./WindowCard";
 import {
   ADRESSE,
@@ -172,22 +173,27 @@ export function FenetreContact({
   jeton,
 }: Readonly<{ lang?: Lang; jeton: string }>) {
   const reduceMotion = useReducedMotion();
+  const cadre = useRef<HTMLDivElement>(null);
+  const anime = useBoucleActive(cadre) && !reduceMotion;
 
   // Même respiration que les fenêtres du hero, en plus discret : celle-ci est
   // la cible d'une saisie, elle ne doit pas bouger sous le curseur.
-  const flottement = reduceMotion
-    ? undefined
-    : {
+  //
+  // Gardée : hors écran ou onglet caché, on revient à zéro et la boucle
+  // s'arrête au lieu de tenir une frame en vie pour rien.
+  const flottement = anime
+    ? {
         animate: { y: [0, -5, 0] },
         transition: {
           duration: 9,
           repeat: Infinity,
           ease: "easeInOut" as const,
         },
-      };
+      }
+    : { animate: { y: 0 } };
 
   return (
-    <div className="relative">
+    <div className="relative" ref={cadre}>
       {/* Lueur d'accent derrière la fenêtre : elle la détache du fond au lieu
           de la laisser posée à plat. Décorative, donc hors flux et hors a11y. */}
       <div
