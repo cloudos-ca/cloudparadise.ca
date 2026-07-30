@@ -82,13 +82,17 @@ export const DESCRIPTION_ACCUEIL =
  * champ d'URL relatif sans lui (og:image en tête), et lui, contrairement au
  * canonical, ne donne aucune consigne d'indexation.
  *
- * Ne couvre plus `alternates.languages` (hreflang) : le renderer React 19
- * bundlé avec cette version de Next sort ces balises avec l'attribut
- * `hrefLang` (casse camelCase) au lieu de `hreflang`, faute d'alias dans la
- * table d'attributs de `react-dom-server` — un vrai bug de cette version,
- * vérifié en comparant le HTML servi en prod au HTML documenté par Next
- * lui-même. Les pages rendent donc leurs propres balises hreflang via
- * `HreflangLinks`, en JSX minuscule, pour contourner le bug.
+ * Ne couvre pas `alternates.languages` (hreflang) : les pages rendent leurs
+ * propres balises via `HreflangLinks`, ce qui leur permet d'omettre `en` quand
+ * le miroir anglais n'existe pas, d'émettre `x-default`, et de ne rien rendre
+ * du tout hors production.
+ *
+ * **Ce n'est pas un contournement de bug**, contrairement à ce que ce
+ * commentaire a longtemps affirmé. Le renderer React 19 sort bien ces balises
+ * avec l'attribut `hrefLang` en camelCase — vérifié en production le
+ * 2026-07-30 — mais `HreflangLinks` produit exactement la même chose, et c'est
+ * sans conséquence : les noms d'attributs HTML sont insensibles à la casse.
+ * Voir l'en-tête de `HreflangLinks.tsx`, qui porte le détail.
  */
 export function alternatesBilingues(
   cheminFr: string,
