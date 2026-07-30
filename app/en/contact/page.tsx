@@ -11,7 +11,7 @@ import { alternatesBilingues, openGraphPage } from "@/lib/seo";
 
 const TITRE = "Contact — Cloud Paradise";
 const DESCRIPTION =
-  "Get in touch: Cloud Paradise’s email, phone, and address, in Amos, Quebec.";
+  "Get in touch: Cloud Paradise’s email, phone and address, in Amos, Abitibi. A question about the service, pricing, or a specific project? Write to us.";
 
 export const metadata: Metadata = {
   title: TITRE,

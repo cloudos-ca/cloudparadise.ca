@@ -13,6 +13,7 @@ import { questionsDe } from "@/components/marketing/faqTarifsContenu";
 import { FenetreCta } from "@/components/marketing/FenetreCta";
 import { GrilleDetaillee } from "@/components/marketing/GrilleDetaillee";
 import { HreflangLinks } from "@/components/marketing/HreflangLinks";
+import { OffreJsonLd } from "@/components/marketing/OffreJsonLd";
 import { Reveal } from "@/components/marketing/Reveal";
 import { WindowCard } from "@/components/marketing/WindowCard";
 import {
@@ -32,8 +33,8 @@ import { SECTION_Y, SHELL } from "@/components/marketing/tokens";
 import { alternatesBilingues, openGraphPage } from "@/lib/seo";
 import { LIEN_INSCRIPTION } from "@/lib/site";
 
-const TITRE = "Tarifs — Cloud Paradise";
-const DESCRIPTION = `Des crédits, pas d’abonnement. ${OFFRE_EN_DEVISE} de crédits offerts à l’inscription, et le coût de chaque tâche.`;
+const TITRE = "Tarifs et crédits, sans abonnement — Cloud Paradise";
+const DESCRIPTION = `Des crédits, pas d’abonnement. ${OFFRE_EN_DEVISE} de crédits offerts à l’inscription, le coût de chaque tâche et un estimateur pour chiffrer votre budget d’avance.`;
 
 export const metadata: Metadata = {
   title: TITRE,
@@ -155,6 +156,7 @@ export default function TarifsPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(FAQ_JSON_LD) }}
       />
+      <OffreJsonLd lang="fr" />
       <HreflangLinks fr="/tarifs" en="/en/pricing" />
       <BreadcrumbJsonLd
         items={[

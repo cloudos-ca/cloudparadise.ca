@@ -63,6 +63,14 @@ const JSON_LD = {
  * client : chaque sous-arbre reste ainsi statiquement générable, et `lang` est
  * correct dès le HTML servi par le serveur (pas seulement après hydratation).
  * Contrepartie acceptée : naviguer entre FR et EN recharge la page entière.
+ *
+ * La prop reste `"fr" | "en"` — c'est l'identifiant de sous-arbre que passent
+ * les deux layouts racines et `global-not-found`. La traduction en étiquette
+ * BCP 47 se fait ici, au seul endroit qui écrit l'attribut : le site déclarait
+ * `lang="fr"` là où `openGraph.locale` dit `fr_CA` et le `WebSite` ci-dessus
+ * `inLanguage: "fr-CA"`, soit trois façons de nommer la même langue. C'est
+ * `fr-CA` qui est juste — la variante québécoise, celle de la tarification en
+ * dollars canadiens et des textes légaux qui citent la Loi 25.
  */
 export function RootDocument({
   lang,
@@ -73,7 +81,7 @@ export function RootDocument({
 }>) {
   return (
     <html
-      lang={lang}
+      lang={lang === "en" ? "en-CA" : "fr-CA"}
       className={`${comfortaa.variable} ${workSans.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col font-sans">

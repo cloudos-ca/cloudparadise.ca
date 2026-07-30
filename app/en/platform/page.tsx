@@ -30,7 +30,7 @@ import { LIEN_INSCRIPTION } from "@/lib/site";
 
 const TITRE = "Platform — Cloud Paradise";
 const DESCRIPTION =
-  "A real desktop in your browser: windows, dock, files, professional applications and team collaboration. The same working environment as local, with nothing to install.";
+  "A real desktop in your browser: windows, dock, files, professional applications and team collaboration. Like a local machine, nothing to install.";
 
 export const metadata: Metadata = {
   title: TITRE,

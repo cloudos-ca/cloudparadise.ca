@@ -15,7 +15,7 @@ import { LIEN_INSCRIPTION } from "@/lib/site";
 
 const TITRE = "Features — Cloud Paradise";
 const DESCRIPTION =
-  "The complete list of what the workstation can do: the desktop, the applications, compute, automation, teamwork, mineral exploration and account management.";
+  "The complete list of what the workstation can do: the desktop, applications, compute, automation, teamwork, mineral exploration and account management.";
 
 export const metadata: Metadata = {
   title: TITRE,

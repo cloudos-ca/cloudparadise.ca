@@ -9,9 +9,9 @@ import { WindowCard } from "@/components/marketing/WindowCard";
 import { SECTION_Y, SHELL } from "@/components/marketing/tokens";
 import { alternatesBilingues, openGraphPage } from "@/lib/seo";
 
-const TITRE = "Security — Cloud Paradise";
+const TITRE = "Security and hosting in Quebec — Cloud Paradise";
 const DESCRIPTION =
-  "Your data, our hardware, in Quebec. The language model runs on our own machines; the AI plans but computes nothing — a deterministic engine produces every result. Isolation per user and per team.";
+  "Your data, our hardware, in Quebec. The language model runs on our own machines and a deterministic engine produces every result. Isolation per team.";
 
 export const metadata: Metadata = {
   title: TITRE,

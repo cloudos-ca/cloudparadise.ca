@@ -20,7 +20,7 @@ import { alternatesBilingues, openGraphPage, ROBOTS } from "@/lib/seo";
 
 const TITRE = "Privacy Policy — Cloud Paradise";
 const DESCRIPTION =
-  "How Cloud Paradise collects, uses, and protects personal information, in compliance with Quebec’s Law 25.";
+  "How Cloud Paradise collects, uses and protects personal information, in compliance with Quebec’s Law 25. Your rights and how to exercise them.";
 
 export const metadata: Metadata = {
   title: TITRE,
@@ -372,7 +372,7 @@ const SECTIONS: readonly SectionRedigee[] = [
         <a
           href="https://www.cai.gouv.qc.ca"
           target="_blank"
-          rel="noreferrer"
+          rel="noopener noreferrer"
         >
           cai.gouv.qc.ca
         </a>

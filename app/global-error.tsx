@@ -20,8 +20,10 @@ export default function GlobalError({
     console.error(error);
   }, [error]);
 
+  // `fr-CA` comme les deux layouts racines (voir RootDocument) : ce
+  // document-ci ne passe pas par eux, l'étiquette est donc écrite en dur.
   return (
-    <html lang="fr">
+    <html lang="fr-CA">
       <body
         style={{
           display: "flex",
