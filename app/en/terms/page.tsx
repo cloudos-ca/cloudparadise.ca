@@ -227,7 +227,7 @@ const SECTIONS: readonly SectionRedigee[] = [
           {
             terme: "Credit deduction.",
             texte:
-              "Credits are deducted from your balance when a Run starts. A Run that fails due to a failure of our infrastructure should not be billed to you; however, a Run that fails due to invalid User Content, incorrect instructions, or a result you consider unsatisfactory remains billable, because computing capacity was consumed.",
+              "Credits are deducted as the Run progresses, not when it starts: what has been processed is charged, what has not is not, and Results already produced remain yours. A Run interrupted by a failure of our infrastructure is retried without a further deduction. Where invalid User Content or incorrect instructions prevent a Run from completing, we tell you the cause and you may correct it and relaunch on the same credit. Computing capacity actually consumed remains billable, including where the Result you obtain does not satisfy you.",
           },
           {
             terme: "Topping up credits.",
@@ -384,12 +384,12 @@ const SECTIONS: readonly SectionRedigee[] = [
             terme: "Termination by you.",
             texte: (
               <>
-                You may stop using the Service and request the closure of
-                your account at any time by writing to us at{" "}
+                You may stop using the Service and request the deletion of
+                your account at any time, from within the Service or by writing to us at{" "}
                 <a href={`mailto:${COURRIEL}`}>
                   {COURRIEL}
                 </a>
-                {"."}
+                {". The request opens a 30-day grace period, during which you may cancel it and recover your account intact."}
               </>
             ),
           },
@@ -401,7 +401,7 @@ const SECTIONS: readonly SectionRedigee[] = [
           {
             terme: "Effects of termination.",
             texte:
-              "Upon account closure, your access to the Service ends and your User Content may be deleted, subject to legal retention obligations and temporary technical backups. Unused credits from an account closed for breach of the Terms may be forfeited, to the extent permitted by law. Articles that by their nature must survive termination (notably articles 8.3, 12, 14, 15, 16, and 18) remain in effect.",
+              "Once the 30-day grace period has elapsed, your access to the Service ends and your entire account — User Content, Results, and account information — is permanently purged, subject to temporary technical backups. Invoices are kept for six (6) years to meet tax and accounting obligations; the privacy policy sets out the applicable periods. Unused credits from an account closed for breach of the Terms may be forfeited, to the extent permitted by law. Articles that by their nature must survive termination (notably articles 8.3, 12, 14, 15, 16, and 18) remain in effect.",
           },
         ],
       },

@@ -228,7 +228,7 @@ const SECTIONS: readonly SectionRedigee[] = [
           {
             terme: "Débit des crédits.",
             texte:
-              "Les crédits sont débités de votre solde au lancement d’un Job. Un Job qui échoue en raison d’une défaillance de notre infrastructure ne devrait pas vous être facturé ; toutefois, un Job qui échoue en raison d’un Contenu utilisateur invalide, d’instructions erronées ou d’un résultat que vous jugez insatisfaisant demeure facturable, car la capacité de calcul a été consommée.",
+              "Les crédits sont débités à mesure que le Job progresse, et non à son lancement : ce qui a été traité est débité, ce qui ne l’a pas été ne l’est pas, et les Résultats déjà produits vous demeurent acquis. Un Job interrompu par une défaillance de notre infrastructure est repris sans nouveau débit. Lorsqu’un Contenu utilisateur invalide ou des instructions erronées empêchent un Job d’aboutir, nous vous en indiquons la cause et vous pouvez corriger puis relancer sur le même crédit. Demeure facturée la capacité de calcul effectivement consommée, y compris lorsque le Résultat obtenu ne vous satisfait pas.",
           },
           {
             terme: "Recharge de crédits.",
@@ -385,12 +385,12 @@ const SECTIONS: readonly SectionRedigee[] = [
             terme: "Résiliation par vous.",
             texte: (
               <>
-                Vous pouvez cesser d’utiliser le Service et demander la fermeture de votre compte en tout
-                temps en nous écrivant à{" "}
+                Vous pouvez cesser d’utiliser le Service et demander la suppression de votre compte en
+                tout temps, depuis le Service ou en nous écrivant à{" "}
                 <a href={`mailto:${COURRIEL}`}>
                   {COURRIEL}
                 </a>
-                {"."}
+                {". La demande ouvre un délai de grâce de 30 jours, pendant lequel vous pouvez l’annuler et retrouver votre compte intact."}
               </>
             ),
           },
@@ -402,7 +402,7 @@ const SECTIONS: readonly SectionRedigee[] = [
           {
             terme: "Effets de la résiliation.",
             texte:
-              "À la fermeture du compte, votre accès au Service cesse et votre Contenu utilisateur peut être supprimé, sous réserve des obligations légales de conservation et des sauvegardes techniques temporaires. Les crédits non utilisés d’un compte fermé pour cause de violation des Conditions peuvent être perdus, dans la mesure permise par la loi. Les articles qui, par leur nature, doivent survivre à la résiliation (notamment les articles 8.3, 12, 14, 15, 16 et 18) demeurent en vigueur.",
+              "À l’expiration du délai de grâce de 30 jours, votre accès au Service cesse et l’ensemble de votre compte — Contenu utilisateur, Résultats et renseignements de compte — est purgé définitivement, sous réserve des sauvegardes techniques temporaires. Les factures sont conservées six (6) ans pour répondre aux obligations fiscales et comptables ; la politique de confidentialité détaille les durées applicables. Les crédits non utilisés d’un compte fermé pour cause de violation des Conditions peuvent être perdus, dans la mesure permise par la loi. Les articles qui, par leur nature, doivent survivre à la résiliation (notamment les articles 8.3, 12, 14, 15, 16 et 18) demeurent en vigueur.",
           },
         ],
       },
