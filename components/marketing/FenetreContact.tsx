@@ -43,13 +43,21 @@ const VIDE: Valeurs = { nom: "", courriel: "", sujet: "", message: "" };
  * Sujets préremplis depuis l'URL (`/contact?sujet=<clé>`).
  *
  * La clé sert de tag de provenance (champ `source` caché, repris dans le
- * courriel), le libellé préremplit le champ Sujet visible. Aujourd'hui une
- * seule entrée : le bouton « Réservez une démo » de /mines.
+ * courriel), le libellé préremplit le champ Sujet visible. Une entrée par
+ * bouton « Réservez une démo » du site : /mines et /pme.
+ *
+ * Les deux langues sont renseignées même quand une seule page existe : c'est ce
+ * composant-ci qui choisit, selon la langue de la page de contact atteinte, et
+ * un visiteur peut arriver sur /en/contact avec un `?sujet=` venu d'ailleurs.
  */
 const SUJETS_PREREMPLIS: Record<string, { fr: string; en: string }> = {
   exploration: {
     fr: "Démonstration — exploration minière",
     en: "Demo — mineral exploration",
+  },
+  pme: {
+    fr: "Démonstration — PME",
+    en: "Demo — small business",
   },
 };
 
