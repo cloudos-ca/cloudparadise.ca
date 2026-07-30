@@ -244,16 +244,22 @@ const SECTIONS: readonly SectionRedigee[] = [
           {
             terme: "Submitted files and job results:",
             texte:
-              "kept in your workspace as long as you do not delete them and your account remains active. You may delete them at any time; they are then destroyed from our storage systems. Automatic deletion also applies after 1 year of account inactivity.",
+              "kept in your workspace until you delete them. Files you upload are not erased once the job finishes: they stay with you exactly as the results do. You may delete them at any time; they are then destroyed from our storage systems. This retention has one limit: after 1 year of account inactivity, they are deleted automatically.",
           },
           {
-            terme: "Account information:",
+            terme: "Deleting your account:",
             texte:
-              "kept as long as your account is active, then destroyed or anonymized within 90 days of its closure, subject to legal obligations.",
+              "when you request the deletion of your account, a 30-day grace period begins. During those 30 days, you may cancel your request and recover your account intact. The grace period covers the whole account: your files, your results and your account information.",
           },
           {
-            terme: "Billing information:",
-            texte: "kept for the periods required by applicable tax and accounting law.",
+            terme: "Permanent purge:",
+            texte:
+              "once those 30 days have elapsed, all your files and all your account data are permanently purged. Only your invoices are kept beyond that point.",
+          },
+          {
+            terme: "Invoices:",
+            texte:
+              "kept for six (6) years, the only exception to the purge, to meet tax and accounting obligations.",
           },
           {
             terme: "Technical logs:",

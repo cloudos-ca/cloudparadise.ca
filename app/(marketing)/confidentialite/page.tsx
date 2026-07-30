@@ -248,17 +248,22 @@ const SECTIONS: readonly SectionRedigee[] = [
           {
             terme: "Fichiers déposés et résultats de tâches :",
             texte:
-              "conservés dans votre espace de travail tant que vous ne les supprimez pas et tant que votre compte demeure actif. Vous pouvez les supprimer en tout temps ; ils sont alors détruits de nos systèmes de stockage. Une suppression automatique s’applique également après 1 an d’inactivité du compte.",
+              "conservés dans votre espace de travail jusqu’à ce que vous les supprimiez. Les fichiers que vous téléversez ne sont pas effacés une fois la tâche terminée : ils demeurent chez vous au même titre que les résultats. Vous pouvez les supprimer en tout temps ; ils sont alors détruits de nos systèmes de stockage. Cette conservation connaît une limite : après 1 an d’inactivité du compte, ils sont supprimés automatiquement.",
           },
           {
-            terme: "Renseignements de compte :",
+            terme: "Suppression de votre compte :",
             texte:
-              "conservés tant que votre compte est actif, puis détruits ou anonymisés dans un délai de 90 jours après sa fermeture, sous réserve des obligations légales.",
+              "lorsque vous demandez la suppression de votre compte, un délai de grâce de 30 jours s’ouvre. Pendant ces 30 jours, vous pouvez annuler votre demande et retrouver votre compte intact. Ce délai porte sur l’ensemble du compte : vos fichiers, vos résultats et vos renseignements de compte.",
           },
           {
-            terme: "Renseignements de facturation :",
+            terme: "Purge définitive :",
             texte:
-              "conservés selon les délais exigés par la loi fiscale et comptable applicable.",
+              "à l’expiration de ces 30 jours, tous vos fichiers et toutes les données de votre compte sont purgés définitivement. Seules vos factures sont conservées au-delà.",
+          },
+          {
+            terme: "Factures :",
+            texte:
+              "conservées six (6) ans, seule exception à la purge, pour répondre aux obligations fiscales et comptables.",
           },
           {
             terme: "Journaux techniques :",
