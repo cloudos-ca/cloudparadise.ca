@@ -147,10 +147,18 @@ let transporteur: nodemailer.Transporter | null = null;
 
 function obtenirTransporteur() {
   if (!transporteur) {
+    const port = Number(process.env.SMTP_PORT ?? 465);
+
     transporteur = nodemailer.createTransport({
       host: process.env.SMTP_HOST,
-      port: Number(process.env.SMTP_PORT ?? 587),
-      secure: Number(process.env.SMTP_PORT) === 465,
+      port,
+      // 465 chiffre dès la poignée de main ; les autres ports partent en clair
+      // et montent en TLS via STARTTLS.
+      secure: port === 465,
+      // Sur ces ports-là, exiger STARTTLS plutôt que l'espérer : sans ça,
+      // nodemailer poursuit en clair si le serveur ne l'annonce pas, et le mot
+      // de passe part sur le réseau en clair avec le message.
+      requireTLS: port !== 465,
       auth: {
         user: process.env.SMTP_USER,
         pass: process.env.SMTP_PASSWORD,
