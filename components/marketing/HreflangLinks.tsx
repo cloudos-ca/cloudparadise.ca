@@ -12,12 +12,21 @@ import { EST_PRODUCTION, SITE_URL } from "@/lib/site";
  * hreflang non réciproque — la production ne renvoie évidemment pas vers le
  * dev — est de toute façon ignoré par Google, donc on ne perd rien à le taire.
  *
- * On utilise la prop React standard `hrefLang` (camelCase) : react-dom la sort
- * en attribut minuscule `hreflang`, la forme attendue par les moteurs. Une
- * version antérieure forçait la clé `hreflang` en minuscules via un cast, ce
- * qui produisait bien l'attribut voulu mais déclenchait l'avertissement dev
- * « Invalid DOM property `hreflang` » (le « 1 Issue » de l'overlay Next) à
- * chaque rendu. La prop standard donne le même HTML sans l'avertissement.
+ * On utilise la prop React standard `hrefLang` (camelCase), et **le HTML servi
+ * porte bien `hrefLang` en camelCase** — vérifié en production le 2026-07-30
+ * sur `/pme`. Un commentaire antérieur affirmait ici que react-dom rendait
+ * l'attribut en minuscules : c'est faux, il ne le fait pas.
+ *
+ * Et ça n'a aucune importance. Les noms d'attributs HTML sont insensibles à la
+ * casse : le tokeniseur du parseur les met en minuscules avant même que le
+ * document existe. `hrefLang="fr"` dans une page HTML *est* l'attribut
+ * `hreflang`, pour Google comme pour n'importe quel autre client. Il n'y a donc
+ * rien à corriger dans la sortie.
+ *
+ * **Ne pas « réparer » ceci.** Une version antérieure forçait la clé `hreflang`
+ * en minuscules via un cast : même résultat une fois la page parsée, mais
+ * l'avertissement dev « Invalid DOM property `hreflang` » (le « 1 Issue » de
+ * l'overlay Next) à chaque rendu. La prop standard est le bon choix.
  *
  * `x-default` pointe vers la version FR : c'est la langue par défaut du site.
  *

@@ -147,14 +147,33 @@ let transporteur: nodemailer.Transporter | null = null;
 
 function obtenirTransporteur() {
   if (!transporteur) {
+    const port = Number(process.env.SMTP_PORT ?? 465);
+
     transporteur = nodemailer.createTransport({
       host: process.env.SMTP_HOST,
-      port: Number(process.env.SMTP_PORT ?? 587),
-      secure: Number(process.env.SMTP_PORT) === 465,
+      port,
+      // 465 chiffre dès la poignée de main ; les autres ports partent en clair
+      // et montent en TLS via STARTTLS.
+      secure: port === 465,
+      // Sur ces ports-là, exiger STARTTLS plutôt que l'espérer : sans ça,
+      // nodemailer poursuit en clair si le serveur ne l'annonce pas, et le mot
+      // de passe part sur le réseau en clair avec le message.
+      requireTLS: port !== 465,
       auth: {
         user: process.env.SMTP_USER,
         pass: process.env.SMTP_PASSWORD,
       },
+      // Nom à présenter au serveur pour la vérification du certificat, quand il
+      // diffère de l'adresse composée. Sert au cas où l'application doit joindre
+      // le serveur de courriel par son IP interne : le certificat est émis pour
+      // un nom, jamais pour une IP nue, et sans ça Node refuse la connexion
+      // (« Hostname/IP does not match certificate's altnames »). Renseigner le
+      // nom garde la vérification entière — c'est la différence avec
+      // `rejectUnauthorized: false`, qui accepterait n'importe quel certificat.
+      // Inutile, donc absente, quand SMTP_HOST est déjà un nom d'hôte.
+      ...(process.env.SMTP_TLS_SERVERNAME
+        ? { tls: { servername: process.env.SMTP_TLS_SERVERNAME } }
+        : {}),
     });
   }
   return transporteur;
