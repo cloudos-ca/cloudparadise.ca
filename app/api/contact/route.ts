@@ -163,6 +163,17 @@ function obtenirTransporteur() {
         user: process.env.SMTP_USER,
         pass: process.env.SMTP_PASSWORD,
       },
+      // Nom à présenter au serveur pour la vérification du certificat, quand il
+      // diffère de l'adresse composée. Sert au cas où l'application doit joindre
+      // le serveur de courriel par son IP interne : le certificat est émis pour
+      // un nom, jamais pour une IP nue, et sans ça Node refuse la connexion
+      // (« Hostname/IP does not match certificate's altnames »). Renseigner le
+      // nom garde la vérification entière — c'est la différence avec
+      // `rejectUnauthorized: false`, qui accepterait n'importe quel certificat.
+      // Inutile, donc absente, quand SMTP_HOST est déjà un nom d'hôte.
+      ...(process.env.SMTP_TLS_SERVERNAME
+        ? { tls: { servername: process.env.SMTP_TLS_SERVERNAME } }
+        : {}),
     });
   }
   return transporteur;
