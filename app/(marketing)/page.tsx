@@ -10,6 +10,7 @@ import { RenvoiMines } from "@/components/marketing/RenvoiMines";
 import { CtaFinal } from "@/components/marketing/CtaFinal";
 import {
   alternatesBilingues,
+  IMAGE_OG_PARTAGEE,
   openGraphPage,
   TITRE_ACCUEIL,
   DESCRIPTION_ACCUEIL,
@@ -19,7 +20,7 @@ export const metadata: Metadata = {
   title: TITRE_ACCUEIL,
   description: DESCRIPTION_ACCUEIL,
   alternates: alternatesBilingues("/", "/en", "fr"),
-  openGraph: openGraphPage(TITRE_ACCUEIL, DESCRIPTION_ACCUEIL, "fr", ["/opengraph-image"]),
+  openGraph: openGraphPage(TITRE_ACCUEIL, DESCRIPTION_ACCUEIL, "fr", [IMAGE_OG_PARTAGEE]),
 };
 
 export default function MarketingPage() {

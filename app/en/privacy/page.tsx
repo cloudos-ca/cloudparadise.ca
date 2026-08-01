@@ -16,7 +16,12 @@ import {
   COURRIEL_RESPONSABLE,
 } from "@/components/marketing/coordonnees";
 import { LECTURE, SECTION_Y, SHELL } from "@/components/marketing/tokens";
-import { alternatesBilingues, openGraphPage, ROBOTS } from "@/lib/seo";
+import {
+  alternatesBilingues,
+  IMAGE_OG_PARTAGEE,
+  openGraphPage,
+  ROBOTS,
+} from "@/lib/seo";
 
 const TITRE = "Privacy Policy — Cloud Paradise";
 const DESCRIPTION =
@@ -27,7 +32,7 @@ export const metadata: Metadata = {
   description: DESCRIPTION,
   robots: ROBOTS,
   alternates: alternatesBilingues("/confidentialite", "/en/privacy", "en"),
-  openGraph: openGraphPage(TITRE, DESCRIPTION, "en", ["/opengraph-image"]),
+  openGraph: openGraphPage(TITRE, DESCRIPTION, "en", [IMAGE_OG_PARTAGEE]),
 };
 
 const MAJ = "July 30, 2026";
