@@ -41,11 +41,24 @@ type Valeurs = Record<Cle, string>;
 const VIDE: Valeurs = { nom: "", courriel: "", sujet: "", message: "" };
 
 /**
- * Sujets préremplis depuis l'URL (`/contact?sujet=<clé>`).
+ * Sujets préremplis depuis l'URL (`/contact#sujet=<clé>`).
  *
  * La clé sert de tag de provenance (champ `source` caché, repris dans le
  * courriel), le libellé préremplit le champ Sujet visible. Une entrée par
  * bouton « Réservez une démo » du site : /mines et /pme.
+ *
+ * **Un fragment, pas `?sujet=`.** La forme en chaîne de requête créait quatre
+ * URL supplémentaires (`/contact?sujet=pme` et ses trois variantes), que les
+ * robots explorent comme des pages à part entière. Chacune servait les balises
+ * hreflang de `/contact` — donc aucune ne se référait à elle-même, et toutes
+ * portaient des annotations hreflang alors que leur canonical désignait une
+ * autre URL. Un audit SEO du 2026-08-01 remontait les deux symptômes : dix
+ * conflits d'attributs hreflang, et quatre pages à un seul lien entrant.
+ *
+ * Le fragment ne change rien pour le visiteur et n'est jamais indexé comme une
+ * URL distincte. Il n'est pas non plus envoyé au serveur — sans importance
+ * ici : la clé n'a jamais été lue qu'au montage, côté client (voir plus bas).
+ * **Ne pas revenir à `?sujet=`** sans rouvrir ces deux problèmes.
  *
  * Les deux langues sont renseignées même quand une seule page existe : c'est ce
  * composant-ci qui choisit, selon la langue de la page de contact atteinte, et
@@ -377,7 +390,11 @@ function Composition({
   const [piege, setPiege] = useState("");
 
   useEffect(() => {
-    const cle = new URLSearchParams(globalThis.location.search).get("sujet");
+    // Le fragment, pas la chaîne de requête — voir `SUJETS_PREREMPLIS`. Le
+    // `slice(1)` retire le `#` ; `URLSearchParams` fait le reste du décodage.
+    const cle = new URLSearchParams(globalThis.location.hash.slice(1)).get(
+      "sujet",
+    );
     if (!cle) return;
     const libelle = SUJETS_PREREMPLIS[cle]?.[lang];
     /* eslint-disable react-hooks/set-state-in-effect --

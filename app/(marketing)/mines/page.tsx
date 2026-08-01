@@ -124,7 +124,7 @@ export default function MinesPage() {
               dans la même région que vous.
             </p>
             <div className="mt-7 flex flex-wrap items-center gap-x-5 gap-y-3">
-              <BoutonCta href="/contact?sujet=exploration" taille="lg">
+              <BoutonCta href="/contact#sujet=exploration" taille="lg">
                 Réservez une démo
               </BoutonCta>
               <LienOr href={LIEN_INSCRIPTION}>
@@ -375,7 +375,7 @@ export default function MinesPage() {
               badge={false}
               soustitre="Réservez une démo. On vous montre le poste de travail, adapté à l’exploration."
               bouton={{
-                href: "/contact?sujet=exploration",
+                href: "/contact#sujet=exploration",
                 libelle: "Réservez une démo",
               }}
             />

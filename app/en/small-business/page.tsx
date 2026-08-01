@@ -125,7 +125,7 @@ export default function SmallBusinessPage() {
               {C.hero.texte}
             </p>
             <div className="mt-7 flex flex-wrap items-center gap-x-5 gap-y-3">
-              <BoutonCta href="/en/contact?sujet=pme" taille="lg">
+              <BoutonCta href="/en/contact#sujet=pme" taille="lg">
                 {C.hero.cta}
               </BoutonCta>
               <LienOr href={LIEN_INSCRIPTION}>{C.hero.lienCompte}</LienOr>
@@ -258,7 +258,7 @@ export default function SmallBusinessPage() {
               // au-dessus — le répéter dans le badge l'affaiblirait.
               badgeSansCarte={false}
               bouton={{
-                href: "/en/contact?sujet=pme",
+                href: "/en/contact#sujet=pme",
                 libelle: C.closer.bouton,
               }}
               lien={{ href: LIEN_INSCRIPTION, libelle: C.closer.lien }}
