@@ -107,6 +107,42 @@ export function alternatesBilingues(
 }
 
 /**
+ * Une image Open Graph, décrite au complet.
+ *
+ * Tous les champs sont obligatoires, et c'est le but du type : passer l'image
+ * en simple chaîne (`["/opengraph-image"]`) était accepté par Next, mais le
+ * HTML sortait alors sans `og:image:width`, `height`, `type` ni `alt` — six
+ * pages étaient dans ce cas (accueil FR et EN, et les quatre pages légales),
+ * quand les sept routes qui ont leur propre `opengraph-image.tsx` recevaient
+ * la série complète par convention de fichier. Sans dimensions annoncées,
+ * certains outils d'aperçu diffèrent le rendu de la vignette ou l'abandonnent.
+ */
+type ImageOg = {
+  url: string;
+  width: number;
+  height: number;
+  alt: string;
+  type: string;
+};
+
+/**
+ * L'image Open Graph par défaut du site — celle que rend
+ * `app/opengraph-image.tsx`, pour les routes qui n'ont pas la leur.
+ *
+ * Les valeurs recopient les exports de ce fichier (`alt`, `size`,
+ * `contentType`) : Next ne les expose pas quand on référence l'image par son
+ * chemin plutôt que par la convention de fichier. Si `app/opengraph-image.tsx`
+ * change de taille ou d'`alt`, cette constante doit suivre.
+ */
+export const IMAGE_OG_PARTAGEE: ImageOg = {
+  url: "/opengraph-image",
+  width: 1200,
+  height: 630,
+  alt: "Cloud Paradise",
+  type: "image/png",
+};
+
+/**
  * Open Graph par page.
  *
  * Next remplace entièrement `openGraph` d'un ancêtre dès qu'un segment plus
@@ -121,17 +157,24 @@ export function alternatesBilingues(
  * ici l'aurait court-circuité. Vérifié : une route SANS fichier propre
  * n'hérite PAS de celui d'un ancêtre dès qu'elle définit son propre objet
  * `openGraph` (même sans `images`) ; ces routes (accueil, conditions,
- * confidentialite) doivent donc passer explicitement `["/opengraph-image"]`.
+ * confidentialite) doivent donc passer explicitement `IMAGE_OG_PARTAGEE`.
+ *
+ * `siteName` fait partie de ce que la fonction doit reconstruire, au même
+ * titre que `locale` et `type` : les deux layouts racines le déclarent, et il
+ * disparaissait donc de **toutes** les pages du site — vérifié sur le HTML
+ * généré, zéro `og:site_name` sur treize pages. Sans lui, LinkedIn, Slack et
+ * Facebook affichent l'aperçu sans attribution de marque.
  */
 export function openGraphPage(
   titre: string,
   description: string,
   langue: "fr" | "en",
-  images?: readonly string[],
+  images?: readonly ImageOg[],
 ): Metadata["openGraph"] {
   return {
     title: titre,
     description,
+    siteName: "Cloud Paradise",
     locale: langue === "en" ? "en_CA" : "fr_CA",
     type: "website",
     ...(images ? { images: [...images] } : {}),

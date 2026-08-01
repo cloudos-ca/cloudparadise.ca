@@ -8,7 +8,11 @@ import { Tarification } from "@/components/marketing/Tarification";
 import { RenvoiPme } from "@/components/marketing/RenvoiPme";
 import { RenvoiMines } from "@/components/marketing/RenvoiMines";
 import { CtaFinal } from "@/components/marketing/CtaFinal";
-import { alternatesBilingues, openGraphPage } from "@/lib/seo";
+import {
+  alternatesBilingues,
+  IMAGE_OG_PARTAGEE,
+  openGraphPage,
+} from "@/lib/seo";
 
 const TITRE = "Cloud Paradise — Your cloud workstation";
 const DESCRIPTION =
@@ -18,7 +22,7 @@ export const metadata: Metadata = {
   title: TITRE,
   description: DESCRIPTION,
   alternates: alternatesBilingues("/", "/en", "en"),
-  openGraph: openGraphPage(TITRE, DESCRIPTION, "en", ["/opengraph-image"]),
+  openGraph: openGraphPage(TITRE, DESCRIPTION, "en", [IMAGE_OG_PARTAGEE]),
 };
 
 export default function MarketingPageEn() {

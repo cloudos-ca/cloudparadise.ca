@@ -28,7 +28,12 @@ import {
 } from "@/components/marketing/offre";
 import { ListeNumerotee } from "@/components/marketing/ListeNumerotee";
 import { LECTURE, SECTION_Y, SHELL } from "@/components/marketing/tokens";
-import { alternatesBilingues, openGraphPage, ROBOTS } from "@/lib/seo";
+import {
+  alternatesBilingues,
+  IMAGE_OG_PARTAGEE,
+  openGraphPage,
+  ROBOTS,
+} from "@/lib/seo";
 
 const TITRE = "Conditions d’utilisation — Cloud Paradise";
 const DESCRIPTION =
@@ -39,7 +44,7 @@ export const metadata: Metadata = {
   description: DESCRIPTION,
   robots: ROBOTS,
   alternates: alternatesBilingues("/conditions", "/en/terms", "fr"),
-  openGraph: openGraphPage(TITRE, DESCRIPTION, "fr", ["/opengraph-image"]),
+  openGraph: openGraphPage(TITRE, DESCRIPTION, "fr", [IMAGE_OG_PARTAGEE]),
 };
 
 const MAJ = "30 juillet 2026";
