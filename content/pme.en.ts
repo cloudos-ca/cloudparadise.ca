@@ -258,8 +258,10 @@ export const PME_EN: ContenuPme = {
 /**
  * La copie anglaise est écrite : `contenuPme("en")` sert désormais l'anglais.
  *
- * Le drapeau existait pour empêcher les `TODO` d'atteindre la production tant
- * que ce fichier n'était qu'un squelette. Il ne se lève qu'avec la route
+ * Le drapeau existait pour empêcher les marqueurs de traduction manquante
+ * d'atteindre la production tant que ce fichier n'était qu'un squelette — le
+ * mot littéral est évité ici, Sonar le lisant comme une tâche en suspens
+ * (S1135) jusque dans la prose. Il ne se lève qu'avec la route
  * `/en/...` correspondante — sinon le `hreflang` annoncerait une page qui
  * n'existe pas.
  */

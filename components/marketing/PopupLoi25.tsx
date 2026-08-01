@@ -62,8 +62,13 @@ export function PopupLoi25({ lang = "fr" }: Readonly<{ lang?: Lang }>) {
   // `popup-entree` porte le fondu ; le respect de `prefers-reduced-motion` est
   // dans la règle CSS, plus dans une branche du composant.
   return (
+    // `region` et non `dialog` : ce bandeau ne piège pas le focus, n'assombrit
+    // rien et n'attend aucune réponse pour laisser lire la page. Annoncé comme
+    // un dialogue, il promettait à un lecteur d'écran un comportement qu'il n'a
+    // pas. `region` décrit ce qu'il est — une zone signalée, nommée par
+    // `aria-label`.
     <div
-      role="dialog"
+      role="region"
       aria-label={t.dialogue}
       className="popup-entree fixed right-4 bottom-4 left-4 z-[60] sm:right-6 sm:bottom-6 sm:left-auto sm:w-[360px]"
     >
