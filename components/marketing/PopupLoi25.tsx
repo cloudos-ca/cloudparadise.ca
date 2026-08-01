@@ -62,13 +62,17 @@ export function PopupLoi25({ lang = "fr" }: Readonly<{ lang?: Lang }>) {
   // `popup-entree` porte le fondu ; le respect de `prefers-reduced-motion` est
   // dans la règle CSS, plus dans une branche du composant.
   return (
-    // `region` et non `dialog` : ce bandeau ne piège pas le focus, n'assombrit
-    // rien et n'attend aucune réponse pour laisser lire la page. Annoncé comme
-    // un dialogue, il promettait à un lecteur d'écran un comportement qu'il n'a
-    // pas. `region` décrit ce qu'il est — une zone signalée, nommée par
-    // `aria-label`.
-    <div
-      role="region"
+    // `<section>` nommée, et non un `role="dialog"` : ce bandeau ne piège pas le
+    // focus, n'assombrit rien et n'attend aucune réponse pour laisser lire la
+    // page. Annoncé comme un dialogue, il promettait à un lecteur d'écran un
+    // comportement qu'il n'a pas.
+    //
+    // L'élément natif plutôt que `role="region"` posé sur un `<div>` : une
+    // `<section>` porteuse d'un nom accessible *est* une région, sans avoir à
+    // le déclarer. C'est aussi ce que demande la règle S6819, qui vise tout
+    // rôle ARIA ayant un équivalent HTML — passer de `dialog` à `region` ne
+    // faisait que déplacer l'avertissement.
+    <section
       aria-label={t.dialogue}
       className="popup-entree fixed right-4 bottom-4 left-4 z-[60] sm:right-6 sm:bottom-6 sm:left-auto sm:w-[360px]"
     >
@@ -116,6 +120,6 @@ export function PopupLoi25({ lang = "fr" }: Readonly<{ lang?: Lang }>) {
           </p>
         </div>
       </WindowCard>
-    </div>
+    </section>
   );
 }
