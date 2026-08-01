@@ -36,7 +36,7 @@ export const metadata: Metadata = {
   title: TITRE,
   description: DESCRIPTION,
   alternates: alternatesBilingues("/plateforme", "/en/platform", "en"),
-  openGraph: openGraphPage(TITRE, DESCRIPTION, "en"),
+  openGraph: openGraphPage(TITRE, DESCRIPTION, "en", "/en/platform"),
 };
 
 const ANCRES: readonly Ancre[] = [

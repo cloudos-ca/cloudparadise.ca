@@ -22,7 +22,7 @@ export const metadata: Metadata = {
   title: TITRE,
   description: DESCRIPTION,
   alternates: alternatesBilingues("/", "/en", "en"),
-  openGraph: openGraphPage(TITRE, DESCRIPTION, "en", [IMAGE_OG_PARTAGEE]),
+  openGraph: openGraphPage(TITRE, DESCRIPTION, "en", "/en", [IMAGE_OG_PARTAGEE]),
 };
 
 export default function MarketingPageEn() {

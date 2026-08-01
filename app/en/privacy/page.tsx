@@ -32,7 +32,7 @@ export const metadata: Metadata = {
   description: DESCRIPTION,
   robots: ROBOTS,
   alternates: alternatesBilingues("/confidentialite", "/en/privacy", "en"),
-  openGraph: openGraphPage(TITRE, DESCRIPTION, "en", [IMAGE_OG_PARTAGEE]),
+  openGraph: openGraphPage(TITRE, DESCRIPTION, "en", "/en/privacy", [IMAGE_OG_PARTAGEE]),
 };
 
 const MAJ = "July 30, 2026";
