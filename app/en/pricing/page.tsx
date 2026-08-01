@@ -40,7 +40,7 @@ export const metadata: Metadata = {
   title: TITRE,
   description: DESCRIPTION,
   alternates: alternatesBilingues("/tarifs", "/en/pricing", "en"),
-  openGraph: openGraphPage(TITRE, DESCRIPTION, "en"),
+  openGraph: openGraphPage(TITRE, DESCRIPTION, "en", "/en/pricing"),
 };
 
 /**

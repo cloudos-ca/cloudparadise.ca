@@ -21,7 +21,7 @@ export const metadata: Metadata = {
   title: TITRE,
   description: DESCRIPTION,
   alternates: alternatesBilingues("/fonctions", "/en/features", "fr"),
-  openGraph: openGraphPage(TITRE, DESCRIPTION, "fr"),
+  openGraph: openGraphPage(TITRE, DESCRIPTION, "fr", "/fonctions"),
 };
 
 /**

@@ -164,11 +164,26 @@ export const IMAGE_OG_PARTAGEE: ImageOg = {
  * disparaissait donc de **toutes** les pages du site — vérifié sur le HTML
  * généré, zéro `og:site_name` sur treize pages. Sans lui, LinkedIn, Slack et
  * Facebook affichent l'aperçu sans attribution de marque.
+ *
+ * `chemin` est le chemin **canonique de cette page-ci**, celui-là même que la
+ * page passe à `alternatesBilingues` pour sa langue : `/pme` côté français,
+ * `/en/small-business` côté anglais. Les deux doivent coïncider — `og:url` et
+ * `rel="canonical"` qui désignent deux adresses différentes est un signal
+ * contradictoire, et c'est le moteur qui tranche à notre place. D'où le chemin
+ * unique passé ici, juste à côté de la langue qui le sélectionne, plutôt que
+ * la paire FR/EN recopiée une seconde fois.
+ *
+ * Comme le canonical, **`og:url` n'est émis qu'en production**, et pour la
+ * raison développée dans `alternatesBilingues` : une préproduction qui publie
+ * `og:url = https://cloudparadise.ca/...` revendique l'identité du vrai site
+ * depuis un environnement qu'on demande par ailleurs de ne pas explorer.
+ * `metadataBase` résout le chemin relatif en URL absolue à la génération.
  */
 export function openGraphPage(
   titre: string,
   description: string,
   langue: "fr" | "en",
+  chemin: string,
   images?: readonly ImageOg[],
 ): Metadata["openGraph"] {
   return {
@@ -177,6 +192,7 @@ export function openGraphPage(
     siteName: "Cloud Paradise",
     locale: langue === "en" ? "en_CA" : "fr_CA",
     type: "website",
+    ...(EST_PRODUCTION ? { url: chemin } : {}),
     ...(images ? { images: [...images] } : {}),
   };
 }

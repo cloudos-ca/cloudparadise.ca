@@ -17,7 +17,7 @@ export const metadata: Metadata = {
   title: TITRE,
   description: DESCRIPTION,
   alternates: alternatesBilingues("/securite", "/en/security", "fr"),
-  openGraph: openGraphPage(TITRE, DESCRIPTION, "fr"),
+  openGraph: openGraphPage(TITRE, DESCRIPTION, "fr", "/securite"),
 };
 
 export default function SecuritePage() {

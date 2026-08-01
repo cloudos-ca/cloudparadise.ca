@@ -59,7 +59,7 @@ export const metadata: Metadata = {
   title: C.meta.titre,
   description: C.meta.description,
   alternates: alternatesBilingues("/pme", "/en/small-business", "fr"),
-  openGraph: openGraphPage(C.meta.titre, C.meta.description, "fr"),
+  openGraph: openGraphPage(C.meta.titre, C.meta.description, "fr", "/pme"),
 };
 
 /**

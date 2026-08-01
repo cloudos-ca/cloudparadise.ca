@@ -17,7 +17,7 @@ export const metadata: Metadata = {
   title: TITRE,
   description: DESCRIPTION,
   alternates: alternatesBilingues("/contact", "/en/contact", "en"),
-  openGraph: openGraphPage(TITRE, DESCRIPTION, "en"),
+  openGraph: openGraphPage(TITRE, DESCRIPTION, "en", "/en/contact"),
 };
 
 export default async function ContactPageEn() {

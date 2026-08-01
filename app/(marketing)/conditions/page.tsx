@@ -44,7 +44,7 @@ export const metadata: Metadata = {
   description: DESCRIPTION,
   robots: ROBOTS,
   alternates: alternatesBilingues("/conditions", "/en/terms", "fr"),
-  openGraph: openGraphPage(TITRE, DESCRIPTION, "fr", [IMAGE_OG_PARTAGEE]),
+  openGraph: openGraphPage(TITRE, DESCRIPTION, "fr", "/conditions", [IMAGE_OG_PARTAGEE]),
 };
 
 const MAJ = "30 juillet 2026";

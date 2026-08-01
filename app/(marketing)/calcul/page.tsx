@@ -24,7 +24,7 @@ export const metadata: Metadata = {
   title: TITRE,
   description: DESCRIPTION,
   alternates: alternatesBilingues("/calcul", "/en/compute", "fr"),
-  openGraph: openGraphPage(TITRE, DESCRIPTION, "fr"),
+  openGraph: openGraphPage(TITRE, DESCRIPTION, "fr", "/calcul"),
 };
 
 const ANCRES: readonly Ancre[] = [

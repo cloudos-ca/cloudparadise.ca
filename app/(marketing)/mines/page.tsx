@@ -33,7 +33,7 @@ export const metadata: Metadata = {
   title: TITRE,
   description: DESCRIPTION,
   alternates: alternatesBilingues("/mines", "/en/mining", "fr"),
-  openGraph: openGraphPage(TITRE, DESCRIPTION, "fr"),
+  openGraph: openGraphPage(TITRE, DESCRIPTION, "fr", "/mines"),
 };
 
 const ANCRES: readonly Ancre[] = [
