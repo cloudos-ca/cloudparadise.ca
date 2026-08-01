@@ -48,6 +48,33 @@ const CSP = [
   "upgrade-insecure-requests",
 ].join("; ");
 
+/**
+ * Anciens slugs anglais → slug actuel.
+ *
+ * Les routes `/en/*` ont d'abord porté les segments français
+ * (`/en/plateforme`, `/en/tarifs`). Ces URL sont indexées : sans redirection,
+ * chacune passe en 404 et le référencement acquis part avec.
+ *
+ * Une table, et non huit blocs `{ source, destination, permanent }` recopiés :
+ * c'est une donnée, pas huit décisions. Les blocs étaient à eux seuls la
+ * duplication de `next.config.ts` mesurée par Sonar (lignes 77 à 134, deux
+ * blocs de 52 et 38 lignes se recouvrant), et rien ne distinguait un cas d'un
+ * autre.
+ *
+ * **C'est le seul endroit du dépôt où les anciens slugs doivent encore
+ * apparaître** — leur source, pas un oubli de balayage.
+ */
+const ANCIENS_SLUGS_EN: Readonly<Record<string, string>> = {
+  plateforme: "platform",
+  calcul: "compute",
+  mines: "mining",
+  fonctions: "features",
+  tarifs: "pricing",
+  securite: "security",
+  conditions: "terms",
+  confidentialite: "privacy",
+};
+
 const nextConfig: NextConfig = {
   output: "standalone",
 
@@ -79,58 +106,19 @@ const nextConfig: NextConfig = {
       },
 
       /**
-       * Anciens slugs anglais — les routes `/en/*` portaient les segments
-       * français (`/en/plateforme`, `/en/tarifs`). Ces URL sont indexées : sans
-       * ces règles, chacune passe en 404 et le référencement acquis part avec.
+       * Anciens slugs anglais — la table vit en tête de fichier
+       * (`ANCIENS_SLUGS_EN`), avec le pourquoi.
        *
        * `permanent: true` émet un **308**, pas un 301. C'est voulu : Google les
        * traite à l'identique pour la consolidation du signal, et le 308 est le
        * seul des deux qui garantisse que la méthode ne change pas en route. Ne
        * pas forcer 301.
-       *
-       * Ces règles sont le seul endroit du dépôt où les anciens slugs doivent
-       * encore apparaître — c'est leur source, pas un oubli de balayage.
        */
-      {
-        source: "/en/plateforme",
-        destination: "/en/platform",
+      ...Object.entries(ANCIENS_SLUGS_EN).map(([ancien, actuel]) => ({
+        source: `/en/${ancien}`,
+        destination: `/en/${actuel}`,
         permanent: true,
-      },
-      {
-        source: "/en/calcul",
-        destination: "/en/compute",
-        permanent: true,
-      },
-      {
-        source: "/en/mines",
-        destination: "/en/mining",
-        permanent: true,
-      },
-      {
-        source: "/en/fonctions",
-        destination: "/en/features",
-        permanent: true,
-      },
-      {
-        source: "/en/tarifs",
-        destination: "/en/pricing",
-        permanent: true,
-      },
-      {
-        source: "/en/securite",
-        destination: "/en/security",
-        permanent: true,
-      },
-      {
-        source: "/en/conditions",
-        destination: "/en/terms",
-        permanent: true,
-      },
-      {
-        source: "/en/confidentialite",
-        destination: "/en/privacy",
-        permanent: true,
-      },
+      })),
     ];
   },
 

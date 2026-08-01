@@ -367,7 +367,11 @@ function MetierSection({ metier }: Readonly<{ metier: SectionMetier }>) {
  */
 function listeFacturee(factures: readonly TypeTache[]): string {
   const noms = factures.map((type) => libelleDe(type, LANG));
-  const dernier = noms[noms.length - 1];
+  // Voir la version française : `.at(-1)` rend le type exact (`string |
+  // undefined`), la garde empêche la liste vide d'écrire « undefined » dans la
+  // page. Cas non atteint aujourd'hui, mais qui ne peut plus mentir.
+  const dernier = noms.at(-1);
+  if (dernier === undefined) return "";
   if (noms.length === 1) return dernier;
   return (
     noms.slice(0, -1).join(C.facturation.separateur) +

@@ -18,7 +18,7 @@ type RevealProps = Readonly<{
  * rendu serveur déclenche un avertissement React — d'où l'aiguillage.
  */
 const useEffetDeMiseEnPage =
-  typeof globalThis.window === "undefined" ? useEffect : useLayoutEffect;
+  globalThis.window === undefined ? useEffect : useLayoutEffect;
 
 /**
  * L'observateur, UN SEUL pour tout le document.

@@ -134,8 +134,8 @@ export type ContenuPme = {
  *
  * Repli sur le français tant que `PME_EN_PRET` est faux : une page à moitié
  * traduite est pire qu'une page dans l'autre langue — le visiteur anglophone
- * verrait des `TODO` en production. Le drapeau se lève dans `pme.en.ts`, en
- * même temps que la copie, en une seule modification.
+ * verrait des marqueurs de traduction manquante en production. Le drapeau se
+ * lève dans `pme.en.ts`, en même temps que la copie, en une seule modification.
  */
 export function contenuPme(lang: Lang): ContenuPme {
   return lang === "en" && PME_EN_PRET ? PME_EN : PME_FR;
