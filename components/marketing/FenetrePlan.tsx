@@ -59,7 +59,9 @@ const TEXTES = {
     logs: [
       "analyse de la tâche : traitement documentaire",
       "voie retenue : conversion de document",
-      "assigné au nœud docs-agent-prod02",
+      // « nœud docs-agent-prod02 » : un identifiant numéroté laissait deviner
+      // une grappe de machines. Le moteur se nomme, il ne se compte pas.
+      "assigné au moteur documentaire",
       "convert — 1 fichier",
       "terminé en 1875 ms",
     ],
@@ -94,7 +96,7 @@ const TEXTES = {
     logs: [
       "task analysis: document processing",
       "route selected: document conversion",
-      "assigned to node docs-agent-prod02",
+      "assigned to the document engine",
       "convert — 1 file",
       "done in 1875 ms",
     ],

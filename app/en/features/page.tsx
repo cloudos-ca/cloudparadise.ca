@@ -11,7 +11,7 @@ import { Reveal } from "@/components/marketing/Reveal";
 import { libelleDe } from "@/components/marketing/offre";
 import { SECTION_Y, SHELL } from "@/components/marketing/tokens";
 import { alternatesBilingues, openGraphPage } from "@/lib/seo";
-import { LIEN_INSCRIPTION } from "@/lib/site";
+import { lienInscription } from "@/lib/site";
 
 const TITRE = "Features — Cloud Paradise";
 const DESCRIPTION =
@@ -178,15 +178,19 @@ const SECTIONS: readonly SectionFonctions[] = [
     ],
   },
   {
+    // L'identifiant reste `puissance` : il est dans des liens et des ancres.
+    // Seul le texte change — « the power » promettait une quantité que les
+    // plafonds réels démentent, là où « the compute » dit ce qui est vraiment
+    // servi. Aucune fiche technique matérielle, règle du plan de contenu.
     id: "puissance",
-    surtitre: "The power",
-    titre: "The heavy hardware runs on our side.",
+    surtitre: "The compute",
+    titre: "Exact compute runs on our side.",
     page: CALCUL,
     entrees: [
       {
         nom: libelleDe("Calcul GPU", "en"),
         texte:
-          "The workloads that need a graphics card, run on ours.",
+          "The workloads that need a graphics card — from a template, from your code, or from your files.",
       },
       {
         nom: libelleDe("Rendu 3D", "en"),
@@ -198,7 +202,7 @@ const SECTIONS: readonly SectionFonctions[] = [
       },
       {
         nom: libelleDe("Simulation", "en"),
-        texte: "Your simulation runs, launched on our hardware.",
+        texte: "A simulation launched from parameters — nothing to upload.",
       },
       // L'entrée de regroupement reste, et chaque geste prend sa ligne en
       // dessous : sur une page de référence, c'est la ligne nommée qui répond
@@ -354,7 +358,7 @@ const ANCRES: readonly Ancre[] = [
   { id: "bureau", libelle: { fr: "Le bureau", en: "Desktop" } },
   { id: "applications", libelle: { fr: "Applications", en: "Applications" } },
   { id: "calcul", libelle: { fr: "Calcul", en: "Compute" } },
-  { id: "puissance", libelle: { fr: "Puissance", en: "Power" } },
+  { id: "puissance", libelle: { fr: "Calcul", en: "Compute" } },
   { id: "automatisation", libelle: { fr: "Automatiser", en: "Automate" } },
   { id: "equipe", libelle: { fr: "À plusieurs", en: "Together" } },
   { id: "mines", libelle: { fr: "Mines", en: "Mining" } },
@@ -404,7 +408,7 @@ export default function FonctionsPageEn() {
               lang="en"
               soustitre="Create your account and open the desktop — everything listed here is already inside."
               bouton={{
-                href: LIEN_INSCRIPTION,
+                href: lienInscription("fonctions-closer"),
                 libelle: "Start for free",
               }}
               lien={{ href: "/en/pricing", libelle: "See pricing" }}

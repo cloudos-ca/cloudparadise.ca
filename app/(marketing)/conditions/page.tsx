@@ -146,7 +146,12 @@ const SECTIONS: readonly SectionRedigee[] = [
   {
     titre: "Description du Service",
     blocs: [
-      "Cloud Paradise est une plateforme infonuagique qui transforme une demande — formulée en langage naturel ou au moyen d’un gabarit — en un traitement exécuté sur du matériel de calcul dédié (GPU, CPU à haute capacité, mémoire vive massive). Le Service comprend notamment :",
+      // « CPU à haute capacité, mémoire vive massive » : deux superlatifs non
+      // quantifiés dans un document contractuel, que rien sur le site ne vient
+      // borner. Remplacés par ce qui est vérifiable — du matériel dédié au
+      // calcul — sans descendre au numéro de modèle, interdit par le plan de
+      // contenu.
+      "Cloud Paradise est une plateforme infonuagique qui transforme une demande — formulée en langage naturel ou au moyen d’un gabarit — en un traitement exécuté sur du matériel de calcul dédié (GPU, CPU et mémoire réservés au calcul). Le Service comprend notamment :",
       {
         liste: [
           { texte: "le traitement de documents (conversion, OCR, traduction, classement, publipostage, archivage) ;" },

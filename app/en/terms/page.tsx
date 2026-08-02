@@ -144,7 +144,7 @@ const SECTIONS: readonly SectionRedigee[] = [
   {
     titre: "Description of the Service",
     blocs: [
-      "Cloud Paradise is a cloud platform that turns a request — expressed in natural language or via a template — into a job run on dedicated computing hardware (GPU, high-capacity CPU, massive RAM). The Service includes, among other things:",
+      "Cloud Paradise is a cloud platform that turns a request — expressed in natural language or via a template — into a job run on dedicated computing hardware (GPU, CPU and memory reserved for compute). The Service includes, among other things:",
       {
         liste: [
           { texte: "document processing (conversion, OCR, translation, sorting, mail merge, archiving);" },

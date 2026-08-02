@@ -97,8 +97,27 @@ export const APP_URL = "https://app.cloudparadise.cloud";
 /** Connexion à un compte existant — barre de menu, menu mobile, pied de page. */
 export const LIEN_CONNEXION = `${APP_URL}/login`;
 
-/** Création de compte — tous les CTA primaires du site. */
-export const LIEN_INSCRIPTION = `${APP_URL}/register`;
+/**
+ * Création de compte — tous les CTA primaires du site.
+ *
+ * `src` nomme l'emplacement qui a produit le clic, pas la page : « d'où
+ * viennent-ils » se répond mal quand le héros et le pied de page d'une même
+ * page sont confondus. Convention `<page>-<emplacement>`, en français, la même
+ * valeur dans les deux langues — l'application enregistre déjà la langue à
+ * l'inscription, la dédoubler ici ne ferait que diviser les compteurs.
+ *
+ * **Cette donnée n'existe pas encore.** L'événement d'inscription ne retient
+ * aujourd'hui que la méthode et la langue, et le paramètre est jeté. Les liens
+ * sont prêts ; la capture reste à faire côté applicatif, confirmation de
+ * courriel comprise. Ne pas présenter la traçabilité comme disponible avant.
+ *
+ * Aucun encodage n'est appliqué : les sources sont des identifiants écrits ici,
+ * en minuscules sans accent ni espace. Une valeur qui aurait besoin d'être
+ * encodée serait une valeur mal nommée.
+ */
+export function lienInscription(src: string): string {
+  return `${APP_URL}/register?src=${src}`;
+}
 
 /**
  * Les pages du site, dans les deux langues — liste unique.

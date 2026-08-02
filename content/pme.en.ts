@@ -142,12 +142,14 @@ export const PME_EN: ContenuPme = {
       // aurait contredit /en/pricing, exactement comme en français.
       factures: ["Média", "Images", "Scraping"],
       titre: "Your media, in batches.",
-      texte:
-        "Process, encode, generate, sort — without tying up your own machine for three hours.",
+      // « for three hours » sous-entendait qu'on va plus vite qu'un poste
+      // local : rien ne permet de l'affirmer. Ce qui reste vrai, et suffit,
+      // c'est que le travail ne se fait pas sur votre machine.
+      texte: "Process, encode, generate, sort — without tying up your own machine.",
       transformations: [
         {
-          entree: "5,000 product photos",
-          sortie: "resized and reformatted, all at once",
+          entree: "500 product photos",
+          sortie: "resized and reformatted",
         },
         {
           entree: "a 4K video",
@@ -163,11 +165,11 @@ export const PME_EN: ContenuPme = {
         },
       ],
       job: {
-        titre: "Resize 5,000 product photos",
+        titre: "Resize 500 product photos",
         logs: [
-          "→ reading folder — 5,000 images found",
+          "→ reading folder — 500 images found",
           "→ converting to three formats",
-          "→ archive ready · 15,000/15,000",
+          "→ archive ready · 1,500/1,500",
         ],
       },
     },

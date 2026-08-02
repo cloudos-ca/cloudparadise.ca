@@ -2,11 +2,30 @@ import { FenetreCta } from "./FenetreCta";
 import { Reveal } from "./Reveal";
 import { IconCheck } from "./icons";
 import { SECTION_Y, SHELL, type Lang } from "./tokens";
-import { LIEN_INSCRIPTION } from "@/lib/site";
+import { lienInscription } from "@/lib/site";
 
+/**
+ * Les promesses du closer.
+ *
+ * « Première tâche sans fichier » et non « sans fichier » : la portée compte.
+ * Trois modes seulement démarrent sur des paramètres seuls — le calcul GPU par
+ * gabarit, par code déposé, et la simulation ; les autres travaillent bien sur
+ * un fichier que vous fournissez. Formulée sur la première tâche, la promesse
+ * est exacte et couvre le seul moment où elle décide de quelque chose.
+ */
 const PROMESSES = {
-  fr: ["Crédits offerts", "Sans carte requise", "Sans abonnement"],
-  en: ["Free credits", "No card required", "No subscription"],
+  fr: [
+    "Crédits offerts",
+    "Sans carte requise",
+    "Première tâche sans fichier",
+    "Sans abonnement",
+  ],
+  en: [
+    "Free credits",
+    "No card required",
+    "First task, no file needed",
+    "No subscription",
+  ],
 } as const;
 
 const TEXTES = {
@@ -42,7 +61,7 @@ export function CtaFinal({ lang = "fr" }: Readonly<{ lang?: Lang }>) {
             badgeSansCarte={false}
             soustitre={<>{t.soustitre}</>}
             bouton={{
-              href: LIEN_INSCRIPTION,
+              href: lienInscription("accueil-closer"),
               libelle: t.bouton,
             }}
             lien={{

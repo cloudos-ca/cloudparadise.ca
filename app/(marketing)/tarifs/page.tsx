@@ -31,7 +31,7 @@ import {
 } from "@/components/marketing/offre";
 import { SECTION_Y, SHELL } from "@/components/marketing/tokens";
 import { alternatesBilingues, openGraphPage } from "@/lib/seo";
-import { LIEN_INSCRIPTION } from "@/lib/site";
+import { lienInscription } from "@/lib/site";
 
 const TITRE = "Tarifs et crédits, sans abonnement — Cloud Paradise";
 const DESCRIPTION = `Des crédits, pas d’abonnement. ${OFFRE_EN_DEVISE} de crédits offerts à l’inscription, le coût de chaque tâche et un estimateur pour chiffrer votre budget d’avance.`;
@@ -204,7 +204,7 @@ export default function TarifsPage() {
                 l'offre confirme l'action, elle ne la précède pas. */}
             <div className="mt-7">
               <BoutonCta
-                href={LIEN_INSCRIPTION}
+                href={lienInscription("tarifs-hero")}
                 taille="lg"
               >
                 Commencer gratuitement
@@ -379,7 +379,7 @@ export default function TarifsPage() {
               badge={false}
               soustitre="Créez votre compte et lancez votre première tâche aujourd’hui."
               bouton={{
-                href: LIEN_INSCRIPTION,
+                href: lienInscription("tarifs-closer"),
                 libelle: "Commencer gratuitement",
               }}
               lien={{
