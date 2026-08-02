@@ -231,6 +231,21 @@ const SECTIONS: readonly SectionRedigee[] = [
       {
         liste: [
           {
+            // ⚠️ CONTREDIT PAR LE CODE APPLICATIF — relevé le 2026-08-02, non
+            // corrigé ici volontairement : c'est un texte contractuel, et le
+            // réécrire est une décision du juriste, pas de la vitrine.
+            //
+            // `chargeForJob` débite **au lancement**, avant même la création du
+            // Job ; `failJob` et `cancelJob` ne remboursent rien. Trois
+            // affirmations de ce bloc sont donc plus favorables au client que
+            // le produit : « à mesure que le Job progresse, et non à son
+            // lancement », « repris sans nouveau débit », et « relancer sur le
+            // même crédit ». Le débit à la pièce, lui, n'existe que pour le
+            // traitement d'images et le publipostage.
+            //
+            // L'écart a changé de sens : ces clauses étaient réputées plus
+            // dures que le produit, elles sont en réalité plus généreuses — et
+            // elles sont en ligne et indexées depuis le 2026-07-31.
             terme: "Débit des crédits.",
             texte:
               "Les crédits sont débités à mesure que le Job progresse, et non à son lancement : ce qui a été traité est débité, ce qui ne l’a pas été ne l’est pas, et les Résultats déjà produits vous demeurent acquis. Un Job interrompu par une défaillance de notre infrastructure est repris sans nouveau débit. Lorsqu’un Contenu utilisateur invalide ou des instructions erronées empêchent un Job d’aboutir, nous vous en indiquons la cause et vous pouvez corriger puis relancer sur le même crédit. Demeure facturée la capacité de calcul effectivement consommée, y compris lorsque le Résultat obtenu ne vous satisfait pas.",

@@ -4,6 +4,7 @@ import {
   GRILLE,
   coutDe,
   libelleDe,
+  uniteDe,
   type TypeTache,
 } from "./offre";
 import type { Lang } from "./tokens";
@@ -56,12 +57,15 @@ export function OffreJsonLd({ lang }: Readonly<{ lang: Lang }>) {
         price: prix(cout),
         availability: "https://schema.org/InStock",
         // Sans l'unité, le balisage laisserait croire à un prix d'abonnement.
-        // Le débit suit la tâche, unité par unité — c'est la règle réelle.
+        // L'unité vient de `offre.ts` et non d'une constante : elle valait
+        // « tâche » sur tous les moteurs, Images comprise, alors que le
+        // traitement d'images se facture à l'image. Un moteur de recherche
+        // aurait conservé l'erreur longtemps après la correction de la page.
         priceSpecification: {
           "@type": "UnitPriceSpecification",
           priceCurrency: "CAD",
           price: prix(cout),
-          unitText: lang === "en" ? "task" : "tâche",
+          unitText: uniteDe(type, lang),
         },
       })),
     },

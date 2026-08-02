@@ -224,8 +224,8 @@ export const PME_EN: ContenuPme = {
       },
       {
         cle: "traite",
-        titre: "You pay for what gets processed",
-        texte: "Billing follows progress, file by file.",
+        titre: "One price per task",
+        texte: "A batch costs the price of one task, whatever its volume.",
       },
       {
         cle: "consulter",

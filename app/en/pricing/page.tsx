@@ -96,9 +96,23 @@ function fluxChiffre() {
  * piliers ; l'or reste aux montants.
  *
  * Les deux derniers points sont des garanties, pas des avertissements : le
- * débit proportionnel et l'essai gratuit répondent à la crainte du paiement à
+ * forfait par tâche et l'essai gratuit répondent à la crainte du paiement à
  * l'usage. D'où la coche et les curseurs plutôt qu'une icône d'alerte — traiter
  * le sujet en rouge transformerait un argument en excuse.
+ *
+ * **Le quatrième point disait l'inverse du produit.** Il annonçait un débit
+ * « fichier par fichier » comme règle générale, sous le titre « You only pay
+ * for what is processed ». Or la règle est le forfait par tâche : un lot de 200
+ * contrats est une tâche à 0,25, et le débit à la pièce n'existe que pour le
+ * traitement d'images et le publipostage. Le titre était donc faux avec le
+ * corps, et pas seulement à côté : au forfait, on paie au lancement, quel que
+ * soit le résultat.
+ *
+ * Deux clauses en sont sorties — la reprise « with no new credit » après une
+ * panne, et la relance « on the same credit, as many times as it takes ».
+ * Elles ne sont pas adoucies, elles sont retirées : elles ne peuvent pas être
+ * atténuées sans devenir creuses, et elles restent à confirmer contre le code
+ * de facturation. Ne pas les réécrire de mémoire.
  *
  * « Dry run » et non « simulation » : la grille, deux sections plus haut,
  * facture un type de tâche nommé « Simulation ». Deux objets sous le même mot
@@ -128,12 +142,13 @@ const FACTURATION = [
   },
   {
     Icone: IconCheck,
-    titre: "You only pay for what is processed",
+    titre: "One price per task, whatever the volume",
     // « et les 150 résultats sont à vous » n'est pas décoratif : sans cette
-    // clause, la carte dirait qu'on facture un travail que le client ne reçoit
-    // pas. C'est elle qui rend le titre défendable.
+    // clause, la phrase dirait qu'on facture un travail que le client ne reçoit
+    // pas. Elle reste, mais rattachée aux deux seuls traitements comptés à la
+    // pièce — c'est là, et là seulement, qu'un lot peut s'arrêter en cours.
     texte:
-      "Billing follows progress, file by file. If a batch of 200 stops at the 150th, 150 are charged — and those 150 results are yours, available right away. An outage on our side is retried automatically, with no new credit. If a source file is what blocks, we tell you which one — you fix it and run it again on the same credit, as many times as it takes.",
+      "A batch of 200 contracts costs the price of one task, not 200. Two treatments are the exception and are counted per item: image processing and mail merge. There, only the items produced are charged — if a batch of 200 stops at the 150th, those 150 results are yours, available right away.",
   },
   {
     Icone: IconAdjustments,
@@ -143,8 +158,13 @@ const FACTURATION = [
     // dilue pas — pas d'astérisque, pas de « dans la plupart des cas », pas de
     // renvoi aux conditions. Si elle ne peut pas s'écrire telle quelle, c'est
     // qu'elle est fausse.
+    //
+    // Sa justification a changé, pas sa portée : elle s'appuyait sur un débit
+    // « qui suit l'avancement », mécanisme qui n'existe que pour deux moteurs.
+    // Le forfait la rend plus simple à tenir — un prix fixé avant le lancement
+    // ne peut pas dériver — donc la phrase se garde, avec sa vraie raison.
     texte:
-      "The assistant shows you what the task will produce and what it will cost, before anything is charged. The dry run costs nothing: you adjust until it matches, then you launch. If your balance is not enough, we tell you before it starts. And because billing follows progress, you will never pay more than the amount shown.",
+      "The assistant shows you what the task will produce and what it will cost, before anything is charged. The dry run costs nothing: you adjust until it matches, then you launch. If your balance is not enough, we tell you before it starts. The price is set before launch: you will never pay more than the amount shown.",
   },
 ] as const;
 
@@ -210,7 +230,7 @@ export default function TarifsPageEn() {
             <TitreSection>The cost per task.</TitreSection>
             <p className="mt-4 max-w-[54ch] text-sm leading-relaxed text-white/85">
               A small task costs little; a heavy render costs more. The amount
-              is charged as the task progresses.
+              does not depend on the volume handled: a task costs its price.
             </p>
           </Reveal>
           <Reveal delay={0.1} className="mt-10">
@@ -253,7 +273,8 @@ export default function TarifsPageEn() {
             <SurTitre>What is billed</SurTitre>
             <TitreSection>What draws credits.</TitreSection>
             <p className="mt-4 max-w-[54ch] text-sm leading-relaxed text-white/85">
-              Billing follows the progress of a task. Here is what counts as a
+              The price applies to the task, not to the volume it handles. Here
+              is what counts as a
               task.
             </p>
           </Reveal>

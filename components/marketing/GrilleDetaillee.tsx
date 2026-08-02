@@ -4,8 +4,11 @@ import {
   CREDIT_EN_DEVISE,
   DEVISE,
   coutDe,
+  estALaPiece,
   libelleDe,
   tarifAVenir,
+  uniteDe,
+  uniteExceptionDe,
   type TypeTache,
 } from "./offre";
 import type { Bilingue, Exemple, Lang } from "./tokens";
@@ -24,15 +27,20 @@ const nf = new Intl.NumberFormat("fr-CA");
  * l'exemple les affiche tels quels — un tarif qui change met donc l'exemple à
  * jour tout seul, au lieu de le laisser mentir.
  *
- * `exemple` décrit un **volume traité**, et le montant affiché à côté est le
- * tarif du type multiplié par ce volume (voir `coutExemple`). C'est la règle de
- * facturation réelle : le débit suit l'avancement, unité par unité — « 200
- * contrats = 50 crédits » est donc exact à 0,25 le contrat.
+ * `exemple` décrit un **nombre de tâches**, et le montant affiché à côté est le
+ * tarif du type multiplié par ce nombre (voir `coutExemple`).
  *
- * Ce commentaire décrivait auparavant la règle inverse (un débit forfaitaire
- * par tâche, sans multiplication), qui ne correspondait déjà plus au calcul
- * juste en dessous. Corrigé ici pour que la prochaine relecture ne « répare »
- * pas le code d'après un commentaire périmé.
+ * La règle de facturation réelle est le **forfait par tâche** : une tâche coûte
+ * son prix quel que soit le volume qu'elle traite. Un lot de 200 contrats
+ * convertis est une tâche à 0,25, pas 200. Deux exceptions se comptent à la
+ * pièce, et elles sont déclarées dans `offre.ts` (`unite`, `uniteException`) :
+ * le traitement d'images, et le publipostage.
+ *
+ * Ce commentaire a déjà affirmé l'inverse — « le débit suit l'avancement, unité
+ * par unité », donné comme règle générale — et cette erreur s'était propagée
+ * aux exemples et à la page /tarifs. Une ligne d'exemple qui nomme un volume de
+ * contenu (« 200 contrats ») au lieu d'un nombre de tâches multiplie donc le
+ * prix affiché par ce volume : c'est le piège à ne pas rouvrir.
  *
  * `details` détaille une ligne qui en regroupe plusieurs.
  */
@@ -56,7 +64,10 @@ const LIGNES: readonly {
       fr: "Traduction, conversion, traitement par lots",
       en: "Translation, conversion, batch processing",
     },
-    exemple: { quantite: 200, unite: { fr: "contrats", en: "contracts" } },
+    // 20 tâches, et non « 200 contrats » : au forfait, le volume d'un lot
+    // n'entre pas dans le prix. L'ancienne formulation multipliait le tarif par
+    // le nombre de fichiers et annonçait 50 crédits pour une tâche à 0,25.
+    exemple: { quantite: 20, unite: { fr: "tâches", en: "tasks" } },
   },
   {
     type: "Données",
@@ -72,7 +83,7 @@ const LIGNES: readonly {
       fr: "Encodage, conversion audio/vidéo",
       en: "Encoding, audio/video conversion",
     },
-    exemple: { quantite: 40, unite: { fr: "exports", en: "exports" } },
+    exemple: { quantite: 40, unite: { fr: "tâches", en: "tasks" } },
   },
   {
     type: "Scraping",
@@ -96,7 +107,7 @@ const LIGNES: readonly {
       fr: "Rendu 3D / scènes lourdes",
       en: "3D rendering / heavy scenes",
     },
-    exemple: { quantite: 33, unite: { fr: "rendus", en: "renders" } },
+    exemple: { quantite: 33, unite: { fr: "tâches", en: "tasks" } },
   },
   {
     type: "Images",
@@ -114,6 +125,8 @@ const LIGNES: readonly {
         "AI vision analysis: describe, classify, detect, OCR",
       ],
     },
+    // Seul moteur facturé à la pièce : ici la multiplication est la règle, et
+    // 100 images coûtent bien 25 crédits. Voir `unite` dans `offre.ts`.
     exemple: { quantite: 100, unite: { fr: "images", en: "images" } },
   },
   {
@@ -125,7 +138,10 @@ const LIGNES: readonly {
       fr: ["Texte → image", "Agrandissement IA ×4"],
       en: ["Text → image", "AI upscale ×4"],
     },
-    exemple: { quantite: 20, unite: { fr: "images", en: "images" } },
+    // « images » et non « tâches » : le détail juste au-dessus dit « Texte →
+    // image », donc une tâche produit une image et les deux comptes coïncident.
+    // C'est la seule ligne au forfait où nommer le produit reste exact.
+    exemple: { quantite: 100, unite: { fr: "images", en: "images" } },
   },
   {
     type: "Impression 3D",
@@ -137,7 +153,7 @@ const LIGNES: readonly {
       fr: ["Texte → modèle 3D"],
       en: ["Text → 3D model"],
     },
-    exemple: { quantite: 200, unite: { fr: "modèles", en: "models" } },
+    exemple: { quantite: 200, unite: { fr: "tâches", en: "tasks" } },
   },
   {
     type: "Simulation",
@@ -191,12 +207,15 @@ const TABLEAU: Record<
     description: string;
     prix: string;
     exemple: string;
-    /** Complément sous le tableau. Absent quand la ligne d'équivalence des
-     *  crédits se suffit — c'est le cas en français depuis que le titre de
-     *  section dit déjà « Le coût par tâche » : le répéter en pied n'ajoutait
-     *  rien et rouvrait la question du moment du débit, réglée plus haut par
-     *  « débité à mesure que la tâche avance ». */
-    pied?: string;
+    /**
+     * Le forfait, dit en clair sous le tableau — dans les deux langues.
+     *
+     * C'est la phrase qui manquait : le malentendu naissait de ce que rien ne
+     * disait qu'un lot ne coûte pas plus cher qu'une tâche. Elle remplace un
+     * « Cost charged per task. » qui n'existait qu'en anglais et qui répétait
+     * la légende sans rien ajouter.
+     */
+    forfait: string;
   }
 > = {
   fr: {
@@ -206,6 +225,8 @@ const TABLEAU: Record<
     description: "Description",
     prix: "Prix",
     exemple: "Exemple",
+    forfait:
+      "Une tâche coûte le même prix quel que soit le volume qu’elle traite. Deux exceptions se comptent à la pièce, signalées dans la colonne Prix.",
   },
   en: {
     titre: "Pricing · Cloud Paradise",
@@ -214,7 +235,8 @@ const TABLEAU: Record<
     description: "Description",
     prix: "Price",
     exemple: "Example",
-    pied: "Cost charged per task.",
+    forfait:
+      "A task costs the same whatever volume it handles. Two exceptions are counted per item, flagged in the Price column.",
   },
 };
 
@@ -286,9 +308,9 @@ export function GrilleDetaillee({ lang = "fr" }: Readonly<{ lang?: Lang }>) {
         </div>
       </WindowCard>
 
-      <p className="mt-3 text-[12px] text-white/70">
+      <p className="mt-3 max-w-[68ch] text-[12px] leading-relaxed text-white/75">
         1 {lang === "en" ? "credit" : "crédit"} ={" "}
-        {nf.format(CREDIT_EN_DEVISE)} {DEVISE}.{tt.pied ? ` ${tt.pied}` : ""}
+        {nf.format(CREDIT_EN_DEVISE)} {DEVISE}. {tt.forfait}
       </p>
     </div>
   );
@@ -329,6 +351,14 @@ function SousLignes({
  * Tant qu'un tarif n'est pas arrêté, on le dit — en atténué et sans graisse,
  * pour que l'absence de chiffre se lise comme une information et non comme un
  * champ resté vide.
+ *
+ * L'unité n'apparaît que sur les deux exceptions. La suffixer partout
+ * apprendrait à l'œil à sauter cette ligne, et la neutraliserait précisément là
+ * où elle compte : la légende du tableau dit déjà « par tâche », exact pour
+ * neuf moteurs sur onze, et c'est elle qui fait des deux autres des exceptions
+ * lisibles. Le suffixe se lit d'un tenant avec le montant — « 0,25 par image »
+ * — là où une colonne séparée obligerait un lecteur d'écran à réassocier
+ * l'en-tête et la cellule.
  */
 function Prix({ type, lang }: Readonly<{ type: TypeTache; lang: Lang }>) {
   const cout = coutDe(type);
@@ -341,12 +371,30 @@ function Prix({ type, lang }: Readonly<{ type: TypeTache; lang: Lang }>) {
     );
   }
 
+  const exception = uniteExceptionDe(type, lang);
+  const par = lang === "en" ? "per" : "par";
+
   return (
-    <span
-      className="font-display text-[16px] font-bold tabular-nums"
-      style={{ color: "var(--cta)" }}
-    >
-      {nfCredit.format(cout)}
+    <span className="inline-flex flex-col items-end gap-0.5">
+      <span
+        className="font-display text-[16px] font-bold tabular-nums"
+        style={{ color: "var(--cta)" }}
+      >
+        {nfCredit.format(cout)}
+      </span>
+      {estALaPiece(type) && (
+        // Chaîne composée en JS et non « {par} {unite} » : deux expressions
+        // adjacentes en JSX sortent séparées par un commentaire de React, ce
+        // qui casse la copie du texte et le débit d'un lecteur d'écran.
+        <span className="text-[11px] leading-tight whitespace-nowrap text-white/75">
+          {`${par} ${uniteDe(type, lang)}`}
+        </span>
+      )}
+      {exception && (
+        <span className="text-[11px] leading-tight text-white/75">
+          {exception}
+        </span>
+      )}
     </span>
   );
 }

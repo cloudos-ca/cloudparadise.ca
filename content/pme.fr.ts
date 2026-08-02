@@ -212,8 +212,8 @@ export const PME_FR: ContenuPme = {
       },
       {
         cle: "traite",
-        titre: "Vous ne payez que ce qui est traité",
-        texte: "Le débit suit l’avancement, fichier par fichier.",
+        titre: "Un prix par tâche",
+        texte: "Un lot coûte le prix d’une tâche, quel que soit son volume.",
       },
       {
         cle: "consulter",
