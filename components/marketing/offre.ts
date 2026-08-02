@@ -129,6 +129,21 @@ export const GRILLE = [
     libelle: { fr: "Simulation", en: "Simulation" },
     cout: 0.5,
   },
+  {
+    // Ajouté le 2026-08-02. Il était déjà annoncé comme fonctionnalité sur
+    // /fonctions et /en/features, sans prix — et une fonctionnalité annoncée
+    // sans prix se lit comme gratuite ou comme un devis. Les deux sont faux :
+    // c'est 0,50. Les trois autres moteurs facturés par l'application et
+    // absents d'ici (Téléchargement, Marketplace, Jeux) restent dehors ;
+    // celui-ci porte le positionnement de /mines, son absence coûtait quelque
+    // chose.
+    //
+    // `type` reste à confronter à l'identifiant interne de l'application : il
+    // a été choisi ici sans accès au dépôt du produit.
+    type: "Géomatique",
+    libelle: { fr: "Géomatique et SIG", en: "Geomatics and GIS" },
+    cout: 0.5,
+  },
 ] as const;
 
 export type TypeTache = (typeof GRILLE)[number]["type"];

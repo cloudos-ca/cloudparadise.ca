@@ -208,7 +208,9 @@ const SECTIONS: readonly SectionFonctions[] = [
       // dessous : sur une page de référence, c'est la ligne nommée qui répond
       // au Ctrl-F d'un évaluateur, pas le résumé qui la précède.
       {
-        nom: "Geomatics and GIS",
+        // Le nom vient de `offre.ts` depuis que le mode est facturé : il était
+        // écrit ici en dur du temps où il n'avait pas de prix.
+        nom: libelleDe("Géomatique", "en"),
         texte: "Reprojection, layer cross-referencing, export.",
         lien: MINES,
       },

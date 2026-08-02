@@ -1,64 +1,100 @@
-# Arbitrages ouverts — 2026-08-02
+# Arbitrages — 2026-08-02
 
-Relevés en corrigeant la grille de tarifs et les promesses d'échelle. **Aucun n'est une
-modification** : ce sont des décisions qui appartiennent au propriétaire, au juriste, ou à
-l'équipe applicative. Ils sont classés par urgence.
-
----
-
-## 1. CGU contre code — pour le juriste
-
-Le bloc **« Débit des crédits »** (`app/(marketing)/conditions/page.tsx`, et son miroir
-`app/en/terms/page.tsx`) promet trois choses que le produit ne fait pas :
-
-| Le contrat dit | Le code fait |
-|---|---|
-| les crédits sont débités « à mesure que le Job progresse, **et non à son lancement** » | `chargeForJob` débite au lancement, avant création du job |
-| un Job interrompu par une panne « est repris **sans nouveau débit** » | `failJob` ne rembourse rien |
-| après une erreur, « vous pouvez corriger puis **relancer sur le même crédit** » | rien ne rembourse ; une relance est un nouveau débit |
-
-**L'écart a changé de sens.** Ces clauses étaient réputées plus dures que le produit ; elles
-sont en réalité plus généreuses. Et elles sont en ligne et indexables depuis le 2026-07-31.
-
-Le texte n'a pas été retouché — réécrire un document contractuel n'est pas une décision de la
-vitrine. L'écart est marqué en commentaire dans les deux fichiers, à l'endroit exact.
-
-**À noter aussi :** la même relance gratuite figurait sur `/tarifs` et `/en/pricing` en langage
-courant. Elle en a été **retirée**, pas adoucie — une promesse de ce genre ne peut pas être
-atténuée sans devenir creuse. Si le comportement existe réellement sous une autre forme, la
-phrase peut revenir ; elle a besoin d'être confirmée contre le code d'abord.
+Relevés en corrigeant la grille de tarifs et les promesses d'échelle, puis tranchés le jour même
+contre le code applicatif. Ce fichier garde la trace de **ce qui a été décidé et pourquoi**, et
+de ce qui reste à faire — côté vitrine comme côté application.
 
 ---
 
-## 2. Tâche au forfait interrompue — pour l'équipe applicative
+## 1. Les CGU en ligne — ce n'était pas un arbitrage
 
-Confirmé : au forfait, une tâche arrêtée à 75 % est facturée à 100 %, et une tâche qui échoue
-aussi. C'est ce qui a fait tomber le titre « Vous ne payez que ce qui est traité », remplacé par
-« Un prix par tâche, quel que soit le volume ».
+Le bloc « Débit des crédits » publié décrit un débit à l'avancement que le code ne fait pas.
+Mais **le bon texte existe déjà** : `docs/conditions-utilisation.md` §6.4 (brouillon du
+22 juillet, jamais commité, dans le dépôt applicatif) décrit exactement le comportement réel —
+traitement unitaire débité à la soumission, traitement par lot débité à la pièce au fur et à
+mesure, reprise au dernier point de contrôle sans double facturation. Vérifié ligne par ligne :
+`chargeForItem` (`src/lib/billing/credits.ts:109`), la garde `@unique([jobId, itemKey])`, et
+`resumable-batch.ts`.
 
-Question ouverte : **est-ce le comportement voulu ?** Une panne d'infrastructure facturée au
-client est exactement le genre de chose qui produit une demande de remboursement, et les CGU
-promettent déjà le contraire (§1).
+**Le travail n'est donc pas de réécrire un contrat, c'est de publier le brouillon existant à la
+place du texte en ligne.** Une correction, pas une décision.
+
+> ⏳ **Bloqué côté vitrine.** Le brouillon vit dans le dépôt applicatif, absent de la machine où
+> tourne le site. Le §6.4 complet est nécessaire — l'extrait connu porte une élision, et on ne
+> publie pas un texte contractuel reconstitué de mémoire. Une fois le fichier fourni, le
+> remplacement dans `app/(marketing)/conditions/page.tsx` et `app/en/terms/page.tsx` est
+> mécanique.
+
+### Le vrai défaut, lui, survit — et il est en production
+
+§6.4 promet un ajustement « en cas de défaillance avérée de notre infrastructure », et renvoie à
+la Politique de remboursement. Or son §2 (`src/lib/legal/content.ts:149`) refuse explicitement
+les crédits d'un traitement « qu'il ait échoué, ou qu'il ait été annulé ».
+
+**Le contrat renvoie à une politique qui refuse ce que le contrat offre.**
+
+Décision : **ouvrir une exception au §2 pour la défaillance d'infrastructure**, plutôt que de
+retirer la promesse du §6.4. La promesse est déjà étroite — défaillance avérée, sans résultat
+exploitable, sur demande, traitée manuellement — et à six inscrits, l'honorer ne coûte rien.
+C'est aussi la clause qui désamorce le point 2.
 
 ---
 
-## 3. Géomatique / SIG dans la grille facturée — pour le propriétaire
+## 2. Forfait interrompu — rembourser la faute, pas le prorata ✅ tranché
 
-Quatre moteurs facturés par l'application n'apparaissent pas dans la grille de la vitrine :
-Téléchargement, Géomatique/SIG, Marketplace, Jeux. Trois restent dehors sans hésitation — Jeux
-n'a rien à faire sur une vitrine B2B, Téléchargement est trivial, Marketplace est difficile à
-expliquer.
+Le prorata est impossible pour les moteurs au forfait : un calcul GPU est indivisible, il n'y a
+pas de « 75 % » à facturer. La machinerie à la pièce existe déjà et couvre les seuls cas où
+« progression » veut dire quelque chose.
 
-**Le SIG est le seul cas à trancher.** Il sert directement le positionnement de `/mines`, et il
-apparaît déjà comme fonctionnalité sans prix (`fonctions/page.tsx`, `en/features/page.tsx`).
-L'ajouter à `GRILLE` lui donnerait un prix affiché, un exemple chiffré, et une ligne dans le
-tableau des CGU.
+**La distinction qui compte n'est pas combien, mais à qui la faute** — et le §6.4 la pose déjà
+correctement : contenu invalide → facturable ; notre infrastructure tombe → remboursé.
+
+Côté code, c'est petit : `failJob` reçoit déjà `errorMessage` et `executionKind`, le ledger a
+déjà le genre `REFUND` et une colonne `jobId`. Il manque une classification de l'erreur et une
+ligne compensatoire.
+
+**Deux pièges :**
+- Pour un lot, ne rembourser que les `billedUnits` réellement débités.
+- Rendre l'opération **idempotente sur `(jobId, REFUND)`** — sinon un rejeu double le
+  remboursement.
+
+**Ne pas rembourser l'annulation manuelle.** Lancer, regarder le journal, annuler si ça se
+présente mal : c'est du calcul gratuit.
+
+*→ Chantier applicatif.*
 
 ---
 
-## 4. Plafonds contre promesses — décision d'infrastructure
+## 3. Géomatique / SIG dans la grille ✅ fait
 
-Limites imposées en dur par les agents :
+Ajouté à `GRILLE` à 0,50, avec sa ligne dans le tableau détaillé et son libellé désormais lu
+depuis `offre.ts` sur `/fonctions` et `/en/features`.
+
+La raison : il était déjà annoncé comme fonctionnalité **sans prix**, et une fonctionnalité
+annoncée sans prix se lit comme gratuite ou comme un devis. Les deux étaient faux. Il porte en
+plus le positionnement de `/mines`.
+
+Les trois autres moteurs facturés par l'application et absents d'ici — Téléchargement,
+Marketplace, Jeux — restent dehors : Jeux n'a rien à faire sur une vitrine B2B, Téléchargement
+est trivial, Marketplace est difficile à expliquer.
+
+> ⚠️ L'identifiant interne `"Géomatique"` a été choisi sans accès au dépôt du produit. À
+> confronter au nom réel du mode dans `pricing.ts`.
+
+---
+
+## 4. Plafonds et prix — une seule décision, deux variables ✅ tranché
+
+Le couplage n'était pas visible dans la première version de cette note : `pricing.ts:29-33`
+justifie explicitement les 0,50 $ du calcul GPU **par** le plafond de 2 minutes. Relever le
+plafond invalide le prix. Ce ne sont donc pas deux voies ouvertes, mais une décision unique.
+
+**Retenu : assumer le repositionnement.** Calcul court, exact, en double précision — ce que le
+site dit maintenant, et qui est vérifiable.
+
+**Et publier les plafonds** dans la documentation technique et les CGU — **jamais sur les pages
+de vente**. Un plafond non publié n'empêche personne d'acheter des crédits puis de buter dessus,
+et ce client-là produit exactement la demande de remboursement du point 2.
 
 | Moteur | Plafond |
 |---|---|
@@ -66,57 +102,51 @@ Limites imposées en dur par les agents :
 | Média | 30 minutes, entrée ≤ 200 Mo |
 | Rendu 3D | 10 images maximum, 30 minutes |
 
-Le site n'annonce aucune de ces limites, et n'en annonce toujours aucune : les publier
-transformerait une page de vente en fiche technique. Ce qui a changé, c'est que les démonstrations
-ne montrent plus de volumes que ces plafonds interdisent, et que « la puissance » a cédé la place
-à « le calcul exact ».
+> ⏳ **Côté vitrine, à faire avec le point 1** : les plafonds entrent dans les CGU, dans le même
+> passage que le §6.4. Les deux modifications touchent le même bloc — les faire ensemble évite
+> de rouvrir un texte contractuel deux fois.
 
-**Deux voies restent ouvertes**, et elles ne sont pas à la vitrine :
-
-1. **Relever les plafonds**, si l'ambition est le calcul lourd au sens où on l'entend d'habitude.
-2. **Assumer le repositionnement** en calcul court, exact, en double précision — ce que le site
-   dit maintenant, et qui est vérifiable.
-
-Ce qui n'est pas une option : publier une fiche technique matérielle. Numéros de modèle et
-comparaisons chiffrées avec d'autres cartes restent exclus par `PLAN_CONTENU_VITRINE.md:225`.
+Ce qui reste exclu : numéros de modèle, fiches techniques, comparaisons chiffrées avec d'autres
+cartes (`PLAN_CONTENU_VITRINE.md:225`). Les plafonds sont des limites d'usage, pas du matériel.
 
 ---
 
-## 5. Capture de la source d'inscription — pour l'équipe applicative
+## 5 + 7. Traçabilité et ciblage — un seul chantier ✅ tranché
 
-Les liens du site portent maintenant `?src=<page>-<emplacement>` : `topbar`, `accueil-hero`,
-`calcul-premier-essai`, `tarifs-closer`… 24 points d'appel, tous passant par `lienInscription()`
-dans `lib/site.ts`.
+Les deux points n'en font qu'un : le point 7 restera indécidable tant que le point 5 n'est pas
+instrumenté.
 
-**Rien ne le lit encore.** `recordEvent("signup")` n'enregistre que la méthode et la langue, et
-le paramètre est jeté. Le travail restant est côté application — une trentaine de lignes, à
-porter à travers l'inscription, confirmation de courriel comprise. Tant que ce n'est pas fait,
-la traçabilité des canaux n'existe pas et ne doit pas être présentée comme disponible.
+Le site pose maintenant `?src=<page>-<emplacement>` sur ses 24 liens d'inscription
+(`lienInscription()` dans `lib/site.ts`). **Mais le paramètre ne suffit pas** : il est perdu au
+retour de confirmation de courriel, et perdu d'emblée sur le chemin OAuth, où la redirection ne
+le conserve pas. Ce sont ces deux cas qui font le travail, pas la lecture du query string.
 
----
+**Retenu : une colonne `signupSource String?` sur `User`**, posée à l'inscription, lue une fois
+par `recordEvent("signup")`.
 
-## 6. Annoncer les baisses de prix — pour le propriétaire
+*→ Chantier applicatif.*
 
-Trois baisses notables le 2026-08-02 : génération d'images 2,00 → 0,25, rendu 3D 3,00 → 1,00,
-calcul GPU 2,00 → 0,50.
-
-Le site affiche les nouveaux prix ; il **n'annonce pas** qu'ils ont baissé. Annoncer une baisse
-est une décision commerciale, pas une correction — et elle a un coût : elle apprend au visiteur
-que les prix bougent, ce qui invite à attendre la prochaine.
+Sur le ciblage (ex-point 7) : le site met en avant l'exploration minière, les inscrits réels
+sont une clinique vétérinaire et une entreprise de stucco. **Six inscrits ne sont pas un
+échantillon** — rien n'a été réécrit, et rien ne le sera avant que `signupSource` produise de
+quoi trancher. Le positionnement reste horizontal, avec `/mines` en soutien de vente.
 
 ---
 
-## 7. Ciblage — signalé, rien réécrit
+## 6. Le prix, pas la baisse ✅ tranché
 
-Le site met en avant l'exploration minière (GESTIM, NI 43-101, SIGÉOM), en page dédiée et en
-section d'accueil. Les inscrits réels sont une **clinique vétérinaire** et une **entreprise de
-stucco**. Aucun profil minier.
+Annoncer une baisse apprend au visiteur que les prix bougent, donc à attendre la suivante. Le
+gain commercial s'obtient sans ce coût en énonçant le prix **comme une affirmation** plutôt que
+comme un mouvement — « 0,25 $ l'image générée », et non « deux fois moins cher qu'avant ».
 
-Deux lectures possibles — le positionnement minier n'atteint pas sa cible, ou l'acquisition
-amène des PME généralistes que la page minière ne sert pas — et pas de quoi choisir :
-**six inscrits ne sont pas un échantillon.** Rien n'a été réécrit sur cette base. Le
-positionnement reste ce que `PLAN_CONTENU_VITRINE.md` a posé : horizontal, avec `/mines` en
-soutien de vente.
+> ⏳ **À faire côté vitrine.** La formulation non comparative peut s'écrire tout de suite. Une
+> comparaison au marché, elle, aurait besoin d'une source vérifiable sur les prix des
+> concurrents : rien ici ne permet de l'affirmer.
+
+**Une chose à faire tout de suite, et qui n'est pas sur le site :** les crédits sont des
+dollars, donc les six inscrits ont un solde qui vaut maintenant quatre fois plus en images
+générées et quatre fois plus en calcul GPU. C'est une bonne nouvelle que personne ne voit. Un
+courriel à six personnes — **sans le mot « baisse »**.
 
 ---
 
@@ -132,3 +162,5 @@ Pour mémoire, et parce que ces points-là ne se rediscutent pas — ils étaien
 - **`unitText: "tâche"`** posé sur tous les moteurs dans le JSON-LD, Images comprise.
 - **« Répartition en 12 segments »** dans la démo du héros : l'agent média lance un unique
   processus ffmpeg, il n'existe aucune segmentation parallèle.
+- **Les clauses de reprise et de relance gratuite** retirées de `/tarifs` et `/en/pricing` en
+  attendant le point 1 — elles reviendront avec le texte du §6.4, qui les décrit correctement.

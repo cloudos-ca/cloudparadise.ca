@@ -163,6 +163,18 @@ const LIGNES: readonly {
       unite: { fr: "simulations", en: "simulations" },
     },
   },
+  {
+    type: "Géomatique",
+    fait: {
+      fr: "Reprojection, croisement de couches, export",
+      en: "Reprojection, layer overlay, export",
+    },
+    details: {
+      fr: ["NAD83 UTM 17N et 18N, MTM", "Import .gpkg, .geojson, .kml, shapefile"],
+      en: ["NAD83 UTM 17N and 18N, MTM", "Import .gpkg, .geojson, .kml, shapefile"],
+    },
+    exemple: { quantite: 100, unite: { fr: "tâches", en: "tasks" } },
+  },
 ];
 
 /** Coût d'un exemple, arrondi au centième près comme les crédits. */
