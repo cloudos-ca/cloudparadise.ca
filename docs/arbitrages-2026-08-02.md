@@ -61,7 +61,50 @@ ligne compensatoire.
 **Ne pas rembourser l'annulation manuelle.** Lancer, regarder le journal, annuler si ça se
 présente mal : c'est du calcul gratuit.
 
-*→ Chantier applicatif.*
+*→ Chantier applicatif. Spec arrêtée le 2026-08-02, à exécuter dans `cloudparadise_hpc`.*
+
+### Spec — classification de l'erreur
+
+Trois classes, pas deux. La distinction manquante est celle qui décide du reste :
+
+| Classe | Exemples | Débit |
+|---|---|---|
+| `LIMIT` | timeout à 2 min sur le plafond GPU, source > 512 Ko, média > 30 min ou 200 Mo, rendu > 10 images | **facturé** |
+| `USER` | contenu invalide, instructions erronées, fichier source illisible | **facturé** (§6.4) |
+| `INFRA` | hôte à court de mémoire, agent injoignable, pilote qui tombe, conteneur tué, base indisponible | **remboursé** |
+
+**`LIMIT` n'est pas une défaillance.** C'est le produit qui fonctionne comme annoncé — d'autant
+plus une fois les plafonds publiés (point 4). Si le classement met un timeout de plafond et une
+panne d'hôte dans le même seau, on rembourse ce qu'on a le droit de facturer, et le plafond
+publié ne veut plus rien dire.
+
+**Cas non classé : rembourser, et journaliser pour relecture.** Un remboursement injustifié
+coûte 0,50 $ ; un débit injustifié coûte un client. À six inscrits, l'asymétrie est écrasante.
+*Ce défaut de sécurité est une recommandation, pas une évidence — à confirmer.*
+
+### Spec — le remboursement
+
+- **Montant** : uniquement les `billedUnits` réellement débités. Au forfait, le débit unique de
+  la tâche ; à la pièce, la somme des seules pièces facturées.
+- **Idempotence** : contrainte d'unicité en base sur `(jobId, kind = REFUND)`, pas une
+  vérification applicative — un rejeu ne doit pas pouvoir doubler la ligne. Si un jour un job
+  peut être remboursé en plusieurs fois, la clé devient `(jobId, itemKey, kind)`.
+- **Annulation** : `cancelJob` ne rembourse pas. Mais la distinction porte sur **qui** annule,
+  pas sur la fonction appelée : une annulation déclenchée par le système à la suite d'un
+  incident est un `INFRA`, pas un renoncement du client. Si les deux passent aujourd'hui par le
+  même chemin, il faut les séparer avant de brancher le remboursement.
+
+### Ce que ce code engage
+
+La fonction de classification **devient la définition opérationnelle** de « défaillance avérée
+de notre infrastructure » au §6.4. Ce n'est plus seulement du code : c'est un terme contractuel.
+Un commentaire doit le dire à l'endroit du classement, et toute modification ultérieure du
+classifieur change le sens du contrat.
+
+**Ordre de livraison :** l'exception au §2 de la Politique de remboursement passe **avant ou
+avec** ce code. Sinon le produit devient plus généreux que la politique publiée — moins grave
+que l'inverse, mais toujours incohérent, et c'est cette incohérence-là qu'on est en train de
+refermer.
 
 ---
 
