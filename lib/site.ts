@@ -16,7 +16,7 @@
  */
 
 /**
- * Vrai en production, faux partout ailleurs (dev.cloudparadise.cloud, aperçus,
+ * Vrai en production, faux partout ailleurs (cloudparadise.dev, aperçus,
  * local).
  *
  * Le défaut est « production » **volontairement**, et c'est le point délicat
@@ -56,13 +56,15 @@ export const EST_PRODUCTION =
 /**
  * Origine de la vitrine.
  *
- * Trois adresses, trois rôles, et elles ne bougent pas :
+ * Trois adresses, trois rôles :
  *   - `cloudparadise.ca` — la vitrine publique ;
  *   - `app.cloudparadise.cloud` — l'application (voir `APP_URL`) ;
- *   - `dev.cloudparadise.cloud` — cet environnement-ci.
+ *   - `cloudparadise.dev` — cet environnement-ci.
  *
- * Seule la vitrine est sur `.ca`. Le `.cloud` reste un domaine de service pour
- * les deux autres — ce n'est donc pas un domaine à faire disparaître.
+ * Une extension par rôle. Le `.ca` est celui du public ; le `.cloud` reste le
+ * domaine de service de l'application, ce n'est donc pas un domaine à faire
+ * disparaître ; le développement a désormais le sien, `cloudparadise.dev`, et
+ * n'habite plus `dev.cloudparadise.cloud`.
  *
  * La forme canonique est l'apex, sans `www` — c'est ce vers quoi la
  * redirection `www` pointe déjà (`next.config.ts`), et il faut que les deux
@@ -77,7 +79,7 @@ export const EST_PRODUCTION =
  */
 export const SITE_URL = EST_PRODUCTION
   ? "https://cloudparadise.ca"
-  : "https://dev.cloudparadise.cloud";
+  : "https://cloudparadise.dev";
 
 /**
  * Origine de l'application — le produit, pas la vitrine.
