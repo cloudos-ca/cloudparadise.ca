@@ -227,8 +227,18 @@ courriel à six personnes — **sans le mot « baisse »**.
 
 | Où | Quoi |
 |---|---|
-| **Politique de confidentialité §6** | Dit : « Nous n'utilisons pas, à ce jour, de témoins publicitaires **ni de traceurs de tiers à des fins de mesure d'audience** ». **Le site fait tourner Matomo**, avec bandeau de consentement Loi 25 (`PopupLoi25` monté dans les deux layouts, `MatomoAnalytics`, CSP ouverte sur `matomo.cloudparadise.cloud`). La page en ligne le documente déjà correctement — mesure d'audience nommée, auto-hébergée, sous consentement explicite. **Publier ce brouillon ferait dire au site qu'il ne mesure rien pendant qu'il mesure.** Le document est daté du 30 juillet : il précède la mise en place. |
+| **Politique de confidentialité §6** | Dit : « Nous n'utilisons pas, à ce jour, de témoins publicitaires **ni de traceurs de tiers à des fins de mesure d'audience** ». C'est exact **pour l'application**, qui n'a pas de Matomo — mais le document déclare à sa ligne 5 s'appliquer « au site, à l'application et à toute fonctionnalité qui y est rattachée », et le site vitrine, lui, fait tourner Matomo sous bandeau Loi 25 (`PopupLoi25` dans les deux layouts, CSP ouverte sur `matomo.cloudparadise.cloud`). **Publier ce brouillon ferait dire au site qu'il ne mesure rien pendant qu'il mesure.** Le document est daté du 30 juillet : il précède la mise en place. La page en ligne est déjà meilleure et vient d'être précisée (voir ci-dessous). |
 | **CGU §4** | Conserve « GPU, CPU à **haute capacité**, mémoire vive **massive** » — exactement les deux superlatifs non quantifiés retirés du site le 2026-08-02. À aligner sur « GPU, CPU et mémoire réservés au calcul » avant publication, sinon la correction se défait. |
+
+### ✅ Ce que la remarque « il n'y a pas de Matomo sur l'app » a corrigé
+
+Une seule politique couvre les deux propriétés — la page en ligne parle bien des fichiers
+téléversés et des journaux de tâches, qui sont de l'application. Elle disait donc « nous
+utilisons Matomo » **sans portée**, ce qu'un utilisateur de l'application lit comme « je suis
+mesuré ». C'était faux, et l'omission affaiblissait sans raison l'argument de souveraineté.
+
+Corrigé aux sections 4 et 6, FR et EN : **la mesure ne porte que sur le site vitrine ;
+l'application n'en comporte aucune.** C'est plus exact et c'est plus fort.
 
 ### Défauts internes aux documents
 
