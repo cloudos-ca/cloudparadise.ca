@@ -25,18 +25,18 @@ place du texte en ligne.** Une correction, pas une décision.
 > remplacement dans `app/(marketing)/conditions/page.tsx` et `app/en/terms/page.tsx` est
 > mécanique.
 
-### Le vrai défaut, lui, survit — et il est en production
+### ✅ Contradiction refermée le 2026-08-02
 
-§6.4 promet un ajustement « en cas de défaillance avérée de notre infrastructure », et renvoie à
-la Politique de remboursement. Or son §2 (`src/lib/legal/content.ts:149`) refuse explicitement
-les crédits d'un traitement « qu'il ait échoué, ou qu'il ait été annulé ».
+§6.4 promettait un ajustement en cas de défaillance, et la Politique de remboursement §2
+refusait les crédits d'un traitement ayant échoué. **Les deux textes du 2 août concordent
+maintenant** : la Politique porte l'exception, et elle est plus forte que ce qui avait été
+envisagé — remise **automatique**, sans demande ni approbation, articles 3 à 5 écartés.
 
-**Le contrat renvoie à une politique qui refuse ce que le contrat offre.**
+### ⚠️ Mais ces documents ne se publient pas tels quels
 
-Décision : **ouvrir une exception au §2 pour la défaillance d'infrastructure**, plutôt que de
-retirer la promesse du §6.4. La promesse est déjà étroite — défaillance avérée, sans résultat
-exploitable, sur demande, traitée manuellement — et à six inscrits, l'honorer ne coûte rien.
-C'est aussi la clause qui désamorce le point 2.
+Les trois fichiers sont maintenant dans `docs/`. Ils ne sont pas uniformément en avance sur ce
+qui est en ligne : **section par section, tantôt meilleurs, tantôt en retard.** Un remplacement
+en bloc ferait donc des régressions. Le détail est plus bas, section « Les trois documents ».
 
 ---
 
@@ -67,20 +67,37 @@ présente mal : c'est du calcul gratuit.
 
 Trois classes, pas deux. La distinction manquante est celle qui décide du reste :
 
+> **Corrigé le 2026-08-03.** J'avais recommandé de facturer le dépassement de plafond : les
+> textes du 2 août tranchent l'inverse, et ce sont eux qui font foi. CGU §6.4 et Politique de
+> remboursement §2 rangent explicitement le **« dépassement du délai d'exécution que nous
+> imposons »** parmi les causes qui nous sont imputables. Un timeout à 2 minutes se rembourse
+> donc. La classification ci-dessous suit les textes.
+
 | Classe | Exemples | Débit |
 |---|---|---|
-| `LIMIT` | timeout à 2 min sur le plafond GPU, source > 512 Ko, média > 30 min ou 200 Mo, rendu > 10 images | **facturé** |
-| `USER` | contenu invalide, instructions erronées, fichier source illisible | **facturé** (§6.4) |
-| `INFRA` | hôte à court de mémoire, agent injoignable, pilote qui tombe, conteneur tué, base indisponible | **remboursé** |
+| `USER` | contenu invalide, instructions erronées, fichier source illisible, annulation volontaire, résultat jugé insatisfaisant | **facturé** (§6.4, al. 3) |
+| `INFRA` | hôte à court de mémoire, agent injoignable, pilote qui tombe, conteneur tué, base indisponible, **et dépassement du délai que nous imposons** | **remis automatiquement** |
 
-**`LIMIT` n'est pas une défaillance.** C'est le produit qui fonctionne comme annoncé — d'autant
-plus une fois les plafonds publiés (point 4). Si le classement met un timeout de plafond et une
-panne d'hôte dans le même seau, on rembourse ce qu'on a le droit de facturer, et le plafond
-publié ne veut plus rien dire.
+Les autres limites — source > 512 Ko, média > 200 Mo, rendu > 10 images — ne relèvent d'aucune
+des deux classes : ce sont des **refus à l'entrée**, avant exécution. Rien n'est débité, donc
+rien n'est à rembourser. À vérifier : si un de ces contrôles laisse aujourd'hui partir la tâche
+avant d'échouer, il débite, et il faut le remonter avant le lancement plutôt que le classer.
+
+**« Automatiquement remis » est une contrainte technique, pas une tournure.** Les deux textes
+disent « aucune démarche n'est requise », « la remise apparaît dans votre relevé de crédits, à
+la ligne du Traitement concerné », et la Politique écarte explicitement les articles 3 à 5 —
+donc pas de courriel à `support@`, pas d'approbation manuelle, pas de retour vers PayPal. C'est
+une ligne de crédit posée par `failJob`, ou la promesse n'est pas tenue.
 
 **Cas non classé : rembourser, et journaliser pour relecture.** Un remboursement injustifié
 coûte 0,50 $ ; un débit injustifié coûte un client. À six inscrits, l'asymétrie est écrasante.
 *Ce défaut de sécurité est une recommandation, pas une évidence — à confirmer.*
+
+**Conséquence à surveiller, pas à traiter maintenant :** rembourser tout dépassement de délai
+rend le plafond GPU gratuit à atteindre. À six inscrits c'est sans objet ; à l'échelle, c'est
+une voie d'abus — soumettre délibérément des tâches trop longues donne deux minutes de GPU
+gratuites à chaque fois, sans approbation. Une limite de récidive par compte suffira le moment
+venu.
 
 ### Spec — le remboursement
 
@@ -190,6 +207,54 @@ comme un mouvement — « 0,25 $ l'image générée », et non « deux fois moin
 dollars, donc les six inscrits ont un solde qui vaut maintenant quatre fois plus en images
 générées et quatre fois plus en calcul GPU. C'est une bonne nouvelle que personne ne voit. Un
 courriel à six personnes — **sans le mot « baisse »**.
+
+---
+
+## Les trois documents — relecture du 2026-08-03
+
+`docs/conditions-utilisation.md`, `docs/politique-confidentialite.md`,
+`docs/politique-remboursement.md`. Verdict : **publier par section, jamais en bloc.**
+
+### Ce qui est en avance sur le site, à publier
+
+| Où | Quoi |
+|---|---|
+| CGU §6.4 | Décrit le comportement réel — débit à la soumission pour l'unitaire, à la pièce pour le lot, reprise au point de contrôle sans double facturation, remise automatique sur défaillance. C'est le texte qui remplace le bloc « Débit des crédits » actuellement en ligne, faux depuis le 2026-07-31. |
+| Politique de remboursement | **N'existe pas sur le site.** Aucune page, aucun lien au pied de page. Un service prépayé qui encaisse par PayPal sans politique de remboursement publiée, c'est une lacune commerciale autant que juridique. À créer, FR et EN, avec son entrée sous « Légal ». |
+| CGU §6.3 | Table de prix **complète** — les quinze moteurs, avec Géomatique/SIG à 0,50 confirmé. Elle valide la grille corrigée hier, valeur par valeur. |
+
+### Ce qui est en retard sur le site, à ne surtout pas publier
+
+| Où | Quoi |
+|---|---|
+| **Politique de confidentialité §6** | Dit : « Nous n'utilisons pas, à ce jour, de témoins publicitaires **ni de traceurs de tiers à des fins de mesure d'audience** ». **Le site fait tourner Matomo**, avec bandeau de consentement Loi 25 (`PopupLoi25` monté dans les deux layouts, `MatomoAnalytics`, CSP ouverte sur `matomo.cloudparadise.cloud`). La page en ligne le documente déjà correctement — mesure d'audience nommée, auto-hébergée, sous consentement explicite. **Publier ce brouillon ferait dire au site qu'il ne mesure rien pendant qu'il mesure.** Le document est daté du 30 juillet : il précède la mise en place. |
+| **CGU §4** | Conserve « GPU, CPU à **haute capacité**, mémoire vive **massive** » — exactement les deux superlatifs non quantifiés retirés du site le 2026-08-02. À aligner sur « GPU, CPU et mémoire réservés au calcul » avant publication, sinon la correction se défait. |
+
+### Défauts internes aux documents
+
+- **Trois adresses pour une même fonction.** Les CGU écrivent `info@` six fois et `support@` une
+  fois ; la Politique de remboursement écrit `support@` trois fois ; la Politique de
+  confidentialité désigne `maxime@` comme responsable. Le cas qui gêne : CGU §6.6 envoie les
+  demandes de remboursement à `info@`, la Politique de remboursement §3 à `support@` — deux
+  documents contractuels qui donnent deux guichets pour la même démarche.
+- **Politique de remboursement §6**, note laissée dans le texte : *« À confirmer : le sort des
+  crédits non consommés au moment de la suspension. »* Une question ouverte ne se publie pas
+  dans un document contractuel ; à trancher ou à retirer.
+- **Les plafonds ne sont nulle part.** La décision du point 4 était de les publier dans les CGU.
+  Aucune des 365 lignes ne mentionne 2 minutes, 512 Ko, 200 Mo ni 10 images. À écrire — d'autant
+  que §6.4 rembourse maintenant leur dépassement, ce qui rend la limite d'autant plus légitime à
+  annoncer.
+
+### Une conséquence pour la grille du site
+
+La table §6.3 est **contractuelle**, donc complète : quinze moteurs, Téléchargement, Marketplace
+et Jeux compris. La grille du site en affiche douze — c'est un choix éditorial assumé (point 3).
+Mais la page `/conditions` **rend sa table depuis `GRILLE`** (`GrilleTarifaireLegale.tsx`) : le
+contrat publié annoncerait donc douze prix là où le document en fixe quinze.
+
+Une grille de vente peut être sélective ; une grille contractuelle, non. À régler avant de
+publier §6.3 — le plus propre est un drapeau dans `offre.ts` marquant les moteurs hors vitrine,
+lu par `GrilleTarifaireLegale` seul.
 
 ---
 
