@@ -144,7 +144,7 @@ const SECTIONS: readonly SectionRedigee[] = [
   {
     titre: "Description of the Service",
     blocs: [
-      "Cloud Paradise is a cloud platform that turns a request — expressed in natural language or via a template — into a job run on dedicated computing hardware (GPU, high-capacity CPU, massive RAM). The Service includes, among other things:",
+      "Cloud Paradise is a cloud platform that turns a request — expressed in natural language or via a template — into a job run on dedicated computing hardware (GPU, CPU and memory reserved for compute). The Service includes, among other things:",
       {
         liste: [
           { texte: "document processing (conversion, OCR, translation, sorting, mail merge, archiving);" },
@@ -230,6 +230,10 @@ const SECTIONS: readonly SectionRedigee[] = [
       {
         liste: [
           {
+            // ⚠️ CONTREDIT PAR LE CODE APPLICATIF — voir le commentaire jumeau
+            // dans `app/(marketing)/conditions/page.tsx`, bloc « Débit des
+            // crédits ». Relevé le 2026-08-02, non corrigé ici volontairement :
+            // texte contractuel, décision du juriste.
             terme: "Credit deduction.",
             texte:
               "Credits are deducted as the Run progresses, not when it starts: what has been processed is charged, what has not is not, and Results already produced remain yours. A Run interrupted by a failure of our infrastructure is retried without a further deduction. Where invalid User Content or incorrect instructions prevent a Run from completing, we tell you the cause and you may correct it and relaunch on the same credit. Computing capacity actually consumed remains billable, including where the Result you obtain does not satisfy you.",

@@ -16,7 +16,7 @@
  */
 
 /**
- * Vrai en production, faux partout ailleurs (dev.cloudparadise.cloud, aperçus,
+ * Vrai en production, faux partout ailleurs (cloudparadise.dev, aperçus,
  * local).
  *
  * Le défaut est « production » **volontairement**, et c'est le point délicat
@@ -56,13 +56,15 @@ export const EST_PRODUCTION =
 /**
  * Origine de la vitrine.
  *
- * Trois adresses, trois rôles, et elles ne bougent pas :
+ * Trois adresses, trois rôles :
  *   - `cloudparadise.ca` — la vitrine publique ;
  *   - `app.cloudparadise.cloud` — l'application (voir `APP_URL`) ;
- *   - `dev.cloudparadise.cloud` — cet environnement-ci.
+ *   - `cloudparadise.dev` — cet environnement-ci.
  *
- * Seule la vitrine est sur `.ca`. Le `.cloud` reste un domaine de service pour
- * les deux autres — ce n'est donc pas un domaine à faire disparaître.
+ * Une extension par rôle. Le `.ca` est celui du public ; le `.cloud` reste le
+ * domaine de service de l'application, ce n'est donc pas un domaine à faire
+ * disparaître ; le développement a désormais le sien, `cloudparadise.dev`, et
+ * n'habite plus `dev.cloudparadise.cloud`.
  *
  * La forme canonique est l'apex, sans `www` — c'est ce vers quoi la
  * redirection `www` pointe déjà (`next.config.ts`), et il faut que les deux
@@ -77,7 +79,7 @@ export const EST_PRODUCTION =
  */
 export const SITE_URL = EST_PRODUCTION
   ? "https://cloudparadise.ca"
-  : "https://dev.cloudparadise.cloud";
+  : "https://cloudparadise.dev";
 
 /**
  * Origine de l'application — le produit, pas la vitrine.
@@ -97,8 +99,27 @@ export const APP_URL = "https://app.cloudparadise.cloud";
 /** Connexion à un compte existant — barre de menu, menu mobile, pied de page. */
 export const LIEN_CONNEXION = `${APP_URL}/login`;
 
-/** Création de compte — tous les CTA primaires du site. */
-export const LIEN_INSCRIPTION = `${APP_URL}/register`;
+/**
+ * Création de compte — tous les CTA primaires du site.
+ *
+ * `src` nomme l'emplacement qui a produit le clic, pas la page : « d'où
+ * viennent-ils » se répond mal quand le héros et le pied de page d'une même
+ * page sont confondus. Convention `<page>-<emplacement>`, en français, la même
+ * valeur dans les deux langues — l'application enregistre déjà la langue à
+ * l'inscription, la dédoubler ici ne ferait que diviser les compteurs.
+ *
+ * **Cette donnée n'existe pas encore.** L'événement d'inscription ne retient
+ * aujourd'hui que la méthode et la langue, et le paramètre est jeté. Les liens
+ * sont prêts ; la capture reste à faire côté applicatif, confirmation de
+ * courriel comprise. Ne pas présenter la traçabilité comme disponible avant.
+ *
+ * Aucun encodage n'est appliqué : les sources sont des identifiants écrits ici,
+ * en minuscules sans accent ni espace. Une valeur qui aurait besoin d'être
+ * encodée serait une valeur mal nommée.
+ */
+export function lienInscription(src: string): string {
+  return `${APP_URL}/register?src=${src}`;
+}
 
 /**
  * Les pages du site, dans les deux langues — liste unique.

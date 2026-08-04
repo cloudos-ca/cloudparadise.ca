@@ -207,9 +207,14 @@ const SECTIONS: readonly SectionRedigee[] = [
               "the database and files are hosted on our own infrastructure (self-hosted object storage), not with a third-party cloud provider.",
           },
           {
+            // La portée est dite ici et à la section 6 : cette politique couvre
+            // aussi l'application, où il n'y a aucun Matomo. Sans la préciser,
+            // un utilisateur de l'application lit qu'il est mesuré alors qu'il
+            // ne l'est pas — et l'omission joue contre l'argument de
+            // souveraineté qu'elle affaiblit sans raison.
             terme: "Audience measurement:",
             texte:
-              "we use Matomo, an audience-measurement tool self-hosted on our own infrastructure — no browsing data is shared with a third party (in particular, not with Google Analytics). Tracking only starts after your explicit consent (see section 6).",
+              "we use Matomo, an audience-measurement tool self-hosted on our own infrastructure — no browsing data is shared with a third party (in particular, not with Google Analytics). This measurement covers the marketing site only: the application carries none. Tracking only starts after your explicit consent (see section 6).",
           },
         ],
       },
@@ -233,7 +238,7 @@ const SECTIONS: readonly SectionRedigee[] = [
           {
             terme: "Audience measurement — Matomo.",
             texte:
-              "We use Matomo, self-hosted on our own infrastructure, to know which pages are visited, how often, and which outbound links are clicked. No data is shared with a third-party service (in particular, not with Google Analytics), and this information is never used for advertising purposes.",
+              "We use Matomo, self-hosted on our own infrastructure, to know which pages of this site are visited, how often, and which outbound links are clicked. Measurement stops at this site: the application carries no audience-measurement tool. No data is shared with a third-party service (in particular, not with Google Analytics), and this information is never used for advertising purposes.",
           },
         ],
       },

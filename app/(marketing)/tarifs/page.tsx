@@ -31,7 +31,7 @@ import {
 } from "@/components/marketing/offre";
 import { SECTION_Y, SHELL } from "@/components/marketing/tokens";
 import { alternatesBilingues, openGraphPage } from "@/lib/seo";
-import { LIEN_INSCRIPTION } from "@/lib/site";
+import { lienInscription } from "@/lib/site";
 
 const TITRE = "Tarifs et crédits, sans abonnement — Cloud Paradise";
 const DESCRIPTION = `Des crédits, pas d’abonnement. ${OFFRE_EN_DEVISE} de crédits offerts à l’inscription, le coût de chaque tâche et un estimateur pour chiffrer votre budget d’avance.`;
@@ -96,9 +96,23 @@ function fluxChiffre() {
  * piliers ; l'or reste aux montants.
  *
  * Les deux derniers points sont des garanties, pas des avertissements : le
- * débit proportionnel et l'essai gratuit répondent à la crainte du paiement à
+ * forfait par tâche et l'essai gratuit répondent à la crainte du paiement à
  * l'usage. D'où la coche et les curseurs plutôt qu'une icône d'alerte — traiter
  * le sujet en rouge transformerait un argument en excuse.
+ *
+ * **Le quatrième point disait l'inverse du produit.** Il annonçait un débit
+ * « fichier par fichier » comme règle générale, sous le titre « Vous ne payez
+ * que ce qui est traité ». Or la règle est le forfait par tâche : un lot de 200
+ * contrats est une tâche à 0,25, et le débit à la pièce n'existe que pour le
+ * traitement d'images et le publipostage. Le titre était donc faux avec le
+ * corps, et pas seulement à côté : au forfait, on paie au lancement, quel que
+ * soit le résultat.
+ *
+ * Deux clauses en sont sorties — la reprise « sans nouveau crédit » après une
+ * panne, et la relance « sur le même crédit, autant de fois qu'il le faut ».
+ * Elles ne sont pas adoucies, elles sont retirées : elles ne peuvent pas être
+ * atténuées sans devenir creuses, et elles restent à confirmer contre le code
+ * de facturation. Ne pas les réécrire de mémoire.
  *
  * « Essai à blanc » et non « simulation » : la grille, deux sections plus haut,
  * facture un type de tâche nommé « Simulation ». Deux objets sous le même mot
@@ -126,12 +140,13 @@ const FACTURATION = [
   },
   {
     Icone: IconCheck,
-    titre: "Vous ne payez que ce qui est traité",
+    titre: "Un prix par tâche, quel que soit le volume",
     // « et les 150 résultats sont à vous » n'est pas décoratif : sans cette
-    // clause, la carte dirait qu'on facture un travail que le client ne reçoit
-    // pas. C'est elle qui rend le titre défendable.
+    // clause, la phrase dirait qu'on facture un travail que le client ne reçoit
+    // pas. Elle reste, mais rattachée aux deux seuls traitements comptés à la
+    // pièce — c'est là, et là seulement, qu'un lot peut s'arrêter en cours.
     texte:
-      "Le débit suit l’avancement, fichier par fichier. Si un lot de 200 s’arrête au 150ᵉ, 150 sont débités — et les 150 résultats sont à vous, récupérables tout de suite. Une panne de notre côté est reprise automatiquement, sans nouveau crédit. Si c’est un fichier source qui bloque, on vous dit lequel — vous corrigez et vous relancez sur le même crédit, autant de fois qu’il le faut.",
+      "Un lot de 200 contrats coûte le prix d’une tâche, pas de 200. Deux traitements font exception et se comptent à la pièce : le traitement d’images et le publipostage. Là, seules les pièces produites sont débitées — si un lot de 200 s’arrête au 150ᵉ, les 150 résultats sont à vous, récupérables tout de suite.",
   },
   {
     Icone: IconAdjustments,
@@ -141,8 +156,13 @@ const FACTURATION = [
     // dilue pas — pas d'astérisque, pas de « dans la plupart des cas », pas de
     // renvoi aux conditions. Si elle ne peut pas s'écrire telle quelle, c'est
     // qu'elle est fausse.
+    //
+    // Sa justification a changé, pas sa portée : elle s'appuyait sur un débit
+    // « qui suit l'avancement », mécanisme qui n'existe que pour deux moteurs.
+    // Le forfait la rend plus simple à tenir — un prix fixé avant le lancement
+    // ne peut pas dériver — donc la phrase se garde, avec sa vraie raison.
     texte:
-      "L’assistant vous montre ce que la tâche va produire et ce qu’elle va coûter, avant que rien ne soit débité. L’essai à blanc ne coûte rien : vous ajustez jusqu’à ce que ça corresponde, puis vous lancez. Si votre solde ne suffit pas, on vous le dit avant de partir. Et comme le débit suit l’avancement, vous ne paierez jamais plus que le montant affiché.",
+      "L’assistant vous montre ce que la tâche va produire et ce qu’elle va coûter, avant que rien ne soit débité. L’essai à blanc ne coûte rien : vous ajustez jusqu’à ce que ça corresponde, puis vous lancez. Si votre solde ne suffit pas, on vous le dit avant de partir. Le prix est fixé avant le lancement : vous ne paierez jamais plus que le montant affiché.",
   },
 ] as const;
 
@@ -184,7 +204,7 @@ export default function TarifsPage() {
                 l'offre confirme l'action, elle ne la précède pas. */}
             <div className="mt-7">
               <BoutonCta
-                href={LIEN_INSCRIPTION}
+                href={lienInscription("tarifs-hero")}
                 taille="lg"
               >
                 Commencer gratuitement
@@ -208,7 +228,7 @@ export default function TarifsPage() {
             <TitreSection>Le coût par tâche.</TitreSection>
             <p className="mt-4 max-w-[54ch] text-sm leading-relaxed text-white/85">
               Une petite tâche coûte peu ; un rendu lourd coûte plus. Le montant
-              est débité à mesure que la tâche avance.
+              ne dépend pas du volume traité : une tâche coûte son prix.
             </p>
           </Reveal>
           <Reveal delay={0.1} className="mt-10">
@@ -251,8 +271,8 @@ export default function TarifsPage() {
             <SurTitre>Ce qui est facturé</SurTitre>
             <TitreSection>Ce qui débite des crédits.</TitreSection>
             <p className="mt-4 max-w-[54ch] text-sm leading-relaxed text-white/85">
-              Le débit suit l’avancement d’une tâche. Voici ce qui compte comme
-              une tâche.
+              Le prix s’applique à la tâche, pas au volume qu’elle traite. Voici
+              ce qui compte comme une tâche.
             </p>
           </Reveal>
 
@@ -359,7 +379,7 @@ export default function TarifsPage() {
               badge={false}
               soustitre="Créez votre compte et lancez votre première tâche aujourd’hui."
               bouton={{
-                href: LIEN_INSCRIPTION,
+                href: lienInscription("tarifs-closer"),
                 libelle: "Commencer gratuitement",
               }}
               lien={{

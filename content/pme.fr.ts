@@ -132,12 +132,14 @@ export const PME_FR: ContenuPme = {
       surtitre: "Le marketing",
       factures: ["Média", "Images", "Scraping"],
       titre: "Vos médias, par lots.",
-      texte:
-        "Traitez, encodez, générez, triez — sans bloquer votre poste pendant trois heures.",
+      // « pendant trois heures » sous-entendait qu'on va plus vite qu'un poste
+      // local : rien ne permet de l'affirmer. Ce qui reste vrai, et suffit,
+      // c'est que le travail ne se fait pas sur votre machine.
+      texte: "Traitez, encodez, générez, triez — sans bloquer votre poste.",
       transformations: [
         {
-          entree: "5 000 photos de produits",
-          sortie: "toutes redimensionnées et au bon format, d’un coup",
+          entree: "500 photos de produits",
+          sortie: "toutes redimensionnées et au bon format",
         },
         {
           entree: "une vidéo 4K",
@@ -153,11 +155,11 @@ export const PME_FR: ContenuPme = {
         },
       ],
       job: {
-        titre: "Redimensionner 5 000 photos de produits",
+        titre: "Redimensionner 500 photos de produits",
         logs: [
-          "→ lecture du dossier — 5 000 images détectées",
+          "→ lecture du dossier — 500 images détectées",
           "→ conversion en trois formats",
-          "→ archive prête · 15 000/15 000",
+          "→ archive prête · 1 500/1 500",
         ],
       },
     },
@@ -212,8 +214,8 @@ export const PME_FR: ContenuPme = {
       },
       {
         cle: "traite",
-        titre: "Vous ne payez que ce qui est traité",
-        texte: "Le débit suit l’avancement, fichier par fichier.",
+        titre: "Un prix par tâche",
+        texte: "Un lot coûte le prix d’une tâche, quel que soit son volume.",
       },
       {
         cle: "consulter",

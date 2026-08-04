@@ -6,7 +6,7 @@ import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { BoutonCta } from "./BoutonCta";
 import { SHELL, type Lang } from "./tokens";
-import { LIEN_CONNEXION, LIEN_INSCRIPTION, PAGES } from "@/lib/site";
+import { LIEN_CONNEXION, lienInscription, PAGES } from "@/lib/site";
 
 /**
  * Liens de navigation — desktop et menu mobile lisent tous deux ce tableau.
@@ -239,7 +239,7 @@ export function TopBar({ lang = "fr" }: Readonly<{ lang?: Lang }>) {
           </a>
 
           <BoutonCta
-            href={LIEN_INSCRIPTION}
+            href={lienInscription("topbar")}
             taille="sm"
             className="shrink-0"
           >

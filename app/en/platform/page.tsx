@@ -26,7 +26,7 @@ import {
 } from "@/components/marketing/icons";
 import { SECTION_Y, SHELL } from "@/components/marketing/tokens";
 import { alternatesBilingues, openGraphPage } from "@/lib/seo";
-import { LIEN_INSCRIPTION } from "@/lib/site";
+import { lienInscription } from "@/lib/site";
 
 const TITRE = "Platform — Cloud Paradise";
 const DESCRIPTION =
@@ -150,7 +150,7 @@ export default function PlateformePageEn() {
             </p>
             <div className="mt-7 flex flex-wrap items-center gap-x-5 gap-y-3">
               <BoutonCta
-                href={LIEN_INSCRIPTION}
+                href={lienInscription("plateforme-hero")}
                 taille="lg"
               >
                 Create your desktop for free
@@ -216,7 +216,7 @@ export default function PlateformePageEn() {
               lang="en"
               soustitre="Create your desktop, open your applications, invite your team — today."
               bouton={{
-                href: LIEN_INSCRIPTION,
+                href: lienInscription("plateforme-closer"),
                 libelle: "Create your desktop for free",
               }}
               lien={{ href: "/en/pricing", libelle: "See pricing" }}

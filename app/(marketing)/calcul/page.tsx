@@ -14,7 +14,7 @@ import { WindowCard } from "@/components/marketing/WindowCard";
 import { libelleDe, type TypeTache } from "@/components/marketing/offre";
 import { SECTION_Y, SHELL } from "@/components/marketing/tokens";
 import { alternatesBilingues, openGraphPage } from "@/lib/seo";
-import { LIEN_INSCRIPTION } from "@/lib/site";
+import { lienInscription } from "@/lib/site";
 
 const TITRE = "Calcul lourd et rendu 3D — Cloud Paradise";
 const DESCRIPTION =
@@ -33,6 +33,7 @@ const ANCRES: readonly Ancre[] = [
   { id: "medias", libelle: { fr: "Images et vidéos", en: "Images and video" } },
   { id: "web", libelle: { fr: "Web", en: "Web" } },
   { id: "calcul-lourd", libelle: { fr: "Calcul lourd", en: "Heavy compute" } },
+  { id: "premier-essai", libelle: { fr: "Premier essai", en: "First run" } },
   { id: "automatisation", libelle: { fr: "Automatisation", en: "Automation" } },
 ];
 
@@ -87,7 +88,7 @@ const GESTES: readonly Geste[] = [
     titre: "Vos médias, par lots.",
     texte: "Traitez, encodez, générez, triez — sans bloquer votre machine.",
     exemples: [
-      { entree: "5 000 photos", sortie: "toutes redimensionnées et au bon format, d’un coup" },
+      { entree: "500 photos", sortie: "toutes redimensionnées et au bon format" },
       { entree: "une vidéo 4K", sortie: "réencodée en H.265, prête à diffuser" },
       { entree: "« une bannière pour la promo d’été »", sortie: "l’image, générée" },
       { entree: "un dossier de photos en vrac", sortie: "triées par sujet, automatiquement" },
@@ -108,12 +109,47 @@ const GESTES: readonly Geste[] = [
     id: "calcul-lourd",
     surtitre: "Le calcul lourd",
     factures: ["Calcul GPU", "Rendu 3D", "Impression 3D", "Simulation"],
-    titre: "La puissance, à la demande.",
-    texte: "Le matériel lourd tourne chez nous ; vous n’avez qu’à récupérer le résultat.",
+    // « La puissance, à la demande » promettait une quantité de puissance que
+    // les plafonds réels démentent. Ce que la machine fait bien se dit en type
+    // de charge — court, déterministe, double précision — et non en matériel :
+    // aucune fiche technique, c'est une règle du plan de contenu.
+    titre: "Du calcul exact, sur notre matériel.",
+    texte:
+      "Des tâches courtes et déterministes : simulation, rendu, calcul scientifique en double précision. Le matériel tourne chez nous ; vous récupérez le résultat.",
     exemples: [
       { entree: "une scène Blender", sortie: "le rendu final, calculé sur GPU" },
       { entree: "un modèle 3D", sortie: "un fichier prêt pour l’impression" },
+      {
+        entree: "des paramètres, sans aucun fichier",
+        sortie: "une simulation de diffusion de chaleur",
+      },
     ],
+  },
+];
+
+/**
+ * Les deux essais qui ne demandent rien à l'utilisateur.
+ *
+ * `facture` référence un type de `offre.ts` plutôt qu'un libellé écrit ici :
+ * c'est la règle du dépôt, et elle fait échouer la compilation si le mode
+ * disparaît de la grille.
+ */
+const PREMIERS_ESSAIS: readonly {
+  facture: TypeTache;
+  titre: string;
+  texte: string;
+}[] = [
+  {
+    facture: "Simulation",
+    titre: "Diffusion de la chaleur",
+    texte:
+      "Une plaque, une source chaude, et le temps qui passe. Vous fixez les conditions de départ, le moteur résout l’équation et vous rend l’évolution.",
+  },
+  {
+    facture: "Calcul GPU",
+    titre: "Multiplication de matrices",
+    texte:
+      "Deux matrices générées à la volée, multipliées sur carte graphique. Le calcul de référence pour voir ce que la machine fait, sans rien fournir.",
   },
 ];
 
@@ -157,7 +193,7 @@ export default function CalculPage() {
             </p>
             <div className="mt-7 flex flex-wrap items-center gap-x-5 gap-y-3">
               <BoutonCta
-                href={LIEN_INSCRIPTION}
+                href={lienInscription("calcul-hero")}
                 taille="lg"
               >
                 Lancez votre première tâche
@@ -184,6 +220,65 @@ export default function CalculPage() {
       {GESTES.map((geste) => (
         <GesteSection key={geste.id} geste={geste} />
       ))}
+
+      {/* Premier essai — sans fichier.
+
+          Cette section répond à un fait mesuré, pas à une intuition : sur les
+          premières inscriptions, aucune n'avait lancé de tâche. L'assistant
+          exigeait un fichier pour dépasser sa première étape, et l'espace
+          Fichiers d'un compte neuf est vide. L'obstacle est levé côté produit
+          depuis le 2026-08-02 ; encore faut-il le dire ici.
+
+          Deux essais nommés plutôt qu'une promesse générique : « on peut
+          essayer sans rien préparer » se vérifie mal, « une diffusion de
+          chaleur » se lance. Et la portée reste bornée — c'est la *première*
+          tâche qui ne demande rien, pas le produit entier : la majorité des
+          moteurs travaillent bien sur un fichier que vous fournissez. */}
+      <section id="premier-essai" className="relative scroll-mt-24">
+        <div className={`${SHELL} ${SECTION_Y}`}>
+          <Reveal className="max-w-2xl">
+            <SurTitre>Premier essai</SurTitre>
+            <h2 className="mt-2 max-w-[24ch] font-display text-[1.6rem] leading-[1.2] font-bold tracking-tight text-balance text-[#eef4ff] sm:text-3xl os:text-4xl">
+              Votre première tâche ne demande aucun fichier.
+            </h2>
+            <p className="mt-4 max-w-[54ch] text-sm leading-relaxed text-white/85">
+              Le calcul GPU et la simulation partent de paramètres. Vous
+              choisissez, vous lancez, vous regardez le résultat arriver — rien
+              à préparer, rien à téléverser.
+            </p>
+          </Reveal>
+
+          <Reveal delay={0.1} className="mt-10">
+            <ul className="grid gap-4 os:grid-cols-2">
+              {PREMIERS_ESSAIS.map((essai) => (
+                <li
+                  key={essai.titre}
+                  className="rounded-2xl border border-white/10 bg-white/[0.03] p-5"
+                >
+                  <span
+                    className="text-[11px] font-semibold tracking-[0.12em] uppercase"
+                    style={{ color: "var(--soft)" }}
+                  >
+                    {libelleDe(essai.facture, "fr")}
+                  </span>
+                  <p className="mt-2 font-display text-[17px] font-bold text-white">
+                    {essai.titre}
+                  </p>
+                  <p className="mt-2 text-[13px] leading-relaxed text-white/85">
+                    {essai.texte}
+                  </p>
+                </li>
+              ))}
+            </ul>
+          </Reveal>
+
+          <Reveal delay={0.15} className="mt-8">
+            <BoutonCta href={lienInscription("calcul-premier-essai")} taille="lg">
+              Lancez un essai sans fichier
+            </BoutonCta>
+          </Reveal>
+        </div>
+      </section>
 
       {/* Automatisation */}
       <section id="automatisation" className="relative scroll-mt-24">
@@ -250,7 +345,7 @@ export default function CalculPage() {
             <FenetreCta
               soustitre="Décrivez votre première tâche. On s’occupe du reste."
               bouton={{
-                href: LIEN_INSCRIPTION,
+                href: lienInscription("calcul-closer"),
                 libelle: "Lancez votre première tâche",
               }}
               lien={{ href: "/tarifs", libelle: "Voir les tarifs" }}

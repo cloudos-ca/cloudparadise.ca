@@ -98,7 +98,7 @@ export function RootDocument({
             pas la première : hors production le composant ne monte pas du tout.
             Trois raisons plutôt qu'une — le `setCookieDomain` du script est posé
             sur `.cloudparadise.ca`, qu'un navigateur refuse depuis
-            `dev.cloudparadise.cloud` (chaque page vue y comptait un visiteur
+            `cloudparadise.dev` (chaque page vue y comptait un visiteur
             neuf) ; l'ID de site est le même qu'en production ; et le trafic de
             développement se mélangeait donc aux statistiques du vrai site. */}
         {EST_PRODUCTION ? <MatomoAnalytics /> : null}

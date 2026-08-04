@@ -23,7 +23,7 @@ import {
 } from "@/components/marketing/icons";
 import { SECTION_Y, SHELL, type Lang } from "@/components/marketing/tokens";
 import { alternatesBilingues, openGraphPage } from "@/lib/seo";
-import { LIEN_INSCRIPTION } from "@/lib/site";
+import { lienInscription } from "@/lib/site";
 import {
   contenuPme,
   type CleCarteEquipe,
@@ -128,7 +128,7 @@ export default function SmallBusinessPage() {
               <BoutonCta href="/en/contact#sujet=pme" taille="lg">
                 {C.hero.cta}
               </BoutonCta>
-              <LienOr href={LIEN_INSCRIPTION}>{C.hero.lienCompte}</LienOr>
+              <LienOr href={lienInscription("pme-hero")}>{C.hero.lienCompte}</LienOr>
             </div>
           </Reveal>
         </div>
@@ -261,7 +261,7 @@ export default function SmallBusinessPage() {
                 href: "/en/contact#sujet=pme",
                 libelle: C.closer.bouton,
               }}
-              lien={{ href: LIEN_INSCRIPTION, libelle: C.closer.lien }}
+              lien={{ href: lienInscription("pme-closer"), libelle: C.closer.lien }}
               lang={LANG}
             />
           </Reveal>
@@ -367,7 +367,11 @@ function MetierSection({ metier }: Readonly<{ metier: SectionMetier }>) {
  */
 function listeFacturee(factures: readonly TypeTache[]): string {
   const noms = factures.map((type) => libelleDe(type, LANG));
-  const dernier = noms[noms.length - 1];
+  // Voir la version française : `.at(-1)` rend le type exact (`string |
+  // undefined`), la garde empêche la liste vide d'écrire « undefined » dans la
+  // page. Cas non atteint aujourd'hui, mais qui ne peut plus mentir.
+  const dernier = noms.at(-1);
+  if (dernier === undefined) return "";
   if (noms.length === 1) return dernier;
   return (
     noms.slice(0, -1).join(C.facturation.separateur) +

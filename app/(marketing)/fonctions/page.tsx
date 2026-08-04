@@ -11,7 +11,7 @@ import { Reveal } from "@/components/marketing/Reveal";
 import { libelleDe } from "@/components/marketing/offre";
 import { SECTION_Y, SHELL } from "@/components/marketing/tokens";
 import { alternatesBilingues, openGraphPage } from "@/lib/seo";
-import { LIEN_INSCRIPTION } from "@/lib/site";
+import { lienInscription } from "@/lib/site";
 
 const TITRE = "Fonctions — Cloud Paradise";
 const DESCRIPTION =
@@ -176,15 +176,19 @@ const SECTIONS: readonly SectionFonctions[] = [
     ],
   },
   {
+    // L'identifiant reste `puissance` : il est dans des liens et des ancres.
+    // Seul le texte change — « la puissance » promettait une quantité que les
+    // plafonds réels démentent, là où « le calcul » dit ce qui est vraiment
+    // servi. Aucune fiche technique matérielle, règle du plan de contenu.
     id: "puissance",
-    surtitre: "La puissance",
-    titre: "Le matériel lourd tourne chez nous.",
+    surtitre: "Le calcul",
+    titre: "Le calcul exact tourne chez nous.",
     page: CALCUL,
     entrees: [
       {
         nom: libelleDe("Calcul GPU", "fr"),
         texte:
-          "Les traitements qui demandent une carte graphique, exécutés sur la nôtre.",
+          "Les traitements qui demandent une carte graphique — à partir d’un gabarit, de votre code, ou de vos fichiers.",
       },
       {
         nom: libelleDe("Rendu 3D", "fr"),
@@ -196,13 +200,16 @@ const SECTIONS: readonly SectionFonctions[] = [
       },
       {
         nom: libelleDe("Simulation", "fr"),
-        texte: "Vos calculs de simulation, lancés sur notre matériel.",
+        texte:
+          "Une simulation lancée à partir de paramètres — rien à téléverser.",
       },
       // L'entrée de regroupement reste, et chaque geste prend sa ligne en
       // dessous : sur une page de référence, c'est la ligne nommée qui répond
       // au Ctrl-F d'un évaluateur, pas le résumé qui la précède.
       {
-        nom: "Géomatique et SIG",
+        // Le nom vient de `offre.ts` depuis que le mode est facturé : il était
+        // écrit ici en dur du temps où il n'avait pas de prix.
+        nom: libelleDe("Géomatique", "fr"),
         texte: "Reprojection, croisement de couches, export.",
         lien: MINES,
       },
@@ -353,7 +360,7 @@ const ANCRES: readonly Ancre[] = [
   { id: "bureau", libelle: { fr: "Le bureau", en: "Desktop" } },
   { id: "applications", libelle: { fr: "Applications", en: "Applications" } },
   { id: "calcul", libelle: { fr: "Calcul", en: "Compute" } },
-  { id: "puissance", libelle: { fr: "Puissance", en: "Power" } },
+  { id: "puissance", libelle: { fr: "Calcul", en: "Compute" } },
   { id: "automatisation", libelle: { fr: "Automatiser", en: "Automate" } },
   { id: "equipe", libelle: { fr: "À plusieurs", en: "Together" } },
   { id: "mines", libelle: { fr: "Mines", en: "Mining" } },
@@ -403,7 +410,7 @@ export default function FonctionsPage() {
             <FenetreCta
               soustitre="Créez votre compte et ouvrez le bureau — tout ce qui est listé ici est déjà dedans."
               bouton={{
-                href: LIEN_INSCRIPTION,
+                href: lienInscription("fonctions-closer"),
                 libelle: "Commencer gratuitement",
               }}
               lien={{ href: "/tarifs", libelle: "Voir les tarifs" }}

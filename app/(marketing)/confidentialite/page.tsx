@@ -211,9 +211,14 @@ const SECTIONS: readonly SectionRedigee[] = [
               "la base de données et les fichiers sont hébergés sur notre propre infrastructure (stockage objet auto-hébergé), et non chez un fournisseur infonuagique tiers.",
           },
           {
+            // La portée est dite ici et à la section 6 : cette politique couvre
+            // aussi l'application, où il n'y a aucun Matomo. Sans la préciser,
+            // un utilisateur de l'application lit qu'il est mesuré alors qu'il
+            // ne l'est pas — et l'omission joue contre l'argument de
+            // souveraineté qu'elle affaiblit sans raison.
             terme: "Mesure d’audience :",
             texte:
-              "nous utilisons Matomo, un outil de mesure d’audience auto-hébergé sur notre propre infrastructure — aucune donnée de navigation n’est communiquée à un tiers (notamment pas à Google Analytics). Le suivi ne démarre qu’après votre consentement explicite (voir la section 6).",
+              "nous utilisons Matomo, un outil de mesure d’audience auto-hébergé sur notre propre infrastructure — aucune donnée de navigation n’est communiquée à un tiers (notamment pas à Google Analytics). Cette mesure ne porte que sur le site vitrine : l’application n’en comporte aucune. Le suivi ne démarre qu’après votre consentement explicite (voir la section 6).",
           },
         ],
       },
@@ -237,7 +242,7 @@ const SECTIONS: readonly SectionRedigee[] = [
           {
             terme: "Mesure d’audience — Matomo.",
             texte:
-              "Nous utilisons Matomo, auto-hébergé sur notre propre infrastructure, pour savoir quelles pages sont consultées, en quel nombre, et quels liens sortants sont cliqués. Aucune donnée n’est transmise à un service tiers (notamment pas à Google Analytics), et ces renseignements ne servent à aucune fin publicitaire.",
+              "Nous utilisons Matomo, auto-hébergé sur notre propre infrastructure, pour savoir quelles pages de ce site sont consultées, en quel nombre, et quels liens sortants sont cliqués. La mesure s’arrête à ce site : l’application ne comporte aucun outil de mesure d’audience. Aucune donnée n’est transmise à un service tiers (notamment pas à Google Analytics), et ces renseignements ne servent à aucune fin publicitaire.",
           },
         ],
       },

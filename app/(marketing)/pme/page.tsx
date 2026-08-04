@@ -23,7 +23,7 @@ import {
 } from "@/components/marketing/icons";
 import { SECTION_Y, SHELL, type Lang } from "@/components/marketing/tokens";
 import { alternatesBilingues, openGraphPage } from "@/lib/seo";
-import { LIEN_INSCRIPTION } from "@/lib/site";
+import { lienInscription } from "@/lib/site";
 import {
   contenuPme,
   type CleCarteEquipe,
@@ -128,7 +128,7 @@ export default function PmePage() {
               <BoutonCta href="/contact#sujet=pme" taille="lg">
                 {C.hero.cta}
               </BoutonCta>
-              <LienOr href={LIEN_INSCRIPTION}>{C.hero.lienCompte}</LienOr>
+              <LienOr href={lienInscription("pme-hero")}>{C.hero.lienCompte}</LienOr>
             </div>
           </Reveal>
         </div>
@@ -261,7 +261,7 @@ export default function PmePage() {
                 href: "/contact#sujet=pme",
                 libelle: C.closer.bouton,
               }}
-              lien={{ href: LIEN_INSCRIPTION, libelle: C.closer.lien }}
+              lien={{ href: lienInscription("pme-closer"), libelle: C.closer.lien }}
               lang={LANG}
             />
           </Reveal>
@@ -367,7 +367,14 @@ function MetierSection({ metier }: Readonly<{ metier: SectionMetier }>) {
  */
 function listeFacturee(factures: readonly TypeTache[]): string {
   const noms = factures.map((type) => libelleDe(type, LANG));
-  const dernier = noms[noms.length - 1];
+  // `.at(-1)` rend `string | undefined`, là où l'indexation annonçait `string`
+  // et rendait `undefined` quand même sur une liste vide — la concaténation
+  // écrivait alors « undefined » dans la page, sans que rien ne le signale. La
+  // garde ci-dessous est le prix, honnête, de ce type exact. `factures` est
+  // toujours renseigné aujourd'hui : ce n'est pas un cas atteint, c'est un cas
+  // qui ne peut plus produire de texte faux.
+  const dernier = noms.at(-1);
+  if (dernier === undefined) return "";
   if (noms.length === 1) return dernier;
   return (
     noms.slice(0, -1).join(C.facturation.separateur) +

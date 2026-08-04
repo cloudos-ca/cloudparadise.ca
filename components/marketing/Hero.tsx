@@ -9,18 +9,30 @@ import { BadgeOffre } from "./BadgeOffre";
 import { BoutonCta } from "./BoutonCta";
 import { libelleDe } from "./offre";
 import { SECTION_Y, SHELL, type Lang } from "./tokens";
-import { LIEN_INSCRIPTION } from "@/lib/site";
+import { lienInscription } from "@/lib/site";
 
+/**
+ * Le journal de la démo du héros — la première chose que voit un visiteur.
+ *
+ * « Répartition en 12 segments » a été retiré : c'est faux. L'agent média lance
+ * un unique processus ffmpeg, il n'existe aucune segmentation parallèle, et un
+ * découpage numéroté laissait deviner une grappe de machines.
+ *
+ * Le volume a baissé de 1 842 images à 240. Aucun plafond citable ne rendait
+ * 1 842 impossible, mais une démo installe une attente : mieux vaut montrer un
+ * ordre de grandeur que le produit tient tous les jours qu'un chiffre qui
+ * impressionne et déçoit au premier essai.
+ */
 const JOB_LOGS = {
   fr: [
-    "→ Analyse du projet — 1 842 images détectées",
-    "→ Répartition en 12 segments",
-    "→ Encodage H.265 — 1 842/1 842 images",
+    "→ Analyse du projet — 240 images détectées",
+    "→ Encodage H.265 — 240/240 images",
+    "→ Vidéo prête",
   ],
   en: [
-    "→ Analyzing project — 1,842 images found",
-    "→ Splitting into 12 segments",
-    "→ Encoding H.265 — 1,842/1,842 images",
+    "→ Analyzing project — 240 images found",
+    "→ Encoding H.265 — 240/240 images",
+    "→ Video ready",
   ],
 } as const;
 
@@ -85,7 +97,7 @@ function Copy({ lang }: Readonly<{ lang: Lang }>) {
           à jour n'existe pas. */}
       <div className="mt-7">
         <BoutonCta
-          href={LIEN_INSCRIPTION}
+          href={lienInscription("accueil-hero")}
           taille="lg"
         >
           {t.cta}

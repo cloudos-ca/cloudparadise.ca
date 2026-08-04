@@ -23,7 +23,7 @@ import {
 import { Reveal } from "@/components/marketing/Reveal";
 import { SECTION_Y, SHELL } from "@/components/marketing/tokens";
 import { alternatesBilingues, openGraphPage } from "@/lib/seo";
-import { LIEN_INSCRIPTION } from "@/lib/site";
+import { lienInscription } from "@/lib/site";
 
 const TITRE = "Exploration minière au Québec — Cloud Paradise";
 const DESCRIPTION =
@@ -127,7 +127,7 @@ export default function MinesPage() {
               <BoutonCta href="/contact#sujet=exploration" taille="lg">
                 Réservez une démo
               </BoutonCta>
-              <LienOr href={LIEN_INSCRIPTION}>
+              <LienOr href={lienInscription("mines")}>
                 Créez votre compte
               </LienOr>
             </div>
