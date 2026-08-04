@@ -11,8 +11,9 @@ jobs:
     container:
       image: zricethezav/gitleaks:latest
     steps:
-      - uses: actions/checkout@v4
-      - run: gitleaks detect --source . --redact
+      - name: checkout
+        run: git clone --depth=1 --branch "${GITHUB_REF_NAME}" "${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}" .
+      - run: gitleaks detect --source . --redact --no-git
         continue-on-error: true
 
   sast:
@@ -20,7 +21,8 @@ jobs:
     container:
       image: semgrep/semgrep:latest
     steps:
-      - uses: actions/checkout@v4
+      - name: checkout
+        run: git clone --depth=1 --branch "${GITHUB_REF_NAME}" "${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}" .
       - run: semgrep --config auto .
         continue-on-error: true
 
@@ -29,7 +31,8 @@ jobs:
     container:
       image: aquasec/trivy:latest
     steps:
-      - uses: actions/checkout@v4
+      - name: checkout
+        run: git clone --depth=1 --branch "${GITHUB_REF_NAME}" "${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}" .
       - run: trivy fs --severity HIGH,CRITICAL --ignore-unfixed .
         continue-on-error: true
 
@@ -38,6 +41,7 @@ jobs:
     container:
       image: aquasec/trivy:latest
     steps:
-      - uses: actions/checkout@v4
+      - name: checkout
+        run: git clone --depth=1 --branch "${GITHUB_REF_NAME}" "${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}" .
       - run: trivy config --severity HIGH,CRITICAL .
         continue-on-error: true
