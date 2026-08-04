@@ -2,6 +2,7 @@ import Link from "next/link";
 import {
   IconCube,
   IconFileText,
+  IconGamepad,
   IconMessage,
   IconMovie,
   IconPhoto,
@@ -63,6 +64,12 @@ const TEXTES = {
       nom: "Collaboration",
       ligne: "Messagerie, courriel et agenda partagé.",
     },
+    jeux: {
+      Icone: IconGamepad,
+      nom: "Jeux",
+      ligne:
+        "Un studio de jeux généré par IA, et une arcade de près de 30 700 jeux gratuits.",
+    },
   },
   en: {
     eyebrow: "Your tools",
@@ -97,6 +104,11 @@ const TEXTES = {
       nom: "Collaboration",
       ligne: "Messaging, email and a shared calendar.",
     },
+    jeux: {
+      Icone: IconGamepad,
+      nom: "Games",
+      ligne: "An AI-generated game studio, and a free arcade of nearly 30,700 games.",
+    },
   },
 } as const;
 
@@ -129,12 +141,12 @@ export function FamillesApps({ lang = "fr" }: Readonly<{ lang?: Lang }>) {
           ))}
         </Reveal>
 
-        {/* Collaboration, en pleine largeur sous la grille : ce n'est pas un
-            logiciel comme les quatre autres (messagerie, courriel, agenda) mais
-            la porte vers l'équipe — une forme différente le dit sans l'écrire,
-            et le vide à droite d'une cinquième cellule disparaît. */}
-        <Reveal delay={0.15} className="mt-3.5">
+        {/* Collaboration et Jeux, côte à côte sous la grille : ni l'une ni
+            l'autre n'est un logiciel comme les quatre premiers, mais les
+            deux se lisent mieux ensemble qu'empilées l'une sur l'autre. */}
+        <Reveal delay={0.15} className="mt-3.5 grid gap-3.5 sm:grid-cols-2">
           <CarteFamille famille={t.collaboration} />
+          <CarteFamille famille={t.jeux} />
         </Reveal>
 
         <Reveal delay={0.2} className="mt-8">

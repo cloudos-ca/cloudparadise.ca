@@ -35,7 +35,7 @@ export const PME_EN: ContenuPme = {
   meta: {
     titre: "The workstation for Canadian businesses — Cloud Paradise",
     description:
-      "Accounting, administration, marketing: the workstation for Canadian businesses, with no IT department. Your data stays in Canada, credits not subscriptions.",
+      "Accounting, administration, marketing: the workstation for Canadian businesses, with no IT department. Your data stays in Canada, credits with no subscription required.",
   },
 
   og: {
@@ -65,6 +65,7 @@ export const PME_EN: ContenuPme = {
     { id: "comptabilite", libelle: "Accounting" },
     { id: "administration", libelle: "Administration" },
     { id: "marketing", libelle: "Marketing" },
+    { id: "erp", libelle: "Business management" },
     { id: "equipe", libelle: "Your team" },
     { id: "budget", libelle: "Pricing" },
     { id: "donnees", libelle: "Your data" },
@@ -175,6 +176,39 @@ export const PME_EN: ContenuPme = {
     },
   ],
 
+  erp: {
+    id: "erp",
+    surtitre: "Business management",
+    titre: "A CRM and invoicing, already in your workspace.",
+    texte:
+      "Customers, quotes, invoices and inventory in the same space as your other tools — not a separate app, not another subscription to manage.",
+    cartes: [
+      {
+        cle: "crm",
+        titre: "CRM",
+        texte:
+          "Customers, contacts and opportunities on a kanban board, shared by the whole team.",
+      },
+      {
+        cle: "facturation",
+        titre: "Quotes and invoices",
+        texte:
+          "PDF quotes and invoices, sales tax calculated automatically, overdue reminders sent on their own.",
+      },
+      {
+        cle: "inventaire",
+        titre: "Catalogue and inventory",
+        texte: "Your inventory decrements itself with every invoice.",
+      },
+      {
+        cle: "tableauBord",
+        titre: "Dashboard",
+        texte: "Revenue, pipeline, receivables and margin, at a glance.",
+      },
+    ],
+    lien: "See the details",
+  },
+
   equipe: {
     id: "equipe",
     surtitre: "Your team",
@@ -197,12 +231,13 @@ export const PME_EN: ContenuPme = {
         cle: "courriel",
         titre: "Email",
         texte:
-          "Built-in webmail, with an @cloudparadise.ca address you activate from your workspace.",
+          "Built-in webmail, with an @cloudparadise.ca address you activate from your workspace. Connect an external account (Gmail, Outlook) too, via IMAP/SMTP or OAuth.",
       },
       {
         cle: "agenda",
-        titre: "Calendar",
-        texte: "Shared calendar and reminders.",
+        titre: "Calendar and contacts",
+        texte:
+          "Shared calendar and reminders. Sync with an external CalDAV/CardDAV-compatible service.",
       },
     ],
     lien: "See the platform",
@@ -211,7 +246,7 @@ export const PME_EN: ContenuPme = {
   budget: {
     id: "budget",
     surtitre: "Pricing",
-    titre: "No per-seat licences. No subscription.",
+    titre: "No per-seat licences. No subscription required.",
     texte:
       "Credits. You get some to start, you buy more when you want. A small task costs little; a heavy job costs more. Nothing expires.",
     points: [

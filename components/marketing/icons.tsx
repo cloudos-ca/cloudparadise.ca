@@ -353,3 +353,13 @@ export function IconCalendar(props: IconProps) {
     </Glyph>
   );
 }
+
+export function IconGamepad(props: IconProps) {
+  return (
+    <Glyph {...props}>
+      <path d="M6 7h12a4 4 0 0 1 4 4v4.5a2.5 2.5 0 0 1 -4.7 1.2l-1.3 -2.2a2 2 0 0 0 -1.7 -1h-4.6a2 2 0 0 0 -1.7 1l-1.3 2.2a2.5 2.5 0 0 1 -4.7 -1.2v-4.5a4 4 0 0 1 4 -4" />
+      <path d="M8 10v3M6.5 11.5h3" />
+      <path d="M15.5 11h.01M18 12.5h.01" />
+    </Glyph>
+  );
+}

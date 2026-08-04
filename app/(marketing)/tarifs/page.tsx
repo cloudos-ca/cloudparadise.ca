@@ -7,6 +7,11 @@ import {
 import { BadgeOffre } from "@/components/marketing/BadgeOffre";
 import { BoutonCta } from "@/components/marketing/BoutonCta";
 import { BreadcrumbJsonLd } from "@/components/marketing/BreadcrumbJsonLd";
+import {
+  PALIER_RECOMMANDE_ID,
+  PALIERS_ABONNEMENT,
+  prixAbonnement,
+} from "@/components/marketing/abonnements";
 import { Estimateur } from "@/components/marketing/Estimateur";
 import { FaqTarifs } from "@/components/marketing/FaqTarifs";
 import { questionsDe } from "@/components/marketing/faqTarifsContenu";
@@ -19,6 +24,7 @@ import { WindowCard } from "@/components/marketing/WindowCard";
 import {
   IconAdjustments,
   IconCheck,
+  IconCoin,
   IconRefresh,
   IconSearch,
   IconWindow,
@@ -33,8 +39,8 @@ import { SECTION_Y, SHELL } from "@/components/marketing/tokens";
 import { alternatesBilingues, openGraphPage } from "@/lib/seo";
 import { lienInscription } from "@/lib/site";
 
-const TITRE = "Tarifs et crédits, sans abonnement — Cloud Paradise";
-const DESCRIPTION = `Des crédits, pas d’abonnement. ${OFFRE_EN_DEVISE} de crédits offerts à l’inscription, le coût de chaque tâche et un estimateur pour chiffrer votre budget d’avance.`;
+const TITRE = "Tarifs : crédits à l’usage ou abonnement mensuel — Cloud Paradise";
+const DESCRIPTION = `Un abonnement mensuel à prix fixe dès ${prixAbonnement(PALIERS_ABONNEMENT[0], "fr")}, ou des crédits à l’usage : ${OFFRE_EN_DEVISE} offerts à l’inscription, le coût de chaque tâche, un estimateur pour chiffrer votre budget d’avance.`;
 
 export const metadata: Metadata = {
   title: TITRE,
@@ -58,6 +64,7 @@ const FAQ_JSON_LD = {
 };
 
 const ANCRES: readonly Ancre[] = [
+  { id: "abonnements", libelle: { fr: "Abonnements", en: "Subscriptions" } },
   { id: "grille", libelle: { fr: "La grille", en: "The grid" } },
   { id: "estimateur", libelle: { fr: "L’estimateur", en: "The estimator" } },
   { id: "facturation", libelle: { fr: "Ce qui est facturé", en: "What’s billed" } },
@@ -196,9 +203,10 @@ export default function TarifsPage() {
               Rien de plus.
             </h1>
             <p className="mt-6 max-w-[58ch] text-[17px] leading-relaxed text-white/85">
-              Des crédits, pas d’abonnement. Un crédit vaut un dollar canadien.
-              Vous en recevez pour commencer, vous en rachetez quand vous
-              voulez.
+              Un abonnement mensuel à prix fixe, ou des crédits à l’usage. Un
+              crédit vaut un dollar canadien — vous en recevez pour
+              commencer, vous en rachetez quand vous voulez, ou vous optez
+              pour une allocation fixe chaque mois.
             </p>
             {/* Bouton puis badge, dans cet ordre — le même que sur l'accueil :
                 l'offre confirme l'action, elle ne la précède pas. */}
@@ -219,7 +227,89 @@ export default function TarifsPage() {
 
       <AncresSections ancres={ANCRES} />
 
-      {/* 1 — La grille. En-tête étroit, tableau pleine largeur : quatre
+      {/* 1 — Abonnements. En tête de page, avant même la grille : c'est
+          l'option qu'on veut voir en premier. Trois cartes, une par palier ;
+          celle du milieu porte la pastille « Recommandé » (voir
+          `PALIER_RECOMMANDE_ID`). Les crédits sont redits en une phrase, pas
+          en ouverture — la grille qui les détaille suit juste après. */}
+      <section id="abonnements" className="relative scroll-mt-24">
+        <div className={`${SHELL} ${SECTION_Y}`}>
+          <Reveal className="max-w-2xl">
+            <SurTitre>Abonnements</SurTitre>
+            <TitreSection>Un montant fixe, chaque mois.</TitreSection>
+            <p className="mt-4 max-w-[58ch] text-sm leading-relaxed text-white/85">
+              Pour un usage régulier, un abonnement mensuel donne une
+              allocation de crédits fixe chaque mois, facturée en dollars
+              américains via PayPal — un montant prévisible plutôt qu’une
+              recharge à la demande. Les crédits à l’usage restent
+              disponibles à tout moment, sans carte requise, si vous
+              préférez ne rien planifier.
+            </p>
+          </Reveal>
+
+          <Reveal delay={0.1} className="mt-10 grid gap-3.5 os:grid-cols-3">
+            {PALIERS_ABONNEMENT.map((palier) => {
+              const recommande = palier.id === PALIER_RECOMMANDE_ID;
+              return (
+                <div
+                  key={palier.id}
+                  className={`flex flex-col gap-3 rounded-xl border p-5 shadow-[inset_0_1px_0_rgba(255,255,255,0.04)] transition-colors ${
+                    recommande
+                      ? "border-transparent bg-gradient-to-b from-white/[0.06] to-white/[0.01]"
+                      : "border-white/[0.08] bg-gradient-to-b from-white/[0.04] to-white/[0.01] hover:border-white/15"
+                  }`}
+                  style={
+                    recommande
+                      ? {
+                          boxShadow:
+                            "inset 0 0 0 1px color-mix(in srgb, var(--cta) 45%, transparent), inset 0 1px 0 rgba(255,255,255,0.04)",
+                        }
+                      : undefined
+                  }
+                >
+                  <span
+                    className="grid size-10 shrink-0 place-items-center rounded-lg"
+                    style={{
+                      background:
+                        "color-mix(in srgb, var(--soft) 12%, transparent)",
+                      color: "var(--soft)",
+                    }}
+                  >
+                    <IconCoin className="size-[21px]" />
+                  </span>
+                  <div>
+                    <p className="flex items-center gap-2 font-display text-[15px] font-semibold text-white">
+                      {palier.nom.fr}
+                      {recommande ? (
+                        <span
+                          className="rounded-full px-2 py-0.5 text-[10px] font-semibold"
+                          style={{
+                            background: "var(--cta-wash)",
+                            color: "var(--cta)",
+                          }}
+                        >
+                          Recommandé
+                        </span>
+                      ) : null}
+                    </p>
+                    <p
+                      className="mt-1 font-display text-lg font-bold tabular-nums"
+                      style={{ color: "var(--cta)" }}
+                    >
+                      {prixAbonnement(palier, "fr")}
+                    </p>
+                    <p className="mt-1 text-[13px] leading-relaxed text-white/85">
+                      {palier.creditsMensuels} crédits chaque mois
+                    </p>
+                  </div>
+                </div>
+              );
+            })}
+          </Reveal>
+        </div>
+      </section>
+
+      {/* 2 — La grille. En-tête étroit, tableau pleine largeur : quatre
           colonnes de données ont besoin de toute la place. */}
       <section id="grille" className="relative scroll-mt-24">
         <div className={`${SHELL} ${SECTION_Y}`}>
@@ -237,7 +327,7 @@ export default function TarifsPage() {
         </div>
       </section>
 
-      {/* 2 — L'estimateur, pleine largeur : le curseur gagne à respirer et les
+      {/* 3 — L'estimateur, pleine largeur : le curseur gagne à respirer et les
           équivalences se lisent en regard. */}
       <section id="estimateur" className="relative scroll-mt-24">
         <div className={`${SHELL} ${SECTION_Y}`}>
@@ -257,7 +347,7 @@ export default function TarifsPage() {
         </div>
       </section>
 
-      {/* 3 — Ce qui est facturé. Cinq points et la démonstration chiffrée du
+      {/* 4 — Ce qui est facturé. Cinq points et la démonstration chiffrée du
           flux, en six cases d'une grille à deux colonnes.
 
           La fenêtre longeait une colonne de cartes ; à cinq cartes, dont deux
@@ -355,7 +445,7 @@ export default function TarifsPage() {
         </div>
       </section>
 
-      {/* 4 — Les questions. En-tête à gauche, accordéon à droite : du texte
+      {/* 5 — Les questions. En-tête à gauche, accordéon à droite : du texte
           suivi, donc deux colonnes plutôt que la pleine largeur. */}
       <section id="questions" className="relative scroll-mt-24">
         <div className={`${SHELL} ${SECTION_Y}`}>

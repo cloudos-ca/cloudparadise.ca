@@ -427,7 +427,7 @@ const SECTIONS: readonly SectionRedigee[] = [
           {
             terme: "Effets de la résiliation.",
             texte:
-              "À l’expiration du délai de grâce de 30 jours, votre accès au Service cesse et l’ensemble de votre compte — Contenu utilisateur, Résultats et renseignements de compte — est purgé définitivement, sous réserve des sauvegardes techniques temporaires. Les factures sont conservées six (6) ans pour répondre aux obligations fiscales et comptables ; la politique de confidentialité détaille les durées applicables. Les crédits non utilisés d’un compte fermé pour cause de violation des Conditions peuvent être perdus, dans la mesure permise par la loi. Les articles qui, par leur nature, doivent survivre à la résiliation (notamment les articles 8.3, 12, 14, 15, 16 et 18) demeurent en vigueur.",
+              "À l’expiration du délai de grâce de 30 jours, votre accès au Service cesse et l’ensemble de votre compte — Contenu utilisateur, Résultats et renseignements de compte — est purgé définitivement, sous réserve des sauvegardes techniques temporaires. Les factures sont conservées six (6) ans pour répondre aux obligations fiscales et comptables ; la politique de confidentialité détaille les durées applicables. Les crédits non utilisés d’un compte fermé pour cause de violation des Conditions peuvent être perdus, dans la mesure permise par la loi. Les dispositions qui, par leur nature, doivent survivre à la résiliation — notamment vos responsabilités quant au Contenu utilisateur (article 8), ainsi que les articles 12, 14, 15, 16 et 18 — demeurent en vigueur.",
           },
         ],
       },

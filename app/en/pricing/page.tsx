@@ -7,6 +7,11 @@ import {
 import { BadgeOffre } from "@/components/marketing/BadgeOffre";
 import { BoutonCta } from "@/components/marketing/BoutonCta";
 import { BreadcrumbJsonLd } from "@/components/marketing/BreadcrumbJsonLd";
+import {
+  PALIER_RECOMMANDE_ID,
+  PALIERS_ABONNEMENT,
+  prixAbonnement,
+} from "@/components/marketing/abonnements";
 import { Estimateur } from "@/components/marketing/Estimateur";
 import { FaqTarifs } from "@/components/marketing/FaqTarifs";
 import { questionsDe } from "@/components/marketing/faqTarifsContenu";
@@ -19,6 +24,7 @@ import { WindowCard } from "@/components/marketing/WindowCard";
 import {
   IconAdjustments,
   IconCheck,
+  IconCoin,
   IconRefresh,
   IconSearch,
   IconWindow,
@@ -33,8 +39,8 @@ import { SECTION_Y, SHELL } from "@/components/marketing/tokens";
 import { alternatesBilingues, openGraphPage } from "@/lib/seo";
 import { lienInscription } from "@/lib/site";
 
-const TITRE = "Pricing and credits, no subscription — Cloud Paradise";
-const DESCRIPTION = `Credits, not a subscription. ${OFFRE_EN_DEVISE} in credits on signup, the cost of every task, and an estimator to work out your budget before you start.`;
+const TITRE = "Pricing: pay-as-you-go credits or a monthly subscription — Cloud Paradise";
+const DESCRIPTION = `A fixed-price monthly subscription from ${prixAbonnement(PALIERS_ABONNEMENT[0], "en")}, or pay-as-you-go credits: ${OFFRE_EN_DEVISE} on signup, the cost of every task, an estimator to work out your budget before you start.`;
 
 export const metadata: Metadata = {
   title: TITRE,
@@ -58,6 +64,7 @@ const FAQ_JSON_LD = {
 };
 
 const ANCRES: readonly Ancre[] = [
+  { id: "abonnements", libelle: { fr: "Abonnements", en: "Subscriptions" } },
   { id: "grille", libelle: { fr: "La grille", en: "The grid" } },
   { id: "estimateur", libelle: { fr: "L’estimateur", en: "The estimator" } },
   { id: "facturation", libelle: { fr: "Ce qui est facturé", en: "What’s billed" } },
@@ -198,9 +205,10 @@ export default function TarifsPageEn() {
               Nothing more.
             </h1>
             <p className="mt-6 max-w-[58ch] text-[17px] leading-relaxed text-white/85">
-              Credits, not a subscription. One credit is worth one Canadian
-              dollar. You get some to begin with, and you buy more whenever you
-              want.
+              A fixed-price monthly subscription, or pay-as-you-go credits.
+              One credit is worth one Canadian dollar — you get some to
+              begin with, buy more whenever you want, or opt for a fixed
+              monthly allowance.
             </p>
             {/* Bouton puis badge, dans cet ordre — le même que sur l'accueil :
                 l'offre confirme l'action, elle ne la précède pas. */}
@@ -221,7 +229,88 @@ export default function TarifsPageEn() {
 
       <AncresSections ancres={ANCRES} lang="en" />
 
-      {/* 1 — La grille. En-tête étroit, tableau pleine largeur : quatre
+      {/* 1 — Abonnements. En tête de page, avant même la grille : c'est
+          l'option qu'on veut voir en premier. Trois cartes, une par palier ;
+          celle du milieu porte la pastille « Recommandé » (voir
+          `PALIER_RECOMMANDE_ID`). Les crédits sont redits en une phrase, pas
+          en ouverture — la grille qui les détaille suit juste après. */}
+      <section id="abonnements" className="relative scroll-mt-24">
+        <div className={`${SHELL} ${SECTION_Y}`}>
+          <Reveal className="max-w-2xl">
+            <SurTitre>Subscriptions</SurTitre>
+            <TitreSection>A fixed amount, every month.</TitreSection>
+            <p className="mt-4 max-w-[58ch] text-sm leading-relaxed text-white/85">
+              For regular use, a monthly subscription gives you a fixed
+              credit allowance every month, billed in US dollars via PayPal
+              — a predictable amount rather than topping up on demand.
+              Pay-as-you-go credits remain available at any time, no card
+              required, if you’d rather not plan ahead.
+            </p>
+          </Reveal>
+
+          <Reveal delay={0.1} className="mt-10 grid gap-3.5 os:grid-cols-3">
+            {PALIERS_ABONNEMENT.map((palier) => {
+              const recommande = palier.id === PALIER_RECOMMANDE_ID;
+              return (
+                <div
+                  key={palier.id}
+                  className={`flex flex-col gap-3 rounded-xl border p-5 shadow-[inset_0_1px_0_rgba(255,255,255,0.04)] transition-colors ${
+                    recommande
+                      ? "border-transparent bg-gradient-to-b from-white/[0.06] to-white/[0.01]"
+                      : "border-white/[0.08] bg-gradient-to-b from-white/[0.04] to-white/[0.01] hover:border-white/15"
+                  }`}
+                  style={
+                    recommande
+                      ? {
+                          boxShadow:
+                            "inset 0 0 0 1px color-mix(in srgb, var(--cta) 45%, transparent), inset 0 1px 0 rgba(255,255,255,0.04)",
+                        }
+                      : undefined
+                  }
+                >
+                  <span
+                    className="grid size-10 shrink-0 place-items-center rounded-lg"
+                    style={{
+                      background:
+                        "color-mix(in srgb, var(--soft) 12%, transparent)",
+                      color: "var(--soft)",
+                    }}
+                  >
+                    <IconCoin className="size-[21px]" />
+                  </span>
+                  <div>
+                    <p className="flex items-center gap-2 font-display text-[15px] font-semibold text-white">
+                      {palier.nom.en}
+                      {recommande ? (
+                        <span
+                          className="rounded-full px-2 py-0.5 text-[10px] font-semibold"
+                          style={{
+                            background: "var(--cta-wash)",
+                            color: "var(--cta)",
+                          }}
+                        >
+                          Recommended
+                        </span>
+                      ) : null}
+                    </p>
+                    <p
+                      className="mt-1 font-display text-lg font-bold tabular-nums"
+                      style={{ color: "var(--cta)" }}
+                    >
+                      {prixAbonnement(palier, "en")}
+                    </p>
+                    <p className="mt-1 text-[13px] leading-relaxed text-white/85">
+                      {palier.creditsMensuels} credits every month
+                    </p>
+                  </div>
+                </div>
+              );
+            })}
+          </Reveal>
+        </div>
+      </section>
+
+      {/* 2 — La grille. En-tête étroit, tableau pleine largeur : quatre
           colonnes de données ont besoin de toute la place. */}
       <section id="grille" className="relative scroll-mt-24">
         <div className={`${SHELL} ${SECTION_Y}`}>
@@ -239,7 +328,7 @@ export default function TarifsPageEn() {
         </div>
       </section>
 
-      {/* 2 — L'estimateur, pleine largeur : le curseur gagne à respirer et les
+      {/* 3 — L'estimateur, pleine largeur : le curseur gagne à respirer et les
           équivalences se lisent en regard. */}
       <section id="estimateur" className="relative scroll-mt-24">
         <div className={`${SHELL} ${SECTION_Y}`}>
@@ -259,7 +348,7 @@ export default function TarifsPageEn() {
         </div>
       </section>
 
-      {/* 3 — Ce qui est facturé. Cinq points et la démonstration chiffrée du
+      {/* 4 — Ce qui est facturé. Cinq points et la démonstration chiffrée du
           flux, en six cases d'une grille à deux colonnes.
 
           La fenêtre longeait une colonne de cartes ; à cinq cartes, dont deux
@@ -358,7 +447,7 @@ export default function TarifsPageEn() {
         </div>
       </section>
 
-      {/* 4 — Les questions. En-tête à gauche, accordéon à droite : du texte
+      {/* 5 — Les questions. En-tête à gauche, accordéon à droite : du texte
           suivi, donc deux colonnes plutôt que la pleine largeur. */}
       <section id="questions" className="relative scroll-mt-24">
         <div className={`${SHELL} ${SECTION_Y}`}>

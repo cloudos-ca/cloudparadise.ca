@@ -1,3 +1,8 @@
+import {
+  PALIER_RECOMMANDE_ID,
+  PALIERS_ABONNEMENT,
+  prixAbonnement,
+} from "./abonnements";
 import { Estimateur } from "./Estimateur";
 import { Reveal } from "./Reveal";
 import { IconAdjustments, IconGift, IconRefresh } from "./icons";
@@ -28,7 +33,7 @@ function argumentsDe(lang: Lang) {
       {
         Icone: IconRefresh,
         titre: "Top up whenever you want",
-        texte: "You add credits on demand, never a subscription.",
+        texte: "You add credits on demand, whenever you need to.",
       },
       {
         Icone: IconAdjustments,
@@ -46,7 +51,7 @@ function argumentsDe(lang: Lang) {
     {
       Icone: IconRefresh,
       titre: "Rechargez quand vous voulez",
-      texte: "Vous ajoutez des crédits à la demande, jamais d’abonnement.",
+      texte: "Vous ajoutez des crédits à la demande, quand vous en avez besoin.",
     },
     {
       Icone: IconAdjustments,
@@ -60,12 +65,14 @@ const TEXTES = {
   fr: {
     eyebrow: "Tarification",
     titre: "Payez ce que vous utilisez. Rien de plus.",
-    soustitre: "Des crédits, pas d’abonnement. On vous en offre pour commencer.",
+    soustitre:
+      "Des crédits à l’usage, ou un abonnement mensuel à prix fixe. On vous offre des crédits pour commencer.",
   },
   en: {
     eyebrow: "Pricing",
     titre: "Pay for what you use. Nothing more.",
-    soustitre: "Credits, not a subscription. We give you some to start.",
+    soustitre:
+      "Pay-as-you-go credits, or a fixed-price monthly subscription. We give you credits to start.",
   },
 } as const;
 
@@ -130,8 +137,81 @@ export function Tarification({ lang = "fr" }: Readonly<{ lang?: Lang }>) {
               on chiffre son budget à droite. */}
           <Estimateur lang={lang} />
         </Reveal>
+
+        <Reveal delay={0.15} className="mt-10">
+          <Abonnements lang={lang} />
+        </Reveal>
       </div>
     </section>
+  );
+}
+
+/**
+ * Aperçu des paliers d'abonnement, sur l'accueil.
+ *
+ * Les crédits restent le mode par défaut (arguments et grille ci-dessus) ;
+ * cette rangée donne quand même à l'abonnement une vraie visibilité dès
+ * l'accueil, plutôt que de le laisser à la seule page `/tarifs`. Aperçu
+ * court seulement — le détail complet (et l'inscription) vit sur
+ * `/tarifs#abonnements`, un seul endroit qui fait foi pour les trois
+ * paliers (voir `PALIERS_ABONNEMENT`).
+ */
+function Abonnements({ lang }: Readonly<{ lang: Lang }>) {
+  const cible = lang === "en" ? "/en/pricing#abonnements" : "/tarifs#abonnements";
+  return (
+    <div className="rounded-xl border border-white/10 bg-white/[0.03] px-5 py-5 os:px-6 os:py-6">
+      <div className="flex flex-wrap items-baseline justify-between gap-3">
+        <p className="text-sm font-medium text-[#eef4ff]">
+          {lang === "en"
+            ? "Prefer a fixed amount every month?"
+            : "Vous préférez un montant fixe chaque mois ?"}
+        </p>
+        <a
+          href={cible}
+          data-cp-accent
+          className="text-[13px] text-cp-subtle underline-offset-4 hover:text-[var(--acc-text)] hover:underline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
+        >
+          {lang === "en" ? "See all subscriptions" : "Voir tous les abonnements"}
+        </a>
+      </div>
+      <div className="mt-4 grid gap-3 os:grid-cols-3">
+        {PALIERS_ABONNEMENT.map((palier) => (
+          <div
+            key={palier.id}
+            className="flex items-center justify-between gap-3 rounded-lg border border-white/[0.08] bg-white/[0.02] px-4 py-3"
+          >
+            <div>
+              <p className="flex items-center gap-2 text-[13px] font-medium text-[#eef4ff]">
+                {palier.nom[lang]}
+                {palier.id === PALIER_RECOMMANDE_ID ? (
+                  <span
+                    className="rounded-full px-2 py-0.5 text-[10px] font-semibold"
+                    style={{
+                      background: "var(--cta-wash)",
+                      color: "var(--cta)",
+                      boxShadow:
+                        "inset 0 0 0 1px color-mix(in srgb, var(--cta) 32%, transparent)",
+                    }}
+                  >
+                    {lang === "en" ? "Recommended" : "Recommandé"}
+                  </span>
+                ) : null}
+              </p>
+              <p className="mt-0.5 text-[12px] text-white/70">
+                {palier.creditsMensuels}{" "}
+                {lang === "en" ? "credits / mo" : "crédits / mois"}
+              </p>
+            </div>
+            <p
+              className="font-display text-sm font-bold tabular-nums"
+              style={{ color: "var(--cta)" }}
+            >
+              {prixAbonnement(palier, lang)}
+            </p>
+          </div>
+        ))}
+      </div>
+    </div>
   );
 }
 

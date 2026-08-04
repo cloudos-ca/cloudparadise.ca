@@ -5,6 +5,7 @@ import {
   AncresSections,
   type Ancre,
 } from "@/components/marketing/AncresSections";
+import { prixAbonnementDepuis } from "@/components/marketing/abonnements";
 import { BoutonCta } from "@/components/marketing/BoutonCta";
 import { BreadcrumbJsonLd } from "@/components/marketing/BreadcrumbJsonLd";
 import { FenetreCta } from "@/components/marketing/FenetreCta";
@@ -15,6 +16,8 @@ import {
   IconCalendar,
   IconCube,
   IconFileText,
+  IconGamepad,
+  IconInfinity,
   IconMail,
   IconMessage,
   IconMovie,
@@ -43,6 +46,7 @@ const ANCRES: readonly Ancre[] = [
   { id: "bureau", libelle: { fr: "Le bureau", en: "The desktop" } },
   { id: "applications", libelle: { fr: "Les applications", en: "Applications" } },
   { id: "equipe", libelle: { fr: "L’équipe", en: "The team" } },
+  { id: "jeux", libelle: { fr: "Jeux", en: "Games" } },
 ];
 
 type Carte = { Icone: typeof IconWindow; titre: string; texte: string };
@@ -57,7 +61,8 @@ const BUREAU: Carte[] = [
   {
     Icone: IconSearch,
     titre: "Spotlight",
-    texte: "Full-text search inside your files, not just across their names.",
+    texte:
+      "Full-text search inside your files, not just across their names. A voice shortcut (Ctrl+Alt+V) to open, close and arrange a window, or launch an application by name.",
   },
   {
     Icone: IconFileText,
@@ -111,12 +116,29 @@ const EQUIPE: Carte[] = [
   {
     Icone: IconMail,
     titre: "Email",
-    texte: "A @cloudparadise.ca address and built-in webmail.",
+    texte:
+      "A @cloudparadise.ca address and built-in webmail. Connect an external account (Gmail, Outlook) too, via IMAP/SMTP or OAuth.",
   },
   {
     Icone: IconCalendar,
-    titre: "Calendar",
-    texte: "Shared calendar and reminders.",
+    titre: "Calendar and contacts",
+    texte:
+      "Shared calendar, reminders, and sync with an external CalDAV/CardDAV-compatible service.",
+  },
+];
+
+const JEUX: Carte[] = [
+  {
+    Icone: IconGamepad,
+    titre: "Game studio",
+    texte:
+      "Describe a game in conversation; the AI discusses the mechanics, writes it, compiles it and tests it automatically before handing it to you. One credit per compile; playing and rolling back are free.",
+  },
+  {
+    Icone: IconInfinity,
+    titre: "Arcades",
+    texte:
+      "A free HTML5 games room, searchable from Spotlight, ranked on what can actually be measured — games played, games tried, active-day streaks.",
   },
 ];
 
@@ -157,6 +179,17 @@ export default function PlateformePageEn() {
               </BoutonCta>
               <LienOr href="/en/pricing">See pricing</LienOr>
             </div>
+            <p className="mt-4 text-[13px] text-white/60">
+              Also available as a subscription,{" "}
+              <a
+                href="/en/pricing#abonnements"
+                data-cp-accent
+                className="text-cp-subtle underline-offset-4 hover:text-[var(--acc-text)] hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+              >
+                {prixAbonnementDepuis("en")}
+              </a>
+              .
+            </p>
           </Reveal>
 
           <Reveal delay={0.1} className="mt-12">
@@ -206,6 +239,17 @@ export default function PlateformePageEn() {
         titre="The same desktop, together."
         texte="Create team desktops, invite whoever you want, approve access. Messaging, email and calendar are already inside."
         cartes={EQUIPE}
+      />
+
+      {/* Jeux — Studio de jeux et Arcades, livrés récemment et jamais montrés
+          sur la vitrine avant cette section. Deux cartes seulement : la
+          grille sm:grid-cols-2 se remplit exactement, pas de case vide. */}
+      <SectionAncre
+        id="jeux"
+        surtitre="Games"
+        titre="A game studio, and a free arcade."
+        texte="From conversation to a playable game, tested before it’s handed to you — plus a free games room, right next to it."
+        cartes={JEUX}
       />
 
       {/* Closer */}

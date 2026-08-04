@@ -45,7 +45,13 @@ const CSP = [
   "base-uri 'self'",
   "form-action 'self'",
   "frame-ancestors 'self'",
-  "upgrade-insecure-requests",
+  // Seulement en prod (servie en HTTPS) : en dev, le serveur ne parle que
+  // HTTP, et cette directive force le navigateur à réécrire toute requête
+  // d'asset en https:// — pour qui accède via l'IP réseau plutôt que
+  // localhost (non exempté, contrairement à localhost/127.0.0.1), ça casse
+  // silencieusement CSS/JS/images (échec de connexion sur un port qui ne
+  // fait pas TLS), même après vidage du cache.
+  ...(process.env.NODE_ENV === "production" ? ["upgrade-insecure-requests"] : []),
 ].join("; ");
 
 /**
@@ -77,6 +83,11 @@ const ANCIENS_SLUGS_EN: Readonly<Record<string, string>> = {
 
 const nextConfig: NextConfig = {
   output: "standalone",
+
+  // Sans ça, Next bloque en dev les requêtes cross-origin vers les assets
+  // (CSS, HMR) : la page s'affiche mais sans style pour qui accède au
+  // serveur via l'IP réseau plutôt que localhost.
+  allowedDevOrigins: ["192.168.1.190"],
 
   experimental: {
     // Le site a deux layouts racines (FR et EN, voir RootDocument.tsx) : sans

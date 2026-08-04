@@ -4,6 +4,7 @@ import {
   AncresSections,
   type Ancre,
 } from "@/components/marketing/AncresSections";
+import { prixAbonnementDepuis } from "@/components/marketing/abonnements";
 import { BreadcrumbJsonLd } from "@/components/marketing/BreadcrumbJsonLd";
 import { FenetreCta } from "@/components/marketing/FenetreCta";
 import { HreflangLinks } from "@/components/marketing/HreflangLinks";
@@ -52,6 +53,7 @@ const PLATEFORME = { href: "/en/platform", libelle: "See the platform" };
 const CALCUL = { href: "/en/compute", libelle: "See compute" };
 const MINES = { href: "/en/mining", libelle: "See mineral exploration" };
 const TARIFS = { href: "/en/pricing", libelle: "See pricing" };
+const PME = { href: "/en/small-business", libelle: "See small business" };
 
 /**
  * Le contenu de la page.
@@ -94,7 +96,7 @@ const SECTIONS: readonly SectionFonctions[] = [
       {
         nom: "Spotlight",
         texte:
-          "Full-text search inside your files, not only across their names.",
+          "Full-text search inside your files, not only across their names. A voice shortcut (Ctrl+Alt+V) to open, close and arrange a window, or launch an application by name.",
       },
       {
         nom: "Wallpaper",
@@ -263,6 +265,38 @@ const SECTIONS: readonly SectionFonctions[] = [
     ],
   },
   {
+    // Livré fin juillet 2026, jamais couvert sur la vitrine avant le
+    // 2026-08-12 — ni même mentionné dans la documentation produit interne.
+    id: "erp",
+    surtitre: "Business management",
+    titre: "A CRM and invoicing, already in your workspace.",
+    page: PME,
+    entrees: [
+      {
+        nom: "CRM",
+        texte:
+          "Customers, contacts and opportunities on a kanban board, shared by the whole team.",
+      },
+      {
+        nom: "Quotes and invoices",
+        texte:
+          "PDF quotes and invoices, sales tax calculated automatically (not compounded, switchable per organization), overdue reminders sent on their own.",
+      },
+      {
+        nom: "Catalogue and inventory",
+        texte: "Your inventory decrements itself with every invoice.",
+      },
+      {
+        nom: "PayPal per team",
+        texte: "Each team collects from its own customers with its own account.",
+      },
+      {
+        nom: "Dashboard",
+        texte: "Revenue, pipeline, receivables and margin, at a glance.",
+      },
+    ],
+  },
+  {
     id: "equipe",
     surtitre: "Together",
     titre: "The same desktop, together.",
@@ -277,9 +311,31 @@ const SECTIONS: readonly SectionFonctions[] = [
       {
         nom: "Email",
         texte:
-          "Built-in webmail, with a @cloudparadise.ca address you activate from your desktop.",
+          "Built-in webmail, with a @cloudparadise.ca address you activate from your desktop. Connect an external account (Gmail, Outlook) too, via IMAP/SMTP or OAuth.",
       },
-      { nom: "Calendar", texte: "Shared calendar and reminders." },
+      {
+        nom: "Calendar and contacts",
+        texte:
+          "Shared calendar and reminders. Sync with an external CalDAV/CardDAV-compatible service.",
+      },
+    ],
+  },
+  {
+    id: "jeux",
+    surtitre: "Play",
+    titre: "A game studio, and a free arcade.",
+    page: PLATEFORME,
+    entrees: [
+      {
+        nom: "Game studio",
+        texte:
+          "Describe a game in conversation; the AI discusses the mechanics, writes it on Phaser 3, compiles it and tests it automatically before handing it to you. One credit per compile; playing and rolling back are free.",
+      },
+      {
+        nom: "Arcades",
+        texte:
+          "A room of about 30,700 free HTML5 games, organized by category, searchable from Spotlight. Ranked on what can be measured — games played, games tried, active-day streaks — not on a score.",
+      },
     ],
   },
   {
@@ -362,7 +418,9 @@ const ANCRES: readonly Ancre[] = [
   { id: "calcul", libelle: { fr: "Calcul", en: "Compute" } },
   { id: "puissance", libelle: { fr: "Calcul", en: "Compute" } },
   { id: "automatisation", libelle: { fr: "Automatiser", en: "Automate" } },
+  { id: "erp", libelle: { fr: "Gestion d’entreprise", en: "Business management" } },
   { id: "equipe", libelle: { fr: "À plusieurs", en: "Together" } },
+  { id: "jeux", libelle: { fr: "Jouer", en: "Play" } },
   { id: "mines", libelle: { fr: "Mines", en: "Mining" } },
   { id: "compte", libelle: { fr: "Compte", en: "Account" } },
 ];
@@ -391,6 +449,20 @@ export default function FonctionsPageEn() {
             </h1>
             <p className="mt-6 max-w-[58ch] text-[17px] leading-relaxed text-white/85">
               The complete list, by use. What is here is available today.
+            </p>
+            {/* Toujours pas de bouton — la page se consulte —, mais une ligne
+                d'information reste à sa place : la même que sur les trois
+                autres pages produit. */}
+            <p className="mt-3 text-[13px] text-white/60">
+              Also available as a subscription,{" "}
+              <a
+                href="/en/pricing#abonnements"
+                data-cp-accent
+                className="text-cp-subtle underline-offset-4 hover:text-[var(--acc-text)] hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+              >
+                {prixAbonnementDepuis("en")}
+              </a>
+              .
             </p>
           </Reveal>
         </div>

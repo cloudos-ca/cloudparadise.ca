@@ -5,6 +5,7 @@ import {
   AncresSections,
   type Ancre,
 } from "@/components/marketing/AncresSections";
+import { prixAbonnementDepuis } from "@/components/marketing/abonnements";
 import { BoutonCta } from "@/components/marketing/BoutonCta";
 import { BreadcrumbJsonLd } from "@/components/marketing/BreadcrumbJsonLd";
 import { FenetreCta } from "@/components/marketing/FenetreCta";
@@ -15,6 +16,8 @@ import {
   IconCalendar,
   IconCube,
   IconFileText,
+  IconGamepad,
+  IconInfinity,
   IconMail,
   IconMessage,
   IconMovie,
@@ -43,6 +46,7 @@ const ANCRES: readonly Ancre[] = [
   { id: "bureau", libelle: { fr: "Le bureau", en: "The desktop" } },
   { id: "applications", libelle: { fr: "Les applications", en: "Applications" } },
   { id: "equipe", libelle: { fr: "L’équipe", en: "The team" } },
+  { id: "jeux", libelle: { fr: "Jeux", en: "Games" } },
 ];
 
 type Carte = { Icone: typeof IconWindow; titre: string; texte: string };
@@ -58,7 +62,7 @@ const BUREAU: Carte[] = [
     Icone: IconSearch,
     titre: "Spotlight",
     texte:
-      "Recherche plein-texte à l’intérieur de vos fichiers, pas juste les noms.",
+      "Recherche plein-texte à l’intérieur de vos fichiers, pas juste les noms. Un raccourci vocal (Ctrl+Alt+V) pour ouvrir, fermer et ranger une fenêtre, ou lancer une application par son nom.",
   },
   {
     Icone: IconFileText,
@@ -112,12 +116,29 @@ const EQUIPE: Carte[] = [
   {
     Icone: IconMail,
     titre: "Courriel",
-    texte: "Adresse @cloudparadise.ca et webmail intégré.",
+    texte:
+      "Adresse @cloudparadise.ca et webmail intégré. Connectez aussi un compte externe (Gmail, Outlook) par IMAP/SMTP ou OAuth.",
   },
   {
     Icone: IconCalendar,
-    titre: "Agenda",
-    texte: "Agenda partagé et rappels.",
+    titre: "Agenda et contacts",
+    texte:
+      "Agenda partagé, rappels, et synchronisation avec un service externe compatible CalDAV/CardDAV.",
+  },
+];
+
+const JEUX: Carte[] = [
+  {
+    Icone: IconGamepad,
+    titre: "Studio de jeux",
+    texte:
+      "Décrivez un jeu en conversation ; l’IA en discute les mécaniques, l’écrit, le compile et le teste automatiquement avant de vous le livrer. Un crédit par compilation ; rejouer et revenir en arrière sont gratuits.",
+  },
+  {
+    Icone: IconInfinity,
+    titre: "Arcades",
+    texte:
+      "Une salle de jeux HTML5 gratuite, cherchable depuis Spotlight, classée sur ce qui se mesure — parties jouées, jeux essayés, séries de jours actifs.",
   },
 ];
 
@@ -158,6 +179,17 @@ export default function PlateformePage() {
               </BoutonCta>
               <LienOr href="/tarifs">Voir les tarifs</LienOr>
             </div>
+            <p className="mt-4 text-[13px] text-white/60">
+              Aussi disponible en abonnement,{" "}
+              <a
+                href="/tarifs#abonnements"
+                data-cp-accent
+                className="text-cp-subtle underline-offset-4 hover:text-[var(--acc-text)] hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+              >
+                {prixAbonnementDepuis("fr")}
+              </a>
+              .
+            </p>
           </Reveal>
 
           <Reveal delay={0.1} className="mt-12">
@@ -207,6 +239,17 @@ export default function PlateformePage() {
         titre="Le même bureau, à plusieurs."
         texte="Créez des bureaux d’équipe, invitez qui vous voulez, approuvez les accès. La discussion, le courriel et l’agenda sont déjà dedans."
         cartes={EQUIPE}
+      />
+
+      {/* Jeux — Studio de jeux et Arcades, livrés récemment et jamais montrés
+          sur la vitrine avant cette section. Deux cartes seulement : la
+          grille sm:grid-cols-2 se remplit exactement, pas de case vide. */}
+      <SectionAncre
+        id="jeux"
+        surtitre="Jeux"
+        titre="Un studio de jeux, et une arcade gratuite."
+        texte="De la conversation au jeu jouable, testé avant d’être livré — et une salle de jeux gratuite, à côté."
+        cartes={JEUX}
       />
 
       {/* Closer */}

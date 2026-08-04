@@ -4,6 +4,7 @@ import {
   AncresSections,
   type Ancre,
 } from "@/components/marketing/AncresSections";
+import { prixAbonnementDepuis } from "@/components/marketing/abonnements";
 import { BoutonCta } from "@/components/marketing/BoutonCta";
 import { BreadcrumbJsonLd } from "@/components/marketing/BreadcrumbJsonLd";
 import { FenetreCta } from "@/components/marketing/FenetreCta";
@@ -205,6 +206,17 @@ export default function CalculPageEn() {
               </BoutonCta>
               <LienOr href="/en/pricing">See pricing</LienOr>
             </div>
+            <p className="mt-4 text-[13px] text-white/60">
+              Also available as a subscription,{" "}
+              <a
+                href="/en/pricing#abonnements"
+                data-cp-accent
+                className="text-cp-subtle underline-offset-4 hover:text-[var(--acc-text)] hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+              >
+                {prixAbonnementDepuis("en")}
+              </a>
+              .
+            </p>
           </Reveal>
 
           <Reveal delay={0.1} className="mx-auto w-full max-w-[520px]">

@@ -27,7 +27,7 @@ const PREAMBULE = `# Cloud Paradise
 
 > Un poste de travail complet dans le navigateur : un vrai bureau, des applications professionnelles, et le calcul lourd lancé en langage courant. Décrivez la tâche, on s'occupe du calcul.
 
-Cloud Paradise est un bureau en ligne où l'on travaille (fenêtres, fichiers, bureautique, image, vidéo, audio, 3D, SIG, messagerie, courriel, agenda) et où l'on lance des tâches lourdes en décrivant le résultat voulu : documents, données, images, génération d'images, média, extraction web, calcul GPU, rendu 3D, impression 3D, simulation. L'intelligence artificielle lit la demande et choisit le moteur, mais ne calcule jamais le résultat : un moteur déterministe le produit. Facturation aux crédits, sans abonnement. Serveurs et modèle de langage hébergés au Québec. Site bilingue français/anglais, entreprise basée à Amos, Québec, Canada.`;
+Cloud Paradise est un bureau en ligne où l'on travaille (fenêtres, fichiers, bureautique, image, vidéo, audio, 3D, SIG, messagerie, courriel, agenda) et où l'on lance des tâches lourdes en décrivant le résultat voulu : documents, données, images, génération d'images, média, extraction web, calcul GPU, rendu 3D, impression 3D, simulation. L'intelligence artificielle lit la demande et choisit le moteur, mais ne calcule jamais le résultat : un moteur déterministe le produit. Facturation aux crédits, sans abonnement requis — un abonnement mensuel optionnel existe pour un usage régulier. Serveurs et modèle de langage hébergés au Québec. Site bilingue français/anglais, entreprise basée à Amos, Québec, Canada.`;
 
 /** Une ligne de liste Markdown : `- [Titre](url): résumé.` */
 function ligne(titre: string, chemin: string, resume?: string): string {
