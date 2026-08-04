@@ -12,7 +12,7 @@ jobs:
       image: zricethezav/gitleaks:latest
     steps:
       - name: checkout
-        run: git clone --depth=1 --branch "${GITHUB_REF_NAME}" "${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}" .
+        run: git clone --depth=1 --branch "${GITHUB_REF_NAME}" "https://forge.cloudparadise.dev/${GITHUB_REPOSITORY}" .
       - run: gitleaks detect --source . --redact --no-git
         continue-on-error: true
 
@@ -22,7 +22,7 @@ jobs:
       image: semgrep/semgrep:latest
     steps:
       - name: checkout
-        run: git clone --depth=1 --branch "${GITHUB_REF_NAME}" "${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}" .
+        run: git clone --depth=1 --branch "${GITHUB_REF_NAME}" "https://forge.cloudparadise.dev/${GITHUB_REPOSITORY}" .
       - run: semgrep --config auto .
         continue-on-error: true
 
@@ -32,7 +32,7 @@ jobs:
       image: aquasec/trivy:latest
     steps:
       - name: checkout
-        run: git clone --depth=1 --branch "${GITHUB_REF_NAME}" "${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}" .
+        run: git clone --depth=1 --branch "${GITHUB_REF_NAME}" "https://forge.cloudparadise.dev/${GITHUB_REPOSITORY}" .
       - run: trivy fs --severity HIGH,CRITICAL --ignore-unfixed .
         continue-on-error: true
 
@@ -42,6 +42,6 @@ jobs:
       image: aquasec/trivy:latest
     steps:
       - name: checkout
-        run: git clone --depth=1 --branch "${GITHUB_REF_NAME}" "${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}" .
+        run: git clone --depth=1 --branch "${GITHUB_REF_NAME}" "https://forge.cloudparadise.dev/${GITHUB_REPOSITORY}" .
       - run: trivy config --severity HIGH,CRITICAL .
         continue-on-error: true
