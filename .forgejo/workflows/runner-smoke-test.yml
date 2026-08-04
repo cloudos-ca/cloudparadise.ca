@@ -1,0 +1,24 @@
+name: runner-smoke-test
+on:
+  workflow_dispatch:
+
+jobs:
+  test-ubuntu-latest:
+    runs-on: ubuntu-latest
+    steps:
+      - run: cat /etc/os-release && whoami && df -h /
+
+  test-node-lts:
+    runs-on: node-lts
+    steps:
+      - run: node --version
+
+  test-docker-label:
+    runs-on: docker
+    steps:
+      - run: node --version
+
+  test-gpu-runner:
+    runs-on: gpu-runner
+    steps:
+      - run: nvidia-smi
