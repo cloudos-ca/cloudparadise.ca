@@ -1,0 +1,60 @@
+name: Sécurité
+
+on:
+  push:
+    branches: [main, dev]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  secrets:
+    runs-on: dev-host
+    # gitleaks tourne dans node:22-bookworm plutôt que dans son image officielle : actions/checkout
+    # est une action JS et l'image gitleaks n'embarque pas node. Même arbitrage que sur hpc.
+    container:
+      image: node:22-bookworm
+    steps:
+      - uses: https://code.forgejo.org/actions/checkout@v4
+        with:
+          # `gitleaks git` parcourt les commits, pas seulement l'arbre de travail.
+          fetch-depth: 0
+      - name: Installer gitleaks
+        run: |
+          set -euo pipefail
+          n=0
+          # Réessais : le réseau des runners lâche par intermittence, et un job de sécurité rouge
+          # pour une raison réseau désensibilise à un rouge qui compte vraiment.
+          until curl -fsSL -o /tmp/gitleaks.tgz \
+            https://github.com/gitleaks/gitleaks/releases/download/v8.21.2/gitleaks_8.21.2_linux_x64.tar.gz; do
+            n=$((n + 1))
+            if [ "$n" -ge 5 ]; then
+              echo "téléchargement de gitleaks échoué après $n tentatives" >&2
+              exit 1
+            fi
+            echo "tentative $n échouée ; nouvel essai dans 15s..."
+            sleep 15
+          done
+          tar -xzf /tmp/gitleaks.tgz -C /usr/local/bin gitleaks
+          gitleaks version
+      - name: Chercher des secrets dans l'historique
+        run: gitleaks git . --no-banner --redact --exit-code 1
+
+  audit:
+    runs-on: dev-host
+    container:
+      image: node:22-bookworm
+    steps:
+      - uses: https://code.forgejo.org/actions/checkout@v4
+      - uses: https://code.forgejo.org/actions/cache@v3
+        with:
+          path: ~/.npm
+          key: npm-${{ hashFiles('package-lock.json') }}
+          restore-keys: npm-
+      - run: ./.forgejo/npm-ci.sh
+      # Informatif au départ, comme sur hpc : rendre ce job bloquant avant d'avoir traité les
+      # vulnérabilités existantes ferait échouer toutes les PR dès le premier jour. À armer
+      # (retirer `continue-on-error`) une fois le compte à zéro.
+      - name: Vulnérabilités des dépendances
+        continue-on-error: true
+        run: npm audit --audit-level=high
