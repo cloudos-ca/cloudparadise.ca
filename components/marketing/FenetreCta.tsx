@@ -14,9 +14,6 @@ const TAGLINE = {
   en: { ligne1: "Describe the task.", ligne2: "We handle the compute." },
 } as const;
 
-/** Jaune de marque, pour la lueur derrière le logo — jamais dérivé de l'accent. */
-const HALO = "#edbe54";
-
 type FenetreCtaProps = Readonly<{
   /** Phrase sous le titre. Le titre, lui, est le même partout : c'est la signature. */
   soustitre: ReactNode;
@@ -59,10 +56,10 @@ export function FenetreCta({
   lang = "fr",
 }: FenetreCtaProps) {
   const cadre = useRef<HTMLDivElement>(null);
-  // Ce composant clôt une vingtaine de pages : sans garde, ses deux boucles
-  // tournent pour chaque visiteur qui ne descend jamais jusqu'ici. Le respect
-  // de `prefers-reduced-motion` est dans les règles CSS (`.cp-flotte`,
-  // `.cp-halo-pulse`), plus dans une branche ici — voir JobPanel.
+  // Ce composant clôt une vingtaine de pages : sans garde, sa boucle tourne
+  // pour chaque visiteur qui ne descend jamais jusqu'ici. Le respect de
+  // `prefers-reduced-motion` est dans la règle CSS (`.cp-flotte`), plus dans
+  // une branche ici — voir JobPanel.
   const anime = useBoucleActive(cadre);
 
   return (
@@ -135,18 +132,8 @@ function Halo() {
   return (
     <span
       aria-hidden="true"
-      className="relative mx-auto block h-12 aspect-[401/295]"
+      className="relative mx-auto block h-16 aspect-[401/295]"
     >
-      {/* Le souffle lumineux, séparé du logo : on n'anime qu'une opacité.
-          Toujours monté, jamais conditionné : monter et démonter le nœud selon
-          la garde ferait entrer et sortir un élément du DOM à chaque passage
-          de la fenêtre à l'écran. C'est l'animation qu'on suspend
-          (`.cp-halo-pulse`, gardée par `data-anime` sur le cadre englobant),
-          pas le nœud — et à l'arrêt il reste à son opacité basse. */}
-      <span
-        className="cp-halo-pulse absolute inset-0 rounded-[50%]"
-        style={{ boxShadow: `0 0 26px 6px ${HALO}40` }}
-      />
       <Image
         src="/brand/logo-blanc-et-jaune.svg"
         alt=""
