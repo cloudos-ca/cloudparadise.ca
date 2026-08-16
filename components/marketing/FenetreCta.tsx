@@ -3,7 +3,6 @@
 import type { ReactNode } from "react";
 import { useRef } from "react";
 import Image from "next/image";
-import { motion, useReducedMotion } from "framer-motion";
 import { useBoucleActive } from "./useBoucleActive";
 import { BadgeOffre } from "./BadgeOffre";
 import { BoutonCta } from "./BoutonCta";
@@ -59,25 +58,15 @@ export function FenetreCta({
   className = "mx-auto max-w-[640px]",
   lang = "fr",
 }: FenetreCtaProps) {
-  const reduceMotion = Boolean(useReducedMotion());
   const cadre = useRef<HTMLDivElement>(null);
   // Ce composant clôt une vingtaine de pages : sans garde, ses deux boucles
-  // tournent pour chaque visiteur qui ne descend jamais jusqu'ici.
-  const anime = useBoucleActive(cadre) && !reduceMotion;
-
-  const flottement = anime
-    ? {
-        animate: { y: [0, -6, 0] },
-        transition: {
-          duration: 9,
-          repeat: Infinity,
-          ease: "easeInOut" as const,
-        },
-      }
-    : { animate: { y: 0 } };
+  // tournent pour chaque visiteur qui ne descend jamais jusqu'ici. Le respect
+  // de `prefers-reduced-motion` est dans les règles CSS (`.cp-flotte`,
+  // `.cp-halo-pulse`), plus dans une branche ici — voir JobPanel.
+  const anime = useBoucleActive(cadre);
 
   return (
-    <div className={`relative ${className}`} ref={cadre}>
+    <div className={`relative ${className}`} ref={cadre} data-anime={anime ? "true" : "false"}>
       {/* La lueur vit sur le fond de page, derrière la fenêtre : c'est ce qui
           met le closer en avant, sans lui ajouter de cadre. */}
       <div
@@ -89,13 +78,13 @@ export function FenetreCta({
         }}
       />
 
-      <motion.div
-        {...flottement}
-        className="rounded-xl shadow-[0_40px_90px_-30px_rgba(0,0,0,.85)]"
+      <div
+        className="cp-flotte rounded-xl shadow-[0_40px_90px_-30px_rgba(0,0,0,.85)]"
+        style={{ ["--flotte-distance" as string]: "-6px", ["--flotte-duree" as string]: "9s" }}
       >
         <WindowCard title="Cloud Paradise">
           <div className="px-6 py-10 text-center os:px-10">
-            <Halo anime={anime} />
+            <Halo />
 
             <h2 className="mt-6 font-display text-[1.6rem] leading-[1.15] font-bold tracking-tight text-white sm:text-3xl">
               {TAGLINE[lang].ligne1}
@@ -131,7 +120,7 @@ export function FenetreCta({
             {children}
           </div>
         </WindowCard>
-      </motion.div>
+      </div>
     </div>
   );
 }
@@ -142,7 +131,7 @@ export function FenetreCta({
  * Contrairement au reste de la fenêtre, sa couleur est écrite en dur (fichier
  * SVG) : aucun thème ne doit l'atteindre.
  */
-function Halo({ anime }: Readonly<{ anime: boolean }>) {
+function Halo() {
   return (
     <span
       aria-hidden="true"
@@ -151,17 +140,12 @@ function Halo({ anime }: Readonly<{ anime: boolean }>) {
       {/* Le souffle lumineux, séparé du logo : on n'anime qu'une opacité.
           Toujours monté, jamais conditionné : monter et démonter le nœud selon
           la garde ferait entrer et sortir un élément du DOM à chaque passage
-          de la fenêtre à l'écran. C'est l'animation qu'on suspend, pas le
-          nœud — et à l'arrêt il reste à son opacité basse. */}
-      <motion.span
-        className="absolute inset-0 rounded-[50%]"
+          de la fenêtre à l'écran. C'est l'animation qu'on suspend
+          (`.cp-halo-pulse`, gardée par `data-anime` sur le cadre englobant),
+          pas le nœud — et à l'arrêt il reste à son opacité basse. */}
+      <span
+        className="cp-halo-pulse absolute inset-0 rounded-[50%]"
         style={{ boxShadow: `0 0 26px 6px ${HALO}40` }}
-        animate={anime ? { opacity: [0.35, 1, 0.35] } : { opacity: 0.35 }}
-        transition={
-          anime
-            ? { duration: 3, repeat: Infinity, ease: "easeInOut" }
-            : { duration: 0 }
-        }
       />
       <Image
         src="/brand/logo-blanc-et-jaune.svg"

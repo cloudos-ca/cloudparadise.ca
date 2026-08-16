@@ -89,7 +89,7 @@ export default function SecuritePageEn() {
         <div className={`${SHELL} ${SECTION_Y}`}>
           <Reveal className="max-w-2xl">
             <SurTitre>Compute</SurTitre>
-            <h2 className="mt-2 font-display text-[1.7rem] leading-[1.15] font-bold tracking-tight text-balance text-[#eef4ff] sm:text-3xl os:text-[2.4rem]">
+            <h2 className="mt-2 font-display text-[1.7rem] leading-[1.15] font-bold tracking-tight text-balance text-cp-heading sm:text-3xl os:text-[2.4rem]">
               The artificial intelligence computes nothing.
             </h2>
           </Reveal>
@@ -217,7 +217,7 @@ function Section2Col({
         <div className="grid gap-8 os:grid-cols-[2fr_3fr] os:items-start os:gap-12">
           <Reveal>
             <SurTitre>{surtitre}</SurTitre>
-            <h2 className="mt-2 font-display text-[1.6rem] leading-[1.2] font-bold tracking-tight text-balance text-[#eef4ff] sm:text-3xl os:text-4xl">
+            <h2 className="mt-2 font-display text-[1.6rem] leading-[1.2] font-bold tracking-tight text-balance text-cp-heading sm:text-3xl os:text-4xl">
               {titre}
             </h2>
           </Reveal>

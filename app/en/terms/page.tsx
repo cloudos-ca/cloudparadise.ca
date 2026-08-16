@@ -410,7 +410,7 @@ const SECTIONS: readonly SectionRedigee[] = [
           {
             terme: "Effects of termination.",
             texte:
-              "Once the 30-day grace period has elapsed, your access to the Service ends and your entire account — User Content, Results, and account information — is permanently purged, subject to temporary technical backups. Invoices are kept for six (6) years to meet tax and accounting obligations; the privacy policy sets out the applicable periods. Unused credits from an account closed for breach of the Terms may be forfeited, to the extent permitted by law. Articles that by their nature must survive termination (notably articles 8.3, 12, 14, 15, 16, and 18) remain in effect.",
+              "Once the 30-day grace period has elapsed, your access to the Service ends and your entire account — User Content, Results, and account information — is permanently purged, subject to temporary technical backups. Invoices are kept for six (6) years to meet tax and accounting obligations; the privacy policy sets out the applicable periods. Unused credits from an account closed for breach of the Terms may be forfeited, to the extent permitted by law. The provisions that by their nature must survive termination — notably your responsibilities regarding User Content (article 8), as well as articles 12, 14, 15, 16, and 18 — remain in effect.",
           },
         ],
       },

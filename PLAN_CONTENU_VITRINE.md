@@ -23,7 +23,7 @@ Ces points sont tranchés. Ils ne se rediscutent pas dans les briefs de sections
 | Moteur d'IA | **Auto-hébergé.** Aucune donnée client ne transite par une API externe. |
 | Hébergement | Matériel possédé, dans un local loué à Amos, Québec. |
 | Disponibilité | **Aucune promesse.** Voir §5. |
-| Abonnements | Gatés OFF. **Aucune mention nulle part**, pas même « à venir ». |
+| Abonnements | **Actifs depuis le 2026-08-12.** Les crédits restent le message par défaut partout (héros, accueil, closers) ; l'abonnement est présenté comme une option d'économie pour un usage régulier, exclusivement sur `/tarifs#abonnements`. Aucune négation absolue (« sans abonnement », « jamais d'abonnement ») ne doit rester dans la copie — reformuler en « sans abonnement requis » / « aucun abonnement requis », qui reste vrai. Voir §3.6. |
 | Langue | FR par défaut, clés prêtes pour EN. Vouvoiement partout. |
 
 ---
@@ -75,7 +75,8 @@ Sous-titre à élargir : votre poste de travail cloud — calcul lourd, éditeur
 
 ### 3.2 `/plateforme` — Le bureau, les éditeurs, la collaboration
 
-Une page, trois sections ancrées : `#bureau`, `#editeurs`, `#equipe`.
+Une page, quatre sections ancrées : `#bureau`, `#editeurs`, `#equipe`, `#jeux` (ajoutée le
+2026-08-12 — Studio de jeux et Arcades, absents jusque-là).
 
 **Message-clé.** « Pas un tableau de bord. Un vrai bureau. »
 
@@ -175,7 +176,9 @@ Le point à faire passer : vos fichiers restent dans votre espace, la sauvegarde
 - Les comptes administrateurs ne sont pas facturés.
 - Programme de parrainage : crédits offerts aux deux parties.
 
-**Ce qu'on ne dit pas.** Aucune mention des abonnements mensuels, sous aucune forme, tant qu'ils sont gatés OFF. Pas de section « à venir », pas de paliers grisés, pas de teaser.
+**Information à ajouter (2026-08-12).** Une section `#abonnements`, sous « Ce qui est facturé » et avant les questions, qui présente les trois paliers mensuels (Découverte, Pro, Entreprise) comme une option pour un usage régulier — jamais en tête de page, jamais comme remplacement du modèle par crédits qui reste le message par défaut du héros et des deux closers.
+
+**Ce qu'on ne dit pas.** Pas de comparaison de coût par crédit entre l'abonnement ($ US) et les crédits à l'unité ($ CA) — les devises diffèrent et une conversion introduirait un taux à maintenir. Pas de teaser d'abonnement ailleurs que sur `/tarifs`.
 
 ---
 
@@ -210,7 +213,11 @@ Le point à faire passer : vos fichiers restent dans votre espace, la sauvegarde
 | Titres miniers, forages 3D, rapport d'exploration, données ouvertes, SIG, GPX | `/mines` |
 | Infra possédée, LLM auto-hébergé, IA déterministe, 2FA, isolation, clés API | `/securite` |
 | Crédits, facturation, parrainage | `/tarifs` |
-| Abonnements | **nulle part** (gatés OFF) |
+| ERP (CRM, devis/factures, inventaire, tableau de bord) | `/pme#erp` + `/fonctions` |
+| Studio de jeux, Arcades | `/plateforme#jeux` + `/fonctions` + carte homepage |
+| Commandes vocales (navigation seulement) | `/plateforme#bureau` (carte Spotlight) + `/fonctions` |
+| Courriel/agenda/contacts externes (IMAP, OAuth, CalDAV/CardDAV) | `/plateforme#equipe` + `/fonctions` + `/pme#equipe` |
+| Abonnements | `/tarifs#abonnements` |
 
 ---
 
@@ -220,7 +227,7 @@ Le point à faire passer : vos fichiers restent dans votre espace, la sauvegarde
 
 1. **Vouvoiement** partout.
 2. **Jamais de compte chiffré** de modes, d'apps ou de fonctionnalités. La liste évolue ; le chiffre devient faux et il faut alors le corriger à sept endroits.
-3. **Aucune mention d'abonnement**, sous aucune forme.
+3. **Les crédits restent le message par défaut** ; l'abonnement se présente uniquement sur `/tarifs#abonnements`, jamais comme un remplacement. Aucune négation absolue de l'abonnement (« sans abonnement », « jamais d'abonnement ») ailleurs sur le site — ce serait faux depuis le 2026-08-12.
 4. **Aucune promesse de disponibilité** : pas d'engagement de service, pas de pourcentage d'uptime, pas de redondance, pas de certification.
 5. **Aucune fiche technique matérielle.** On vend le principe de souveraineté, jamais les numéros de modèle.
 6. **Ne montrer que ce qui est live** et utilisable par un inconnu sans accompagnement.

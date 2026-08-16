@@ -1,7 +1,6 @@
 "use client";
 
 import { useRef } from "react";
-import { motion, useReducedMotion } from "framer-motion";
 import { useBoucleActive } from "./useBoucleActive";
 import { WindowCard } from "./WindowCard";
 import { JobPanel } from "./JobPanel";
@@ -59,8 +58,6 @@ const TEXTES = {
 } as const;
 
 export function Hero({ lang = "fr" }: Readonly<{ lang?: Lang }>) {
-  const reduceMotion = useReducedMotion();
-
   return (
     <section className="relative">
       {/* Hauteur dictée par le contenu : le padding fait respirer, sans étirer
@@ -71,7 +68,7 @@ export function Hero({ lang = "fr" }: Readonly<{ lang?: Lang }>) {
         {/* Le sélecteur vit dans la colonne texte : sous les boutons en empilé,
             sous la trust line en deux colonnes. */}
         <Copy lang={lang} />
-        <Desktop reduceMotion={Boolean(reduceMotion)} lang={lang} />
+        <Desktop lang={lang} />
       </div>
     </section>
   );
@@ -111,43 +108,28 @@ function Copy({ lang }: Readonly<{ lang: Lang }>) {
   );
 }
 
-function Desktop({
-  reduceMotion,
-  lang,
-}: Readonly<{
-  reduceMotion: boolean;
-  lang: Lang;
-}>) {
+function Desktop({ lang }: Readonly<{ lang: Lang }>) {
   const cadre = useRef<HTMLDivElement>(null);
   // Le hero est en haut de page, donc presque toujours à l'écran — mais
   // « presque » n'est pas « toujours » : dès qu'on descend d'un écran, ces deux
   // boucles n'ont plus de raison de tourner, et l'onglet en arrière-plan encore
-  // moins.
-  const anime = useBoucleActive(cadre) && !reduceMotion;
-
-  const float = (distance: number, duration: number) =>
-    anime
-      ? {
-          animate: { y: [0, distance, 0] },
-          transition: {
-            duration,
-            repeat: Infinity,
-            ease: "easeInOut" as const,
-          },
-        }
-      : { animate: { y: 0 } };
-
-  const back = float(-7, 7);
-  const front = float(7, 8);
+  // moins. Le respect de `prefers-reduced-motion` est dans la règle CSS
+  // (`.cp-flotte`), plus dans une branche ici — voir JobPanel.
+  const anime = useBoucleActive(cadre);
 
   // Le bloc s'aligne sur le haut de la colonne texte et reste calé à gauche de
   // sa colonne : les fenêtres ne partent jamais toucher le bord droit.
   return (
     <div
       ref={cadre}
+      data-anime={anime ? "true" : "false"}
       className="relative mx-auto w-full max-w-[480px] os:mt-1 os:max-w-[520px]"
     >
-      <motion.div {...back} className="ml-auto w-[62%]" aria-hidden="true">
+      <div
+        className="cp-flotte ml-auto w-[62%]"
+        aria-hidden="true"
+        style={{ ["--flotte-distance" as string]: "-7px", ["--flotte-duree" as string]: "7s" }}
+      >
         <WindowCard title={lang === "en" ? "Files" : "Fichiers"}>
           {/* Le padding bas absorbe le recouvrement de la fenêtre de devant :
               c'est le vide qui passe dessous, jamais la dernière ligne. */}
@@ -170,9 +152,12 @@ function Desktop({
             ))}
           </ul>
         </WindowCard>
-      </motion.div>
+      </div>
 
-      <motion.div {...front} className="relative z-10 -mt-8 w-[92%]">
+      <div
+        className="cp-flotte relative z-10 -mt-8 w-[92%]"
+        style={{ ["--flotte-distance" as string]: "7px", ["--flotte-duree" as string]: "8s" }}
+      >
         <WindowCard title="Plans · Cloud Paradise">
           <JobPanel
             title={lang === "en" ? "Render a 4K video" : "Rendre une vidéo 4K"}
@@ -184,7 +169,7 @@ function Desktop({
             lang={lang}
           />
         </WindowCard>
-      </motion.div>
+      </div>
     </div>
   );
 }

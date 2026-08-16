@@ -7,6 +7,6 @@ export const contentType = "image/png";
 export default function Image() {
   return renderOgImage(
     "Pay for what you use. Nothing more.",
-    "Credits, not a subscription. You only pay for what you run.",
+    "Credits, no subscription required. You only pay for what you run.",
   );
 }

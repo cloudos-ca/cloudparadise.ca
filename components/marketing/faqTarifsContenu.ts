@@ -1,22 +1,24 @@
+import { DEVISE_ABONNEMENT, PALIERS_ABONNEMENT } from "./abonnements";
 import { CREDIT_EN_DEVISE, DEVISE, RECHARGE_MINIMALE_EN_DEVISE } from "./offre";
 import type { Lang } from "./tokens";
 
 const nf = new Intl.NumberFormat("fr-CA");
+
+const PRIX_MIN_ABONNEMENT = Math.min(...PALIERS_ABONNEMENT.map((p) => p.prixMensuel));
+const PRIX_MAX_ABONNEMENT = Math.max(...PALIERS_ABONNEMENT.map((p) => p.prixMensuel));
 
 /**
  * Questions/réponses de tarification.
  *
  * Ajouter les futures Q/R ici : une entrée par question, l'accordéon et
  * l'accessibilité suivent tout seuls. Les montants s'insèrent depuis `offre.ts`
- * — ne jamais réécrire un prix en toutes lettres dans une réponse.
+ * (crédits) ou `abonnements.ts` (paliers) — ne jamais réécrire un prix en
+ * toutes lettres dans une réponse.
  *
  * Ce sont des engagements commerciaux réels : ne rien y ajouter qui n'ait été
  * validé (aucune garantie de remboursement, de délai ou de disponibilité). Les
  * réponses doivent rester alignées sur les conditions d'utilisation — c'est le
  * texte qui engage, et une réponse plus tranchée que lui devient un litige.
- *
- * Aucune question sur l'abonnement : les paliers mensuels sont désactivés, et
- * la page /tarifs n'en dit rien sous aucune forme.
  *
  * Module à part, sans `"use client"` : `FaqTarifs.tsx` (client, pour
  * l'accordéon) et les pages /tarifs (serveur, pour le JSON-LD `FAQPage`)
@@ -38,6 +40,10 @@ export function questionsDe(lang: Lang): readonly { q: string; r: string }[] {
         q: "Are there refunds?",
         r: "Credits already spent are non-refundable. Unused credits stay available indefinitely — they don’t expire. For any request, write to us; the terms of use set out the cases provided for.",
       },
+      {
+        q: "Do I need a subscription?",
+        r: `Not required — credits remain usable without a subscription. But for regular use, a monthly subscription gives you a fixed credit allowance each month, from ${PRIX_MIN_ABONNEMENT} to ${PRIX_MAX_ABONNEMENT} ${DEVISE_ABONNEMENT} depending on the tier — often easier to budget than topping up on demand.`,
+      },
     ];
   }
   return [
@@ -52,6 +58,10 @@ export function questionsDe(lang: Lang): readonly { q: string; r: string }[] {
     {
       q: "Y a-t-il des remboursements ?",
       r: "Les crédits déjà consommés ne sont pas remboursables. Les crédits inutilisés, eux, restent disponibles indéfiniment — ils n’expirent pas. Pour toute demande, écrivez-nous ; les conditions d’utilisation détaillent les cas prévus.",
+    },
+    {
+      q: "Dois-je m’abonner ?",
+      r: `Pas obligatoire : les crédits restent utilisables sans abonnement. Mais pour un usage régulier, un abonnement mensuel donne une allocation de crédits fixe chaque mois, de ${PRIX_MIN_ABONNEMENT} à ${PRIX_MAX_ABONNEMENT} ${DEVISE_ABONNEMENT} selon le palier — souvent plus simple à prévoir qu’une recharge à la demande.`,
     },
   ];
 }

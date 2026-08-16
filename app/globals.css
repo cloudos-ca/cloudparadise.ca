@@ -31,6 +31,13 @@
    */
   --color-cp-muted: #9daac5;
   --color-cp-ghost: #dbe6fb;
+  /*
+   * Titres et libellés en emphase (h1/h2, badges de fenêtre). Existait comme
+   * valeur arbitraire `text-[#eef4ff]` recopiée dans une quarantaine de blocs
+   * avant d'être promue ici. `app/global-error.tsx` en garde volontairement
+   * une copie littérale — voir le commentaire à cet endroit.
+   */
+  --color-cp-heading: #eef4ff;
 
   --font-mono: ui-monospace, "SF Mono", "Cascadia Mono", Menlo, monospace;
 
@@ -372,6 +379,66 @@ body {
 @media (prefers-reduced-motion: reduce) {
   .job-curseur {
     display: none;
+  }
+}
+
+/*
+ * Flottement des fenêtres du bureau (Hero, FenetreCta, FenetreContact) — CSS
+ * seul, comme `.job-*` plus haut.
+ *
+ * Remplace `motion.div` + `animate: { y: [0, distance, 0] }, repeat: Infinity`
+ * de framer-motion : les trois fenêtres faisaient le même flottement à trois
+ * distances/durées près, sur des pages à fort trafic (accueil, une vingtaine
+ * de pages via FenetreCta, /contact) — la bibliothèque entière se
+ * retrouvait dans leur bundle pour ça. `--flotte-distance` et `--flotte-duree`
+ * portent ce qui varie ; `data-anime`, posé par `useBoucleActive` sur le cadre
+ * englobant, suspend l'animation hors écran ou onglet caché, exactement comme
+ * `data-anime` sur JobPanel.
+ */
+@media (prefers-reduced-motion: no-preference) {
+  .cp-flotte {
+    animation: cp-flotte var(--flotte-duree, 8s) ease-in-out infinite;
+  }
+
+  [data-anime="false"] .cp-flotte {
+    animation-play-state: paused;
+  }
+}
+
+@keyframes cp-flotte {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(var(--flotte-distance, -7px));
+  }
+}
+
+/* Le halo du logo, dans FenetreCta : pulsation d'opacité, même garde que le
+   flottement. Opacité basse par défaut — c'est l'état sans JS ou sans cette
+   règle (mouvement réduit). */
+.cp-halo-pulse {
+  opacity: 0.35;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .cp-halo-pulse {
+    animation: cp-halo-pulse 3s ease-in-out infinite;
+  }
+
+  [data-anime="false"] .cp-halo-pulse {
+    animation-play-state: paused;
+  }
+}
+
+@keyframes cp-halo-pulse {
+  0%,
+  100% {
+    opacity: 0.35;
+  }
+  50% {
+    opacity: 1;
   }
 }
 

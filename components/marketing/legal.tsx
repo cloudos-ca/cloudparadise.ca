@@ -261,7 +261,7 @@ export function SectionsLegales({
     <div className="space-y-8">
       {sections.map(({ titre, note }, i) => (
         <section key={titre}>
-          <h2 className="font-display text-lg font-bold tracking-tight text-[#eef4ff]">
+          <h2 className="font-display text-lg font-bold tracking-tight text-cp-heading">
             <span
               aria-hidden="true"
               className="mr-2 tabular-nums text-cp-muted"

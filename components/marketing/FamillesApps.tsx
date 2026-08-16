@@ -2,6 +2,7 @@ import Link from "next/link";
 import {
   IconCube,
   IconFileText,
+  IconGamepad,
   IconMessage,
   IconMovie,
   IconPhoto,
@@ -63,6 +64,12 @@ const TEXTES = {
       nom: "Collaboration",
       ligne: "Messagerie, courriel et agenda partagé.",
     },
+    jeux: {
+      Icone: IconGamepad,
+      nom: "Jeux",
+      ligne:
+        "Un studio de jeux généré par IA, et une arcade de près de 30 700 jeux gratuits.",
+    },
   },
   en: {
     eyebrow: "Your tools",
@@ -97,6 +104,11 @@ const TEXTES = {
       nom: "Collaboration",
       ligne: "Messaging, email and a shared calendar.",
     },
+    jeux: {
+      Icone: IconGamepad,
+      nom: "Games",
+      ligne: "An AI-generated game studio, and a free arcade of nearly 30,700 games.",
+    },
   },
 } as const;
 
@@ -114,7 +126,7 @@ export function FamillesApps({ lang = "fr" }: Readonly<{ lang?: Lang }>) {
           >
             {t.eyebrow}
           </p>
-          <h2 className="mt-2 max-w-[22ch] font-display text-[1.6rem] leading-[1.2] font-bold tracking-tight text-balance text-[#eef4ff] sm:text-3xl os:text-4xl">
+          <h2 className="mt-2 max-w-[22ch] font-display text-[1.6rem] leading-[1.2] font-bold tracking-tight text-balance text-cp-heading sm:text-3xl os:text-4xl">
             {t.titre}
           </h2>
           <p className="mt-3 max-w-[58ch] text-sm leading-relaxed text-white/85">
@@ -129,12 +141,12 @@ export function FamillesApps({ lang = "fr" }: Readonly<{ lang?: Lang }>) {
           ))}
         </Reveal>
 
-        {/* Collaboration, en pleine largeur sous la grille : ce n'est pas un
-            logiciel comme les quatre autres (messagerie, courriel, agenda) mais
-            la porte vers l'équipe — une forme différente le dit sans l'écrire,
-            et le vide à droite d'une cinquième cellule disparaît. */}
-        <Reveal delay={0.15} className="mt-3.5">
+        {/* Collaboration et Jeux, côte à côte sous la grille : ni l'une ni
+            l'autre n'est un logiciel comme les quatre premiers, mais les
+            deux se lisent mieux ensemble qu'empilées l'une sur l'autre. */}
+        <Reveal delay={0.15} className="mt-3.5 grid gap-3.5 sm:grid-cols-2">
           <CarteFamille famille={t.collaboration} />
+          <CarteFamille famille={t.jeux} />
         </Reveal>
 
         <Reveal delay={0.2} className="mt-8">
@@ -178,7 +190,7 @@ function CarteFamille({ famille }: Readonly<{ famille: Famille }>) {
         <Icone className="size-[21px]" />
       </span>
       <div className="min-w-0">
-        <p className="font-display text-[15px] font-semibold text-[#eef4ff]">
+        <p className="font-display text-[15px] font-semibold text-cp-heading">
           {nom}
         </p>
         <p className="mt-1 text-[13px] leading-relaxed text-white/75">

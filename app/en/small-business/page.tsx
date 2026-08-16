@@ -4,6 +4,7 @@ import {
   AncresSections,
   type Ancre,
 } from "@/components/marketing/AncresSections";
+import { prixAbonnementDepuis } from "@/components/marketing/abonnements";
 import { BoutonCta } from "@/components/marketing/BoutonCta";
 import { BreadcrumbJsonLd } from "@/components/marketing/BreadcrumbJsonLd";
 import { FenetreCta } from "@/components/marketing/FenetreCta";
@@ -13,8 +14,11 @@ import { Reveal } from "@/components/marketing/Reveal";
 import { WindowCard } from "@/components/marketing/WindowCard";
 import { libelleDe, type TypeTache } from "@/components/marketing/offre";
 import {
+  IconAdjustments,
   IconCalendar,
   IconCheck,
+  IconDatabase,
+  IconFileText,
   IconGift,
   IconMail,
   IconMessage,
@@ -27,6 +31,7 @@ import { lienInscription } from "@/lib/site";
 import {
   contenuPme,
   type CleCarteEquipe,
+  type CleCarteErp,
   type ClePointBudget,
   type SectionMetier,
 } from "@/content/pme";
@@ -95,6 +100,13 @@ const ICONES_BUDGET: Record<ClePointBudget, typeof IconGift> = {
   consulter: IconSearch,
 };
 
+const ICONES_ERP: Record<CleCarteErp, typeof IconUsers> = {
+  crm: IconUsers,
+  facturation: IconFileText,
+  inventaire: IconDatabase,
+  tableauBord: IconAdjustments,
+};
+
 export default function SmallBusinessPage() {
   return (
     <>
@@ -130,6 +142,17 @@ export default function SmallBusinessPage() {
               </BoutonCta>
               <LienOr href={lienInscription("pme-hero")}>{C.hero.lienCompte}</LienOr>
             </div>
+            <p className="mt-4 text-[13px] text-white/60">
+              Also available as a subscription,{" "}
+              <a
+                href="/en/pricing#abonnements"
+                data-cp-accent
+                className="text-cp-subtle underline-offset-4 hover:text-[var(--acc-text)] hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+              >
+                {prixAbonnementDepuis("en")}
+              </a>
+              .
+            </p>
           </Reveal>
         </div>
       </section>
@@ -139,6 +162,43 @@ export default function SmallBusinessPage() {
       {C.metiers.map((metier) => (
         <MetierSection key={metier.id} metier={metier} />
       ))}
+
+      {/* La gestion d'entreprise — ERP livré fin juillet 2026, jamais montré
+          sur la vitrine avant cette section. Même motif que « À plusieurs »
+          juste en dessous (quatre fenêtres en 2 × 2) : ce sont aussi des
+          applications du bureau, pas des puces illustrées. */}
+      <section id={C.erp.id} className="relative scroll-mt-24">
+        <div className={`${SHELL} ${SECTION_Y}`}>
+          <Reveal className="max-w-2xl">
+            <SurTitre>{C.erp.surtitre}</SurTitre>
+            <TitreSection>{C.erp.titre}</TitreSection>
+            <p className="mt-4 max-w-[62ch] text-sm leading-relaxed text-white/85">
+              {C.erp.texte}
+            </p>
+          </Reveal>
+
+          <Reveal delay={0.1} className="mt-10 grid gap-3.5 sm:grid-cols-2">
+            {C.erp.cartes.map(({ cle, titre, texte }) => {
+              const Icone = ICONES_ERP[cle];
+              return (
+                <WindowCard
+                  key={cle}
+                  title={titre}
+                  icone={<Icone className="size-4" />}
+                >
+                  <p className="p-5 text-[13px] leading-relaxed text-white/85">
+                    {texte}
+                  </p>
+                </WindowCard>
+              );
+            })}
+          </Reveal>
+
+          <Reveal delay={0.15} className="mt-6">
+            <LienOr href="/en/features#erp">{C.erp.lien}</LienOr>
+          </Reveal>
+        </div>
+      </section>
 
       {/* À plusieurs — quatre fenêtres du bureau, en 2 × 2. Le titre de chaque
           carte est le titre de sa fenêtre : ce sont des applications, autant
@@ -209,7 +269,7 @@ export default function SmallBusinessPage() {
                         <Icone className="size-[21px]" />
                       </span>
                       <div>
-                        <p className="text-sm font-medium text-[#eef4ff]">
+                        <p className="text-sm font-medium text-cp-heading">
                           {titre}
                         </p>
                         <p className="mt-1 text-[13px] leading-relaxed text-white/85">
@@ -395,7 +455,7 @@ function SurTitre({ children }: Readonly<{ children: ReactNode }>) {
 /** Titre de section, style système, collé au sur-titre. */
 function TitreSection({ children }: Readonly<{ children: ReactNode }>) {
   return (
-    <h2 className="mt-2 font-display text-[1.6rem] leading-[1.2] font-bold tracking-tight text-balance text-[#eef4ff] sm:text-3xl os:text-4xl">
+    <h2 className="mt-2 font-display text-[1.6rem] leading-[1.2] font-bold tracking-tight text-balance text-cp-heading sm:text-3xl os:text-4xl">
       {children}
     </h2>
   );

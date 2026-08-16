@@ -22,7 +22,7 @@ export const PME_FR: ContenuPme = {
   meta: {
     titre: "Le poste de travail des PME québécoises — Cloud Paradise",
     description:
-      "Comptabilité, administration, marketing : le poste de travail des PME québécoises, sans département informatique. Serveurs au Québec, crédits sans abonnement.",
+      "Comptabilité, administration, marketing : le poste de travail des PME québécoises, sans département informatique. Serveurs au Québec, crédits sans abonnement requis.",
   },
 
   og: {
@@ -52,6 +52,7 @@ export const PME_FR: ContenuPme = {
     { id: "comptabilite", libelle: "La comptabilité" },
     { id: "administration", libelle: "L’administration" },
     { id: "marketing", libelle: "Le marketing" },
+    { id: "erp", libelle: "La gestion d’entreprise" },
     { id: "equipe", libelle: "À plusieurs" },
     { id: "budget", libelle: "Le budget" },
     { id: "donnees", libelle: "Vos données" },
@@ -165,6 +166,40 @@ export const PME_FR: ContenuPme = {
     },
   ],
 
+  erp: {
+    id: "erp",
+    surtitre: "La gestion d’entreprise",
+    titre: "Un CRM et une facturation, déjà dans le bureau.",
+    texte:
+      "Clients, devis, factures et inventaire dans le même espace que vos autres outils — pas un logiciel à part, pas un abonnement de plus à gérer.",
+    cartes: [
+      {
+        cle: "crm",
+        titre: "CRM",
+        texte:
+          "Clients, contacts et opportunités en kanban, partagés par toute l’équipe.",
+      },
+      {
+        cle: "facturation",
+        titre: "Devis et factures",
+        texte:
+          "Devis et factures PDF, TPS et TVQ calculées automatiquement, relances des retards envoyées seules.",
+      },
+      {
+        cle: "inventaire",
+        titre: "Catalogue et inventaire",
+        texte: "Votre inventaire se décrémente tout seul à chaque facture.",
+      },
+      {
+        cle: "tableauBord",
+        titre: "Tableau de bord",
+        texte:
+          "Revenus, pipeline, comptes à recevoir et marge, en un coup d’œil.",
+      },
+    ],
+    lien: "Voir le détail",
+  },
+
   equipe: {
     id: "equipe",
     surtitre: "À plusieurs",
@@ -187,12 +222,13 @@ export const PME_FR: ContenuPme = {
         cle: "courriel",
         titre: "Courriel",
         texte:
-          "Webmail intégré, avec une adresse @cloudparadise.ca que vous activez depuis votre bureau.",
+          "Webmail intégré, avec une adresse @cloudparadise.ca que vous activez depuis votre bureau. Connectez aussi un compte externe (Gmail, Outlook) par IMAP/SMTP ou OAuth.",
       },
       {
         cle: "agenda",
-        titre: "Agenda",
-        texte: "Agenda partagé et rappels.",
+        titre: "Agenda et contacts",
+        texte:
+          "Agenda partagé et rappels. Synchronisation avec un service externe compatible CalDAV/CardDAV.",
       },
     ],
     lien: "Voir la plateforme",
@@ -201,7 +237,7 @@ export const PME_FR: ContenuPme = {
   budget: {
     id: "budget",
     surtitre: "Le budget",
-    titre: "Pas de licence par siège. Pas d’abonnement.",
+    titre: "Pas de licence par siège. Pas d’abonnement obligatoire.",
     texte:
       "Des crédits. Vous en recevez pour commencer, vous en rachetez quand vous voulez. Une petite tâche coûte peu ; un gros traitement coûte plus. Rien ne se périme.",
     points: [

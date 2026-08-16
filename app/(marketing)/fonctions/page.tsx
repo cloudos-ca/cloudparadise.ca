@@ -4,6 +4,7 @@ import {
   AncresSections,
   type Ancre,
 } from "@/components/marketing/AncresSections";
+import { prixAbonnementDepuis } from "@/components/marketing/abonnements";
 import { BreadcrumbJsonLd } from "@/components/marketing/BreadcrumbJsonLd";
 import { FenetreCta } from "@/components/marketing/FenetreCta";
 import { HreflangLinks } from "@/components/marketing/HreflangLinks";
@@ -52,6 +53,7 @@ const PLATEFORME = { href: "/plateforme", libelle: "Voir la plateforme" };
 const CALCUL = { href: "/calcul", libelle: "Voir le calcul" };
 const MINES = { href: "/mines", libelle: "Voir l’exploration minière" };
 const TARIFS = { href: "/tarifs", libelle: "Voir les tarifs" };
+const PME = { href: "/pme", libelle: "Voir les PME" };
 
 /**
  * Le contenu de la page.
@@ -94,7 +96,7 @@ const SECTIONS: readonly SectionFonctions[] = [
       {
         nom: "Spotlight",
         texte:
-          "Recherche plein-texte à l’intérieur de vos fichiers, pas seulement dans leurs noms.",
+          "Recherche plein-texte à l’intérieur de vos fichiers, pas seulement dans leurs noms. Un raccourci vocal (Ctrl+Alt+V) pour ouvrir, fermer et ranger une fenêtre, ou lancer une application par son nom.",
       },
       {
         nom: "Fond d’écran",
@@ -262,6 +264,39 @@ const SECTIONS: readonly SectionFonctions[] = [
     ],
   },
   {
+    // Livré fin juillet 2026, jamais couvert sur la vitrine avant le
+    // 2026-08-12 — ni même mentionné dans la documentation produit interne.
+    id: "erp",
+    surtitre: "La gestion d’entreprise",
+    titre: "Un CRM et une facturation, déjà dans le bureau.",
+    page: PME,
+    entrees: [
+      {
+        nom: "CRM",
+        texte:
+          "Clients, contacts et opportunités en kanban, partagés par toute l’équipe.",
+      },
+      {
+        nom: "Devis et factures",
+        texte:
+          "Devis et factures PDF, TPS et TVQ calculées automatiquement (non composées, interrupteur par organisation), relances des retards envoyées seules.",
+      },
+      {
+        nom: "Catalogue et inventaire",
+        texte: "Votre inventaire se décrémente tout seul à chaque facture.",
+      },
+      {
+        nom: "PayPal par équipe",
+        texte: "Chaque équipe encaisse ses clients avec son propre compte.",
+      },
+      {
+        nom: "Tableau de bord",
+        texte:
+          "Revenus, pipeline, comptes à recevoir et marge, en un coup d’œil.",
+      },
+    ],
+  },
+  {
     id: "equipe",
     surtitre: "À plusieurs",
     titre: "Le même bureau, à plusieurs.",
@@ -276,9 +311,31 @@ const SECTIONS: readonly SectionFonctions[] = [
       {
         nom: "Courriel",
         texte:
-          "Webmail intégré, avec une adresse @cloudparadise.ca que vous activez depuis votre bureau.",
+          "Webmail intégré, avec une adresse @cloudparadise.ca que vous activez depuis votre bureau. Connexion d’un compte externe (Gmail, Outlook) par IMAP/SMTP ou OAuth.",
       },
-      { nom: "Agenda", texte: "Agenda partagé et rappels." },
+      {
+        nom: "Agenda et contacts",
+        texte:
+          "Agenda partagé et rappels. Synchronisation avec un service externe compatible CalDAV/CardDAV.",
+      },
+    ],
+  },
+  {
+    id: "jeux",
+    surtitre: "Jouer",
+    titre: "Un studio de jeux, et une arcade gratuite.",
+    page: PLATEFORME,
+    entrees: [
+      {
+        nom: "Studio de jeux",
+        texte:
+          "Décrivez un jeu en conversation ; l’IA en discute les mécaniques, l’écrit sur Phaser 3, le compile et le teste automatiquement avant de vous le livrer. Un crédit par compilation ; rejouer et revenir en arrière sont gratuits.",
+      },
+      {
+        nom: "Arcades",
+        texte:
+          "Une salle d’environ 30 700 jeux HTML5 gratuits, organisée en salles par catégorie, cherchable depuis Spotlight. Classée sur ce qui se mesure — parties jouées, jeux essayés, séries de jours actifs — pas sur un score.",
+      },
     ],
   },
   {
@@ -362,7 +419,9 @@ const ANCRES: readonly Ancre[] = [
   { id: "calcul", libelle: { fr: "Calcul", en: "Compute" } },
   { id: "puissance", libelle: { fr: "Calcul", en: "Compute" } },
   { id: "automatisation", libelle: { fr: "Automatiser", en: "Automate" } },
+  { id: "erp", libelle: { fr: "Gestion d’entreprise", en: "Business management" } },
   { id: "equipe", libelle: { fr: "À plusieurs", en: "Together" } },
+  { id: "jeux", libelle: { fr: "Jouer", en: "Play" } },
   { id: "mines", libelle: { fr: "Mines", en: "Mining" } },
   { id: "compte", libelle: { fr: "Compte", en: "Account" } },
 ];
@@ -392,6 +451,20 @@ export default function FonctionsPage() {
             <p className="mt-6 max-w-[58ch] text-[17px] leading-relaxed text-white/85">
               La liste complète, par usage. Ce qui est ici est disponible
               aujourd’hui.
+            </p>
+            {/* Toujours pas de bouton — la page se consulte —, mais une ligne
+                d'information reste à sa place : la même que sur les trois
+                autres pages produit. */}
+            <p className="mt-3 text-[13px] text-white/60">
+              Aussi disponible en abonnement,{" "}
+              <a
+                href="/tarifs#abonnements"
+                data-cp-accent
+                className="text-cp-subtle underline-offset-4 hover:text-[var(--acc-text)] hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+              >
+                {prixAbonnementDepuis("fr")}
+              </a>
+              .
             </p>
           </Reveal>
         </div>
@@ -438,7 +511,7 @@ function SectionListe({ section }: Readonly<{ section: SectionFonctions }>) {
         <div className="grid gap-6 os:grid-cols-[2fr_3fr] os:items-start os:gap-12">
           <Reveal>
             <SurTitre>{surtitre}</SurTitre>
-            <h2 className="mt-2 font-display text-[1.5rem] leading-[1.2] font-bold tracking-tight text-balance text-[#eef4ff] sm:text-[1.75rem] os:text-[2rem]">
+            <h2 className="mt-2 font-display text-[1.5rem] leading-[1.2] font-bold tracking-tight text-balance text-cp-heading sm:text-[1.75rem] os:text-[2rem]">
               {titre}
             </h2>
             {intro ? (

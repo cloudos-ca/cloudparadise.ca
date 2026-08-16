@@ -18,13 +18,13 @@ const PROMESSES = {
     "Crédits offerts",
     "Sans carte requise",
     "Première tâche sans fichier",
-    "Sans abonnement",
+    "Crédits ou abonnement, au choix",
   ],
   en: [
     "Free credits",
     "No card required",
     "First task, no file needed",
-    "No subscription",
+    "Credits or subscription — your choice",
   ],
 } as const;
 

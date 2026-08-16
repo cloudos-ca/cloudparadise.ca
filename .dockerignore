@@ -9,6 +9,7 @@ yarn-error.log*
 .pnpm-debug.log*
 .git
 .gitignore
+.gitlab-ci.yml
 .env*
 .vercel
 .idea

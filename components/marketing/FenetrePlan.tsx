@@ -116,7 +116,7 @@ export function FenetrePlan({ lang = "fr" }: Readonly<{ lang?: Lang }>) {
             ne fait que l'exécuter. */}
         <div className="border-b border-white/10 p-5 os:border-r os:border-b-0">
           <div className="flex flex-wrap items-center gap-x-3 gap-y-1.5">
-            <p className="font-display text-[15px] font-semibold text-[#eef4ff]">
+            <p className="font-display text-[15px] font-semibold text-cp-heading">
               {t.tache}
             </p>
             <span

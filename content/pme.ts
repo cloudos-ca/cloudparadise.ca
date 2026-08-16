@@ -43,9 +43,16 @@ export type Journal = { titre: string; logs: readonly string[] };
  */
 export type CleCarteEquipe = "bureaux" | "messagerie" | "courriel" | "agenda";
 export type ClePointBudget = "offert" | "traite" | "consulter";
+export type CleCarteErp = "crm" | "facturation" | "inventaire" | "tableauBord";
 
 export type CarteEquipe = {
   cle: CleCarteEquipe;
+  titre: string;
+  texte: string;
+};
+
+export type CarteErp = {
+  cle: CleCarteErp;
   titre: string;
   texte: string;
 };
@@ -103,6 +110,22 @@ export type ContenuPme = {
   };
   ancres: readonly AncrePme[];
   metiers: readonly SectionMetier[];
+  /**
+   * Gestion d'entreprise (CRM, devis/factures, inventaire, tableau de bord) —
+   * livrée fin juillet 2026, jamais couverte sur la vitrine avant le
+   * 2026-08-12. Section à part plutôt qu'un 4ᵉ `SectionMetier` : elle ne
+   * facture aucune tâche au sens d'`offre.ts`, donc `factures` (obligatoire
+   * sur `SectionMetier`) ne s'y applique pas — même raison qui a gardé
+   * `equipe` et `donnees` hors du tableau `metiers`.
+   */
+  erp: {
+    id: string;
+    surtitre: string;
+    titre: string;
+    texte: string;
+    cartes: readonly CarteErp[];
+    lien: string;
+  };
   equipe: {
     id: string;
     surtitre: string;
