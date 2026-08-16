@@ -269,7 +269,7 @@ export default function SmallBusinessPage() {
                         <Icone className="size-[21px]" />
                       </span>
                       <div>
-                        <p className="text-sm font-medium text-[#eef4ff]">
+                        <p className="text-sm font-medium text-cp-heading">
                           {titre}
                         </p>
                         <p className="mt-1 text-[13px] leading-relaxed text-white/85">
@@ -455,7 +455,7 @@ function SurTitre({ children }: Readonly<{ children: ReactNode }>) {
 /** Titre de section, style système, collé au sur-titre. */
 function TitreSection({ children }: Readonly<{ children: ReactNode }>) {
   return (
-    <h2 className="mt-2 font-display text-[1.6rem] leading-[1.2] font-bold tracking-tight text-balance text-[#eef4ff] sm:text-3xl os:text-4xl">
+    <h2 className="mt-2 font-display text-[1.6rem] leading-[1.2] font-bold tracking-tight text-balance text-cp-heading sm:text-3xl os:text-4xl">
       {children}
     </h2>
   );

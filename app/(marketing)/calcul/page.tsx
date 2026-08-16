@@ -250,7 +250,7 @@ export default function CalculPage() {
         <div className={`${SHELL} ${SECTION_Y}`}>
           <Reveal className="max-w-2xl">
             <SurTitre>Premier essai</SurTitre>
-            <h2 className="mt-2 max-w-[24ch] font-display text-[1.6rem] leading-[1.2] font-bold tracking-tight text-balance text-[#eef4ff] sm:text-3xl os:text-4xl">
+            <h2 className="mt-2 max-w-[24ch] font-display text-[1.6rem] leading-[1.2] font-bold tracking-tight text-balance text-cp-heading sm:text-3xl os:text-4xl">
               Votre première tâche ne demande aucun fichier.
             </h2>
             <p className="mt-4 max-w-[54ch] text-sm leading-relaxed text-white/85">
@@ -298,7 +298,7 @@ export default function CalculPage() {
           <div className="grid items-center gap-10 os:grid-cols-[1fr_1fr] os:gap-14">
             <Reveal className="max-w-xl">
               <SurTitre>Automatisation</SurTitre>
-              <h2 className="mt-2 max-w-[20ch] font-display text-[1.6rem] leading-[1.2] font-bold tracking-tight text-balance text-[#eef4ff] sm:text-3xl os:text-4xl">
+              <h2 className="mt-2 max-w-[20ch] font-display text-[1.6rem] leading-[1.2] font-bold tracking-tight text-balance text-cp-heading sm:text-3xl os:text-4xl">
                 Une fois. Ou tous les lundis matin.
               </h2>
               <p className="mt-4 max-w-[54ch] text-sm leading-relaxed text-white/85">
@@ -427,7 +427,7 @@ function GesteSection({ geste }: Readonly<{ geste: Geste }>) {
                 </span>
               )}
             </p>
-            <h2 className="mt-2 font-display text-[1.6rem] leading-[1.2] font-bold tracking-tight text-balance text-[#eef4ff] sm:text-3xl os:text-4xl">
+            <h2 className="mt-2 font-display text-[1.6rem] leading-[1.2] font-bold tracking-tight text-balance text-cp-heading sm:text-3xl os:text-4xl">
               {geste.titre}
             </h2>
             <p className="mt-4 text-sm leading-relaxed text-white/85">

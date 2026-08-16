@@ -89,7 +89,7 @@ export function Tarification({ lang = "fr" }: Readonly<{ lang?: Lang }>) {
           >
             {t.eyebrow}
           </p>
-          <h2 className="mt-2 max-w-[22ch] font-display text-[1.6rem] leading-[1.2] font-bold tracking-tight text-balance text-[#eef4ff] sm:text-3xl os:text-4xl">
+          <h2 className="mt-2 max-w-[22ch] font-display text-[1.6rem] leading-[1.2] font-bold tracking-tight text-balance text-cp-heading sm:text-3xl os:text-4xl">
             {t.titre}
           </h2>
           <p className="mt-3 max-w-[52ch] text-sm leading-relaxed text-white/85">
@@ -122,7 +122,7 @@ export function Tarification({ lang = "fr" }: Readonly<{ lang?: Lang }>) {
                     <Icone className="size-[21px]" />
                   </span>
                   <div>
-                    <p className="text-sm font-medium text-[#eef4ff]">{titre}</p>
+                    <p className="text-sm font-medium text-cp-heading">{titre}</p>
                     <p className="mt-1 text-[13px] leading-relaxed text-white/85">
                       {texte}
                     </p>
@@ -161,7 +161,7 @@ function Abonnements({ lang }: Readonly<{ lang: Lang }>) {
   return (
     <div className="rounded-xl border border-white/10 bg-white/[0.03] px-5 py-5 os:px-6 os:py-6">
       <div className="flex flex-wrap items-baseline justify-between gap-3">
-        <p className="text-sm font-medium text-[#eef4ff]">
+        <p className="text-sm font-medium text-cp-heading">
           {lang === "en"
             ? "Prefer a fixed amount every month?"
             : "Vous préférez un montant fixe chaque mois ?"}
@@ -181,7 +181,7 @@ function Abonnements({ lang }: Readonly<{ lang: Lang }>) {
             className="flex items-center justify-between gap-3 rounded-lg border border-white/[0.08] bg-white/[0.02] px-4 py-3"
           >
             <div>
-              <p className="flex items-center gap-2 text-[13px] font-medium text-[#eef4ff]">
+              <p className="flex items-center gap-2 text-[13px] font-medium text-cp-heading">
                 {palier.nom[lang]}
                 {palier.id === PALIER_RECOMMANDE_ID ? (
                   <span
@@ -228,7 +228,7 @@ function Grille({ lang }: Readonly<{ lang: Lang }>) {
       <dl className="mt-3 flex flex-wrap gap-x-6 gap-y-2.5">
         {GRILLE.map(({ type, libelle, cout }) => (
           <div key={type} className="flex items-baseline gap-1.5">
-            <dt className="text-[13px] text-[#eef4ff]">{libelle[lang]}</dt>
+            <dt className="text-[13px] text-cp-heading">{libelle[lang]}</dt>
             {/* Un mode sans tarif arrêté reste listé — le masquer donnerait une
                 offre incomplète — mais il le dit au lieu d'afficher un prix. */}
             {cout === null ? (

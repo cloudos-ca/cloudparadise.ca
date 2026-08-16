@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useRef, useState, type FormEvent } from "react";
-import { motion, useReducedMotion } from "framer-motion";
 import { IconMail, IconMapPin, IconPhone, IconSend } from "./icons";
 import { useBoucleActive } from "./useBoucleActive";
 import { WindowCard } from "./WindowCard";
@@ -185,28 +184,18 @@ export function FenetreContact({
   lang = "fr",
   jeton,
 }: Readonly<{ lang?: Lang; jeton: string }>) {
-  const reduceMotion = useReducedMotion();
   const cadre = useRef<HTMLDivElement>(null);
-  const anime = useBoucleActive(cadre) && !reduceMotion;
-
   // Même respiration que les fenêtres du hero, en plus discret : celle-ci est
   // la cible d'une saisie, elle ne doit pas bouger sous le curseur.
   //
-  // Gardée : hors écran ou onglet caché, on revient à zéro et la boucle
-  // s'arrête au lieu de tenir une frame en vie pour rien.
-  const flottement = anime
-    ? {
-        animate: { y: [0, -5, 0] },
-        transition: {
-          duration: 9,
-          repeat: Infinity,
-          ease: "easeInOut" as const,
-        },
-      }
-    : { animate: { y: 0 } };
+  // Gardée : hors écran ou onglet caché, la boucle s'arrête au lieu de tenir
+  // une frame en vie pour rien. Le respect de `prefers-reduced-motion` est
+  // dans la règle CSS (`.cp-flotte`), plus dans une branche ici — voir
+  // JobPanel.
+  const anime = useBoucleActive(cadre);
 
   return (
-    <div className="relative" ref={cadre}>
+    <div className="relative" ref={cadre} data-anime={anime ? "true" : "false"}>
       {/* Lueur d'accent derrière la fenêtre : elle la détache du fond au lieu
           de la laisser posée à plat. Décorative, donc hors flux et hors a11y. */}
       <div
@@ -218,7 +207,10 @@ export function FenetreContact({
         }}
       />
 
-      <motion.div {...flottement}>
+      <div
+        className="cp-flotte"
+        style={{ ["--flotte-distance" as string]: "-5px", ["--flotte-duree" as string]: "9s" }}
+      >
         <WindowCard
           title={
             lang === "en"
@@ -238,7 +230,7 @@ export function FenetreContact({
             <Composition lang={lang} jeton={jeton} />
           </div>
         </WindowCard>
-      </motion.div>
+      </div>
     </div>
   );
 }

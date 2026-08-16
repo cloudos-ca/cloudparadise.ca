@@ -44,7 +44,7 @@ export function PageEntete({
       >
         {eyebrow}
       </p>
-      <h1 className="mt-2 font-display text-[1.7rem] leading-[1.2] font-bold tracking-tight text-balance text-[#eef4ff] sm:text-3xl os:text-4xl">
+      <h1 className="mt-2 font-display text-[1.7rem] leading-[1.2] font-bold tracking-tight text-balance text-cp-heading sm:text-3xl os:text-4xl">
         {titre}
       </h1>
       {soustitre ? (

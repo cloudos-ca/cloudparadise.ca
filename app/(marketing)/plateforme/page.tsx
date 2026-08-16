@@ -326,7 +326,7 @@ function SectionAncre({
       <div className={`${SHELL} ${SECTION_Y}`}>
         <Reveal className="max-w-2xl">
           <SurTitre>{surtitre}</SurTitre>
-          <h2 className="mt-2 max-w-[24ch] font-display text-[1.6rem] leading-[1.2] font-bold tracking-tight text-balance text-[#eef4ff] sm:text-3xl os:text-4xl">
+          <h2 className="mt-2 max-w-[24ch] font-display text-[1.6rem] leading-[1.2] font-bold tracking-tight text-balance text-cp-heading sm:text-3xl os:text-4xl">
             {titre}
           </h2>
           <p className="mt-4 max-w-[62ch] text-sm leading-relaxed text-white/85">
@@ -350,7 +350,7 @@ function SectionAncre({
                 <Icone className="size-[21px]" />
               </span>
               <div className="min-w-0">
-                <p className="font-display text-[15px] font-semibold text-[#eef4ff]">
+                <p className="font-display text-[15px] font-semibold text-cp-heading">
                   {titre}
                 </p>
                 <p className="mt-1 text-[13px] leading-relaxed text-white/75">
