@@ -415,33 +415,6 @@ body {
   }
 }
 
-/* Le halo du logo, dans FenetreCta : pulsation d'opacité, même garde que le
-   flottement. Opacité basse par défaut — c'est l'état sans JS ou sans cette
-   règle (mouvement réduit). */
-.cp-halo-pulse {
-  opacity: 0.35;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .cp-halo-pulse {
-    animation: cp-halo-pulse 3s ease-in-out infinite;
-  }
-
-  [data-anime="false"] .cp-halo-pulse {
-    animation-play-state: paused;
-  }
-}
-
-@keyframes cp-halo-pulse {
-  0%,
-  100% {
-    opacity: 0.35;
-  }
-  50% {
-    opacity: 1;
-  }
-}
-
 /*
  * Le fond de page — DEUX couches de composition, pas quatre.
  *
