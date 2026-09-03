@@ -17,11 +17,13 @@ import {
   IconAdjustments,
   IconCalendar,
   IconCheck,
+  IconCoin,
   IconDatabase,
   IconFileText,
   IconGift,
   IconMail,
   IconMessage,
+  IconRefresh,
   IconSearch,
   IconUsers,
 } from "@/components/marketing/icons";
@@ -103,8 +105,10 @@ const ICONES_BUDGET: Record<ClePointBudget, typeof IconGift> = {
 const ICONES_ERP: Record<CleCarteErp, typeof IconUsers> = {
   crm: IconUsers,
   facturation: IconFileText,
+  grandLivre: IconAdjustments,
+  etatsFinanciers: IconCoin,
+  banque: IconRefresh,
   inventaire: IconDatabase,
-  tableauBord: IconAdjustments,
 };
 
 export default function SmallBusinessPage() {
@@ -163,9 +167,10 @@ export default function SmallBusinessPage() {
         <MetierSection key={metier.id} metier={metier} />
       ))}
 
-      {/* La gestion d'entreprise — ERP livré fin juillet 2026, jamais montré
-          sur la vitrine avant cette section. Même motif que « À plusieurs »
-          juste en dessous (quatre fenêtres en 2 × 2) : ce sont aussi des
+      {/* La gestion d'entreprise — ERP livré fin juillet 2026, enrichi d'une
+          comptabilité en partie double complète le 2026-09-01, jamais montré
+          sur la vitrine avant cette section. Même motif de grille que
+          « À plusieurs » juste en dessous (deux colonnes) : ce sont aussi des
           applications du bureau, pas des puces illustrées. */}
       <section id={C.erp.id} className="relative scroll-mt-24">
         <div className={`${SHELL} ${SECTION_Y}`}>

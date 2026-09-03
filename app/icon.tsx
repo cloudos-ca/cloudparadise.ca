@@ -40,7 +40,6 @@ export default async function Icon({
           background: "linear-gradient(140deg, #151f33 0%, #1b273d 100%)",
         }}
       >
-        {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src={logoSrc} width={size * 0.72} alt="" />
       </div>
     ),

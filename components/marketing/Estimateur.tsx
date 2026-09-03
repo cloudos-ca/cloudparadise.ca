@@ -6,8 +6,13 @@ import { WindowCard } from "./WindowCard";
 import { CREDIT_EN_DEVISE, DEVISE, coutDe, libelleDe, type TypeTache } from "./offre";
 import type { Lang } from "./tokens";
 
-/** Types mis en avant : le moins cher, un intermédiaire, le plus cher. */
-const VEDETTES: readonly TypeTache[] = ["Documents", "Calcul GPU", "Rendu 3D"];
+/**
+ * Types mis en avant : le moins cher, un intermédiaire, le plus cher.
+ *
+ * Rendu 3D en tenait la place jusqu'au 2026-09-03 ; corrigé à 0,10 (voir
+ * `offre.ts`), il est devenu le moins cher des trois, pas le plus cher.
+ */
+const VEDETTES: readonly TypeTache[] = ["IA", "Documents", "Calcul GPU"];
 
 const CONFIG = {
   /**

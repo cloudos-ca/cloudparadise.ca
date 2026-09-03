@@ -179,9 +179,9 @@ export const PME_EN: ContenuPme = {
   erp: {
     id: "erp",
     surtitre: "Business management",
-    titre: "A CRM and invoicing, already in your workspace.",
+    titre: "From invoice to balance sheet, in the same workspace.",
     texte:
-      "Customers, quotes, invoices and inventory in the same space as your other tools — not a separate app, not another subscription to manage.",
+      "Customers, quotes, invoices, a double-entry general ledger and financial statements in the same space as your other tools — not a separate app, not another subscription to manage.",
     cartes: [
       {
         cle: "crm",
@@ -191,19 +191,32 @@ export const PME_EN: ContenuPme = {
       },
       {
         cle: "facturation",
-        titre: "Quotes and invoices",
+        titre: "Sales and purchases",
         texte:
-          "PDF quotes and invoices, sales tax calculated automatically, overdue reminders sent on their own.",
+          "Customer quotes and invoices, vendor bills and payments, sales tax calculated automatically, overdue reminders sent on their own.",
+      },
+      {
+        cle: "grandLivre",
+        titre: "General ledger",
+        texte:
+          "Double-entry accounting, a default chart of accounts, postings recorded automatically on every sale.",
+      },
+      {
+        cle: "etatsFinanciers",
+        titre: "Financial statements",
+        texte:
+          "An up-to-date balance sheet and income statement, computed as of any past date. CSV export.",
+      },
+      {
+        cle: "banque",
+        titre: "Bank reconciliation",
+        texte:
+          "Import your statement, reconcile transactions against suggested candidates, adjust bank fees in one click.",
       },
       {
         cle: "inventaire",
         titre: "Catalogue and inventory",
         texte: "Your inventory decrements itself with every invoice.",
-      },
-      {
-        cle: "tableauBord",
-        titre: "Dashboard",
-        texte: "Revenue, pipeline, receivables and margin, at a glance.",
       },
     ],
     lien: "See the details",

@@ -43,7 +43,13 @@ export type Journal = { titre: string; logs: readonly string[] };
  */
 export type CleCarteEquipe = "bureaux" | "messagerie" | "courriel" | "agenda";
 export type ClePointBudget = "offert" | "traite" | "consulter";
-export type CleCarteErp = "crm" | "facturation" | "inventaire" | "tableauBord";
+export type CleCarteErp =
+  | "crm"
+  | "facturation"
+  | "grandLivre"
+  | "etatsFinanciers"
+  | "banque"
+  | "inventaire";
 
 export type CarteEquipe = {
   cle: CleCarteEquipe;
