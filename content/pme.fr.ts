@@ -169,9 +169,9 @@ export const PME_FR: ContenuPme = {
   erp: {
     id: "erp",
     surtitre: "La gestion d’entreprise",
-    titre: "Un CRM et une facturation, déjà dans le bureau.",
+    titre: "De la facture au bilan, dans le même bureau.",
     texte:
-      "Clients, devis, factures et inventaire dans le même espace que vos autres outils — pas un logiciel à part, pas un abonnement de plus à gérer.",
+      "Clients, devis, factures, grand livre en partie double et états financiers dans le même espace que vos autres outils — pas un logiciel à part, pas un abonnement de plus à gérer.",
     cartes: [
       {
         cle: "crm",
@@ -181,20 +181,32 @@ export const PME_FR: ContenuPme = {
       },
       {
         cle: "facturation",
-        titre: "Devis et factures",
+        titre: "Ventes et achats",
         texte:
-          "Devis et factures PDF, TPS et TVQ calculées automatiquement, relances des retards envoyées seules.",
+          "Devis et factures clients, factures fournisseurs et paiements, TPS et TVQ calculées automatiquement, relances des retards envoyées seules.",
+      },
+      {
+        cle: "grandLivre",
+        titre: "Grand livre",
+        texte:
+          "Comptabilité en partie double, plan de comptes par défaut, écritures comptabilisées automatiquement à chaque vente.",
+      },
+      {
+        cle: "etatsFinanciers",
+        titre: "États financiers",
+        texte:
+          "Bilan et état des résultats à jour, calculés à n’importe quelle date passée. Export CSV.",
+      },
+      {
+        cle: "banque",
+        titre: "Rapprochement bancaire",
+        texte:
+          "Importez votre relevé, rapprochez vos transactions avec des candidats suggérés, ajustez les frais bancaires en un clic.",
       },
       {
         cle: "inventaire",
         titre: "Catalogue et inventaire",
         texte: "Votre inventaire se décrémente tout seul à chaque facture.",
-      },
-      {
-        cle: "tableauBord",
-        titre: "Tableau de bord",
-        texte:
-          "Revenus, pipeline, comptes à recevoir et marge, en un coup d’œil.",
       },
     ],
     lien: "Voir le détail",

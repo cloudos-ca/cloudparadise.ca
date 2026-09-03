@@ -60,12 +60,14 @@ export const RECHARGE_MINIMALE_EN_DEVISE = `${nf.format(
  * elles sont portées par les champs ci-dessous plutôt que par la copie, parce
  * que c'est un fait de facturation et non une tournure de page :
  *
- * - `unite` — le débit se compte à la pièce sur toute la ligne. Un seul cas :
- *   le traitement d'images, facturé par image.
- * - `uniteException` — la ligne reste au forfait, sauf une opération. Un seul
- *   cas : le publipostage, facturé par document généré. Écrire « par document »
+ * - `unite` — le débit se compte à la pièce sur toute la ligne. Deux cas : le
+ *   traitement d'images, facturé par image, et la source de données API,
+ *   facturée par appel.
+ * - `uniteException` — la ligne reste au forfait, sauf une opération. Deux
+ *   cas : le publipostage, facturé par document généré — écrire « par document »
  *   sec sur Documents serait faux pour la conversion, l'OCR, la fusion, le
- *   classement, la traduction et l'indexation.
+ *   classement, la traduction et l'indexation — et le rendu 3D en séquence
+ *   d'animation, facturé par frame.
  *
  * La génération d'images n'en fait pas partie : une tâche y produit une image,
  * donc le forfait et la pièce coïncident.
@@ -102,9 +104,21 @@ export const GRILLE = [
     cout: 0.5,
   },
   {
+    // Corrigé le 2026-09-03 : 1,00 → 0,10 pour un rendu unique (frame, preview
+    // ou raw). Deuxième correction en un mois — le prix avait déjà bougé de
+    // 3,00 à 1,00 le 2026-08-02, puis de nouveau le 2026-08-26 (commentaire
+    // daté dans `pricing.ts`, dépôt applicatif). Une séquence d'animation
+    // (`render-sequence`) n'est plus au forfait plafonné à 10 images : elle se
+    // facture à la frame, garde-fou technique à 2000 frames seulement. Fait
+    // relevé sur la foi du brief du 2026-09-03, pas vérifié directement dans
+    // ce dépôt-ci — à confronter au code applicatif au prochain accès.
     type: "Rendu 3D",
     libelle: { fr: "Rendu 3D", en: "3D Rendering" },
-    cout: 1,
+    cout: 0.1,
+    uniteException: {
+      fr: "séquence d’animation : par frame",
+      en: "animation sequence: per frame",
+    },
   },
   {
     type: "Images",
@@ -143,6 +157,25 @@ export const GRILLE = [
     type: "Géomatique",
     libelle: { fr: "Géomatique et SIG", en: "Geomatics and GIS" },
     cout: 0.5,
+  },
+  {
+    // Ajouté le 2026-09-03. Nouveau moteur (job `VOICE`) : transcription d'un
+    // mémo vocal déposé directement dans l'assistant, 0,50 $ par mémo quelle
+    // que soit sa durée — pas un débit à la minute. `type` reste à confronter
+    // à l'identifiant interne de l'application, comme pour Géomatique.
+    type: "Mémo vocal",
+    libelle: { fr: "Mémo vocal", en: "Voice Memo" },
+    cout: 0.5,
+  },
+  {
+    // Ajouté le 2026-09-03. Passerelle vers un fournisseur externe (Google
+    // Geocoding, Microsoft Translator, etc.), facturée par appel — c'est un
+    // coût qui varie avec l'usage, pas une tâche au forfait. `type` reste à
+    // confronter à l'identifiant interne de l'application.
+    type: "Source de données",
+    libelle: { fr: "Source de données", en: "Data Source" },
+    cout: 0.1,
+    unite: { fr: "appel", en: "call" },
   },
 ] as const;
 

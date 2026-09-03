@@ -9,6 +9,7 @@ import { BreadcrumbJsonLd } from "@/components/marketing/BreadcrumbJsonLd";
 import { FenetreCta } from "@/components/marketing/FenetreCta";
 import { HreflangLinks } from "@/components/marketing/HreflangLinks";
 import { Reveal } from "@/components/marketing/Reveal";
+import { prixHebergement } from "@/components/marketing/hebergement";
 import { libelleDe } from "@/components/marketing/offre";
 import { SECTION_Y, SHELL } from "@/components/marketing/tokens";
 import { alternatesBilingues, openGraphPage } from "@/lib/seo";
@@ -44,8 +45,12 @@ type SectionFonctions = {
   titre: string;
   /** Ligne d'orientation sous le titre. Absente quand elle n'apprendrait rien. */
   intro?: string;
-  /** La page qui développe les entrées de la section. */
-  page: { href: string; libelle: string };
+  /**
+   * La page qui développe les entrées de la section. Absente quand la section
+   * n'a pas de page dédiée — Hébergement Web n'en a pas encore, `/fonctions`
+   * en est la seule couverture pour l'instant.
+   */
+  page?: { href: string; libelle: string };
   entrees: readonly Entree[];
 };
 
@@ -175,6 +180,16 @@ const SECTIONS: readonly SectionFonctions[] = [
         texte:
           "Mettre en tableau ce qui vous intéresse sur un site, récupérer des fichiers en masse.",
       },
+      {
+        nom: libelleDe("Mémo vocal", "fr"),
+        texte:
+          "Déposez un enregistrement, récupérez le texte — brut, sous-titré (SRT/WebVTT), en français ou dans une autre langue détectée automatiquement. Tourne sur notre infrastructure, jamais un service tiers.",
+      },
+      {
+        nom: libelleDe("Source de données", "fr"),
+        texte:
+          "Passerelle vers un fournisseur externe (géocodage, traduction) quand la demande le justifie.",
+      },
     ],
   },
   {
@@ -268,7 +283,11 @@ const SECTIONS: readonly SectionFonctions[] = [
     // 2026-08-12 — ni même mentionné dans la documentation produit interne.
     id: "erp",
     surtitre: "La gestion d’entreprise",
-    titre: "Un CRM et une facturation, déjà dans le bureau.",
+    titre: "De la facture au bilan, dans le même bureau.",
+    // Livraisons du 2026-09-01 : quatre chantiers ont fait passer l'ERP de
+    // « facturation avec CRM » à une comptabilité en partie double complète.
+    // Export PDF des états financiers et écritures de clôture d'exercice
+    // restent hors scope — ne pas les promettre.
     page: PME,
     entrees: [
       {
@@ -282,6 +301,26 @@ const SECTIONS: readonly SectionFonctions[] = [
           "Devis et factures PDF, TPS et TVQ calculées automatiquement (non composées, interrupteur par organisation), relances des retards envoyées seules.",
       },
       {
+        nom: "Comptes fournisseurs",
+        texte:
+          "Factures fournisseurs ventilées, paiements, comptabilisation symétrique au volet ventes.",
+      },
+      {
+        nom: "Grand livre",
+        texte:
+          "Comptabilité en partie double, plan de comptes par défaut, écritures automatiques à chaque vente — ou saisies à la main quand il le faut.",
+      },
+      {
+        nom: "États financiers",
+        texte:
+          "Bilan et état des résultats calculés à la volée, à n’importe quelle date passée. Export CSV. Le rapport de taxes déduit les crédits de taxe sur les intrants.",
+      },
+      {
+        nom: "Rapprochement bancaire",
+        texte:
+          "Importez votre relevé (OFX ou CSV générique), rapprochez vos transactions avec des candidats suggérés par montant et par date, ajustez les frais bancaires en une écriture.",
+      },
+      {
         nom: "Catalogue et inventaire",
         texte: "Votre inventaire se décrémente tout seul à chaque facture.",
       },
@@ -293,6 +332,48 @@ const SECTIONS: readonly SectionFonctions[] = [
         nom: "Tableau de bord",
         texte:
           "Revenus, pipeline, comptes à recevoir et marge, en un coup d’œil.",
+      },
+      {
+        nom: "Rôles ERP",
+        texte:
+          "Accès restreint module par module — comptabilité générale, fournisseurs, banque — pas un simple interrupteur ERP.",
+      },
+    ],
+  },
+  {
+    id: "hebergement",
+    surtitre: "Hébergement Web",
+    titre: "Votre site, hébergé chez nous aussi.",
+    intro: `${prixHebergement("fr")}, sans abonnement Crédits requis — un produit à part, pas un module de plus.`,
+    entrees: [
+      {
+        nom: "Quatre piles prêtes à l’emploi",
+        texte:
+          "WordPress, PHP générique, Node ou statique : un site provisionné en trois clics.",
+      },
+      {
+        nom: "Courriel du domaine",
+        texte:
+          "Une adresse sur votre propre domaine, provisionnée automatiquement avec le site.",
+      },
+      {
+        nom: "Sauvegarde automatique",
+        texte: "Fichiers et base de données, chaque jour.",
+      },
+      {
+        nom: "Bascule sans casse",
+        texte:
+          "Suite de tests avant de couper l’ancien hébergeur : web, base de données, DNS, courriel.",
+      },
+      {
+        nom: "Migration",
+        texte:
+          "Connecteur SSH/SFTP générique pour rapatrier un site déjà hébergé ailleurs.",
+      },
+      {
+        nom: "Outils d’administration",
+        texte:
+          "phpMyAdmin ou pgAdmin à la demande, plusieurs sites gérés depuis un seul compte.",
       },
     ],
   },
@@ -420,6 +501,7 @@ const ANCRES: readonly Ancre[] = [
   { id: "puissance", libelle: { fr: "Calcul", en: "Compute" } },
   { id: "automatisation", libelle: { fr: "Automatiser", en: "Automate" } },
   { id: "erp", libelle: { fr: "Gestion d’entreprise", en: "Business management" } },
+  { id: "hebergement", libelle: { fr: "Hébergement Web", en: "Web Hosting" } },
   { id: "equipe", libelle: { fr: "À plusieurs", en: "Together" } },
   { id: "jeux", libelle: { fr: "Jouer", en: "Play" } },
   { id: "mines", libelle: { fr: "Mines", en: "Mining" } },
@@ -519,9 +601,11 @@ function SectionListe({ section }: Readonly<{ section: SectionFonctions }>) {
                 {intro}
               </p>
             ) : null}
-            <div className="mt-4">
-              <LienOr href={page.href}>{page.libelle}</LienOr>
-            </div>
+            {page ? (
+              <div className="mt-4">
+                <LienOr href={page.href}>{page.libelle}</LienOr>
+              </div>
+            ) : null}
           </Reveal>
 
           <Reveal delay={0.1}>

@@ -9,6 +9,7 @@ import { BreadcrumbJsonLd } from "@/components/marketing/BreadcrumbJsonLd";
 import { FenetreCta } from "@/components/marketing/FenetreCta";
 import { HreflangLinks } from "@/components/marketing/HreflangLinks";
 import { Reveal } from "@/components/marketing/Reveal";
+import { prixHebergement } from "@/components/marketing/hebergement";
 import { libelleDe } from "@/components/marketing/offre";
 import { SECTION_Y, SHELL } from "@/components/marketing/tokens";
 import { alternatesBilingues, openGraphPage } from "@/lib/seo";
@@ -44,8 +45,12 @@ type SectionFonctions = {
   titre: string;
   /** Ligne d'orientation sous le titre. Absente quand elle n'apprendrait rien. */
   intro?: string;
-  /** La page qui développe les entrées de la section. */
-  page: { href: string; libelle: string };
+  /**
+   * La page qui développe les entrées de la section. Absente quand la section
+   * n'a pas de page dédiée — Web Hosting n'en a pas encore, `/en/features` en
+   * est la seule couverture pour l'instant.
+   */
+  page?: { href: string; libelle: string };
   entrees: readonly Entree[];
 };
 
@@ -177,6 +182,16 @@ const SECTIONS: readonly SectionFonctions[] = [
         texte:
           "Put what interests you on a site into a table, retrieve files in bulk.",
       },
+      {
+        nom: libelleDe("Mémo vocal", "en"),
+        texte:
+          "Drop a recording, get back the text — plain, subtitled (SRT/WebVTT), in French or another auto-detected language. Runs on our own infrastructure, never a third-party service.",
+      },
+      {
+        nom: libelleDe("Source de données", "en"),
+        texte:
+          "Gateway to an external provider (geocoding, translation) when the request calls for it.",
+      },
     ],
   },
   {
@@ -269,7 +284,11 @@ const SECTIONS: readonly SectionFonctions[] = [
     // 2026-08-12 — ni même mentionné dans la documentation produit interne.
     id: "erp",
     surtitre: "Business management",
-    titre: "A CRM and invoicing, already in your workspace.",
+    titre: "From invoice to balance sheet, in the same workspace.",
+    // Shipped 2026-09-01: four projects turned the ERP from "invoicing with a
+    // CRM" into a full double-entry accounting system. PDF export of
+    // financial statements and year-end closing entries stay out of scope —
+    // don't promise them.
     page: PME,
     entrees: [
       {
@@ -283,6 +302,26 @@ const SECTIONS: readonly SectionFonctions[] = [
           "PDF quotes and invoices, sales tax calculated automatically (not compounded, switchable per organization), overdue reminders sent on their own.",
       },
       {
+        nom: "Accounts payable",
+        texte:
+          "Itemized vendor bills, payments, posted symmetrically with the sales side.",
+      },
+      {
+        nom: "General ledger",
+        texte:
+          "Double-entry accounting, a default chart of accounts, automatic postings on every sale — or manual entries when you need them.",
+      },
+      {
+        nom: "Financial statements",
+        texte:
+          "Balance sheet and income statement, computed on the fly as of any past date. CSV export. The tax report deducts input tax credits.",
+      },
+      {
+        nom: "Bank reconciliation",
+        texte:
+          "Import your statement (OFX or generic CSV), reconcile transactions against candidates suggested by amount and date, adjust bank fees in one entry.",
+      },
+      {
         nom: "Catalogue and inventory",
         texte: "Your inventory decrements itself with every invoice.",
       },
@@ -293,6 +332,48 @@ const SECTIONS: readonly SectionFonctions[] = [
       {
         nom: "Dashboard",
         texte: "Revenue, pipeline, receivables and margin, at a glance.",
+      },
+      {
+        nom: "ERP roles",
+        texte:
+          "Access restricted module by module — general ledger, accounts payable, banking — not a single ERP on/off switch.",
+      },
+    ],
+  },
+  {
+    id: "hebergement",
+    surtitre: "Web Hosting",
+    titre: "Your website, hosted with us too.",
+    intro: `${prixHebergement("en")}, no active Credits subscription required — a standalone product, not another module.`,
+    entrees: [
+      {
+        nom: "Four ready-made stacks",
+        texte:
+          "WordPress, generic PHP, Node, or static: a site provisioned in three clicks.",
+      },
+      {
+        nom: "Domain email",
+        texte:
+          "An address on your own domain, provisioned automatically with the site.",
+      },
+      {
+        nom: "Automatic backups",
+        texte: "Files and database, every day.",
+      },
+      {
+        nom: "Cutover without breakage",
+        texte:
+          "A pre-switch test suite before you drop your old host: web, database, DNS, mail.",
+      },
+      {
+        nom: "Migration",
+        texte:
+          "Generic SSH/SFTP connector to bring in a site already hosted elsewhere.",
+      },
+      {
+        nom: "Admin tools",
+        texte:
+          "phpMyAdmin or pgAdmin on demand, several sites managed from one account.",
       },
     ],
   },
@@ -419,6 +500,7 @@ const ANCRES: readonly Ancre[] = [
   { id: "puissance", libelle: { fr: "Calcul", en: "Compute" } },
   { id: "automatisation", libelle: { fr: "Automatiser", en: "Automate" } },
   { id: "erp", libelle: { fr: "Gestion d’entreprise", en: "Business management" } },
+  { id: "hebergement", libelle: { fr: "Hébergement Web", en: "Web Hosting" } },
   { id: "equipe", libelle: { fr: "À plusieurs", en: "Together" } },
   { id: "jeux", libelle: { fr: "Jouer", en: "Play" } },
   { id: "mines", libelle: { fr: "Mines", en: "Mining" } },
@@ -518,9 +600,11 @@ function SectionListe({ section }: Readonly<{ section: SectionFonctions }>) {
                 {intro}
               </p>
             ) : null}
-            <div className="mt-4">
-              <LienOr href={page.href}>{page.libelle}</LienOr>
-            </div>
+            {page ? (
+              <div className="mt-4">
+                <LienOr href={page.href}>{page.libelle}</LienOr>
+              </div>
+            ) : null}
           </Reveal>
 
           <Reveal delay={0.1}>

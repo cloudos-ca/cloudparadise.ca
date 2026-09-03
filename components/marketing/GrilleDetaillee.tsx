@@ -32,9 +32,10 @@ const nf = new Intl.NumberFormat("fr-CA");
  *
  * La règle de facturation réelle est le **forfait par tâche** : une tâche coûte
  * son prix quel que soit le volume qu'elle traite. Un lot de 200 contrats
- * convertis est une tâche à 0,25, pas 200. Deux exceptions se comptent à la
- * pièce, et elles sont déclarées dans `offre.ts` (`unite`, `uniteException`) :
- * le traitement d'images, et le publipostage.
+ * convertis est une tâche à 0,25, pas 200. Certaines lignes se comptent à la
+ * pièce, ou au forfait sauf une opération — déclarées dans `offre.ts`
+ * (`unite`, `uniteException`) : le traitement d'images, la source de données
+ * API, le publipostage, le rendu 3D en séquence d'animation.
  *
  * Ce commentaire a déjà affirmé l'inverse — « le débit suit l'avancement, unité
  * par unité », donné comme règle générale — et cette erreur s'était propagée
@@ -107,7 +108,11 @@ const LIGNES: readonly {
       fr: "Rendu 3D / scènes lourdes",
       en: "3D rendering / heavy scenes",
     },
-    exemple: { quantite: 33, unite: { fr: "tâches", en: "tasks" } },
+    details: {
+      fr: ["Séquence d’animation : facturée à la frame"],
+      en: ["Animation sequence: billed per frame"],
+    },
+    exemple: { quantite: 100, unite: { fr: "tâches", en: "tasks" } },
   },
   {
     type: "Images",
@@ -175,6 +180,26 @@ const LIGNES: readonly {
     },
     exemple: { quantite: 100, unite: { fr: "tâches", en: "tasks" } },
   },
+  {
+    type: "Mémo vocal",
+    fait: {
+      fr: "Transcription d’un enregistrement déposé dans l’assistant",
+      en: "Transcription of a recording dropped in the assistant",
+    },
+    details: {
+      fr: ["Texte brut, SRT ou WebVTT horodaté", "FR, EN, ES, DE"],
+      en: ["Plain text, SRT or timestamped WebVTT", "FR, EN, ES, DE"],
+    },
+    exemple: { quantite: 20, unite: { fr: "tâches", en: "tasks" } },
+  },
+  {
+    type: "Source de données",
+    fait: {
+      fr: "Appel à un fournisseur externe (géocodage, traduction, etc.)",
+      en: "Call to an external provider (geocoding, translation, etc.)",
+    },
+    exemple: { quantite: 100, unite: { fr: "appels", en: "calls" } },
+  },
 ];
 
 /** Coût d'un exemple, arrondi au centième près comme les crédits. */
@@ -238,7 +263,7 @@ const TABLEAU: Record<
     prix: "Prix",
     exemple: "Exemple",
     forfait:
-      "Une tâche coûte le même prix quel que soit le volume qu’elle traite. Deux exceptions se comptent à la pièce, signalées dans la colonne Prix.",
+      "Une tâche coûte le même prix quel que soit le volume qu’elle traite. Certaines se comptent à la pièce, signalées dans la colonne Prix.",
   },
   en: {
     titre: "Pricing · Cloud Paradise",
@@ -248,7 +273,7 @@ const TABLEAU: Record<
     prix: "Price",
     exemple: "Example",
     forfait:
-      "A task costs the same whatever volume it handles. Two exceptions are counted per item, flagged in the Price column.",
+      "A task costs the same whatever volume it handles. Some are counted per item, flagged in the Price column.",
   },
 };
 
