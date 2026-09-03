@@ -107,11 +107,12 @@ export const GRILLE = [
     // Corrigé le 2026-09-03 : 1,00 → 0,10 pour un rendu unique (frame, preview
     // ou raw). Deuxième correction en un mois — le prix avait déjà bougé de
     // 3,00 à 1,00 le 2026-08-02, puis de nouveau le 2026-08-26 (commentaire
-    // daté dans `pricing.ts`, dépôt applicatif). Une séquence d'animation
-    // (`render-sequence`) n'est plus au forfait plafonné à 10 images : elle se
-    // facture à la frame, garde-fou technique à 2000 frames seulement. Fait
-    // relevé sur la foi du brief du 2026-09-03, pas vérifié directement dans
-    // ce dépôt-ci — à confronter au code applicatif au prochain accès.
+    // daté dans `src/lib/billing/pricing.ts`, dépôt applicatif, vérifié
+    // directement). Une séquence d'animation (`render-sequence`) n'est plus au
+    // forfait plafonné à 10 images : elle se facture à la frame, garde-fou
+    // technique à 2000 frames seulement. Le maximum réel de la grille reste
+    // 1,00 — c'est Studio de jeux (compilation) qui le porte maintenant, pas
+    // Rendu 3D, sauf en séquence d'animation longue, qui peut le dépasser.
     type: "Rendu 3D",
     libelle: { fr: "Rendu 3D", en: "3D Rendering" },
     cout: 0.1,
@@ -159,19 +160,19 @@ export const GRILLE = [
     cout: 0.5,
   },
   {
-    // Ajouté le 2026-09-03. Nouveau moteur (job `VOICE`) : transcription d'un
-    // mémo vocal déposé directement dans l'assistant, 0,50 $ par mémo quelle
-    // que soit sa durée — pas un débit à la minute. `type` reste à confronter
-    // à l'identifiant interne de l'application, comme pour Géomatique.
+    // Ajouté le 2026-09-03. Nouveau moteur, `JobKind.VOICE` dans
+    // `src/lib/billing/pricing.ts` (dépôt applicatif, identifiant confirmé) :
+    // transcription d'un mémo vocal déposé directement dans l'assistant,
+    // 0,50 $ par mémo quelle que soit sa durée — pas un débit à la minute.
     type: "Mémo vocal",
     libelle: { fr: "Mémo vocal", en: "Voice Memo" },
     cout: 0.5,
   },
   {
-    // Ajouté le 2026-09-03. Passerelle vers un fournisseur externe (Google
-    // Geocoding, Microsoft Translator, etc.), facturée par appel — c'est un
-    // coût qui varie avec l'usage, pas une tâche au forfait. `type` reste à
-    // confronter à l'identifiant interne de l'application.
+    // Ajouté le 2026-09-03. `JobKind.API` dans `pricing.ts` (identifiant
+    // confirmé) : passerelle vers un fournisseur externe (Google Geocoding,
+    // Microsoft Translator, etc.), facturée par appel — un coût qui varie avec
+    // l'usage, pas une tâche au forfait.
     type: "Source de données",
     libelle: { fr: "Source de données", en: "Data Source" },
     cout: 0.1,

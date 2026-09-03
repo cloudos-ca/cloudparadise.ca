@@ -9,6 +9,7 @@ import { BreadcrumbJsonLd } from "@/components/marketing/BreadcrumbJsonLd";
 import { FenetreCta } from "@/components/marketing/FenetreCta";
 import { HreflangLinks } from "@/components/marketing/HreflangLinks";
 import { Reveal } from "@/components/marketing/Reveal";
+import { prixBacASable } from "@/components/marketing/bacASable";
 import { prixHebergement } from "@/components/marketing/hebergement";
 import { libelleDe } from "@/components/marketing/offre";
 import { SECTION_Y, SHELL } from "@/components/marketing/tokens";
@@ -89,6 +90,10 @@ const SECTIONS: readonly SectionFonctions[] = [
         texte: "Your Drive and OneDrive files, reachable from your desktop.",
       },
       {
+        nom: "Sandbox",
+        texte: `A real persistent Linux desktop, continuously synced with the Files app — unlike the rest of the platform, which runs in an ephemeral container. ${prixBacASable("en")}, on top of an active Credits subscription.`,
+      },
+      {
         // Ici et pas dans « Vos applications » : l'app est `hidden` au registre,
         // elle ne se lance ni depuis le dock ni depuis le lanceur — s'ouvrir en
         // double-cliquant un fichier est un comportement du bureau, pas une
@@ -147,6 +152,11 @@ const SECTIONS: readonly SectionFonctions[] = [
       { nom: "3D", texte: "Blender, streamed in an ephemeral session." },
       { nom: "GIS", texte: "QGIS Desktop, streamed in an ephemeral session." },
       { nom: "PDF reader", texte: "Your PDFs open in the desktop." },
+      {
+        nom: "Code Agent",
+        texte:
+          "Your Git repositories, a coding plan and an asynchronous interactive loop, in an isolated environment with MCP tools enabled by default.",
+      },
     ],
   },
   {
