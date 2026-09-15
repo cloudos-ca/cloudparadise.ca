@@ -414,7 +414,7 @@ function Prix({ type, lang }: Readonly<{ type: TypeTache; lang: Lang }>) {
   return (
     <span className="inline-flex flex-col items-end gap-0.5">
       <span
-        className="font-display text-[16px] font-bold tabular-nums"
+        className="font-display text-[16px] font-extrabold tabular-nums"
         style={{ color: "var(--cta)" }}
       >
         {nfCredit.format(cout)}

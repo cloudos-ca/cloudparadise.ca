@@ -534,7 +534,7 @@ export default function FonctionsPageEn() {
         <div className={`${SHELL} ${SECTION_Y}`}>
           <Reveal className="max-w-3xl">
             <SurTitre>Features</SurTitre>
-            <h1 className="mt-2 font-display text-[1.9rem] leading-[1.1] font-bold tracking-[-0.02em] text-white sm:text-[2.4rem] os:text-[2.8rem]">
+            <h1 className="mt-2 font-display text-[1.9rem] leading-[1.1] font-extrabold tracking-[-0.02em] text-white sm:text-[2.4rem] os:text-[2.8rem]">
               Everything the
               <br />
               workstation can do.
@@ -602,7 +602,7 @@ function SectionListe({ section }: Readonly<{ section: SectionFonctions }>) {
         <div className="grid gap-6 os:grid-cols-[2fr_3fr] os:items-start os:gap-12">
           <Reveal>
             <SurTitre>{surtitre}</SurTitre>
-            <h2 className="mt-2 font-display text-[1.5rem] leading-[1.2] font-bold tracking-tight text-balance text-cp-heading sm:text-[1.75rem] os:text-[2rem]">
+            <h2 className="mt-2 font-display text-[1.5rem] leading-[1.2] font-extrabold tracking-tight text-balance text-cp-heading sm:text-[1.75rem] os:text-[2rem]">
               {titre}
             </h2>
             {intro ? (

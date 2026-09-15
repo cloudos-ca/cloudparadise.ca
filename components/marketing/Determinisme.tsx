@@ -52,7 +52,7 @@ export function Determinisme({ lang = "fr" }: Readonly<{ lang?: Lang }>) {
             >
               {t.eyebrow}
             </p>
-            <h2 className="mt-2 font-display text-[1.6rem] leading-[1.2] font-bold tracking-tight text-balance text-cp-heading sm:text-3xl os:text-4xl">
+            <h2 className="mt-2 font-display text-[1.6rem] leading-[1.2] font-extrabold tracking-tight text-balance text-cp-heading sm:text-3xl os:text-4xl">
               {t.titre}
             </h2>
             <p className="mt-4 text-sm leading-relaxed text-white/85">

@@ -160,7 +160,7 @@ export default function PlateformePageEn() {
         <div className={`${SHELL} ${SECTION_Y}`}>
           <Reveal className="max-w-3xl">
             <SurTitre>Platform</SurTitre>
-            <h1 className="mt-2 font-display text-[2rem] leading-[1.08] font-bold tracking-[-0.02em] text-white sm:text-[2.9rem] os:text-[3.35rem]">
+            <h1 className="mt-2 font-display text-[2rem] leading-[1.08] font-extrabold tracking-[-0.02em] text-white sm:text-[2.9rem] os:text-[3.35rem]">
               Not a dashboard.
               <br />
               A real desktop.
@@ -327,7 +327,7 @@ function SectionAncre({
       <div className={`${SHELL} ${SECTION_Y}`}>
         <Reveal className="max-w-2xl">
           <SurTitre>{surtitre}</SurTitre>
-          <h2 className="mt-2 max-w-[24ch] font-display text-[1.6rem] leading-[1.2] font-bold tracking-tight text-balance text-cp-heading sm:text-3xl os:text-4xl">
+          <h2 className="mt-2 max-w-[24ch] font-display text-[1.6rem] leading-[1.2] font-extrabold tracking-tight text-balance text-cp-heading sm:text-3xl os:text-4xl">
             {titre}
           </h2>
           <p className="mt-4 max-w-[62ch] text-sm leading-relaxed text-white/85">

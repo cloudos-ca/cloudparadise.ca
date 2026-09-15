@@ -89,7 +89,7 @@ export function Tarification({ lang = "fr" }: Readonly<{ lang?: Lang }>) {
           >
             {t.eyebrow}
           </p>
-          <h2 className="mt-2 max-w-[22ch] font-display text-[1.6rem] leading-[1.2] font-bold tracking-tight text-balance text-cp-heading sm:text-3xl os:text-4xl">
+          <h2 className="mt-2 max-w-[22ch] font-display text-[1.6rem] leading-[1.2] font-extrabold tracking-tight text-balance text-cp-heading sm:text-3xl os:text-4xl">
             {t.titre}
           </h2>
           <p className="mt-3 max-w-[52ch] text-sm leading-relaxed text-white/85">
@@ -203,7 +203,7 @@ function Abonnements({ lang }: Readonly<{ lang: Lang }>) {
               </p>
             </div>
             <p
-              className="font-display text-sm font-bold tabular-nums"
+              className="font-display text-sm font-extrabold tabular-nums"
               style={{ color: "var(--cta)" }}
             >
               {prixAbonnement(palier, lang)}

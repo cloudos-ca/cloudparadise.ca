@@ -199,7 +199,7 @@ export default function TarifsPageEn() {
         <div className={`${SHELL} ${SECTION_Y}`}>
           <Reveal className="max-w-4xl">
             <SurTitre>Pricing</SurTitre>
-            <h1 className="mt-2 font-display text-[1.7rem] leading-[1.12] font-bold tracking-[-0.02em] text-white sm:text-[2.3rem] os:text-[2.7rem]">
+            <h1 className="mt-2 font-display text-[1.7rem] leading-[1.12] font-extrabold tracking-[-0.02em] text-white sm:text-[2.3rem] os:text-[2.7rem]">
               Pay for what you use.
               <br />
               Nothing more.
@@ -294,7 +294,7 @@ export default function TarifsPageEn() {
                       ) : null}
                     </p>
                     <p
-                      className="mt-1 font-display text-lg font-bold tabular-nums"
+                      className="mt-1 font-display text-lg font-extrabold tabular-nums"
                       style={{ color: "var(--cta)" }}
                     >
                       {prixAbonnement(palier, "en")}
@@ -422,7 +422,7 @@ export default function TarifsPageEn() {
                         {libelle}
                       </span>
                       <span
-                        className="font-display text-sm font-bold tabular-nums"
+                        className="font-display text-sm font-extrabold tabular-nums"
                         style={{ color: "var(--cta)" }}
                       >
                         {nfCredit.format(cout)}
@@ -435,7 +435,7 @@ export default function TarifsPageEn() {
                     {etapes.length} tasks
                   </span>
                   <span
-                    className="font-display text-[15px] font-bold tabular-nums"
+                    className="font-display text-[15px] font-extrabold tabular-nums"
                     style={{ color: "var(--cta)" }}
                   >
                     {nfCredit.format(total)} {uniteTotal}
@@ -502,7 +502,7 @@ function SurTitre({ children }: Readonly<{ children: ReactNode }>) {
 /** Titre de section, style système, collé au sur-titre. */
 function TitreSection({ children }: Readonly<{ children: ReactNode }>) {
   return (
-    <h2 className="mt-2 font-display text-[1.6rem] leading-[1.2] font-bold tracking-tight text-balance text-cp-heading sm:text-3xl os:text-4xl">
+    <h2 className="mt-2 font-display text-[1.6rem] leading-[1.2] font-extrabold tracking-tight text-balance text-cp-heading sm:text-3xl os:text-4xl">
       {children}
     </h2>
   );

@@ -77,8 +77,8 @@
 
 /* `inline` est requis : ces valeurs pointent vers les variables de next/font. */
 @theme inline {
-  --font-display: var(--font-comfortaa), ui-rounded, system-ui, sans-serif;
-  --font-sans: var(--font-work), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-archivo), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-manrope), ui-sans-serif, system-ui, sans-serif;
 }
 
 /*

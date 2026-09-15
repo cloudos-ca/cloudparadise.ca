@@ -321,7 +321,7 @@ function CarteVisite({ lang }: Readonly<{ lang: Lang }>) {
       <span
         aria-hidden="true"
         data-cp-accent
-        className="grid size-9 shrink-0 place-items-center rounded-full font-display text-sm font-bold text-white"
+        className="grid size-9 shrink-0 place-items-center rounded-full font-display text-sm font-extrabold text-white"
         style={{
           background: "color-mix(in srgb, var(--soft) 22%, transparent)",
           boxShadow: "inset 0 0 0 1.5px #edbe54",

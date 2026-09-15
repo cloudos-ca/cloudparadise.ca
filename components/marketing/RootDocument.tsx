@@ -1,6 +1,6 @@
 import { MatomoAnalytics } from "@/components/marketing/MatomoAnalytics";
 import { EST_PRODUCTION, SITE_URL } from "@/lib/site";
-import { comfortaa, workSans } from "@/app/fonts";
+import { archivo, manrope } from "@/app/fonts";
 import {
   COURRIEL,
   RUE,
@@ -82,7 +82,7 @@ export function RootDocument({
   return (
     <html
       lang={lang === "en" ? "en-CA" : "fr-CA"}
-      className={`${comfortaa.variable} ${workSans.variable} h-full antialiased`}
+      className={`${archivo.variable} ${manrope.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col font-sans">
         {/* Organisation + site : repère stable pour Google, voir JSON_LD

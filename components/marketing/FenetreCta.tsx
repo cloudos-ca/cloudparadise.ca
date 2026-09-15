@@ -83,7 +83,7 @@ export function FenetreCta({
           <div className="px-6 py-10 text-center os:px-10">
             <Halo />
 
-            <h2 className="mt-6 font-display text-[1.6rem] leading-[1.15] font-bold tracking-tight text-white sm:text-3xl">
+            <h2 className="mt-6 font-display text-[1.6rem] leading-[1.15] font-extrabold tracking-tight text-white sm:text-3xl">
               {TAGLINE[lang].ligne1}
               <br />
               <span data-cp-accent style={{ color: "var(--soft)" }}>
