@@ -7,8 +7,8 @@ import type { MetadataRoute } from "next";
  */
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: "Cloud Paradise",
-    short_name: "Cloud Paradise",
+    name: "Cloud OS",
+    short_name: "Cloud OS",
     description: "Décrivez la tâche. On s’occupe du calcul.",
     start_url: "/",
     display: "standalone",

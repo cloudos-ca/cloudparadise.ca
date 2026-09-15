@@ -31,7 +31,7 @@ import { SECTION_Y, SHELL } from "@/components/marketing/tokens";
 import { alternatesBilingues, openGraphPage } from "@/lib/seo";
 import { lienInscription } from "@/lib/site";
 
-const TITRE = "Plateforme — Cloud Paradise";
+const TITRE = "Plateforme — Cloud OS";
 const DESCRIPTION =
   "Un vrai bureau en ligne : fenêtres, dock, fichiers, applications professionnelles et collaboration d’équipe. Comme en local, sans rien installer.";
 
@@ -197,7 +197,7 @@ export default function PlateformePage() {
               src="/plateforme/bureau.jpg"
               width={2048}
               height={760}
-              alt="Le bureau Cloud Paradise : fond d’écran, dock d’applications à gauche et barre inférieure."
+              alt="Le bureau Cloud OS : fond d’écran, dock d’applications à gauche et barre inférieure."
               priority
             />
           </Reveal>

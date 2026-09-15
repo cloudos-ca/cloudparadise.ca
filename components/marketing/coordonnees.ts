@@ -1,5 +1,5 @@
 /**
- * Coordonnées réelles de Cloud Paradise — source de vérité unique.
+ * Coordonnées réelles de Cloud OS — source de vérité unique.
  *
  * Le formulaire de contact et le bloc de coordonnées lisent tous les deux
  * d'ici : une adresse qui change ne doit se corriger qu'à un seul endroit.

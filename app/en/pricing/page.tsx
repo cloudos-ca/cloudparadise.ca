@@ -39,7 +39,7 @@ import { SECTION_Y, SHELL } from "@/components/marketing/tokens";
 import { alternatesBilingues, openGraphPage } from "@/lib/seo";
 import { lienInscription } from "@/lib/site";
 
-const TITRE = "Pricing: pay-as-you-go credits or a monthly subscription — Cloud Paradise";
+const TITRE = "Pricing: pay-as-you-go credits or a monthly subscription — Cloud OS";
 const DESCRIPTION = `A fixed-price monthly subscription from ${prixAbonnement(PALIERS_ABONNEMENT[0], "en")}, or pay-as-you-go credits: ${OFFRE_EN_DEVISE} on signup, the cost of every task, an estimator to work out your budget before you start.`;
 
 export const metadata: Metadata = {
@@ -402,7 +402,7 @@ export default function TarifsPageEn() {
             {/* La découverte après coup qui coûte un client : trois traitements
                 enchaînés, trois débits. Dit une fois en carte, montré une fois
                 en chiffres — avec les vrais tarifs. */}
-            <WindowCard title="Flow · Cloud Paradise">
+            <WindowCard title="Flow · Cloud OS">
               <div className="p-5">
                 <p className="text-xs text-white/60">Example flow</p>
                 <ol className="mt-3.5 space-y-2.5">

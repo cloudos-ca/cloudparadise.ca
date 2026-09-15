@@ -40,7 +40,7 @@ export function OffreJsonLd({ lang }: Readonly<{ lang: Lang }>) {
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "Product",
-    name: "Cloud Paradise",
+    name: "Cloud OS",
     url: `${SITE_URL}${lang === "en" ? "/en/pricing" : "/tarifs"}`,
     image: `${SITE_URL}/brand/symbole-couleur.png`,
     offers: {

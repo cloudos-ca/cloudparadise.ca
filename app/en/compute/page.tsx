@@ -17,7 +17,7 @@ import { SECTION_Y, SHELL } from "@/components/marketing/tokens";
 import { alternatesBilingues, openGraphPage } from "@/lib/seo";
 import { lienInscription } from "@/lib/site";
 
-const TITRE = "Heavy compute and 3D rendering — Cloud Paradise";
+const TITRE = "Heavy compute and 3D rendering — Cloud OS";
 const DESCRIPTION =
   "One place for your heavy tasks: documents, data, images and video, web, 3D compute. Describe the result; a deterministic engine produces it.";
 
@@ -220,7 +220,7 @@ export default function CalculPageEn() {
           </Reveal>
 
           <Reveal delay={0.1} className="mx-auto w-full max-w-[520px]">
-            <WindowCard title="Plan · Cloud Paradise">
+            <WindowCard title="Plan · Cloud OS">
               <JobPanel
                 lang="en"
                 title="Extract the due dates from 200 contracts"
@@ -315,7 +315,7 @@ export default function CalculPageEn() {
             </Reveal>
 
             <Reveal delay={0.1} className="mx-auto w-full max-w-[480px]">
-              <WindowCard title="Flow · Cloud Paradise">
+              <WindowCard title="Flow · Cloud OS">
                 <div className="p-5">
                   <ol className="space-y-2.5">
                     {WORKFLOW.map((etape, i) => (

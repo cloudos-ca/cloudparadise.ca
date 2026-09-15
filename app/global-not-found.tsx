@@ -8,7 +8,7 @@ import { LECTURE, SECTION_Y, SHELL } from "@/components/marketing/tokens";
 import { ICONS } from "@/lib/seo";
 
 export const metadata: Metadata = {
-  title: "Page introuvable — Cloud Paradise",
+  title: "Page introuvable — Cloud OS",
   description: "Cette page n'existe pas.",
   icons: ICONS,
 };

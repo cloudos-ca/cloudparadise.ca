@@ -214,8 +214,8 @@ export function FenetreContact({
         <WindowCard
           title={
             lang === "en"
-              ? "New message · Cloud Paradise"
-              : "Nouveau message · Cloud Paradise"
+              ? "New message · Cloud OS"
+              : "Nouveau message · Cloud OS"
           }
           icone={<IconMail className="size-3.5" />}
           // La 3e pastille prend le cyan de support, pas `--acc` : par défaut
@@ -332,7 +332,7 @@ function CarteVisite({ lang }: Readonly<{ lang: Lang }>) {
 
       <div className="min-w-0">
         <p className="truncate text-[13px] font-medium text-white">
-          Cloud Paradise
+          Cloud OS
         </p>
         <p className="truncate text-[11px] text-white/70">
           {lang === "en" ? "Amos, Quebec" : "Amos, Québec"}
@@ -470,7 +470,7 @@ function Composition({
         <span className="text-[11px] text-white/70">
           {lang === "en" ? "To:" : "À :"}
         </span>
-        <span className="text-[13px] text-white">Cloud Paradise</span>
+        <span className="text-[13px] text-white">Cloud OS</span>
         <span className="truncate text-[11px] text-white/70">
           &lt;{COURRIEL}&gt;
         </span>

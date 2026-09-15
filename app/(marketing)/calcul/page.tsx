@@ -17,7 +17,7 @@ import { SECTION_Y, SHELL } from "@/components/marketing/tokens";
 import { alternatesBilingues, openGraphPage } from "@/lib/seo";
 import { lienInscription } from "@/lib/site";
 
-const TITRE = "Calcul lourd et rendu 3D — Cloud Paradise";
+const TITRE = "Calcul lourd et rendu 3D — Cloud OS";
 const DESCRIPTION =
   "Un seul endroit pour vos tâches lourdes : documents, données, images et vidéos, web, calcul 3D. Décrivez le résultat ; un moteur déterministe le produit.";
 
@@ -215,7 +215,7 @@ export default function CalculPage() {
           </Reveal>
 
           <Reveal delay={0.1} className="mx-auto w-full max-w-[520px]">
-            <WindowCard title="Plan · Cloud Paradise">
+            <WindowCard title="Plan · Cloud OS">
               <JobPanel
                 title="Extraire les échéances de 200 contrats"
                 chip={libelleDe("Documents", "fr").toUpperCase()}
@@ -309,7 +309,7 @@ export default function CalculPage() {
             </Reveal>
 
             <Reveal delay={0.1} className="mx-auto w-full max-w-[480px]">
-              <WindowCard title="Flux · Cloud Paradise">
+              <WindowCard title="Flux · Cloud OS">
                 <div className="p-5">
                   <ol className="space-y-2.5">
                     {WORKFLOW.map((etape, i) => (

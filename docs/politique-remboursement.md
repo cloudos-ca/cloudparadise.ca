@@ -2,7 +2,7 @@
 
 **Dernière mise à jour : 2 août 2026**
 
-Cloud Paradise (« nous ») fonctionne sur un système de crédits prépayés utilisés pour l'exécution de traitements sur la plateforme. La présente politique précise les conditions dans lesquelles un achat de crédits peut faire l'objet d'un remboursement.
+Cloud OS (« nous ») fonctionne sur un système de crédits prépayés utilisés pour l'exécution de traitements sur la plateforme. La présente politique précise les conditions dans lesquelles un achat de crédits peut faire l'objet d'un remboursement.
 
 ## 1. Crédits non consommés
 

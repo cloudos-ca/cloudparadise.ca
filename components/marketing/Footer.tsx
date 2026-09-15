@@ -116,7 +116,7 @@ export function Footer({ lang = "fr" }: Readonly<{ lang?: Lang }>) {
               className="mt-3 text-xs"
               style={{ color: "var(--acc-text)" }}
             >
-              © 2026 Cloud Paradise
+              © 2026 Cloud OS
             </p>
           </div>
 

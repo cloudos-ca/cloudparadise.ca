@@ -28,19 +28,21 @@ const JSON_LD = {
   "@graph": [
     {
       "@type": "Organization",
-      name: "Cloud Paradise",
+      name: "Cloud OS",
+      legalName: "Cloud OS S.E.N.C.",
       url: SITE_URL,
       logo: `${SITE_URL}/brand/symbole-couleur.png`,
     },
     {
       "@type": "WebSite",
-      name: "Cloud Paradise",
+      name: "Cloud OS",
       url: SITE_URL,
       inLanguage: ["fr-CA", "en-CA"],
     },
     {
       "@type": "LocalBusiness",
-      name: "Cloud Paradise",
+      name: "Cloud OS",
+      legalName: "Cloud OS S.E.N.C.",
       url: SITE_URL,
       email: COURRIEL,
       telephone: TELEPHONE_LIEN,

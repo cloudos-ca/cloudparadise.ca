@@ -158,7 +158,7 @@ function Desktop({ lang }: Readonly<{ lang: Lang }>) {
         className="cp-flotte relative z-10 -mt-8 w-[92%]"
         style={{ ["--flotte-distance" as string]: "7px", ["--flotte-duree" as string]: "8s" }}
       >
-        <WindowCard title="Plans · Cloud Paradise">
+        <WindowCard title="Plans · Cloud OS">
           <JobPanel
             title={lang === "en" ? "Render a 4K video" : "Rendre une vidéo 4K"}
             // Dérivé d'`offre.ts` : le littéral « MÉDIA » s'affichait avec

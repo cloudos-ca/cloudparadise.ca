@@ -59,7 +59,7 @@ export const ICONS: Metadata["icons"] = {
  * (valeurs par défaut) et `app/(marketing)/page.tsx` (metadata explicite +
  * alternates), pour ne pas les dupliquer en texte libre à deux endroits. */
 export const TITRE_ACCUEIL =
-  "Cloud Paradise — Votre poste de travail cloud";
+  "Cloud OS — Votre poste de travail cloud";
 export const DESCRIPTION_ACCUEIL =
   "Un bureau en ligne complet : calcul lourd en langage humain, applications professionnelles et collaboration d'équipe. Hébergé au Québec, sans rien installer.";
 
@@ -138,7 +138,7 @@ export const IMAGE_OG_PARTAGEE: ImageOg = {
   url: "/opengraph-image",
   width: 1200,
   height: 630,
-  alt: "Cloud Paradise",
+  alt: "Cloud OS",
   type: "image/png",
 };
 
@@ -189,7 +189,7 @@ export function openGraphPage(
   return {
     title: titre,
     description,
-    siteName: "Cloud Paradise",
+    siteName: "Cloud OS",
     locale: langue === "en" ? "en_CA" : "fr_CA",
     type: "website",
     ...(EST_PRODUCTION ? { url: chemin } : {}),

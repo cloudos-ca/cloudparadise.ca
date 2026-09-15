@@ -25,7 +25,7 @@ import { SECTION_Y, SHELL } from "@/components/marketing/tokens";
 import { alternatesBilingues, openGraphPage } from "@/lib/seo";
 import { lienInscription } from "@/lib/site";
 
-const TITRE = "Exploration minière au Québec — Cloud Paradise";
+const TITRE = "Exploration minière au Québec — Cloud OS";
 const DESCRIPTION =
   "Le poste de travail de l’exploration minière au Québec : titres et échéances, forages en trois dimensions, couches SIGÉOM, export. Conçu en Abitibi.";
 
@@ -149,7 +149,7 @@ export default function MinesPage() {
               {/* Fenêtre en tête de colonne (alignée au titre à gauche, grâce à
                   `items-start`), texte descriptif dessous : comble le vide sous
                   l'en-tête. La maquette n'a ni date ni numéro de titre réels. */}
-              <WindowCard title="Bureau · Cloud Paradise">
+              <WindowCard title="Bureau · Cloud OS">
                 <div className="p-5">
                   <p className="text-xs text-white/60">Notification</p>
                   <div className="mt-3 flex gap-3 rounded-lg border border-white/10 bg-white/[0.03] p-3.5">
@@ -231,7 +231,7 @@ export default function MinesPage() {
               {/* La chaîne CSV → desurvey → traces 3D : du calcul déterministe
                   sur une opération que le public connaît par cœur — d'où la
                   fenêtre plutôt que la seule description. */}
-              <WindowCard title="Desurvey · Cloud Paradise" className="mt-6">
+              <WindowCard title="Desurvey · Cloud OS" className="mt-6">
                 <JobPanel
                   title="Calculer les traces de forage"
                   chip={libelleDe("Données", "fr").toUpperCase()}
@@ -357,7 +357,7 @@ export default function MinesPage() {
                   Val-d’Or, Rouyn-Noranda.
                 </p>
                 <p>
-                  Le matériel appartient à Cloud Paradise, au Québec, en
+                  Le matériel appartient à Cloud OS, au Québec, en
                   Abitibi.
                 </p>
               </div>

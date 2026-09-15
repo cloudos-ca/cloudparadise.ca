@@ -28,7 +28,7 @@ import { SOFT_WASH, type Lang } from "./tokens";
 
 const TEXTES = {
   fr: {
-    fenetre: "Plan · Cloud Paradise",
+    fenetre: "Plan · Cloud OS",
     tache: "Convertir un PDF en DOCX",
     chip: "DOCUMENTS",
     fichier: "rapport-trimestriel.pdf",
@@ -69,7 +69,7 @@ const TEXTES = {
     resultat: "rapport-trimestriel.docx",
   },
   en: {
-    fenetre: "Plan · Cloud Paradise",
+    fenetre: "Plan · Cloud OS",
     tache: "Convert a PDF to DOCX",
     chip: "DOCUMENTS",
     fichier: "quarterly-report.pdf",

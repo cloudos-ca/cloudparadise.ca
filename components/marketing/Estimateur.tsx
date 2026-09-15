@@ -74,14 +74,14 @@ function equivalences(credits: number, lang: Lang) {
 const TEXTES = {
   fr: {
     titre: "Estimez votre coût",
-    fenetre: "Estimateur · Cloud Paradise",
+    fenetre: "Estimateur · Cloud OS",
     credits: "crédits",
     ariaCredits: "Nombre de crédits",
     voirDetails: "Voir les détails",
   },
   en: {
     titre: "Estimate your cost",
-    fenetre: "Estimator · Cloud Paradise",
+    fenetre: "Estimator · Cloud OS",
     credits: "credits",
     ariaCredits: "Number of credits",
     voirDetails: "See details",

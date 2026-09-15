@@ -350,7 +350,7 @@ function MetierSection({ metier }: Readonly<{ metier: SectionMetier }>) {
     // « Plan » et non l'intitulé de la tâche : c'est le nom que l'application
     // donne à ses fenêtres de travail, et `JobPanel` répète déjà l'intitulé
     // juste en dessous — deux fois la même phrase à trois pixels d'écart.
-    <WindowCard title="Plan · Cloud Paradise">
+    <WindowCard title="Plan · Cloud OS">
       <JobPanel
         title={metier.job.titre}
         chip={libelleDe(metier.factures[0], LANG).toUpperCase()}

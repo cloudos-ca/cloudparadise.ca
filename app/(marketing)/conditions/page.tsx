@@ -35,9 +35,9 @@ import {
   ROBOTS,
 } from "@/lib/seo";
 
-const TITRE = "Conditions d’utilisation — Cloud Paradise";
+const TITRE = "Conditions d’utilisation — Cloud OS";
 const DESCRIPTION =
-  "Conditions d’utilisation de Cloud Paradise : compte, crédits et tarification, utilisation acceptable, propriété du contenu, garanties et droit applicable.";
+  "Conditions d’utilisation de Cloud OS : compte, crédits et tarification, utilisation acceptable, propriété du contenu, garanties et droit applicable.";
 
 export const metadata: Metadata = {
   title: TITRE,
@@ -57,15 +57,15 @@ const SECTIONS: readonly SectionRedigee[] = [
     titre: "Qui nous sommes",
     blocs: [
       <>
-        Le service « Cloud Paradise » (le « <strong className="font-semibold text-white">Service</strong> », la
-        « <strong className="font-semibold text-white">Plateforme</strong> ») est exploité par Cloud Paradise
-        (« <strong className="font-semibold text-white">Cloud Paradise</strong> », « nous », « notre », « nos »),
+        Le service « Cloud OS » (le « <strong className="font-semibold text-white">Service</strong> », la
+        « <strong className="font-semibold text-white">Plateforme</strong> ») est exploité par Cloud OS
+        (« <strong className="font-semibold text-white">Cloud OS</strong> », « nous », « notre », « nos »),
         dont l’établissement est situé au :
       </>,
       {
         brut: (
           <blockquote className="border-l-2 border-white/15 pl-4 text-white/85">
-            <p>Cloud Paradise</p>
+            <p>Cloud OS</p>
             <p>{ADRESSE_LIGNE}</p>
             <p>Canada</p>
             <p className="mt-2">
@@ -151,7 +151,7 @@ const SECTIONS: readonly SectionRedigee[] = [
       // borner. Remplacés par ce qui est vérifiable — du matériel dédié au
       // calcul — sans descendre au numéro de modèle, interdit par le plan de
       // contenu.
-      "Cloud Paradise est une plateforme infonuagique qui transforme une demande — formulée en langage naturel ou au moyen d’un gabarit — en un traitement exécuté sur du matériel de calcul dédié (GPU, CPU et mémoire réservés au calcul). Le Service comprend notamment :",
+      "Cloud OS est une plateforme infonuagique qui transforme une demande — formulée en langage naturel ou au moyen d’un gabarit — en un traitement exécuté sur du matériel de calcul dédié (GPU, CPU et mémoire réservés au calcul). Le Service comprend notamment :",
       {
         liste: [
           { texte: "le traitement de documents (conversion, OCR, traduction, classement, publipostage, archivage) ;" },
@@ -315,7 +315,7 @@ const SECTIONS: readonly SectionRedigee[] = [
           {
             terme: "Propriété.",
             texte:
-              "Vous conservez tous vos droits de propriété sur votre Contenu utilisateur et sur les Résultats qui en découlent. Cloud Paradise ne revendique aucun droit de propriété sur votre Contenu utilisateur.",
+              "Vous conservez tous vos droits de propriété sur votre Contenu utilisateur et sur les Résultats qui en découlent. Cloud OS ne revendique aucun droit de propriété sur votre Contenu utilisateur.",
           },
           {
             terme: "Licence limitée que vous nous accordez.",
@@ -396,9 +396,9 @@ const SECTIONS: readonly SectionRedigee[] = [
     ],
   },
   {
-    titre: "Propriété intellectuelle de Cloud Paradise",
+    titre: "Propriété intellectuelle de Cloud OS",
     blocs: [
-      "Le Service, son interface (« Cloud OS »), son code, sa conception, ses marques, ses logos et l’ensemble des éléments qui le composent (à l’exclusion de votre Contenu utilisateur) sont la propriété de Cloud Paradise ou de ses concédants et sont protégés par les lois applicables. Aucune disposition des présentes ne vous transfère de droit de propriété sur le Service. Vous bénéficiez uniquement d’un droit d’utilisation limité, non exclusif et non transférable, pour la durée de votre relation avec nous et dans le respect des présentes Conditions.",
+      "Le Service, son interface, son code, sa conception, ses marques, ses logos et l’ensemble des éléments qui le composent (à l’exclusion de votre Contenu utilisateur) sont la propriété de Cloud OS ou de ses concédants et sont protégés par les lois applicables. Aucune disposition des présentes ne vous transfère de droit de propriété sur le Service. Vous bénéficiez uniquement d’un droit d’utilisation limité, non exclusif et non transférable, pour la durée de votre relation avec nous et dans le respect des présentes Conditions.",
     ],
   },
   {
@@ -452,11 +452,11 @@ const SECTIONS: readonly SectionRedigee[] = [
         liste: [
           {
             texte:
-              "Cloud Paradise ne pourra être tenue responsable des dommages indirects, accessoires, spéciaux, punitifs ou consécutifs, ni de toute perte de profits, de revenus, de données, de clientèle ou d’occasions d’affaires, découlant de l’utilisation ou de l’impossibilité d’utiliser le Service ;",
+              "Cloud OS ne pourra être tenue responsable des dommages indirects, accessoires, spéciaux, punitifs ou consécutifs, ni de toute perte de profits, de revenus, de données, de clientèle ou d’occasions d’affaires, découlant de l’utilisation ou de l’impossibilité d’utiliser le Service ;",
           },
           {
             texte:
-              "la responsabilité totale et cumulative de Cloud Paradise, pour toute réclamation liée au Service, ne pourra excéder le plus élevé des montants suivants : (a) le total des sommes que vous nous avez effectivement versées au cours des douze (12) mois précédant l’événement à l’origine de la réclamation, ou (b) cent dollars canadiens (100 $ CAD).",
+              "la responsabilité totale et cumulative de Cloud OS, pour toute réclamation liée au Service, ne pourra excéder le plus élevé des montants suivants : (a) le total des sommes que vous nous avez effectivement versées au cours des douze (12) mois précédant l’événement à l’origine de la réclamation, ou (b) cent dollars canadiens (100 $ CAD).",
           },
         ],
       },
@@ -470,7 +470,7 @@ const SECTIONS: readonly SectionRedigee[] = [
   {
     titre: "Indemnisation",
     blocs: [
-      "Sous réserve des lois applicables, vous acceptez d’indemniser et de dégager de toute responsabilité Cloud Paradise et ses représentants à l’égard de toute réclamation, perte ou dépense (y compris des frais juridiques raisonnables) découlant de : (a) votre Contenu utilisateur ; (b) votre utilisation du Service en violation des présentes Conditions ou de la loi ; ou (c) votre violation des droits d’un tiers.",
+      "Sous réserve des lois applicables, vous acceptez d’indemniser et de dégager de toute responsabilité Cloud OS et ses représentants à l’égard de toute réclamation, perte ou dépense (y compris des frais juridiques raisonnables) découlant de : (a) votre Contenu utilisateur ; (b) votre utilisation du Service en violation des présentes Conditions ou de la loi ; ou (c) votre violation des droits d’un tiers.",
     ],
   },
   {
@@ -518,7 +518,7 @@ const SECTIONS: readonly SectionRedigee[] = [
           {
             terme: "Intégralité de l’entente.",
             texte:
-              "Les présentes Conditions, avec la Politique de confidentialité, constituent l’entente complète entre vous et Cloud Paradise relativement au Service.",
+              "Les présentes Conditions, avec la Politique de confidentialité, constituent l’entente complète entre vous et Cloud OS relativement au Service.",
           },
           {
             terme: "Divisibilité.",
@@ -545,7 +545,7 @@ const SECTIONS: readonly SectionRedigee[] = [
       {
         brut: (
           <blockquote className="border-l-2 border-white/15 pl-4 text-white/85">
-            <p className="text-white">Cloud Paradise</p>
+            <p className="text-white">Cloud OS</p>
             <p>{ADRESSE_LIGNE}, Canada</p>
             <p className="mt-2">
               Courriel :{" "}

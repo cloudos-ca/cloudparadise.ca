@@ -39,7 +39,7 @@ import { SECTION_Y, SHELL } from "@/components/marketing/tokens";
 import { alternatesBilingues, openGraphPage } from "@/lib/seo";
 import { lienInscription } from "@/lib/site";
 
-const TITRE = "Tarifs : crédits à l’usage ou abonnement mensuel — Cloud Paradise";
+const TITRE = "Tarifs : crédits à l’usage ou abonnement mensuel — Cloud OS";
 const DESCRIPTION = `Un abonnement mensuel à prix fixe dès ${prixAbonnement(PALIERS_ABONNEMENT[0], "fr")}, ou des crédits à l’usage : ${OFFRE_EN_DEVISE} offerts à l’inscription, le coût de chaque tâche, un estimateur pour chiffrer votre budget d’avance.`;
 
 export const metadata: Metadata = {
@@ -400,7 +400,7 @@ export default function TarifsPage() {
             {/* La découverte après coup qui coûte un client : trois traitements
                 enchaînés, trois débits. Dit une fois en carte, montré une fois
                 en chiffres — avec les vrais tarifs. */}
-            <WindowCard title="Flux · Cloud Paradise">
+            <WindowCard title="Flux · Cloud OS">
               <div className="p-5">
                 <p className="text-xs text-white/60">Exemple de flux</p>
                 <ol className="mt-3.5 space-y-2.5">

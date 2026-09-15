@@ -1,9 +1,9 @@
 @import "tailwindcss";
 
 /*
- * Charte Cloud Paradise.
+ * Charte Cloud OS.
  *
- * Le jaune #edbe54 a deux emplois, et deux seulement : le halo de marque (qui
+ * Le jaune #edbe54 a deux emplois, et deux seulement : la tuile de marque (qui
  * vit dans les fichiers logo) et l'action de conversion (`--cta` plus bas).
  * Aucune utilité Tailwind ne le repeint, et rien d'autre ne l'emprunte —
  * c'est sa rareté qui fait qu'un bouton doré saute aux yeux. Le jour où trois
@@ -128,7 +128,7 @@ body {
 }
 
 /*
- * La transition ne porte que sur les propriétés recolorées : le halo, lui,
+ * La transition ne porte que sur les propriétés recolorées : la tuile du logo, elle,
  * vit dans le fichier logo et ne bouge jamais.
  */
 /* Les ancres de la barre de menu glissent, sauf si le mouvement est réduit. */

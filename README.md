@@ -1,6 +1,6 @@
 # cloudparadise.ca
 
-Site vitrine de Cloud Paradise. Il met en scène le web OS au lieu de le
+Site vitrine de Cloud OS. Il met en scène le web OS au lieu de le
 décrire : le hero **est** un bureau, avec sa barre de menu, ses fenêtres
 flottantes et un job qui tourne.
 
@@ -36,7 +36,7 @@ npx tsc --noEmit     # vérification des types
 
 ```
 app/
-  fonts.ts                    Comfortaa (titrage) + Work Sans (courant)
+  fonts.ts                    Archivo (titrage) + Manrope (courant)
   globals.css                 charte et tokens Tailwind dans @theme
   (marketing)/                route group de la vitrine, Server Components
 components/marketing/
@@ -59,15 +59,15 @@ besoin d'état local, de framer-motion et de node-vibrant.
 | Bleu nuit | `#1b273d` | châssis, fenêtres, barre |
 | Bleu | `#2d66ae` | action — boutons, progression |
 | Cyan | `#bbecee` | accents clairs — puces, surlignages |
-| Jaune | `#edbe54` | **halo de marque uniquement, jamais recoloré** |
+| Jaune | `#edbe54` | **tuile de marque et CTA uniquement, jamais recoloré** |
 
 Dans le hero, trois tokens CSS pilotent la couleur : `--acc` (accent vif),
 `--soft` (accent clair) et `--sky` (le fond). Changer de fond les réécrit et
 toute l'interface suit — boutons, progression, badge, avatar, deuxième ligne du
 titre.
 
-Le halo, lui, ne bouge jamais : il fait partie du fichier logo, donc aucune
-règle CSS ne peut le repeindre.
+La tuile jaune du logo, elle, ne bouge jamais : elle fait partie du fichier
+SVG, donc aucune règle CSS ne peut la repeindre.
 
 Au-delà du hero, quelques éléments suivent aussi l'accent : la mention de
 copyright du pied de page, le bouton secondaire « Voir la démo » du hero, le

@@ -31,7 +31,7 @@ import { SECTION_Y, SHELL } from "@/components/marketing/tokens";
 import { alternatesBilingues, openGraphPage } from "@/lib/seo";
 import { lienInscription } from "@/lib/site";
 
-const TITRE = "Platform — Cloud Paradise";
+const TITRE = "Platform — Cloud OS";
 const DESCRIPTION =
   "A real desktop in your browser: windows, dock, files, professional applications and team collaboration. Like a local machine, nothing to install.";
 
@@ -197,7 +197,7 @@ export default function PlateformePageEn() {
               src="/plateforme/bureau.jpg"
               width={2048}
               height={760}
-              alt="The Cloud Paradise desktop: wallpaper, application dock on the left and bottom bar."
+              alt="The Cloud OS desktop: wallpaper, application dock on the left and bottom bar."
               priority
             />
           </Reveal>

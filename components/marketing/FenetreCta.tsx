@@ -79,7 +79,7 @@ export function FenetreCta({
         className="cp-flotte rounded-xl shadow-[0_40px_90px_-30px_rgba(0,0,0,.85)]"
         style={{ ["--flotte-distance" as string]: "-6px", ["--flotte-duree" as string]: "9s" }}
       >
-        <WindowCard title="Cloud Paradise">
+        <WindowCard title="Cloud OS">
           <div className="px-6 py-10 text-center os:px-10">
             <Halo />
 

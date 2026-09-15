@@ -25,7 +25,7 @@ import { SECTION_Y, SHELL } from "@/components/marketing/tokens";
 import { alternatesBilingues, openGraphPage } from "@/lib/seo";
 import { lienInscription } from "@/lib/site";
 
-const TITRE = "Mineral exploration in Quebec — Cloud Paradise";
+const TITRE = "Mineral exploration in Quebec — Cloud OS";
 const DESCRIPTION =
   "The workstation for mineral exploration in Quebec: titles and expiry dates, drill holes in three dimensions, SIGÉOM layers, export. Built in Abitibi.";
 
@@ -149,7 +149,7 @@ export default function MinesPageEn() {
               {/* Fenêtre en tête de colonne (alignée au titre à gauche, grâce à
                   `items-start`), texte descriptif dessous : comble le vide sous
                   l'en-tête. La maquette n'a ni date ni numéro de titre réels. */}
-              <WindowCard title="Desktop · Cloud Paradise">
+              <WindowCard title="Desktop · Cloud OS">
                 <div className="p-5">
                   <p className="text-xs text-white/60">Notification</p>
                   <div className="mt-3 flex gap-3 rounded-lg border border-white/10 bg-white/[0.03] p-3.5">
@@ -231,7 +231,7 @@ export default function MinesPageEn() {
               {/* La chaîne CSV → desurvey → traces 3D : du calcul déterministe
                   sur une opération que le public connaît par cœur — d'où la
                   fenêtre plutôt que la seule description. */}
-              <WindowCard title="Desurvey · Cloud Paradise" className="mt-6">
+              <WindowCard title="Desurvey · Cloud OS" className="mt-6">
                 <JobPanel
                   lang="en"
                   title="Compute the drill hole traces"
@@ -358,7 +358,7 @@ export default function MinesPageEn() {
                   Val-d’Or, Rouyn-Noranda.
                 </p>
                 <p>
-                  The hardware belongs to Cloud Paradise, in Quebec, in Abitibi.
+                  The hardware belongs to Cloud OS, in Quebec, in Abitibi.
                 </p>
               </div>
             </Reveal>

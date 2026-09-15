@@ -1,6 +1,6 @@
 # Conditions d'utilisation
 
-**Cloud Paradise**
+**Cloud OS**
 
 *Dernière mise à jour : 2 août 2026*
 *Version : 1.1*
@@ -8,7 +8,7 @@
 ---
 
 > **Avis important.** Le présent document est un modèle de conditions d'utilisation rédigé à partir
-> des caractéristiques réelles du service Cloud Paradise. Il ne constitue pas un avis juridique. Avant
+> des caractéristiques réelles du service Cloud OS. Il ne constitue pas un avis juridique. Avant
 > sa mise en ligne, il est fortement recommandé de le faire réviser par un conseiller juridique
 > autorisé à exercer au Québec, notamment au regard de la *Loi sur la protection du consommateur*
 > (RLRQ, c. P-40.1) et de la *Loi sur la protection des renseignements personnels dans le secteur
@@ -18,11 +18,11 @@
 
 ## 1. Qui nous sommes
 
-Le service « Cloud Paradise » (le « **Service** », la « **Plateforme** ») est exploité par
-Cloud Paradise (« **Cloud Paradise** », « **nous** », « **notre** », « **nos** »), dont
+Le service « Cloud OS » (le « **Service** », la « **Plateforme** ») est exploité par
+Cloud OS (« **Cloud OS** », « **nous** », « **notre** », « **nos** »), dont
 l'établissement est situé au :
 
-> Cloud Paradise
+> Cloud OS
 > 238, 1re Avenue Ouest
 > Amos (Québec)  J9T 1V2
 > Canada
@@ -60,7 +60,7 @@ Si vous n'acceptez pas les présentes Conditions, vous ne devez pas utiliser le 
 
 ## 4. Description du Service
 
-Cloud Paradise est une plateforme infonuagique qui transforme une demande — formulée en langage naturel
+Cloud OS est une plateforme infonuagique qui transforme une demande — formulée en langage naturel
 ou au moyen d'un gabarit — en un traitement exécuté sur du matériel de calcul dédié (GPU, CPU à haute
 capacité, mémoire vive massive). Le Service comprend notamment :
 
@@ -191,7 +191,7 @@ utilisateur qui contreviendrait au présent article, et de suspendre les comptes
 ## 8. Contenu utilisateur
 
 **8.1 Propriété.** Vous conservez tous vos droits de propriété sur votre Contenu utilisateur et sur les
-Résultats qui en découlent. Cloud Paradise ne revendique aucun droit de propriété sur votre Contenu
+Résultats qui en découlent. Cloud OS ne revendique aucun droit de propriété sur votre Contenu
 utilisateur.
 
 **8.2 Licence limitée que vous nous accordez.** Vous nous accordez une licence non exclusive, limitée
@@ -251,11 +251,11 @@ et « selon la disponibilité ». Vous reconnaissez notamment que :
   fonctionnalités offerts, moyennant, dans la mesure du raisonnable, un préavis pour les changements
   importants.
 
-## 12. Propriété intellectuelle de Cloud Paradise
+## 12. Propriété intellectuelle de Cloud OS
 
 Le Service, son interface (« Cloud OS »), son code, sa conception, ses marques, ses logos et
 l'ensemble des éléments qui le composent (à l'exclusion de votre Contenu utilisateur) sont la propriété
-de Cloud Paradise ou de ses concédants et sont protégés par les lois applicables. Aucune disposition
+de Cloud OS ou de ses concédants et sont protégés par les lois applicables. Aucune disposition
 des présentes ne vous transfère de droit de propriété sur le Service. Vous bénéficiez uniquement d'un
 droit d'utilisation limité, non exclusif et non transférable, pour la durée de votre relation avec nous
 et dans le respect des présentes Conditions.
@@ -293,10 +293,10 @@ auxquels il ne peut être renoncé par contrat.**
 
 Dans la mesure maximale permise par la loi applicable :
 
-- Cloud Paradise ne pourra être tenue responsable des dommages indirects, accessoires, spéciaux,
+- Cloud OS ne pourra être tenue responsable des dommages indirects, accessoires, spéciaux,
   punitifs ou consécutifs, ni de toute perte de profits, de revenus, de données, de clientèle ou
   d'occasions d'affaires, découlant de l'utilisation ou de l'impossibilité d'utiliser le Service ;
-- la responsabilité totale et cumulative de Cloud Paradise, pour toute réclamation liée au Service, ne
+- la responsabilité totale et cumulative de Cloud OS, pour toute réclamation liée au Service, ne
   pourra excéder le plus élevé des montants suivants : (a) le total des sommes que vous nous avez
   effectivement versées au cours des douze (12) mois précédant l'événement à l'origine de la
   réclamation, ou (b) cent dollars canadiens (100 $ CAD).
@@ -307,7 +307,7 @@ notamment à l'égard d'un consommateur au sens de la *Loi sur la protection du 
 ## 16. Indemnisation
 
 Sous réserve des lois applicables, vous acceptez d'indemniser et de dégager de toute responsabilité
-Cloud Paradise et ses représentants à l'égard de toute réclamation, perte ou dépense (y compris des
+Cloud OS et ses représentants à l'égard de toute réclamation, perte ou dépense (y compris des
 frais juridiques raisonnables) découlant de : (a) votre Contenu utilisateur ; (b) votre utilisation du
 Service en violation des présentes Conditions ou de la loi ; ou (c) votre violation des droits d'un
 tiers.
@@ -347,7 +347,7 @@ le Service.
 ## 20. Dispositions générales
 
 - **Intégralité de l'entente.** Les présentes Conditions, avec la Politique de confidentialité,
-  constituent l'entente complète entre vous et Cloud Paradise relativement au Service.
+  constituent l'entente complète entre vous et Cloud OS relativement au Service.
 - **Divisibilité.** Si une disposition est jugée invalide ou inapplicable, les autres dispositions
   demeurent pleinement en vigueur.
 - **Absence de renonciation.** Le fait de ne pas exercer un droit ne constitue pas une renonciation à
@@ -360,7 +360,7 @@ le Service.
 
 Pour toute question relative aux présentes Conditions :
 
-> **Cloud Paradise**
+> **Cloud OS**
 > 238, 1re Avenue Ouest, Amos (Québec)  J9T 1V2, Canada
 > Courriel : info@cloudparadise.ca
 > Téléphone : 873‑730‑3236

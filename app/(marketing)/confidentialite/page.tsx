@@ -23,9 +23,9 @@ import {
   ROBOTS,
 } from "@/lib/seo";
 
-const TITRE = "Politique de confidentialité — Cloud Paradise";
+const TITRE = "Politique de confidentialité — Cloud OS";
 const DESCRIPTION =
-  "Comment Cloud Paradise recueille, utilise et protège les renseignements personnels, conformément à la Loi 25 du Québec. Vos droits et comment les exercer.";
+  "Comment Cloud OS recueille, utilise et protège les renseignements personnels, conformément à la Loi 25 du Québec. Vos droits et comment les exercer.";
 
 export const metadata: Metadata = {
   title: TITRE,
@@ -42,7 +42,7 @@ const RESPONSABLE = "Maxime Murray";
 /** Courriel dédié au responsable de la protection des renseignements
  * personnels — distinct du courriel de contact général (`COURRIEL`). */
 
-const DENOMINATION_LEGALE = "Cloud Paradise S.E.N.C.";
+const DENOMINATION_LEGALE = "Cloud OS S.E.N.C.";
 const ADRESSE_LIGNE = ADRESSE.join(", ");
 
 const SECTIONS: readonly SectionRedigee[] = [
@@ -80,7 +80,7 @@ const SECTIONS: readonly SectionRedigee[] = [
           {
             terme: "Échanges avec l’assistant de planification.",
             texte:
-              "Le contenu que vous saisissez dans le chat de planification par IA afin d’affiner une tâche. Ce contenu est traité par un modèle d’intelligence artificielle auto-hébergé sur l’infrastructure de Cloud Paradise ; il n’est transmis à aucun fournisseur d’IA tiers (voir sections 2 et 4).",
+              "Le contenu que vous saisissez dans le chat de planification par IA afin d’affiner une tâche. Ce contenu est traité par un modèle d’intelligence artificielle auto-hébergé sur l’infrastructure de Cloud OS ; il n’est transmis à aucun fournisseur d’IA tiers (voir sections 2 et 4).",
           },
           {
             terme: "Messages échangés dans la messagerie interne.",
@@ -176,7 +176,7 @@ const SECTIONS: readonly SectionRedigee[] = [
     titre: "Communication à des tiers",
     blocs: [
       "Nous ne vendons aucun renseignement personnel.",
-      "Une part importante de notre infrastructure est auto-hébergée par Cloud Paradise (hébergement applicatif, base de données, stockage des fichiers, envoi des courriels de service et modèle d’intelligence artificielle). Ces traitements ne font donc pas intervenir de fournisseur tiers.",
+      "Une part importante de notre infrastructure est auto-hébergée par Cloud OS (hébergement applicatif, base de données, stockage des fichiers, envoi des courriels de service et modèle d’intelligence artificielle). Ces traitements ne font donc pas intervenir de fournisseur tiers.",
       "Nous faisons appel à un nombre limité de sous-traitants (fournisseurs de services) qui traitent des renseignements pour notre compte, uniquement selon nos instructions et sous des engagements de confidentialité et de sécurité :",
       {
         liste: [
@@ -188,7 +188,7 @@ const SECTIONS: readonly SectionRedigee[] = [
           {
             terme: "Hébergement physique de l’infrastructure.",
             texte:
-              "Nos serveurs sont exploités par Cloud Paradise directement, dans nos propres locaux d’affaires situés au 238, 1ère Avenue Ouest, Amos (Québec) — aucun centre de données tiers n’intervient.",
+              "Nos serveurs sont exploités par Cloud OS directement, dans nos propres locaux d’affaires situés au 238, 1ère Avenue Ouest, Amos (Québec) — aucun centre de données tiers n’intervient.",
           },
         ],
       },
@@ -228,7 +228,7 @@ const SECTIONS: readonly SectionRedigee[] = [
   {
     titre: "Hébergement et localisation des données",
     blocs: [
-      "Vos renseignements (compte, base de données, fichiers, résultats de tâches) et le traitement par l’assistant d’IA sont hébergés sur l’infrastructure exploitée par Cloud Paradise, située à Amos (Québec), Canada.",
+      "Vos renseignements (compte, base de données, fichiers, résultats de tâches) et le traitement par l’assistant d’IA sont hébergés sur l’infrastructure exploitée par Cloud OS, située à Amos (Québec), Canada.",
       "À la différence d’un modèle reposant sur des services infonuagiques externes, la très grande majorité des traitements se déroule sur notre propre infrastructure et ne fait pas l’objet d’une communication hors Québec. C’est aussi le cas des données de mesure d’audience (Matomo), hébergées sur cette même infrastructure.",
       "La seule communication susceptible d’entraîner un traitement hors Québec est le traitement des paiements par PayPal. La Loi 25 exige, avant toute communication de renseignements personnels hors Québec, une évaluation des facteurs relatifs à la vie privée afin de vérifier que les renseignements bénéficieront d’une protection adéquate. Cette évaluation est en cours pour PayPal, et la communication est encadrée par les conditions applicables de ce prestataire en attendant sa finalisation.",
     ],
@@ -448,15 +448,15 @@ export default function ConfidentialitePage() {
                   mais au même corps de texte que les sections. */}
               <div className="prose-legal space-y-4 text-base leading-[1.7] text-white/85">
                 <p>
-                  La présente politique décrit comment Cloud Paradise
-                  («&nbsp;Cloud Paradise&nbsp;», «&nbsp;nous&nbsp;») recueille,
+                  La présente politique décrit comment Cloud OS
+                  («&nbsp;Cloud OS&nbsp;», «&nbsp;nous&nbsp;») recueille,
                   utilise, communique et protège les renseignements personnels
                   des personnes qui utilisent sa plateforme de calcul (le
                   «&nbsp;Service&nbsp;»). Elle s’applique au site, à
                   l’application et à toute fonctionnalité qui y est rattachée.
                 </p>
                 <p>
-                  Cloud Paradise est une entreprise établie au Québec et est
+                  Cloud OS est une entreprise établie au Québec et est
                   assujettie à la Loi sur la protection des renseignements
                   personnels dans le secteur privé telle que modifiée par la
                   Loi 25.

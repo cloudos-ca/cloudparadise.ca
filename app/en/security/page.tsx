@@ -9,7 +9,7 @@ import { WindowCard } from "@/components/marketing/WindowCard";
 import { SECTION_Y, SHELL } from "@/components/marketing/tokens";
 import { alternatesBilingues, openGraphPage } from "@/lib/seo";
 
-const TITRE = "Security and hosting in Quebec — Cloud Paradise";
+const TITRE = "Security and hosting in Quebec — Cloud OS";
 const DESCRIPTION =
   "Your data, our hardware, in Quebec. The language model runs on our own machines and a deterministic engine produces every result. Isolation per team.";
 
@@ -58,7 +58,7 @@ export default function SecuritePageEn() {
         <div className="space-y-4 text-[15px] leading-relaxed text-white/85">
           <p>
             Our servers are in Quebec, in our own premises, on hardware that
-            belongs to Cloud Paradise.
+            belongs to Cloud OS.
           </p>
           <p>
             This is not capacity rented from a foreign cloud provider: your
@@ -74,7 +74,7 @@ export default function SecuritePageEn() {
       >
         <div className="space-y-4 text-[15px] leading-relaxed text-white/85">
           <p>
-            The language model that reads your requests runs on Cloud Paradise
+            The language model that reads your requests runs on Cloud OS
             hardware, in Quebec.
           </p>
           <p>
@@ -119,7 +119,7 @@ export default function SecuritePageEn() {
             {/* Appui visuel : la même tâche relancée rend le même résultat —
                 l'esprit de « La garantie », sans en reprendre la chaîne. */}
             <Reveal delay={0.1} className="mx-auto w-full max-w-[440px]">
-              <WindowCard title="Verification · Cloud Paradise">
+              <WindowCard title="Verification · Cloud OS">
                 <div className="p-5">
                   <p className="text-xs text-white/60">The same task, re-run</p>
                   <div className="mt-3 space-y-2 font-mono text-[12px]">
