@@ -127,7 +127,7 @@ Nous mettons en place des mesures de sécurité raisonnables, adaptées à la se
 Conformément à la Loi 25, nous avons désigné un responsable de la protection des renseignements personnels, chargé de veiller au respect de la présente politique et de traiter vos demandes.
 
 - **Responsable :** Maxime Murray
-- **Courriel :** maxime@cloudparadise.ca
+- **Courriel :** maxime@cloudos.ca
 - **Adresse :** 238, 1ère Avenue Ouest, Amos (Québec) J9T 1V2
 
 ## 11. Modifications de la politique

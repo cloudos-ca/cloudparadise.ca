@@ -99,7 +99,7 @@ export function RootDocument({
             Le consentement (voir MatomoAnalytics.tsx) est une deuxième porte,
             pas la première : hors production le composant ne monte pas du tout.
             Trois raisons plutôt qu'une — le `setCookieDomain` du script est posé
-            sur `.cloudparadise.ca`, qu'un navigateur refuse depuis
+            sur `.cloudos.ca`, qu'un navigateur refuse depuis
             `cloudparadise.dev` (chaque page vue y comptait un visiteur
             neuf) ; l'ID de site est le même qu'en production ; et le trafic de
             développement se mélangeait donc aux statistiques du vrai site. */}

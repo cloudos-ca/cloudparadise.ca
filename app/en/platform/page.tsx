@@ -117,7 +117,7 @@ const EQUIPE: Carte[] = [
     Icone: IconMail,
     titre: "Email",
     texte:
-      "A @cloudparadise.ca address and built-in webmail. Connect an external account (Gmail, Outlook) too, via IMAP/SMTP or OAuth.",
+      "A @cloudos.ca address and built-in webmail. Connect an external account (Gmail, Outlook) too, via IMAP/SMTP or OAuth.",
   },
   {
     Icone: IconCalendar,

@@ -234,7 +234,7 @@ export const PME_FR: ContenuPme = {
         cle: "courriel",
         titre: "Courriel",
         texte:
-          "Webmail intégré, avec une adresse @cloudparadise.ca que vous activez depuis votre bureau. Connectez aussi un compte externe (Gmail, Outlook) par IMAP/SMTP ou OAuth.",
+          "Webmail intégré, avec une adresse @cloudos.ca que vous activez depuis votre bureau. Connectez aussi un compte externe (Gmail, Outlook) par IMAP/SMTP ou OAuth.",
       },
       {
         cle: "agenda",

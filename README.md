@@ -1,4 +1,4 @@
-# cloudparadise.ca
+# cloudos.ca
 
 Site vitrine de Cloud OS. Il met en scène le web OS au lieu de le
 décrire : le hero **est** un bureau, avec sa barre de menu, ses fenêtres

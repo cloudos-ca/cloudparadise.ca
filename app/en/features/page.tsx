@@ -402,7 +402,7 @@ const SECTIONS: readonly SectionFonctions[] = [
       {
         nom: "Email",
         texte:
-          "Built-in webmail, with a @cloudparadise.ca address you activate from your desktop. Connect an external account (Gmail, Outlook) too, via IMAP/SMTP or OAuth.",
+          "Built-in webmail, with a @cloudos.ca address you activate from your desktop. Connect an external account (Gmail, Outlook) too, via IMAP/SMTP or OAuth.",
       },
       {
         nom: "Calendar and contacts",

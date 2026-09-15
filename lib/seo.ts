@@ -70,7 +70,7 @@ export const DESCRIPTION_ACCUEIL =
  * ici : Next les résout en URL absolue à la génération de la balise.
  *
  * **Hors production, aucun canonical n'est émis.** Une préproduction qui sert
- * `<link rel="canonical" href="https://cloudparadise.ca/...">` ne se protège
+ * `<link rel="canonical" href="https://cloudos.ca/...">` ne se protège
  * pas — elle demande explicitement que ses pages soient créditées à la
  * production, c'est-à-dire qu'on lise et qu'on fusionne. C'est le contraire de
  * ce que `noindex` et le `Disallow: /` du robots.txt demandent, et le signal
@@ -175,7 +175,7 @@ export const IMAGE_OG_PARTAGEE: ImageOg = {
  *
  * Comme le canonical, **`og:url` n'est émis qu'en production**, et pour la
  * raison développée dans `alternatesBilingues` : une préproduction qui publie
- * `og:url = https://cloudparadise.ca/...` revendique l'identité du vrai site
+ * `og:url = https://cloudos.ca/...` revendique l'identité du vrai site
  * depuis un environnement qu'on demande par ailleurs de ne pas explorer.
  * `metadataBase` résout le chemin relatif en URL absolue à la génération.
  */

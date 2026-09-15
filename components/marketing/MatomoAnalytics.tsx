@@ -86,7 +86,7 @@ export function MatomoAnalytics() {
       {`
         var _paq = window._paq = window._paq || [];
         _paq.push(["setDocumentTitle", document.domain + "/" + document.title]);
-        _paq.push(["setCookieDomain", ".cloudparadise.ca"]);
+        _paq.push(["setCookieDomain", ".cloudos.ca"]);
         _paq.push(["trackPageView"]);
         _paq.push(["enableLinkTracking"]);
         (function() {

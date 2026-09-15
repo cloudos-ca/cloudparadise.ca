@@ -402,7 +402,7 @@ const SECTIONS: readonly SectionFonctions[] = [
       {
         nom: "Courriel",
         texte:
-          "Webmail intégré, avec une adresse @cloudparadise.ca que vous activez depuis votre bureau. Connexion d’un compte externe (Gmail, Outlook) par IMAP/SMTP ou OAuth.",
+          "Webmail intégré, avec une adresse @cloudos.ca que vous activez depuis votre bureau. Connexion d’un compte externe (Gmail, Outlook) par IMAP/SMTP ou OAuth.",
       },
       {
         nom: "Agenda et contacts",

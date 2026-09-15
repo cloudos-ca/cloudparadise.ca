@@ -98,7 +98,7 @@ Le point à faire passer : vos fichiers restent dans votre espace, la sauvegarde
 **Section `#equipe` — information à présenter.**
 - Équipes avec bureaux multiples, partage de fichiers et de workflows entre plusieurs équipes, invitations et approbation.
 - Messagerie : canaux, messages directs, présence.
-- Courriel `@cloudparadise.ca` avec webmail.
+- Courriel `@cloudos.ca` avec webmail.
 - Agenda partagé et rappels.
 
 **Preuves.** Des captures réelles du bureau et de chaque éditeur. C'est la page qui en dépend le plus : sans visuels authentiques, elle ne convainc pas.

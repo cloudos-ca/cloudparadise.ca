@@ -27,7 +27,7 @@ l'établissement est situé au :
 > Amos (Québec)  J9T 1V2
 > Canada
 >
-> Courriel : info@cloudparadise.ca
+> Courriel : info@cloudos.ca
 > Téléphone : 873‑730‑3236
 
 ## 2. Objet et acceptation des conditions
@@ -94,7 +94,7 @@ Vous êtes responsable de conserver l'accès à la boîte de courriel associée 
 
 **5.4 Sécurité des identifiants.** Vous êtes responsable de la confidentialité de votre mot de passe et
 de toute activité effectuée au moyen de votre compte. Vous vous engagez à nous aviser sans délai à
-info@cloudparadise.ca de toute utilisation non autorisée ou de toute atteinte présumée à la sécurité de
+info@cloudos.ca de toute utilisation non autorisée ou de toute atteinte présumée à la sécurité de
 votre compte.
 
 **5.5 Un compte par personne.** Vous ne pouvez pas partager vos identifiants ni céder votre compte sans
@@ -147,7 +147,7 @@ d'exécution que nous imposons, ou incident interne — sans produire de résult
 débités pour ce Traitement vous sont **automatiquement remis** à votre solde. Aucune démarche n'est
 requise de votre part ; la remise apparaît dans votre relevé de crédits, à la ligne du Traitement
 concerné. Si vous estimez qu'une remise aurait dû être effectuée et ne l'a pas été, écrivez à
-support@cloudparadise.ca.
+support@cloudos.ca.
 
 **6.5 Recharge de crédits.** L'achat de crédits supplémentaires s'effectue au moyen des modes de
 paiement offerts dans le Service (notamment PayPal). Les paiements sont traités par des prestataires
@@ -157,7 +157,7 @@ de paiement.
 **6.6 Remboursements.** Sauf disposition contraire prévue par la loi applicable — notamment la
 *Loi sur la protection du consommateur* du Québec — les crédits achetés ne sont pas remboursables une
 fois consommés. Les crédits non utilisés peuvent faire l'objet d'un remboursement à notre discrétion ou
-lorsque la loi l'exige. Pour toute demande, écrivez à info@cloudparadise.ca.
+lorsque la loi l'exige. Pour toute demande, écrivez à info@cloudos.ca.
 
 **6.7 Taxes.** Les prix affichés peuvent être exclusifs des taxes applicables (TPS/TVQ). Les taxes
 requises seront ajoutées le cas échéant.
@@ -263,7 +263,7 @@ et dans le respect des présentes Conditions.
 ## 13. Suspension et résiliation
 
 **13.1 Résiliation par vous.** Vous pouvez cesser d'utiliser le Service et demander la fermeture de
-votre compte en tout temps en nous écrivant à info@cloudparadise.ca.
+votre compte en tout temps en nous écrivant à info@cloudos.ca.
 
 **13.2 Suspension ou résiliation par nous.** Nous pouvons suspendre ou désactiver votre compte, en tout
 ou en partie, immédiatement et sans préavis, si nous avons des motifs raisonnables de croire que vous
@@ -319,7 +319,7 @@ Le traitement de vos renseignements personnels est régi par notre
 des renseignements personnels dans le secteur privé* du Québec (« Loi 25 »). En utilisant le Service,
 vous reconnaissez avoir pris connaissance de cette politique. Pour toute question relative à vos
 renseignements personnels ou pour exercer vos droits (accès, rectification, retrait), écrivez à
-info@cloudparadise.ca.
+info@cloudos.ca.
 
 ## 18. Droit applicable et juridiction
 
@@ -362,5 +362,5 @@ Pour toute question relative aux présentes Conditions :
 
 > **Cloud OS**
 > 238, 1re Avenue Ouest, Amos (Québec)  J9T 1V2, Canada
-> Courriel : info@cloudparadise.ca
+> Courriel : info@cloudos.ca
 > Téléphone : 873‑730‑3236
