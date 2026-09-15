@@ -45,7 +45,7 @@ components/marketing/
   WallpaperPicker.tsx         sélecteur de fond
   wallpapers.ts               données des fonds + applyWallpaper()
 public/brand/                 logos
-cloud_paradise_assets/        fichiers de marque d'origine
+cloud_os_assets/              fichiers de marque d'origine (charte, SVG, PNG)
 ```
 
 Le layout, la page et les wrappers de sections sont des Server Components. Le
@@ -88,17 +88,17 @@ Les vraies photos restent à fournir.
 
 ## Logos — à savoir
 
-Les fichiers de `cloud_paradise_assets/` sont des **JPEG malgré leur extension
-`.png`**, donc sans transparence. La variante blanche est blanche sur fond
-blanc : inexploitable telle quelle sur un fond sombre.
+Les fichiers de marque Cloud OS vivent dans `cloud_os_assets/` : la charte
+graphique (`charte-cloud-os-2026.pdf`), les SVG et PNG d'origine — avec leurs
+métadonnées de provenance C2PA — et le `LISEZMOI.txt` qui résume les règles
+d'usage. Les copies servies par le site sont dans `public/brand/` : SVG
+allégés (bloc `<metadata>` retiré, 0,7 Ko au lieu de 8) et PNG
+redimensionnés. Toute nouvelle variante se tire des SVG de
+`cloud_os_assets/svg/`, jamais des PNG.
 
-Les PNG de `public/brand/` sont donc recomposés à partir des deux sources
-1204×896, qui sont alignées au pixel près : `Logo_noir` fournit la silhouette
-et l'antialiasing, `Logo_blanc_et_jaune` indique quelles zones sont le halo et
-le lettrage « paradise ».
-
-**À remplacer par les vrais SVG dès réception** — mêmes noms de fichiers, le
-code n'aura qu'à changer d'extension.
+Le mot-symbole « CLOUD OS » de la barre et du pied de page n'est pas dans ces
+fichiers : c'est du texte en Archivo, rendu par le site lui-même (voir
+`TopBar.tsx`).
 
 ## Accessibilité
 

@@ -42,7 +42,7 @@ export function OffreJsonLd({ lang }: Readonly<{ lang: Lang }>) {
     "@type": "Product",
     name: "Cloud Paradise",
     url: `${SITE_URL}${lang === "en" ? "/en/pricing" : "/tarifs"}`,
-    image: `${SITE_URL}/brand/logo-bleu-fonce.png`,
+    image: `${SITE_URL}/brand/symbole-couleur.png`,
     offers: {
       "@type": "AggregateOffer",
       priceCurrency: "CAD",

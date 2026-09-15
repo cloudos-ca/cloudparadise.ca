@@ -97,13 +97,20 @@ export function Footer({ lang = "fr" }: Readonly<{ lang?: Lang }>) {
       <div className={`${SHELL} py-10`}>
         <div className="flex flex-col gap-8 os:flex-row os:justify-between">
           <div>
-            <Image
-              src="/brand/logo-blanc-et-jaune.svg"
-              alt="Cloud Paradise"
-              width={401}
-              height={295}
-              className="h-[84px] w-auto"
-            />
+            {/* Lockup horizontal : le mot-symbole est du texte visible — c'est
+                lui le nom accessible, d'où l'`alt` vide sur le symbole. */}
+            <span className="flex items-center gap-3">
+              <Image
+                src="/brand/symbole-blanc-jaune.svg"
+                alt=""
+                width={202}
+                height={98}
+                className="h-10 w-auto"
+              />
+              <span className="font-display text-[25px] font-extrabold tracking-tight text-white">
+                CLOUD <span className="text-cp-yellow">OS</span>
+              </span>
+            </span>
             <p
               data-cp-accent
               className="mt-3 text-xs"

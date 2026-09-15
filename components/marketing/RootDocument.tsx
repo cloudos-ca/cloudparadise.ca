@@ -30,7 +30,7 @@ const JSON_LD = {
       "@type": "Organization",
       name: "Cloud Paradise",
       url: SITE_URL,
-      logo: `${SITE_URL}/brand/logo-bleu-fonce.png`,
+      logo: `${SITE_URL}/brand/symbole-couleur.png`,
     },
     {
       "@type": "WebSite",

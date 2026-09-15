@@ -123,7 +123,8 @@ export function FenetreCta({
 }
 
 /**
- * Le logo, seul, en clôture de page.
+ * Le symbole, seul, en clôture de page — l'usage « petits formats » de la
+ * charte.
  *
  * Contrairement au reste de la fenêtre, sa couleur est écrite en dur (fichier
  * SVG) : aucun thème ne doit l'atteindre.
@@ -132,13 +133,13 @@ function Halo() {
   return (
     <span
       aria-hidden="true"
-      className="relative mx-auto block h-16 aspect-[401/295]"
+      className="relative mx-auto block h-12 aspect-[202/98]"
     >
       <Image
-        src="/brand/logo-blanc-et-jaune.svg"
+        src="/brand/symbole-blanc-jaune.svg"
         alt=""
-        width={401}
-        height={295}
+        width={202}
+        height={98}
         className="relative h-full w-auto"
       />
     </span>

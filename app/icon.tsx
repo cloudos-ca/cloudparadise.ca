@@ -24,7 +24,7 @@ export default async function Icon({
   const size = iconId === "512" ? 512 : 192;
 
   const logo = await readFile(
-    join(process.cwd(), "public/brand/logo-blanc-et-jaune.png"),
+    join(process.cwd(), "public/brand/symbole-blanc-jaune.png"),
   );
   const logoSrc = `data:image/png;base64,${logo.toString("base64")}`;
 
