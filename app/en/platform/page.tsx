@@ -197,7 +197,7 @@ export default function PlateformePageEn() {
               src="/plateforme/bureau.jpg"
               width={2048}
               height={760}
-              alt="The Cloud OS desktop: wallpaper, application dock on the left and bottom bar."
+              alt="The Cloud OS desktop in use: Documentation and Arcades open in windows, application dock on the left and bottom bar."
               priority
             />
           </Reveal>

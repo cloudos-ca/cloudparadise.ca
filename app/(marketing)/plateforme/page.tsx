@@ -197,7 +197,7 @@ export default function PlateformePage() {
               src="/plateforme/bureau.jpg"
               width={2048}
               height={760}
-              alt="Le bureau Cloud OS : fond d’écran, dock d’applications à gauche et barre inférieure."
+              alt="Le bureau Cloud OS en cours d’utilisation : la Documentation et les Arcades ouvertes en fenêtres, dock d’applications à gauche et barre inférieure."
               priority
             />
           </Reveal>
