@@ -11,8 +11,8 @@ import { HreflangLinks } from "@/components/marketing/HreflangLinks";
 import { JobPanel } from "@/components/marketing/JobPanel";
 import { WindowCard } from "@/components/marketing/WindowCard";
 import { libelleDe } from "@/components/marketing/offre";
+import Image from "next/image";
 import {
-  IconAlert,
   IconCube,
   IconDownload,
   IconFlask,
@@ -146,49 +146,17 @@ export default function MinesPage() {
               <TitreSection>Aucun claim ne tombe sans prévenir.</TitreSection>
             </Reveal>
             <Reveal delay={0.1}>
-              {/* Fenêtre en tête de colonne (alignée au titre à gauche, grâce à
-                  `items-start`), texte descriptif dessous : comble le vide sous
-                  l'en-tête. La maquette n'a ni date ni numéro de titre réels. */}
-              <WindowCard title="Bureau · Cloud OS">
-                <div className="p-5">
-                  <p className="text-xs text-white/60">Notification</p>
-                  <div className="mt-3 flex gap-3 rounded-lg border border-white/10 bg-white/[0.03] p-3.5">
-                    <span
-                      className="grid size-9 shrink-0 place-items-center rounded-lg"
-                      style={{
-                        background:
-                          "color-mix(in srgb, var(--soft) 14%, transparent)",
-                        color: "var(--soft)",
-                      }}
-                    >
-                      <IconAlert className="size-[18px]" />
-                    </span>
-                    <div className="min-w-0">
-                      <p className="text-sm font-medium text-white">
-                        Échéance de titre à venir
-                      </p>
-                      <p className="mt-0.5 text-[13px] leading-relaxed text-white/70">
-                        Un de vos titres approche de sa date d’expiration.
-                      </p>
-                    </div>
-                  </div>
-                  <div className="mt-4 flex flex-wrap items-center gap-x-3 gap-y-1.5 border-t border-white/10 pt-3">
-                    <span
-                      className="rounded-md px-2.5 py-1 text-[11px] font-medium"
-                      style={{
-                        background:
-                          "color-mix(in srgb, var(--soft) 14%, transparent)",
-                        color: "var(--soft)",
-                      }}
-                    >
-                      Rappel par courriel
-                    </span>
-                    <span className="text-xs text-white/60">
-                      notification dans le bureau
-                    </span>
-                  </div>
-                </div>
-              </WindowCard>
+              {/* Capture réelle de l'application (bureau de dev, 2026-09-15).
+                  Les trois titres sont des données de démonstration saisies
+                  pour la capture — numéros et échéances plausibles, pas des
+                  claims réels. Remplace l'ancienne maquette HTML de
+                  notification, qui n'avait ni date ni numéro. */}
+              <Capture
+                src="/mines/titres-miniers.jpg"
+                width={2032}
+                height={760}
+                alt="L’application Titres miniers : trois claims suivis, avec secteur, échéance, statut en jours restants et travaux requis."
+              />
 
               <div className="mt-6 space-y-4 text-[15px] leading-relaxed text-white/85">
                 <p>
@@ -291,6 +259,18 @@ export default function MinesPage() {
                   <Ext>.geojson</Ext>, <Ext>.kml</Ext>, et <Ext>.zip</Ext> pour
                   un shapefile compressé.
                 </p>
+              </div>
+
+              {/* Capture réelle de l'application (bureau de dev, 2026-09-15) :
+                  le catalogue SIGÉOM tel qu'il est servi, aucune donnée mise
+                  en scène. */}
+              <div className="mt-6">
+                <Capture
+                  src="/mines/donnees-ouvertes.jpg"
+                  width={2032}
+                  height={1096}
+                  alt="L’application Données ouvertes : couches SIGÉOM classées par thème — géologie, indices minéralisés, mines et projets, géophysique — et import par district minier."
+                />
               </div>
             </Reveal>
           </div>
@@ -414,6 +394,35 @@ function Ext({ children }: Readonly<{ children: ReactNode }>) {
     <code className="rounded bg-white/[0.06] px-1 py-0.5 font-mono text-[0.85em] text-white/80">
       {children}
     </code>
+  );
+}
+
+/**
+ * Capture réelle, encadrée sobrement — même traitement que sur /plateforme :
+ * le visuel porte déjà son propre chrome de fenêtre, pas de cadre par-dessus.
+ */
+function Capture({
+  src,
+  width,
+  height,
+  alt,
+}: Readonly<{
+  src: string;
+  width: number;
+  height: number;
+  alt: string;
+}>) {
+  return (
+    <div className="overflow-hidden rounded-xl border border-white/10 shadow-[0_24px_50px_-14px_rgba(0,0,0,.55)]">
+      <Image
+        src={src}
+        width={width}
+        height={height}
+        alt={alt}
+        sizes="(min-width: 1280px) 730px, 100vw"
+        className="h-auto w-full"
+      />
+    </div>
   );
 }
 
