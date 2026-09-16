@@ -120,7 +120,7 @@ export function TroisPiliers({ lang = "fr" }: Readonly<{ lang?: Lang }>) {
               >
                 <Icone className="size-[22px]" style={{ color: "var(--cta)" }} />
               </span>
-              <p className="mt-5 font-display text-lg font-semibold text-cp-heading">
+              <p className="mt-5 font-display text-lg font-extrabold text-cp-heading">
                 {titre}
               </p>
               <p className="mt-2 flex-1 text-sm leading-relaxed text-white/85">

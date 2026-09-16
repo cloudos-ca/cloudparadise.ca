@@ -89,7 +89,7 @@ const COLONNES = {
  * Chrome neutre, à une exception près : la mention de copyright suit
  * désormais l'accent (`--acc-text`), comme signature discrète que la
  * recoloration va jusqu'en bas de page. Les colonnes de liens et le logo
- * (halo compris) restent fixes.
+ * (tuile jaune comprise) restent fixes.
  */
 export function Footer({ lang = "fr" }: Readonly<{ lang?: Lang }>) {
   return (

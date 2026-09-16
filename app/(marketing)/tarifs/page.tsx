@@ -278,7 +278,7 @@ export default function TarifsPage() {
                     <IconCoin className="size-[21px]" />
                   </span>
                   <div>
-                    <p className="flex items-center gap-2 font-display text-[15px] font-semibold text-white">
+                    <p className="flex items-center gap-2 font-display text-[15px] font-extrabold text-white">
                       {palier.nom.fr}
                       {recommande ? (
                         <span
@@ -387,7 +387,7 @@ export default function TarifsPage() {
                   <Icone className="size-[21px]" />
                 </span>
                 <div className="min-w-0">
-                  <p className="font-display text-[15px] font-semibold text-white">
+                  <p className="font-display text-[15px] font-extrabold text-white">
                     {titre}
                   </p>
                   <p className="mt-1 text-[13px] leading-relaxed text-white/85">

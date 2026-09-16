@@ -125,7 +125,7 @@ export function proxy(request: NextRequest) {
       // `charset="UTF-8"` s'adresse au navigateur, pas au libellé : il lui dit
       // dans quel encodage transmettre ce que le visiteur tape, faute de quoi
       // un mot de passe accentué part différemment selon le navigateur.
-      "WWW-Authenticate": `Basic realm="Cloud Paradise - espace de developpement", charset="UTF-8"`,
+      "WWW-Authenticate": `Basic realm="Cloud OS - espace de developpement", charset="UTF-8"`,
       "Content-Type": "text/plain; charset=utf-8",
       // Un 401 mis en cache par un proxy intermédiaire survivrait au retrait du
       // mot de passe.

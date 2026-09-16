@@ -117,7 +117,7 @@ const EQUIPE: Carte[] = [
     Icone: IconMail,
     titre: "Email",
     texte:
-      "A @cloudos.ca address and built-in webmail. Connect an external account (Gmail, Outlook) too, via IMAP/SMTP or OAuth.",
+      "An @cloudos.ca address and built-in webmail. Connect an external account (Gmail, Outlook) too, via IMAP/SMTP or OAuth.",
   },
   {
     Icone: IconCalendar,
@@ -351,7 +351,7 @@ function SectionAncre({
                 <Icone className="size-[21px]" />
               </span>
               <div className="min-w-0">
-                <p className="font-display text-[15px] font-semibold text-cp-heading">
+                <p className="font-display text-[15px] font-extrabold text-cp-heading">
                   {titre}
                 </p>
                 <p className="mt-1 text-[13px] leading-relaxed text-white/75">

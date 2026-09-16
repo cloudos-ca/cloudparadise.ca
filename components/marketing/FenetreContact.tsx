@@ -316,7 +316,7 @@ function PanneauCoordonnees({ lang }: Readonly<{ lang: Lang }>) {
 function CarteVisite({ lang }: Readonly<{ lang: Lang }>) {
   return (
     <div className="mt-4 flex items-center gap-3 rounded-lg border border-white/10 bg-white/[0.03] p-3">
-      {/* Pastille de marque : l'anneau reprend le jaune du halo tel quel
+      {/* Pastille de marque : l'anneau reprend le jaune de la tuile tel quel
           (#edbe54, jamais recoloré par l'accent), le disque suit l'accent. */}
       <span
         aria-hidden="true"
@@ -536,8 +536,8 @@ function Composition({
               raison, il ne porte pas `data-cp-accent` — la couleur de
               conversion ne suit pas la recoloration du bureau.
 
-              Sans ombre portée dorée : le halo est un signe de marque, il vit
-              dans le logo. Posé sous un bouton il le dilue, et le système est
+              Sans ombre portée dorée : le jaune est un signe de marque, il vit
+              dans la tuile du logo. Posé sous un bouton il le dilue, et le système est
               plat par ailleurs. L'or seul suffit à désigner l'action ; le seul
               anneau qui reste est celui du focus, net et blanc. */}
           <button

@@ -81,7 +81,7 @@ export function FenetreCta({
       >
         <WindowCard title="Cloud OS">
           <div className="px-6 py-10 text-center os:px-10">
-            <Halo />
+            <Symbole />
 
             <h2 className="mt-6 font-display text-[1.6rem] leading-[1.15] font-extrabold tracking-tight text-white sm:text-3xl">
               {TAGLINE[lang].ligne1}
@@ -129,7 +129,7 @@ export function FenetreCta({
  * Contrairement au reste de la fenêtre, sa couleur est écrite en dur (fichier
  * SVG) : aucun thème ne doit l'atteindre.
  */
-function Halo() {
+function Symbole() {
   return (
     <span
       aria-hidden="true"

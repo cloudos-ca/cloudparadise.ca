@@ -14,6 +14,13 @@ export function generateImageMetadata() {
   return [
     { id: "192", size: { width: 192, height: 192 } },
     { id: "512", size: { width: 512, height: 512 } },
+    /**
+     * Variante `purpose: "maskable"` du manifest : Android pose son masque
+     * adaptatif (cercle, squircle…) qui peut rogner jusqu'à 20 % du bord.
+     * Le symbole y est donc réduit à la zone sûre, là où les icônes
+     * ordinaires l'affichent à 72 % de la largeur.
+     */
+    { id: "maskable", size: { width: 512, height: 512 } },
   ];
 }
 
@@ -21,7 +28,8 @@ export default async function Icon({
   id,
 }: Readonly<{ id: Promise<string | number> }>) {
   const iconId = await id;
-  const size = iconId === "512" ? 512 : 192;
+  const size = iconId === "192" ? 192 : 512;
+  const largeur = iconId === "maskable" ? 0.56 : 0.72;
 
   const logo = await readFile(
     join(process.cwd(), "public/brand/symbole-blanc-jaune.png"),
@@ -40,7 +48,7 @@ export default async function Icon({
           background: "linear-gradient(140deg, #151f33 0%, #1b273d 100%)",
         }}
       >
-        <img src={logoSrc} width={size * 0.72} alt="" />
+        <img src={logoSrc} width={size * largeur} alt="" />
       </div>
     ),
     { width: size, height: size },

@@ -402,7 +402,7 @@ const SECTIONS: readonly SectionFonctions[] = [
       {
         nom: "Email",
         texte:
-          "Built-in webmail, with a @cloudos.ca address you activate from your desktop. Connect an external account (Gmail, Outlook) too, via IMAP/SMTP or OAuth.",
+          "Built-in webmail, with an @cloudos.ca address you activate from your desktop. Connect an external account (Gmail, Outlook) too, via IMAP/SMTP or OAuth.",
       },
       {
         nom: "Calendar and contacts",
@@ -624,7 +624,7 @@ function SectionListe({ section }: Readonly<{ section: SectionFonctions }>) {
                   key={nom}
                   className="grid gap-x-6 gap-y-1 px-5 py-3.5 sm:grid-cols-[minmax(0,11rem)_1fr]"
                 >
-                  <dt className="font-display text-[14px] font-semibold text-white">
+                  <dt className="font-display text-[14px] font-extrabold text-white">
                     {nom}
                   </dt>
                   <dd className="text-[13px] leading-relaxed text-white/85">

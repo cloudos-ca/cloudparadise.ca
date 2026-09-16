@@ -10,6 +10,12 @@
  * éléments dorés cohabitent à l'écran, plus aucun ne ressort.
  */
 @theme {
+  /*
+   * `cp-` (et `--color-cp-*`, `data-cp-accent`, `cp-flotte`…) : préfixe
+   * hérité de Cloud Paradise, conservé volontairement au rebrand Cloud OS —
+   * un identifiant interne, invisible pour l'utilisateur ; le renommer
+   * toucherait la moitié des composants pour zéro gain. Ne pas « corriger ».
+   */
   --color-cp-navy: #1b273d;
   --color-cp-blue: #2d66ae;
   --color-cp-cyan: #bbecee;

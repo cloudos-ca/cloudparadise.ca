@@ -190,7 +190,7 @@ function CarteFamille({ famille }: Readonly<{ famille: Famille }>) {
         <Icone className="size-[21px]" />
       </span>
       <div className="min-w-0">
-        <p className="font-display text-[15px] font-semibold text-cp-heading">
+        <p className="font-display text-[15px] font-extrabold text-cp-heading">
           {nom}
         </p>
         <p className="mt-1 text-[13px] leading-relaxed text-white/75">
