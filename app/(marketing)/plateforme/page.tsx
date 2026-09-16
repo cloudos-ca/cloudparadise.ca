@@ -231,6 +231,16 @@ export default function PlateformePage() {
         <Reveal delay={0.15} className="mt-8">
           <FenetrePlan />
         </Reveal>
+        {/* Capture réelle de Writer (Collabora) sur le bureau de dev,
+            2026-09-16 : document de démonstration tapé pour la capture. */}
+        <Reveal delay={0.2} className="mt-6">
+          <Capture
+            src="/plateforme/writer.jpg"
+            width={2032}
+            height={1096}
+            alt="Writer, le traitement de texte en ligne : une offre de services en cours de rédaction, barre d’outils complète et panneau de styles."
+          />
+        </Reveal>
       </SectionAncre>
 
       <SectionAncre
@@ -250,7 +260,20 @@ export default function PlateformePage() {
         titre="Un studio de jeux, et une arcade gratuite."
         texte="De la conversation au jeu jouable, testé avant d’être livré — et une salle de jeux gratuite, à côté."
         cartes={JEUX}
-      />
+      >
+        {/* Capture réelle de l'application Arcades (bureau de dev, 2026-09-16).
+            Les vignettes sont celles du catalogue tiers réellement servi
+            (GameMonetize) : si l'affichage d'illustrations de jeux tiers sur
+            la vitrine pose question, remplacer par un recadrage sans tuiles. */}
+        <Reveal delay={0.15} className="mt-8">
+          <Capture
+            src="/plateforme/arcades.jpg"
+            width={2032}
+            height={968}
+            alt="L’application Arcades : recherche, salles par catégorie, rangée « Reprendre » du joueur et grille de jeux HTML5."
+          />
+        </Reveal>
+      </SectionAncre>
 
       {/* Closer */}
       <section className="relative overflow-x-clip">

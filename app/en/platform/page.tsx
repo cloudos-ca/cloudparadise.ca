@@ -231,6 +231,17 @@ export default function PlateformePageEn() {
         <Reveal delay={0.15} className="mt-8">
           <FenetrePlan lang="en" />
         </Reveal>
+        {/* Capture réelle de Writer (Collabora) sur le bureau de dev,
+            2026-09-16 — document de démonstration ; interface en français,
+            l'alt le précise. */}
+        <Reveal delay={0.2} className="mt-6">
+          <Capture
+            src="/plateforme/writer.jpg"
+            width={2032}
+            height={1096}
+            alt="Writer, the online word processor (French interface): a service proposal being drafted, with the full toolbar and styles panel."
+          />
+        </Reveal>
       </SectionAncre>
 
       <SectionAncre
@@ -250,7 +261,19 @@ export default function PlateformePageEn() {
         titre="A game studio, and a free arcade."
         texte="From conversation to a playable game, tested before it’s handed to you — plus a free games room, right next to it."
         cartes={JEUX}
-      />
+      >
+        {/* Capture réelle de l'application Arcades (bureau de dev, 2026-09-16).
+            Vignettes du catalogue tiers réellement servi (GameMonetize) — même
+            réserve que côté FR sur les illustrations de jeux tiers. */}
+        <Reveal delay={0.15} className="mt-8">
+          <Capture
+            src="/plateforme/arcades.jpg"
+            width={2032}
+            height={968}
+            alt="The Arcades app (French interface): search, category rooms, the player’s “Resume” row and a grid of HTML5 games."
+          />
+        </Reveal>
+      </SectionAncre>
 
       {/* Closer */}
       <section className="relative overflow-x-clip">
