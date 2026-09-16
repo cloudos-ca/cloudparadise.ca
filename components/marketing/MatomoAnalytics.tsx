@@ -87,6 +87,10 @@ export function MatomoAnalytics() {
         var _paq = window._paq = window._paq || [];
         _paq.push(["setDocumentTitle", document.domain + "/" + document.title]);
         _paq.push(["setCookieDomain", ".cloudos.ca"]);
+        // Apex et www sont un seul site : un lien de l'un vers l'autre n'est
+        // pas un « lien sortant ». Doit rester aligné avec les URL déclarées
+        // pour le site 1 dans l'administration Matomo.
+        _paq.push(["setDomains", ["*.cloudos.ca"]]);
         _paq.push(["trackPageView"]);
         _paq.push(["enableLinkTracking"]);
         (function() {
