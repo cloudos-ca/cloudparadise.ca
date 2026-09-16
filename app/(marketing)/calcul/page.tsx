@@ -17,7 +17,7 @@ import { SECTION_Y, SHELL } from "@/components/marketing/tokens";
 import { alternatesBilingues, openGraphPage } from "@/lib/seo";
 import { lienInscription } from "@/lib/site";
 
-const TITRE = "Calcul lourd et rendu 3D — Cloud Paradise";
+const TITRE = "Calcul lourd et rendu 3D — Cloud OS";
 const DESCRIPTION =
   "Un seul endroit pour vos tâches lourdes : documents, données, images et vidéos, web, calcul 3D. Décrivez le résultat ; un moteur déterministe le produit.";
 
@@ -180,7 +180,7 @@ export default function CalculPage() {
         >
           <Reveal>
             <SurTitre>Calcul</SurTitre>
-            <h1 className="mt-2 font-display text-[2rem] leading-[1.1] font-bold tracking-[-0.02em] text-white sm:text-[2.2rem] os:text-[2.4rem]">
+            <h1 className="mt-2 font-display text-[2rem] leading-[1.1] font-extrabold tracking-[-0.02em] text-white sm:text-[2.2rem] os:text-[2.4rem]">
               Un seul endroit.
               <br />
               Toutes vos tâches lourdes.
@@ -215,7 +215,7 @@ export default function CalculPage() {
           </Reveal>
 
           <Reveal delay={0.1} className="mx-auto w-full max-w-[520px]">
-            <WindowCard title="Plan · Cloud Paradise">
+            <WindowCard title="Plan · Cloud OS">
               <JobPanel
                 title="Extraire les échéances de 200 contrats"
                 chip={libelleDe("Documents", "fr").toUpperCase()}
@@ -250,7 +250,7 @@ export default function CalculPage() {
         <div className={`${SHELL} ${SECTION_Y}`}>
           <Reveal className="max-w-2xl">
             <SurTitre>Premier essai</SurTitre>
-            <h2 className="mt-2 max-w-[24ch] font-display text-[1.6rem] leading-[1.2] font-bold tracking-tight text-balance text-cp-heading sm:text-3xl os:text-4xl">
+            <h2 className="mt-2 max-w-[24ch] font-display text-[1.6rem] leading-[1.2] font-extrabold tracking-tight text-balance text-cp-heading sm:text-3xl os:text-4xl">
               Votre première tâche ne demande aucun fichier.
             </h2>
             <p className="mt-4 max-w-[54ch] text-sm leading-relaxed text-white/85">
@@ -273,7 +273,7 @@ export default function CalculPage() {
                   >
                     {libelleDe(essai.facture, "fr")}
                   </span>
-                  <p className="mt-2 font-display text-[17px] font-bold text-white">
+                  <p className="mt-2 font-display text-[17px] font-extrabold text-white">
                     {essai.titre}
                   </p>
                   <p className="mt-2 text-[13px] leading-relaxed text-white/85">
@@ -298,7 +298,7 @@ export default function CalculPage() {
           <div className="grid items-center gap-10 os:grid-cols-[1fr_1fr] os:gap-14">
             <Reveal className="max-w-xl">
               <SurTitre>Automatisation</SurTitre>
-              <h2 className="mt-2 max-w-[20ch] font-display text-[1.6rem] leading-[1.2] font-bold tracking-tight text-balance text-cp-heading sm:text-3xl os:text-4xl">
+              <h2 className="mt-2 max-w-[20ch] font-display text-[1.6rem] leading-[1.2] font-extrabold tracking-tight text-balance text-cp-heading sm:text-3xl os:text-4xl">
                 Une fois. Ou tous les lundis matin.
               </h2>
               <p className="mt-4 max-w-[54ch] text-sm leading-relaxed text-white/85">
@@ -309,7 +309,7 @@ export default function CalculPage() {
             </Reveal>
 
             <Reveal delay={0.1} className="mx-auto w-full max-w-[480px]">
-              <WindowCard title="Flux · Cloud Paradise">
+              <WindowCard title="Flux · Cloud OS">
                 <div className="p-5">
                   <ol className="space-y-2.5">
                     {WORKFLOW.map((etape, i) => (
@@ -427,7 +427,7 @@ function GesteSection({ geste }: Readonly<{ geste: Geste }>) {
                 </span>
               )}
             </p>
-            <h2 className="mt-2 font-display text-[1.6rem] leading-[1.2] font-bold tracking-tight text-balance text-cp-heading sm:text-3xl os:text-4xl">
+            <h2 className="mt-2 font-display text-[1.6rem] leading-[1.2] font-extrabold tracking-tight text-balance text-cp-heading sm:text-3xl os:text-4xl">
               {geste.titre}
             </h2>
             <p className="mt-4 text-sm leading-relaxed text-white/85">

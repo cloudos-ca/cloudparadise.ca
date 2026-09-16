@@ -5,8 +5,8 @@
  *  - dégradés (`sky`/`acc`/`soft` fournis) — set de démo, valeurs de la charte ;
  *  - photos (`image`) — les teintes sont extraites à l'exécution via node-vibrant.
  *
- * Le halo de marque (#edbe54) est inclus dans le fichier logo et n'est jamais
- * recoloré ici : aucun token ne le pilote.
+ * La tuile jaune de marque (#edbe54) est incluse dans le fichier logo et n'est jamais
+ * recolorée ici : aucun token ne le pilote.
  */
 
 /**

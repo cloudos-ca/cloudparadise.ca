@@ -11,7 +11,7 @@ const TEXTES = {
  * L'offre d'accueil, présentée comme un objet et non comme une phrase.
  *
  * Elle vivait en `text-xs` gris sous les boutons : l'argument le plus fort du
- * site, au poste le plus faible. Ici le montant est en or, en Comfortaa, et
+ * site, au poste le plus faible. Ici le montant est en or, en Archivo, et
  * porté par une pastille — on le voit avant de le lire.
  *
  * Or DILUÉ, pas plein : le bouton doré doit rester l'élément le plus fort de
@@ -43,7 +43,7 @@ export function BadgeOffre({
       />
       <span className="text-[13px] text-[#dbe6fb]">
         <strong
-          className="font-display text-[15px] font-bold"
+          className="font-display text-[15px] font-extrabold"
           style={{ color: "var(--cta)" }}
         >
           {OFFRE_EN_DEVISE}

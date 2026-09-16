@@ -9,9 +9,9 @@ import { SECTION_Y, SHELL } from "@/components/marketing/tokens";
 import { emettreJeton } from "@/lib/jetonContact";
 import { alternatesBilingues, openGraphPage } from "@/lib/seo";
 
-const TITRE = "Contact — Cloud Paradise";
+const TITRE = "Contact — Cloud OS";
 const DESCRIPTION =
-  "Get in touch: Cloud Paradise’s email, phone and address, in Amos, Abitibi. A question about the service, pricing, or a specific project? Write to us.";
+  "Get in touch: Cloud OS’s email, phone and address, in Amos, Abitibi. A question about the service, pricing, or a specific project? Write to us.";
 
 export const metadata: Metadata = {
   title: TITRE,

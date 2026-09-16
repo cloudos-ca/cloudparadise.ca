@@ -33,13 +33,13 @@ import type { ContenuPme } from "./pme";
  */
 export const PME_EN: ContenuPme = {
   meta: {
-    titre: "The workstation for Canadian businesses — Cloud Paradise",
+    titre: "The workstation for Canadian businesses — Cloud OS",
     description:
       "Accounting, administration, marketing: the workstation for Canadian businesses, with no IT department. Your data stays in Canada, credits with no subscription required.",
   },
 
   og: {
-    alt: "Cloud Paradise — Small business",
+    alt: "Cloud OS — Small business",
     titre: "Small business",
     soustitre: "The workstation for Canadian businesses",
   },
@@ -244,7 +244,7 @@ export const PME_EN: ContenuPme = {
         cle: "courriel",
         titre: "Email",
         texte:
-          "Built-in webmail, with an @cloudparadise.ca address you activate from your workspace. Connect an external account (Gmail, Outlook) too, via IMAP/SMTP or OAuth.",
+          "Built-in webmail, with an @cloudos.ca address you activate from your workspace. Connect an external account (Gmail, Outlook) too, via IMAP/SMTP or OAuth.",
       },
       {
         cle: "agenda",
@@ -291,7 +291,7 @@ export const PME_EN: ContenuPme = {
     surtitre: "Your data",
     titre: "Your data stays in Canada.",
     paragraphes: [
-      "Our servers are in Quebec, in a room, on hardware Cloud Paradise owns. This isn’t rented capacity from a foreign cloud provider — your files sit on disks we hold.",
+      "Our servers are in Quebec, in a room, on hardware Cloud OS owns. This isn’t rented capacity from a foreign cloud provider — your files sit on disks we hold.",
       "The language model that reads your requests runs on that same hardware. Your files and your requests are never sent to a third-party AI provider, and they never leave the country — which matters when the files are your clients’.",
     ],
     lien: "See security",

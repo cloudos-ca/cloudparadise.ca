@@ -11,8 +11,8 @@ import { HreflangLinks } from "@/components/marketing/HreflangLinks";
 import { JobPanel } from "@/components/marketing/JobPanel";
 import { WindowCard } from "@/components/marketing/WindowCard";
 import { libelleDe } from "@/components/marketing/offre";
+import Image from "next/image";
 import {
-  IconAlert,
   IconCube,
   IconDownload,
   IconFlask,
@@ -25,7 +25,7 @@ import { SECTION_Y, SHELL } from "@/components/marketing/tokens";
 import { alternatesBilingues, openGraphPage } from "@/lib/seo";
 import { lienInscription } from "@/lib/site";
 
-const TITRE = "Mineral exploration in Quebec — Cloud Paradise";
+const TITRE = "Mineral exploration in Quebec — Cloud OS";
 const DESCRIPTION =
   "The workstation for mineral exploration in Quebec: titles and expiry dates, drill holes in three dimensions, SIGÉOM layers, export. Built in Abitibi.";
 
@@ -111,7 +111,7 @@ export default function MinesPageEn() {
         <div className={`${SHELL} ${SECTION_Y}`}>
           <Reveal className="max-w-4xl">
             <SurTitre>Mineral exploration</SurTitre>
-            <h1 className="mt-2 font-display text-[1.7rem] leading-[1.12] font-bold tracking-[-0.02em] text-white sm:text-[2.15rem] os:text-[2.5rem]">
+            <h1 className="mt-2 font-display text-[1.7rem] leading-[1.12] font-extrabold tracking-[-0.02em] text-white sm:text-[2.15rem] os:text-[2.5rem]">
               The workstation for
               <br />
               mineral exploration in Quebec.
@@ -146,49 +146,17 @@ export default function MinesPageEn() {
               <TitreSection>No claim lapses without warning.</TitreSection>
             </Reveal>
             <Reveal delay={0.1}>
-              {/* Fenêtre en tête de colonne (alignée au titre à gauche, grâce à
-                  `items-start`), texte descriptif dessous : comble le vide sous
-                  l'en-tête. La maquette n'a ni date ni numéro de titre réels. */}
-              <WindowCard title="Desktop · Cloud Paradise">
-                <div className="p-5">
-                  <p className="text-xs text-white/60">Notification</p>
-                  <div className="mt-3 flex gap-3 rounded-lg border border-white/10 bg-white/[0.03] p-3.5">
-                    <span
-                      className="grid size-9 shrink-0 place-items-center rounded-lg"
-                      style={{
-                        background:
-                          "color-mix(in srgb, var(--soft) 14%, transparent)",
-                        color: "var(--soft)",
-                      }}
-                    >
-                      <IconAlert className="size-[18px]" />
-                    </span>
-                    <div className="min-w-0">
-                      <p className="text-sm font-medium text-white">
-                        Title expiry approaching
-                      </p>
-                      <p className="mt-0.5 text-[13px] leading-relaxed text-white/70">
-                        One of your titles is nearing its expiry date.
-                      </p>
-                    </div>
-                  </div>
-                  <div className="mt-4 flex flex-wrap items-center gap-x-3 gap-y-1.5 border-t border-white/10 pt-3">
-                    <span
-                      className="rounded-md px-2.5 py-1 text-[11px] font-medium"
-                      style={{
-                        background:
-                          "color-mix(in srgb, var(--soft) 14%, transparent)",
-                        color: "var(--soft)",
-                      }}
-                    >
-                      Email reminder
-                    </span>
-                    <span className="text-xs text-white/60">
-                      notification in the desktop
-                    </span>
-                  </div>
-                </div>
-              </WindowCard>
+              {/* Capture réelle de l'application (bureau de dev, 2026-09-15).
+                  Les trois titres sont des données de démonstration saisies
+                  pour la capture — numéros et échéances plausibles, pas des
+                  claims réels. L'interface capturée est en français : le
+                  produit est d'abord québécois, l'alt le précise. */}
+              <Capture
+                src="/mines/titres-miniers.jpg"
+                width={2032}
+                height={760}
+                alt="The Mining titles app (French interface): three tracked claims with sector, expiry date, days-remaining status and required work."
+              />
 
               <div className="mt-6 space-y-4 text-[15px] leading-relaxed text-white/85">
                 <p>
@@ -231,7 +199,7 @@ export default function MinesPageEn() {
               {/* La chaîne CSV → desurvey → traces 3D : du calcul déterministe
                   sur une opération que le public connaît par cœur — d'où la
                   fenêtre plutôt que la seule description. */}
-              <WindowCard title="Desurvey · Cloud Paradise" className="mt-6">
+              <WindowCard title="Desurvey · Cloud OS" className="mt-6">
                 <JobPanel
                   lang="en"
                   title="Compute the drill hole traces"
@@ -293,6 +261,18 @@ export default function MinesPageEn() {
                   a compressed shapefile.
                 </p>
               </div>
+
+              {/* Capture réelle de l'application (bureau de dev, 2026-09-15) :
+                  le catalogue SIGÉOM tel qu'il est servi, aucune donnée mise
+                  en scène. */}
+              <div className="mt-6">
+                <Capture
+                  src="/mines/donnees-ouvertes.jpg"
+                  width={2032}
+                  height={1096}
+                  alt="The Open data app (French interface): SIGÉOM layers grouped by theme — geology, mineralized showings, mines and projects, geophysics — with import by mining district."
+                />
+              </div>
             </Reveal>
           </div>
         </div>
@@ -330,7 +310,7 @@ export default function MinesPageEn() {
                   <Icone className="size-[21px]" />
                 </span>
                 <div className="min-w-0">
-                  <p className="font-display text-[15px] font-semibold text-cp-heading">
+                  <p className="font-display text-[15px] font-extrabold text-cp-heading">
                     {titre}
                   </p>
                   <p className="mt-1 text-[13px] leading-relaxed text-white/75">
@@ -358,7 +338,7 @@ export default function MinesPageEn() {
                   Val-d’Or, Rouyn-Noranda.
                 </p>
                 <p>
-                  The hardware belongs to Cloud Paradise, in Quebec, in Abitibi.
+                  The hardware belongs to Cloud OS, in Quebec, in Abitibi.
                 </p>
               </div>
             </Reveal>
@@ -402,7 +382,7 @@ function SurTitre({ children }: Readonly<{ children: ReactNode }>) {
 /** Titre de section, style système, collé au sur-titre. */
 function TitreSection({ children }: Readonly<{ children: ReactNode }>) {
   return (
-    <h2 className="mt-2 font-display text-[1.6rem] leading-[1.2] font-bold tracking-tight text-balance text-cp-heading sm:text-3xl os:text-4xl">
+    <h2 className="mt-2 font-display text-[1.6rem] leading-[1.2] font-extrabold tracking-tight text-balance text-cp-heading sm:text-3xl os:text-4xl">
       {children}
     </h2>
   );
@@ -415,6 +395,35 @@ function Ext({ children }: Readonly<{ children: ReactNode }>) {
     <code className="rounded bg-white/[0.06] px-1 py-0.5 font-mono text-[0.85em] text-white/80">
       {children}
     </code>
+  );
+}
+
+/**
+ * Capture réelle, encadrée sobrement — même traitement que sur /platform :
+ * le visuel porte déjà son propre chrome de fenêtre, pas de cadre par-dessus.
+ */
+function Capture({
+  src,
+  width,
+  height,
+  alt,
+}: Readonly<{
+  src: string;
+  width: number;
+  height: number;
+  alt: string;
+}>) {
+  return (
+    <div className="overflow-hidden rounded-xl border border-white/10 shadow-[0_24px_50px_-14px_rgba(0,0,0,.55)]">
+      <Image
+        src={src}
+        width={width}
+        height={height}
+        alt={alt}
+        sizes="(min-width: 1280px) 730px, 100vw"
+        className="h-auto w-full"
+      />
+    </div>
   );
 }
 

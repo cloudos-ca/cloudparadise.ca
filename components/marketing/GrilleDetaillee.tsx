@@ -256,7 +256,7 @@ const TABLEAU: Record<
   }
 > = {
   fr: {
-    titre: "Tarifs · Cloud Paradise",
+    titre: "Tarifs · Cloud OS",
     caption: "Coût en crédits par tâche, pour chaque type de traitement",
     tache: "Tâche",
     description: "Description",
@@ -266,7 +266,7 @@ const TABLEAU: Record<
       "Une tâche coûte le même prix quel que soit le volume qu’elle traite. Certaines se comptent à la pièce, signalées dans la colonne Prix.",
   },
   en: {
-    titre: "Pricing · Cloud Paradise",
+    titre: "Pricing · Cloud OS",
     caption: "Cost in credits per task, for each type of processing",
     tache: "Task",
     description: "Description",
@@ -414,7 +414,7 @@ function Prix({ type, lang }: Readonly<{ type: TypeTache; lang: Lang }>) {
   return (
     <span className="inline-flex flex-col items-end gap-0.5">
       <span
-        className="font-display text-[16px] font-bold tabular-nums"
+        className="font-display text-[16px] font-extrabold tabular-nums"
         style={{ color: "var(--cta)" }}
       >
         {nfCredit.format(cout)}

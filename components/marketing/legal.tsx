@@ -216,7 +216,7 @@ export function SectionsRedigees({
           // de défilement, une ancre déposait son titre juste dessous.
           className="scroll-mt-28"
         >
-          <h2 className="font-display text-[1.35rem] leading-snug font-bold tracking-tight text-white">
+          <h2 className="font-display text-[1.35rem] leading-snug font-extrabold tracking-tight text-white">
             <span
               aria-hidden="true"
               data-cp-accent
@@ -261,7 +261,7 @@ export function SectionsLegales({
     <div className="space-y-8">
       {sections.map(({ titre, note }, i) => (
         <section key={titre}>
-          <h2 className="font-display text-lg font-bold tracking-tight text-cp-heading">
+          <h2 className="font-display text-lg font-extrabold tracking-tight text-cp-heading">
             <span
               aria-hidden="true"
               className="mr-2 tabular-nums text-cp-muted"

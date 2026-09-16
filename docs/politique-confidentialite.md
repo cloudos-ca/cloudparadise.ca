@@ -2,11 +2,11 @@
 
 **Dernière mise à jour : 30 juillet 2026**
 
-La présente politique décrit comment Cloud Paradise (« Cloud Paradise », « nous ») recueille, utilise, communique et protège les renseignements personnels des personnes qui utilisent sa plateforme de calcul (le « Service »). Elle s'applique au site, à l'application et à toute fonctionnalité qui y est rattachée.
+La présente politique décrit comment Cloud OS (« Cloud OS », « nous ») recueille, utilise, communique et protège les renseignements personnels des personnes qui utilisent sa plateforme de calcul (le « Service »). Elle s'applique au site, à l'application et à toute fonctionnalité qui y est rattachée.
 
-Cloud Paradise est une entreprise établie au Québec et est assujettie à la Loi sur la protection des renseignements personnels dans le secteur privé telle que modifiée par la Loi 25.
+Cloud OS est une entreprise établie au Québec et est assujettie à la Loi sur la protection des renseignements personnels dans le secteur privé telle que modifiée par la Loi 25.
 
-Responsable du traitement : Cloud Paradise S.E.N.C., faisant affaires au 238, 1ère Avenue Ouest, Amos (Québec) J9T 1V2.
+Responsable du traitement : Cloud OS S.E.N.C., faisant affaires au 238, 1ère Avenue Ouest, Amos (Québec) J9T 1V2.
 
 ## 1. Renseignements que nous recueillons
 
@@ -22,7 +22,7 @@ Nous recueillons uniquement les renseignements nécessaires à l'exploitation du
 
 **Renseignements liés aux tâches.** Les plans de calcul que vous créez, le mode de traitement choisi, les paramètres d'exécution, les journaux d'exécution diffusés en continu et l'historique des tâches.
 
-**Échanges avec l'assistant de planification.** Le contenu que vous saisissez dans le chat de planification par IA afin d'affiner une tâche. Ce contenu est traité par un modèle d'intelligence artificielle **auto-hébergé sur l'infrastructure de Cloud Paradise** ; il n'est transmis à aucun fournisseur d'IA tiers (voir sections 2 et 4).
+**Échanges avec l'assistant de planification.** Le contenu que vous saisissez dans le chat de planification par IA afin d'affiner une tâche. Ce contenu est traité par un modèle d'intelligence artificielle **auto-hébergé sur l'infrastructure de Cloud OS** ; il n'est transmis à aucun fournisseur d'IA tiers (voir sections 2 et 4).
 
 **Messages échangés dans la messagerie interne.** Lorsque vous utilisez la messagerie d'équipe, le contenu de vos messages et votre statut de présence.
 
@@ -57,12 +57,12 @@ Vous pouvez retirer votre consentement en tout temps pour les traitements qui re
 
 Nous ne vendons aucun renseignement personnel.
 
-Une part importante de notre infrastructure est **auto-hébergée** par Cloud Paradise (hébergement applicatif, base de données, stockage des fichiers, envoi des courriels de service et modèle d'intelligence artificielle). Ces traitements ne font donc pas intervenir de fournisseur tiers.
+Une part importante de notre infrastructure est **auto-hébergée** par Cloud OS (hébergement applicatif, base de données, stockage des fichiers, envoi des courriels de service et modèle d'intelligence artificielle). Ces traitements ne font donc pas intervenir de fournisseur tiers.
 
 Nous faisons appel à un nombre limité de sous-traitants (fournisseurs de services) qui traitent des renseignements pour notre compte, uniquement selon nos instructions et sous des engagements de confidentialité et de sécurité :
 
 - **Paiement — PayPal.** Le traitement des paiements pour l'achat de crédits est confié à PayPal. Les renseignements de carte ou de compte de paiement sont saisis et traités directement par PayPal ; nous en recevons uniquement la confirmation de la transaction.
-- **Hébergement physique de l'infrastructure.** Nos serveurs sont exploités par Cloud Paradise directement, dans nos propres locaux d'affaires situés au 238, 1ère Avenue Ouest, Amos (Québec) — aucun centre de données tiers n'intervient.
+- **Hébergement physique de l'infrastructure.** Nos serveurs sont exploités par Cloud OS directement, dans nos propres locaux d'affaires situés au 238, 1ère Avenue Ouest, Amos (Québec) — aucun centre de données tiers n'intervient.
 
 Pour éviter toute ambiguïté :
 
@@ -74,13 +74,13 @@ Nous pouvons aussi communiquer des renseignements lorsque la loi l'exige, pour r
 
 ## 5. Hébergement et localisation des données
 
-Vos renseignements (compte, base de données, fichiers, résultats de tâches) et le traitement par l'assistant d'IA sont hébergés sur l'infrastructure exploitée par Cloud Paradise, située à Amos (Québec), Canada.
+Vos renseignements (compte, base de données, fichiers, résultats de tâches) et le traitement par l'assistant d'IA sont hébergés sur l'infrastructure exploitée par Cloud OS, située à Amos (Québec), Canada.
 
 À la différence d'un modèle reposant sur des services infonuagiques externes, la très grande majorité des traitements se déroule sur notre propre infrastructure et ne fait pas l'objet d'une communication hors Québec.
 
 La seule communication susceptible d'entraîner un traitement hors Québec est le **traitement des paiements par PayPal**. La Loi 25 exige, avant toute communication de renseignements personnels hors Québec, une évaluation des facteurs relatifs à la vie privée afin de vérifier que les renseignements bénéficieront d'une protection adéquate. Cette évaluation est en cours pour PayPal, et la communication est encadrée par les conditions applicables de ce prestataire en attendant sa finalisation.
 
-Le lieu d'hébergement physique de Cloud Paradise est arrêté (Amos, Québec, Canada). L'évaluation des facteurs relatifs à la vie privée pour le transfert associé au traitement des paiements par PayPal est en cours et sera ajoutée à la présente politique dès sa finalisation.
+Le lieu d'hébergement physique de Cloud OS est arrêté (Amos, Québec, Canada). L'évaluation des facteurs relatifs à la vie privée pour le transfert associé au traitement des paiements par PayPal est en cours et sera ajoutée à la présente politique dès sa finalisation.
 
 ## 6. Témoins (cookies) et traceurs
 
@@ -127,7 +127,7 @@ Nous mettons en place des mesures de sécurité raisonnables, adaptées à la se
 Conformément à la Loi 25, nous avons désigné un responsable de la protection des renseignements personnels, chargé de veiller au respect de la présente politique et de traiter vos demandes.
 
 - **Responsable :** Maxime Murray
-- **Courriel :** maxime@cloudparadise.ca
+- **Courriel :** maxime@cloudos.ca
 - **Adresse :** 238, 1ère Avenue Ouest, Amos (Québec) J9T 1V2
 
 ## 11. Modifications de la politique

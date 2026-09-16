@@ -74,14 +74,14 @@ function equivalences(credits: number, lang: Lang) {
 const TEXTES = {
   fr: {
     titre: "Estimez votre coût",
-    fenetre: "Estimateur · Cloud Paradise",
+    fenetre: "Estimateur · Cloud OS",
     credits: "crédits",
     ariaCredits: "Nombre de crédits",
     voirDetails: "Voir les détails",
   },
   en: {
     titre: "Estimate your cost",
-    fenetre: "Estimator · Cloud Paradise",
+    fenetre: "Estimator · Cloud OS",
     credits: "credits",
     ariaCredits: "Number of credits",
     voirDetails: "See details",
@@ -123,7 +123,7 @@ export function Estimateur({
     <>
       <div className="flex items-baseline gap-2">
         <span
-          className={`font-display font-bold tabular-nums ${grand ? "text-5xl" : "text-3xl"}`}
+          className={`font-display font-extrabold tabular-nums ${grand ? "text-5xl" : "text-3xl"}`}
           style={{ color: "var(--cta)" }}
         >
           {nf.format(credits)}
@@ -168,7 +168,7 @@ export function Estimateur({
             ≈
           </span>
           <dt
-            className={`tabular-nums ${grand ? "font-display text-xl font-bold" : "font-medium"}`}
+            className={`tabular-nums ${grand ? "font-display text-xl font-extrabold" : "font-medium"}`}
             style={{ color: "var(--cta)" }}
           >
             {valeur}

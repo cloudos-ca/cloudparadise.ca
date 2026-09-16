@@ -1,6 +1,6 @@
 import { MatomoAnalytics } from "@/components/marketing/MatomoAnalytics";
 import { EST_PRODUCTION, SITE_URL } from "@/lib/site";
-import { comfortaa, workSans } from "@/app/fonts";
+import { archivo, manrope } from "@/app/fonts";
 import {
   COURRIEL,
   RUE,
@@ -28,19 +28,21 @@ const JSON_LD = {
   "@graph": [
     {
       "@type": "Organization",
-      name: "Cloud Paradise",
+      name: "Cloud OS",
+      legalName: "Cloud OS S.E.N.C.",
       url: SITE_URL,
-      logo: `${SITE_URL}/brand/logo-bleu-fonce.png`,
+      logo: `${SITE_URL}/brand/symbole-couleur.png`,
     },
     {
       "@type": "WebSite",
-      name: "Cloud Paradise",
+      name: "Cloud OS",
       url: SITE_URL,
       inLanguage: ["fr-CA", "en-CA"],
     },
     {
       "@type": "LocalBusiness",
-      name: "Cloud Paradise",
+      name: "Cloud OS",
+      legalName: "Cloud OS S.E.N.C.",
       url: SITE_URL,
       email: COURRIEL,
       telephone: TELEPHONE_LIEN,
@@ -82,7 +84,7 @@ export function RootDocument({
   return (
     <html
       lang={lang === "en" ? "en-CA" : "fr-CA"}
-      className={`${comfortaa.variable} ${workSans.variable} h-full antialiased`}
+      className={`${archivo.variable} ${manrope.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col font-sans">
         {/* Organisation + site : repère stable pour Google, voir JSON_LD
@@ -97,7 +99,7 @@ export function RootDocument({
             Le consentement (voir MatomoAnalytics.tsx) est une deuxième porte,
             pas la première : hors production le composant ne monte pas du tout.
             Trois raisons plutôt qu'une — le `setCookieDomain` du script est posé
-            sur `.cloudparadise.ca`, qu'un navigateur refuse depuis
+            sur `.cloudos.ca`, qu'un navigateur refuse depuis
             `cloudparadise.dev` (chaque page vue y comptait un visiteur
             neuf) ; l'ID de site est le même qu'en production ; et le trafic de
             développement se mélangeait donc aux statistiques du vrai site. */}

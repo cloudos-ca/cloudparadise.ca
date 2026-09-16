@@ -44,7 +44,7 @@ const TEXTES = {
 /**
  * Le closer de la landing.
  *
- * Le châssis (fenêtre, lueur, halo, flottement) vit dans `FenetreCta`, partagé
+ * Le châssis (fenêtre, lueur, symbole, flottement) vit dans `FenetreCta`, partagé
  * avec la page /tarifs ; il ne reste ici que ce qui est propre à la landing.
  */
 export function CtaFinal({ lang = "fr" }: Readonly<{ lang?: Lang }>) {

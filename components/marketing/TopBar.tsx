@@ -123,29 +123,34 @@ export function TopBar({ lang = "fr" }: Readonly<{ lang?: Lang }>) {
         {/* Le logo ramène à l'accueil — convention attendue de toute barre de
             site, et le seul retour depuis les pages intérieures depuis que
             « Infrastructure » a quitté la navigation.
-            `alt` vide : le texte du lien porte déjà le nom, sinon un lecteur
-            d'écran annoncerait « Cloud Paradise, accueil, Cloud Paradise ».
             `ml-4` : air supplémentaire par rapport au bord gauche, en plus du
             padding de SHELL partagé avec le reste des sections. */}
         <Link
           href={lang === "en" ? "/en" : "/"}
-          aria-label={
-            lang === "en" ? "Cloud Paradise — home" : "Cloud Paradise — accueil"
-          }
+          aria-label={lang === "en" ? "Cloud OS — home" : "Cloud OS — accueil"}
           className="ml-4 shrink-0 rounded-sm focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
         >
-          {/* Lockup empilé (halo / nuage / « paradise ») : la marque n'est
-              lisible qu'à partir d'une certaine hauteur, d'où la barre à 78px
-              pour lui laisser la place. Hauteur explicite + w-auto = ratio
-              401:295 gardé. */}
-          <Image
-            src="/brand/logo-blanc-et-jaune.svg"
-            alt=""
-            width={401}
-            height={295}
-            className="h-[54px] w-auto"
-            loading="eager"
-          />
+          {/* Lockup horizontal de la charte : symbole SVG + mot-symbole en
+              Archivo — du texte, pas une image, donc net à toute densité et
+              toujours dans la fonte du site. `aria-hidden` et `alt` vide : le
+              lien porte déjà le nom via son aria-label, sinon un lecteur
+              d'écran annoncerait « Cloud OS, accueil, CLOUD OS ». */}
+          <span className="flex items-center gap-2.5">
+            <Image
+              src="/brand/symbole-blanc-jaune.svg"
+              alt=""
+              width={202}
+              height={98}
+              className="h-8 w-auto"
+              loading="eager"
+            />
+            <span
+              aria-hidden="true"
+              className="font-display text-[21px] font-extrabold tracking-tight text-white"
+            >
+              CLOUD <span className="text-cp-yellow">OS</span>
+            </span>
+          </span>
         </Link>
 
         <nav

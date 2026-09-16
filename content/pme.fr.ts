@@ -20,13 +20,13 @@ import type { ContenuPme } from "./pme";
  */
 export const PME_FR: ContenuPme = {
   meta: {
-    titre: "Le poste de travail des PME québécoises — Cloud Paradise",
+    titre: "Le poste de travail des PME québécoises — Cloud OS",
     description:
       "Comptabilité, administration, marketing : le poste de travail des PME québécoises, sans département informatique. Serveurs au Québec, crédits sans abonnement requis.",
   },
 
   og: {
-    alt: "Cloud Paradise — PME",
+    alt: "Cloud OS — PME",
     titre: "PME",
     soustitre: "Le poste de travail des PME québécoises",
   },
@@ -234,7 +234,7 @@ export const PME_FR: ContenuPme = {
         cle: "courriel",
         titre: "Courriel",
         texte:
-          "Webmail intégré, avec une adresse @cloudparadise.ca que vous activez depuis votre bureau. Connectez aussi un compte externe (Gmail, Outlook) par IMAP/SMTP ou OAuth.",
+          "Webmail intégré, avec une adresse @cloudos.ca que vous activez depuis votre bureau. Connectez aussi un compte externe (Gmail, Outlook) par IMAP/SMTP ou OAuth.",
       },
       {
         cle: "agenda",
@@ -280,7 +280,7 @@ export const PME_FR: ContenuPme = {
     surtitre: "Vos données",
     titre: "Au Québec, sur notre matériel.",
     paragraphes: [
-      "Nos serveurs sont au Québec, dans un local, sur du matériel qui appartient à Cloud Paradise. Ce n’est pas de la capacité louée chez un fournisseur infonuagique étranger.",
+      "Nos serveurs sont au Québec, dans un local, sur du matériel qui appartient à Cloud OS. Ce n’est pas de la capacité louée chez un fournisseur infonuagique étranger.",
       "Le modèle de langage qui lit vos demandes s’exécute sur notre matériel. Vos fichiers et vos demandes ne sont jamais envoyés à un fournisseur d’intelligence artificielle tiers — un point qui compte quand vous manipulez des dossiers clients.",
     ],
     lien: "Voir la sécurité",

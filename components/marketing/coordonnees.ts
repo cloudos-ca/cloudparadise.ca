@@ -1,10 +1,10 @@
 /**
- * Coordonnées réelles de Cloud Paradise — source de vérité unique.
+ * Coordonnées réelles de Cloud OS — source de vérité unique.
  *
  * Le formulaire de contact et le bloc de coordonnées lisent tous les deux
  * d'ici : une adresse qui change ne doit se corriger qu'à un seul endroit.
  */
-export const COURRIEL = "info@cloudparadise.ca";
+export const COURRIEL = "info@cloudos.ca";
 
 /**
  * Responsable de la protection des renseignements personnels (loi 25).
@@ -14,7 +14,7 @@ export const COURRIEL = "info@cloudparadise.ca";
  * les deux pages de confidentialité — le genre de doublon qui se corrige une
  * fois sur deux le jour où la personne change.
  */
-export const COURRIEL_RESPONSABLE = "maxime@cloudparadise.ca";
+export const COURRIEL_RESPONSABLE = "maxime@cloudos.ca";
 
 /** Affichage local ; `TELEPHONE_LIEN` porte la forme E.164 pour `tel:`. */
 export const TELEPHONE = "873 730-3236";

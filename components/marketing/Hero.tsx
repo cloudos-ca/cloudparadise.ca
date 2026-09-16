@@ -78,7 +78,7 @@ function Copy({ lang }: Readonly<{ lang: Lang }>) {
   const t = TEXTES[lang];
   return (
     <div className="max-w-xl">
-      <h1 className="font-display text-[2rem] leading-[1.08] font-bold tracking-[-0.02em] text-white sm:text-[2.9rem] os:text-[3.5rem]">
+      <h1 className="font-display text-[2rem] leading-[1.08] font-extrabold tracking-[-0.02em] text-white sm:text-[2.9rem] os:text-[3.5rem]">
         {t.titreLigne1}
         <br />
         <span data-cp-accent style={{ color: "var(--soft)" }}>
@@ -158,7 +158,7 @@ function Desktop({ lang }: Readonly<{ lang: Lang }>) {
         className="cp-flotte relative z-10 -mt-8 w-[92%]"
         style={{ ["--flotte-distance" as string]: "7px", ["--flotte-duree" as string]: "8s" }}
       >
-        <WindowCard title="Plans · Cloud Paradise">
+        <WindowCard title="Plans · Cloud OS">
           <JobPanel
             title={lang === "en" ? "Render a 4K video" : "Rendre une vidéo 4K"}
             // Dérivé d'`offre.ts` : le littéral « MÉDIA » s'affichait avec

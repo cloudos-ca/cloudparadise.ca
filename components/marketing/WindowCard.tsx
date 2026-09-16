@@ -6,7 +6,7 @@ type WindowCardProps = Readonly<{
   className?: string;
   /**
    * Couleur de la 3e pastille. Par défaut l'accent du bureau ; la fenêtre en
-   * échec passe au rouge pour signaler qu'elle n'appartient pas à Cloud Paradise.
+   * échec passe au rouge pour signaler qu'elle n'appartient pas à Cloud OS.
    */
   accent?: string;
   /** Bordure du châssis, à surcharger pour une fenêtre en échec. */

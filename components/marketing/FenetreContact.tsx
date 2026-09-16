@@ -214,8 +214,8 @@ export function FenetreContact({
         <WindowCard
           title={
             lang === "en"
-              ? "New message · Cloud Paradise"
-              : "Nouveau message · Cloud Paradise"
+              ? "New message · Cloud OS"
+              : "Nouveau message · Cloud OS"
           }
           icone={<IconMail className="size-3.5" />}
           // La 3e pastille prend le cyan de support, pas `--acc` : par défaut
@@ -316,12 +316,12 @@ function PanneauCoordonnees({ lang }: Readonly<{ lang: Lang }>) {
 function CarteVisite({ lang }: Readonly<{ lang: Lang }>) {
   return (
     <div className="mt-4 flex items-center gap-3 rounded-lg border border-white/10 bg-white/[0.03] p-3">
-      {/* Pastille de marque : l'anneau reprend le jaune du halo tel quel
+      {/* Pastille de marque : l'anneau reprend le jaune de la tuile tel quel
           (#edbe54, jamais recoloré par l'accent), le disque suit l'accent. */}
       <span
         aria-hidden="true"
         data-cp-accent
-        className="grid size-9 shrink-0 place-items-center rounded-full font-display text-sm font-bold text-white"
+        className="grid size-9 shrink-0 place-items-center rounded-full font-display text-sm font-extrabold text-white"
         style={{
           background: "color-mix(in srgb, var(--soft) 22%, transparent)",
           boxShadow: "inset 0 0 0 1.5px #edbe54",
@@ -332,7 +332,7 @@ function CarteVisite({ lang }: Readonly<{ lang: Lang }>) {
 
       <div className="min-w-0">
         <p className="truncate text-[13px] font-medium text-white">
-          Cloud Paradise
+          Cloud OS
         </p>
         <p className="truncate text-[11px] text-white/70">
           {lang === "en" ? "Amos, Quebec" : "Amos, Québec"}
@@ -470,7 +470,7 @@ function Composition({
         <span className="text-[11px] text-white/70">
           {lang === "en" ? "To:" : "À :"}
         </span>
-        <span className="text-[13px] text-white">Cloud Paradise</span>
+        <span className="text-[13px] text-white">Cloud OS</span>
         <span className="truncate text-[11px] text-white/70">
           &lt;{COURRIEL}&gt;
         </span>
@@ -536,8 +536,8 @@ function Composition({
               raison, il ne porte pas `data-cp-accent` — la couleur de
               conversion ne suit pas la recoloration du bureau.
 
-              Sans ombre portée dorée : le halo est un signe de marque, il vit
-              dans le logo. Posé sous un bouton il le dilue, et le système est
+              Sans ombre portée dorée : le jaune est un signe de marque, il vit
+              dans la tuile du logo. Posé sous un bouton il le dilue, et le système est
               plat par ailleurs. L'or seul suffit à désigner l'action ; le seul
               anneau qui reste est celui du focus, net et blanc. */}
           <button

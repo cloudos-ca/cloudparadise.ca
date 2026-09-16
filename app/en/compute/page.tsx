@@ -17,7 +17,7 @@ import { SECTION_Y, SHELL } from "@/components/marketing/tokens";
 import { alternatesBilingues, openGraphPage } from "@/lib/seo";
 import { lienInscription } from "@/lib/site";
 
-const TITRE = "Heavy compute and 3D rendering — Cloud Paradise";
+const TITRE = "Heavy compute and 3D rendering — Cloud OS";
 const DESCRIPTION =
   "One place for your heavy tasks: documents, data, images and video, web, 3D compute. Describe the result; a deterministic engine produces it.";
 
@@ -185,7 +185,7 @@ export default function CalculPageEn() {
         >
           <Reveal>
             <SurTitre>Compute</SurTitre>
-            <h1 className="mt-2 font-display text-[2rem] leading-[1.1] font-bold tracking-[-0.02em] text-white sm:text-[2.2rem] os:text-[2.4rem]">
+            <h1 className="mt-2 font-display text-[2rem] leading-[1.1] font-extrabold tracking-[-0.02em] text-white sm:text-[2.2rem] os:text-[2.4rem]">
               One place.
               <br />
               All your heavy tasks.
@@ -220,7 +220,7 @@ export default function CalculPageEn() {
           </Reveal>
 
           <Reveal delay={0.1} className="mx-auto w-full max-w-[520px]">
-            <WindowCard title="Plan · Cloud Paradise">
+            <WindowCard title="Plan · Cloud OS">
               <JobPanel
                 lang="en"
                 title="Extract the due dates from 200 contracts"
@@ -256,7 +256,7 @@ export default function CalculPageEn() {
         <div className={`${SHELL} ${SECTION_Y}`}>
           <Reveal className="max-w-2xl">
             <SurTitre>First run</SurTitre>
-            <h2 className="mt-2 max-w-[24ch] font-display text-[1.6rem] leading-[1.2] font-bold tracking-tight text-balance text-cp-heading sm:text-3xl os:text-4xl">
+            <h2 className="mt-2 max-w-[24ch] font-display text-[1.6rem] leading-[1.2] font-extrabold tracking-tight text-balance text-cp-heading sm:text-3xl os:text-4xl">
               Your first task needs no file at all.
             </h2>
             <p className="mt-4 max-w-[54ch] text-sm leading-relaxed text-white/85">
@@ -279,7 +279,7 @@ export default function CalculPageEn() {
                   >
                     {libelleDe(essai.facture, "en")}
                   </span>
-                  <p className="mt-2 font-display text-[17px] font-bold text-white">
+                  <p className="mt-2 font-display text-[17px] font-extrabold text-white">
                     {essai.titre}
                   </p>
                   <p className="mt-2 text-[13px] leading-relaxed text-white/85">
@@ -304,7 +304,7 @@ export default function CalculPageEn() {
           <div className="grid items-center gap-10 os:grid-cols-[1fr_1fr] os:gap-14">
             <Reveal className="max-w-xl">
               <SurTitre>Automation</SurTitre>
-              <h2 className="mt-2 max-w-[20ch] font-display text-[1.6rem] leading-[1.2] font-bold tracking-tight text-balance text-cp-heading sm:text-3xl os:text-4xl">
+              <h2 className="mt-2 max-w-[20ch] font-display text-[1.6rem] leading-[1.2] font-extrabold tracking-tight text-balance text-cp-heading sm:text-3xl os:text-4xl">
                 Once. Or every Monday morning.
               </h2>
               <p className="mt-4 max-w-[54ch] text-sm leading-relaxed text-white/85">
@@ -315,7 +315,7 @@ export default function CalculPageEn() {
             </Reveal>
 
             <Reveal delay={0.1} className="mx-auto w-full max-w-[480px]">
-              <WindowCard title="Flow · Cloud Paradise">
+              <WindowCard title="Flow · Cloud OS">
                 <div className="p-5">
                   <ol className="space-y-2.5">
                     {WORKFLOW.map((etape, i) => (
@@ -434,7 +434,7 @@ function GesteSection({ geste }: Readonly<{ geste: Geste }>) {
                 </span>
               )}
             </p>
-            <h2 className="mt-2 font-display text-[1.6rem] leading-[1.2] font-bold tracking-tight text-balance text-cp-heading sm:text-3xl os:text-4xl">
+            <h2 className="mt-2 font-display text-[1.6rem] leading-[1.2] font-extrabold tracking-tight text-balance text-cp-heading sm:text-3xl os:text-4xl">
               {geste.titre}
             </h2>
             <p className="mt-4 text-sm leading-relaxed text-white/85">

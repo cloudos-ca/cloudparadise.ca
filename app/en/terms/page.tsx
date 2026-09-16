@@ -32,9 +32,9 @@ import {
   ROBOTS,
 } from "@/lib/seo";
 
-const TITRE = "Terms of Use — Cloud Paradise";
+const TITRE = "Terms of Use — Cloud OS";
 const DESCRIPTION =
-  "Cloud Paradise Terms of Use: your account, credits and pricing, acceptable use, ownership of your content, warranties, and the governing law.";
+  "Cloud OS Terms of Use: your account, credits and pricing, acceptable use, ownership of your content, warranties, and the governing law.";
 
 export const metadata: Metadata = {
   title: TITRE,
@@ -54,15 +54,15 @@ const SECTIONS: readonly SectionRedigee[] = [
     titre: "Who we are",
     blocs: [
       <>
-        The “Cloud Paradise” service (the “<strong className="font-semibold text-white">Service</strong>”,
-        the “<strong className="font-semibold text-white">Platform</strong>”) is operated by Cloud
-        Paradise (“<strong className="font-semibold text-white">Cloud Paradise</strong>”, “we”, “us”,
+        The “Cloud OS” service (the “<strong className="font-semibold text-white">Service</strong>”,
+        the “<strong className="font-semibold text-white">Platform</strong>”) is operated by
+        Cloud OS (“<strong className="font-semibold text-white">Cloud OS</strong>”, “we”, “us”,
         “our”), whose place of business is located at:
       </>,
       {
         brut: (
           <blockquote className="border-l-2 border-white/15 pl-4 text-white/85">
-            <p>Cloud Paradise</p>
+            <p>Cloud OS</p>
             <p>{ADRESSE_LIGNE}</p>
             <p>Canada</p>
             <p className="mt-2">
@@ -144,7 +144,7 @@ const SECTIONS: readonly SectionRedigee[] = [
   {
     titre: "Description of the Service",
     blocs: [
-      "Cloud Paradise is a cloud platform that turns a request — expressed in natural language or via a template — into a job run on dedicated computing hardware (GPU, CPU and memory reserved for compute). The Service includes, among other things:",
+      "Cloud OS is a cloud platform that turns a request — expressed in natural language or via a template — into a job run on dedicated computing hardware (GPU, CPU and memory reserved for compute). The Service includes, among other things:",
       {
         liste: [
           { texte: "document processing (conversion, OCR, translation, sorting, mail merge, archiving);" },
@@ -299,7 +299,7 @@ const SECTIONS: readonly SectionRedigee[] = [
           {
             terme: "Ownership.",
             texte:
-              "You retain all ownership rights in your User Content and in the Results derived from it. Cloud Paradise claims no ownership rights over your User Content.",
+              "You retain all ownership rights in your User Content and in the Results derived from it. Cloud OS claims no ownership rights over your User Content.",
           },
           {
             terme: "Limited license you grant us.",
@@ -379,9 +379,9 @@ const SECTIONS: readonly SectionRedigee[] = [
     ],
   },
   {
-    titre: "Cloud Paradise’s intellectual property",
+    titre: "Cloud OS’s intellectual property",
     blocs: [
-      "The Service, its interface (“Cloud OS”), its code, design, trademarks, logos, and all elements that make it up (excluding your User Content) are the property of Cloud Paradise or its licensors and are protected by applicable law. Nothing in these Terms transfers to you any ownership right in the Service. You are granted only a limited, non-exclusive, non-transferable right to use it, for the duration of your relationship with us and subject to these Terms.",
+      "The Service, its interface, its code, design, trademarks, logos, and all elements that make it up (excluding your User Content) are the property of Cloud OS or its licensors and are protected by applicable law. Nothing in these Terms transfers to you any ownership right in the Service. You are granted only a limited, non-exclusive, non-transferable right to use it, for the duration of your relationship with us and subject to these Terms.",
     ],
   },
   {
@@ -435,11 +435,11 @@ const SECTIONS: readonly SectionRedigee[] = [
         liste: [
           {
             texte:
-              "Cloud Paradise shall not be liable for indirect, incidental, special, punitive, or consequential damages, nor for any loss of profits, revenue, data, goodwill, or business opportunities, arising from the use or inability to use the Service;",
+              "Cloud OS shall not be liable for indirect, incidental, special, punitive, or consequential damages, nor for any loss of profits, revenue, data, goodwill, or business opportunities, arising from the use or inability to use the Service;",
           },
           {
             texte:
-              "Cloud Paradise’s total and cumulative liability, for any claim related to the Service, shall not exceed the greater of: (a) the total amounts you have actually paid us during the twelve (12) months preceding the event giving rise to the claim, or (b) one hundred Canadian dollars (CAD 100).",
+              "Cloud OS’s total and cumulative liability, for any claim related to the Service, shall not exceed the greater of: (a) the total amounts you have actually paid us during the twelve (12) months preceding the event giving rise to the claim, or (b) one hundred Canadian dollars (CAD 100).",
           },
         ],
       },
@@ -453,7 +453,7 @@ const SECTIONS: readonly SectionRedigee[] = [
   {
     titre: "Indemnification",
     blocs: [
-      "Subject to applicable law, you agree to indemnify and hold harmless Cloud Paradise and its representatives against any claim, loss, or expense (including reasonable legal fees) arising from: (a) your User Content; (b) your use of the Service in violation of these Terms or of the law; or (c) your violation of a third party’s rights.",
+      "Subject to applicable law, you agree to indemnify and hold harmless Cloud OS and its representatives against any claim, loss, or expense (including reasonable legal fees) arising from: (a) your User Content; (b) your use of the Service in violation of these Terms or of the law; or (c) your violation of a third party’s rights.",
     ],
   },
   {
@@ -503,7 +503,7 @@ const SECTIONS: readonly SectionRedigee[] = [
           {
             terme: "Entire agreement.",
             texte:
-              "These Terms, together with the Privacy Policy, constitute the entire agreement between you and Cloud Paradise regarding the Service.",
+              "These Terms, together with the Privacy Policy, constitute the entire agreement between you and Cloud OS regarding the Service.",
           },
           {
             terme: "Severability.",
@@ -530,7 +530,7 @@ const SECTIONS: readonly SectionRedigee[] = [
       {
         brut: (
           <blockquote className="border-l-2 border-white/15 pl-4 text-white/85">
-            <p className="text-white">Cloud Paradise</p>
+            <p className="text-white">Cloud OS</p>
             <p>{ADRESSE_LIGNE}, Canada</p>
             <p className="mt-2">
               Email:{" "}

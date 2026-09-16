@@ -1,6 +1,6 @@
 import { renderOgImage } from "@/lib/ogImage";
 
-export const alt = "Cloud Paradise — Contact";
+export const alt = "Cloud OS — Contact";
 export { OG_SIZE as size } from "@/lib/ogImage";
 export const contentType = "image/png";
 

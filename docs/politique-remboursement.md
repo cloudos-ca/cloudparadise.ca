@@ -2,7 +2,7 @@
 
 **Dernière mise à jour : 2 août 2026**
 
-Cloud Paradise (« nous ») fonctionne sur un système de crédits prépayés utilisés pour l'exécution de traitements sur la plateforme. La présente politique précise les conditions dans lesquelles un achat de crédits peut faire l'objet d'un remboursement.
+Cloud OS (« nous ») fonctionne sur un système de crédits prépayés utilisés pour l'exécution de traitements sur la plateforme. La présente politique précise les conditions dans lesquelles un achat de crédits peut faire l'objet d'un remboursement.
 
 ## 1. Crédits non consommés
 
@@ -16,7 +16,7 @@ Les crédits déjà débités pour l'exécution d'un traitement — que celui-ci
 
 ## 3. Comment faire une demande
 
-Toute demande de remboursement doit être adressée à **support@cloudparadise.ca**, en précisant l'achat de crédits visé (numéro de facture ou date/montant approximatif). Les remboursements ne sont pas automatiques : chaque demande est examinée et traitée manuellement par notre équipe de soutien.
+Toute demande de remboursement doit être adressée à **support@cloudos.ca**, en précisant l'achat de crédits visé (numéro de facture ou date/montant approximatif). Les remboursements ne sont pas automatiques : chaque demande est examinée et traitée manuellement par notre équipe de soutien.
 
 ## 4. Méthode de remboursement
 
@@ -28,7 +28,7 @@ Une demande approuvée est traitée dans un délai de **7 jours ouvrables** suiv
 
 ## 6. Utilisation frauduleuse ou abusive
 
-La plateforme est protégée par un système de détection des abus assisté par intelligence artificielle. Tout signalement d'abus peut être fait à **support@cloudparadise.ca**. Une utilisation jugée abusive du service — notamment le minage de cryptomonnaie ou toute activité illégale — entraîne la suspension immédiate du compte. *(À confirmer : le sort des crédits non consommés au moment de la suspension — perdus définitivement ou gelés le temps de l'enquête.)*
+La plateforme est protégée par un système de détection des abus assisté par intelligence artificielle. Tout signalement d'abus peut être fait à **support@cloudos.ca**. Une utilisation jugée abusive du service — notamment le minage de cryptomonnaie ou toute activité illégale — entraîne la suspension immédiate du compte. *(À confirmer : le sort des crédits non consommés au moment de la suspension — perdus définitivement ou gelés le temps de l'enquête.)*
 
 ## 7. Modifications
 
@@ -36,4 +36,4 @@ Nous pouvons modifier la présente politique en tout temps ; la date de « Derni
 
 ## 8. Nous joindre
 
-Pour toute question relative à la présente politique, communiquez avec **support@cloudparadise.ca**.
+Pour toute question relative à la présente politique, communiquez avec **support@cloudos.ca**.

@@ -79,11 +79,11 @@ export function FenetreCta({
         className="cp-flotte rounded-xl shadow-[0_40px_90px_-30px_rgba(0,0,0,.85)]"
         style={{ ["--flotte-distance" as string]: "-6px", ["--flotte-duree" as string]: "9s" }}
       >
-        <WindowCard title="Cloud Paradise">
+        <WindowCard title="Cloud OS">
           <div className="px-6 py-10 text-center os:px-10">
-            <Halo />
+            <Symbole />
 
-            <h2 className="mt-6 font-display text-[1.6rem] leading-[1.15] font-bold tracking-tight text-white sm:text-3xl">
+            <h2 className="mt-6 font-display text-[1.6rem] leading-[1.15] font-extrabold tracking-tight text-white sm:text-3xl">
               {TAGLINE[lang].ligne1}
               <br />
               <span data-cp-accent style={{ color: "var(--soft)" }}>
@@ -123,22 +123,23 @@ export function FenetreCta({
 }
 
 /**
- * Le logo, seul, en clôture de page.
+ * Le symbole, seul, en clôture de page — l'usage « petits formats » de la
+ * charte.
  *
  * Contrairement au reste de la fenêtre, sa couleur est écrite en dur (fichier
  * SVG) : aucun thème ne doit l'atteindre.
  */
-function Halo() {
+function Symbole() {
   return (
     <span
       aria-hidden="true"
-      className="relative mx-auto block h-16 aspect-[401/295]"
+      className="relative mx-auto block h-12 aspect-[202/98]"
     >
       <Image
-        src="/brand/logo-blanc-et-jaune.svg"
+        src="/brand/symbole-blanc-jaune.svg"
         alt=""
-        width={401}
-        height={295}
+        width={202}
+        height={98}
         className="relative h-full w-auto"
       />
     </span>

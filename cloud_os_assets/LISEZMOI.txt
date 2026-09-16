@@ -1,0 +1,30 @@
+CLOUD OS — Fichiers de marque
+================================
+
+svg/  (vectoriel, a privilegier)
+  cloudos-symbole-couleur.svg      bleu nuit + tuile jaune (fond clair)
+  cloudos-symbole-blanc-jaune.svg  blanc + tuile jaune (fond fonce)
+  cloudos-symbole-blanc.svg        unicolore blanc
+  cloudos-symbole-noir.svg         unicolore noir (impression N&B)
+  cloudos-favicon.svg              favicon vectoriel, fond transparent
+
+png/
+  favicon-16.png, favicon-32.png   onglets navigateur (fond transparent)
+  icone-192.png, icone-512.png     PWA / manifest (fond transparent)
+  icone-maskable-512.png           PWA maskable
+  icone-app-1024.png               icone d'application (fond transparent)
+  NB: symbole blanc + tuile jaune, prevu pour interfaces foncees;
+      sur fond clair, utiliser symbole-couleur (bleu nuit).
+  symbole-couleur-2048.png       symbole seul, fond transparent
+  symbole-blanc-jaune-2048.png    symbole seul blanc, fond transparent (site fonce)
+  lockup-horizontal-*.png          logo complet, fond transparent
+  lockup-empile-*.png              version empilee, fond transparent
+  (*-fonce.png = texte blanc, a poser sur fond fonce)
+
+Regles rapides
+  - OS en jaune: sur fond fonce, ou des 24 px de hauteur de texte sur fond clair;
+    en dessous, OS en bleu nuit.
+  - Zone de protection: une tuile de marge tout autour.
+  - Largeur minimale du symbole: 24 px.
+  - Polices: Archivo (titres, majuscules 800-900), Manrope (texte courant).
+  - Couleurs: bleu nuit #1b273d, jaune #edbe54, cyan #bbecee, blanc, noir.

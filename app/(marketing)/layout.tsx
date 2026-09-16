@@ -19,7 +19,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: TITRE_ACCUEIL,
     description: DESCRIPTION_ACCUEIL,
-    siteName: "Cloud Paradise",
+    siteName: "Cloud OS",
     locale: "fr_CA",
     type: "website",
   },

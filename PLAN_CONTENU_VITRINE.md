@@ -1,4 +1,4 @@
-# Cloud Paradise — Plan de contenu du site vitrine
+# Cloud OS — Plan de contenu du site vitrine
 
 **Document de contenu uniquement.** Il décrit *ce qui est dit* sur chaque page : message-clé, information à présenter, preuves, appel à l'action, et ce qu'il ne faut pas dire.
 
@@ -16,7 +16,7 @@ Ces points sont tranchés. Ils ne se rediscutent pas dans les briefs de sections
 
 | Sujet | Décision |
 |---|---|
-| Positionnement | **Horizontal.** Cloud Paradise = poste de travail cloud avec calcul lourd. Pas de bascule vers une identité « logiciel minier ». |
+| Positionnement | **Horizontal.** Cloud OS = poste de travail cloud avec calcul lourd. Pas de bascule vers une identité « logiciel minier ». |
 | Rôle de `/mines` | Page de **soutien à la vente**, pas de conquête SEO. Le visiteur y arrive parce qu'on lui a envoyé le lien. Objectif : prouver en 30 secondes qu'on connaît le métier. |
 | Couverture des facettes | 100 % maintenue, mais répartie selon la fonction de la page (convaincre / rassurer / capter), pas étalée sur 11 pages. |
 | Nombre de pages | 7 pages de contenu. |
@@ -98,7 +98,7 @@ Le point à faire passer : vos fichiers restent dans votre espace, la sauvegarde
 **Section `#equipe` — information à présenter.**
 - Équipes avec bureaux multiples, partage de fichiers et de workflows entre plusieurs équipes, invitations et approbation.
 - Messagerie : canaux, messages directs, présence.
-- Courriel `@cloudparadise.ca` avec webmail.
+- Courriel `@cloudos.ca` avec webmail.
 - Agenda partagé et rappels.
 
 **Preuves.** Des captures réelles du bureau et de chaque éditeur. C'est la page qui en dépend le plus : sans visuels authentiques, elle ne convainc pas.

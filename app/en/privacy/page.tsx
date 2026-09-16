@@ -23,9 +23,9 @@ import {
   ROBOTS,
 } from "@/lib/seo";
 
-const TITRE = "Privacy Policy — Cloud Paradise";
+const TITRE = "Privacy Policy — Cloud OS";
 const DESCRIPTION =
-  "How Cloud Paradise collects, uses and protects personal information, in compliance with Quebec’s Law 25. Your rights and how to exercise them.";
+  "How Cloud OS collects, uses and protects personal information, in compliance with Quebec’s Law 25. Your rights and how to exercise them.";
 
 export const metadata: Metadata = {
   title: TITRE,
@@ -42,7 +42,7 @@ const RESPONSABLE = "Maxime Murray";
 /** Email dedicated to the privacy officer — distinct from the general
  * contact email (`COURRIEL`). */
 
-const DENOMINATION_LEGALE = "Cloud Paradise S.E.N.C.";
+const DENOMINATION_LEGALE = "Cloud OS S.E.N.C.";
 const ADRESSE_LIGNE = ADRESSE.join(", ");
 
 const SECTIONS: readonly SectionRedigee[] = [
@@ -80,7 +80,7 @@ const SECTIONS: readonly SectionRedigee[] = [
           {
             terme: "Exchanges with the planning assistant.",
             texte:
-              "The content you enter in the AI planning chat to refine a job. This content is processed by an AI model self-hosted on Cloud Paradise’s infrastructure; it is not sent to any third-party AI provider (see sections 2 and 4).",
+              "The content you enter in the AI planning chat to refine a job. This content is processed by an AI model self-hosted on Cloud OS’s infrastructure; it is not sent to any third-party AI provider (see sections 2 and 4).",
           },
           {
             terme: "Messages exchanged in internal messaging.",
@@ -172,7 +172,7 @@ const SECTIONS: readonly SectionRedigee[] = [
     titre: "Disclosure to third parties",
     blocs: [
       "We do not sell any personal information.",
-      "A significant part of our infrastructure is self-hosted by Cloud Paradise (application hosting, database, file storage, service email delivery, and the AI model). These processing activities therefore do not involve any third-party provider.",
+      "A significant part of our infrastructure is self-hosted by Cloud OS (application hosting, database, file storage, service email delivery, and the AI model). These processing activities therefore do not involve any third-party provider.",
       "We use a limited number of subcontractors (service providers) who process information on our behalf, solely under our instructions and subject to confidentiality and security commitments:",
       {
         liste: [
@@ -184,7 +184,7 @@ const SECTIONS: readonly SectionRedigee[] = [
           {
             terme: "Physical hosting of the infrastructure.",
             texte:
-              "Our servers are operated directly by Cloud Paradise, on our own business premises located at 238, 1st Avenue West, Amos, Quebec — no third-party data centre is involved.",
+              "Our servers are operated directly by Cloud OS, on our own business premises located at 238, 1st Avenue West, Amos, Quebec — no third-party data centre is involved.",
           },
         ],
       },
@@ -224,7 +224,7 @@ const SECTIONS: readonly SectionRedigee[] = [
   {
     titre: "Hosting and data location",
     blocs: [
-      "Your information (account, database, files, job results) and processing by the AI assistant are hosted on infrastructure operated by Cloud Paradise, located in Amos, Quebec, Canada.",
+      "Your information (account, database, files, job results) and processing by the AI assistant are hosted on infrastructure operated by Cloud OS, located in Amos, Quebec, Canada.",
       "Unlike a model relying on external cloud services, the vast majority of processing takes place on our own infrastructure and is not disclosed outside Quebec. This is also true of audience-measurement data (Matomo), hosted on that same infrastructure.",
       "The only disclosure likely to result in processing outside Quebec is payment processing by PayPal. Law 25 requires, before any disclosure of personal information outside Quebec, a privacy impact assessment to verify that the information will benefit from adequate protection. This assessment is underway for PayPal, and the disclosure is governed by that provider’s applicable terms pending its completion.",
     ],
@@ -433,14 +433,14 @@ export default function ConfidentialitePageEn() {
             <div className="min-w-0 lg:col-start-1 lg:row-start-1">
               <div className="prose-legal space-y-4 text-base leading-[1.7] text-white/85">
                 <p>
-                  This policy describes how Cloud Paradise (“Cloud Paradise”,
+                  This policy describes how Cloud OS (“Cloud OS”,
                   “we”) collects, uses, discloses, and protects the personal
                   information of individuals who use its computing platform
                   (the “Service”). It applies to the site, the application, and
                   any feature attached to it.
                 </p>
                 <p>
-                  Cloud Paradise is a business established in Quebec and is
+                  Cloud OS is a business established in Quebec and is
                   subject to Quebec’s Act respecting the protection of personal
                   information in the private sector, as amended by “Law 25”.
                 </p>

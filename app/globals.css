@@ -1,15 +1,21 @@
 @import "tailwindcss";
 
 /*
- * Charte Cloud Paradise.
+ * Charte Cloud OS.
  *
- * Le jaune #edbe54 a deux emplois, et deux seulement : le halo de marque (qui
+ * Le jaune #edbe54 a deux emplois, et deux seulement : la tuile de marque (qui
  * vit dans les fichiers logo) et l'action de conversion (`--cta` plus bas).
  * Aucune utilité Tailwind ne le repeint, et rien d'autre ne l'emprunte —
  * c'est sa rareté qui fait qu'un bouton doré saute aux yeux. Le jour où trois
  * éléments dorés cohabitent à l'écran, plus aucun ne ressort.
  */
 @theme {
+  /*
+   * `cp-` (et `--color-cp-*`, `data-cp-accent`, `cp-flotte`…) : préfixe
+   * hérité de Cloud Paradise, conservé volontairement au rebrand Cloud OS —
+   * un identifiant interne, invisible pour l'utilisateur ; le renommer
+   * toucherait la moitié des composants pour zéro gain. Ne pas « corriger ».
+   */
   --color-cp-navy: #1b273d;
   --color-cp-blue: #2d66ae;
   --color-cp-cyan: #bbecee;
@@ -77,8 +83,8 @@
 
 /* `inline` est requis : ces valeurs pointent vers les variables de next/font. */
 @theme inline {
-  --font-display: var(--font-comfortaa), ui-rounded, system-ui, sans-serif;
-  --font-sans: var(--font-work), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-archivo), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-manrope), ui-sans-serif, system-ui, sans-serif;
 }
 
 /*
@@ -128,7 +134,7 @@ body {
 }
 
 /*
- * La transition ne porte que sur les propriétés recolorées : le halo, lui,
+ * La transition ne porte que sur les propriétés recolorées : la tuile du logo, elle,
  * vit dans le fichier logo et ne bouge jamais.
  */
 /* Les ancres de la barre de menu glissent, sauf si le mouvement est réduit. */

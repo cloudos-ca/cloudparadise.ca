@@ -28,7 +28,7 @@ import { SOFT_WASH, type Lang } from "./tokens";
 
 const TEXTES = {
   fr: {
-    fenetre: "Plan · Cloud Paradise",
+    fenetre: "Plan · Cloud OS",
     tache: "Convertir un PDF en DOCX",
     chip: "DOCUMENTS",
     fichier: "rapport-trimestriel.pdf",
@@ -69,7 +69,7 @@ const TEXTES = {
     resultat: "rapport-trimestriel.docx",
   },
   en: {
-    fenetre: "Plan · Cloud Paradise",
+    fenetre: "Plan · Cloud OS",
     tache: "Convert a PDF to DOCX",
     chip: "DOCUMENTS",
     fichier: "quarterly-report.pdf",
@@ -116,7 +116,7 @@ export function FenetrePlan({ lang = "fr" }: Readonly<{ lang?: Lang }>) {
             ne fait que l'exécuter. */}
         <div className="border-b border-white/10 p-5 os:border-r os:border-b-0">
           <div className="flex flex-wrap items-center gap-x-3 gap-y-1.5">
-            <p className="font-display text-[15px] font-semibold text-cp-heading">
+            <p className="font-display text-[15px] font-extrabold text-cp-heading">
               {t.tache}
             </p>
             <span

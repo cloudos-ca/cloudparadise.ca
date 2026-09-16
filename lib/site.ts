@@ -57,7 +57,8 @@ export const EST_PRODUCTION =
  * Origine de la vitrine.
  *
  * Trois adresses, trois rôles :
- *   - `cloudparadise.ca` — la vitrine publique ;
+ *   - `cloudos.ca` — la vitrine publique (l'ancien `cloudparadise.ca`
+ *     y redirige en 301, voir `next.config.ts`) ;
  *   - `app.cloudparadise.cloud` — l'application (voir `APP_URL`) ;
  *   - `cloudparadise.dev` — cet environnement-ci.
  *
@@ -78,7 +79,7 @@ export const EST_PRODUCTION =
  * sitemap est vide et le robots.txt interdit tout.
  */
 export const SITE_URL = EST_PRODUCTION
-  ? "https://cloudparadise.ca"
+  ? "https://cloudos.ca"
   : "https://cloudparadise.dev";
 
 /**

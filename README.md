@@ -1,6 +1,6 @@
-# cloudparadise.ca
+# cloudos.ca
 
-Site vitrine de Cloud Paradise. Il met en scène le web OS au lieu de le
+Site vitrine de Cloud OS. Il met en scène le web OS au lieu de le
 décrire : le hero **est** un bureau, avec sa barre de menu, ses fenêtres
 flottantes et un job qui tourne.
 
@@ -36,7 +36,7 @@ npx tsc --noEmit     # vérification des types
 
 ```
 app/
-  fonts.ts                    Comfortaa (titrage) + Work Sans (courant)
+  fonts.ts                    Archivo (titrage) + Manrope (courant)
   globals.css                 charte et tokens Tailwind dans @theme
   (marketing)/                route group de la vitrine, Server Components
 components/marketing/
@@ -45,7 +45,7 @@ components/marketing/
   WallpaperPicker.tsx         sélecteur de fond
   wallpapers.ts               données des fonds + applyWallpaper()
 public/brand/                 logos
-cloud_paradise_assets/        fichiers de marque d'origine
+cloud_os_assets/              fichiers de marque d'origine (charte, SVG, PNG)
 ```
 
 Le layout, la page et les wrappers de sections sont des Server Components. Le
@@ -59,15 +59,15 @@ besoin d'état local, de framer-motion et de node-vibrant.
 | Bleu nuit | `#1b273d` | châssis, fenêtres, barre |
 | Bleu | `#2d66ae` | action — boutons, progression |
 | Cyan | `#bbecee` | accents clairs — puces, surlignages |
-| Jaune | `#edbe54` | **halo de marque uniquement, jamais recoloré** |
+| Jaune | `#edbe54` | **tuile de marque et CTA uniquement, jamais recoloré** |
 
 Dans le hero, trois tokens CSS pilotent la couleur : `--acc` (accent vif),
 `--soft` (accent clair) et `--sky` (le fond). Changer de fond les réécrit et
 toute l'interface suit — boutons, progression, badge, avatar, deuxième ligne du
 titre.
 
-Le halo, lui, ne bouge jamais : il fait partie du fichier logo, donc aucune
-règle CSS ne peut le repeindre.
+La tuile jaune du logo, elle, ne bouge jamais : elle fait partie du fichier
+SVG, donc aucune règle CSS ne peut la repeindre.
 
 Au-delà du hero, quelques éléments suivent aussi l'accent : la mention de
 copyright du pied de page, le bouton secondaire « Voir la démo » du hero, le
@@ -88,17 +88,17 @@ Les vraies photos restent à fournir.
 
 ## Logos — à savoir
 
-Les fichiers de `cloud_paradise_assets/` sont des **JPEG malgré leur extension
-`.png`**, donc sans transparence. La variante blanche est blanche sur fond
-blanc : inexploitable telle quelle sur un fond sombre.
+Les fichiers de marque Cloud OS vivent dans `cloud_os_assets/` : la charte
+graphique (`charte-cloud-os-2026.pdf`), les SVG et PNG d'origine — avec leurs
+métadonnées de provenance C2PA — et le `LISEZMOI.txt` qui résume les règles
+d'usage. Les copies servies par le site sont dans `public/brand/` : SVG
+allégés (bloc `<metadata>` retiré, 0,7 Ko au lieu de 8) et PNG
+redimensionnés. Toute nouvelle variante se tire des SVG de
+`cloud_os_assets/svg/`, jamais des PNG.
 
-Les PNG de `public/brand/` sont donc recomposés à partir des deux sources
-1204×896, qui sont alignées au pixel près : `Logo_noir` fournit la silhouette
-et l'antialiasing, `Logo_blanc_et_jaune` indique quelles zones sont le halo et
-le lettrage « paradise ».
-
-**À remplacer par les vrais SVG dès réception** — mêmes noms de fichiers, le
-code n'aura qu'à changer d'extension.
+Le mot-symbole « CLOUD OS » de la barre et du pied de page n'est pas dans ces
+fichiers : c'est du texte en Archivo, rendu par le site lui-même (voir
+`TopBar.tsx`).
 
 ## Accessibilité
 

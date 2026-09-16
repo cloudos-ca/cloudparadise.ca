@@ -16,7 +16,7 @@ import { SECTION_Y, SHELL } from "@/components/marketing/tokens";
 import { alternatesBilingues, openGraphPage } from "@/lib/seo";
 import { lienInscription } from "@/lib/site";
 
-const TITRE = "Features — Cloud Paradise";
+const TITRE = "Features — Cloud OS";
 const DESCRIPTION =
   "The complete list of what the workstation can do: the desktop, applications, compute, automation, teamwork, mineral exploration and account management.";
 
@@ -402,7 +402,7 @@ const SECTIONS: readonly SectionFonctions[] = [
       {
         nom: "Email",
         texte:
-          "Built-in webmail, with a @cloudparadise.ca address you activate from your desktop. Connect an external account (Gmail, Outlook) too, via IMAP/SMTP or OAuth.",
+          "Built-in webmail, with an @cloudos.ca address you activate from your desktop. Connect an external account (Gmail, Outlook) too, via IMAP/SMTP or OAuth.",
       },
       {
         nom: "Calendar and contacts",
@@ -534,7 +534,7 @@ export default function FonctionsPageEn() {
         <div className={`${SHELL} ${SECTION_Y}`}>
           <Reveal className="max-w-3xl">
             <SurTitre>Features</SurTitre>
-            <h1 className="mt-2 font-display text-[1.9rem] leading-[1.1] font-bold tracking-[-0.02em] text-white sm:text-[2.4rem] os:text-[2.8rem]">
+            <h1 className="mt-2 font-display text-[1.9rem] leading-[1.1] font-extrabold tracking-[-0.02em] text-white sm:text-[2.4rem] os:text-[2.8rem]">
               Everything the
               <br />
               workstation can do.
@@ -602,7 +602,7 @@ function SectionListe({ section }: Readonly<{ section: SectionFonctions }>) {
         <div className="grid gap-6 os:grid-cols-[2fr_3fr] os:items-start os:gap-12">
           <Reveal>
             <SurTitre>{surtitre}</SurTitre>
-            <h2 className="mt-2 font-display text-[1.5rem] leading-[1.2] font-bold tracking-tight text-balance text-cp-heading sm:text-[1.75rem] os:text-[2rem]">
+            <h2 className="mt-2 font-display text-[1.5rem] leading-[1.2] font-extrabold tracking-tight text-balance text-cp-heading sm:text-[1.75rem] os:text-[2rem]">
               {titre}
             </h2>
             {intro ? (
@@ -624,7 +624,7 @@ function SectionListe({ section }: Readonly<{ section: SectionFonctions }>) {
                   key={nom}
                   className="grid gap-x-6 gap-y-1 px-5 py-3.5 sm:grid-cols-[minmax(0,11rem)_1fr]"
                 >
-                  <dt className="font-display text-[14px] font-semibold text-white">
+                  <dt className="font-display text-[14px] font-extrabold text-white">
                     {nom}
                   </dt>
                   <dd className="text-[13px] leading-relaxed text-white/85">

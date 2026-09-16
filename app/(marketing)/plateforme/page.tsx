@@ -31,7 +31,7 @@ import { SECTION_Y, SHELL } from "@/components/marketing/tokens";
 import { alternatesBilingues, openGraphPage } from "@/lib/seo";
 import { lienInscription } from "@/lib/site";
 
-const TITRE = "Plateforme — Cloud Paradise";
+const TITRE = "Plateforme — Cloud OS";
 const DESCRIPTION =
   "Un vrai bureau en ligne : fenêtres, dock, fichiers, applications professionnelles et collaboration d’équipe. Comme en local, sans rien installer.";
 
@@ -117,7 +117,7 @@ const EQUIPE: Carte[] = [
     Icone: IconMail,
     titre: "Courriel",
     texte:
-      "Adresse @cloudparadise.ca et webmail intégré. Connectez aussi un compte externe (Gmail, Outlook) par IMAP/SMTP ou OAuth.",
+      "Adresse @cloudos.ca et webmail intégré. Connectez aussi un compte externe (Gmail, Outlook) par IMAP/SMTP ou OAuth.",
   },
   {
     Icone: IconCalendar,
@@ -160,7 +160,7 @@ export default function PlateformePage() {
         <div className={`${SHELL} ${SECTION_Y}`}>
           <Reveal className="max-w-3xl">
             <SurTitre>Plateforme</SurTitre>
-            <h1 className="mt-2 font-display text-[2rem] leading-[1.08] font-bold tracking-[-0.02em] text-white sm:text-[2.9rem] os:text-[3.35rem]">
+            <h1 className="mt-2 font-display text-[2rem] leading-[1.08] font-extrabold tracking-[-0.02em] text-white sm:text-[2.9rem] os:text-[3.35rem]">
               Pas un tableau de bord.
               <br />
               Un vrai bureau.
@@ -197,7 +197,7 @@ export default function PlateformePage() {
               src="/plateforme/bureau.jpg"
               width={2048}
               height={760}
-              alt="Le bureau Cloud Paradise : fond d’écran, dock d’applications à gauche et barre inférieure."
+              alt="Le bureau Cloud OS en cours d’utilisation : la Documentation et les Arcades ouvertes en fenêtres, dock d’applications à gauche et barre inférieure."
               priority
             />
           </Reveal>
@@ -231,6 +231,16 @@ export default function PlateformePage() {
         <Reveal delay={0.15} className="mt-8">
           <FenetrePlan />
         </Reveal>
+        {/* Capture réelle de Writer (Collabora) sur le bureau de dev,
+            2026-09-16 : document de démonstration tapé pour la capture. */}
+        <Reveal delay={0.2} className="mt-6">
+          <Capture
+            src="/plateforme/writer.jpg"
+            width={2032}
+            height={1096}
+            alt="Writer, le traitement de texte en ligne : une offre de services en cours de rédaction, barre d’outils complète et panneau de styles."
+          />
+        </Reveal>
       </SectionAncre>
 
       <SectionAncre
@@ -250,7 +260,20 @@ export default function PlateformePage() {
         titre="Un studio de jeux, et une arcade gratuite."
         texte="De la conversation au jeu jouable, testé avant d’être livré — et une salle de jeux gratuite, à côté."
         cartes={JEUX}
-      />
+      >
+        {/* Capture réelle de l'application Arcades (bureau de dev, 2026-09-16).
+            Les vignettes sont celles du catalogue tiers réellement servi
+            (GameMonetize) : si l'affichage d'illustrations de jeux tiers sur
+            la vitrine pose question, remplacer par un recadrage sans tuiles. */}
+        <Reveal delay={0.15} className="mt-8">
+          <Capture
+            src="/plateforme/arcades.jpg"
+            width={2032}
+            height={968}
+            alt="L’application Arcades : recherche, salles par catégorie, rangée « Reprendre » du joueur et grille de jeux HTML5."
+          />
+        </Reveal>
+      </SectionAncre>
 
       {/* Closer */}
       <section className="relative overflow-x-clip">
@@ -326,7 +349,7 @@ function SectionAncre({
       <div className={`${SHELL} ${SECTION_Y}`}>
         <Reveal className="max-w-2xl">
           <SurTitre>{surtitre}</SurTitre>
-          <h2 className="mt-2 max-w-[24ch] font-display text-[1.6rem] leading-[1.2] font-bold tracking-tight text-balance text-cp-heading sm:text-3xl os:text-4xl">
+          <h2 className="mt-2 max-w-[24ch] font-display text-[1.6rem] leading-[1.2] font-extrabold tracking-tight text-balance text-cp-heading sm:text-3xl os:text-4xl">
             {titre}
           </h2>
           <p className="mt-4 max-w-[62ch] text-sm leading-relaxed text-white/85">
@@ -350,7 +373,7 @@ function SectionAncre({
                 <Icone className="size-[21px]" />
               </span>
               <div className="min-w-0">
-                <p className="font-display text-[15px] font-semibold text-cp-heading">
+                <p className="font-display text-[15px] font-extrabold text-cp-heading">
                   {titre}
                 </p>
                 <p className="mt-1 text-[13px] leading-relaxed text-white/75">

@@ -9,7 +9,7 @@ import { WindowCard } from "@/components/marketing/WindowCard";
 import { SECTION_Y, SHELL } from "@/components/marketing/tokens";
 import { alternatesBilingues, openGraphPage } from "@/lib/seo";
 
-const TITRE = "Sécurité et hébergement au Québec — Cloud Paradise";
+const TITRE = "Sécurité et hébergement au Québec — Cloud OS";
 const DESCRIPTION =
   "Vos données, notre matériel, au Québec. Le modèle de langage tourne chez nous et un moteur déterministe produit chaque résultat. Isolation par équipe.";
 
@@ -36,7 +36,7 @@ export default function SecuritePage() {
         <div className={`${SHELL} ${SECTION_Y}`}>
           <Reveal className="max-w-2xl">
             <SurTitre>Sécurité</SurTitre>
-            <h1 className="mt-2 font-display text-[2rem] leading-[1.1] font-bold tracking-[-0.02em] text-white sm:text-[2.6rem] os:text-[3rem]">
+            <h1 className="mt-2 font-display text-[2rem] leading-[1.1] font-extrabold tracking-[-0.02em] text-white sm:text-[2.6rem] os:text-[3rem]">
               Vos données, notre matériel,
               <br />
               au Québec.
@@ -58,7 +58,7 @@ export default function SecuritePage() {
         <div className="space-y-4 text-[15px] leading-relaxed text-white/85">
           <p>
             Nos serveurs sont au Québec, dans un local, sur du matériel qui
-            appartient à Cloud Paradise.
+            appartient à Cloud OS.
           </p>
           <p>
             Ce n’est pas de la capacité louée chez un fournisseur infonuagique
@@ -75,7 +75,7 @@ export default function SecuritePage() {
         <div className="space-y-4 text-[15px] leading-relaxed text-white/85">
           <p>
             Le modèle de langage qui lit vos demandes s’exécute sur le matériel
-            de Cloud Paradise, au Québec.
+            de Cloud OS, au Québec.
           </p>
           <p>
             Vos fichiers et vos demandes ne sont jamais envoyés à un fournisseur
@@ -89,7 +89,7 @@ export default function SecuritePage() {
         <div className={`${SHELL} ${SECTION_Y}`}>
           <Reveal className="max-w-2xl">
             <SurTitre>Le calcul</SurTitre>
-            <h2 className="mt-2 font-display text-[1.7rem] leading-[1.15] font-bold tracking-tight text-balance text-cp-heading sm:text-3xl os:text-[2.4rem]">
+            <h2 className="mt-2 font-display text-[1.7rem] leading-[1.15] font-extrabold tracking-tight text-balance text-cp-heading sm:text-3xl os:text-[2.4rem]">
               L’intelligence artificielle ne calcule rien.
             </h2>
           </Reveal>
@@ -119,7 +119,7 @@ export default function SecuritePage() {
             {/* Appui visuel : la même tâche relancée rend le même résultat —
                 l'esprit de « La garantie », sans en reprendre la chaîne. */}
             <Reveal delay={0.1} className="mx-auto w-full max-w-[440px]">
-              <WindowCard title="Vérification · Cloud Paradise">
+              <WindowCard title="Vérification · Cloud OS">
                 <div className="p-5">
                   <p className="text-xs text-white/60">
                     La même tâche, relancée
@@ -223,7 +223,7 @@ function Section2Col({
         <div className="grid gap-8 os:grid-cols-[2fr_3fr] os:items-start os:gap-12">
           <Reveal>
             <SurTitre>{surtitre}</SurTitre>
-            <h2 className="mt-2 font-display text-[1.6rem] leading-[1.2] font-bold tracking-tight text-balance text-cp-heading sm:text-3xl os:text-4xl">
+            <h2 className="mt-2 font-display text-[1.6rem] leading-[1.2] font-extrabold tracking-tight text-balance text-cp-heading sm:text-3xl os:text-4xl">
               {titre}
             </h2>
           </Reveal>

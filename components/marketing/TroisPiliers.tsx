@@ -100,7 +100,7 @@ export function TroisPiliers({ lang = "fr" }: Readonly<{ lang?: Lang }>) {
           >
             {t.eyebrow}
           </p>
-          <h2 className="mt-2 max-w-[24ch] font-display text-[1.6rem] leading-[1.2] font-bold tracking-tight text-balance text-cp-heading sm:text-3xl os:text-4xl">
+          <h2 className="mt-2 max-w-[24ch] font-display text-[1.6rem] leading-[1.2] font-extrabold tracking-tight text-balance text-cp-heading sm:text-3xl os:text-4xl">
             {t.titre}
           </h2>
         </Reveal>
@@ -120,7 +120,7 @@ export function TroisPiliers({ lang = "fr" }: Readonly<{ lang?: Lang }>) {
               >
                 <Icone className="size-[22px]" style={{ color: "var(--cta)" }} />
               </span>
-              <p className="mt-5 font-display text-lg font-semibold text-cp-heading">
+              <p className="mt-5 font-display text-lg font-extrabold text-cp-heading">
                 {titre}
               </p>
               <p className="mt-2 flex-1 text-sm leading-relaxed text-white/85">

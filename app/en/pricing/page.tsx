@@ -39,7 +39,7 @@ import { SECTION_Y, SHELL } from "@/components/marketing/tokens";
 import { alternatesBilingues, openGraphPage } from "@/lib/seo";
 import { lienInscription } from "@/lib/site";
 
-const TITRE = "Pricing: pay-as-you-go credits or a monthly subscription — Cloud Paradise";
+const TITRE = "Pricing: pay-as-you-go credits or a monthly subscription — Cloud OS";
 const DESCRIPTION = `A fixed-price monthly subscription from ${prixAbonnement(PALIERS_ABONNEMENT[0], "en")}, or pay-as-you-go credits: ${OFFRE_EN_DEVISE} on signup, the cost of every task, an estimator to work out your budget before you start.`;
 
 export const metadata: Metadata = {
@@ -199,7 +199,7 @@ export default function TarifsPageEn() {
         <div className={`${SHELL} ${SECTION_Y}`}>
           <Reveal className="max-w-4xl">
             <SurTitre>Pricing</SurTitre>
-            <h1 className="mt-2 font-display text-[1.7rem] leading-[1.12] font-bold tracking-[-0.02em] text-white sm:text-[2.3rem] os:text-[2.7rem]">
+            <h1 className="mt-2 font-display text-[1.7rem] leading-[1.12] font-extrabold tracking-[-0.02em] text-white sm:text-[2.3rem] os:text-[2.7rem]">
               Pay for what you use.
               <br />
               Nothing more.
@@ -279,7 +279,7 @@ export default function TarifsPageEn() {
                     <IconCoin className="size-[21px]" />
                   </span>
                   <div>
-                    <p className="flex items-center gap-2 font-display text-[15px] font-semibold text-white">
+                    <p className="flex items-center gap-2 font-display text-[15px] font-extrabold text-white">
                       {palier.nom.en}
                       {recommande ? (
                         <span
@@ -294,7 +294,7 @@ export default function TarifsPageEn() {
                       ) : null}
                     </p>
                     <p
-                      className="mt-1 font-display text-lg font-bold tabular-nums"
+                      className="mt-1 font-display text-lg font-extrabold tabular-nums"
                       style={{ color: "var(--cta)" }}
                     >
                       {prixAbonnement(palier, "en")}
@@ -389,7 +389,7 @@ export default function TarifsPageEn() {
                   <Icone className="size-[21px]" />
                 </span>
                 <div className="min-w-0">
-                  <p className="font-display text-[15px] font-semibold text-white">
+                  <p className="font-display text-[15px] font-extrabold text-white">
                     {titre}
                   </p>
                   <p className="mt-1 text-[13px] leading-relaxed text-white/85">
@@ -402,7 +402,7 @@ export default function TarifsPageEn() {
             {/* La découverte après coup qui coûte un client : trois traitements
                 enchaînés, trois débits. Dit une fois en carte, montré une fois
                 en chiffres — avec les vrais tarifs. */}
-            <WindowCard title="Flow · Cloud Paradise">
+            <WindowCard title="Flow · Cloud OS">
               <div className="p-5">
                 <p className="text-xs text-white/60">Example flow</p>
                 <ol className="mt-3.5 space-y-2.5">
@@ -422,7 +422,7 @@ export default function TarifsPageEn() {
                         {libelle}
                       </span>
                       <span
-                        className="font-display text-sm font-bold tabular-nums"
+                        className="font-display text-sm font-extrabold tabular-nums"
                         style={{ color: "var(--cta)" }}
                       >
                         {nfCredit.format(cout)}
@@ -435,7 +435,7 @@ export default function TarifsPageEn() {
                     {etapes.length} tasks
                   </span>
                   <span
-                    className="font-display text-[15px] font-bold tabular-nums"
+                    className="font-display text-[15px] font-extrabold tabular-nums"
                     style={{ color: "var(--cta)" }}
                   >
                     {nfCredit.format(total)} {uniteTotal}
@@ -502,7 +502,7 @@ function SurTitre({ children }: Readonly<{ children: ReactNode }>) {
 /** Titre de section, style système, collé au sur-titre. */
 function TitreSection({ children }: Readonly<{ children: ReactNode }>) {
   return (
-    <h2 className="mt-2 font-display text-[1.6rem] leading-[1.2] font-bold tracking-tight text-balance text-cp-heading sm:text-3xl os:text-4xl">
+    <h2 className="mt-2 font-display text-[1.6rem] leading-[1.2] font-extrabold tracking-tight text-balance text-cp-heading sm:text-3xl os:text-4xl">
       {children}
     </h2>
   );
