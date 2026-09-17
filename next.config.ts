@@ -44,11 +44,11 @@ const CSP = [
   "default-src 'self'",
   `script-src 'self' 'unsafe-inline'${EVAL_DEV} https://*.googletagmanager.com`,
   "style-src 'self' 'unsafe-inline'",
-  // À FAIRE — blogue : les images d'articles (vignettes et images dans le
-  // corps) vivent chez BabyLoveGrowth et sont bloquées tant que leur host
-  // n'est pas listé ici. Il se lit dans `hero_image_url` du premier article
-  // publié ; l'ajouter en `https://<host>` à la suite de `blob:`.
-  "img-src 'self' data: blob: https://*.google-analytics.com https://*.googletagmanager.com",
+  // Le host Supabase est celui des images d'articles du blogue (vignettes et
+  // images dans le corps), servies par le stockage de BabyLoveGrowth — relevé
+  // dans `hero_image_url` le 2026-09-17. S'il change, les images du blogue
+  // disparaissent sans erreur visible : c'est ici qu'il faut regarder.
+  "img-src 'self' data: blob: https://*.google-analytics.com https://*.googletagmanager.com https://csuxjmfbwmkxiegfpljm.supabase.co",
   "font-src 'self'",
   "connect-src 'self' https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com",
   "frame-src 'none'",

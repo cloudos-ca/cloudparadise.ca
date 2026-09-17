@@ -3,7 +3,7 @@ import Link from "next/link";
 import { BreadcrumbJsonLd } from "@/components/marketing/BreadcrumbJsonLd";
 import { LECTURE, SECTION_Y, SHELL, type Lang } from "@/components/marketing/tokens";
 import { libelleBlogue } from "@/content/blogue";
-import { CHEMIN_BLOGUE } from "@/lib/blogue";
+import { CHEMIN_BLOGUE, corpsSansEntete } from "@/lib/blogue";
 import { ArticleJsonLd } from "./ArticleJsonLd";
 import { formaterDate } from "./dates";
 
@@ -86,7 +86,9 @@ export function PageArticle({
 
           <div
             className="prose-blogue mt-10"
-            dangerouslySetInnerHTML={{ __html: article.content_html }}
+            dangerouslySetInnerHTML={{
+              __html: corpsSansEntete(article.content_html, article.hero_image_url),
+            }}
           />
         </article>
       </div>

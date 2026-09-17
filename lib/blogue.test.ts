@@ -3,6 +3,7 @@ import { describe, it } from "node:test";
 import type { BlogArticleSummary } from "babylovegrowth-next-js-blog";
 import {
   articlesVisibles,
+  corpsSansEntete,
   estDansLangue,
   lirePage,
   paginer,
@@ -104,5 +105,37 @@ describe("paginer", () => {
 
   it("une liste vide donne une seule page vide", () => {
     assert.deepEqual(paginer([], 1, 2), { elements: [], page: 1, pages: 1 });
+  });
+});
+
+describe("corpsSansEntete", () => {
+  const hero = "https://img.example/hero.jpeg";
+
+  it("retire le h1 et l'image de tête qui doublent ceux de la page", () => {
+    const html =
+      '<h1 id="x" tabindex="-1">Titre</h1>\n<p><img src="https://img.example/hero.jpeg" alt="Une image"></p>\n<p>Texte.</p>';
+    assert.equal(corpsSansEntete(html, hero), "<p>Texte.</p>");
+  });
+
+  it("laisse une première image qui n'est pas l'image de tête", () => {
+    const html =
+      "<h1>Titre</h1><p><img src=\"https://img.example/autre.png\" alt=\"\"></p><p>Texte.</p>";
+    assert.equal(
+      corpsSansEntete(html, hero),
+      '<p><img src="https://img.example/autre.png" alt=""></p><p>Texte.</p>',
+    );
+  });
+
+  it("ne touche pas un h1 ou une image plus loin dans le corps", () => {
+    const html = "<p>Intro.</p><h1>Titre</h1><p><img src=\"" + hero + "\"></p>";
+    assert.equal(corpsSansEntete(html, hero), html);
+  });
+
+  it("sans image de tête, ne retire que le h1", () => {
+    const html = "<h1>Titre</h1><p><img src=\"" + hero + "\"></p><p>Texte.</p>";
+    assert.equal(
+      corpsSansEntete(html, ""),
+      '<p><img src="' + hero + '"></p><p>Texte.</p>',
+    );
   });
 });

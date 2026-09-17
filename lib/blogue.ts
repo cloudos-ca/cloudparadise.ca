@@ -100,6 +100,34 @@ export function lirePage(valeur: string | undefined): number {
   return n >= 1 ? n : 1;
 }
 
+/**
+ * Le corps d'un article, sans le titre ni l'image de tête que la page rend
+ * déjà elle-même.
+ *
+ * BabyLoveGrowth ouvre chaque `content_html` par un `<h1>` (le titre) suivi
+ * d'un `<p><img></p>` (l'image `hero_image_url`) — vérifié sur les deux
+ * premiers articles, 2026-09-17. La page pose son propre `<h1>` et sa propre
+ * image de tête, mis en forme avec le reste du site : gardés dans le corps,
+ * les deux apparaîtraient en double, et deux `<h1>` sur une page est aussi
+ * une erreur pour les moteurs.
+ *
+ * On ne retire que ce qui ouvre le document : un `<h1>` en tête, puis un
+ * paragraphe qui ne contient que l'image de tête (même `src`). Une première
+ * image différente reste — c'est une illustration, pas la vignette. Rien
+ * n'est touché plus loin dans le texte.
+ */
+export function corpsSansEntete(html: string, heroImageUrl: string): string {
+  let corps = html.replace(/^\s*<h1\b[^>]*>[\s\S]*?<\/h1>\s*/i, "");
+  if (heroImageUrl) {
+    const src = heroImageUrl.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+    corps = corps.replace(
+      new RegExp(`^\\s*<p\\b[^>]*>\\s*<img\\b[^>]*\\bsrc="${src}"[^>]*>\\s*<\\/p>\\s*`, "i"),
+      "",
+    );
+  }
+  return corps;
+}
+
 export type Pagination<T> = {
   elements: T[];
   /** Page effectivement affichée — ramenée à la dernière si demandée au-delà. */
