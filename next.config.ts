@@ -21,12 +21,15 @@ import type { NextConfig } from "next";
  * la recoloration du thème (`--acc`, `--soft`, `--sky`) repose sur des
  * attributs `style=""` en ligne dans de nombreux composants.
  *
- * Un seul domaine externe autorisé : Matomo, auto-hébergé
- * (matomo.cloudparadise.cloud). google.com et gstatic.com y figuraient pour
- * reCAPTCHA v3 sur /contact ; le formulaire se protège désormais sans tiers
- * (voir lib/jetonContact.ts), et plus aucune page n'appelle Google — la CSP le
- * dit maintenant explicitement. `frame-src` a disparu avec eux : aucune iframe
- * nulle part, donc `default-src 'self'` suffit.
+ * Seuls tiers autorisés : les hôtes de Google Analytics 4 (gtag.js), listés
+ * d'après le guide « Content Security Policy » de la plateforme Google tag —
+ * le chargeur vient de googletagmanager.com, les mesures partent en `fetch`
+ * ou en balise image vers google-analytics.com et analytics.google.com, avec
+ * des sous-domaines régionaux (`region1.`…) d'où les jokers. Ils ont remplacé
+ * matomo.cloudparadise.cloud le 2026-09-17 (voir GoogleAnalytics.tsx).
+ * google.com et gstatic.com y figuraient avant pour reCAPTCHA v3 sur /contact ;
+ * le formulaire se protège désormais sans tiers (voir lib/jetonContact.ts).
+ * `frame-src` reste à `'none'` : aucune iframe nulle part.
  *
  * `'unsafe-eval'` est ajouté UNIQUEMENT en développement : le mode dev de
  * React s'appuie sur `eval()` pour certaines fonctions de débogage (overlay
@@ -39,15 +42,15 @@ const EVAL_DEV = process.env.NODE_ENV === "production" ? "" : " 'unsafe-eval'";
 
 const CSP = [
   "default-src 'self'",
-  `script-src 'self' 'unsafe-inline'${EVAL_DEV} https://matomo.cloudparadise.cloud`,
+  `script-src 'self' 'unsafe-inline'${EVAL_DEV} https://*.googletagmanager.com`,
   "style-src 'self' 'unsafe-inline'",
   // À FAIRE — blogue : les images d'articles (vignettes et images dans le
   // corps) vivent chez BabyLoveGrowth et sont bloquées tant que leur host
   // n'est pas listé ici. Il se lit dans `hero_image_url` du premier article
   // publié ; l'ajouter en `https://<host>` à la suite de `blob:`.
-  "img-src 'self' data: blob:",
+  "img-src 'self' data: blob: https://*.google-analytics.com https://*.googletagmanager.com",
   "font-src 'self'",
-  "connect-src 'self' https://matomo.cloudparadise.cloud",
+  "connect-src 'self' https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com",
   "frame-src 'none'",
   "object-src 'none'",
   "base-uri 'self'",

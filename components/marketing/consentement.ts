@@ -2,8 +2,8 @@
  * Source unique du consentement Loi 25.
  *
  * Lu et écrit par `PopupLoi25`, et lu par tout script qui ne doit démarrer
- * qu'après un « Accepter » explicite (Matomo, pour l'instant — voir
- * `MatomoAnalytics.tsx` et la section 6 de /confidentialite).
+ * qu'après un « Accepter » explicite (Google Analytics, pour l'instant — voir
+ * `GoogleAnalytics.tsx` et la section 6 de /confidentialite).
  */
 
 export type Consentement = "accepte" | "refuse";

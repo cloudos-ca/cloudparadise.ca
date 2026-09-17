@@ -35,7 +35,7 @@ export const metadata: Metadata = {
   openGraph: openGraphPage(TITRE, DESCRIPTION, "fr", "/confidentialite", [IMAGE_OG_PARTAGEE]),
 };
 
-const MAJ = "30 juillet 2026";
+const MAJ = "17 septembre 2026";
 
 /** Le responsable désigné au sens de la Loi 25, art. 3.1. */
 const RESPONSABLE = "Maxime Murray";
@@ -212,13 +212,13 @@ const SECTIONS: readonly SectionRedigee[] = [
           },
           {
             // La portée est dite ici et à la section 6 : cette politique couvre
-            // aussi l'application, où il n'y a aucun Matomo. Sans la préciser,
+            // aussi l'application, où il n'y a aucun Google Analytics. Sans la préciser,
             // un utilisateur de l'application lit qu'il est mesuré alors qu'il
             // ne l'est pas — et l'omission joue contre l'argument de
             // souveraineté qu'elle affaiblit sans raison.
             terme: "Mesure d’audience :",
             texte:
-              "nous utilisons Matomo, un outil de mesure d’audience auto-hébergé sur notre propre infrastructure — aucune donnée de navigation n’est communiquée à un tiers (notamment pas à Google Analytics). Cette mesure ne porte que sur le site vitrine : l’application n’en comporte aucune. Le suivi ne démarre qu’après votre consentement explicite (voir la section 6).",
+              "nous utilisons Google Analytics, un service de Google LLC : les données de navigation sur ce site (pages consultées, provenance, appareil, adresse IP tronquée) sont transmises à Google, qui les traite sur ses propres serveurs, situés notamment hors Québec. Cette mesure ne porte que sur le site vitrine : l’application n’en comporte aucune. Le suivi ne démarre qu’après votre consentement explicite (voir la section 6).",
           },
         ],
       },
@@ -229,8 +229,8 @@ const SECTIONS: readonly SectionRedigee[] = [
     titre: "Hébergement et localisation des données",
     blocs: [
       "Vos renseignements (compte, base de données, fichiers, résultats de tâches) et le traitement par l’assistant d’IA sont hébergés sur l’infrastructure exploitée par Cloud OS, située à Amos (Québec), Canada.",
-      "À la différence d’un modèle reposant sur des services infonuagiques externes, la très grande majorité des traitements se déroule sur notre propre infrastructure et ne fait pas l’objet d’une communication hors Québec. C’est aussi le cas des données de mesure d’audience (Matomo), hébergées sur cette même infrastructure.",
-      "La seule communication susceptible d’entraîner un traitement hors Québec est le traitement des paiements par PayPal. La Loi 25 exige, avant toute communication de renseignements personnels hors Québec, une évaluation des facteurs relatifs à la vie privée afin de vérifier que les renseignements bénéficieront d’une protection adéquate. Cette évaluation est en cours pour PayPal, et la communication est encadrée par les conditions applicables de ce prestataire en attendant sa finalisation.",
+      "À la différence d’un modèle reposant sur des services infonuagiques externes, la très grande majorité des traitements se déroule sur notre propre infrastructure et ne fait pas l’objet d’une communication hors Québec.",
+      "Deux communications sont susceptibles d’entraîner un traitement hors Québec : le traitement des paiements par PayPal, et la mesure d’audience du site vitrine par Google Analytics (uniquement après votre consentement, voir la section 6). La Loi 25 exige, avant toute communication de renseignements personnels hors Québec, une évaluation des facteurs relatifs à la vie privée afin de vérifier que les renseignements bénéficieront d’une protection adéquate. Cette évaluation est en cours pour ces deux prestataires, et les communications sont encadrées par leurs conditions applicables en attendant sa finalisation.",
     ],
   },
   {
@@ -240,9 +240,9 @@ const SECTIONS: readonly SectionRedigee[] = [
       {
         liste: [
           {
-            terme: "Mesure d’audience — Matomo.",
+            terme: "Mesure d’audience — Google Analytics.",
             texte:
-              "Nous utilisons Matomo, auto-hébergé sur notre propre infrastructure, pour savoir quelles pages de ce site sont consultées, en quel nombre, et quels liens sortants sont cliqués. La mesure s’arrête à ce site : l’application ne comporte aucun outil de mesure d’audience. Aucune donnée n’est transmise à un service tiers (notamment pas à Google Analytics), et ces renseignements ne servent à aucune fin publicitaire.",
+              "Nous utilisons Google Analytics 4, un service de Google LLC, pour savoir quelles pages de ce site sont consultées, en quel nombre, d’où viennent les visites et quels liens sortants sont cliqués. Google dépose pour cela des témoins (_ga, _ga_*) d’une durée maximale de deux ans et reçoit les données de navigation correspondantes, qu’il traite sur ses propres serveurs, notamment hors Québec. La mesure s’arrête à ce site : l’application ne comporte aucun outil de mesure d’audience. Nous n’utilisons pas ces renseignements à des fins publicitaires et n’avons activé ni les signaux Google ni la personnalisation des annonces.",
           },
         ],
       },

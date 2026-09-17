@@ -35,7 +35,7 @@ export const metadata: Metadata = {
   openGraph: openGraphPage(TITRE, DESCRIPTION, "en", "/en/privacy", [IMAGE_OG_PARTAGEE]),
 };
 
-const MAJ = "July 30, 2026";
+const MAJ = "September 17, 2026";
 
 /** The designated privacy officer under Law 25, s. 3.1. */
 const RESPONSABLE = "Maxime Murray";
@@ -208,13 +208,13 @@ const SECTIONS: readonly SectionRedigee[] = [
           },
           {
             // La portée est dite ici et à la section 6 : cette politique couvre
-            // aussi l'application, où il n'y a aucun Matomo. Sans la préciser,
+            // aussi l'application, où il n'y a aucun Google Analytics. Sans la préciser,
             // un utilisateur de l'application lit qu'il est mesuré alors qu'il
             // ne l'est pas — et l'omission joue contre l'argument de
             // souveraineté qu'elle affaiblit sans raison.
             terme: "Audience measurement:",
             texte:
-              "we use Matomo, an audience-measurement tool self-hosted on our own infrastructure — no browsing data is shared with a third party (in particular, not with Google Analytics). This measurement covers the marketing site only: the application carries none. Tracking only starts after your explicit consent (see section 6).",
+              "we use Google Analytics, a service of Google LLC: browsing data on this site (pages visited, referrer, device, truncated IP address) is transmitted to Google, which processes it on its own servers, including outside Quebec. This measurement covers the marketing site only: the application carries none. Tracking only starts after your explicit consent (see section 6).",
           },
         ],
       },
@@ -225,8 +225,8 @@ const SECTIONS: readonly SectionRedigee[] = [
     titre: "Hosting and data location",
     blocs: [
       "Your information (account, database, files, job results) and processing by the AI assistant are hosted on infrastructure operated by Cloud OS, located in Amos, Quebec, Canada.",
-      "Unlike a model relying on external cloud services, the vast majority of processing takes place on our own infrastructure and is not disclosed outside Quebec. This is also true of audience-measurement data (Matomo), hosted on that same infrastructure.",
-      "The only disclosure likely to result in processing outside Quebec is payment processing by PayPal. Law 25 requires, before any disclosure of personal information outside Quebec, a privacy impact assessment to verify that the information will benefit from adequate protection. This assessment is underway for PayPal, and the disclosure is governed by that provider’s applicable terms pending its completion.",
+      "Unlike a model relying on external cloud services, the vast majority of processing takes place on our own infrastructure and is not disclosed outside Quebec.",
+      "Two disclosures are likely to result in processing outside Quebec: payment processing by PayPal, and audience measurement of the marketing site by Google Analytics (only after your consent, see section 6). Law 25 requires, before any disclosure of personal information outside Quebec, a privacy impact assessment to verify that the information will benefit from adequate protection. This assessment is underway for both providers, and the disclosures are governed by their applicable terms pending its completion.",
     ],
   },
   {
@@ -236,9 +236,9 @@ const SECTIONS: readonly SectionRedigee[] = [
       {
         liste: [
           {
-            terme: "Audience measurement — Matomo.",
+            terme: "Audience measurement — Google Analytics.",
             texte:
-              "We use Matomo, self-hosted on our own infrastructure, to know which pages of this site are visited, how often, and which outbound links are clicked. Measurement stops at this site: the application carries no audience-measurement tool. No data is shared with a third-party service (in particular, not with Google Analytics), and this information is never used for advertising purposes.",
+              "We use Google Analytics 4, a service of Google LLC, to know which pages of this site are visited, how often, where visits come from, and which outbound links are clicked. Google sets cookies for this purpose (_ga, _ga_*), lasting at most two years, and receives the corresponding browsing data, which it processes on its own servers, including outside Quebec. Measurement stops at this site: the application carries no audience-measurement tool. We do not use this information for advertising purposes and have enabled neither Google signals nor ads personalization.",
           },
         ],
       },
