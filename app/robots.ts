@@ -28,6 +28,8 @@ export default function robots(): MetadataRoute.Robots {
       allow: "/",
       disallow: "/api/",
     },
-    sitemap: `${SITE_URL}/sitemap.xml`,
+    // Deux fichiers : les pages (généré au build) et les articles du blogue
+    // (lu à la demande, voir `app/(marketing)/blogue/sitemap.xml/route.ts`).
+    sitemap: [`${SITE_URL}/sitemap.xml`, `${SITE_URL}/blogue/sitemap.xml`],
   };
 }

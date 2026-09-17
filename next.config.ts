@@ -11,8 +11,12 @@ import type { NextConfig } from "next";
  * empiriquement — une seule page en contient plus de 20, générés par le
  * framework, impossibles à figer par hash puisqu'ils diffèrent par page et
  * par build). Le résidu de risque est faible ici : aucun point du site
- * n'injecte de HTML à partir d'une entrée utilisateur (voir l'audit
+ * n'injecte de HTML à partir d'une entrée **utilisateur** (voir l'audit
  * sécurité) — sans point d'injection, `'unsafe-inline'` n'a rien à exploiter.
+ * Le blogue injecte bien du HTML (`components/marketing/blogue/PageArticle.tsx`),
+ * mais il vient de notre propre compte BabyLoveGrowth, lu côté serveur avec
+ * une clé privée : c'est du contenu rédigé par nous, pas une entrée d'un
+ * visiteur. La phrase reste vraie à ce détail près, et il faut le savoir.
  * `style-src` a besoin d'`'unsafe-inline'` pour la même raison structurelle :
  * la recoloration du thème (`--acc`, `--soft`, `--sky`) repose sur des
  * attributs `style=""` en ligne dans de nombreux composants.
@@ -37,6 +41,10 @@ const CSP = [
   "default-src 'self'",
   `script-src 'self' 'unsafe-inline'${EVAL_DEV} https://matomo.cloudparadise.cloud`,
   "style-src 'self' 'unsafe-inline'",
+  // À FAIRE — blogue : les images d'articles (vignettes et images dans le
+  // corps) vivent chez BabyLoveGrowth et sont bloquées tant que leur host
+  // n'est pas listé ici. Il se lit dans `hero_image_url` du premier article
+  // publié ; l'ajouter en `https://<host>` à la suite de `blob:`.
   "img-src 'self' data: blob:",
   "font-src 'self'",
   "connect-src 'self' https://matomo.cloudparadise.cloud",
