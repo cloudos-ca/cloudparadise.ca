@@ -1,4 +1,4 @@
-import { MatomoAnalytics } from "@/components/marketing/MatomoAnalytics";
+import { GoogleAnalytics } from "@/components/marketing/GoogleAnalytics";
 import { EST_PRODUCTION, SITE_URL } from "@/lib/site";
 import { archivo, manrope } from "@/app/fonts";
 import {
@@ -96,14 +96,11 @@ export function RootDocument({
         />
         {children}
         {/* Site entier (FR + EN), et production seulement.
-            Le consentement (voir MatomoAnalytics.tsx) est une deuxième porte,
+            Le consentement (voir GoogleAnalytics.tsx) est une deuxième porte,
             pas la première : hors production le composant ne monte pas du tout.
-            Trois raisons plutôt qu'une — le `setCookieDomain` du script est posé
-            sur `.cloudos.ca`, qu'un navigateur refuse depuis
-            `cloudparadise.dev` (chaque page vue y comptait un visiteur
-            neuf) ; l'ID de site est le même qu'en production ; et le trafic de
-            développement se mélangeait donc aux statistiques du vrai site. */}
-        {EST_PRODUCTION ? <MatomoAnalytics /> : null}
+            L'identifiant de mesure est le même partout, et le trafic de
+            développement se mélangerait sinon aux statistiques du vrai site. */}
+        {EST_PRODUCTION ? <GoogleAnalytics /> : null}
       </body>
     </html>
   );

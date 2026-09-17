@@ -11,18 +11,25 @@ import type { NextConfig } from "next";
  * empiriquement — une seule page en contient plus de 20, générés par le
  * framework, impossibles à figer par hash puisqu'ils diffèrent par page et
  * par build). Le résidu de risque est faible ici : aucun point du site
- * n'injecte de HTML à partir d'une entrée utilisateur (voir l'audit
+ * n'injecte de HTML à partir d'une entrée **utilisateur** (voir l'audit
  * sécurité) — sans point d'injection, `'unsafe-inline'` n'a rien à exploiter.
+ * Le blogue injecte bien du HTML (`components/marketing/blogue/PageArticle.tsx`),
+ * mais il vient de notre propre compte BabyLoveGrowth, lu côté serveur avec
+ * une clé privée : c'est du contenu rédigé par nous, pas une entrée d'un
+ * visiteur. La phrase reste vraie à ce détail près, et il faut le savoir.
  * `style-src` a besoin d'`'unsafe-inline'` pour la même raison structurelle :
  * la recoloration du thème (`--acc`, `--soft`, `--sky`) repose sur des
  * attributs `style=""` en ligne dans de nombreux composants.
  *
- * Un seul domaine externe autorisé : Matomo, auto-hébergé
- * (matomo.cloudparadise.cloud). google.com et gstatic.com y figuraient pour
- * reCAPTCHA v3 sur /contact ; le formulaire se protège désormais sans tiers
- * (voir lib/jetonContact.ts), et plus aucune page n'appelle Google — la CSP le
- * dit maintenant explicitement. `frame-src` a disparu avec eux : aucune iframe
- * nulle part, donc `default-src 'self'` suffit.
+ * Seuls tiers autorisés : les hôtes de Google Analytics 4 (gtag.js), listés
+ * d'après le guide « Content Security Policy » de la plateforme Google tag —
+ * le chargeur vient de googletagmanager.com, les mesures partent en `fetch`
+ * ou en balise image vers google-analytics.com et analytics.google.com, avec
+ * des sous-domaines régionaux (`region1.`…) d'où les jokers. Ils ont remplacé
+ * matomo.cloudparadise.cloud le 2026-09-17 (voir GoogleAnalytics.tsx).
+ * google.com et gstatic.com y figuraient avant pour reCAPTCHA v3 sur /contact ;
+ * le formulaire se protège désormais sans tiers (voir lib/jetonContact.ts).
+ * `frame-src` reste à `'none'` : aucune iframe nulle part.
  *
  * `'unsafe-eval'` est ajouté UNIQUEMENT en développement : le mode dev de
  * React s'appuie sur `eval()` pour certaines fonctions de débogage (overlay
@@ -35,11 +42,15 @@ const EVAL_DEV = process.env.NODE_ENV === "production" ? "" : " 'unsafe-eval'";
 
 const CSP = [
   "default-src 'self'",
-  `script-src 'self' 'unsafe-inline'${EVAL_DEV} https://matomo.cloudparadise.cloud`,
+  `script-src 'self' 'unsafe-inline'${EVAL_DEV} https://*.googletagmanager.com`,
   "style-src 'self' 'unsafe-inline'",
-  "img-src 'self' data: blob:",
+  // Le host Supabase est celui des images d'articles du blogue (vignettes et
+  // images dans le corps), servies par le stockage de BabyLoveGrowth — relevé
+  // dans `hero_image_url` le 2026-09-17. S'il change, les images du blogue
+  // disparaissent sans erreur visible : c'est ici qu'il faut regarder.
+  "img-src 'self' data: blob: https://*.google-analytics.com https://*.googletagmanager.com https://csuxjmfbwmkxiegfpljm.supabase.co",
   "font-src 'self'",
-  "connect-src 'self' https://matomo.cloudparadise.cloud",
+  "connect-src 'self' https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com",
   "frame-src 'none'",
   "object-src 'none'",
   "base-uri 'self'",

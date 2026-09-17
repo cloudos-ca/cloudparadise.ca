@@ -7,14 +7,15 @@ import { LIEN_CONNEXION } from "@/lib/site";
  *
  * Quatre colonnes : le produit (Plateforme/Calcul/Mines/Tarifs), les pages
  * qu'on lit une fois convaincu (Fonctions, Sécurité, connexion), l'entreprise
- * (Contact), enfin le légal. Le pied de page est le seul endroit où Mines et
- * Sécurité sont accessibles globalement, la barre de menu ne les portant plus.
+ * (Contact, Blogue), enfin le légal. Le pied de page est le seul endroit où
+ * Mines et Sécurité sont accessibles globalement, la barre de menu ne les
+ * portant plus.
  *
  * `Contact` a sa propre colonne et non celle du légal : écrire pour joindre
  * quelqu'un n'est pas un document contractuel, et le ranger à côté des
  * Conditions laissait entendre qu'il fallait une raison juridique pour nous
- * écrire. Une colonne d'un seul lien est ici assumée — les hauteurs
- * descendent 4/3/1/2, ce qui se lit comme un escalier plutôt qu'un trou.
+ * écrire. Le blogue l'y rejoint : c'est la voix de l'entreprise, pas une page
+ * produit. Les hauteurs descendent 5/3/2/2, un escalier plutôt qu'un trou.
  *
  * Tous les liens visent de vraies pages — jamais d'ancre inerte.
  */
@@ -42,7 +43,10 @@ const COLONNES = {
     },
     {
       titre: "Entreprise",
-      liens: [{ libelle: "Contact", href: "/contact" }],
+      liens: [
+        { libelle: "Contact", href: "/contact" },
+        { libelle: "Blogue", href: "/blogue" },
+      ],
     },
     {
       titre: "Légal",
@@ -73,7 +77,10 @@ const COLONNES = {
     },
     {
       titre: "Company",
-      liens: [{ libelle: "Contact", href: "/en/contact" }],
+      liens: [
+        { libelle: "Contact", href: "/en/contact" },
+        { libelle: "Blog", href: "/en/blog" },
+      ],
     },
     {
       titre: "Legal",

@@ -42,6 +42,9 @@ const NAV = [
   { libelle: { fr: "PME", en: "Small business" }, fr: "/pme" },
   { libelle: { fr: "Fonctions", en: "Features" }, fr: "/fonctions" },
   { libelle: { fr: "Tarifs", en: "Pricing" }, fr: "/tarifs" },
+  // En dernier : le blogue informe, il ne vend pas — il ne dispute pas sa
+  // place aux pages qui convertissent.
+  { libelle: { fr: "Blogue", en: "Blog" }, fr: "/blogue" },
 ] as const;
 
 /**

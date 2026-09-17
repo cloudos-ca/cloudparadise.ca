@@ -59,7 +59,7 @@ export const ICONS: Metadata["icons"] = {
  * (valeurs par défaut) et `app/(marketing)/page.tsx` (metadata explicite +
  * alternates), pour ne pas les dupliquer en texte libre à deux endroits. */
 export const TITRE_ACCUEIL =
-  "Cloud OS — Votre poste de travail cloud";
+  "Cloud OS — Votre poste de travail cloud, hébergé au Québec";
 export const DESCRIPTION_ACCUEIL =
   "Un bureau en ligne complet : calcul lourd en langage humain, applications professionnelles et collaboration d'équipe. Hébergé au Québec, sans rien installer.";
 

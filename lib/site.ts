@@ -244,6 +244,20 @@ export const PAGES: readonly PageSite[] = [
     },
   },
   {
+    // Les index seulement : les articles n'ont pas de paire FR/EN (chaque
+    // texte est écrit dans une langue), ils sont annoncés par le sitemap du
+    // blogue (`/blogue/sitemap.xml`), sans hreflang. Voir `lib/blogue.ts`.
+    fr: "/blogue",
+    en: "/en/blog",
+    priority: 0.7,
+    changeFrequency: "weekly",
+    titre: { fr: "Blogue", en: "Blog" },
+    resume: {
+      fr: "articles et guides sur le travail en ligne, le calcul lourd en langage humain et l'hébergement au Québec.",
+      en: "articles and guides on online work, plain-language heavy compute, and hosting in Québec.",
+    },
+  },
+  {
     fr: "/contact",
     en: "/en/contact",
     priority: 0.5,
