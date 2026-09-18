@@ -1,5 +1,6 @@
 import type { BlogArticle } from "babylovegrowth-next-js-blog";
 import migratingToTheCloud from "./migrating-to-the-cloud.json";
+import secureFileSharing from "./secure-file-sharing.json";
 
 /**
  * Les articles du blogue traduits en anglais — un fichier JSON par article,
@@ -57,4 +58,7 @@ export type ArticleTraduit = Pick<
   source: { slug: string; updated_at: string };
 };
 
-export const TRADUCTIONS: readonly ArticleTraduit[] = [migratingToTheCloud];
+export const TRADUCTIONS: readonly ArticleTraduit[] = [
+  migratingToTheCloud,
+  secureFileSharing,
+];
