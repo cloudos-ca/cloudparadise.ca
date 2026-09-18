@@ -139,3 +139,88 @@ describe("corpsSansEntete", () => {
     );
   });
 });
+
+// --- Traductions du dépôt --------------------------------------------------
+
+import type { ArticleTraduit } from "@/content/blogue/en";
+import { avecTraductions, enArticle, etatDesTraductions, jumeaux } from "./blogue";
+
+function traduction(
+  partiel: Partial<ArticleTraduit> & { slug: string; source: ArticleTraduit["source"] },
+): ArticleTraduit {
+  return {
+    id: 1,
+    title: partiel.slug,
+    hero_image_url: "",
+    meta_description: "",
+    excerpt: "",
+    created_at: "2026-09-01T00:00:00Z",
+    updated_at: "2026-09-01T00:00:00Z",
+    keywords: [],
+    content_html: "",
+    jsonLd: null,
+    faqJsonLd: null,
+    ...partiel,
+  };
+}
+
+const SOURCE = { slug: "migration-vers-le-cloud", updated_at: "2026-09-17T17:30:04.518Z" };
+
+describe("enArticle", () => {
+  it("donne un article anglais publié, sans le champ source", () => {
+    const a = enArticle(traduction({ slug: "migrating", source: SOURCE }));
+    assert.equal(a.languageCode, "en");
+    assert.equal(a.published, true);
+    assert.equal("source" in a, false);
+  });
+});
+
+describe("avecTraductions", () => {
+  it("ajoute les traductions aux articles de l'API, du plus récent au plus ancien", () => {
+    const api = [article({ slug: "api-en", languageCode: "en", created_at: "2026-09-10T00:00:00Z" })];
+    const t = [traduction({ slug: "migrating", source: SOURCE, created_at: "2026-09-17T00:00:00Z" })];
+    assert.deepEqual(avecTraductions(api, t).map((a) => a.slug), ["migrating", "api-en"]);
+  });
+
+  it("à slug égal, garde la traduction", () => {
+    const api = [article({ slug: "meme", languageCode: "en", title: "API" })];
+    const t = [traduction({ slug: "meme", source: SOURCE, title: "Dépôt" })];
+    const fusion = avecTraductions(api, t);
+    assert.equal(fusion.length, 1);
+    assert.equal(fusion[0].title, "Dépôt");
+  });
+});
+
+describe("jumeaux", () => {
+  const t = [traduction({ slug: "migrating-to-the-cloud", source: SOURCE })];
+
+  it("jumelle un article FR à sa traduction, et la traduction à sa source", () => {
+    const attendu = { fr: "/blogue/migration-vers-le-cloud", en: "/en/blog/migrating-to-the-cloud" };
+    assert.deepEqual(jumeaux("migration-vers-le-cloud", "fr", t), attendu);
+    assert.deepEqual(jumeaux("migrating-to-the-cloud", "en", t), attendu);
+  });
+
+  it("ne jumelle rien à un article sans traduction, ni à un slug croisé", () => {
+    assert.equal(jumeaux("autre", "fr", t), null);
+    assert.equal(jumeaux("migration-vers-le-cloud", "en", t), null);
+  });
+});
+
+describe("etatDesTraductions", () => {
+  it("distingue traduit, absente et modifiee", () => {
+    const fr = [
+      article({ slug: "migration-vers-le-cloud", updated_at: SOURCE.updated_at }),
+      article({ slug: "retouche", updated_at: "2026-09-20T00:00:00Z" }),
+      article({ slug: "nouveau" }),
+    ];
+    const t = [
+      traduction({ slug: "migrating-to-the-cloud", source: SOURCE }),
+      traduction({ slug: "touched-up", source: { slug: "retouche", updated_at: "2026-09-18T00:00:00Z" } }),
+    ];
+    assert.deepEqual(etatDesTraductions(fr, t), [
+      { slug: "migration-vers-le-cloud", etat: "traduit", traduction: "migrating-to-the-cloud" },
+      { slug: "retouche", etat: "modifiee", traduction: "touched-up" },
+      { slug: "nouveau", etat: "absente" },
+    ]);
+  });
+});

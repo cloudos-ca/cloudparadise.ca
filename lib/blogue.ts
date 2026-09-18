@@ -4,6 +4,7 @@ import {
   type BlogArticleSummary,
 } from "babylovegrowth-next-js-blog";
 import type { Lang } from "@/components/marketing/tokens";
+import { type ArticleTraduit, TRADUCTIONS } from "@/content/blogue/en";
 
 /**
  * Le blogue — lecture des articles publiés sur BabyLoveGrowth.
@@ -37,10 +38,21 @@ import type { Lang } from "@/components/marketing/tokens";
  * Chaque article porte un `languageCode` (`fr`, `en`, parfois régionalisé :
  * `fr-CA`). `/blogue` n'affiche que les articles français, `/en/blog` que les
  * anglais — et un slug français demandé sous `/en/blog` est un 404, pas une
- * page anglaise qui parle français. Il n'y a pas de paire FR/EN par article
- * (chaque texte est écrit dans une langue, pas traduit), donc pas de
- * `hreflang` entre articles : seuls les index `/blogue` ↔ `/en/blog` sont
- * jumelés (voir `PAGES`, lib/site.ts).
+ * page anglaise qui parle français.
+ *
+ * ## Les traductions du dépôt
+ *
+ * BabyLoveGrowth n'écrit qu'en français (l'anglais est un supplément payant).
+ * La section anglaise sert donc, en plus des articles `en` que l'API pourrait
+ * un jour renvoyer, les traductions maintenues dans `content/blogue/en/` (voir
+ * l'en-tête de son `index.ts`). Un article de l'API et une traduction de même
+ * slug : la traduction gagne — un slug ne peut pas mener à deux pages, et la
+ * traduction se lit sans réseau, donc un slug traduit ne coûte aucun appel à
+ * l'API (ni son erreur au journal quand elle ne le connaît pas). Les slugs
+ * anglais sont choisis ici, une collision serait de notre fait. Chaque traduction connaît son article source, ce qui jumelle
+ * les deux versions : `jumeaux` donne le pendant d'un article dans
+ * l'autre langue, et les pages en font des `hreflang`. Un article sans
+ * pendant n'en déclare aucun.
  */
 
 /** Chemin de l'index du blogue, par langue. Le miroir de `PAGES` — les deux doivent coïncider. */
@@ -149,6 +161,96 @@ export function paginer<T>(
 }
 
 /**
+ * Une traduction du dépôt, dans la forme d'un article de l'API : c'est ce que
+ * les composants attendent, et ils n'ont pas à savoir d'où vient le texte.
+ */
+export function enArticle(traduction: ArticleTraduit): BlogArticle {
+  return {
+    id: traduction.id,
+    title: traduction.title,
+    slug: traduction.slug,
+    hero_image_url: traduction.hero_image_url,
+    meta_description: traduction.meta_description,
+    excerpt: traduction.excerpt,
+    created_at: traduction.created_at,
+    updated_at: traduction.updated_at,
+    keywords: traduction.keywords,
+    content_html: traduction.content_html,
+    jsonLd: traduction.jsonLd,
+    faqJsonLd: traduction.faqJsonLd,
+    languageCode: "en",
+    published: true,
+    orgWebsite: "",
+    seedKeyword: null,
+    content_markdown: "",
+  };
+}
+
+/**
+ * Les articles anglais de l'API complétés des traductions, du plus récent au
+ * plus ancien. À slug égal, la traduction gagne (voir l'en-tête).
+ */
+export function avecTraductions(
+  api: readonly BlogArticleSummary[],
+  traductions: readonly ArticleTraduit[] = TRADUCTIONS,
+): BlogArticleSummary[] {
+  const slugsTraduits = new Set(traductions.map((t) => t.slug));
+  const apiSansDoublon = api.filter((a) => !slugsTraduits.has(a.slug));
+  return [...apiSansDoublon, ...traductions.map(enArticle)].sort(
+    (a, b) => Date.parse(b.created_at) - Date.parse(a.created_at),
+  );
+}
+
+/** Chemins d'un article et de son pendant dans l'autre langue. */
+export type Jumeaux = Readonly<Record<Lang, string>>;
+
+/**
+ * Le pendant d'un article dans l'autre langue, ou `null` s'il n'en a pas.
+ *
+ * Seules les traductions du dépôt créent des paires : un article FR est
+ * jumelé à la traduction qui le cite en `source`, une traduction à sa source.
+ * Un article `en` venu de l'API n'a pas de pendant connu.
+ */
+export function jumeaux(
+  slug: string,
+  lang: Lang,
+  traductions: readonly ArticleTraduit[] = TRADUCTIONS,
+): Jumeaux | null {
+  const traduction =
+    lang === "fr"
+      ? traductions.find((t) => t.source.slug === slug)
+      : traductions.find((t) => t.slug === slug);
+  if (!traduction) return null;
+  return {
+    fr: `${CHEMIN_BLOGUE.fr}/${traduction.source.slug}`,
+    en: `${CHEMIN_BLOGUE.en}/${traduction.slug}`,
+  };
+}
+
+/** État d'un article français vis-à-vis de sa traduction, pour le script `blogue:a-traduire`. */
+export type EtatTraduction = "traduit" | "absente" | "modifiee";
+
+/**
+ * Pour chaque article français, dit si sa traduction existe et est à jour.
+ * `modifiee` : l'article FR a été retouché après la traduction (sa
+ * `updated_at` n'est plus celle notée dans `source`).
+ */
+export function etatDesTraductions(
+  articlesFr: readonly BlogArticleSummary[],
+  traductions: readonly ArticleTraduit[] = TRADUCTIONS,
+): { slug: string; etat: EtatTraduction; traduction?: string }[] {
+  return articlesFr.map((a) => {
+    const t = traductions.find((x) => x.source.slug === a.slug);
+    if (!t) return { slug: a.slug, etat: "absente" };
+    return {
+      slug: a.slug,
+      etat: t.source.updated_at === a.updated_at ? "traduit" : "modifiee",
+      traduction: t.slug,
+    };
+  });
+}
+
+/**
  * Journalise une panne de lecture sans la propager : voir l'en-tête, « Sans
  * clé, un blogue vide ».
  */
@@ -161,23 +263,29 @@ function signaler(contexte: string, erreur: unknown): void {
 export async function articlesParLangue(
   lang: Lang,
 ): Promise<BlogArticleSummary[]> {
+  let api: BlogArticleSummary[] = [];
   try {
     const tous = await clientBlogue().getAllArticles({ publishedOnly: true });
-    return articlesVisibles(tous, lang);
+    api = articlesVisibles(tous, lang);
   } catch (erreur) {
     signaler("liste des articles", erreur);
-    return [];
   }
+  return lang === "en" ? avecTraductions(api) : api;
 }
 
 /**
  * Un article par slug, s'il est publié **et** dans la langue de la section ;
- * `null` sinon — la page en fait un 404.
+ * `null` sinon — la page en fait un 404. En anglais, une traduction du dépôt
+ * répond d'abord, sans passer par l'API.
  */
 export async function articleParSlug(
   slug: string,
   lang: Lang,
 ): Promise<BlogArticle | null> {
+  if (lang === "en") {
+    const traduction = TRADUCTIONS.find((t) => t.slug === slug);
+    if (traduction) return enArticle(traduction);
+  }
   try {
     const article = await clientBlogue().getArticleBySlug(slug);
     if (!article?.published || !estDansLangue(article.languageCode, lang)) {
@@ -194,11 +302,17 @@ export async function articleParSlug(
 export async function entreesSitemap(
   lang: Lang,
 ): Promise<{ slug: string; updated_at: string }[]> {
+  let api: { slug: string; updated_at: string }[] = [];
   try {
     const entrees = await clientBlogue().getSitemapEntries();
-    return entrees.filter((e) => estDansLangue(e.languageCode, lang));
+    api = entrees.filter((e) => estDansLangue(e.languageCode, lang));
   } catch (erreur) {
     signaler("sitemap", erreur);
-    return [];
   }
+  if (lang !== "en") return api;
+  const slugsTraduits = new Set(TRADUCTIONS.map((t) => t.slug));
+  return [
+    ...api.filter((e) => !slugsTraduits.has(e.slug)),
+    ...TRADUCTIONS.map((t) => ({ slug: t.slug, updated_at: t.updated_at })),
+  ];
 }
