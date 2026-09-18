@@ -31,8 +31,9 @@ export function metadonneesIndex(lang: Lang): Metadata {
  *
  * Canonical et `og:url` seulement en production, pour la raison développée
  * dans `alternatesBilingues` (lib/seo.ts) : une préproduction ne revendique
- * pas les adresses du vrai site. Pas d'`alternates.languages` : l'article n'a
- * pas de version dans l'autre langue.
+ * pas les adresses du vrai site. Pas d'`alternates.languages` : les hreflang
+ * d'un article, quand il a un pendant traduit, sont rendus par
+ * `HreflangLinks` dans `PageArticle`, comme sur le reste du site.
  *
  * `openGraphPage` n'est pas réutilisée : elle décrit une page (`type:
  * "website"`), et un article se déclare comme tel, avec ses dates — ce que

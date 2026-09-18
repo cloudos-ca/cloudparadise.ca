@@ -1,9 +1,10 @@
 import type { BlogArticle } from "babylovegrowth-next-js-blog";
 import Link from "next/link";
 import { BreadcrumbJsonLd } from "@/components/marketing/BreadcrumbJsonLd";
+import { HreflangLinks } from "@/components/marketing/HreflangLinks";
 import { LECTURE, SECTION_Y, SHELL, type Lang } from "@/components/marketing/tokens";
 import { libelleBlogue } from "@/content/blogue";
-import { CHEMIN_BLOGUE, corpsSansEntete } from "@/lib/blogue";
+import { CHEMIN_BLOGUE, corpsSansEntete, jumeaux } from "@/lib/blogue";
 import { ArticleJsonLd } from "./ArticleJsonLd";
 import { formaterDate } from "./dates";
 
@@ -17,14 +18,18 @@ import { formaterDate } from "./dates";
  * utilisateur. Le jour où ce HTML viendrait d'ailleurs, il faudrait le
  * nettoyer avant de l'injecter.
  *
- * Pas de `HreflangLinks` : un article est écrit dans une langue, il n'a pas de
- * jumeau dans l'autre (voir l'en-tête de `lib/blogue.ts`).
+ * `HreflangLinks` seulement quand l'article a un pendant dans l'autre langue
+ * — une traduction du dépôt, voir `jumeaux` dans `lib/blogue.ts`. Un article
+ * sans pendant ne déclare rien : un hreflang vers un 404 est une erreur
+ * Search Console, et même le `x-default` supposerait une version française
+ * qu'un article anglais venu de l'API n'a pas.
  */
 export function PageArticle({
   article,
   lang,
 }: Readonly<{ article: BlogArticle; lang: Lang }>) {
   const index = CHEMIN_BLOGUE[lang];
+  const pendant = jumeaux(article.slug, lang);
   const publie = formaterDate(article.created_at, lang);
   const misAJour =
     article.updated_at && article.updated_at !== article.created_at
@@ -33,6 +38,7 @@ export function PageArticle({
 
   return (
     <section className="relative" data-page-sobre>
+      {pendant ? <HreflangLinks fr={pendant.fr} en={pendant.en} /> : null}
       <ArticleJsonLd data={article.jsonLd} />
       <ArticleJsonLd data={article.faqJsonLd} />
       <BreadcrumbJsonLd
