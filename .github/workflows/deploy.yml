@@ -1,0 +1,111 @@
+# Déploiement du site après l'image : dev → aws-dev (/srv/dev/cloudos-site), main → aws-sites
+# (/srv/sites/cloudos-site). Le .env vit sur l'hôte ; le job ne fait que pull + up -d + vérification.
+# Package ghcr.io/cloudos-ca/cloudparadise.ca/app privé : login GITHUB_TOKEN nécessaire (pas anonyme).
+name: Deploy
+on:
+  workflow_run:
+    workflows: [Image]
+    types: [completed]
+    branches: [main, dev]
+
+env:
+  IMAGE: ghcr.io/cloudos-ca/cloudparadise.ca/app
+
+jobs:
+  wake-dev:
+    if: github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.head_branch == 'dev'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: read
+    env:
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_DEV_WAKER_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_DEV_WAKER_SECRET }}
+      AWS_DEFAULT_REGION: ca-central-1
+      INSTANCE: ${{ secrets.AWS_DEV_INSTANCE_ID }}
+    steps:
+      - name: Démarrer aws-dev si elle dort
+        run: |
+          set -euo pipefail
+          state() { aws ec2 describe-instances --instance-ids "$INSTANCE" --query 'Reservations[0].Instances[0].State.Name' --output text; }
+          st=$(state)
+          echo "état : $st"
+          for _ in $(seq 1 24); do
+            [ "$st" != stopping ] && break
+            sleep 5
+            st=$(state)
+            echo "état : $st"
+          done
+          [ "$st" = running ] || aws ec2 start-instances --instance-ids "$INSTANCE" >/dev/null
+          aws ec2 wait instance-running --instance-ids "$INSTANCE"
+      # Voir cloudos-ca/cloudparadise_hpc .github/workflows/deploy.yml (job wake-dev) : GITHUB_TOKEN
+      # ne peut pas lister les runners (403 org), on attend un temps fixe après instance-running.
+      - name: Attendre le démarrage du runner aws-dev-1
+        run: sleep 60
+
+  deploy-prod:
+    if: github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.head_branch == 'main'
+    runs-on: [self-hosted, aws-sites]
+    timeout-minutes: 15
+    concurrency:
+      group: deploy-site-main
+      cancel-in-progress: false
+    permissions:
+      contents: read
+      packages: read
+    steps:
+      - name: Déployer
+        env:
+          DOCKER_CONFIG: ${{ runner.temp }}/docker
+          SHA: ${{ github.event.workflow_run.head_sha }}
+        run: |
+          set -euo pipefail
+          dir=/srv/sites/cloudos-site
+          echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u "${{ github.actor }}" --password-stdin
+          export APP_IMAGE="$IMAGE:$SHA"
+          cd "$dir"
+          docker compose pull
+          docker compose up -d
+          attendu=$(docker image inspect "$APP_IMAGE" --format '{{.Id}}')
+          obtenu=$(docker inspect "$(docker compose ps -q app)" --format '{{.Image}}')
+          [ "$attendu" = "$obtenu" ] || { echo "ECHEC : conteneur sur $obtenu, attendu $attendu" >&2; exit 1; }
+          docker image prune -f >/dev/null
+      - name: Nettoyer
+        if: always()
+        env:
+          DOCKER_CONFIG: ${{ runner.temp }}/docker
+        run: docker logout ghcr.io >/dev/null 2>&1 || true; rm -rf "$DOCKER_CONFIG"
+
+  deploy-dev:
+    if: github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.head_branch == 'dev'
+    needs: wake-dev
+    runs-on: [self-hosted, aws-dev]
+    timeout-minutes: 15
+    concurrency:
+      group: deploy-site-dev
+      cancel-in-progress: false
+    permissions:
+      contents: read
+      packages: read
+    steps:
+      - name: Déployer
+        env:
+          DOCKER_CONFIG: ${{ runner.temp }}/docker
+          SHA: ${{ github.event.workflow_run.head_sha }}
+        run: |
+          set -euo pipefail
+          dir=/srv/dev/cloudos-site
+          echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u "${{ github.actor }}" --password-stdin
+          export APP_IMAGE="$IMAGE:$SHA"
+          cd "$dir"
+          docker compose pull
+          docker compose up -d
+          attendu=$(docker image inspect "$APP_IMAGE" --format '{{.Id}}')
+          obtenu=$(docker inspect "$(docker compose ps -q app)" --format '{{.Image}}')
+          [ "$attendu" = "$obtenu" ] || { echo "ECHEC : conteneur sur $obtenu, attendu $attendu" >&2; exit 1; }
+          docker image prune -f >/dev/null
+      - name: Nettoyer
+        if: always()
+        env:
+          DOCKER_CONFIG: ${{ runner.temp }}/docker
+        run: docker logout ghcr.io >/dev/null 2>&1 || true; rm -rf "$DOCKER_CONFIG"
