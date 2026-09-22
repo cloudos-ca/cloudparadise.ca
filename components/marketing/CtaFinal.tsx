@@ -1,6 +1,7 @@
 import { FenetreCta } from "./FenetreCta";
 import { Reveal } from "./Reveal";
 import { IconCheck } from "./icons";
+import { ESSAI_JOURS } from "./offre";
 import { SECTION_Y, SHELL, type Lang } from "./tokens";
 import { lienInscription } from "@/lib/site";
 
@@ -15,16 +16,16 @@ import { lienInscription } from "@/lib/site";
  */
 const PROMESSES = {
   fr: [
-    "Crédits offerts",
+    `${ESSAI_JOURS} jours d’essai gratuit`,
     "Sans carte requise",
     "Première tâche sans fichier",
-    "Crédits ou abonnement, au choix",
+    "Personnel ou Entreprise, au choix",
   ],
   en: [
-    "Free credits",
+    `${ESSAI_JOURS}-day free trial`,
     "No card required",
     "First task, no file needed",
-    "Credits or subscription — your choice",
+    "Personal or Business — your choice",
   ],
 } as const;
 

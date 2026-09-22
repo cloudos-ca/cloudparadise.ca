@@ -17,12 +17,6 @@ import {
   TELEPHONE,
   TELEPHONE_LIEN,
 } from "@/components/marketing/coordonnees";
-import { GrilleTarifaireLegale } from "@/components/marketing/GrilleTarifaireLegale";
-// Voir la version française : mêmes montants, même source, devise épelée.
-import {
-  CREDIT_EN_DEVISE,
-  CREDITS_OFFERTS,
-} from "@/components/marketing/offre";
 import { ListeNumerotee } from "@/components/marketing/ListeNumerotee";
 import { LECTURE, SECTION_Y, SHELL } from "@/components/marketing/tokens";
 import {
@@ -34,7 +28,7 @@ import {
 
 const TITRE = "Terms of Use — Cloud OS";
 const DESCRIPTION =
-  "Cloud OS Terms of Use: your account, credits and pricing, acceptable use, ownership of your content, warranties, and the governing law.";
+  "Cloud OS Terms of Use: your account and subscription, acceptable use, ownership of your content, warranties, and the governing law.";
 
 export const metadata: Metadata = {
   title: TITRE,
@@ -128,11 +122,6 @@ const SECTIONS: readonly SectionRedigee[] = [
             texte: "the files or data produced by a Run.",
           },
           {
-            terme: "Credits:",
-            texte:
-              "the prepayment unit used to pay for the execution of Jobs (see article 6).",
-          },
-          {
             terme: "Team:",
             texte:
               "a collaboration space allowing you to share files and Jobs with other users.",
@@ -199,70 +188,6 @@ const SECTIONS: readonly SectionRedigee[] = [
             terme: "One account per person.",
             texte:
               "You may not share your credentials or transfer your account without our prior written authorization. To collaborate, use Teams instead (article 9).",
-          },
-        ],
-      },
-    ],
-  },
-  {
-    titre: "Credits, pricing, and billing",
-    blocs: [
-      {
-        liste: [
-          {
-            terme: "“Pay-as-you-go” model.",
-            texte: `The Service operates on prepaid credits. 1 credit equals ${CREDIT_EN_DEVISE} Canadian dollar (CAD). Each Job consumes a number of credits depending on the type of engine used.`,
-          },
-          {
-            terme: "Sign-up credit bonus.",
-            texte: `A welcome amount of credits (currently the equivalent of CAD ${CREDITS_OFFERTS}) may be offered when you create your account, no credit card required. This amount is promotional, has no cash value, is non-refundable and non-transferable, and may be changed or withdrawn at any time.`,
-          },
-        ],
-      },
-      <>
-        <strong className="font-semibold text-white">Job pricing.</strong>{" "}
-        The price of each type of job is displayed in the Service and on our
-        site before execution. For guidance only, and subject to change,
-        per-run rates are approximately:
-      </>,
-      { brut: <GrilleTarifaireLegale lang="en" /> },
-      "The prices in effect are those displayed in the Service at the time you submit a Job.",
-      {
-        liste: [
-          {
-            // ⚠️ CONTREDIT PAR LE CODE APPLICATIF — voir le commentaire jumeau
-            // dans `app/(marketing)/conditions/page.tsx`, bloc « Débit des
-            // crédits ». Relevé le 2026-08-02, non corrigé ici volontairement :
-            // texte contractuel, décision du juriste.
-            terme: "Credit deduction.",
-            texte:
-              "Credits are deducted as the Run progresses, not when it starts: what has been processed is charged, what has not is not, and Results already produced remain yours. A Run interrupted by a failure of our infrastructure is retried without a further deduction. Where invalid User Content or incorrect instructions prevent a Run from completing, we tell you the cause and you may correct it and relaunch on the same credit. Computing capacity actually consumed remains billable, including where the Result you obtain does not satisfy you.",
-          },
-          {
-            terme: "Topping up credits.",
-            texte:
-              "Purchasing additional credits is done using the payment methods offered in the Service (including PayPal). Payments are processed by third-party providers, under their own terms; we do not store the complete data of your payment instruments.",
-          },
-          {
-            terme: "Refunds.",
-            texte: (
-              <>
-                Except as otherwise provided by applicable law — notably
-                Quebec’s <em>Consumer Protection Act</em> — purchased credits
-                are non-refundable once consumed. Unused credits may be
-                refunded at our discretion or where required by law. For any
-                request, write to{" "}
-                <a href={`mailto:${COURRIEL}`}>
-                  {COURRIEL}
-                </a>
-                {"."}
-              </>
-            ),
-          },
-          {
-            terme: "Taxes.",
-            texte:
-              "Displayed prices may exclude applicable taxes (GST/QST). Required taxes will be added where applicable.",
           },
         ],
       },
@@ -410,7 +335,7 @@ const SECTIONS: readonly SectionRedigee[] = [
           {
             terme: "Effects of termination.",
             texte:
-              "Once the 30-day grace period has elapsed, your access to the Service ends and your entire account — User Content, Results, and account information — is permanently purged, subject to temporary technical backups. Invoices are kept for six (6) years to meet tax and accounting obligations; the privacy policy sets out the applicable periods. Unused credits from an account closed for breach of the Terms may be forfeited, to the extent permitted by law. The provisions that by their nature must survive termination — notably your responsibilities regarding User Content (article 8), as well as articles 12, 14, 15, 16, and 18 — remain in effect.",
+              "Once the 30-day grace period has elapsed, your access to the Service ends and your entire account — User Content, Results, and account information — is permanently purged, subject to temporary technical backups. Invoices are kept for six (6) years to meet tax and accounting obligations; the privacy policy sets out the applicable periods. The provisions that by their nature must survive termination — notably your responsibilities regarding User Content (article 8), as well as articles 12, 14, 15, 16, and 18 — remain in effect.",
           },
         ],
       },

@@ -4,7 +4,6 @@ import {
   AncresSections,
   type Ancre,
 } from "@/components/marketing/AncresSections";
-import { prixAbonnementDepuis } from "@/components/marketing/abonnements";
 import { BoutonCta } from "@/components/marketing/BoutonCta";
 import { BreadcrumbJsonLd } from "@/components/marketing/BreadcrumbJsonLd";
 import { FenetreCta } from "@/components/marketing/FenetreCta";
@@ -12,7 +11,7 @@ import { HreflangLinks } from "@/components/marketing/HreflangLinks";
 import { JobPanel } from "@/components/marketing/JobPanel";
 import { Reveal } from "@/components/marketing/Reveal";
 import { WindowCard } from "@/components/marketing/WindowCard";
-import { libelleDe, type TypeTache } from "@/components/marketing/offre";
+import { PALIERS, enDevise, libelleDe, type TypeTache } from "@/components/marketing/offre";
 import { SECTION_Y, SHELL } from "@/components/marketing/tokens";
 import { alternatesBilingues, openGraphPage } from "@/lib/seo";
 import { lienInscription } from "@/lib/site";
@@ -202,15 +201,15 @@ export default function CalculPage() {
               <LienOr href="/tarifs">Voir les tarifs</LienOr>
             </div>
             <p className="mt-4 text-[13px] text-white/60">
-              Aussi disponible en abonnement,{" "}
+              Dès{" "}
               <a
-                href="/tarifs#abonnements"
+                href="/tarifs#forfaits"
                 data-cp-accent
                 className="text-cp-subtle underline-offset-4 hover:text-[var(--acc-text)] hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
               >
-                {prixAbonnementDepuis("fr")}
+                {enDevise(PALIERS[0].prixMensuel)}/mois
               </a>
-              .
+              , tout inclus.
             </p>
           </Reveal>
 

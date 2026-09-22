@@ -1,87 +1,142 @@
 import type { Lang } from "./tokens";
 
 /**
- * Conditions commerciales, en un seul endroit.
+ * L'offre commerciale, en un seul endroit : deux forfaits tout inclus, cinq durées, l'essai et la
+ * garantie. Le modèle « crédits » (grille de prix par tâche, recharge minimale, crédits offerts) a
+ * disparu le jour de la bascule — ce que le visiteur voit maintenant, c'est un abonnement et une
+ * jauge en pourcentage.
  *
- * Ces valeurs apparaissent à plusieurs endroits de la page — le hero les
- * promet, la section Tarification les détaille. Les centraliser évite qu'un
- * montant change ici sans changer là.
+ * Ces valeurs sont modifiables par un administrateur sans déploiement, côté application. Le test
+ * `lib/offre.test.ts` compare ce fichier à `GET /api/v1/pricing` de la production : si un prix bouge
+ * là-bas sans bouger ici, la CI rougit. C'est la réponse à deux divergences déjà vécues.
  */
 
-/** Taux réel : un crédit vaut une unité de devise. */
-export const CREDIT_EN_DEVISE = 1;
-
-/**
- * Dollar canadien. La forme « $ CA » est celle recommandée en français
- * canadien ; elle lève l'ambiguïté pour un visiteur hors Canada, ce que le
- * simple « $ » ne fait pas.
- */
+/** Dollar canadien. La forme « $ CA » lève l'ambiguïté pour un visiteur hors Canada. */
 export const DEVISE = "$ CA";
 
-/** Crédits offerts à la création du compte. */
-export const CREDITS_OFFERTS = 10;
+/** Essai gratuit, sans carte (spec §2). */
+export const ESSAI_JOURS = 14;
 
-/** Montant minimal d'une recharge. */
-export const RECHARGE_MINIMALE = 5;
+/** Satisfait ou remboursé, sur les engagements d'au moins `GARANTIE_DUREE_MIN` mois. */
+export const GARANTIE_JOURS = 30;
+export const GARANTIE_DUREE_MIN = 12;
 
 const nf = new Intl.NumberFormat("fr-CA");
 
 /** « 10 $ CA », prêt à insérer dans une phrase. */
-export const OFFRE_EN_DEVISE = `${nf.format(CREDITS_OFFERTS * CREDIT_EN_DEVISE)} ${DEVISE}`;
+export function enDevise(montant: number): string {
+  return `${nf.format(montant)} ${DEVISE}`;
+}
 
-/** « 5 $ CA », idem. */
-export const RECHARGE_MINIMALE_EN_DEVISE = `${nf.format(
-  RECHARGE_MINIMALE * CREDIT_EN_DEVISE,
-)} ${DEVISE}`;
+export type Palier = {
+  id: "personnel" | "entreprise";
+  nom: { fr: string; en: string };
+  /** Prix mensuel sans engagement, hors taxes. */
+  prixMensuel: number;
+  /** Enveloppe interne — jamais affichée telle quelle, elle sert à situer « ≈ N tâches ». */
+  enveloppe: number;
+  /** Ordre de grandeur affiché, arrondi : c'est la promesse, pas un quota. */
+  tachesParMois: number;
+  inclusions: { fr: readonly string[]; en: readonly string[] };
+};
+
+export const PALIERS: readonly Palier[] = [
+  {
+    id: "personnel",
+    nom: { fr: "Personnel", en: "Personal" },
+    prixMensuel: 10,
+    enveloppe: 30,
+    tachesParMois: 100,
+    inclusions: {
+      fr: ["Tous les moteurs", "Rejoindre une équipe et mettre son enveloppe en commun"],
+      en: ["Every engine", "Join a team and pool your allowance"],
+    },
+  },
+  {
+    id: "entreprise",
+    nom: { fr: "Entreprise", en: "Business" },
+    prixMensuel: 60,
+    enveloppe: 200,
+    tachesParMois: 650,
+    inclusions: {
+      fr: [
+        "Tous les moteurs",
+        "Bac à sable (bureau persistant)",
+        "1 site Hébergement Web",
+        "Créer une équipe jusqu'à 25 membres, avec pool",
+      ],
+      en: [
+        "Every engine",
+        "Sandbox (persistent desktop)",
+        "1 Web Hosting site",
+        "Create a team of up to 25 members, with pooling",
+      ],
+    },
+  },
+] as const;
+
+/** Le Bac à sable n'est plus vendu à part : il est inclus dans Entreprise (spec §3). Le nom reste
+ * pour les pages qui le citent comme fonctionnalité. */
+export const BAC_A_SABLE_NOM = { fr: "Bac à sable", en: "Sandbox" } as const;
+
+export type Duree = { mois: number; remisePct: number };
+
+/** Cinq durées, la remise croît avec l'engagement ; le prix ne change jamais au renouvellement. */
+export const DUREES: readonly Duree[] = [
+  { mois: 1, remisePct: 0 },
+  { mois: 3, remisePct: 5 },
+  { mois: 6, remisePct: 10 },
+  { mois: 12, remisePct: 20 },
+  { mois: 24, remisePct: 30 },
+] as const;
+
+/** Prix total et mensuel équivalent d'une durée. L'ORDRE des opérations compte : c'est celui de
+ * `termPrice` côté application (`src/lib/billing/plans.ts:21` — total d'abord, mensuel déduit), et
+ * le test anti-divergence compare les deux valeurs au cent près. Calculer le mensuel d'abord
+ * donnerait un total différent dès qu'une remise tombe mal. */
+export function prixDuree(palier: Palier, mois: number): { mensuel: number; total: number } {
+  const duree = DUREES.find((d) => d.mois === mois);
+  if (!duree) throw new Error(`durée inconnue : ${mois}`);
+  const au_cent = (n: number) => Math.round(n * 100) / 100;
+  const total = au_cent(palier.prixMensuel * mois * (1 - duree.remisePct / 100));
+  return { mensuel: au_cent(total / mois), total };
+}
 
 /**
- * Grille tarifaire — coût en crédits, et unité de débit quand ce n'est pas la
- * tâche.
+ * Grille des types de tâches — ce que fait chaque moteur, et l'unité qu'il consomme quand ce n'est
+ * pas la tâche.
  *
- * Source de vérité unique des prix : la section Tarification de la landing et
- * la page /tarifs lisent toutes les deux ici. Un prix ne doit jamais être
- * réécrit dans du JSX, sinon les deux surfaces divergent en silence.
+ * Le modèle « crédits » (prix par tâche) a disparu le jour de la bascule vers les forfaits : cette
+ * grille ne porte plus aucun montant. Elle reste la source unique de ce que fait chaque moteur —
+ * `libelleDe`, `uniteDe`, `estALaPiece` et `uniteExceptionDe` en dépendent, et plusieurs pages
+ * produit (/fonctions, /mines, /calcul, /pme, …) l'utilisent pour lister leurs moteurs.
  *
- * Les types listés ici doivent refléter les modes réellement facturés par
- * l'application (`src/lib/billing/pricing.ts` côté produit). Aucune surface de
- * la vitrine n'affiche leur nombre : ce décompte change avec le produit et un
- * chiffre figé devient faux sans prévenir.
+ * Les types listés ici doivent refléter les modes réellement offerts par l'application. Aucune
+ * surface de la vitrine n'affiche leur nombre : ce décompte change avec le produit et un chiffre
+ * figé devient faux sans prévenir.
  *
- * **Ces montants sont modifiables par un administrateur sans déploiement.**
- * Relevés contre la base de production le 2026-08-02 ; c'est la deuxième fois
- * qu'ils divergent de ce fichier. Les lire dynamiquement n'est pas possible
- * aujourd'hui : l'application n'expose aucune API de tarification, `lib/site.ts`
- * s'interdit toute origine lue à l'exécution, et la CSP de `next.config.ts`
- * bloquerait l'appel côté client. Un relevé daté est donc le meilleur garde-fou
- * disponible — et il vaut mieux qu'il soit visible ici que nulle part.
+ * **Unité de débit.** La tâche est l'unité par défaut, consommée dans l'enveloppe du forfait. Deux
+ * exceptions seulement, et elles sont portées par les champs ci-dessous plutôt que par la copie,
+ * parce que c'est un fait de facturation et non une tournure de page :
  *
- * **Unité de débit.** Le forfait par tâche est la règle : une tâche coûte son
- * prix, quel que soit le volume qu'elle traite. Deux exceptions seulement, et
- * elles sont portées par les champs ci-dessous plutôt que par la copie, parce
- * que c'est un fait de facturation et non une tournure de page :
+ * - `unite` — la ligne entière se compte à la pièce. Deux cas : le traitement d'images, compté par
+ *   image, et la source de données API, comptée par appel.
+ * - `uniteException` — la ligne reste à la tâche, sauf une opération. Deux cas : le publipostage,
+ *   compté par document généré — écrire « par document » sec sur Documents serait faux pour la
+ *   conversion, l'OCR, la fusion, le classement, la traduction et l'indexation — et le rendu 3D en
+ *   séquence d'animation, compté par frame.
  *
- * - `unite` — le débit se compte à la pièce sur toute la ligne. Deux cas : le
- *   traitement d'images, facturé par image, et la source de données API,
- *   facturée par appel.
- * - `uniteException` — la ligne reste au forfait, sauf une opération. Deux
- *   cas : le publipostage, facturé par document généré — écrire « par document »
- *   sec sur Documents serait faux pour la conversion, l'OCR, la fusion, le
- *   classement, la traduction et l'indexation — et le rendu 3D en séquence
- *   d'animation, facturé par frame.
+ * La génération d'images n'en fait pas partie : une tâche y produit une image, donc la tâche et la
+ * pièce coïncident.
  *
- * La génération d'images n'en fait pas partie : une tâche y produit une image,
- * donc le forfait et la pièce coïncident.
- *
- * `type` est un identifiant interne stable, jamais affiché — c'est lui que
- * lisent `modes.ts` (couleurs) et le typage `TypeTache`. Le texte montré au
- * visiteur vit dans `libelle`, par langue.
+ * `type` est un identifiant interne stable, jamais affiché — c'est lui que lisent `modes.ts`
+ * (couleurs) et le typage `TypeTache`. Le texte montré au visiteur vit dans `libelle`, par langue.
  */
 export const GRILLE = [
-  { type: "IA", libelle: { fr: "IA", en: "AI" }, cout: 0.1 },
+  { type: "IA", libelle: { fr: "IA", en: "AI" } },
   {
     type: "Documents",
     libelle: { fr: "Documents", en: "Documents" },
-    cout: 0.25,
     uniteException: {
       fr: "publipostage : par document",
       en: "mail merge: per document",
@@ -90,32 +145,19 @@ export const GRILLE = [
   {
     type: "Données",
     libelle: { fr: "Données", en: "Data" },
-    cout: 0.25,
   },
-  { type: "Média", libelle: { fr: "Média", en: "Media" }, cout: 0.5 },
+  { type: "Média", libelle: { fr: "Média", en: "Media" } },
   {
     type: "Scraping",
     libelle: { fr: "Extraction web", en: "Scraping" },
-    cout: 0.5,
   },
   {
     type: "Calcul GPU",
     libelle: { fr: "Calcul GPU", en: "GPU Compute" },
-    cout: 0.5,
   },
   {
-    // Corrigé le 2026-09-03 : 1,00 → 0,10 pour un rendu unique (frame, preview
-    // ou raw). Deuxième correction en un mois — le prix avait déjà bougé de
-    // 3,00 à 1,00 le 2026-08-02, puis de nouveau le 2026-08-26 (commentaire
-    // daté dans `src/lib/billing/pricing.ts`, dépôt applicatif, vérifié
-    // directement). Une séquence d'animation (`render-sequence`) n'est plus au
-    // forfait plafonné à 10 images : elle se facture à la frame, garde-fou
-    // technique à 2000 frames seulement. Le maximum réel de la grille reste
-    // 1,00 — c'est Studio de jeux (compilation) qui le porte maintenant, pas
-    // Rendu 3D, sauf en séquence d'animation longue, qui peut le dépasser.
     type: "Rendu 3D",
     libelle: { fr: "Rendu 3D", en: "3D Rendering" },
-    cout: 0.1,
     uniteException: {
       fr: "séquence d’animation : par frame",
       en: "animation sequence: per frame",
@@ -124,7 +166,6 @@ export const GRILLE = [
   {
     type: "Images",
     libelle: { fr: "Images", en: "Images" },
-    cout: 0.25,
     unite: { fr: "image", en: "image" },
   },
   {
@@ -132,50 +173,26 @@ export const GRILLE = [
     // Apostrophe typographique dans le libellé affiché ; l'identifiant `type`,
     // lui, garde l'apostrophe droite — il n'est jamais montré.
     libelle: { fr: "Génération d’images", en: "Image Generation" },
-    cout: 0.25,
   },
   {
     type: "Impression 3D",
     libelle: { fr: "Impression 3D", en: "3D Printing" },
-    cout: 0.5,
   },
   {
     type: "Simulation",
     libelle: { fr: "Simulation", en: "Simulation" },
-    cout: 0.5,
   },
   {
-    // Ajouté le 2026-08-02. Il était déjà annoncé comme fonctionnalité sur
-    // /fonctions et /en/features, sans prix — et une fonctionnalité annoncée
-    // sans prix se lit comme gratuite ou comme un devis. Les deux sont faux :
-    // c'est 0,50. Les trois autres moteurs facturés par l'application et
-    // absents d'ici (Téléchargement, Marketplace, Jeux) restent dehors ;
-    // celui-ci porte le positionnement de /mines, son absence coûtait quelque
-    // chose.
-    //
-    // `type` reste à confronter à l'identifiant interne de l'application : il
-    // a été choisi ici sans accès au dépôt du produit.
     type: "Géomatique",
     libelle: { fr: "Géomatique et SIG", en: "Geomatics and GIS" },
-    cout: 0.5,
   },
   {
-    // Ajouté le 2026-09-03. Nouveau moteur, `JobKind.VOICE` dans
-    // `src/lib/billing/pricing.ts` (dépôt applicatif, identifiant confirmé) :
-    // transcription d'un mémo vocal déposé directement dans l'assistant,
-    // 0,50 $ par mémo quelle que soit sa durée — pas un débit à la minute.
     type: "Mémo vocal",
     libelle: { fr: "Mémo vocal", en: "Voice Memo" },
-    cout: 0.5,
   },
   {
-    // Ajouté le 2026-09-03. `JobKind.API` dans `pricing.ts` (identifiant
-    // confirmé) : passerelle vers un fournisseur externe (Google Geocoding,
-    // Microsoft Translator, etc.), facturée par appel — un coût qui varie avec
-    // l'usage, pas une tâche au forfait.
     type: "Source de données",
     libelle: { fr: "Source de données", en: "Data Source" },
-    cout: 0.1,
     unite: { fr: "appel", en: "call" },
   },
 ] as const;
@@ -187,11 +204,6 @@ export function libelleDe(type: TypeTache, lang: Lang): string {
   const ligne = GRILLE.find((g) => g.type === type);
   if (!ligne) throw new Error(`Type de tâche inconnu : ${type}`);
   return ligne.libelle[lang];
-}
-
-/** Libellé affiché à la place d'un prix encore indéterminé. */
-export function tarifAVenir(lang: Lang): string {
-  return lang === "en" ? "Pricing coming soon" : "Tarif à venir";
 }
 
 /**
@@ -234,17 +246,4 @@ export function uniteExceptionDe(type: TypeTache, lang: Lang): string | null {
   const ligne = GRILLE.find((g) => g.type === type);
   if (!ligne) throw new Error(`Type de tâche inconnu : ${type}`);
   return "uniteException" in ligne ? ligne.uniteException[lang] : null;
-}
-
-/**
- * Coût d'un type donné, en crédits — `null` tant que le prix n'est pas arrêté.
- *
- * Le type de retour inclut volontairement `null` : c'est lui qui force chaque
- * appelant à décider quoi afficher (ou à s'abstenir de calculer) au lieu de
- * propager un `NaN` silencieux jusqu'à l'écran.
- */
-export function coutDe(type: TypeTache): number | null {
-  const ligne = GRILLE.find((g) => g.type === type);
-  if (!ligne) throw new Error(`Type de tâche inconnu : ${type}`);
-  return ligne.cout;
 }

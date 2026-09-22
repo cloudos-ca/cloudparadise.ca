@@ -1,19 +1,15 @@
-import { DEVISE_ABONNEMENT, PALIERS_ABONNEMENT } from "./abonnements";
-import { CREDIT_EN_DEVISE, DEVISE, RECHARGE_MINIMALE_EN_DEVISE } from "./offre";
+import { ESSAI_JOURS, GARANTIE_DUREE_MIN, GARANTIE_JOURS, PALIERS, enDevise } from "./offre";
 import type { Lang } from "./tokens";
 
-const nf = new Intl.NumberFormat("fr-CA");
-
-const PRIX_MIN_ABONNEMENT = Math.min(...PALIERS_ABONNEMENT.map((p) => p.prixMensuel));
-const PRIX_MAX_ABONNEMENT = Math.max(...PALIERS_ABONNEMENT.map((p) => p.prixMensuel));
+const [PERSONNEL, ENTREPRISE] = PALIERS;
 
 /**
  * Questions/réponses de tarification.
  *
  * Ajouter les futures Q/R ici : une entrée par question, l'accordéon et
- * l'accessibilité suivent tout seuls. Les montants s'insèrent depuis `offre.ts`
- * (crédits) ou `abonnements.ts` (paliers) — ne jamais réécrire un prix en
- * toutes lettres dans une réponse.
+ * l'accessibilité suivent tout seuls. Les montants s'insèrent depuis
+ * `offre.ts` (les deux forfaits) — ne jamais réécrire un prix en toutes
+ * lettres dans une réponse.
  *
  * Ce sont des engagements commerciaux réels : ne rien y ajouter qui n'ait été
  * validé (aucune garantie de remboursement, de délai ou de disponibilité). Les
@@ -29,39 +25,39 @@ export function questionsDe(lang: Lang): readonly { q: string; r: string }[] {
   if (lang === "en") {
     return [
       {
-        q: "Do credits expire?",
-        r: "No. Your credits never expire: they stay available as long as your account is active.",
+        q: "Can I switch plans later?",
+        r: "Yes, at any time: you move from Personal to Business (or back) from your account.",
       },
       {
         q: "How does payment work?",
-        r: `You work with credits (1 credit = ${nf.format(CREDIT_EN_DEVISE)} ${DEVISE}). You top up on demand by credit card via PayPal. Minimum top-up of ${RECHARGE_MINIMALE_EN_DEVISE}.`,
+        r: `A fixed-price monthly subscription: Personal at ${enDevise(PERSONNEL.prixMensuel)} a month, Business at ${enDevise(ENTREPRISE.prixMensuel)}. Commit for longer (3, 6, 12 or 24 months) for a discount of up to 30%.`,
       },
       {
         q: "Are there refunds?",
-        r: "Credits already spent are non-refundable. Unused credits stay available indefinitely — they don’t expire. For any request, write to us; the terms of use set out the cases provided for.",
+        r: `Satisfaction guaranteed: ${GARANTIE_JOURS} days, on commitments of at least ${GARANTIE_DUREE_MIN} months. For any request, write to us; the terms of use set out the cases provided for.`,
       },
       {
-        q: "Do I need a subscription?",
-        r: `Not required — credits remain usable without a subscription. But for regular use, a monthly subscription gives you a fixed credit allowance each month, from ${PRIX_MIN_ABONNEMENT} to ${PRIX_MAX_ABONNEMENT} ${DEVISE_ABONNEMENT} depending on the tier — often easier to budget than topping up on demand.`,
+        q: "Can I try it before I pay?",
+        r: `Yes: ${ESSAI_JOURS} days free trial, no credit card required.`,
       },
     ];
   }
   return [
     {
-      q: "Les crédits expirent-ils ?",
-      r: "Non. Vos crédits n’expirent jamais : ils restent disponibles tant que votre compte est actif.",
+      q: "Puis-je changer de forfait plus tard ?",
+      r: "Oui, à tout moment : vous passez de Personnel à Entreprise (et inversement) depuis votre compte.",
     },
     {
       q: "Comment fonctionne le paiement ?",
-      r: `Vous fonctionnez par crédits (1 crédit = ${nf.format(CREDIT_EN_DEVISE)} ${DEVISE}). Vous rechargez à la demande par carte de crédit via PayPal. Recharge minimale de ${RECHARGE_MINIMALE_EN_DEVISE}.`,
+      r: `Un abonnement mensuel à prix fixe : Personnel à ${enDevise(PERSONNEL.prixMensuel)} par mois, Entreprise à ${enDevise(ENTREPRISE.prixMensuel)}. Engagez-vous plus longtemps (3, 6, 12 ou 24 mois) pour une remise pouvant aller jusqu’à 30 %.`,
     },
     {
       q: "Y a-t-il des remboursements ?",
-      r: "Les crédits déjà consommés ne sont pas remboursables. Les crédits inutilisés, eux, restent disponibles indéfiniment — ils n’expirent pas. Pour toute demande, écrivez-nous ; les conditions d’utilisation détaillent les cas prévus.",
+      r: `Satisfait ou remboursé : ${GARANTIE_JOURS} jours, sur les engagements d’au moins ${GARANTIE_DUREE_MIN} mois. Pour toute demande, écrivez-nous ; les conditions d’utilisation détaillent les cas prévus.`,
     },
     {
-      q: "Dois-je m’abonner ?",
-      r: `Pas obligatoire : les crédits restent utilisables sans abonnement. Mais pour un usage régulier, un abonnement mensuel donne une allocation de crédits fixe chaque mois, de ${PRIX_MIN_ABONNEMENT} à ${PRIX_MAX_ABONNEMENT} ${DEVISE_ABONNEMENT} selon le palier — souvent plus simple à prévoir qu’une recharge à la demande.`,
+      q: "Puis-je essayer avant de payer ?",
+      r: `Oui : ${ESSAI_JOURS} jours d’essai gratuit, sans carte de crédit.`,
     },
   ];
 }

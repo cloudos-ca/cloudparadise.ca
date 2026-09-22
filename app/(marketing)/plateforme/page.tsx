@@ -5,7 +5,6 @@ import {
   AncresSections,
   type Ancre,
 } from "@/components/marketing/AncresSections";
-import { prixAbonnementDepuis } from "@/components/marketing/abonnements";
 import { BoutonCta } from "@/components/marketing/BoutonCta";
 import { BreadcrumbJsonLd } from "@/components/marketing/BreadcrumbJsonLd";
 import { FenetreCta } from "@/components/marketing/FenetreCta";
@@ -30,6 +29,7 @@ import {
 import { SECTION_Y, SHELL } from "@/components/marketing/tokens";
 import { alternatesBilingues, openGraphPage } from "@/lib/seo";
 import { lienInscription } from "@/lib/site";
+import { PALIERS, enDevise } from "@/components/marketing/offre";
 
 const TITRE = "Plateforme — Cloud OS";
 const DESCRIPTION =
@@ -132,7 +132,7 @@ const JEUX: Carte[] = [
     Icone: IconGamepad,
     titre: "Studio de jeux",
     texte:
-      "Décrivez un jeu en conversation ; l’IA en discute les mécaniques, l’écrit, le compile et le teste automatiquement avant de vous le livrer. Un crédit par compilation ; rejouer et revenir en arrière sont gratuits.",
+      "Décrivez un jeu en conversation ; l’IA en discute les mécaniques, l’écrit, le compile et le teste automatiquement avant de vous le livrer. La compilation compte comme une tâche ; rejouer et revenir en arrière sont gratuits.",
   },
   {
     Icone: IconInfinity,
@@ -180,15 +180,15 @@ export default function PlateformePage() {
               <LienOr href="/tarifs">Voir les tarifs</LienOr>
             </div>
             <p className="mt-4 text-[13px] text-white/60">
-              Aussi disponible en abonnement,{" "}
+              Dès{" "}
               <a
-                href="/tarifs#abonnements"
+                href="/tarifs#forfaits"
                 data-cp-accent
                 className="text-cp-subtle underline-offset-4 hover:text-[var(--acc-text)] hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
               >
-                {prixAbonnementDepuis("fr")}
+                {enDevise(PALIERS[0].prixMensuel)}/mois
               </a>
-              .
+              , tout inclus.
             </p>
           </Reveal>
 

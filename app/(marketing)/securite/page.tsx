@@ -179,7 +179,7 @@ export default function SecuritePage() {
         </div>
       </Section2Col>
 
-      {/* Closer — une seule sortie, pas de badge crédits ni de lien secondaire. */}
+      {/* Closer — une seule sortie, pas de badge d'offre ni de lien secondaire. */}
       <section className="relative overflow-x-clip">
         <div className={`${SHELL} ${SECTION_Y}`}>
           <Reveal>

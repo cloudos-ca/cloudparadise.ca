@@ -1,78 +1,22 @@
-import {
-  PALIER_RECOMMANDE_ID,
-  PALIERS_ABONNEMENT,
-  prixAbonnement,
-} from "./abonnements";
-import { Estimateur } from "./Estimateur";
 import { Reveal } from "./Reveal";
-import { IconAdjustments, IconGift, IconRefresh } from "./icons";
-import {
-  CREDIT_EN_DEVISE,
-  DEVISE,
-  GRILLE,
-  OFFRE_EN_DEVISE,
-  tarifAVenir,
-} from "./offre";
+import { IconCheck } from "./icons";
+import { ESSAI_JOURS, PALIERS, enDevise, type Palier } from "./offre";
 import { SECTION_Y, SHELL, type Lang } from "./tokens";
-
-const nf = new Intl.NumberFormat("fr-CA");
-/** Les coûts sont des fractions de crédit : deux décimales, toujours. */
-const nfCredit = new Intl.NumberFormat("fr-CA", {
-  minimumFractionDigits: 2,
-  maximumFractionDigits: 2,
-});
-
-function argumentsDe(lang: Lang) {
-  if (lang === "en") {
-    return [
-      {
-        Icone: IconGift,
-        titre: `${OFFRE_EN_DEVISE} in free credits on signup`,
-        texte: "Try it without pulling out your card.",
-      },
-      {
-        Icone: IconRefresh,
-        titre: "Top up whenever you want",
-        texte: "You add credits on demand, whenever you need to.",
-      },
-      {
-        Icone: IconAdjustments,
-        titre: "Price follows usage",
-        texte: "A small task costs little; a big render costs more. Simple.",
-      },
-    ] as const;
-  }
-  return [
-    {
-      Icone: IconGift,
-      titre: `${OFFRE_EN_DEVISE} de crédits offerts à l’inscription`,
-      texte: "Testez sans sortir votre carte.",
-    },
-    {
-      Icone: IconRefresh,
-      titre: "Rechargez quand vous voulez",
-      texte: "Vous ajoutez des crédits à la demande, quand vous en avez besoin.",
-    },
-    {
-      Icone: IconAdjustments,
-      titre: "Le prix suit l’usage",
-      texte: "Une petite tâche coûte peu ; un gros rendu coûte plus. Logique.",
-    },
-  ] as const;
-}
 
 const TEXTES = {
   fr: {
     eyebrow: "Tarification",
-    titre: "Payez ce que vous utilisez. Rien de plus.",
-    soustitre:
-      "Des crédits à l’usage, ou un abonnement mensuel à prix fixe. On vous offre des crédits pour commencer.",
+    titre: "Un forfait fixe, tout inclus.",
+    soustitre: `${ESSAI_JOURS} jours d’essai gratuit, sans carte. Ensuite, un abonnement mensuel — deux formats selon votre taille.`,
+    parMois: "/mois",
+    voirTarifs: "Voir tous les tarifs et les durées",
   },
   en: {
     eyebrow: "Pricing",
-    titre: "Pay for what you use. Nothing more.",
-    soustitre:
-      "Pay-as-you-go credits, or a fixed-price monthly subscription. We give you credits to start.",
+    titre: "One flat plan, everything included.",
+    soustitre: `${ESSAI_JOURS} days free trial, no card required. After that, a monthly subscription — two sizes depending on your team.`,
+    parMois: "/mo",
+    voirTarifs: "See all pricing and terms",
   },
 } as const;
 
@@ -97,155 +41,64 @@ export function Tarification({ lang = "fr" }: Readonly<{ lang?: Lang }>) {
           </p>
         </Reveal>
 
-        <Reveal
-          delay={0.1}
-          className="mt-10 grid items-start gap-8 os:grid-cols-[46fr_54fr] os:items-center os:gap-12"
-        >
-          {/* Arguments puis grille : la colonne gauche porte tout le discours
-              sur les prix, ce qui l'amène à la hauteur de l'estimateur. */}
-          <div className="space-y-8">
-            <ul className="space-y-5">
-              {argumentsDe(lang).map(({ Icone, titre, texte }) => (
-                <li key={titre} className="flex gap-3.5">
-                  {/* Même bleu que les icônes de « Vos outils » (`--soft`) :
-                      une seule valeur pour toutes les icônes secondaires de la
-                      page. Même teinte de fond et même taille d'icône (21px),
-                      donc même graisse de trait. */}
-                  <span
-                    className="mt-0.5 grid size-9 shrink-0 place-items-center rounded-full"
-                    style={{
-                      background:
-                        "color-mix(in srgb, var(--soft) 12%, transparent)",
-                      color: "var(--soft)",
-                    }}
-                  >
-                    <Icone className="size-[21px]" />
-                  </span>
-                  <div>
-                    <p className="text-sm font-medium text-cp-heading">{titre}</p>
-                    <p className="mt-1 text-[13px] leading-relaxed text-white/85">
-                      {texte}
-                    </p>
-                  </div>
-                </li>
-              ))}
-            </ul>
-            <Grille lang={lang} />
-          </div>
-
-          {/* L'estimateur seul, centré en face : les prix se lisent à gauche,
-              on chiffre son budget à droite. */}
-          <Estimateur lang={lang} />
+        <Reveal delay={0.1} className="mt-10 grid gap-5 os:grid-cols-2">
+          {PALIERS.map((palier) => (
+            <CartePalier key={palier.id} palier={palier} lang={lang} suffixe={t.parMois} />
+          ))}
         </Reveal>
 
-        <Reveal delay={0.15} className="mt-10">
-          <Abonnements lang={lang} />
+        <Reveal delay={0.15} className="mt-8">
+          <a
+            href={lang === "en" ? "/en/pricing#forfaits" : "/tarifs#forfaits"}
+            data-cp-accent
+            className="inline-flex items-center gap-1.5 text-sm text-cp-subtle underline-offset-4 hover:text-[var(--acc-text)] hover:underline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
+          >
+            {t.voirTarifs}
+          </a>
         </Reveal>
       </div>
     </section>
   );
 }
 
-/**
- * Aperçu des paliers d'abonnement, sur l'accueil.
- *
- * Les crédits restent le mode par défaut (arguments et grille ci-dessus) ;
- * cette rangée donne quand même à l'abonnement une vraie visibilité dès
- * l'accueil, plutôt que de le laisser à la seule page `/tarifs`. Aperçu
- * court seulement — le détail complet (et l'inscription) vit sur
- * `/tarifs#abonnements`, un seul endroit qui fait foi pour les trois
- * paliers (voir `PALIERS_ABONNEMENT`).
- */
-function Abonnements({ lang }: Readonly<{ lang: Lang }>) {
-  const cible = lang === "en" ? "/en/pricing#abonnements" : "/tarifs#abonnements";
+/** Une carte par forfait : prix, enveloppe traduite en tâches, inclusions. */
+function CartePalier({
+  palier,
+  lang,
+  suffixe,
+}: Readonly<{ palier: Palier; lang: Lang; suffixe: string }>) {
   return (
-    <div className="rounded-xl border border-white/10 bg-white/[0.03] px-5 py-5 os:px-6 os:py-6">
-      <div className="flex flex-wrap items-baseline justify-between gap-3">
-        <p className="text-sm font-medium text-cp-heading">
-          {lang === "en"
-            ? "Prefer a fixed amount every month?"
-            : "Vous préférez un montant fixe chaque mois ?"}
+    <div
+      className="flex flex-col gap-4 rounded-xl border border-white/[0.08] bg-gradient-to-b from-white/[0.04] to-white/[0.01] p-5 shadow-[inset_0_1px_0_rgba(255,255,255,0.04)] transition-colors hover:border-white/15"
+    >
+      <div>
+        <p className="font-display text-[15px] font-extrabold text-white">
+          {palier.nom[lang]}
         </p>
-        <a
-          href={cible}
-          data-cp-accent
-          className="text-[13px] text-cp-subtle underline-offset-4 hover:text-[var(--acc-text)] hover:underline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
+        <p
+          className="mt-1 flex items-baseline gap-1 font-display text-2xl font-extrabold tabular-nums"
+          style={{ color: "var(--cta)" }}
         >
-          {lang === "en" ? "See all subscriptions" : "Voir tous les abonnements"}
-        </a>
+          {enDevise(palier.prixMensuel)}
+          <span className="text-[13px] font-medium text-white/70">{suffixe}</span>
+        </p>
+        <p className="mt-1 text-[13px] text-white/70">
+          {lang === "en"
+            ? `≈ ${palier.tachesParMois} tasks a month`
+            : `≈ ${palier.tachesParMois} tâches par mois`}
+        </p>
       </div>
-      <div className="mt-4 grid gap-3 os:grid-cols-3">
-        {PALIERS_ABONNEMENT.map((palier) => (
-          <div
-            key={palier.id}
-            className="flex items-center justify-between gap-3 rounded-lg border border-white/[0.08] bg-white/[0.02] px-4 py-3"
-          >
-            <div>
-              <p className="flex items-center gap-2 text-[13px] font-medium text-cp-heading">
-                {palier.nom[lang]}
-                {palier.id === PALIER_RECOMMANDE_ID ? (
-                  <span
-                    className="rounded-full px-2 py-0.5 text-[10px] font-semibold"
-                    style={{
-                      background: "var(--cta-wash)",
-                      color: "var(--cta)",
-                      boxShadow:
-                        "inset 0 0 0 1px color-mix(in srgb, var(--cta) 32%, transparent)",
-                    }}
-                  >
-                    {lang === "en" ? "Recommended" : "Recommandé"}
-                  </span>
-                ) : null}
-              </p>
-              <p className="mt-0.5 text-[12px] text-white/70">
-                {palier.creditsMensuels}{" "}
-                {lang === "en" ? "credits / mo" : "crédits / mois"}
-              </p>
-            </div>
-            <p
-              className="font-display text-sm font-extrabold tabular-nums"
-              style={{ color: "var(--cta)" }}
-            >
-              {prixAbonnement(palier, lang)}
-            </p>
-          </div>
+      <ul className="space-y-2">
+        {palier.inclusions[lang].map((inclusion) => (
+          <li key={inclusion} className="flex items-start gap-2 text-[13px] text-white/85">
+            <IconCheck
+              className="mt-0.5 size-4 shrink-0"
+              style={{ color: "var(--soft)" }}
+            />
+            {inclusion}
+          </li>
         ))}
-      </div>
-    </div>
-  );
-}
-
-/** La grille complète, un seul endroit qui fait foi. */
-function Grille({ lang }: Readonly<{ lang: Lang }>) {
-  return (
-    <div className="rounded-xl border border-white/10 bg-white/[0.03] px-5 py-4">
-      <p className="text-[13px] text-white/75">
-        {lang === "en"
-          ? "Cost charged per task, in credits — 1 credit = "
-          : "Coût par tâche, en crédits — 1 crédit = "}
-        {nf.format(CREDIT_EN_DEVISE)} {DEVISE}
-      </p>
-      <dl className="mt-3 flex flex-wrap gap-x-6 gap-y-2.5">
-        {GRILLE.map(({ type, libelle, cout }) => (
-          <div key={type} className="flex items-baseline gap-1.5">
-            <dt className="text-[13px] text-cp-heading">{libelle[lang]}</dt>
-            {/* Un mode sans tarif arrêté reste listé — le masquer donnerait une
-                offre incomplète — mais il le dit au lieu d'afficher un prix. */}
-            {cout === null ? (
-              <dd className="text-[12px] text-cp-muted italic">
-                {tarifAVenir(lang)}
-              </dd>
-            ) : (
-              <dd
-                className="text-[13px] font-medium tabular-nums"
-                style={{ color: "var(--cta)" }}
-              >
-                {nfCredit.format(cout)}
-              </dd>
-            )}
-          </div>
-        ))}
-      </dl>
+      </ul>
     </div>
   );
 }

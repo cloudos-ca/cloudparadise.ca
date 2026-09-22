@@ -65,7 +65,7 @@ const SECTIONS: readonly SectionRedigee[] = [
           {
             terme: "Billing information.",
             texte:
-              "Depending on your usage: your history of credit purchases and transactions, along with the data required to process payments. Payment card details are handled directly by our payment provider (PayPal) and do not pass through our servers in full (see section 4).",
+              "Depending on your usage: your subscription history and transactions, along with the data required to process payments. Payment card details are handled directly by our payment provider (PayPal) and do not pass through our servers in full (see section 4).",
           },
           {
             terme: "Files and datasets you submit.",
@@ -114,7 +114,7 @@ const SECTIONS: readonly SectionRedigee[] = [
           },
           {
             terme: "Billing:",
-            texte: "recording your credit purchases, processing payments, and preventing fraud.",
+            texte: "recording your subscription, processing payments, and preventing fraud.",
           },
           {
             terme: "Support and service communications:",
@@ -179,7 +179,7 @@ const SECTIONS: readonly SectionRedigee[] = [
           {
             terme: "Payment — PayPal.",
             texte:
-              "Payment processing for credit purchases is handled by PayPal. Card or payment account details are entered and processed directly by PayPal; we only receive confirmation of the transaction.",
+              "Payment processing for your subscription is handled by PayPal. Card or payment account details are entered and processed directly by PayPal; we only receive confirmation of the transaction.",
           },
           {
             terme: "Physical hosting of the infrastructure.",

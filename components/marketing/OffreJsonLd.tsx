@@ -1,41 +1,22 @@
 import { SITE_URL } from "@/lib/site";
-import {
-  CREDIT_EN_DEVISE,
-  GRILLE,
-  coutDe,
-  libelleDe,
-  uniteDe,
-  type TypeTache,
-} from "./offre";
+import { PALIERS } from "./offre";
 import type { Lang } from "./tokens";
 
 /**
- * Grille tarifaire en JSON-LD, sans rendu visuel — la page affiche déjà les
+ * Les deux forfaits en JSON-LD, sans rendu visuel — la page affiche déjà les
  * prix, ce balisage les rend lisibles par un moteur de recherche.
  *
  * **Aucun prix n'est écrit ici.** Tout vient de `offre.ts`, la même source que
- * `GrilleDetaillee` et `Tarification` : un JSON-LD qui diverge de la grille
- * affichée est pire que pas de JSON-LD du tout, puisqu'il annonce au moteur un
+ * `Tarification` et la page `/tarifs` : un JSON-LD qui diverge des prix
+ * affichés est pire que pas de JSON-LD du tout, puisqu'il annonce au moteur un
  * prix que le visiteur ne verra jamais.
- *
- * Le prix est exprimé en dollars, pas en crédits : `CREDIT_EN_DEVISE` vaut 1 et
- * la page le dit sous le tableau (« 1 crédit = 1 $ CA »), donc les deux chiffres
- * coïncident aujourd'hui. La multiplication reste écrite pour que le jour où le
- * taux change, le balisage suive au lieu de mentir.
  *
  * `Product` plutôt que `Service` : schema.org définit `Product` comme « any
  * offered product **or service** », et c'est le seul des deux que Google
  * exploite pour les offres.
  */
 export function OffreJsonLd({ lang }: Readonly<{ lang: Lang }>) {
-  // `coutDe` peut rendre `null` — un tarif encore indéterminé, affiché « Tarif
-  // à venir » par la grille. Il ne doit surtout pas devenir un prix.
-  const tarifs = GRILLE.map(({ type }) => ({ type, cout: coutDe(type) })).filter(
-    (t): t is { type: TypeTache; cout: number } => t.cout !== null,
-  );
-
-  const prix = (cout: number) => (cout * CREDIT_EN_DEVISE).toFixed(2);
-  const montants = tarifs.map(({ cout }) => cout);
+  const montants = PALIERS.map((p) => p.prixMensuel);
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -46,26 +27,26 @@ export function OffreJsonLd({ lang }: Readonly<{ lang: Lang }>) {
     offers: {
       "@type": "AggregateOffer",
       priceCurrency: "CAD",
-      lowPrice: prix(Math.min(...montants)),
-      highPrice: prix(Math.max(...montants)),
-      offerCount: tarifs.length,
-      offers: tarifs.map(({ type, cout }) => ({
+      lowPrice: Math.min(...montants).toFixed(2),
+      highPrice: Math.max(...montants).toFixed(2),
+      offerCount: PALIERS.length,
+      offers: PALIERS.map((palier) => ({
         "@type": "Offer",
-        name: libelleDe(type, lang),
+        name: palier.nom[lang],
         url: `${SITE_URL}${lang === "en" ? "/en/pricing" : "/tarifs"}`,
         priceCurrency: "CAD",
-        price: prix(cout),
+        price: palier.prixMensuel.toFixed(2),
         availability: "https://schema.org/InStock",
-        // Sans l'unité, le balisage laisserait croire à un prix d'abonnement.
-        // L'unité vient de `offre.ts` et non d'une constante : elle valait
-        // « tâche » sur tous les moteurs, Images comprise, alors que le
-        // traitement d'images se facture à l'image. Un moteur de recherche
-        // aurait conservé l'erreur longtemps après la correction de la page.
+        // Un abonnement mensuel, pas un achat unique : le balisage le dit
+        // explicitement, sinon un moteur de recherche pourrait lire le prix
+        // comme celui d'un achat ponctuel.
         priceSpecification: {
           "@type": "UnitPriceSpecification",
           priceCurrency: "CAD",
-          price: prix(cout),
-          unitText: uniteDe(type, lang),
+          price: palier.prixMensuel.toFixed(2),
+          unitText: lang === "en" ? "month" : "mois",
+          billingDuration: 1,
+          billingDurationUnit: "MON",
         },
       })),
     },

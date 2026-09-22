@@ -4,7 +4,6 @@ import {
   AncresSections,
   type Ancre,
 } from "@/components/marketing/AncresSections";
-import { prixAbonnementDepuis } from "@/components/marketing/abonnements";
 import { BoutonCta } from "@/components/marketing/BoutonCta";
 import { BreadcrumbJsonLd } from "@/components/marketing/BreadcrumbJsonLd";
 import { FenetreCta } from "@/components/marketing/FenetreCta";
@@ -12,7 +11,7 @@ import { HreflangLinks } from "@/components/marketing/HreflangLinks";
 import { JobPanel } from "@/components/marketing/JobPanel";
 import { Reveal } from "@/components/marketing/Reveal";
 import { WindowCard } from "@/components/marketing/WindowCard";
-import { libelleDe, type TypeTache } from "@/components/marketing/offre";
+import { PALIERS, enDevise, libelleDe, type TypeTache } from "@/components/marketing/offre";
 import {
   IconAdjustments,
   IconCalendar,
@@ -147,15 +146,15 @@ export default function SmallBusinessPage() {
               <LienOr href={lienInscription("pme-hero")}>{C.hero.lienCompte}</LienOr>
             </div>
             <p className="mt-4 text-[13px] text-white/60">
-              Also available as a subscription,{" "}
+              From{" "}
               <a
-                href="/en/pricing#abonnements"
+                href="/en/pricing#forfaits"
                 data-cp-accent
                 className="text-cp-subtle underline-offset-4 hover:text-[var(--acc-text)] hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
               >
-                {prixAbonnementDepuis("en")}
+                {enDevise(PALIERS[0].prixMensuel)}/mo
               </a>
-              .
+              , all included.
             </p>
           </Reveal>
         </div>
@@ -313,7 +312,7 @@ export default function SmallBusinessPage() {
       </section>
 
       {/* Closer — deux sorties, comme le héros. Le badge d'offre reste : la
-          section budget a annoncé le principe des crédits, pas le montant. */}
+          section budget a annoncé le principe du forfait, pas le montant. */}
       <section className="relative overflow-x-clip">
         <div className={`${SHELL} ${SECTION_Y}`}>
           <Reveal>
@@ -426,7 +425,7 @@ function MetierSection({ metier }: Readonly<{ metier: SectionMetier }>) {
  *
  * Contrairement à /calcul, qui se tait dès qu'une section couvre plusieurs
  * types, on énumère ici : la page s'adresse à des gens qui découvrent le modèle
- * de crédits et pour qui « voir le détail des tarifs » est une étape de plus.
+ * de forfaits et pour qui « voir le détail des tarifs » est une étape de plus.
  * Énumérer des noms n'est pas compter des modes — aucun total n'est affiché, et
  * la liste suit `factures`, donc elle suit le produit.
  */

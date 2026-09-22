@@ -4,14 +4,12 @@ import {
   AncresSections,
   type Ancre,
 } from "@/components/marketing/AncresSections";
-import { prixAbonnementDepuis } from "@/components/marketing/abonnements";
 import { BreadcrumbJsonLd } from "@/components/marketing/BreadcrumbJsonLd";
 import { FenetreCta } from "@/components/marketing/FenetreCta";
 import { HreflangLinks } from "@/components/marketing/HreflangLinks";
 import { Reveal } from "@/components/marketing/Reveal";
-import { prixBacASable } from "@/components/marketing/bacASable";
 import { prixHebergement } from "@/components/marketing/hebergement";
-import { libelleDe } from "@/components/marketing/offre";
+import { BAC_A_SABLE_NOM, PALIERS, enDevise, libelleDe } from "@/components/marketing/offre";
 import { SECTION_Y, SHELL } from "@/components/marketing/tokens";
 import { alternatesBilingues, openGraphPage } from "@/lib/seo";
 import { lienInscription } from "@/lib/site";
@@ -90,8 +88,8 @@ const SECTIONS: readonly SectionFonctions[] = [
         texte: "Vos fichiers de Drive et de OneDrive, accessibles depuis votre bureau.",
       },
       {
-        nom: "Bac à sable",
-        texte: `Un vrai bureau Linux persistant, synchronisé en continu avec l’app Fichiers — à la différence du reste de la plateforme, qui tourne en conteneur éphémère. ${prixBacASable("fr")}, en supplément d’un abonnement Crédits actif.`,
+        nom: BAC_A_SABLE_NOM.fr,
+        texte: "Un vrai bureau Linux persistant, synchronisé en continu avec l’app Fichiers — à la différence du reste de la plateforme, qui tourne en conteneur éphémère. Inclus dans le forfait Entreprise.",
       },
       {
         // Ici et pas dans « Vos applications » : l'app est `hidden` au registre,
@@ -354,7 +352,7 @@ const SECTIONS: readonly SectionFonctions[] = [
     id: "hebergement",
     surtitre: "Hébergement Web",
     titre: "Votre site, hébergé chez nous aussi.",
-    intro: `${prixHebergement("fr")}, sans abonnement Crédits requis — un produit à part, pas un module de plus.`,
+    intro: `${prixHebergement("fr")} — un produit à part, pas un module de plus.`,
     entrees: [
       {
         nom: "Quatre piles prêtes à l’emploi",
@@ -420,7 +418,7 @@ const SECTIONS: readonly SectionFonctions[] = [
       {
         nom: "Studio de jeux",
         texte:
-          "Décrivez un jeu en conversation ; l’IA en discute les mécaniques, l’écrit sur Phaser 3, le compile et le teste automatiquement avant de vous le livrer. Un crédit par compilation ; rejouer et revenir en arrière sont gratuits.",
+          "Décrivez un jeu en conversation ; l’IA en discute les mécaniques, l’écrit sur Phaser 3, le compile et le teste automatiquement avant de vous le livrer. La compilation compte comme une tâche ; rejouer et revenir en arrière sont gratuits.",
       },
       {
         nom: "Arcades",
@@ -471,12 +469,12 @@ const SECTIONS: readonly SectionFonctions[] = [
   {
     id: "compte",
     surtitre: "Votre compte",
-    titre: "Vos crédits, vos factures, vos accès.",
+    titre: "Votre forfait, vos factures, vos accès.",
     page: TARIFS,
     entrees: [
       {
-        nom: "Crédits et recharge",
-        texte: "Votre solde, et une recharge quand vous le voulez.",
+        nom: "Forfait et jauge",
+        texte: "Votre forfait, et la jauge d’usage du mois en cours.",
       },
       {
         nom: "Factures",
@@ -548,15 +546,15 @@ export default function FonctionsPage() {
                 d'information reste à sa place : la même que sur les trois
                 autres pages produit. */}
             <p className="mt-3 text-[13px] text-white/60">
-              Aussi disponible en abonnement,{" "}
+              Dès{" "}
               <a
-                href="/tarifs#abonnements"
+                href="/tarifs#forfaits"
                 data-cp-accent
                 className="text-cp-subtle underline-offset-4 hover:text-[var(--acc-text)] hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
               >
-                {prixAbonnementDepuis("fr")}
+                {enDevise(PALIERS[0].prixMensuel)}/mois
               </a>
-              .
+              , tout inclus.
             </p>
           </Reveal>
         </div>

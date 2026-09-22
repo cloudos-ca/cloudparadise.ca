@@ -1,10 +1,10 @@
 import { IconGift } from "./icons";
-import { OFFRE_EN_DEVISE } from "./offre";
+import { ESSAI_JOURS } from "./offre";
 import type { Lang } from "./tokens";
 
 const TEXTES = {
-  fr: { credits: "de crédits offerts", sansCarte: " · sans carte" },
-  en: { credits: "in free credits", sansCarte: " · no card required" },
+  fr: { essai: "jours d’essai gratuit", sansCarte: " · sans carte" },
+  en: { essai: "days free trial", sansCarte: " · no card required" },
 } as const;
 
 /**
@@ -46,9 +46,9 @@ export function BadgeOffre({
           className="font-display text-[15px] font-extrabold"
           style={{ color: "var(--cta)" }}
         >
-          {OFFRE_EN_DEVISE}
+          {ESSAI_JOURS}
         </strong>{" "}
-        {t.credits}
+        {t.essai}
         {/* Pas le gris secondaire du site ici : le fond de la pastille est un
             or dilué, donc plus clair que la page, et `--color-cp-muted` y
             tombait à 4,35:1. Un blanc à 75 % tient 5,5:1 sur ce fond-là tout

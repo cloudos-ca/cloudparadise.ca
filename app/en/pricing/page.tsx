@@ -7,40 +7,34 @@ import {
 import { BadgeOffre } from "@/components/marketing/BadgeOffre";
 import { BoutonCta } from "@/components/marketing/BoutonCta";
 import { BreadcrumbJsonLd } from "@/components/marketing/BreadcrumbJsonLd";
-import {
-  PALIER_RECOMMANDE_ID,
-  PALIERS_ABONNEMENT,
-  prixAbonnement,
-} from "@/components/marketing/abonnements";
-import { Estimateur } from "@/components/marketing/Estimateur";
 import { FaqTarifs } from "@/components/marketing/FaqTarifs";
 import { questionsDe } from "@/components/marketing/faqTarifsContenu";
 import { FenetreCta } from "@/components/marketing/FenetreCta";
-import { GrilleDetaillee } from "@/components/marketing/GrilleDetaillee";
 import { HreflangLinks } from "@/components/marketing/HreflangLinks";
 import { OffreJsonLd } from "@/components/marketing/OffreJsonLd";
 import { Reveal } from "@/components/marketing/Reveal";
-import { WindowCard } from "@/components/marketing/WindowCard";
 import {
-  IconAdjustments,
   IconCheck,
-  IconCoin,
-  IconRefresh,
-  IconSearch,
-  IconWindow,
+  IconGift,
+  IconLock,
 } from "@/components/marketing/icons";
 import {
-  OFFRE_EN_DEVISE,
-  coutDe,
-  libelleDe,
-  type TypeTache,
+  DUREES,
+  ESSAI_JOURS,
+  GARANTIE_DUREE_MIN,
+  GARANTIE_JOURS,
+  GRILLE,
+  PALIERS,
+  enDevise,
+  prixDuree,
+  type Palier,
 } from "@/components/marketing/offre";
 import { SECTION_Y, SHELL } from "@/components/marketing/tokens";
 import { alternatesBilingues, openGraphPage } from "@/lib/seo";
 import { lienInscription } from "@/lib/site";
 
-const TITRE = "Pricing: pay-as-you-go credits or a monthly subscription — Cloud OS";
-const DESCRIPTION = `A fixed-price monthly subscription from ${prixAbonnement(PALIERS_ABONNEMENT[0], "en")}, or pay-as-you-go credits: ${OFFRE_EN_DEVISE} on signup, the cost of every task, an estimator to work out your budget before you start.`;
+const TITRE = "Pricing: two all-inclusive plans — Cloud OS";
+const DESCRIPTION = `Personal at ${enDevise(PALIERS[0].prixMensuel)}/mo, Business at ${enDevise(PALIERS[1].prixMensuel)}/mo: two all-inclusive plans, a ${ESSAI_JOURS}-day free trial, and a discount of up to 30% on longer commitments.`;
 
 export const metadata: Metadata = {
   title: TITRE,
@@ -64,121 +58,37 @@ const FAQ_JSON_LD = {
 };
 
 const ANCRES: readonly Ancre[] = [
-  { id: "abonnements", libelle: { fr: "Abonnements", en: "Subscriptions" } },
-  { id: "grille", libelle: { fr: "La grille", en: "The grid" } },
-  { id: "estimateur", libelle: { fr: "L’estimateur", en: "The estimator" } },
-  { id: "facturation", libelle: { fr: "Ce qui est facturé", en: "What’s billed" } },
+  { id: "forfaits", libelle: { fr: "Les forfaits", en: "The plans" } },
+  { id: "durees", libelle: { fr: "Durées et remises", en: "Terms and discounts" } },
+  { id: "moteurs", libelle: { fr: "Les moteurs", en: "The engines" } },
+  { id: "garanties", libelle: { fr: "Essai et garantie", en: "Trial and guarantee" } },
   { id: "questions", libelle: { fr: "Questions", en: "Questions" } },
 ];
 
-/** Deux décimales toujours : les coûts sont des fractions de crédit. */
-const nfCredit = new Intl.NumberFormat("en-CA", {
-  minimumFractionDigits: 2,
-  maximumFractionDigits: 2,
-});
-
 /**
- * Le flux d'exemple : trois traitements enchaînés, donc trois tâches.
- *
- * Seuls les identifiants sont écrits ici — libellés et montants viennent de
- * `offre.ts`, et le total est calculé. Un tarif qui change met donc la
- * démonstration à jour tout seul, au lieu de la laisser mentir.
+ * Ce qu'un forfait garantit, au-delà du prix — l'essai, la garantie et
+ * l'absence de supplément par moteur. Trois cartes plutôt qu'un paragraphe :
+ * ce sont trois engagements distincts, pas une seule idée déclinée.
  */
-const FLUX: readonly TypeTache[] = ["Scraping", "Données", "Documents"];
-
-function fluxChiffre() {
-  const etapes = FLUX.flatMap((type) => {
-    const cout = coutDe(type);
-    // Un type sans tarif arrêté sortirait un total faux : il est écarté, et le
-    // décompte de tâches suit ce qui reste réellement chiffrable.
-    return cout === null ? [] : [{ type, libelle: libelleDe(type, "en"), cout }];
-  });
-  const total = Math.round(etapes.reduce((s, e) => s + e.cout, 0) * 100) / 100;
-  return { etapes, total };
-}
-
-/**
- * Ce qui est facturé — les cinq points qu'un client découvrait jusqu'ici en
- * cours de route. Icônes en cyan : ce sont des repères de lecture, pas des
- * piliers ; l'or reste aux montants.
- *
- * Les deux derniers points sont des garanties, pas des avertissements : le
- * forfait par tâche et l'essai gratuit répondent à la crainte du paiement à
- * l'usage. D'où la coche et les curseurs plutôt qu'une icône d'alerte — traiter
- * le sujet en rouge transformerait un argument en excuse.
- *
- * **Le quatrième point disait l'inverse du produit.** Il annonçait un débit
- * « fichier par fichier » comme règle générale, sous le titre « You only pay
- * for what is processed ». Or la règle est le forfait par tâche : un lot de 200
- * contrats est une tâche à 0,25, et le débit à la pièce n'existe que pour le
- * traitement d'images et le publipostage. Le titre était donc faux avec le
- * corps, et pas seulement à côté : au forfait, on paie au lancement, quel que
- * soit le résultat.
- *
- * Deux clauses en sont sorties — la reprise « with no new credit » après une
- * panne, et la relance « on the same credit, as many times as it takes ».
- * Elles ne sont pas adoucies, elles sont retirées : elles ne peuvent pas être
- * atténuées sans devenir creuses, et elles restent à confirmer contre le code
- * de facturation. Ne pas les réécrire de mémoire.
- *
- * « Dry run » et non « simulation » : la grille, deux sections plus haut,
- * facture un type de tâche nommé « Simulation ». Deux objets sous le même mot
- * sur la même page rendraient les deux incompréhensibles — même raison qui
- * réserve « estimator » au curseur de budget. C'est l'exact pendant du choix
- * fait en français avec « essai à blanc », et il attend la même confirmation
- * contre le mot affiché par l'application.
- */
-const FACTURATION = [
+const GARANTIES = [
   {
-    Icone: IconWindow,
-    titre: "The whole product",
-    texte:
-      "The cost applies to every feature, not only to the heavy tasks.",
+    Icone: IconGift,
+    titre: `${ESSAI_JOURS}-day free trial`,
+    texte: "No credit card. Try it, then decide.",
   },
   {
-    Icone: IconRefresh,
-    titre: "Every step of a flow",
-    texte:
-      "A flow that chains three treatments is billed as three separate tasks.",
-  },
-  {
-    Icone: IconSearch,
-    titre: "Looking costs nothing",
-    texte:
-      "Opening a file, previewing it, moving through your folders: free. Only generating draws credits.",
+    Icone: IconLock,
+    titre: "Satisfaction guaranteed",
+    texte: `${GARANTIE_JOURS} days, on commitments of at least ${GARANTIE_DUREE_MIN} months.`,
   },
   {
     Icone: IconCheck,
-    titre: "One price per task, whatever the volume",
-    // « et les 150 résultats sont à vous » n'est pas décoratif : sans cette
-    // clause, la phrase dirait qu'on facture un travail que le client ne reçoit
-    // pas. Elle reste, mais rattachée aux deux seuls traitements comptés à la
-    // pièce — c'est là, et là seulement, qu'un lot peut s'arrêter en cours.
-    texte:
-      "A batch of 200 contracts costs the price of one task, not 200. Two treatments are the exception and are counted per item: image processing and mail merge. There, only the items produced are charged — if a batch of 200 stops at the 150th, those 150 results are yours, available right away.",
-  },
-  {
-    Icone: IconAdjustments,
-    titre: "Try it, see the price, then launch",
-    // La dernière phrase est l'engagement le plus fort de la page : aucun cas
-    // ne permet à un débit réel de dépasser le montant affiché. Elle ne se
-    // dilue pas — pas d'astérisque, pas de « dans la plupart des cas », pas de
-    // renvoi aux conditions. Si elle ne peut pas s'écrire telle quelle, c'est
-    // qu'elle est fausse.
-    //
-    // Sa justification a changé, pas sa portée : elle s'appuyait sur un débit
-    // « qui suit l'avancement », mécanisme qui n'existe que pour deux moteurs.
-    // Le forfait la rend plus simple à tenir — un prix fixé avant le lancement
-    // ne peut pas dériver — donc la phrase se garde, avec sa vraie raison.
-    texte:
-      "The assistant shows you what the task will produce and what it will cost, before anything is charged. The dry run costs nothing: you adjust until it matches, then you launch. If your balance is not enough, we tell you before it starts. The price is set before launch: you will never pay more than the amount shown.",
+    titre: "Everything included, no add-ons",
+    texte: "Every engine is in the plan. No paid engine on the side.",
   },
 ] as const;
 
-export default function TarifsPageEn() {
-  const { etapes, total } = fluxChiffre();
-  const uniteTotal = total <= 1 ? "credit" : "credits";
-
+export default function PricingPage() {
   return (
     <>
       <script
@@ -194,29 +104,23 @@ export default function TarifsPageEn() {
         ]}
       />
 
-      {/* Héros — texte seul, aligné à gauche comme /mines et /securite. */}
+      {/* Hero — text only, left-aligned like /mines and /security. */}
       <section className="relative">
         <div className={`${SHELL} ${SECTION_Y}`}>
           <Reveal className="max-w-4xl">
             <SurTitre>Pricing</SurTitre>
             <h1 className="mt-2 font-display text-[1.7rem] leading-[1.12] font-extrabold tracking-[-0.02em] text-white sm:text-[2.3rem] os:text-[2.7rem]">
-              Pay for what you use.
+              One flat price.
               <br />
-              Nothing more.
+              Everything included.
             </h1>
             <p className="mt-6 max-w-[58ch] text-[17px] leading-relaxed text-white/85">
-              A fixed-price monthly subscription, or pay-as-you-go credits.
-              One credit is worth one Canadian dollar — you get some to
-              begin with, buy more whenever you want, or opt for a fixed
-              monthly allowance.
+              Two monthly plans, sized to your team. Commit for longer for a
+              discount of up to 30%. {ESSAI_JOURS} days free trial to start,
+              no card required.
             </p>
-            {/* Bouton puis badge, dans cet ordre — le même que sur l'accueil :
-                l'offre confirme l'action, elle ne la précède pas. */}
             <div className="mt-7">
-              <BoutonCta
-                href={lienInscription("tarifs-hero")}
-                taille="lg"
-              >
+              <BoutonCta href={lienInscription("pricing-hero")} taille="lg">
                 Start for free
               </BoutonCta>
             </div>
@@ -229,151 +133,107 @@ export default function TarifsPageEn() {
 
       <AncresSections ancres={ANCRES} lang="en" />
 
-      {/* 1 — Abonnements. En tête de page, avant même la grille : c'est
-          l'option qu'on veut voir en premier. Trois cartes, une par palier ;
-          celle du milieu porte la pastille « Recommandé » (voir
-          `PALIER_RECOMMANDE_ID`). Les crédits sont redits en une phrase, pas
-          en ouverture — la grille qui les détaille suit juste après. */}
-      <section id="abonnements" className="relative scroll-mt-24">
+      {/* 1 — The plans. Two cards, one per tier. */}
+      <section id="forfaits" className="relative scroll-mt-24">
         <div className={`${SHELL} ${SECTION_Y}`}>
           <Reveal className="max-w-2xl">
-            <SurTitre>Subscriptions</SurTitre>
+            <SurTitre>The plans</SurTitre>
             <TitreSection>A fixed amount, every month.</TitreSection>
             <p className="mt-4 max-w-[58ch] text-sm leading-relaxed text-white/85">
-              For regular use, a monthly subscription gives you a fixed
-              credit allowance every month, billed in US dollars via PayPal
-              — a predictable amount rather than topping up on demand.
-              Pay-as-you-go credits remain available at any time, no card
-              required, if you’d rather not plan ahead.
+              The amount doesn’t depend on how much you process: it’s the
+              size of your team that decides which plan to pick.
             </p>
+          </Reveal>
+
+          <Reveal delay={0.1} className="mt-10 grid gap-5 os:grid-cols-2">
+            {PALIERS.map((palier) => (
+              <CartePalier key={palier.id} palier={palier} />
+            ))}
+          </Reveal>
+        </div>
+      </section>
+
+      {/* 2 — Terms and discounts. A table, the five terms from `offre.ts`. */}
+      <section id="durees" className="relative scroll-mt-24">
+        <div className={`${SHELL} ${SECTION_Y}`}>
+          <Reveal className="max-w-2xl">
+            <SurTitre>Terms and discounts</SurTitre>
+            <TitreSection>Longer term, lower price.</TitreSection>
+            <p className="mt-4 max-w-[54ch] text-sm leading-relaxed text-white/85">
+              The displayed price never changes on renewal: the discount is
+              fixed at signature, for the whole term you choose.
+            </p>
+          </Reveal>
+          <Reveal delay={0.1} className="mt-10 overflow-x-auto rounded-lg border border-white/10">
+            <table className="w-full min-w-[28rem] text-left text-[14px]">
+              <thead>
+                <tr className="border-b border-white/15">
+                  <th className="px-4 py-2.5 font-semibold text-white">Term</th>
+                  <th className="px-4 py-2.5 font-semibold text-white">Discount</th>
+                  {PALIERS.map((p) => (
+                    <th key={p.id} className="px-4 py-2.5 font-semibold text-white">
+                      {p.nom.en} · $/mo
+                    </th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {DUREES.map((duree) => (
+                  <tr key={duree.mois} className="border-b border-white/10 text-white/85 last:border-0">
+                    <td className="px-4 py-2.5">
+                      {duree.mois} {duree.mois === 1 ? "month" : "months"}
+                    </td>
+                    <td className="px-4 py-2.5 tabular-nums">
+                      {duree.remisePct === 0 ? "—" : `${duree.remisePct}%`}
+                    </td>
+                    {PALIERS.map((p) => (
+                      <td key={p.id} className="px-4 py-2.5 tabular-nums whitespace-nowrap">
+                        {enDevise(prixDuree(p, duree.mois).mensuel)}
+                      </td>
+                    ))}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* 3 — The engines. What each plan includes, with no price: the grid no
+          longer carries any amount since the switch. */}
+      <section id="moteurs" className="relative scroll-mt-24">
+        <div className={`${SHELL} ${SECTION_Y}`}>
+          <Reveal className="max-w-2xl">
+            <SurTitre>The engines</SurTitre>
+            <TitreSection>Every engine, in the plan.</TitreSection>
+            <p className="mt-4 max-w-[54ch] text-sm leading-relaxed text-white/85">
+              No engine on the side: switch between them with no billing
+              surprise.
+            </p>
+          </Reveal>
+          <Reveal delay={0.1} className="mt-10 flex flex-wrap gap-2.5">
+            {GRILLE.map(({ type, libelle }) => (
+              <span
+                key={type}
+                className="rounded-full border border-white/10 bg-white/[0.03] px-3.5 py-1.5 text-[13px] text-cp-heading"
+              >
+                {libelle.en}
+              </span>
+            ))}
+          </Reveal>
+        </div>
+      </section>
+
+      {/* 4 — Trial and guarantee. Three commitments, in cards. */}
+      <section id="garanties" className="relative scroll-mt-24">
+        <div className={`${SHELL} ${SECTION_Y}`}>
+          <Reveal className="max-w-2xl">
+            <SurTitre>Trial and guarantee</SurTitre>
+            <TitreSection>Try it risk-free.</TitreSection>
           </Reveal>
 
           <Reveal delay={0.1} className="mt-10 grid gap-3.5 os:grid-cols-3">
-            {PALIERS_ABONNEMENT.map((palier) => {
-              const recommande = palier.id === PALIER_RECOMMANDE_ID;
-              return (
-                <div
-                  key={palier.id}
-                  className={`flex flex-col gap-3 rounded-xl border p-5 shadow-[inset_0_1px_0_rgba(255,255,255,0.04)] transition-colors ${
-                    recommande
-                      ? "border-transparent bg-gradient-to-b from-white/[0.06] to-white/[0.01]"
-                      : "border-white/[0.08] bg-gradient-to-b from-white/[0.04] to-white/[0.01] hover:border-white/15"
-                  }`}
-                  style={
-                    recommande
-                      ? {
-                          boxShadow:
-                            "inset 0 0 0 1px color-mix(in srgb, var(--cta) 45%, transparent), inset 0 1px 0 rgba(255,255,255,0.04)",
-                        }
-                      : undefined
-                  }
-                >
-                  <span
-                    className="grid size-10 shrink-0 place-items-center rounded-lg"
-                    style={{
-                      background:
-                        "color-mix(in srgb, var(--soft) 12%, transparent)",
-                      color: "var(--soft)",
-                    }}
-                  >
-                    <IconCoin className="size-[21px]" />
-                  </span>
-                  <div>
-                    <p className="flex items-center gap-2 font-display text-[15px] font-extrabold text-white">
-                      {palier.nom.en}
-                      {recommande ? (
-                        <span
-                          className="rounded-full px-2 py-0.5 text-[10px] font-semibold"
-                          style={{
-                            background: "var(--cta-wash)",
-                            color: "var(--cta)",
-                          }}
-                        >
-                          Recommended
-                        </span>
-                      ) : null}
-                    </p>
-                    <p
-                      className="mt-1 font-display text-lg font-extrabold tabular-nums"
-                      style={{ color: "var(--cta)" }}
-                    >
-                      {prixAbonnement(palier, "en")}
-                    </p>
-                    <p className="mt-1 text-[13px] leading-relaxed text-white/85">
-                      {palier.creditsMensuels} credits every month
-                    </p>
-                  </div>
-                </div>
-              );
-            })}
-          </Reveal>
-        </div>
-      </section>
-
-      {/* 2 — La grille. En-tête étroit, tableau pleine largeur : quatre
-          colonnes de données ont besoin de toute la place. */}
-      <section id="grille" className="relative scroll-mt-24">
-        <div className={`${SHELL} ${SECTION_Y}`}>
-          <Reveal className="max-w-2xl">
-            <SurTitre>The grid</SurTitre>
-            <TitreSection>The cost per task.</TitreSection>
-            <p className="mt-4 max-w-[54ch] text-sm leading-relaxed text-white/85">
-              A small task costs little; a heavy render costs more. The amount
-              does not depend on the volume handled: a task costs its price.
-            </p>
-          </Reveal>
-          <Reveal delay={0.1} className="mt-10">
-            <GrilleDetaillee lang="en" />
-          </Reveal>
-        </div>
-      </section>
-
-      {/* 3 — L'estimateur, pleine largeur : le curseur gagne à respirer et les
-          équivalences se lisent en regard. */}
-      <section id="estimateur" className="relative scroll-mt-24">
-        <div className={`${SHELL} ${SECTION_Y}`}>
-          <Reveal className="max-w-2xl">
-            <SurTitre>The estimator</SurTitre>
-            <TitreSection>How much for your usage?</TitreSection>
-            <p className="mt-4 max-w-[54ch] text-sm leading-relaxed text-white/85">
-              Choose an amount of credits: you see straight away how many tasks
-              it represents.
-            </p>
-          </Reveal>
-          <Reveal delay={0.1} className="mt-10">
-            {/* Sans le renvoi « Voir les détails » : il pointerait vers cette
-                page-ci, où la grille complète est déjà juste au-dessus. */}
-            <Estimateur lienDetails={false} variante="large" lang="en" />
-          </Reveal>
-        </div>
-      </section>
-
-      {/* 4 — Ce qui est facturé. Cinq points et la démonstration chiffrée du
-          flux, en six cases d'une grille à deux colonnes.
-
-          La fenêtre longeait une colonne de cartes ; à cinq cartes, dont deux
-          longues, elle laissait 411 px de vide sous elle. En sixième case, elle
-          ferme la grille : trois rangées pleines, plus de trou latéral. La
-          section ne raccourcit que de 910 à 834 px — des cartes deux fois plus
-          étroites rewrappent — mais c'est le vide qui gênait, pas la hauteur. */}
-      <section id="facturation" className="relative scroll-mt-24">
-        <div className={`${SHELL} ${SECTION_Y}`}>
-          <Reveal className="max-w-2xl">
-            <SurTitre>What is billed</SurTitre>
-            <TitreSection>What draws credits.</TitreSection>
-            <p className="mt-4 max-w-[54ch] text-sm leading-relaxed text-white/85">
-              The price applies to the task, not to the volume it handles. Here
-              is what counts as a
-              task.
-            </p>
-          </Reveal>
-
-          {/* Le `Reveal` porte lui-même la grille : un seul bloc animé pour les
-              six cases, au lieu d'un wrapper par carte. Les cases s'étirent à
-              la hauteur de leur rangée (comportement par défaut d'une grille),
-              d'où des cartes alignées deux à deux sans hauteur écrite. */}
-          <Reveal delay={0.1} className="mt-10 grid gap-3.5 os:grid-cols-2">
-            {FACTURATION.map(({ Icone, titre, texte }) => (
+            {GARANTIES.map(({ Icone, titre, texte }) => (
               <div
                 key={titre}
                 className="flex gap-4 rounded-xl border border-white/[0.08] bg-gradient-to-b from-white/[0.04] to-white/[0.01] p-5 shadow-[inset_0_1px_0_rgba(255,255,255,0.04)] transition-colors hover:border-white/15"
@@ -381,8 +241,7 @@ export default function TarifsPageEn() {
                 <span
                   className="grid size-10 shrink-0 place-items-center rounded-lg"
                   style={{
-                    background:
-                      "color-mix(in srgb, var(--soft) 12%, transparent)",
+                    background: "color-mix(in srgb, var(--soft) 12%, transparent)",
                     color: "var(--soft)",
                   }}
                 >
@@ -398,57 +257,12 @@ export default function TarifsPageEn() {
                 </div>
               </div>
             ))}
-
-            {/* La découverte après coup qui coûte un client : trois traitements
-                enchaînés, trois débits. Dit une fois en carte, montré une fois
-                en chiffres — avec les vrais tarifs. */}
-            <WindowCard title="Flow · Cloud OS">
-              <div className="p-5">
-                <p className="text-xs text-white/60">Example flow</p>
-                <ol className="mt-3.5 space-y-2.5">
-                  {etapes.map(({ type, libelle, cout }, i) => (
-                    <li key={type} className="flex items-center gap-3">
-                      <span
-                        className="grid size-7 shrink-0 place-items-center rounded-lg text-[12px] font-semibold"
-                        style={{
-                          background:
-                            "color-mix(in srgb, var(--soft) 14%, transparent)",
-                          color: "var(--soft)",
-                        }}
-                      >
-                        {i + 1}
-                      </span>
-                      <span className="min-w-0 flex-1 truncate text-sm text-white">
-                        {libelle}
-                      </span>
-                      <span
-                        className="font-display text-sm font-extrabold tabular-nums"
-                        style={{ color: "var(--cta)" }}
-                      >
-                        {nfCredit.format(cout)}
-                      </span>
-                    </li>
-                  ))}
-                </ol>
-                <div className="mt-4 flex items-baseline justify-between gap-3 border-t border-white/10 pt-3.5">
-                  <span className="text-[13px] text-white/85">
-                    {etapes.length} tasks
-                  </span>
-                  <span
-                    className="font-display text-[15px] font-extrabold tabular-nums"
-                    style={{ color: "var(--cta)" }}
-                  >
-                    {nfCredit.format(total)} {uniteTotal}
-                  </span>
-                </div>
-              </div>
-            </WindowCard>
           </Reveal>
         </div>
       </section>
 
-      {/* 5 — Les questions. En-tête à gauche, accordéon à droite : du texte
-          suivi, donc deux colonnes plutôt que la pleine largeur. */}
+      {/* 5 — Questions. Left header, accordion on the right: running text, so
+          two columns rather than full width. */}
       <section id="questions" className="relative scroll-mt-24">
         <div className={`${SHELL} ${SECTION_Y}`}>
           <div className="grid gap-8 os:grid-cols-[2fr_3fr] os:items-start os:gap-12">
@@ -463,16 +277,16 @@ export default function TarifsPageEn() {
         </div>
       </section>
 
-      {/* Closer. Pas de badge d'offre : le héros l'a déjà annoncée. */}
+      {/* Closer. No offer badge: the hero already announced it. */}
       <section className="relative overflow-x-clip">
         <div className={`${SHELL} ${SECTION_Y}`}>
           <Reveal>
             <FenetreCta
-              lang="en"
               badge={false}
-              soustitre="Create your account and run your first task today."
+              lang="en"
+              soustitre="Create your account and launch your first task today."
               bouton={{
-                href: lienInscription("tarifs-closer"),
+                href: lienInscription("pricing-closer"),
                 libelle: "Start for free",
               }}
               lien={{
@@ -487,7 +301,43 @@ export default function TarifsPageEn() {
   );
 }
 
-/** Sur-titre or, style système. */
+/** One card per plan: price, allowance translated into tasks, inclusions. */
+function CartePalier({ palier }: Readonly<{ palier: Palier }>) {
+  return (
+    <div className="flex flex-col gap-4 rounded-xl border border-white/[0.08] bg-gradient-to-b from-white/[0.05] to-white/[0.01] p-6 shadow-[inset_0_1px_0_rgba(255,255,255,0.04)]">
+      <div>
+        <p className="font-display text-lg font-extrabold text-white">
+          {palier.nom.en}
+        </p>
+        <p
+          className="mt-1 flex items-baseline gap-1 font-display text-3xl font-extrabold tabular-nums"
+          style={{ color: "var(--cta)" }}
+        >
+          {enDevise(palier.prixMensuel)}
+          <span className="text-sm font-medium text-white/70">/mo</span>
+        </p>
+        <p className="mt-1 text-[13px] text-white/70">
+          ≈ {palier.tachesParMois} tasks a month
+        </p>
+      </div>
+      <ul className="space-y-2">
+        {palier.inclusions.en.map((inclusion) => (
+          <li key={inclusion} className="flex items-start gap-2 text-[13px] text-white/85">
+            <IconCheck className="mt-0.5 size-4 shrink-0" style={{ color: "var(--soft)" }} />
+            {inclusion}
+          </li>
+        ))}
+      </ul>
+      <div className="mt-1">
+        <BoutonCta href={lienInscription(`pricing-${palier.id}`)} taille="md">
+          Choose {palier.nom.en}
+        </BoutonCta>
+      </div>
+    </div>
+  );
+}
+
+/** Gold eyebrow, system style. */
 function SurTitre({ children }: Readonly<{ children: ReactNode }>) {
   return (
     <p
@@ -499,7 +349,7 @@ function SurTitre({ children }: Readonly<{ children: ReactNode }>) {
   );
 }
 
-/** Titre de section, style système, collé au sur-titre. */
+/** Section title, system style, tight to the eyebrow. */
 function TitreSection({ children }: Readonly<{ children: ReactNode }>) {
   return (
     <h2 className="mt-2 font-display text-[1.6rem] leading-[1.2] font-extrabold tracking-tight text-balance text-cp-heading sm:text-3xl os:text-4xl">

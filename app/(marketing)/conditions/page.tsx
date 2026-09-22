@@ -17,15 +17,6 @@ import {
   TELEPHONE,
   TELEPHONE_LIEN,
 } from "@/components/marketing/coordonnees";
-import { GrilleTarifaireLegale } from "@/components/marketing/GrilleTarifaireLegale";
-// Les deux montants cités dans l'article « Crédits, tarification et
-// facturation » viennent de la même source que la grille juste en dessous. La
-// devise reste épelée en toutes lettres dans le texte : « $ CA » est la forme
-// d'affichage du site, pas celle d'un document contractuel.
-import {
-  CREDIT_EN_DEVISE,
-  CREDITS_OFFERTS,
-} from "@/components/marketing/offre";
 import { ListeNumerotee } from "@/components/marketing/ListeNumerotee";
 import { LECTURE, SECTION_Y, SHELL } from "@/components/marketing/tokens";
 import {
@@ -37,7 +28,7 @@ import {
 
 const TITRE = "Conditions d’utilisation — Cloud OS";
 const DESCRIPTION =
-  "Conditions d’utilisation de Cloud OS : compte, crédits et tarification, utilisation acceptable, propriété du contenu, garanties et droit applicable.";
+  "Conditions d’utilisation de Cloud OS : compte et abonnement, utilisation acceptable, propriété du contenu, garanties et droit applicable.";
 
 export const metadata: Metadata = {
   title: TITRE,
@@ -130,11 +121,6 @@ const SECTIONS: readonly SectionRedigee[] = [
             texte: "les fichiers ou données produits par un Job.",
           },
           {
-            terme: "Crédits :",
-            texte:
-              "l’unité de prépaiement permettant de payer l’exécution des Traitements (voir l’article 6).",
-          },
-          {
             terme: "Équipe :",
             texte:
               "un espace de collaboration permettant de partager des fichiers et des Traitements avec d’autres utilisateurs.",
@@ -205,80 +191,6 @@ const SECTIONS: readonly SectionRedigee[] = [
             terme: "Un compte par personne.",
             texte:
               "Vous ne pouvez pas partager vos identifiants ni céder votre compte sans notre autorisation écrite préalable. Pour collaborer, utilisez plutôt les Équipes (article 9).",
-          },
-        ],
-      },
-    ],
-  },
-  {
-    titre: "Crédits, tarification et facturation",
-    blocs: [
-      {
-        liste: [
-          {
-            terme: "Modèle « à l’usage ».",
-            texte: `Le Service fonctionne par crédits prépayés. 1 crédit équivaut à ${CREDIT_EN_DEVISE} dollar canadien (CAD). Chaque Traitement consomme un nombre de crédits selon le type de moteur utilisé.`,
-          },
-          {
-            terme: "Crédits offerts à l’inscription.",
-            texte: `Un montant de bienvenue en crédits (actuellement l’équivalent de ${CREDITS_OFFERTS} $ CAD) peut être offert à la création du compte, sans carte de crédit requise. Ce montant est promotionnel, sans valeur monétaire, non remboursable et non transférable ; il peut être modifié ou retiré en tout temps.`,
-          },
-        ],
-      },
-      <>
-        <strong className="font-semibold text-white">Prix des traitements.</strong> Le prix de chaque
-        type de traitement est affiché dans le Service et sur notre site avant l’exécution. À titre
-        indicatif seulement, et sous réserve de modification, les tarifs par exécution sont de l’ordre
-        de :
-      </>,
-      { brut: <GrilleTarifaireLegale lang="fr" /> },
-      "Les prix en vigueur sont ceux affichés dans le Service au moment où vous soumettez un Traitement.",
-      {
-        liste: [
-          {
-            // ⚠️ CONTREDIT PAR LE CODE APPLICATIF — relevé le 2026-08-02, non
-            // corrigé ici volontairement : c'est un texte contractuel, et le
-            // réécrire est une décision du juriste, pas de la vitrine.
-            //
-            // `chargeForJob` débite **au lancement**, avant même la création du
-            // Job ; `failJob` et `cancelJob` ne remboursent rien. Trois
-            // affirmations de ce bloc sont donc plus favorables au client que
-            // le produit : « à mesure que le Job progresse, et non à son
-            // lancement », « repris sans nouveau débit », et « relancer sur le
-            // même crédit ». Le débit à la pièce, lui, n'existe que pour le
-            // traitement d'images et le publipostage.
-            //
-            // L'écart a changé de sens : ces clauses étaient réputées plus
-            // dures que le produit, elles sont en réalité plus généreuses — et
-            // elles sont en ligne et indexées depuis le 2026-07-31.
-            terme: "Débit des crédits.",
-            texte:
-              "Les crédits sont débités à mesure que le Job progresse, et non à son lancement : ce qui a été traité est débité, ce qui ne l’a pas été ne l’est pas, et les Résultats déjà produits vous demeurent acquis. Un Job interrompu par une défaillance de notre infrastructure est repris sans nouveau débit. Lorsqu’un Contenu utilisateur invalide ou des instructions erronées empêchent un Job d’aboutir, nous vous en indiquons la cause et vous pouvez corriger puis relancer sur le même crédit. Demeure facturée la capacité de calcul effectivement consommée, y compris lorsque le Résultat obtenu ne vous satisfait pas.",
-          },
-          {
-            terme: "Recharge de crédits.",
-            texte:
-              "L’achat de crédits supplémentaires s’effectue au moyen des modes de paiement offerts dans le Service (notamment PayPal). Les paiements sont traités par des prestataires tiers, selon leurs propres conditions ; nous ne stockons pas les données complètes de vos instruments de paiement.",
-          },
-          {
-            terme: "Remboursements.",
-            texte: (
-              <>
-                Sauf disposition contraire prévue par la loi applicable — notamment la{" "}
-                <em>Loi sur la protection du consommateur</em> du Québec — les crédits achetés ne sont pas
-                remboursables une fois consommés. Les crédits non utilisés peuvent faire l’objet d’un
-                remboursement à notre discrétion ou lorsque la loi l’exige. Pour toute demande, écrivez à{" "}
-                <a href={`mailto:${COURRIEL}`}>
-                  {COURRIEL}
-                </a>
-                {"."}
-              </>
-            ),
-          },
-          {
-            terme: "Taxes.",
-            texte:
-              "Les prix affichés peuvent être exclusifs des taxes applicables (TPS/TVQ). Les taxes requises seront ajoutées le cas échéant.",
           },
         ],
       },
@@ -427,7 +339,7 @@ const SECTIONS: readonly SectionRedigee[] = [
           {
             terme: "Effets de la résiliation.",
             texte:
-              "À l’expiration du délai de grâce de 30 jours, votre accès au Service cesse et l’ensemble de votre compte — Contenu utilisateur, Résultats et renseignements de compte — est purgé définitivement, sous réserve des sauvegardes techniques temporaires. Les factures sont conservées six (6) ans pour répondre aux obligations fiscales et comptables ; la politique de confidentialité détaille les durées applicables. Les crédits non utilisés d’un compte fermé pour cause de violation des Conditions peuvent être perdus, dans la mesure permise par la loi. Les dispositions qui, par leur nature, doivent survivre à la résiliation — notamment vos responsabilités quant au Contenu utilisateur (article 8), ainsi que les articles 12, 14, 15, 16 et 18 — demeurent en vigueur.",
+              "À l’expiration du délai de grâce de 30 jours, votre accès au Service cesse et l’ensemble de votre compte — Contenu utilisateur, Résultats et renseignements de compte — est purgé définitivement, sous réserve des sauvegardes techniques temporaires. Les factures sont conservées six (6) ans pour répondre aux obligations fiscales et comptables ; la politique de confidentialité détaille les durées applicables. Les dispositions qui, par leur nature, doivent survivre à la résiliation — notamment vos responsabilités quant au Contenu utilisateur (article 8), ainsi que les articles 12, 14, 15, 16 et 18 — demeurent en vigueur.",
           },
         ],
       },
