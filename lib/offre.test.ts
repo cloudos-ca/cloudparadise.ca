@@ -35,35 +35,77 @@ describe("offre", () => {
   });
 });
 
+/** Une durée d'engagement telle que rendue par `/api/v1/pricing`. */
+type TermeDistant = { months: number; discountPct: number; monthly: number; total: number };
+/** Un forfait tel que rendu par `/api/v1/pricing`. */
+type PalierDistant = { key: string; price: number; envelope: number; currency: string; terms: TermeDistant[] };
+/** La forme complète de la réponse, une fois sa présence validée. */
+type Catalogue = {
+  billingModel: "CREDITS" | "PLANS";
+  currency: string;
+  trialDays: number;
+  guaranteeDays: number;
+  guaranteeMinMonths: number;
+  plans: PalierDistant[];
+};
+
+/** Tri numérique croissant, pour comparer deux listes de durées sans dépendre de leur ordre. */
+const parOrdreCroissant = (a: number, b: number) => a - b;
+
 /** L'application est la source de vérité des prix : un administrateur les change sans déploiement.
- * Ce test compare ce que promet la vitrine à ce que la production facture vraiment. Il ne fait rien
- * tant que la production n'est pas passée aux forfaits (avant le jour J elle répond encore
- * `billingModel: "CREDITS"`), et il ne masque JAMAIS un écart : réseau indisponible = test ignoré
- * avec un message, écart = échec. */
+ * Ce test compare ce que promet la vitrine à ce que la production facture vraiment, DANS LES DEUX
+ * SENS : un forfait ou une durée qui existe ici mais pas là-bas, ou l'inverse, est un écart. Il ne
+ * fait rien tant que la production n'est pas passée aux forfaits (avant le jour J elle répond
+ * encore `billingModel: "CREDITS"`), et il ne masque JAMAIS un écart : seule une erreur de
+ * transport (réseau absent, délai dépassé) donne un test ignoré — un statut HTTP différent de 200,
+ * un corps qui n'est pas la forme attendue, ou une composition qui diverge font ÉCHOUER le test. */
 describe("offre vs production", () => {
   it("les prix, enveloppes, durées, essai et garantie sont ceux de /api/v1/pricing", async (t) => {
-    let catalogue: {
-      billingModel: string; currency: string; trialDays: number; guaranteeDays: number; guaranteeMinMonths: number;
-      plans: { key: string; price: number; envelope: number; currency: string; terms: { months: number; discountPct: number; monthly: number; total: number }[] }[];
-    };
+    let reponse: Response;
     try {
-      const reponse = await fetch("https://app.cloudparadise.cloud/api/v1/pricing", { signal: AbortSignal.timeout(15_000) });
-      assert.equal(reponse.status, 200);
-      catalogue = await reponse.json();
+      reponse = await fetch("https://app.cloudparadise.cloud/api/v1/pricing", { signal: AbortSignal.timeout(15_000) });
     } catch (err) {
+      // Seule une erreur de transport (réseau absent, délai dépassé) est ignorée : elle ne dit
+      // rien de l'état de la production, seulement de la joignabilité depuis ici.
       t.skip(`production injoignable (${String(err)}) — comparaison remise à la prochaine exécution`);
       return;
     }
 
-    if (catalogue.billingModel !== "PLANS") {
+    // Un statut différent de 200 (route renommée, API cassée) est une divergence, pas une panne
+    // réseau : il fait échouer le test, hors du try/catch ci-dessus.
+    assert.equal(reponse.status, 200, `statut HTTP inattendu pour /api/v1/pricing : ${reponse.status}`);
+
+    const brut: unknown = await reponse.json();
+    assert.ok(brut !== null && typeof brut === "object", "réponse de /api/v1/pricing sans corps JSON exploitable");
+    const obj = brut as Record<string, unknown>;
+    assert.ok("billingModel" in obj, "champ billingModel absent de /api/v1/pricing");
+    assert.ok("plans" in obj && Array.isArray(obj.plans), "champ plans absent ou non-tableau dans /api/v1/pricing");
+    assert.ok(
+      obj.billingModel === "CREDITS" || obj.billingModel === "PLANS",
+      `billingModel inattendu : ${JSON.stringify(obj.billingModel)} (ni "CREDITS" ni "PLANS")`,
+    );
+
+    if (obj.billingModel === "CREDITS") {
       t.skip("la production est encore sur le modèle crédits — comparaison sans objet avant la bascule");
       return;
     }
+
+    const catalogue = obj as unknown as Catalogue;
 
     assert.equal(catalogue.currency, "CAD");
     assert.equal(catalogue.trialDays, ESSAI_JOURS);
     assert.equal(catalogue.guaranteeDays, GARANTIE_JOURS);
     assert.equal(catalogue.guaranteeMinMonths, GARANTIE_DUREE_MIN);
+
+    // Composition des forfaits, dans les deux sens : un forfait en trop ou en moins côté
+    // production doit se voir, pas seulement un forfait manquant.
+    const clesDistantes = catalogue.plans.map((p) => p.key).sort();
+    const clesLocales = PALIERS.map((p) => p.id).sort();
+    assert.deepEqual(
+      clesDistantes,
+      clesLocales,
+      `forfaits de la production (${clesDistantes.join(", ")}) ≠ forfaits de la vitrine (${clesLocales.join(", ")})`,
+    );
 
     for (const palier of PALIERS) {
       const distant = catalogue.plans.find((p) => p.key === palier.id);
@@ -71,9 +113,19 @@ describe("offre vs production", () => {
       assert.equal(distant.price, palier.prixMensuel, `prix de ${palier.id}`);
       assert.equal(distant.envelope, palier.enveloppe, `enveloppe de ${palier.id}`);
       assert.equal(distant.currency, "CAD");
+
+      // Composition des durées, dans les deux sens : une durée en trop ou en moins pour ce
+      // forfait doit se voir.
+      const moisDistants = distant.terms.map((t2) => t2.months).sort(parOrdreCroissant);
+      const moisLocaux = DUREES.map((d) => d.mois).sort(parOrdreCroissant);
+      assert.deepEqual(
+        moisDistants,
+        moisLocaux,
+        `durées de ${palier.id} en production (${moisDistants.join(", ")}) ≠ durées de la vitrine (${moisLocaux.join(", ")})`,
+      );
+
       for (const duree of DUREES) {
-        const terme: { months: number; discountPct: number; monthly: number; total: number } | undefined =
-          distant.terms.find((t2) => t2.months === duree.mois);
+        const terme: TermeDistant | undefined = distant.terms.find((t2) => t2.months === duree.mois);
         assert.ok(terme, `durée ${duree.mois} mois absente pour ${palier.id}`);
         assert.equal(terme.discountPct, duree.remisePct, `remise ${duree.mois} mois de ${palier.id}`);
         const attendu = prixDuree(palier, duree.mois);
