@@ -190,7 +190,7 @@ const SECTIONS: readonly SectionRedigee[] = [
           {
             terme: "Un compte par personne.",
             texte:
-              "Vous ne pouvez pas partager vos identifiants ni céder votre compte sans notre autorisation écrite préalable. Pour collaborer, utilisez plutôt les Équipes (article 9).",
+              "Vous ne pouvez pas partager vos identifiants ni céder votre compte sans notre autorisation écrite préalable. Pour collaborer, utilisez plutôt les Équipes (voir l’article « Équipes et partage »).",
           },
         ],
       },
@@ -216,7 +216,7 @@ const SECTIONS: readonly SectionRedigee[] = [
           />
         ),
       },
-      "Nous nous réservons le droit de refuser, d’interrompre ou de supprimer tout Traitement ou Contenu utilisateur qui contreviendrait au présent article, et de suspendre les comptes concernés (article 13).",
+      "Nous nous réservons le droit de refuser, d’interrompre ou de supprimer tout Traitement ou Contenu utilisateur qui contreviendrait au présent article, et de suspendre les comptes concernés (voir l’article « Suspension et résiliation »).",
     ],
   },
   {
@@ -339,7 +339,7 @@ const SECTIONS: readonly SectionRedigee[] = [
           {
             terme: "Effets de la résiliation.",
             texte:
-              "À l’expiration du délai de grâce de 30 jours, votre accès au Service cesse et l’ensemble de votre compte — Contenu utilisateur, Résultats et renseignements de compte — est purgé définitivement, sous réserve des sauvegardes techniques temporaires. Les factures sont conservées six (6) ans pour répondre aux obligations fiscales et comptables ; la politique de confidentialité détaille les durées applicables. Les dispositions qui, par leur nature, doivent survivre à la résiliation — notamment vos responsabilités quant au Contenu utilisateur (article 8), ainsi que les articles 12, 14, 15, 16 et 18 — demeurent en vigueur.",
+              "À l’expiration du délai de grâce de 30 jours, votre accès au Service cesse et l’ensemble de votre compte — Contenu utilisateur, Résultats et renseignements de compte — est purgé définitivement, sous réserve des sauvegardes techniques temporaires. Les factures sont conservées six (6) ans pour répondre aux obligations fiscales et comptables ; la politique de confidentialité détaille les durées applicables. Les dispositions qui, par leur nature, doivent survivre à la résiliation — notamment vos responsabilités quant au Contenu utilisateur (article « Contenu utilisateur »), ainsi que les articles « Propriété intellectuelle de Cloud OS », « Exclusion de garanties », « Limitation de responsabilité », « Indemnisation » et « Droit applicable et juridiction » — demeurent en vigueur.",
           },
         ],
       },

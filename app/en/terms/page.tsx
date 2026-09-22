@@ -187,7 +187,7 @@ const SECTIONS: readonly SectionRedigee[] = [
           {
             terme: "One account per person.",
             texte:
-              "You may not share your credentials or transfer your account without our prior written authorization. To collaborate, use Teams instead (article 9).",
+              "You may not share your credentials or transfer your account without our prior written authorization. To collaborate, use Teams instead (see the “Teams and sharing” article).",
           },
         ],
       },
@@ -213,7 +213,7 @@ const SECTIONS: readonly SectionRedigee[] = [
           />
         ),
       },
-      "We reserve the right to refuse, interrupt, or remove any Job or User Content that would violate this article, and to suspend the accounts concerned (article 13).",
+      "We reserve the right to refuse, interrupt, or remove any Job or User Content that would violate this article, and to suspend the accounts concerned (see the “Suspension and termination” article).",
     ],
   },
   {
@@ -335,7 +335,7 @@ const SECTIONS: readonly SectionRedigee[] = [
           {
             terme: "Effects of termination.",
             texte:
-              "Once the 30-day grace period has elapsed, your access to the Service ends and your entire account — User Content, Results, and account information — is permanently purged, subject to temporary technical backups. Invoices are kept for six (6) years to meet tax and accounting obligations; the privacy policy sets out the applicable periods. The provisions that by their nature must survive termination — notably your responsibilities regarding User Content (article 8), as well as articles 12, 14, 15, 16, and 18 — remain in effect.",
+              "Once the 30-day grace period has elapsed, your access to the Service ends and your entire account — User Content, Results, and account information — is permanently purged, subject to temporary technical backups. Invoices are kept for six (6) years to meet tax and accounting obligations; the privacy policy sets out the applicable periods. The provisions that by their nature must survive termination — notably your responsibilities regarding User Content (the “User Content” article), as well as the “Cloud OS’s intellectual property”, “Disclaimer of warranties”, “Limitation of liability”, “Indemnification”, and “Governing law and jurisdiction” articles — remain in effect.",
           },
         ],
       },

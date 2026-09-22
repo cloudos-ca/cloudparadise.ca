@@ -261,7 +261,7 @@ export const PME_EN: ContenuPme = {
     surtitre: "Pricing",
     titre: "No per-seat licences. One flat plan, everything included.",
     texte:
-      "A monthly subscription, two sizes depending on your team. The amount doesn’t move with how much you process.",
+      "A monthly subscription, two sizes depending on your team. The price doesn’t change from month to month.",
     points: [
       {
         cle: "offert",
@@ -274,7 +274,7 @@ export const PME_EN: ContenuPme = {
       {
         cle: "traite",
         titre: "One flat price, every month",
-        texte: "The amount is known up front, whatever your volume.",
+        texte: "The amount is known up front, with no surprise on the bill.",
       },
       {
         cle: "consulter",

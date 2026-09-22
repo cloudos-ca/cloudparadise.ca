@@ -251,7 +251,7 @@ export const PME_FR: ContenuPme = {
     surtitre: "Le budget",
     titre: "Pas de licence par siège. Un forfait fixe, tout inclus.",
     texte:
-      "Un abonnement mensuel, deux formats selon votre taille. Le montant ne bouge pas avec le volume traité.",
+      "Un abonnement mensuel, deux formats selon votre taille. Le prix ne bouge pas d’un mois à l’autre.",
     points: [
       {
         cle: "offert",
@@ -263,7 +263,7 @@ export const PME_FR: ContenuPme = {
       {
         cle: "traite",
         titre: "Un prix fixe, chaque mois",
-        texte: "Le montant est connu d’avance, quel que soit votre volume.",
+        texte: "Le montant est connu d’avance, sans surprise à la facture.",
       },
       {
         cle: "consulter",
