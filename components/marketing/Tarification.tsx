@@ -1,6 +1,6 @@
+import { CarteForfait } from "./CarteForfait";
 import { Reveal } from "./Reveal";
-import { IconCheck } from "./icons";
-import { ESSAI_JOURS, PALIERS, enDevise, type Palier } from "./offre";
+import { ESSAI_JOURS, PALIERS, type Palier } from "./offre";
 import { SECTION_Y, SHELL, type Lang } from "./tokens";
 
 const TEXTES = {
@@ -61,7 +61,8 @@ export function Tarification({ lang = "fr" }: Readonly<{ lang?: Lang }>) {
   );
 }
 
-/** Une carte par forfait : prix, enveloppe traduite en tâches, inclusions. */
+/** L'habillage de carte de l'accueil, autour du cœur partagé `CarteForfait`
+ * — prix de base, sans engagement (l'accueil n'a pas de sélecteur de durée). */
 function CartePalier({
   palier,
   lang,
@@ -71,34 +72,12 @@ function CartePalier({
     <div
       className="flex flex-col gap-4 rounded-xl border border-white/[0.08] bg-gradient-to-b from-white/[0.04] to-white/[0.01] p-5 shadow-[inset_0_1px_0_rgba(255,255,255,0.04)] transition-colors hover:border-white/15"
     >
-      <div>
-        <p className="font-display text-[15px] font-extrabold text-white">
-          {palier.nom[lang]}
-        </p>
-        <p
-          className="mt-1 flex items-baseline gap-1 font-display text-2xl font-extrabold tabular-nums"
-          style={{ color: "var(--cta)" }}
-        >
-          {enDevise(palier.prixMensuel)}
-          <span className="text-[13px] font-medium text-white/70">{suffixe}</span>
-        </p>
-        <p className="mt-1 text-[13px] text-white/70">
-          {lang === "en"
-            ? `≈ ${palier.tachesParMois} tasks a month`
-            : `≈ ${palier.tachesParMois} tâches par mois`}
-        </p>
-      </div>
-      <ul className="space-y-2">
-        {palier.inclusions[lang].map((inclusion) => (
-          <li key={inclusion} className="flex items-start gap-2 text-[13px] text-white/85">
-            <IconCheck
-              className="mt-0.5 size-4 shrink-0"
-              style={{ color: "var(--soft)" }}
-            />
-            {inclusion}
-          </li>
-        ))}
-      </ul>
+      <CarteForfait
+        palier={palier}
+        lang={lang}
+        mensuel={palier.prixMensuel}
+        suffixe={suffixe}
+      />
     </div>
   );
 }

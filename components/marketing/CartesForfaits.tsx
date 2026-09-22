@@ -2,9 +2,11 @@
 
 import { useState } from "react";
 import { BoutonCta } from "./BoutonCta";
-import { DUREES, GARANTIE_DUREE_MIN, GARANTIE_JOURS, PALIERS, enDevise, prixDuree } from "./offre";
+import { CarteForfait } from "./CarteForfait";
+import { DUREES, GARANTIE_JOURS, PALIERS, enDevise } from "./offre";
 import type { Lang } from "./tokens";
 import { lienInscription } from "@/lib/site";
+import { etatCartes } from "@/lib/forfaits";
 
 const T = {
   fr: {
@@ -13,7 +15,6 @@ const T = {
     factureTotal: (total: string, mois: number) => `facturé ${total} pour ${mois} mois, + taxes`,
     parMois: "/ mois",
     taxes: "+ taxes",
-    taches: (n: number) => `≈ ${n} tâches / mois`,
     garantie: `Satisfait ou remboursé ${GARANTIE_JOURS} jours`,
     usd: "≈ 7 $ US",
     equipe:
@@ -26,7 +27,6 @@ const T = {
     factureTotal: (total: string, mois: number) => `billed ${total} for ${mois} months, + taxes`,
     parMois: "/ month",
     taxes: "+ taxes",
-    taches: (n: number) => `≈ ${n} tasks / month`,
     garantie: `${GARANTIE_JOURS}-day money-back guarantee`,
     usd: "≈ US$7",
     equipe:
@@ -35,21 +35,31 @@ const T = {
   },
 } as const;
 
+/** Préfixe de `src` pour `lienInscription`, aligné sur les CTA déjà en place
+ * sur chaque page (`tarifs-hero`/`tarifs-closer` en français,
+ * `pricing-hero`/`pricing-closer` en anglais) : une carte anglaise ne doit
+ * jamais rapporter un `src` commençant par `tarifs-`. */
+const PREFIXE_SRC = { fr: "tarifs", en: "pricing" } as const;
+
 /**
  * Les deux cartes de forfait, avec le sélecteur de durée (spec §8.2, décision G).
  *
- * Seul rendu de prix de /tarifs et /en/pricing : `Tarification.tsx` (accueil) et le JSON-LD
- * (`OffreJsonLd.tsx`) lisent tous deux `offre.ts` directement, indépendamment de ce composant, mais
- * aucun d'eux ne duplique la logique de sélection de durée qui vit ici.
+ * Le prix, l'enveloppe et les inclusions sont rendus par `CarteForfait`, le
+ * seul rendu de prix du site — ce composant ne fait qu'y ajouter la note de
+ * facturation, la garantie et le CTA, propres à cette page. La décision pure
+ * du sélecteur (mensuel/total par palier, et si la garantie s'affiche) vient
+ * de `etatCartes` (`lib/forfaits.ts`), testée là où ce dépôt peut tester —
+ * sans navigateur.
  */
 export function CartesForfaits({ lang }: Readonly<{ lang: Lang }>) {
   const [mois, setMois] = useState(12);
   const t = T[lang];
+  const etats = etatCartes(mois);
   return (
     <div className="flex flex-col gap-6">
       <div className="flex flex-col items-center gap-2">
         <div
-          role="tablist"
+          role="group"
           aria-label={lang === "fr" ? "Durée d'engagement" : "Commitment length"}
           className="flex flex-wrap justify-center gap-2"
         >
@@ -57,8 +67,7 @@ export function CartesForfaits({ lang }: Readonly<{ lang: Lang }>) {
             <button
               key={d.mois}
               type="button"
-              role="tab"
-              aria-selected={d.mois === mois}
+              aria-pressed={d.mois === mois}
               onClick={() => setMois(d.mois)}
               className={`rounded-full px-4 py-1.5 text-sm ${d.mois === mois ? "bg-white text-slate-900" : "bg-white/10 text-white/80"}`}
             >
@@ -71,26 +80,31 @@ export function CartesForfaits({ lang }: Readonly<{ lang: Lang }>) {
 
       <div className="grid gap-6 md:grid-cols-2">
         {PALIERS.map((p) => {
-          const prix = prixDuree(p, mois);
+          const etat = etats.find((e) => e.id === p.id);
+          if (!etat) throw new Error(`palier inconnu : ${p.id}`);
           return (
-            <article key={p.id} className="flex flex-col gap-4 rounded-2xl border border-white/10 p-6">
-              <h3 className="text-xl font-semibold">{p.nom[lang]}</h3>
-              <p className="text-3xl font-bold">
-                {enDevise(prix.mensuel)}{" "}
-                <span className="text-base font-normal text-white/60">
-                  {t.parMois} {t.taxes}
-                </span>
-              </p>
-              {mois > 1 && <p className="text-sm text-white/60">{t.factureTotal(enDevise(prix.total), mois)}</p>}
-              {p.id === "personnel" && <p className="text-xs text-white/50">{t.usd}</p>}
-              <p className="text-sm text-white/80">{t.taches(p.tachesParMois)}</p>
-              <ul className="flex flex-col gap-1 text-sm text-white/70">
-                {p.inclusions[lang].map((i) => (
-                  <li key={i}>• {i}</li>
-                ))}
-              </ul>
-              {mois >= GARANTIE_DUREE_MIN && <p className="text-sm text-emerald-300">{t.garantie}</p>}
-              <BoutonCta href={lienInscription(`tarifs-${p.id}`)}>{t.cta}</BoutonCta>
+            <article
+              key={p.id}
+              className="flex flex-col gap-4 rounded-2xl border border-white/[0.08] bg-gradient-to-b from-white/[0.04] to-white/[0.01] p-6 shadow-[inset_0_1px_0_rgba(255,255,255,0.04)]"
+            >
+              <CarteForfait
+                palier={p}
+                lang={lang}
+                mensuel={etat.mensuel}
+                suffixe={`${t.parMois} ${t.taxes}`}
+                notePrix={
+                  <>
+                    {mois > 1 && (
+                      <p className="text-sm text-white/60">
+                        {t.factureTotal(enDevise(etat.total), mois)}
+                      </p>
+                    )}
+                    {p.id === "personnel" && <p className="text-xs text-white/50">{t.usd}</p>}
+                  </>
+                }
+              />
+              {etat.afficheGarantie && <p className="text-sm text-emerald-300">{t.garantie}</p>}
+              <BoutonCta href={lienInscription(`${PREFIXE_SRC[lang]}-${p.id}`)}>{t.cta}</BoutonCta>
             </article>
           );
         })}
