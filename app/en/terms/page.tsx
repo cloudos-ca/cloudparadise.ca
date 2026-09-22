@@ -20,11 +20,28 @@ import {
 import { ListeNumerotee } from "@/components/marketing/ListeNumerotee";
 import { LECTURE, SECTION_Y, SHELL } from "@/components/marketing/tokens";
 import {
+  DUREES,
+  ESSAI_JOURS,
+  GARANTIE_DUREE_MIN,
+  GARANTIE_JOURS,
+  PALIERS,
+  enDevise,
+} from "@/components/marketing/offre";
+import {
   alternatesBilingues,
   IMAGE_OG_PARTAGEE,
   openGraphPage,
   ROBOTS,
 } from "@/lib/seo";
+
+/** Voir la version française : « 12 or 24 » — les seules durées d’engagement
+ * qui ouvrent droit à la garantie, dérivées de `DUREES` plutôt que réécrites
+ * en toutes lettres. */
+function dureesGarantie(): string {
+  const mois = DUREES.filter((d) => d.mois >= GARANTIE_DUREE_MIN).map((d) => String(d.mois));
+  if (mois.length <= 1) return mois.join("");
+  return `${mois.slice(0, -1).join(", ")} or ${mois[mois.length - 1]}`;
+}
 
 const TITRE = "Terms of Use — Cloud OS";
 const DESCRIPTION =
@@ -191,6 +208,29 @@ const SECTIONS: readonly SectionRedigee[] = [
           },
         ],
       },
+    ],
+  },
+  {
+    titre: "Plans, allowance, and usage gauge",
+    blocs: [
+      "The Service is offered by fixed-price monthly subscription, before tax, under two plans:",
+      {
+        liste: PALIERS.map((palier) => ({
+          terme: `${palier.nom.en} — ${enDevise(palier.prixMensuel)} a month.`,
+          texte: <>Includes: {palier.inclusions.en.join(", ")}.</>,
+        })),
+      },
+      "Each plan renews every month, on your subscription’s date, at the same price. Whatever is left of your allowance at the end of the month is carried over once to the following month, capped at one full month; beyond that carry-over, the surplus is not accumulated further.",
+      "A percentage gauge shows your usage for the current month. We warn you at 80%. At 100%, you choose: wait for the renewal, or immediately add a month’s worth of extra allowance, at your plan’s price, without changing your subscription or its renewal date.",
+      <>
+        Within a Team (see the “Teams and sharing” article), each member can pool their allowance into
+        a shared pool consumed by every member of the Team. You may join or leave the pool at any
+        time; on leaving, you take back your share of what remains, prorated to what you put in.
+      </>,
+      "You may pause your subscription for one to three months: nothing is billed during the pause, and your allowance is not lost — it is waiting for you when you resume.",
+      `On a commitment of ${dureesGarantie()} months, you benefit from a full money-back guarantee of ${GARANTIE_JOURS} days from the time you subscribe, once per account.`,
+      `A free ${ESSAI_JOURS}-day trial, with no card required, lets you use the Service before committing.`,
+      "Prices shown are before tax. Applicable Canadian taxes, determined by your province, are added to the amount shown; they are displayed before payment and appear on the invoice.",
     ],
   },
   {

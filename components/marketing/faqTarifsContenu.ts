@@ -1,22 +1,23 @@
-import { DUREES, ESSAI_JOURS, GARANTIE_DUREE_MIN, GARANTIE_JOURS, PALIERS, enDevise } from "./offre";
+import { DUREES, GARANTIE_DUREE_MIN, GARANTIE_JOURS, PALIERS, enDevise } from "./offre";
 import type { Lang } from "./tokens";
 
 const [PERSONNEL, ENTREPRISE] = PALIERS;
 
-/** Remise maximale, dérivée de `DUREES` : jamais réécrite en toutes lettres. */
-const REMISE_MAX = Math.max(...DUREES.map((d) => d.remisePct));
-
 /**
- * « 3, 6, 12 ou 24 mois » / « 3, 6, 12 or 24 months » — les durées
- * d'engagement (hors le mois seul, qui n'en est pas un), dérivées de
- * `DUREES` plutôt que réécrites en toutes lettres dans la réponse.
+ * « 12 ou 24 mois » / « 12 or 24 months » — les seules durées d'engagement qui
+ * ouvrent droit à la garantie (§6), dérivées de `DUREES` filtrées par
+ * `GARANTIE_DUREE_MIN` plutôt que réécrites en toutes lettres dans la réponse.
  */
-function dureesEngagement(lang: Lang): string {
-  const mois = DUREES.filter((d) => d.mois > 1).map((d) => String(d.mois));
-  const dernier = mois[mois.length - 1];
+function dureesGarantie(lang: Lang): string {
+  const mois = DUREES.filter((d) => d.mois >= GARANTIE_DUREE_MIN).map((d) => String(d.mois));
+  if (mois.length <= 1) return mois.join("");
   const conjonction = lang === "en" ? "or" : "ou";
-  return `${mois.slice(0, -1).join(", ")} ${conjonction} ${dernier}`;
+  return `${mois.slice(0, -1).join(", ")} ${conjonction} ${mois[mois.length - 1]}`;
 }
+
+/** Total mensuel d'une équipe de cinq : la personne qui mène (Entreprise) plus quatre membres
+ * (Personnel) — dérivé de `PALIERS`, jamais réécrit en toutes lettres. */
+const TOTAL_EQUIPE_5 = ENTREPRISE.prixMensuel + 4 * PERSONNEL.prixMensuel;
 
 /**
  * Questions/réponses de tarification.
@@ -35,44 +36,80 @@ function dureesEngagement(lang: Lang): string {
  * l'accordéon) et les pages /tarifs (serveur, pour le JSON-LD `FAQPage`)
  * s'en servent tous les deux, et un composant client ne peut pas être
  * importé depuis du code serveur juste pour appeler une fonction.
+ *
+ * Huit questions, dans l'ordre de la spec §8.2 — aucune ne recourt au
+ * vocabulaire de l'ancien modèle (une unité de compte rechargeable) ni à un
+ * prix par tâche : le modèle est un abonnement et une jauge.
  */
 export function questionsDe(lang: Lang): readonly { q: string; r: string }[] {
   if (lang === "en") {
     return [
       {
-        q: "Can I switch plans later?",
-        r: "Yes, at any time: you move from Personal to Business (or back) from your account.",
+        q: "What is a task?",
+        r: `A job you run: a document analysis, a render, an extraction, a conversation with the assistant. Heavy tasks use more than light ones — which is why we speak of an order of magnitude (“≈ ${PERSONNEL.tachesParMois} tasks a month”) rather than a quota.`,
       },
       {
-        q: "How does payment work?",
-        r: `A fixed-price monthly subscription: Personal at ${enDevise(PERSONNEL.prixMensuel)} a month, Business at ${enDevise(ENTREPRISE.prixMensuel)}. Commit for longer (${dureesEngagement("en")} months) for a discount of up to ${REMISE_MAX}%.`,
+        q: "What happens at 100%?",
+        r: `We warn you at 80%. At 100%, you choose: wait for the renewal, or add a month’s allowance right away at your plan’s price, without changing your subscription or its date. A long-running task already under way waits 24 hours for your decision, then delivers what it produced. Whatever is left at the end of the month is carried over once, capped at one month.`,
       },
       {
-        q: "Are there refunds?",
-        r: `Satisfaction guaranteed: ${GARANTIE_JOURS} days, on commitments of at least ${GARANTIE_DUREE_MIN} months. For any request, write to us; the terms of use set out the cases provided for.`,
+        q: "The team pool?",
+        r: "Within a team, everyone can pool their allowance. The pool is shared by everyone; when you take yours back, you get your share of what remains, prorated to what you put in.",
       },
       {
-        q: "Can I try it before I pay?",
-        r: `Yes: ${ESSAI_JOURS} days free trial, no credit card required.`,
+        q: "How much for a team of 5?",
+        r: `${enDevise(TOTAL_EQUIPE_5)} a month: ${enDevise(ENTREPRISE.prixMensuel)} for the person leading the team (${ENTREPRISE.nom.en} plan) and ${enDevise(PERSONNEL.prixMensuel)} for each of the other four (${PERSONNEL.nom.en} plan).`,
+      },
+      {
+        q: "Can I pause?",
+        r: "Yes, for 1 to 3 months. Nothing is billed during the pause, nothing is lost: your gauge is waiting for you.",
+      },
+      {
+        q: "What if I change my mind?",
+        r: `On a commitment of ${dureesGarantie("en")} months, you get a full refund within ${GARANTIE_JOURS} days. Otherwise, you can cancel any time and keep access until the end of the period already paid for.`,
+      },
+      {
+        q: "Taxes?",
+        r: "Prices are shown before tax. Canadian taxes applicable to your province are shown before payment and appear on the invoice.",
+      },
+      {
+        q: "Where is my data?",
+        r: "In Quebec, on our servers. Your files remain yours, including after cancellation: you can retrieve them.",
       },
     ];
   }
   return [
     {
-      q: "Puis-je changer de forfait plus tard ?",
-      r: "Oui, à tout moment : vous passez de Personnel à Entreprise (et inversement) depuis votre compte.",
+      q: "Qu’est-ce qu’une tâche ?",
+      r: `Un traitement que vous lancez : une analyse de document, un rendu, une extraction, une conversation avec l’assistant. Les tâches lourdes consomment plus que les légères — c’est pourquoi nous parlons d’un ordre de grandeur (« ≈ ${PERSONNEL.tachesParMois} tâches par mois ») plutôt que d’un quota.`,
     },
     {
-      q: "Comment fonctionne le paiement ?",
-      r: `Un abonnement mensuel à prix fixe : Personnel à ${enDevise(PERSONNEL.prixMensuel)} par mois, Entreprise à ${enDevise(ENTREPRISE.prixMensuel)}. Engagez-vous plus longtemps (${dureesEngagement("fr")} mois) pour une remise pouvant aller jusqu’à ${REMISE_MAX} %.`,
+      q: "Que se passe-t-il à 100 % ?",
+      r: "On vous prévient à 80 %. À 100 %, vous choisissez : attendre le renouvellement, ou ajouter un mois d’enveloppe tout de suite au prix de votre forfait, sans changer d’abonnement ni de date. Une tâche longue déjà lancée attend 24 h que vous décidiez, puis livre ce qu’elle a produit. Ce qui reste à la fin du mois est reporté une fois, jusqu’à concurrence d’un mois.",
     },
     {
-      q: "Y a-t-il des remboursements ?",
-      r: `Satisfait ou remboursé : ${GARANTIE_JOURS} jours, sur les engagements d’au moins ${GARANTIE_DUREE_MIN} mois. Pour toute demande, écrivez-nous ; les conditions d’utilisation détaillent les cas prévus.`,
+      q: "Le pool d’équipe ?",
+      r: "Dans une équipe, chacun peut mettre son enveloppe en commun. Le pool se consomme par tout le monde ; en reprenant la sienne, on récupère sa part de ce qui reste, au prorata de ce qu’on a mis.",
     },
     {
-      q: "Puis-je essayer avant de payer ?",
-      r: `Oui : ${ESSAI_JOURS} jours d’essai gratuit, sans carte de crédit.`,
+      q: "Combien pour une équipe de 5 ?",
+      r: `${enDevise(TOTAL_EQUIPE_5)} par mois : ${enDevise(ENTREPRISE.prixMensuel)} pour la personne qui mène l’équipe (forfait ${ENTREPRISE.nom.fr}) et ${enDevise(PERSONNEL.prixMensuel)} pour chacun des quatre autres (forfait ${PERSONNEL.nom.fr}).`,
+    },
+    {
+      q: "Puis-je mettre en pause ?",
+      r: "Oui, de 1 à 3 mois. Rien n’est facturé pendant la pause, rien n’est perdu : votre jauge vous attend.",
+    },
+    {
+      q: "Et si je change d’avis ?",
+      r: `Sur un engagement de ${dureesGarantie("fr")} mois, vous êtes remboursé intégralement dans les ${GARANTIE_JOURS} jours. Sinon, vous résiliez quand vous voulez et gardez l’accès jusqu’à la fin de la période déjà payée.`,
+    },
+    {
+      q: "Les taxes ?",
+      r: "Les prix sont hors taxes. Les taxes canadiennes applicables à votre province s’affichent avant le paiement et figurent sur la facture.",
+    },
+    {
+      q: "Où sont mes données ?",
+      r: "Au Québec, sur nos serveurs. Vos fichiers restent les vôtres, y compris après une résiliation : vous pouvez les récupérer.",
     },
   ];
 }

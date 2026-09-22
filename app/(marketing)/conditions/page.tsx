@@ -20,11 +20,28 @@ import {
 import { ListeNumerotee } from "@/components/marketing/ListeNumerotee";
 import { LECTURE, SECTION_Y, SHELL } from "@/components/marketing/tokens";
 import {
+  DUREES,
+  ESSAI_JOURS,
+  GARANTIE_DUREE_MIN,
+  GARANTIE_JOURS,
+  PALIERS,
+  enDevise,
+} from "@/components/marketing/offre";
+import {
   alternatesBilingues,
   IMAGE_OG_PARTAGEE,
   openGraphPage,
   ROBOTS,
 } from "@/lib/seo";
+
+/** « 12 ou 24 » — les seules durées d’engagement qui ouvrent droit à la
+ * garantie de l’article « Forfaits, enveloppe et jauge », dérivées de
+ * `DUREES` plutôt que réécrites en toutes lettres. */
+function dureesGarantie(): string {
+  const mois = DUREES.filter((d) => d.mois >= GARANTIE_DUREE_MIN).map((d) => String(d.mois));
+  if (mois.length <= 1) return mois.join("");
+  return `${mois.slice(0, -1).join(", ")} ou ${mois[mois.length - 1]}`;
+}
 
 const TITRE = "Conditions d’utilisation — Cloud OS";
 const DESCRIPTION =
@@ -194,6 +211,30 @@ const SECTIONS: readonly SectionRedigee[] = [
           },
         ],
       },
+    ],
+  },
+  {
+    titre: "Forfaits, enveloppe et jauge",
+    blocs: [
+      "Le Service est offert par abonnement mensuel à prix fixe, hors taxes, selon deux forfaits :",
+      {
+        liste: PALIERS.map((palier) => ({
+          terme: `${palier.nom.fr} — ${enDevise(palier.prixMensuel)} par mois.`,
+          texte: <>Inclus : {palier.inclusions.fr.join(", ")}.</>,
+        })),
+      },
+      "Chaque forfait se renouvelle chaque mois, à la date de votre abonnement, au même prix. Ce qui reste de votre enveloppe à la fin du mois est reporté une fois sur le mois suivant, jusqu’à concurrence d’un mois complet ; au-delà de ce report, le surplus n’est pas cumulé.",
+      "Une jauge en pourcentage indique votre consommation du mois en cours. Nous vous prévenons à 80 %. À 100 %, vous choisissez : attendre le renouvellement, ou ajouter immédiatement un mois d’enveloppe supplémentaire, au prix de votre forfait, sans que cela change votre abonnement ni sa date de renouvellement.",
+      <>
+        Au sein d’une Équipe (voir l’article « Équipes et partage »), chaque membre peut mettre son
+        enveloppe en commun dans un pool partagé entre tous les membres de l’Équipe. On rejoint ou on
+        quitte le pool à tout moment ; en le quittant, on reprend sa part de ce qui reste, calculée au
+        prorata de ce qu’on y a mis.
+      </>,
+      "Vous pouvez mettre votre abonnement en pause pour une durée de un à trois mois : aucun montant n’est facturé pendant la pause, et votre enveloppe n’est pas perdue — elle vous attend à la reprise.",
+      `Sur un engagement de ${dureesGarantie()} mois, vous bénéficiez d’une garantie de remboursement intégral de ${GARANTIE_JOURS} jours à compter de la souscription, une seule fois par compte.`,
+      `Un essai gratuit de ${ESSAI_JOURS} jours, sans carte, vous permet d’utiliser le Service avant de vous engager.`,
+      "Les prix affichés sont hors taxes. Les taxes canadiennes applicables, déterminées selon votre province, s’ajoutent au montant indiqué ; elles sont affichées avant le paiement et figurent sur la facture.",
     ],
   },
   {
