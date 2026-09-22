@@ -20,7 +20,9 @@ import {
 import { ListeNumerotee } from "@/components/marketing/ListeNumerotee";
 import { LECTURE, SECTION_Y, SHELL } from "@/components/marketing/tokens";
 import {
+  dureeMaxMois,
   dureesGarantie,
+  dureesRecurrentes,
   dureesToutes,
   ESSAI_JOURS,
   GARANTIE_JOURS,
@@ -214,7 +216,7 @@ const SECTIONS: readonly SectionRedigee[] = [
           texte: <>Inclus : {palier.inclusions.fr.join(", ")}.</>,
         })),
       },
-      `Vous choisissez la durée de votre engagement (${dureesToutes("fr")} mois) : le prix mensuel diminue avec la durée, mais ne change jamais au renouvellement. Un engagement de 1 à 12 mois est prélevé par versements mensuels récurrents ; l’engagement de 24 mois est payé en une seule fois, à la souscription.`,
+      `Vous choisissez la durée de votre engagement (${dureesToutes("fr")} mois) : le prix mensuel diminue avec la durée, mais ne change jamais au renouvellement. Un engagement de ${dureesRecurrentes("fr")} mois est prélevé par versements mensuels récurrents ; l’engagement de ${dureeMaxMois()} mois est payé en une seule fois, à la souscription.`,
       "Quelle que soit la durée choisie, votre jauge se renouvelle chaque mois, à la date de votre abonnement, à hauteur de l’enveloppe de votre forfait. Ce qui reste de l’enveloppe à la fin du mois est reporté une fois sur le mois suivant, jusqu’à concurrence d’un mois complet ; au-delà de ce report, le surplus n’est pas cumulé.",
       "Une jauge en pourcentage indique votre consommation du mois en cours. Nous vous prévenons à 80 %. À 100 %, vous choisissez : attendre le renouvellement, ou ajouter immédiatement un mois d’enveloppe supplémentaire, au prix de votre forfait, sans que cela change votre abonnement ni sa date de renouvellement.",
       <>
@@ -224,7 +226,7 @@ const SECTIONS: readonly SectionRedigee[] = [
         Entreprise actif. On rejoint ou on quitte le pool à tout moment ; en le quittant, on reprend
         sa part de ce qui reste, calculée au prorata de ce qu’on y a mis.
       </>,
-      "Vous pouvez mettre en pause un abonnement récurrent — ni un engagement de 24 mois payé en une seule fois, ni l’essai — pour une durée de un à trois mois, une fois par période de 12 mois : aucun montant n’est facturé pendant la pause, et votre enveloppe n’est pas perdue — elle vous attend à la reprise.",
+      `Vous pouvez mettre en pause un abonnement récurrent — ni un engagement de ${dureeMaxMois()} mois payé en une seule fois, ni l’essai — pour une durée de un à trois mois, une fois par période de 12 mois : aucun montant n’est facturé pendant la pause, et votre enveloppe n’est pas perdue — elle vous attend à la reprise.`,
       `Sur un engagement de ${dureesGarantie("fr")} mois, vous bénéficiez d’une garantie de remboursement intégral de ${GARANTIE_JOURS} jours à compter de la souscription, une seule fois par compte et à condition de n’avoir acheté aucun mois d’enveloppe supplémentaire depuis.`,
       `Un essai gratuit de ${ESSAI_JOURS} jours, sans carte, vous permet d’utiliser le Service avant de vous engager.`,
       <>

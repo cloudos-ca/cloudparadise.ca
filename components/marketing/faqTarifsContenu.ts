@@ -1,4 +1,4 @@
-import { GARANTIE_JOURS, PALIERS, dureesGarantie, enDevise } from "./offre";
+import { GARANTIE_JOURS, PALIERS, dureeMaxMois, dureesGarantie, enDevise } from "./offre";
 import type { Lang } from "./tokens";
 
 const [PERSONNEL, ENTREPRISE] = PALIERS;
@@ -42,7 +42,7 @@ export function questionsDe(lang: Lang): readonly { q: string; r: string }[] {
       },
       {
         q: "The team pool?",
-        r: "Within a team, everyone can pool their allowance. The pool is shared by everyone; when you take yours back, you get your share of what remains, prorated to what you put in.",
+        r: "In a team whose owner has an active Business plan, any member with their own paid, active plan (a trial does not pool) can pool their allowance. The pool is shared by everyone; when you take yours back, you get your share of what remains, prorated to what you put in.",
       },
       {
         q: "How much for a team of 5?",
@@ -50,11 +50,11 @@ export function questionsDe(lang: Lang): readonly { q: string; r: string }[] {
       },
       {
         q: "Can I pause?",
-        r: "Yes, for 1 to 3 months, once every 12 months — available on recurring subscriptions only (not a 24-month commitment paid up front, nor the trial). Nothing is billed during the pause, nothing is lost: your gauge is waiting for you.",
+        r: `Yes, for 1 to 3 months, once every 12 months — available on recurring subscriptions only (not a ${dureeMaxMois()}-month commitment paid up front, nor the trial). Nothing is billed during the pause, nothing is lost: your gauge is waiting for you.`,
       },
       {
         q: "What if I change my mind?",
-        r: `On a commitment of ${dureesGarantie("en")} months, you get a full refund within ${GARANTIE_JOURS} days, once per account. Otherwise, you can cancel any time and keep access until the end of the period already paid for.`,
+        r: `On a commitment of ${dureesGarantie("en")} months, you get a full refund within ${GARANTIE_JOURS} days, once per account and provided you have not purchased any extra month of allowance since. Otherwise, you can cancel any time and keep access until the end of the period already paid for.`,
       },
       {
         q: "Taxes?",
@@ -77,7 +77,7 @@ export function questionsDe(lang: Lang): readonly { q: string; r: string }[] {
     },
     {
       q: "Le pool d’équipe ?",
-      r: "Dans une équipe, chacun peut mettre son enveloppe en commun. Le pool se consomme par tout le monde ; en reprenant la sienne, on récupère sa part de ce qui reste, au prorata de ce qu’on a mis.",
+      r: "Dans une équipe dont le titulaire a un forfait Entreprise actif, tout membre disposant de son propre forfait payé et actif (l’essai ne poole pas) peut mettre son enveloppe en commun. Le pool se consomme par tout le monde ; en reprenant la sienne, on récupère sa part de ce qui reste, au prorata de ce qu’on a mis.",
     },
     {
       q: "Combien pour une équipe de 5 ?",
@@ -85,11 +85,11 @@ export function questionsDe(lang: Lang): readonly { q: string; r: string }[] {
     },
     {
       q: "Puis-je mettre en pause ?",
-      r: "Oui, de 1 à 3 mois, une fois par période de 12 mois — réservé aux abonnements récurrents (pas à un engagement de 24 mois payé en une fois, ni à l’essai). Rien n’est facturé pendant la pause, rien n’est perdu : votre jauge vous attend.",
+      r: `Oui, de 1 à 3 mois, une fois par période de 12 mois — réservé aux abonnements récurrents (pas à un engagement de ${dureeMaxMois()} mois payé en une fois, ni à l’essai). Rien n’est facturé pendant la pause, rien n’est perdu : votre jauge vous attend.`,
     },
     {
       q: "Et si je change d’avis ?",
-      r: `Sur un engagement de ${dureesGarantie("fr")} mois, vous êtes remboursé intégralement dans les ${GARANTIE_JOURS} jours, une seule fois par compte. Sinon, vous résiliez quand vous voulez et gardez l’accès jusqu’à la fin de la période déjà payée.`,
+      r: `Sur un engagement de ${dureesGarantie("fr")} mois, vous êtes remboursé intégralement dans les ${GARANTIE_JOURS} jours, une seule fois par compte et à condition de n’avoir acheté aucun mois d’enveloppe supplémentaire depuis. Sinon, vous résiliez quand vous voulez et gardez l’accès jusqu’à la fin de la période déjà payée.`,
     },
     {
       q: "Les taxes ?",

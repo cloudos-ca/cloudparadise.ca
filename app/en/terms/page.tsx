@@ -20,7 +20,9 @@ import {
 import { ListeNumerotee } from "@/components/marketing/ListeNumerotee";
 import { LECTURE, SECTION_Y, SHELL } from "@/components/marketing/tokens";
 import {
+  dureeMaxMois,
   dureesGarantie,
+  dureesRecurrentes,
   dureesToutes,
   ESSAI_JOURS,
   GARANTIE_JOURS,
@@ -211,7 +213,7 @@ const SECTIONS: readonly SectionRedigee[] = [
           texte: <>Includes: {palier.inclusions.en.join(", ")}.</>,
         })),
       },
-      `You choose your commitment length (${dureesToutes("en")} months): the monthly price decreases with the length, but never changes at renewal. A commitment of 1 to 12 months is charged in recurring monthly instalments; a 24-month commitment is paid in a single payment, at subscription.`,
+      `You choose your commitment length (${dureesToutes("en")} months): the monthly price decreases with the length, but never changes at renewal. A commitment of ${dureesRecurrentes("en")} months is charged in recurring monthly instalments; a ${dureeMaxMois()}-month commitment is paid in a single payment, at subscription.`,
       "Whatever length you choose, your gauge renews every month, on your subscription’s date, up to your plan’s allowance. Whatever is left of the allowance at the end of the month is carried over once to the following month, capped at one full month; beyond that carry-over, the surplus is not accumulated further.",
       "A percentage gauge shows your usage for the current month. We warn you at 80%. At 100%, you choose: wait for the renewal, or immediately add a month’s worth of extra allowance, at your plan’s price, without changing your subscription or its renewal date.",
       <>
@@ -220,7 +222,7 @@ const SECTIONS: readonly SectionRedigee[] = [
         Team’s owner themselves holds an active Business plan. You may join or leave the pool at
         any time; on leaving, you take back your share of what remains, prorated to what you put in.
       </>,
-      "You may pause a recurring subscription — neither a 24-month commitment paid in a single payment, nor the trial — for one to three months, once every 12 months: nothing is billed during the pause, and your allowance is not lost — it is waiting for you when you resume.",
+      `You may pause a recurring subscription — neither a ${dureeMaxMois()}-month commitment paid in a single payment, nor the trial — for one to three months, once every 12 months: nothing is billed during the pause, and your allowance is not lost — it is waiting for you when you resume.`,
       `On a commitment of ${dureesGarantie("en")} months, you benefit from a full money-back guarantee of ${GARANTIE_JOURS} days from the time you subscribe, once per account and provided you have not purchased any extra month of allowance since.`,
       `A free ${ESSAI_JOURS}-day trial, with no card required, lets you use the Service before committing.`,
       <>

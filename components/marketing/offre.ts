@@ -102,7 +102,7 @@ export function prixDuree(palier: Palier, mois: number): { mensuel: number; tota
   return { mensuel: au_cent(total / mois), total };
 }
 
-/** « 3, 6 et 12 » / « 3, 6 and 12 » — jamais à la main : une énumération de plus de deux éléments
+/** « 3, 6 ou 12 » / « 3, 6 or 12 » — jamais à la main : une énumération de plus de deux éléments
  * mérite l'Oxford comma que `join(", ")` seul ne pose pas. */
 function enumerer(mots: readonly string[], lang: Lang): string {
   if (mots.length <= 1) return mots.join("");
@@ -129,6 +129,25 @@ export function dureesGarantie(lang: Lang): string {
     DUREES.filter((d) => d.mois >= GARANTIE_DUREE_MIN).map((d) => String(d.mois)),
     lang,
   );
+}
+
+/** La plus longue durée offerte (24 aujourd'hui) : la seule payée en un seul versement, à la
+ * souscription (spec §6.B). Dérivée de `DUREES` plutôt que réécrite en dur — voir `dureesGarantie`
+ * pour le même principe appliqué à la garantie. */
+export function dureeMaxMois(): number {
+  return Math.max(...DUREES.map((d) => d.mois));
+}
+
+/**
+ * « 1 à 12 » / « 1 to 12 » — l'intervalle des durées prélevées par versements récurrents, c'est-à-
+ * dire toutes sauf `dureeMaxMois()` (payée en une fois, spec §6.B). Dérivé de `DUREES` plutôt que
+ * réécrit en toutes lettres dans les Conditions ou la FAQ.
+ */
+export function dureesRecurrentes(lang: Lang): string {
+  const max = dureeMaxMois();
+  const recurrentes = DUREES.filter((d) => d.mois !== max).map((d) => d.mois);
+  const separateur = lang === "en" ? "to" : "à";
+  return `${Math.min(...recurrentes)} ${separateur} ${Math.max(...recurrentes)}`;
 }
 
 /**
