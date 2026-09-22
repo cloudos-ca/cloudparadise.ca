@@ -1,7 +1,22 @@
-import { ESSAI_JOURS, GARANTIE_DUREE_MIN, GARANTIE_JOURS, PALIERS, enDevise } from "./offre";
+import { DUREES, ESSAI_JOURS, GARANTIE_DUREE_MIN, GARANTIE_JOURS, PALIERS, enDevise } from "./offre";
 import type { Lang } from "./tokens";
 
 const [PERSONNEL, ENTREPRISE] = PALIERS;
+
+/** Remise maximale, dérivée de `DUREES` : jamais réécrite en toutes lettres. */
+const REMISE_MAX = Math.max(...DUREES.map((d) => d.remisePct));
+
+/**
+ * « 3, 6, 12 ou 24 mois » / « 3, 6, 12 or 24 months » — les durées
+ * d'engagement (hors le mois seul, qui n'en est pas un), dérivées de
+ * `DUREES` plutôt que réécrites en toutes lettres dans la réponse.
+ */
+function dureesEngagement(lang: Lang): string {
+  const mois = DUREES.filter((d) => d.mois > 1).map((d) => String(d.mois));
+  const dernier = mois[mois.length - 1];
+  const conjonction = lang === "en" ? "or" : "ou";
+  return `${mois.slice(0, -1).join(", ")} ${conjonction} ${dernier}`;
+}
 
 /**
  * Questions/réponses de tarification.
@@ -30,7 +45,7 @@ export function questionsDe(lang: Lang): readonly { q: string; r: string }[] {
       },
       {
         q: "How does payment work?",
-        r: `A fixed-price monthly subscription: Personal at ${enDevise(PERSONNEL.prixMensuel)} a month, Business at ${enDevise(ENTREPRISE.prixMensuel)}. Commit for longer (3, 6, 12 or 24 months) for a discount of up to 30%.`,
+        r: `A fixed-price monthly subscription: Personal at ${enDevise(PERSONNEL.prixMensuel)} a month, Business at ${enDevise(ENTREPRISE.prixMensuel)}. Commit for longer (${dureesEngagement("en")} months) for a discount of up to ${REMISE_MAX}%.`,
       },
       {
         q: "Are there refunds?",
@@ -49,7 +64,7 @@ export function questionsDe(lang: Lang): readonly { q: string; r: string }[] {
     },
     {
       q: "Comment fonctionne le paiement ?",
-      r: `Un abonnement mensuel à prix fixe : Personnel à ${enDevise(PERSONNEL.prixMensuel)} par mois, Entreprise à ${enDevise(ENTREPRISE.prixMensuel)}. Engagez-vous plus longtemps (3, 6, 12 ou 24 mois) pour une remise pouvant aller jusqu’à 30 %.`,
+      r: `Un abonnement mensuel à prix fixe : Personnel à ${enDevise(PERSONNEL.prixMensuel)} par mois, Entreprise à ${enDevise(ENTREPRISE.prixMensuel)}. Engagez-vous plus longtemps (${dureesEngagement("fr")} mois) pour une remise pouvant aller jusqu’à ${REMISE_MAX} %.`,
     },
     {
       q: "Y a-t-il des remboursements ?",

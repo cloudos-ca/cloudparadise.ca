@@ -5,8 +5,10 @@ import {
   type Ancre,
 } from "@/components/marketing/AncresSections";
 import { BadgeOffre } from "@/components/marketing/BadgeOffre";
+import { BandeauConfiance } from "@/components/marketing/BandeauConfiance";
 import { BoutonCta } from "@/components/marketing/BoutonCta";
 import { BreadcrumbJsonLd } from "@/components/marketing/BreadcrumbJsonLd";
+import { CartesForfaits } from "@/components/marketing/CartesForfaits";
 import { FaqTarifs } from "@/components/marketing/FaqTarifs";
 import { questionsDe } from "@/components/marketing/faqTarifsContenu";
 import { FenetreCta } from "@/components/marketing/FenetreCta";
@@ -27,14 +29,17 @@ import {
   PALIERS,
   enDevise,
   prixDuree,
-  type Palier,
 } from "@/components/marketing/offre";
 import { SECTION_Y, SHELL } from "@/components/marketing/tokens";
 import { alternatesBilingues, openGraphPage } from "@/lib/seo";
 import { lienInscription } from "@/lib/site";
 
+/** Remise maximale, dérivée de `DUREES` : jamais réécrite en toutes lettres,
+ * pour ne pas s'en écarter le jour où une durée change. */
+const REMISE_MAX = Math.max(...DUREES.map((d) => d.remisePct));
+
 const TITRE = "Tarifs : deux forfaits tout inclus — Cloud OS";
-const DESCRIPTION = `Personnel à ${enDevise(PALIERS[0].prixMensuel)}/mois, Entreprise à ${enDevise(PALIERS[1].prixMensuel)}/mois : deux forfaits tout inclus, ${ESSAI_JOURS} jours d’essai gratuit, et une remise jusqu’à 30 % sur les engagements plus longs.`;
+const DESCRIPTION = `Personnel à ${enDevise(PALIERS[0].prixMensuel)}/mois, Entreprise à ${enDevise(PALIERS[1].prixMensuel)}/mois : deux forfaits tout inclus, ${ESSAI_JOURS} jours d’essai gratuit, et une remise jusqu’à ${REMISE_MAX} % sur les engagements plus longs.`;
 
 export const metadata: Metadata = {
   title: TITRE,
@@ -110,14 +115,17 @@ export default function TarifsPage() {
           <Reveal className="max-w-4xl">
             <SurTitre>Tarification</SurTitre>
             <h1 className="mt-2 font-display text-[1.7rem] leading-[1.12] font-extrabold tracking-[-0.02em] text-white sm:text-[2.3rem] os:text-[2.7rem]">
-              Un prix fixe.
+              Un abonnement.
               <br />
               Tout inclus.
             </h1>
+            <div className="mt-5">
+              <BandeauConfiance lang="fr" />
+            </div>
             <p className="mt-6 max-w-[58ch] text-[17px] leading-relaxed text-white/85">
               Deux forfaits mensuels, selon la taille de votre équipe.
               Engagez-vous plus longtemps pour une remise pouvant aller
-              jusqu’à 30 %. {ESSAI_JOURS} jours d’essai gratuit pour
+              jusqu’à {REMISE_MAX} %. {ESSAI_JOURS} jours d’essai gratuit pour
               commencer, sans carte.
             </p>
             <div className="mt-7">
@@ -134,7 +142,8 @@ export default function TarifsPage() {
 
       <AncresSections ancres={ANCRES} />
 
-      {/* 1 — Les forfaits. Deux cartes, une par palier. */}
+      {/* 1 — Les forfaits. Le sélecteur de durée et les deux cartes, seul
+          rendu de prix de la page : `CartesForfaits` est la source unique. */}
       <section id="forfaits" className="relative scroll-mt-24">
         <div className={`${SHELL} ${SECTION_Y}`}>
           <Reveal className="max-w-2xl">
@@ -146,10 +155,8 @@ export default function TarifsPage() {
             </p>
           </Reveal>
 
-          <Reveal delay={0.1} className="mt-10 grid gap-5 os:grid-cols-2">
-            {PALIERS.map((palier) => (
-              <CartePalier key={palier.id} palier={palier} />
-            ))}
+          <Reveal delay={0.1} className="mt-10">
+            <CartesForfaits lang="fr" />
           </Reveal>
         </div>
       </section>
@@ -173,7 +180,7 @@ export default function TarifsPage() {
                   <th className="px-4 py-2.5 font-semibold text-white">Remise</th>
                   {PALIERS.map((p) => (
                     <th key={p.id} className="px-4 py-2.5 font-semibold text-white">
-                      {p.nom.fr} · $/mois
+                      {p.nom.fr}
                     </th>
                   ))}
                 </tr>
@@ -181,9 +188,7 @@ export default function TarifsPage() {
               <tbody>
                 {DUREES.map((duree) => (
                   <tr key={duree.mois} className="border-b border-white/10 text-white/85 last:border-0">
-                    <td className="px-4 py-2.5">
-                      {duree.mois} {duree.mois === 1 ? "mois" : "mois"}
-                    </td>
+                    <td className="px-4 py-2.5">{duree.mois} mois</td>
                     <td className="px-4 py-2.5 tabular-nums">
                       {duree.remisePct === 0 ? "—" : `${duree.remisePct} %`}
                     </td>
@@ -298,42 +303,6 @@ export default function TarifsPage() {
         </div>
       </section>
     </>
-  );
-}
-
-/** Une carte par forfait : prix, enveloppe traduite en tâches, inclusions. */
-function CartePalier({ palier }: Readonly<{ palier: Palier }>) {
-  return (
-    <div className="flex flex-col gap-4 rounded-xl border border-white/[0.08] bg-gradient-to-b from-white/[0.05] to-white/[0.01] p-6 shadow-[inset_0_1px_0_rgba(255,255,255,0.04)]">
-      <div>
-        <p className="font-display text-lg font-extrabold text-white">
-          {palier.nom.fr}
-        </p>
-        <p
-          className="mt-1 flex items-baseline gap-1 font-display text-3xl font-extrabold tabular-nums"
-          style={{ color: "var(--cta)" }}
-        >
-          {enDevise(palier.prixMensuel)}
-          <span className="text-sm font-medium text-white/70">/mois</span>
-        </p>
-        <p className="mt-1 text-[13px] text-white/70">
-          ≈ {palier.tachesParMois} tâches par mois
-        </p>
-      </div>
-      <ul className="space-y-2">
-        {palier.inclusions.fr.map((inclusion) => (
-          <li key={inclusion} className="flex items-start gap-2 text-[13px] text-white/85">
-            <IconCheck className="mt-0.5 size-4 shrink-0" style={{ color: "var(--soft)" }} />
-            {inclusion}
-          </li>
-        ))}
-      </ul>
-      <div className="mt-1">
-        <BoutonCta href={lienInscription(`tarifs-${palier.id}`)} taille="md">
-          Choisir {palier.nom.fr}
-        </BoutonCta>
-      </div>
-    </div>
   );
 }
 

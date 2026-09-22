@@ -5,8 +5,10 @@ import {
   type Ancre,
 } from "@/components/marketing/AncresSections";
 import { BadgeOffre } from "@/components/marketing/BadgeOffre";
+import { BandeauConfiance } from "@/components/marketing/BandeauConfiance";
 import { BoutonCta } from "@/components/marketing/BoutonCta";
 import { BreadcrumbJsonLd } from "@/components/marketing/BreadcrumbJsonLd";
+import { CartesForfaits } from "@/components/marketing/CartesForfaits";
 import { FaqTarifs } from "@/components/marketing/FaqTarifs";
 import { questionsDe } from "@/components/marketing/faqTarifsContenu";
 import { FenetreCta } from "@/components/marketing/FenetreCta";
@@ -27,14 +29,17 @@ import {
   PALIERS,
   enDevise,
   prixDuree,
-  type Palier,
 } from "@/components/marketing/offre";
 import { SECTION_Y, SHELL } from "@/components/marketing/tokens";
 import { alternatesBilingues, openGraphPage } from "@/lib/seo";
 import { lienInscription } from "@/lib/site";
 
+/** Remise maximale, dérivée de `DUREES` : jamais réécrite en toutes lettres,
+ * pour ne pas s'en écarter le jour où une durée change. */
+const REMISE_MAX = Math.max(...DUREES.map((d) => d.remisePct));
+
 const TITRE = "Pricing: two all-inclusive plans — Cloud OS";
-const DESCRIPTION = `Personal at ${enDevise(PALIERS[0].prixMensuel)}/mo, Business at ${enDevise(PALIERS[1].prixMensuel)}/mo: two all-inclusive plans, a ${ESSAI_JOURS}-day free trial, and a discount of up to 30% on longer commitments.`;
+const DESCRIPTION = `Personal at ${enDevise(PALIERS[0].prixMensuel)}/mo, Business at ${enDevise(PALIERS[1].prixMensuel)}/mo: two all-inclusive plans, a ${ESSAI_JOURS}-day free trial, and a discount of up to ${REMISE_MAX}% on longer commitments.`;
 
 export const metadata: Metadata = {
   title: TITRE,
@@ -104,19 +109,22 @@ export default function PricingPage() {
         ]}
       />
 
-      {/* Hero — text only, left-aligned like /mines and /security. */}
+      {/* Héros — texte seul, aligné à gauche comme /mines et /securite. */}
       <section className="relative">
         <div className={`${SHELL} ${SECTION_Y}`}>
           <Reveal className="max-w-4xl">
             <SurTitre>Pricing</SurTitre>
             <h1 className="mt-2 font-display text-[1.7rem] leading-[1.12] font-extrabold tracking-[-0.02em] text-white sm:text-[2.3rem] os:text-[2.7rem]">
-              One flat price.
+              One subscription.
               <br />
               Everything included.
             </h1>
+            <div className="mt-5">
+              <BandeauConfiance lang="en" />
+            </div>
             <p className="mt-6 max-w-[58ch] text-[17px] leading-relaxed text-white/85">
               Two monthly plans, sized to your team. Commit for longer for a
-              discount of up to 30%. {ESSAI_JOURS} days free trial to start,
+              discount of up to {REMISE_MAX}%. {ESSAI_JOURS} days free trial to start,
               no card required.
             </p>
             <div className="mt-7">
@@ -133,7 +141,8 @@ export default function PricingPage() {
 
       <AncresSections ancres={ANCRES} lang="en" />
 
-      {/* 1 — The plans. Two cards, one per tier. */}
+      {/* 1 — Les forfaits. Le sélecteur de durée et les deux cartes, seul
+          rendu de prix de la page : `CartesForfaits` est la source unique. */}
       <section id="forfaits" className="relative scroll-mt-24">
         <div className={`${SHELL} ${SECTION_Y}`}>
           <Reveal className="max-w-2xl">
@@ -145,15 +154,13 @@ export default function PricingPage() {
             </p>
           </Reveal>
 
-          <Reveal delay={0.1} className="mt-10 grid gap-5 os:grid-cols-2">
-            {PALIERS.map((palier) => (
-              <CartePalier key={palier.id} palier={palier} />
-            ))}
+          <Reveal delay={0.1} className="mt-10">
+            <CartesForfaits lang="en" />
           </Reveal>
         </div>
       </section>
 
-      {/* 2 — Terms and discounts. A table, the five terms from `offre.ts`. */}
+      {/* 2 — Durées et remises. Un tableau, les cinq durées de `offre.ts`. */}
       <section id="durees" className="relative scroll-mt-24">
         <div className={`${SHELL} ${SECTION_Y}`}>
           <Reveal className="max-w-2xl">
@@ -172,7 +179,7 @@ export default function PricingPage() {
                   <th className="px-4 py-2.5 font-semibold text-white">Discount</th>
                   {PALIERS.map((p) => (
                     <th key={p.id} className="px-4 py-2.5 font-semibold text-white">
-                      {p.nom.en} · $/mo
+                      {p.nom.en}
                     </th>
                   ))}
                 </tr>
@@ -199,8 +206,8 @@ export default function PricingPage() {
         </div>
       </section>
 
-      {/* 3 — The engines. What each plan includes, with no price: the grid no
-          longer carries any amount since the switch. */}
+      {/* 3 — Les moteurs. Ce que chaque forfait inclut, sans prix : la grille
+          ne porte plus aucun montant depuis la bascule. */}
       <section id="moteurs" className="relative scroll-mt-24">
         <div className={`${SHELL} ${SECTION_Y}`}>
           <Reveal className="max-w-2xl">
@@ -224,7 +231,7 @@ export default function PricingPage() {
         </div>
       </section>
 
-      {/* 4 — Trial and guarantee. Three commitments, in cards. */}
+      {/* 4 — Essai et garantie. Trois engagements, en cartes. */}
       <section id="garanties" className="relative scroll-mt-24">
         <div className={`${SHELL} ${SECTION_Y}`}>
           <Reveal className="max-w-2xl">
@@ -261,8 +268,8 @@ export default function PricingPage() {
         </div>
       </section>
 
-      {/* 5 — Questions. Left header, accordion on the right: running text, so
-          two columns rather than full width. */}
+      {/* 5 — Les questions. En-tête à gauche, accordéon à droite : du texte
+          suivi, donc deux colonnes plutôt que la pleine largeur. */}
       <section id="questions" className="relative scroll-mt-24">
         <div className={`${SHELL} ${SECTION_Y}`}>
           <div className="grid gap-8 os:grid-cols-[2fr_3fr] os:items-start os:gap-12">
@@ -277,7 +284,7 @@ export default function PricingPage() {
         </div>
       </section>
 
-      {/* Closer. No offer badge: the hero already announced it. */}
+      {/* Closer. Pas de badge d'offre : le héros l'a déjà annoncée. */}
       <section className="relative overflow-x-clip">
         <div className={`${SHELL} ${SECTION_Y}`}>
           <Reveal>
@@ -301,43 +308,7 @@ export default function PricingPage() {
   );
 }
 
-/** One card per plan: price, allowance translated into tasks, inclusions. */
-function CartePalier({ palier }: Readonly<{ palier: Palier }>) {
-  return (
-    <div className="flex flex-col gap-4 rounded-xl border border-white/[0.08] bg-gradient-to-b from-white/[0.05] to-white/[0.01] p-6 shadow-[inset_0_1px_0_rgba(255,255,255,0.04)]">
-      <div>
-        <p className="font-display text-lg font-extrabold text-white">
-          {palier.nom.en}
-        </p>
-        <p
-          className="mt-1 flex items-baseline gap-1 font-display text-3xl font-extrabold tabular-nums"
-          style={{ color: "var(--cta)" }}
-        >
-          {enDevise(palier.prixMensuel)}
-          <span className="text-sm font-medium text-white/70">/mo</span>
-        </p>
-        <p className="mt-1 text-[13px] text-white/70">
-          ≈ {palier.tachesParMois} tasks a month
-        </p>
-      </div>
-      <ul className="space-y-2">
-        {palier.inclusions.en.map((inclusion) => (
-          <li key={inclusion} className="flex items-start gap-2 text-[13px] text-white/85">
-            <IconCheck className="mt-0.5 size-4 shrink-0" style={{ color: "var(--soft)" }} />
-            {inclusion}
-          </li>
-        ))}
-      </ul>
-      <div className="mt-1">
-        <BoutonCta href={lienInscription(`pricing-${palier.id}`)} taille="md">
-          Choose {palier.nom.en}
-        </BoutonCta>
-      </div>
-    </div>
-  );
-}
-
-/** Gold eyebrow, system style. */
+/** Sur-titre or, style système. */
 function SurTitre({ children }: Readonly<{ children: ReactNode }>) {
   return (
     <p
@@ -349,7 +320,7 @@ function SurTitre({ children }: Readonly<{ children: ReactNode }>) {
   );
 }
 
-/** Section title, system style, tight to the eyebrow. */
+/** Titre de section, style système, collé au sur-titre. */
 function TitreSection({ children }: Readonly<{ children: ReactNode }>) {
   return (
     <h2 className="mt-2 font-display text-[1.6rem] leading-[1.2] font-extrabold tracking-tight text-balance text-cp-heading sm:text-3xl os:text-4xl">
