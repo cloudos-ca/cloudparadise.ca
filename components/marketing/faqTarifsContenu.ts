@@ -1,19 +1,7 @@
-import { DUREES, GARANTIE_DUREE_MIN, GARANTIE_JOURS, PALIERS, enDevise } from "./offre";
+import { GARANTIE_JOURS, PALIERS, dureesGarantie, enDevise } from "./offre";
 import type { Lang } from "./tokens";
 
 const [PERSONNEL, ENTREPRISE] = PALIERS;
-
-/**
- * « 12 ou 24 mois » / « 12 or 24 months » — les seules durées d'engagement qui
- * ouvrent droit à la garantie (§6), dérivées de `DUREES` filtrées par
- * `GARANTIE_DUREE_MIN` plutôt que réécrites en toutes lettres dans la réponse.
- */
-function dureesGarantie(lang: Lang): string {
-  const mois = DUREES.filter((d) => d.mois >= GARANTIE_DUREE_MIN).map((d) => String(d.mois));
-  if (mois.length <= 1) return mois.join("");
-  const conjonction = lang === "en" ? "or" : "ou";
-  return `${mois.slice(0, -1).join(", ")} ${conjonction} ${mois[mois.length - 1]}`;
-}
 
 /** Total mensuel d'une équipe de cinq : la personne qui mène (Entreprise) plus quatre membres
  * (Personnel) — dérivé de `PALIERS`, jamais réécrit en toutes lettres. */
@@ -62,11 +50,11 @@ export function questionsDe(lang: Lang): readonly { q: string; r: string }[] {
       },
       {
         q: "Can I pause?",
-        r: "Yes, for 1 to 3 months. Nothing is billed during the pause, nothing is lost: your gauge is waiting for you.",
+        r: "Yes, for 1 to 3 months, once every 12 months — available on recurring subscriptions only (not a 24-month commitment paid up front, nor the trial). Nothing is billed during the pause, nothing is lost: your gauge is waiting for you.",
       },
       {
         q: "What if I change my mind?",
-        r: `On a commitment of ${dureesGarantie("en")} months, you get a full refund within ${GARANTIE_JOURS} days. Otherwise, you can cancel any time and keep access until the end of the period already paid for.`,
+        r: `On a commitment of ${dureesGarantie("en")} months, you get a full refund within ${GARANTIE_JOURS} days, once per account. Otherwise, you can cancel any time and keep access until the end of the period already paid for.`,
       },
       {
         q: "Taxes?",
@@ -97,11 +85,11 @@ export function questionsDe(lang: Lang): readonly { q: string; r: string }[] {
     },
     {
       q: "Puis-je mettre en pause ?",
-      r: "Oui, de 1 à 3 mois. Rien n’est facturé pendant la pause, rien n’est perdu : votre jauge vous attend.",
+      r: "Oui, de 1 à 3 mois, une fois par période de 12 mois — réservé aux abonnements récurrents (pas à un engagement de 24 mois payé en une fois, ni à l’essai). Rien n’est facturé pendant la pause, rien n’est perdu : votre jauge vous attend.",
     },
     {
       q: "Et si je change d’avis ?",
-      r: `Sur un engagement de ${dureesGarantie("fr")} mois, vous êtes remboursé intégralement dans les ${GARANTIE_JOURS} jours. Sinon, vous résiliez quand vous voulez et gardez l’accès jusqu’à la fin de la période déjà payée.`,
+      r: `Sur un engagement de ${dureesGarantie("fr")} mois, vous êtes remboursé intégralement dans les ${GARANTIE_JOURS} jours, une seule fois par compte. Sinon, vous résiliez quand vous voulez et gardez l’accès jusqu’à la fin de la période déjà payée.`,
     },
     {
       q: "Les taxes ?",

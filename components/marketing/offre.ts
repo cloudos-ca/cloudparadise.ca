@@ -102,6 +102,35 @@ export function prixDuree(palier: Palier, mois: number): { mensuel: number; tota
   return { mensuel: au_cent(total / mois), total };
 }
 
+/** « 3, 6 et 12 » / « 3, 6 and 12 » — jamais à la main : une énumération de plus de deux éléments
+ * mérite l'Oxford comma que `join(", ")` seul ne pose pas. */
+function enumerer(mots: readonly string[], lang: Lang): string {
+  if (mots.length <= 1) return mots.join("");
+  const conjonction = lang === "en" ? "or" : "ou";
+  return `${mots.slice(0, -1).join(", ")} ${conjonction} ${mots[mots.length - 1]}`;
+}
+
+/**
+ * « 1, 3, 6, 12 ou 24 » / « 1, 3, 6, 12 or 24 » — toutes les durées d'engagement offertes, dérivées
+ * de `DUREES` plutôt que réécrites en toutes lettres dans une page ou une réponse de FAQ.
+ */
+export function dureesToutes(lang: Lang): string {
+  return enumerer(DUREES.map((d) => String(d.mois)), lang);
+}
+
+/**
+ * « 12 ou 24 » / « 12 or 24 » — les seules durées d'engagement qui ouvrent droit à la garantie
+ * (spec §6.K : `termMonths >= GARANTIE_DUREE_MIN`), dérivées de `DUREES` plutôt que réécrites en
+ * toutes lettres. Source unique : les Conditions (fr/en) et `faqTarifsContenu.ts` s'y réfèrent tous
+ * les trois, pour ne jamais diverger sur ce que couvre la garantie.
+ */
+export function dureesGarantie(lang: Lang): string {
+  return enumerer(
+    DUREES.filter((d) => d.mois >= GARANTIE_DUREE_MIN).map((d) => String(d.mois)),
+    lang,
+  );
+}
+
 /**
  * Grille des types de tâches — ce que fait chaque moteur, et l'unité qu'il consomme quand ce n'est
  * pas la tâche.
