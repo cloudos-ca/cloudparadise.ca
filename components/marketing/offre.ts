@@ -21,6 +21,15 @@ export const ESSAI_JOURS = 14;
 export const GARANTIE_JOURS = 30;
 export const GARANTIE_DUREE_MIN = 12;
 
+/**
+ * Sursis laissé à une tâche par lots déjà lancée qui atteint 100 % en cours d'exécution : elle est
+ * mise en pause ce nombre d'heures, le temps d'ajouter de l'enveloppe, avant que ce qui a été
+ * produit soit livré et le reste abandonné (`CREDIT_HOLD_HOURS` côté application,
+ * `src/lib/jobs/batch-credit-hold.ts`). La FAQ le promettait déjà ; les Conditions le disent
+ * maintenant aussi, et toutes deux lisent ce nombre ici.
+ */
+export const SURSIS_TACHE_HEURES = 24;
+
 const nf = new Intl.NumberFormat("fr-CA");
 
 /** « 10 $ CA », prêt à insérer dans une phrase. */
@@ -38,7 +47,22 @@ export type Palier = {
   /** Ordre de grandeur affiché, arrondi : c'est la promesse, pas un quota. */
   tachesParMois: number;
   inclusions: { fr: readonly string[]; en: readonly string[] };
+  /**
+   * Ce que `GET /api/v1/pricing` publie sous `includes` pour ce palier — la forme MACHINE des
+   * `inclusions` ci-dessus, et la seule que le test anti-divergence puisse comparer (une phrase
+   * traduite, non). Le jour où un administrateur retire le Bac à sable d'Entreprise ou change
+   * `maxTeamSize`, c'est ce champ-là qui fait rougir la CI.
+   *
+   * `maxTeamSize` est renseigné même sur un palier qui ne crée pas d'équipe (`teams: false`) : la
+   * colonne existe pour tous les forfaits côté application et vaut 25 par défaut. La comparer
+   * partout évite qu'une modification passe inaperçue là où elle ne se voit pas à l'écran.
+   */
+  inclus: { desktop: boolean; hosting: boolean; teams: boolean; maxTeamSize: number };
 };
+
+/** Taille maximale d'une équipe (spec §3) : écrite une fois, lue par `inclus.maxTeamSize` ET par la
+ * phrase d'inclusion d'Entreprise — jamais retapée dans une page. */
+const EQUIPE_MAX = 25;
 
 export const PALIERS: readonly Palier[] = [
   {
@@ -51,6 +75,7 @@ export const PALIERS: readonly Palier[] = [
       fr: ["Tous les moteurs", "Rejoindre une équipe et mettre son enveloppe en commun"],
       en: ["Every engine", "Join a team and pool your allowance"],
     },
+    inclus: { desktop: false, hosting: false, teams: false, maxTeamSize: EQUIPE_MAX },
   },
   {
     id: "entreprise",
@@ -63,15 +88,16 @@ export const PALIERS: readonly Palier[] = [
         "Tous les moteurs",
         "Bac à sable (bureau persistant)",
         "1 site Hébergement Web",
-        "Créer une équipe jusqu'à 25 membres, avec pool",
+        `Créer une équipe jusqu'à ${EQUIPE_MAX} membres, avec pool`,
       ],
       en: [
         "Every engine",
         "Sandbox (persistent desktop)",
         "1 Web Hosting site",
-        "Create a team of up to 25 members, with pooling",
+        `Create a team of up to ${EQUIPE_MAX} members, with pooling`,
       ],
     },
+    inclus: { desktop: true, hosting: true, teams: true, maxTeamSize: EQUIPE_MAX },
   },
 ] as const;
 
@@ -139,9 +165,15 @@ export function dureeMaxMois(): number {
 }
 
 /**
- * « 1 à 12 » / « 1 to 12 » — l'intervalle des durées prélevées par versements récurrents, c'est-à-
- * dire toutes sauf `dureeMaxMois()` (payée en une fois, spec §6.B). Dérivé de `DUREES` plutôt que
- * réécrit en toutes lettres dans les Conditions ou la FAQ.
+ * « 1 à 12 » / « 1 to 12 » — l'intervalle des durées RECONDUITES automatiquement, c'est-à-dire
+ * toutes sauf `dureeMaxMois()` (payée en une fois et jamais reconduite, spec §6.B). Dérivé de
+ * `DUREES` plutôt que réécrit en toutes lettres dans les Conditions ou la FAQ.
+ *
+ * « Récurrent » qualifie la RECONDUCTION, pas un étalement : chacune de ces durées est prélevée en
+ * UNE fois au début de sa période. Côté application, `termPlanBody`
+ * (`src/lib/billing/paypal-bodies.ts`) pose `interval_count: months` et le prix TOTAL du terme en
+ * `fixed_price` — un engagement de 12 mois Personnel est un prélèvement unique tous les 12 mois,
+ * pas douze mensualités.
  */
 export function dureesRecurrentes(lang: Lang): string {
   const max = dureeMaxMois();

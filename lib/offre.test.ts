@@ -30,6 +30,18 @@ describe("offre", () => {
     assert.equal(GARANTIE_DUREE_MIN, 12);
   });
 
+  it("les inclusions machine disent ce que disent les phrases d'inclusion", () => {
+    const [personnel, entreprise] = PALIERS;
+    assert.deepEqual(personnel.inclus, { desktop: false, hosting: false, teams: false, maxTeamSize: 25 });
+    assert.deepEqual(entreprise.inclus, { desktop: true, hosting: true, teams: true, maxTeamSize: 25 });
+    // La taille d'équipe affichée vient du même champ que celui qu'on compare à la production :
+    // elle ne peut pas diverger de la phrase sans faire échouer la comparaison distante.
+    for (const lang of ["fr", "en"] as const) {
+      const phraseEquipe = entreprise.inclusions[lang].find((i) => i.includes(String(entreprise.inclus.maxTeamSize)));
+      assert.ok(phraseEquipe, `la phrase d'équipe d'Entreprise ne cite pas maxTeamSize (${lang})`);
+    }
+  });
+
   it("la grille des types de tâches ne porte plus aucun prix", () => {
     for (const ligne of GRILLE) assert.equal("cout" in ligne, false);
   });
@@ -37,8 +49,18 @@ describe("offre", () => {
 
 /** Une durée d'engagement telle que rendue par `/api/v1/pricing`. */
 type TermeDistant = { months: number; discountPct: number; monthly: number; total: number };
+/** Les inclusions d'un forfait telles que rendues par `/api/v1/pricing`. */
+type InclusDistant = { desktop: boolean; hosting: boolean; teams: boolean; maxTeamSize: number };
 /** Un forfait tel que rendu par `/api/v1/pricing`. */
-type PalierDistant = { key: string; price: number; envelope: number; currency: string; terms: TermeDistant[] };
+type PalierDistant = {
+  key: string;
+  price: number;
+  envelope: number;
+  currency: string;
+  approxTasks: number;
+  includes: InclusDistant;
+  terms: TermeDistant[];
+};
 /** La forme complète de la réponse, une fois sa présence validée. */
 type Catalogue = {
   billingModel: "CREDITS" | "PLANS";
@@ -113,6 +135,28 @@ describe("offre vs production", () => {
       assert.equal(distant.price, palier.prixMensuel, `prix de ${palier.id}`);
       assert.equal(distant.envelope, palier.enveloppe, `enveloppe de ${palier.id}`);
       assert.equal(distant.currency, "CAD");
+
+      // Inclusions, comparées CHAMP PAR CHAMP : ce sont elles que les cartes promettent en toutes
+      // lettres (« Bac à sable », « 1 site Hébergement Web », « jusqu'à 25 membres ») et qu'un
+      // administrateur peut retirer d'un clic, sans déploiement et sans que rien ne rougisse.
+      assert.deepEqual(
+        distant.includes,
+        palier.inclus,
+        `inclusions de ${palier.id} en production (${JSON.stringify(distant.includes)}) ≠ inclusions de la vitrine (${JSON.stringify(palier.inclus)})`,
+      );
+
+      // « ≈ N tâches par mois » : la vitrine publie un nombre figé, l'application le RECALCULE sur
+      // l'usage réel des 90 derniers jours (`approxTasks`, src/lib/billing/plans.ts) — il bouge donc
+      // tout seul. On ne peut pas exiger l'égalité ; on exige que l'écart ne dépasse pas le pas
+      // d'arrondi de l'application (10 sous 200, 50 au-delà), c'est-à-dire que les deux nombres
+      // soient au pire deux crans voisins. Au-delà, la promesse affichée n'est plus celle de
+      // l'application et il faut remettre `tachesParMois` à jour.
+      const pas = distant.approxTasks < 200 ? 10 : 50;
+      const ecart = Math.abs(distant.approxTasks - palier.tachesParMois);
+      assert.ok(
+        ecart <= pas,
+        `« ≈ tâches » de ${palier.id} : la production calcule ${distant.approxTasks}, la vitrine promet ${palier.tachesParMois} (écart ${ecart} > pas d'arrondi ${pas})`,
+      );
 
       // Composition des durées, dans les deux sens : une durée en trop ou en moins pour ce
       // forfait doit se voir.

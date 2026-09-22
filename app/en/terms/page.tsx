@@ -27,6 +27,7 @@ import {
   ESSAI_JOURS,
   GARANTIE_JOURS,
   PALIERS,
+  SURSIS_TACHE_HEURES,
   enDevise,
 } from "@/components/marketing/offre";
 import {
@@ -210,12 +211,15 @@ const SECTIONS: readonly SectionRedigee[] = [
       {
         liste: PALIERS.map((palier) => ({
           terme: `${palier.nom.en} — ${enDevise(palier.prixMensuel)} a month (≈ ${palier.tachesParMois} tasks a month, depending on the type of task).`,
-          texte: <>Includes: {palier.inclusions.en.join(", ")}.</>,
+          // Semicolons, not commas: “… 25 members, with pooling” already contains a comma, and
+          // the enumeration read as a fifth item.
+          texte: <>Includes: {palier.inclusions.en.join("; ")}.</>,
         })),
       },
-      `You choose your commitment length (${dureesToutes("en")} months): the monthly price decreases with the length, but never changes at renewal. A commitment of ${dureesRecurrentes("en")} months is charged in recurring monthly instalments; a ${dureeMaxMois()}-month commitment is paid in a single payment, at subscription.`,
+      `You choose your commitment length (${dureesToutes("en")} months): the monthly price decreases with the length, but never changes at renewal. The monthly price is a way of stating the price, not a payment schedule: a commitment of ${dureesRecurrentes("en")} months is charged in a single payment, at the start of each commitment period, then renews automatically for the same length and at the same price, until you cancel. A ${dureeMaxMois()}-month commitment is paid in a single payment, at subscription, and does not renew.`,
       "Whatever length you choose, your gauge renews every month, on your subscription’s date, up to your plan’s allowance. Whatever is left of the allowance at the end of the month is carried over once to the following month, capped at one full month; beyond that carry-over, the surplus is not accumulated further.",
       "A percentage gauge shows your usage for the current month. We warn you at 80%. At 100%, you choose: wait for the renewal, or immediately add a month’s worth of extra allowance, at your plan’s price, without changing your subscription or its renewal date.",
+      `A batch job already under way that reaches 100% mid-run is not stopped on the spot: it is paused for ${SURSIS_TACHE_HEURES} hours. If you add allowance within that window, it resumes where it left off; otherwise, whatever it produced is delivered to you and the remainder is dropped.`,
       <>
         Within a Team (see the “Teams and sharing” article), a member with their own paid, active
         plan — a trial does not pool — can pool their allowance into the Team’s pool, provided the
@@ -230,7 +234,7 @@ const SECTIONS: readonly SectionRedigee[] = [
         not give rise to any pro-rated refund: access to the Service continues until the end of the
         period already paid for.
       </>,
-      "Prices shown are before tax. Applicable Canadian taxes, determined by your province, are added to the amount shown; they are displayed before payment and appear on the invoice.",
+      "Prices shown are before tax. Applicable Canadian taxes, determined by your province, are added to the amount shown; they are displayed before payment and appear on the invoice. If your billing address is outside Canada, no Canadian tax is added to the amount shown; it is then up to you to report and pay any taxes owed in your own country.",
     ],
   },
   {

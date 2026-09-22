@@ -1,4 +1,4 @@
-import { GARANTIE_JOURS, PALIERS, dureeMaxMois, dureesGarantie, enDevise } from "./offre";
+import { GARANTIE_JOURS, PALIERS, SURSIS_TACHE_HEURES, dureeMaxMois, dureesGarantie, enDevise } from "./offre";
 import type { Lang } from "./tokens";
 
 const [PERSONNEL, ENTREPRISE] = PALIERS;
@@ -38,7 +38,7 @@ export function questionsDe(lang: Lang): readonly { q: string; r: string }[] {
       },
       {
         q: "What happens at 100%?",
-        r: `We warn you at 80%. At 100%, you choose: wait for the renewal, or add a month’s allowance right away at your plan’s price, without changing your subscription or its date. A long-running task already under way waits 24 hours for your decision, then delivers what it produced. Whatever is left at the end of the month is carried over once, capped at one month.`,
+        r: `We warn you at 80%. At 100%, you choose: wait for the renewal, or add a month’s allowance right away at your plan’s price, without changing your subscription or its date. A long-running task already under way waits ${SURSIS_TACHE_HEURES} hours for your decision, then delivers what it produced. Whatever is left at the end of the month is carried over once, capped at one month.`,
       },
       {
         q: "The team pool?",
@@ -73,7 +73,7 @@ export function questionsDe(lang: Lang): readonly { q: string; r: string }[] {
     },
     {
       q: "Que se passe-t-il à 100 % ?",
-      r: "On vous prévient à 80 %. À 100 %, vous choisissez : attendre le renouvellement, ou ajouter un mois d’enveloppe tout de suite au prix de votre forfait, sans changer d’abonnement ni de date. Une tâche longue déjà lancée attend 24 h que vous décidiez, puis livre ce qu’elle a produit. Ce qui reste à la fin du mois est reporté une fois, jusqu’à concurrence d’un mois.",
+      r: `On vous prévient à 80 %. À 100 %, vous choisissez : attendre le renouvellement, ou ajouter un mois d’enveloppe tout de suite au prix de votre forfait, sans changer d’abonnement ni de date. Une tâche longue déjà lancée attend ${SURSIS_TACHE_HEURES} h que vous décidiez, puis livre ce qu’elle a produit. Ce qui reste à la fin du mois est reporté une fois, jusqu’à concurrence d’un mois.`,
     },
     {
       q: "Le pool d’équipe ?",

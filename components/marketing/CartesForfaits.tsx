@@ -99,7 +99,14 @@ export function CartesForfaits({ lang }: Readonly<{ lang: Lang }>) {
                         {t.factureTotal(enDevise(etat.total), mois)}
                       </p>
                     )}
-                    {p.id === "personnel" && <p className="text-xs text-white/50">{t.usd}</p>}
+                    {/* L'équivalent en dollars américains glose le PRIX DE LISTE (spec §8.2 :
+                        « sous 10 $ CA »), pas le mensuel remisé d'un engagement : à 12 mois la
+                        carte affichait « 8 $ CA / mois … ≈ 7 $ US », et à 24 mois « 7 $ CA …
+                        ≈ 7 $ US ». Il n'a de sens qu'à la durée où le prix affiché EST le prix de
+                        liste, donc à 1 mois. */}
+                    {p.id === "personnel" && mois === 1 && (
+                      <p className="text-xs text-white/50">{t.usd}</p>
+                    )}
                   </>
                 }
               />

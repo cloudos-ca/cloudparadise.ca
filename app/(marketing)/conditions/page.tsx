@@ -27,6 +27,7 @@ import {
   ESSAI_JOURS,
   GARANTIE_JOURS,
   PALIERS,
+  SURSIS_TACHE_HEURES,
   enDevise,
 } from "@/components/marketing/offre";
 import {
@@ -213,12 +214,15 @@ const SECTIONS: readonly SectionRedigee[] = [
       {
         liste: PALIERS.map((palier) => ({
           terme: `${palier.nom.fr} — ${enDevise(palier.prixMensuel)} par mois (≈ ${palier.tachesParMois} tâches par mois, selon le type de tâche).`,
-          texte: <>Inclus : {palier.inclusions.fr.join(", ")}.</>,
+          // Point-virgule et non virgule : « … 25 membres, avec pool » comportait déjà une
+          // virgule, et l'énumération se lisait comme un cinquième élément.
+          texte: <>Inclus : {palier.inclusions.fr.join(" ; ")}.</>,
         })),
       },
-      `Vous choisissez la durée de votre engagement (${dureesToutes("fr")} mois) : le prix mensuel diminue avec la durée, mais ne change jamais au renouvellement. Un engagement de ${dureesRecurrentes("fr")} mois est prélevé par versements mensuels récurrents ; l’engagement de ${dureeMaxMois()} mois est payé en une seule fois, à la souscription.`,
+      `Vous choisissez la durée de votre engagement (${dureesToutes("fr")} mois) : le prix mensuel diminue avec la durée, mais ne change jamais au renouvellement. Le prix mensuel est un mode de calcul, pas un échéancier : un engagement de ${dureesRecurrentes("fr")} mois est prélevé en une seule fois, au début de chaque période d’engagement, puis reconduit automatiquement pour la même durée et au même prix, jusqu’à résiliation. L’engagement de ${dureeMaxMois()} mois est payé en une seule fois, à la souscription, et n’est pas reconduit.`,
       "Quelle que soit la durée choisie, votre jauge se renouvelle chaque mois, à la date de votre abonnement, à hauteur de l’enveloppe de votre forfait. Ce qui reste de l’enveloppe à la fin du mois est reporté une fois sur le mois suivant, jusqu’à concurrence d’un mois complet ; au-delà de ce report, le surplus n’est pas cumulé.",
       "Une jauge en pourcentage indique votre consommation du mois en cours. Nous vous prévenons à 80 %. À 100 %, vous choisissez : attendre le renouvellement, ou ajouter immédiatement un mois d’enveloppe supplémentaire, au prix de votre forfait, sans que cela change votre abonnement ni sa date de renouvellement.",
+      `Un traitement par lots déjà lancé qui atteint 100 % en cours d’exécution n’est pas interrompu sur-le-champ : il est mis en pause pendant ${SURSIS_TACHE_HEURES} heures. Si vous ajoutez de l’enveloppe pendant ce délai, il reprend là où il s’était arrêté ; sinon, ce qui a été produit vous est livré et le reste est abandonné.`,
       <>
         Au sein d’une Équipe (voir l’article « Équipes et partage »), un membre disposant de son
         propre forfait payé et actif — l’essai ne poole pas — peut mettre son enveloppe en commun
@@ -234,7 +238,7 @@ const SECTIONS: readonly SectionRedigee[] = [
         ne donne lieu à aucun remboursement au prorata : l’accès au Service se poursuit jusqu’à la
         fin de la période déjà payée.
       </>,
-      "Les prix affichés sont hors taxes. Les taxes canadiennes applicables, déterminées selon votre province, s’ajoutent au montant indiqué ; elles sont affichées avant le paiement et figurent sur la facture.",
+      "Les prix affichés sont hors taxes. Les taxes canadiennes applicables, déterminées selon votre province, s’ajoutent au montant indiqué ; elles sont affichées avant le paiement et figurent sur la facture. Si votre adresse de facturation est hors du Canada, aucune taxe canadienne ne s’ajoute au montant indiqué ; il vous revient alors de déclarer et d’acquitter, le cas échéant, les taxes dues dans votre pays.",
     ],
   },
   {
