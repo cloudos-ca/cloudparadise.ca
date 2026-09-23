@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { CLE_SITE_RECAPTCHA } from "@/lib/recaptcha";
 import type { Lang } from "./tokens";
 
 /**
@@ -60,10 +59,13 @@ function chargerScript(lang: Lang): Promise<void> {
 
 export function Recaptcha({
   lang = "fr",
+  cleSite,
   onJeton,
   reinitialiser = 0,
 }: Readonly<{
   lang?: Lang;
+  /** Clé de site de cet environnement, lue côté serveur — jamais importée ici. */
+  cleSite: string | null;
   /** Appelé avec le jeton à la validation, avec `null` à l'expiration ou en erreur. */
   onJeton: (jeton: string | null) => void;
   /** Incrémenter pour vider le widget — après un envoi réussi, par exemple. */
@@ -82,6 +84,9 @@ export function Recaptcha({
   }, [onJeton]);
 
   useEffect(() => {
+    // Pas de clé configurée : rien à afficher. La garde vit côté serveur, où la route refuse
+    // l'envoi en production — un widget absent ne vaut jamais laissez-passer.
+    if (!cleSite) return;
     let annule = false;
 
     chargerScript(lang)
@@ -93,7 +98,7 @@ export function Recaptcha({
           const api = globalThis.window.grecaptcha;
           if (!api) return;
           widget.current = api.render(conteneur.current, {
-            sitekey: CLE_SITE_RECAPTCHA,
+            sitekey: cleSite,
             theme: "dark",
             callback: (jeton) => rappel.current(jeton),
             "expired-callback": () => rappel.current(null),
@@ -113,7 +118,7 @@ export function Recaptcha({
     return () => {
       annule = true;
     };
-  }, [lang]);
+  }, [lang, cleSite]);
 
   useEffect(() => {
     if (reinitialiser === 0 || widget.current === null) return;

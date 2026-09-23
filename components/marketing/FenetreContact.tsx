@@ -184,7 +184,8 @@ const COORDONNEES = [
 export function FenetreContact({
   lang = "fr",
   jeton,
-}: Readonly<{ lang?: Lang; jeton: string }>) {
+  cleRecaptcha,
+}: Readonly<{ lang?: Lang; jeton: string; cleRecaptcha: string | null }>) {
   const cadre = useRef<HTMLDivElement>(null);
   // Même respiration que les fenêtres du hero, en plus discret : celle-ci est
   // la cible d'une saisie, elle ne doit pas bouger sous le curseur.
@@ -228,7 +229,7 @@ export function FenetreContact({
         >
           <div className="grid os:grid-cols-[34fr_66fr]">
             <PanneauCoordonnees lang={lang} />
-            <Composition lang={lang} jeton={jeton} />
+            <Composition lang={lang} jeton={jeton} cleRecaptcha={cleRecaptcha} />
           </div>
         </WindowCard>
       </div>
@@ -378,7 +379,8 @@ const LIBELLE_BOUTON = {
 function Composition({
   lang,
   jeton,
-}: Readonly<{ lang: Lang; jeton: string }>) {
+  cleRecaptcha,
+}: Readonly<{ lang: Lang; jeton: string; cleRecaptcha: string | null }>) {
   const [valeurs, setValeurs] = useState<Valeurs>(VIDE);
   const [erreurs, setErreurs] = useState<Partial<Record<Cle, string>>>({});
   const [etat, setEtat] = useState<Etat>("repos");
@@ -583,6 +585,7 @@ function Composition({
         <div className="mt-4">
           <Recaptcha
             lang={lang}
+            cleSite={cleRecaptcha}
             onJeton={(jeton) => {
               setJetonRobot(jeton);
               // Cocher la case efface le reproche affiché juste avant.

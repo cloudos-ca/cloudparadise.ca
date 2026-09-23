@@ -7,6 +7,7 @@ import { PageEntete } from "@/components/marketing/PageEntete";
 import { Reveal } from "@/components/marketing/Reveal";
 import { SECTION_Y, SHELL } from "@/components/marketing/tokens";
 import { emettreJeton } from "@/lib/jetonContact";
+import { cleSiteRecaptcha } from "@/lib/recaptcha";
 import { alternatesBilingues, openGraphPage } from "@/lib/seo";
 
 const TITRE = "Contact — Cloud OS";
@@ -47,7 +48,7 @@ export default async function ContactPageEn() {
         />
 
         <Reveal delay={0.1} className="mt-8">
-          <FenetreContact lang="en" jeton={jeton} />
+          <FenetreContact lang="en" jeton={jeton} cleRecaptcha={cleSiteRecaptcha()} />
         </Reveal>
       </div>
     </section>

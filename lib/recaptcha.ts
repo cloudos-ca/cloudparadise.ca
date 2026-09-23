@@ -7,20 +7,25 @@
  * (`lib/jetonContact.ts`) ; le reCAPTCHA s'ajoute à ces trois-là, il ne les
  * remplace pas. Un robot qui résout le défi reste soumis à la limite de débit.
  *
- * **La clé de site est publique par construction** : elle part dans le HTML de
- * chaque page qui affiche le widget, n'importe quel visiteur la lit dans le
- * code source. Elle vit donc ici, en clair, plutôt qu'en variable d'environnement
- * — ce qui évite en prime un `ARG` de plus dans le Dockerfile, que celui-ci
- * s'interdit explicitement (une valeur passée en `ARG` reste inscrite dans
- * l'historique de l'image).
+ * **La clé de site est publique par construction** — elle part dans le HTML de
+ * chaque page qui affiche le widget — mais elle est **propre à chaque
+ * environnement** : Google lie une paire de clés à une liste de domaines, donc
+ * `cloudos.ca` et le site de développement en ont chacun la leur. Elle est donc
+ * lue à l'exécution, côté serveur, et descendue en propriété jusqu'au widget.
+ *
+ * Surtout pas de `NEXT_PUBLIC_*` ni d'`ARG` : la valeur serait cuite dans
+ * l'image, et le Dockerfile s'interdit explicitement tout `ARG` supplémentaire
+ * (une valeur passée ainsi reste inscrite dans l'historique de l'image).
  *
  * **La clé secrète, elle, ne doit jamais entrer dans le dépôt.** Elle est lue à
  * l'exécution dans `RECAPTCHA_SECRET_KEY`, depuis le `.env` de l'hôte. Ne pas
  * l'écrire ici, ni dans un fichier d'exemple, ni dans un commentaire.
  */
 
-/** Clé publique du widget, à poser dans l'attribut `data-sitekey`. */
-export const CLE_SITE_RECAPTCHA = "6LcfFMstAAAAABuct6rLInDorQScBlT6LLQWatKK";
+/** Clé publique du widget de CET environnement, ou `null` si aucune n'est configurée. */
+export function cleSiteRecaptcha(): string | null {
+  return process.env.RECAPTCHA_SITE_KEY?.trim() || null;
+}
 
 const URL_VERIFICATION = "https://www.google.com/recaptcha/api/siteverify";
 
