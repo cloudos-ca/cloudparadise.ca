@@ -50,6 +50,13 @@ export type CleCarteErp =
   | "etatsFinanciers"
   | "banque"
   | "inventaire";
+/** Bureau d'assistance — le module `desk`, qui partage le référentiel clients
+ *  de l'ERP. Quatre cartes seulement : la page dédiée porte le détail. */
+export type CleCarteDesk =
+  | "portail"
+  | "courriel"
+  | "clavardage"
+  | "engagements";
 
 export type CarteEquipe = {
   cle: CleCarteEquipe;
@@ -59,6 +66,12 @@ export type CarteEquipe = {
 
 export type CarteErp = {
   cle: CleCarteErp;
+  titre: string;
+  texte: string;
+};
+
+export type CarteDesk = {
+  cle: CleCarteDesk;
   titre: string;
   texte: string;
 };
@@ -130,6 +143,15 @@ export type ContenuPme = {
     titre: string;
     texte: string;
     cartes: readonly CarteErp[];
+    lien: string;
+  };
+  /** Le Bureau d'assistance, juste après l'ERP dont il partage les clients. */
+  desk: {
+    id: string;
+    surtitre: string;
+    titre: string;
+    texte: string;
+    cartes: readonly CarteDesk[];
     lien: string;
   };
   equipe: {

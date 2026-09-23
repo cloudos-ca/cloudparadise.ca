@@ -58,6 +58,10 @@ const CALCUL = { href: "/calcul", libelle: "Voir le calcul" };
 const MINES = { href: "/mines", libelle: "Voir l’exploration minière" };
 const TARIFS = { href: "/tarifs", libelle: "Voir les tarifs" };
 const PME = { href: "/pme", libelle: "Voir les PME" };
+const ASSISTANCE = {
+  href: "/assistance",
+  libelle: "Voir le Bureau d’assistance",
+};
 
 /**
  * Le contenu de la page.
@@ -154,6 +158,23 @@ const SECTIONS: readonly SectionFonctions[] = [
         nom: "Agent de code",
         texte:
           "Vos dépôts Git, un plan de codage et une boucle interactive asynchrone, dans un environnement isolé avec les outils MCP activés par défaut.",
+      },
+      {
+        // La réponse à « oui, mais il me manque tel outil » : le catalogue n'a
+        // pas besoin de tout prévoir si on peut décrire ce qu'on veut lancer.
+        nom: "Marché de conteneurs",
+        texte:
+          "Décrivez la pile logicielle qu’il vous faut : l’assistant propose un assemblage de conteneurs, vous l’explique, puis le démarre, l’arrête et vous en montre les journaux.",
+      },
+      {
+        // Aperçu web de l'app mobile (mobile.cloudos.ca) : le MÊME code que l'application, rendu
+        // par react-native-web. Le mot « aperçu » n'est pas de la modestie, c'est exact — ni
+        // notifications push, ni achats in-app, ni accès aux capacités de l'appareil. L'app native
+        // n'est pas encore au point ; annoncer autre chose se paierait au premier téléchargement.
+        nom: "Aperçu mobile",
+        texte:
+          "Votre bureau sur téléphone, dans le navigateur : rien à installer, rien à télécharger. L’application native, elle, est encore en préparation.",
+        lien: { href: "https://mobile.cloudos.ca", libelle: "Ouvrir l’aperçu" },
       },
     ],
   },
@@ -349,6 +370,63 @@ const SECTIONS: readonly SectionFonctions[] = [
     ],
   },
   {
+    // Le module `desk` côté application — livré en six vagues, en production.
+    // Il vient après l'ERP parce qu'il en réutilise le référentiel clients
+    // (`ErpCustomer` / `ErpContact`) : ce sont deux faces du même dossier
+    // client, et les présenter à la suite le dit sans avoir à l'écrire.
+    id: "assistance",
+    surtitre: "Le service à la clientèle",
+    titre: "Répondre à vos clients, sans un outil de plus.",
+    page: ASSISTANCE,
+    entrees: [
+      {
+        nom: "Billets",
+        texte:
+          "Fil public et notes internes dans le même billet, numérotation lisible, création manuelle par un agent.",
+      },
+      {
+        nom: "Portail client",
+        texte:
+          "Une page à votre nom et à vos couleurs, où vos clients ouvrent et suivent leurs demandes. Identification par lien reçu par courriel, sans mot de passe ni compte à créer.",
+      },
+      {
+        nom: "Canal courriel",
+        texte:
+          "Votre boîte IMAP/SMTP, relevée toutes les minutes : chaque courriel devient un billet ou une réponse, et vos réponses repartent de votre adresse avec leurs pièces jointes.",
+      },
+      {
+        nom: "Clavardage",
+        texte:
+          "Un widget à coller sur votre site. Le premier message ouvre un billet, l’échange est instantané, et le visiteur parti reçoit la réponse par courriel.",
+      },
+      {
+        nom: "Base de connaissances",
+        texte:
+          "Vos articles, cherchables depuis le portail et proposés au client avant qu’il n’ouvre un billet.",
+      },
+      {
+        nom: "Tri et brouillon à l’arrivée",
+        texte:
+          "Chaque demande est classée — priorité, langue, catégorie — et une proposition de réponse est préparée pour l’agent.",
+      },
+      {
+        nom: "Engagements de service",
+        texte:
+          "Échéances de première réponse et de résolution, comptées en heures ouvrables et mises en pause pendant l’attente du client, avec alerte et escalade.",
+      },
+      {
+        nom: "Macros",
+        texte:
+          "Une réponse type à variables qui agit aussi sur le billet : statut, priorité, assignation, catégorie, visibilité.",
+      },
+      {
+        nom: "Rapports et satisfaction",
+        texte:
+          "Volume, délais médians et au 90ᵉ centile, charge par agent, tenue des engagements. Un sondage de 1 à 5 part à la fermeture d’un billet et sa moyenne entre dans les rapports.",
+      },
+    ],
+  },
+  {
     id: "hebergement",
     surtitre: "Hébergement Web",
     titre: "Votre site, hébergé chez nous aussi.",
@@ -509,6 +587,7 @@ const ANCRES: readonly Ancre[] = [
   { id: "puissance", libelle: { fr: "Calcul", en: "Compute" } },
   { id: "automatisation", libelle: { fr: "Automatiser", en: "Automate" } },
   { id: "erp", libelle: { fr: "Gestion d’entreprise", en: "Business management" } },
+  { id: "assistance", libelle: { fr: "Assistance", en: "Support" } },
   { id: "hebergement", libelle: { fr: "Hébergement Web", en: "Web Hosting" } },
   { id: "equipe", libelle: { fr: "À plusieurs", en: "Together" } },
   { id: "jeux", libelle: { fr: "Jouer", en: "Play" } },

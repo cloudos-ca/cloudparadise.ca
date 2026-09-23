@@ -212,6 +212,44 @@ export const PME_FR: ContenuPme = {
     lien: "Voir le détail",
   },
 
+  // Le service à la clientèle, juste après l'ERP : les deux partagent le même
+  // répertoire de clients, et une PME qui facture est une PME qui répond. Quatre
+  // cartes, pas neuf — le détail vit sur /assistance.
+  desk: {
+    id: "assistance",
+    surtitre: "Le service à la clientèle",
+    titre: "Et pour répondre à vos clients.",
+    texte:
+      "Une billetterie complète, dans le même bureau et sur le même répertoire de clients que votre facturation. Vos échanges avec vos clients restent au Québec, comme le reste.",
+    cartes: [
+      {
+        cle: "portail",
+        titre: "Portail client",
+        texte:
+          "Une page à votre nom où vos clients ouvrent et suivent leurs demandes, sans mot de passe ni compte à créer.",
+      },
+      {
+        cle: "courriel",
+        titre: "Votre adresse de soutien",
+        texte:
+          "Branchez votre boîte : chaque courriel devient un billet, et vos réponses repartent de votre adresse.",
+      },
+      {
+        cle: "clavardage",
+        titre: "Clavardage",
+        texte:
+          "Une bulle à coller sur votre site. Le visiteur parti avant votre réponse la reçoit par courriel.",
+      },
+      {
+        cle: "engagements",
+        titre: "Délais tenus",
+        texte:
+          "Des échéances comptées en heures ouvrables, en pause pendant que vous attendez le client, avec alerte et escalade.",
+      },
+    ],
+    lien: "Voir le Bureau d’assistance",
+  },
+
   equipe: {
     id: "equipe",
     surtitre: "À plusieurs",

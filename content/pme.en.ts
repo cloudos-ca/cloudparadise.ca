@@ -222,6 +222,44 @@ export const PME_EN: ContenuPme = {
     lien: "See the details",
   },
 
+  // Voir la version française : le service à la clientèle juste après l'ERP,
+  // dont il partage le répertoire de clients. Le détail vit sur
+  // /en/service-desk.
+  desk: {
+    id: "assistance",
+    surtitre: "Customer support",
+    titre: "And for answering your customers.",
+    texte:
+      "A complete ticketing system, in the same desktop and on the same customer directory as your invoicing. Your exchanges with your customers stay in Quebec, like everything else.",
+    cartes: [
+      {
+        cle: "portail",
+        titre: "Customer portal",
+        texte:
+          "A page under your name where your customers open and follow their requests, with no password and no account to create.",
+      },
+      {
+        cle: "courriel",
+        titre: "Your support address",
+        texte:
+          "Connect your mailbox: each email becomes a ticket, and your answers go back out from your address.",
+      },
+      {
+        cle: "clavardage",
+        titre: "Live chat",
+        texte:
+          "A bubble to drop onto your site. A visitor who leaves before your reply receives it by email.",
+      },
+      {
+        cle: "engagements",
+        titre: "Deadlines met",
+        texte:
+          "Deadlines counted in business hours, paused while you wait on the customer, with alerts and escalation.",
+      },
+    ],
+    lien: "See the Service Desk",
+  },
+
   equipe: {
     id: "equipe",
     surtitre: "Your team",

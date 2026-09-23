@@ -20,6 +20,7 @@ import {
   IconDatabase,
   IconFileText,
   IconGift,
+  IconBolt,
   IconMail,
   IconMessage,
   IconRefresh,
@@ -32,6 +33,7 @@ import { lienInscription } from "@/lib/site";
 import {
   contenuPme,
   type CleCarteEquipe,
+  type CleCarteDesk,
   type CleCarteErp,
   type ClePointBudget,
   type SectionMetier,
@@ -108,6 +110,13 @@ const ICONES_ERP: Record<CleCarteErp, typeof IconUsers> = {
   etatsFinanciers: IconCoin,
   banque: IconRefresh,
   inventaire: IconDatabase,
+};
+
+const ICONES_DESK: Record<CleCarteDesk, typeof IconUsers> = {
+  portail: IconUsers,
+  courriel: IconMail,
+  clavardage: IconMessage,
+  engagements: IconBolt,
 };
 
 export default function PmePage() {
@@ -200,6 +209,42 @@ export default function PmePage() {
 
           <Reveal delay={0.15} className="mt-6">
             <LienOr href="/fonctions#erp">{C.erp.lien}</LienOr>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* Le service à la clientèle — quatre fenêtres, même gabarit que l'ERP
+          juste au-dessus : les deux modules partagent le répertoire de clients,
+          et les présenter à l'identique le dit sans l'écrire. */}
+      <section id={C.desk.id} className="relative scroll-mt-24">
+        <div className={`${SHELL} ${SECTION_Y}`}>
+          <Reveal className="max-w-2xl">
+            <SurTitre>{C.desk.surtitre}</SurTitre>
+            <TitreSection>{C.desk.titre}</TitreSection>
+            <p className="mt-4 max-w-[62ch] text-sm leading-relaxed text-white/85">
+              {C.desk.texte}
+            </p>
+          </Reveal>
+
+          <Reveal delay={0.1} className="mt-10 grid gap-3.5 sm:grid-cols-2">
+            {C.desk.cartes.map(({ cle, titre, texte }) => {
+              const Icone = ICONES_DESK[cle];
+              return (
+                <WindowCard
+                  key={cle}
+                  title={titre}
+                  icone={<Icone className="size-4" />}
+                >
+                  <p className="p-5 text-[13px] leading-relaxed text-white/85">
+                    {texte}
+                  </p>
+                </WindowCard>
+              );
+            })}
+          </Reveal>
+
+          <Reveal delay={0.15} className="mt-6">
+            <LienOr href="/assistance">{C.desk.lien}</LienOr>
           </Reveal>
         </div>
       </section>
