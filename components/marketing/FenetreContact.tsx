@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState, type FormEvent } from "react";
+import { Recaptcha } from "./Recaptcha";
 import { IconMail, IconMapPin, IconPhone, IconSend } from "./icons";
 import { useBoucleActive } from "./useBoucleActive";
 import { WindowCard } from "./WindowCard";
@@ -349,7 +350,17 @@ function CarteVisite({ lang }: Readonly<{ lang: Lang }>) {
  * différents du visiteur : réessayer, attendre, recharger. Un message unique
  * « L'envoi a échoué » les confondait tous.
  */
-type Etat = "repos" | "envoi" | "succes" | "echec" | "debit" | "expire";
+// `robot` : le défi reCAPTCHA n'est pas résolu (ou son jeton a expiré avant
+// l'envoi). Distinct d'`echec` : ici rien n'a été tenté, et le visiteur a
+// quelque chose à faire pour y remédier.
+type Etat =
+  | "repos"
+  | "envoi"
+  | "succes"
+  | "echec"
+  | "debit"
+  | "expire"
+  | "robot";
 
 /**
  * Libellé du bouton d'envoi.
@@ -380,6 +391,11 @@ function Composition({
   // un robot qui remplit tout ce qu'il trouve le remplit, et le serveur écarte
   // l'envoi en silence.
   const [piege, setPiege] = useState("");
+  // Jeton du défi reCAPTCHA : nul tant que la case n'est pas cochée, et
+  // remis à nul quand Google le fait expirer (au bout de ~2 minutes).
+  const [jetonRobot, setJetonRobot] = useState<string | null>(null);
+  // Incrémenté après un envoi réussi : vide la case pour le message suivant.
+  const [resetRobot, setResetRobot] = useState(0);
 
   useEffect(() => {
     // Le fragment, pas la chaîne de requête — voir `SUJETS_PREREMPLIS`. Le
@@ -422,25 +438,56 @@ function Composition({
       return;
     }
 
+    // Vérifié avant l'appel réseau : inutile de déranger le serveur, et le
+    // visiteur voit tout de suite ce qui manque.
+    if (!jetonRobot) {
+      setEtat("robot");
+      return;
+    }
+
     setEtat("envoi");
     try {
       const reponse = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...valeurs, source, jeton, piege }),
+        body: JSON.stringify({
+          ...valeurs,
+          source,
+          jeton,
+          piege,
+          recaptcha: jetonRobot,
+        }),
       });
 
       if (reponse.ok) {
         setEtat("succes");
         setValeurs(VIDE);
+        // Un jeton reCAPTCHA ne sert qu'une fois : sans cette remise à zéro, un
+        // second message partirait avec un jeton déjà consommé et serait refusé.
+        setJetonRobot(null);
+        setResetRobot((n) => n + 1);
         return;
       }
+
+      // Quel que soit le motif du refus, le jeton est consommé côté Google :
+      // on repart d'une case vierge, sinon le renvoi échoue en boucle sans que
+      // le visiteur voie pourquoi.
+      setJetonRobot(null);
+      setResetRobot((n) => n + 1);
+
+      // Le serveur nomme le motif quand il refuse le défi ; un corps illisible
+      // ne doit pas faire échouer la lecture du statut, d'où le repli à null.
+      const motif = await reponse
+        .json()
+        .then((corps: { motif?: string }) => corps.motif)
+        .catch(() => undefined);
 
       // Le statut porte le diagnostic : 429 = trop d'envois depuis cette
       // source, 403 = jeton de page expiré (onglet ouvert depuis des heures,
       // ou serveur redémarré). Tout le reste est un vrai échec.
       if (reponse.status === 429) setEtat("debit");
       else if (reponse.status === 403) setEtat("expire");
+      else if (motif === "recaptcha") setEtat("robot");
       else setEtat("echec");
     } catch {
       // Réseau coupé : la requête n'est jamais partie.
@@ -528,6 +575,21 @@ function Composition({
           />
           <Erreur cle="message" message={erreurs.message} />
           <Compteur longueur={valeurs.message.length} />
+        </div>
+
+        {/* Le défi, entre le message et le bouton : c'est le dernier geste
+            avant l'envoi, il se lit là où le regard descend déjà. Il s'ajoute
+            au champ piège et à la limite de débit, il ne les remplace pas. */}
+        <div className="mt-4">
+          <Recaptcha
+            lang={lang}
+            onJeton={(jeton) => {
+              setJetonRobot(jeton);
+              // Cocher la case efface le reproche affiché juste avant.
+              if (jeton) setEtat((e) => (e === "robot" ? "repos" : e));
+            }}
+            reinitialiser={resetRobot}
+          />
         </div>
 
         <div className="flex flex-wrap items-center gap-x-4 gap-y-2 border-t border-white/10 pt-4">
@@ -705,6 +767,16 @@ function MessageEtat({ etat, lang }: Readonly<{ etat: Etat; lang: Lang }>) {
         {lang === "en"
           ? "This page has been open for a while. Reload it and send again."
           : "Cette page est ouverte depuis un moment. Rechargez-la et renvoyez."}
+      </span>
+    );
+  }
+
+  if (etat === "robot") {
+    return (
+      <span style={{ color: TEXTE_ERREUR }}>
+        {lang === "en"
+          ? "Please confirm you are not a robot before sending."
+          : "Confirmez que vous n’êtes pas un robot avant d’envoyer."}
       </span>
     );
   }

@@ -2,14 +2,21 @@ import { NextResponse } from "next/server";
 import nodemailer from "nodemailer";
 import { COURRIEL } from "@/components/marketing/coordonnees";
 import { empreinteIp, jetonValide } from "@/lib/jetonContact";
+import { verifierRecaptcha } from "@/lib/recaptcha";
 
 /**
  * Route serveur du formulaire de contact.
  *
  * Remplace l'ancien `mailto:` (voir l'historique de `FenetreContact.tsx`) :
- * ici l'envoi est réel, filtré sans tiers (champ piège, jeton horodaté signé,
- * limite de débit par empreinte d'IP — voir `lib/jetonContact.ts`) et
- * journalisé côté serveur en cas d'échec.
+ * ici l'envoi est réel, filtré (champ piège, jeton horodaté signé, limite de
+ * débit par empreinte d'IP — voir `lib/jetonContact.ts`, plus un défi
+ * reCAPTCHA v2 depuis le 2026-09-23) et journalisé côté serveur en cas d'échec.
+ *
+ * L'ordre des vérifications n'est pas indifférent : le débit d'abord (le moins
+ * cher), puis la forme des champs, puis le jeton de page, et **le reCAPTCHA en
+ * dernier** — c'est le seul contrôle qui sort sur le réseau, et le faire passer
+ * avant les autres offrirait à un robot un moyen gratuit de nous faire appeler
+ * Google à chaque requête.
  */
 
 const LIMITE_MESSAGE = 5000;
@@ -88,6 +95,8 @@ type Corps = {
   jeton?: string;
   /** Champ piège : vide chez un humain, rempli par un robot qui remplit tout. */
   piege?: string;
+  /** Jeton du défi reCAPTCHA v2, produit par la case cochée dans la page. */
+  recaptcha?: string;
 };
 
 /**
@@ -219,6 +228,22 @@ export async function POST(request: Request) {
     return NextResponse.json(
       { ok: false, erreur: "Session expirée." },
       { status: 403 },
+    );
+  }
+
+  // Le défi, en dernier : c'est le seul contrôle qui appelle un service
+  // externe. `motif` permet au client de distinguer ce refus-ci d'un champ
+  // invalide, et donc de demander de recocher plutôt que de corriger une
+  // saisie qui est bonne.
+  const ip = request.headers.get("x-forwarded-for")?.split(",")[0]?.trim();
+  if (!(await verifierRecaptcha(corps.recaptcha, ip))) {
+    return NextResponse.json(
+      {
+        ok: false,
+        erreur: "Vérification anti-robot échouée. Réessayez.",
+        motif: "recaptcha",
+      },
+      { status: 400 },
     );
   }
 

@@ -27,9 +27,14 @@ import type { NextConfig } from "next";
  * ou en balise image vers google-analytics.com et analytics.google.com, avec
  * des sous-domaines régionaux (`region1.`…) d'où les jokers. Ils ont remplacé
  * matomo.cloudparadise.cloud le 2026-09-17 (voir GoogleAnalytics.tsx).
- * google.com et gstatic.com y figuraient avant pour reCAPTCHA v3 sur /contact ;
- * le formulaire se protège désormais sans tiers (voir lib/jetonContact.ts).
- * `frame-src` reste à `'none'` : aucune iframe nulle part.
+ * google.com et gstatic.com sont de retour depuis le 2026-09-23 : le formulaire
+ * de contact porte de nouveau un défi reCAPTCHA, en **v2** cette fois (case
+ * « Je ne suis pas un robot », voir components/marketing/Recaptcha.tsx). Ils
+ * avaient été retirés quand la v3 l'avait été, le formulaire ne se protégeant
+ * plus alors que par ses propres moyens (lib/jetonContact.ts) — ceux-ci restent
+ * en place et passent avant le défi, qui s'y ajoute sans les remplacer.
+ * `frame-src` n'est donc plus à `'none'` : la v2 affiche son défi dans une
+ * iframe servie par www.google.com, et c'est la seule iframe autorisée.
  *
  * `'unsafe-eval'` est ajouté UNIQUEMENT en développement : le mode dev de
  * React s'appuie sur `eval()` pour certaines fonctions de débogage (overlay
@@ -42,16 +47,21 @@ const EVAL_DEV = process.env.NODE_ENV === "production" ? "" : " 'unsafe-eval'";
 
 const CSP = [
   "default-src 'self'",
-  `script-src 'self' 'unsafe-inline'${EVAL_DEV} https://*.googletagmanager.com`,
+  // www.google.com et www.gstatic.com : le script du défi reCAPTCHA v2 du
+  // formulaire de contact (`components/marketing/Recaptcha.tsx`). Sans eux le
+  // widget ne se charge pas, et la case n'apparaît jamais.
+  `script-src 'self' 'unsafe-inline'${EVAL_DEV} https://*.googletagmanager.com https://www.google.com https://www.gstatic.com`,
   "style-src 'self' 'unsafe-inline'",
   // Le host Supabase est celui des images d'articles du blogue (vignettes et
   // images dans le corps), servies par le stockage de BabyLoveGrowth — relevé
   // dans `hero_image_url` le 2026-09-17. S'il change, les images du blogue
   // disparaissent sans erreur visible : c'est ici qu'il faut regarder.
-  "img-src 'self' data: blob: https://*.google-analytics.com https://*.googletagmanager.com https://csuxjmfbwmkxiegfpljm.supabase.co",
+  "img-src 'self' data: blob: https://*.google-analytics.com https://*.googletagmanager.com https://www.gstatic.com https://csuxjmfbwmkxiegfpljm.supabase.co",
   "font-src 'self'",
-  "connect-src 'self' https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com",
-  "frame-src 'none'",
+  "connect-src 'self' https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com https://www.google.com",
+  // Le défi reCAPTCHA v2 s'affiche dans une iframe servie par Google : sans
+  // cette entrée, `frame-src 'none'` la bloque et la case reste vide.
+  "frame-src https://www.google.com",
   "object-src 'none'",
   "base-uri 'self'",
   "form-action 'self'",

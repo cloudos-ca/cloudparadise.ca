@@ -30,7 +30,19 @@ Autres commandes :
 npm run build        # build de production
 npm run lint         # eslint
 npx tsc --noEmit     # vérification des types
+npm test             # tests (dont la comparaison des prix à /api/v1/pricing)
 ```
+
+## Variables d'environnement
+
+Elles vivent dans le `.env` de l'hôte de déploiement, jamais dans le dépôt.
+
+| Variable | Rôle |
+|---|---|
+| `SITE_ENV` | `production` sur `main`, autre chose sur `dev`. Seule variable cuite au build (`ARG` du Dockerfile). |
+| `SMTP_HOST`, `SMTP_PORT`, `SMTP_USER`, `SMTP_PASSWORD`, `SMTP_FROM` | Envoi du formulaire de contact. `SMTP_TLS_SERVERNAME` seulement si `SMTP_HOST` est une IP. |
+| `BABYLOVEGROWTH_BLOG_API_KEY` | Articles du blogue. |
+| `RECAPTCHA_SECRET_KEY` | **Secret.** Vérification du défi reCAPTCHA v2 du formulaire de contact. Sans elle, la route refuse tout envoi en production (et laisse passer en développement, pour que le formulaire reste testable en local). La clé de **site**, elle, est publique et vit dans `lib/recaptcha.ts`. |
 
 ## Structure
 
