@@ -1,4 +1,4 @@
-import { OFFRE_EN_DEVISE } from "@/components/marketing/offre";
+import { ESSAI_JOURS } from "@/components/marketing/offre";
 import type { ContenuPme } from "./pme";
 
 /**
@@ -35,7 +35,7 @@ export const PME_EN: ContenuPme = {
   meta: {
     titre: "The workstation for Canadian businesses — Cloud OS",
     description:
-      "Accounting, administration, marketing: the workstation for Canadian businesses, with no IT department. Your data stays in Canada, credits with no subscription required.",
+      "Accounting, administration, marketing: the workstation for Canadian businesses, with no IT department. Your data stays in Canada, free trial with no card required.",
   },
 
   og: {
@@ -259,28 +259,27 @@ export const PME_EN: ContenuPme = {
   budget: {
     id: "budget",
     surtitre: "Pricing",
-    titre: "No per-seat licences. No subscription required.",
+    titre: "No per-seat licences. One flat plan, everything included.",
     texte:
-      "Credits. You get some to start, you buy more when you want. A small task costs little; a heavy job costs more. Nothing expires.",
+      "A monthly subscription, two sizes depending on your team. The price doesn’t change from month to month.",
     points: [
       {
         cle: "offert",
-        // Même montant que le français, lu dans `offre.ts`. Il sort formaté en
-        // fr-CA (« 10 $ CA ») : c'est la forme retenue pour toute la vitrine
-        // anglaise, `BadgeOffre` l'affiche déjà telle quelle sur les six pages
-        // /en existantes. Ne pas la reformater ici seule.
-        titre: `${OFFRE_EN_DEVISE} in credits on sign-up`,
-        texte: "Try it without reaching for your card.",
+        // La durée vient de `offre.ts`, même valeur que le français : c'est la
+        // seule qui doit suivre un changement de durée d'essai sans qu'on y
+        // repense.
+        titre: `${ESSAI_JOURS}-day free trial, no card required`,
+        texte: "Try it without commitment.",
       },
       {
         cle: "traite",
-        titre: "One price per task",
-        texte: "A batch costs the price of one task, whatever its volume.",
+        titre: "One flat price, every month",
+        texte: "The amount is known up front, with no surprise on the bill.",
       },
       {
         cle: "consulter",
-        titre: "Looking costs nothing",
-        texte: "Opening, previewing and browsing your folders are free.",
+        titre: "Every engine included",
+        texte: "No add-on engines, no surprises on the bill.",
       },
     ],
     lien: "See pricing",

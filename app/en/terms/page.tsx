@@ -17,14 +17,19 @@ import {
   TELEPHONE,
   TELEPHONE_LIEN,
 } from "@/components/marketing/coordonnees";
-import { GrilleTarifaireLegale } from "@/components/marketing/GrilleTarifaireLegale";
-// Voir la version française : mêmes montants, même source, devise épelée.
-import {
-  CREDIT_EN_DEVISE,
-  CREDITS_OFFERTS,
-} from "@/components/marketing/offre";
 import { ListeNumerotee } from "@/components/marketing/ListeNumerotee";
 import { LECTURE, SECTION_Y, SHELL } from "@/components/marketing/tokens";
+import {
+  dureeMaxMois,
+  dureesGarantie,
+  dureesRecurrentes,
+  dureesToutes,
+  ESSAI_JOURS,
+  GARANTIE_JOURS,
+  PALIERS,
+  SURSIS_TACHE_HEURES,
+  enDevise,
+} from "@/components/marketing/offre";
 import {
   alternatesBilingues,
   IMAGE_OG_PARTAGEE,
@@ -34,7 +39,7 @@ import {
 
 const TITRE = "Terms of Use — Cloud OS";
 const DESCRIPTION =
-  "Cloud OS Terms of Use: your account, credits and pricing, acceptable use, ownership of your content, warranties, and the governing law.";
+  "Cloud OS Terms of Use: your account and subscription, acceptable use, ownership of your content, warranties, and the governing law.";
 
 export const metadata: Metadata = {
   title: TITRE,
@@ -128,11 +133,6 @@ const SECTIONS: readonly SectionRedigee[] = [
             texte: "the files or data produced by a Run.",
           },
           {
-            terme: "Credits:",
-            texte:
-              "the prepayment unit used to pay for the execution of Jobs (see article 6).",
-          },
-          {
             terme: "Team:",
             texte:
               "a collaboration space allowing you to share files and Jobs with other users.",
@@ -198,74 +198,43 @@ const SECTIONS: readonly SectionRedigee[] = [
           {
             terme: "One account per person.",
             texte:
-              "You may not share your credentials or transfer your account without our prior written authorization. To collaborate, use Teams instead (article 9).",
+              "You may not share your credentials or transfer your account without our prior written authorization. To collaborate, use Teams instead (see the “Teams and sharing” article).",
           },
         ],
       },
     ],
   },
   {
-    titre: "Credits, pricing, and billing",
+    titre: "Plans, allowance, and usage gauge",
     blocs: [
+      "The Service is offered by fixed-price subscription, before tax, under two plans:",
       {
-        liste: [
-          {
-            terme: "“Pay-as-you-go” model.",
-            texte: `The Service operates on prepaid credits. 1 credit equals ${CREDIT_EN_DEVISE} Canadian dollar (CAD). Each Job consumes a number of credits depending on the type of engine used.`,
-          },
-          {
-            terme: "Sign-up credit bonus.",
-            texte: `A welcome amount of credits (currently the equivalent of CAD ${CREDITS_OFFERTS}) may be offered when you create your account, no credit card required. This amount is promotional, has no cash value, is non-refundable and non-transferable, and may be changed or withdrawn at any time.`,
-          },
-        ],
+        liste: PALIERS.map((palier) => ({
+          terme: `${palier.nom.en} — ${enDevise(palier.prixMensuel)} a month (≈ ${palier.tachesParMois} tasks a month, depending on the type of task).`,
+          // Semicolons, not commas: “… 25 members, with pooling” already contains a comma, and
+          // the enumeration read as a fifth item.
+          texte: <>Includes: {palier.inclusions.en.join("; ")}.</>,
+        })),
       },
+      `You choose your commitment length (${dureesToutes("en")} months): the monthly price decreases with the length, but never changes at renewal. The monthly price is a way of stating the price, not a payment schedule: a commitment of ${dureesRecurrentes("en")} months is charged in a single payment, at the start of each commitment period, then renews automatically for the same length and at the same price, until you cancel. A ${dureeMaxMois()}-month commitment is paid in a single payment, at subscription, and does not renew.`,
+      "Whatever length you choose, your gauge renews every month, on your subscription’s date, up to your plan’s allowance. Whatever is left of the allowance at the end of the month is carried over once to the following month, capped at one full month; beyond that carry-over, the surplus is not accumulated further.",
+      "A percentage gauge shows your usage for the current month. We warn you at 80%. At 100%, you choose: wait for the renewal, or immediately add a month’s worth of extra allowance, at your plan’s price, without changing your subscription or its renewal date.",
+      `A batch job already under way that reaches 100% mid-run is not stopped on the spot: it is paused for ${SURSIS_TACHE_HEURES} hours. If you add allowance within that window, it resumes where it left off; otherwise, whatever it produced is delivered to you and the remainder is dropped.`,
       <>
-        <strong className="font-semibold text-white">Job pricing.</strong>{" "}
-        The price of each type of job is displayed in the Service and on our
-        site before execution. For guidance only, and subject to change,
-        per-run rates are approximately:
+        Within a Team (see the “Teams and sharing” article), a member with their own paid, active
+        plan — a trial does not pool — can pool their allowance into the Team’s pool, provided the
+        Team’s owner themselves holds an active Business plan. You may join or leave the pool at
+        any time; on leaving, you take back your share of what remains, prorated to what you put in.
       </>,
-      { brut: <GrilleTarifaireLegale lang="en" /> },
-      "The prices in effect are those displayed in the Service at the time you submit a Job.",
-      {
-        liste: [
-          {
-            // ⚠️ CONTREDIT PAR LE CODE APPLICATIF — voir le commentaire jumeau
-            // dans `app/(marketing)/conditions/page.tsx`, bloc « Débit des
-            // crédits ». Relevé le 2026-08-02, non corrigé ici volontairement :
-            // texte contractuel, décision du juriste.
-            terme: "Credit deduction.",
-            texte:
-              "Credits are deducted as the Run progresses, not when it starts: what has been processed is charged, what has not is not, and Results already produced remain yours. A Run interrupted by a failure of our infrastructure is retried without a further deduction. Where invalid User Content or incorrect instructions prevent a Run from completing, we tell you the cause and you may correct it and relaunch on the same credit. Computing capacity actually consumed remains billable, including where the Result you obtain does not satisfy you.",
-          },
-          {
-            terme: "Topping up credits.",
-            texte:
-              "Purchasing additional credits is done using the payment methods offered in the Service (including PayPal). Payments are processed by third-party providers, under their own terms; we do not store the complete data of your payment instruments.",
-          },
-          {
-            terme: "Refunds.",
-            texte: (
-              <>
-                Except as otherwise provided by applicable law — notably
-                Quebec’s <em>Consumer Protection Act</em> — purchased credits
-                are non-refundable once consumed. Unused credits may be
-                refunded at our discretion or where required by law. For any
-                request, write to{" "}
-                <a href={`mailto:${COURRIEL}`}>
-                  {COURRIEL}
-                </a>
-                {"."}
-              </>
-            ),
-          },
-          {
-            terme: "Taxes.",
-            texte:
-              "Displayed prices may exclude applicable taxes (GST/QST). Required taxes will be added where applicable.",
-          },
-        ],
-      },
+      `You may pause a recurring subscription — neither a ${dureeMaxMois()}-month commitment paid in a single payment, nor the trial — for one to three months, once every 12 months: nothing is billed during the pause, and your allowance is not lost — it is waiting for you when you resume.`,
+      `On a commitment of ${dureesGarantie("en")} months, you benefit from a full money-back guarantee of ${GARANTIE_JOURS} days from the time you subscribe, once per account and provided you have not purchased any extra month of allowance since.`,
+      `A free ${ESSAI_JOURS}-day trial, with no card required, lets you use the Service before committing.`,
+      <>
+        Outside of this guarantee, termination (see the “Suspension and termination” article) does
+        not give rise to any pro-rated refund: access to the Service continues until the end of the
+        period already paid for.
+      </>,
+      "Prices shown are before tax. Applicable Canadian taxes, determined by your province, are added to the amount shown; they are displayed before payment and appear on the invoice. If your billing address is outside Canada, no Canadian tax is added to the amount shown; it is then up to you to report and pay any taxes owed in your own country.",
     ],
   },
   {
@@ -288,7 +257,7 @@ const SECTIONS: readonly SectionRedigee[] = [
           />
         ),
       },
-      "We reserve the right to refuse, interrupt, or remove any Job or User Content that would violate this article, and to suspend the accounts concerned (article 13).",
+      "We reserve the right to refuse, interrupt, or remove any Job or User Content that would violate this article, and to suspend the accounts concerned (see the “Suspension and termination” article).",
     ],
   },
   {
@@ -410,7 +379,7 @@ const SECTIONS: readonly SectionRedigee[] = [
           {
             terme: "Effects of termination.",
             texte:
-              "Once the 30-day grace period has elapsed, your access to the Service ends and your entire account — User Content, Results, and account information — is permanently purged, subject to temporary technical backups. Invoices are kept for six (6) years to meet tax and accounting obligations; the privacy policy sets out the applicable periods. Unused credits from an account closed for breach of the Terms may be forfeited, to the extent permitted by law. The provisions that by their nature must survive termination — notably your responsibilities regarding User Content (article 8), as well as articles 12, 14, 15, 16, and 18 — remain in effect.",
+              "Once the 30-day grace period has elapsed, your access to the Service ends and your entire account — User Content, Results, and account information — is permanently purged, subject to temporary technical backups. Invoices are kept for six (6) years to meet tax and accounting obligations; the privacy policy sets out the applicable periods. The provisions that by their nature must survive termination — notably your responsibilities regarding User Content (the “User Content” article), as well as the “Cloud OS’s intellectual property”, “Disclaimer of warranties”, “Limitation of liability”, “Indemnification”, and “Governing law and jurisdiction” articles — remain in effect.",
           },
         ],
       },

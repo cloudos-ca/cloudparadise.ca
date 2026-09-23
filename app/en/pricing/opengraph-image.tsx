@@ -1,3 +1,4 @@
+import { PALIERS, enDevise } from "@/components/marketing/offre";
 import { renderOgImage } from "@/lib/ogImage";
 
 export const alt = "Cloud OS — Pricing";
@@ -6,7 +7,7 @@ export const contentType = "image/png";
 
 export default function Image() {
   return renderOgImage(
-    "Pay for what you use. Nothing more.",
-    "Credits, no subscription required. You only pay for what you run.",
+    "One flat price. Everything included.",
+    `Personal at ${enDevise(PALIERS[0].prixMensuel)}/mo, Business at ${enDevise(PALIERS[1].prixMensuel)}/mo.`,
   );
 }

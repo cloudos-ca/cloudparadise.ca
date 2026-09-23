@@ -5,7 +5,6 @@ import {
   AncresSections,
   type Ancre,
 } from "@/components/marketing/AncresSections";
-import { prixAbonnementDepuis } from "@/components/marketing/abonnements";
 import { BoutonCta } from "@/components/marketing/BoutonCta";
 import { BreadcrumbJsonLd } from "@/components/marketing/BreadcrumbJsonLd";
 import { FenetreCta } from "@/components/marketing/FenetreCta";
@@ -30,6 +29,7 @@ import {
 import { SECTION_Y, SHELL } from "@/components/marketing/tokens";
 import { alternatesBilingues, openGraphPage } from "@/lib/seo";
 import { lienInscription } from "@/lib/site";
+import { PALIERS, enDevise } from "@/components/marketing/offre";
 
 const TITRE = "Platform — Cloud OS";
 const DESCRIPTION =
@@ -132,7 +132,7 @@ const JEUX: Carte[] = [
     Icone: IconGamepad,
     titre: "Game studio",
     texte:
-      "Describe a game in conversation; the AI discusses the mechanics, writes it, compiles it and tests it automatically before handing it to you. One credit per compile; playing and rolling back are free.",
+      "Describe a game in conversation; the AI discusses the mechanics, writes it, compiles it and tests it automatically before handing it to you. Compiling counts as one task; playing and rolling back are free.",
   },
   {
     Icone: IconInfinity,
@@ -180,15 +180,15 @@ export default function PlateformePageEn() {
               <LienOr href="/en/pricing">See pricing</LienOr>
             </div>
             <p className="mt-4 text-[13px] text-white/60">
-              Also available as a subscription,{" "}
+              From{" "}
               <a
-                href="/en/pricing#abonnements"
+                href="/en/pricing#forfaits"
                 data-cp-accent
                 className="text-cp-subtle underline-offset-4 hover:text-[var(--acc-text)] hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
               >
-                {prixAbonnementDepuis("en")}
+                {enDevise(PALIERS[0].prixMensuel)}/mo
               </a>
-              .
+              , all included.
             </p>
           </Reveal>
 

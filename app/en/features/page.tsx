@@ -4,14 +4,12 @@ import {
   AncresSections,
   type Ancre,
 } from "@/components/marketing/AncresSections";
-import { prixAbonnementDepuis } from "@/components/marketing/abonnements";
 import { BreadcrumbJsonLd } from "@/components/marketing/BreadcrumbJsonLd";
 import { FenetreCta } from "@/components/marketing/FenetreCta";
 import { HreflangLinks } from "@/components/marketing/HreflangLinks";
 import { Reveal } from "@/components/marketing/Reveal";
-import { prixBacASable } from "@/components/marketing/bacASable";
 import { prixHebergement } from "@/components/marketing/hebergement";
-import { libelleDe } from "@/components/marketing/offre";
+import { BAC_A_SABLE_NOM, PALIERS, enDevise, libelleDe } from "@/components/marketing/offre";
 import { SECTION_Y, SHELL } from "@/components/marketing/tokens";
 import { alternatesBilingues, openGraphPage } from "@/lib/seo";
 import { lienInscription } from "@/lib/site";
@@ -90,8 +88,8 @@ const SECTIONS: readonly SectionFonctions[] = [
         texte: "Your Drive and OneDrive files, reachable from your desktop.",
       },
       {
-        nom: "Sandbox",
-        texte: `A real persistent Linux desktop, continuously synced with the Files app — unlike the rest of the platform, which runs in an ephemeral container. ${prixBacASable("en")}, on top of an active Credits subscription.`,
+        nom: BAC_A_SABLE_NOM.en,
+        texte: "A real persistent Linux desktop, continuously synced with the Files app — unlike the rest of the platform, which runs in an ephemeral container. Included with the Business plan.",
       },
       {
         // Ici et pas dans « Vos applications » : l'app est `hidden` au registre,
@@ -354,7 +352,7 @@ const SECTIONS: readonly SectionFonctions[] = [
     id: "hebergement",
     surtitre: "Web Hosting",
     titre: "Your website, hosted with us too.",
-    intro: `${prixHebergement("en")}, no active Credits subscription required — a standalone product, not another module.`,
+    intro: `${prixHebergement("en")} — a standalone product, not another module.`,
     entrees: [
       {
         nom: "Four ready-made stacks",
@@ -420,7 +418,7 @@ const SECTIONS: readonly SectionFonctions[] = [
       {
         nom: "Game studio",
         texte:
-          "Describe a game in conversation; the AI discusses the mechanics, writes it on Phaser 3, compiles it and tests it automatically before handing it to you. One credit per compile; playing and rolling back are free.",
+          "Describe a game in conversation; the AI discusses the mechanics, writes it on Phaser 3, compiles it and tests it automatically before handing it to you. Compiling counts as one task; playing and rolling back are free.",
       },
       {
         nom: "Arcades",
@@ -469,12 +467,12 @@ const SECTIONS: readonly SectionFonctions[] = [
   {
     id: "compte",
     surtitre: "Your account",
-    titre: "Your credits, your invoices, your access.",
+    titre: "Your plan, your invoices, your access.",
     page: TARIFS,
     entrees: [
       {
-        nom: "Credits and top-up",
-        texte: "Your balance, and a top-up whenever you want one.",
+        nom: "Plan and usage gauge",
+        texte: "Your plan, and the usage gauge for the current month.",
       },
       {
         nom: "Invoices",
@@ -546,15 +544,15 @@ export default function FonctionsPageEn() {
                 d'information reste à sa place : la même que sur les trois
                 autres pages produit. */}
             <p className="mt-3 text-[13px] text-white/60">
-              Also available as a subscription,{" "}
+              From{" "}
               <a
-                href="/en/pricing#abonnements"
+                href="/en/pricing#forfaits"
                 data-cp-accent
                 className="text-cp-subtle underline-offset-4 hover:text-[var(--acc-text)] hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
               >
-                {prixAbonnementDepuis("en")}
+                {enDevise(PALIERS[0].prixMensuel)}/mo
               </a>
-              .
+              , all included.
             </p>
           </Reveal>
         </div>

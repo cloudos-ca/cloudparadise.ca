@@ -65,7 +65,7 @@ const SECTIONS: readonly SectionRedigee[] = [
           {
             terme: "Renseignements de facturation.",
             texte:
-              "Selon votre utilisation : l’historique de vos achats de crédits et des transactions, ainsi que les données nécessaires au traitement des paiements. Les renseignements de carte de paiement sont traités directement par notre prestataire de paiement (PayPal) et ne transitent pas par nos serveurs sous forme complète (voir section 4).",
+              "Selon votre utilisation : l’historique de votre abonnement et des transactions, ainsi que les données nécessaires au traitement des paiements. Les renseignements de carte de paiement sont traités directement par notre prestataire de paiement (PayPal) et ne transitent pas par nos serveurs sous forme complète (voir section 4).",
           },
           {
             terme: "Fichiers et jeux de données que vous déposez.",
@@ -115,7 +115,7 @@ const SECTIONS: readonly SectionRedigee[] = [
           {
             terme: "Facturation :",
             texte:
-              "établir vos achats de crédits, traiter les paiements et prévenir la fraude.",
+              "établir votre abonnement, traiter les paiements et prévenir la fraude.",
           },
           {
             terme: "Soutien et communications de service :",
@@ -183,7 +183,7 @@ const SECTIONS: readonly SectionRedigee[] = [
           {
             terme: "Paiement — PayPal.",
             texte:
-              "Le traitement des paiements pour l’achat de crédits est confié à PayPal. Les renseignements de carte ou de compte de paiement sont saisis et traités directement par PayPal ; nous en recevons uniquement la confirmation de la transaction.",
+              "Le traitement des paiements de l’abonnement est confié à PayPal. Les renseignements de carte ou de compte de paiement sont saisis et traités directement par PayPal ; nous en recevons uniquement la confirmation de la transaction.",
           },
           {
             terme: "Hébergement physique de l’infrastructure.",

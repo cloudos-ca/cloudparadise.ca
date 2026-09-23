@@ -1,4 +1,4 @@
-import { OFFRE_EN_DEVISE } from "@/components/marketing/offre";
+import { ESSAI_JOURS } from "@/components/marketing/offre";
 import type { ContenuPme } from "./pme";
 
 /**
@@ -12,7 +12,7 @@ import type { ContenuPme } from "./pme";
  * `pme.ts` pour le pourquoi de deux fichiers plutôt qu'un objet bilingue.
  *
  * Contraintes que ce fichier respecte, et qu'il faut continuer de respecter :
- *   - aucun montant écrit à la main — `OFFRE_EN_DEVISE` vient de `offre.ts` ;
+ *   - aucun montant écrit à la main — les valeurs viennent de `offre.ts` ;
  *   - aucun décompte de modes (« nos 8 modes »), le produit en gagne et en perd ;
  *   - rien de plus que le brief sur l'hébergement : pas de certification, pas
  *     d'audit, pas de conformité nommée. Une formulation qui semble manquer se
@@ -22,7 +22,7 @@ export const PME_FR: ContenuPme = {
   meta: {
     titre: "Le poste de travail des PME québécoises — Cloud OS",
     description:
-      "Comptabilité, administration, marketing : le poste de travail des PME québécoises, sans département informatique. Serveurs au Québec, crédits sans abonnement requis.",
+      "Comptabilité, administration, marketing : le poste de travail des PME québécoises, sans département informatique. Serveurs au Québec, essai gratuit sans carte.",
   },
 
   og: {
@@ -249,27 +249,26 @@ export const PME_FR: ContenuPme = {
   budget: {
     id: "budget",
     surtitre: "Le budget",
-    titre: "Pas de licence par siège. Pas d’abonnement obligatoire.",
+    titre: "Pas de licence par siège. Un forfait fixe, tout inclus.",
     texte:
-      "Des crédits. Vous en recevez pour commencer, vous en rachetez quand vous voulez. Une petite tâche coûte peu ; un gros traitement coûte plus. Rien ne se périme.",
+      "Un abonnement mensuel, deux formats selon votre taille. Le prix ne bouge pas d’un mois à l’autre.",
     points: [
       {
         cle: "offert",
-        // Le montant vient de `offre.ts` : c'est la seule valeur de ce fichier
-        // qui doit suivre un changement de prix sans qu'on y repense.
-        titre: `${OFFRE_EN_DEVISE} de crédits offerts à l’inscription`,
-        texte: "Testez sans sortir votre carte.",
+        // La durée vient de `offre.ts` : c'est la seule valeur de ce fichier
+        // qui doit suivre un changement de durée d'essai sans qu'on y repense.
+        titre: `${ESSAI_JOURS} jours d’essai gratuit, sans carte`,
+        texte: "Testez sans engagement.",
       },
       {
         cle: "traite",
-        titre: "Un prix par tâche",
-        texte: "Un lot coûte le prix d’une tâche, quel que soit son volume.",
+        titre: "Un prix fixe, chaque mois",
+        texte: "Le montant est connu d’avance, sans surprise à la facture.",
       },
       {
         cle: "consulter",
-        titre: "Consulter ne coûte rien",
-        texte:
-          "Ouvrir, prévisualiser, naviguer dans vos dossiers : gratuit.",
+        titre: "Tous les moteurs inclus",
+        texte: "Aucun moteur en supplément, aucune surprise à la facture.",
       },
     ],
     lien: "Voir les tarifs",

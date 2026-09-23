@@ -206,8 +206,8 @@ export const PAGES: readonly PageSite[] = [
     changeFrequency: "monthly",
     titre: { fr: "PME", en: "Small business" },
     resume: {
-      fr: "les PME québécoises sans département informatique — comptabilité, administration, marketing, travail d'équipe, crédits.",
-      en: "Canadian small businesses with no IT department — accounting, administration, marketing, teamwork, credits.",
+      fr: "les PME québécoises sans département informatique — comptabilité, administration, marketing, travail d'équipe, essai gratuit.",
+      en: "Canadian small businesses with no IT department — accounting, administration, marketing, teamwork, free trial.",
     },
   },
   {
@@ -228,8 +228,8 @@ export const PAGES: readonly PageSite[] = [
     changeFrequency: "monthly",
     titre: { fr: "Tarifs", en: "Pricing" },
     resume: {
-      fr: "modèle de crédits (pas d'abonnement), coût par tâche, estimateur de budget.",
-      en: "credit model (no subscription), cost per task, budget estimator.",
+      fr: "deux forfaits tout inclus, essai gratuit, remise selon la durée d'engagement.",
+      en: "two all-inclusive plans, free trial, discount based on commitment length.",
     },
   },
   {

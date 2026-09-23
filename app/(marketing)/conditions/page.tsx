@@ -17,17 +17,19 @@ import {
   TELEPHONE,
   TELEPHONE_LIEN,
 } from "@/components/marketing/coordonnees";
-import { GrilleTarifaireLegale } from "@/components/marketing/GrilleTarifaireLegale";
-// Les deux montants cités dans l'article « Crédits, tarification et
-// facturation » viennent de la même source que la grille juste en dessous. La
-// devise reste épelée en toutes lettres dans le texte : « $ CA » est la forme
-// d'affichage du site, pas celle d'un document contractuel.
-import {
-  CREDIT_EN_DEVISE,
-  CREDITS_OFFERTS,
-} from "@/components/marketing/offre";
 import { ListeNumerotee } from "@/components/marketing/ListeNumerotee";
 import { LECTURE, SECTION_Y, SHELL } from "@/components/marketing/tokens";
+import {
+  dureeMaxMois,
+  dureesGarantie,
+  dureesRecurrentes,
+  dureesToutes,
+  ESSAI_JOURS,
+  GARANTIE_JOURS,
+  PALIERS,
+  SURSIS_TACHE_HEURES,
+  enDevise,
+} from "@/components/marketing/offre";
 import {
   alternatesBilingues,
   IMAGE_OG_PARTAGEE,
@@ -37,7 +39,7 @@ import {
 
 const TITRE = "Conditions d’utilisation — Cloud OS";
 const DESCRIPTION =
-  "Conditions d’utilisation de Cloud OS : compte, crédits et tarification, utilisation acceptable, propriété du contenu, garanties et droit applicable.";
+  "Conditions d’utilisation de Cloud OS : compte et abonnement, utilisation acceptable, propriété du contenu, garanties et droit applicable.";
 
 export const metadata: Metadata = {
   title: TITRE,
@@ -130,11 +132,6 @@ const SECTIONS: readonly SectionRedigee[] = [
             texte: "les fichiers ou données produits par un Job.",
           },
           {
-            terme: "Crédits :",
-            texte:
-              "l’unité de prépaiement permettant de payer l’exécution des Traitements (voir l’article 6).",
-          },
-          {
             terme: "Équipe :",
             texte:
               "un espace de collaboration permettant de partager des fichiers et des Traitements avec d’autres utilisateurs.",
@@ -204,84 +201,44 @@ const SECTIONS: readonly SectionRedigee[] = [
           {
             terme: "Un compte par personne.",
             texte:
-              "Vous ne pouvez pas partager vos identifiants ni céder votre compte sans notre autorisation écrite préalable. Pour collaborer, utilisez plutôt les Équipes (article 9).",
+              "Vous ne pouvez pas partager vos identifiants ni céder votre compte sans notre autorisation écrite préalable. Pour collaborer, utilisez plutôt les Équipes (voir l’article « Équipes et partage »).",
           },
         ],
       },
     ],
   },
   {
-    titre: "Crédits, tarification et facturation",
+    titre: "Forfaits, enveloppe et jauge",
     blocs: [
+      "Le Service est offert par abonnement à prix fixe, hors taxes, selon deux forfaits :",
       {
-        liste: [
-          {
-            terme: "Modèle « à l’usage ».",
-            texte: `Le Service fonctionne par crédits prépayés. 1 crédit équivaut à ${CREDIT_EN_DEVISE} dollar canadien (CAD). Chaque Traitement consomme un nombre de crédits selon le type de moteur utilisé.`,
-          },
-          {
-            terme: "Crédits offerts à l’inscription.",
-            texte: `Un montant de bienvenue en crédits (actuellement l’équivalent de ${CREDITS_OFFERTS} $ CAD) peut être offert à la création du compte, sans carte de crédit requise. Ce montant est promotionnel, sans valeur monétaire, non remboursable et non transférable ; il peut être modifié ou retiré en tout temps.`,
-          },
-        ],
+        liste: PALIERS.map((palier) => ({
+          terme: `${palier.nom.fr} — ${enDevise(palier.prixMensuel)} par mois (≈ ${palier.tachesParMois} tâches par mois, selon le type de tâche).`,
+          // Point-virgule et non virgule : « … 25 membres, avec pool » comportait déjà une
+          // virgule, et l'énumération se lisait comme un cinquième élément.
+          texte: <>Inclus : {palier.inclusions.fr.join(" ; ")}.</>,
+        })),
       },
+      `Vous choisissez la durée de votre engagement (${dureesToutes("fr")} mois) : le prix mensuel diminue avec la durée, mais ne change jamais au renouvellement. Le prix mensuel est un mode de calcul, pas un échéancier : un engagement de ${dureesRecurrentes("fr")} mois est prélevé en une seule fois, au début de chaque période d’engagement, puis reconduit automatiquement pour la même durée et au même prix, jusqu’à résiliation. L’engagement de ${dureeMaxMois()} mois est payé en une seule fois, à la souscription, et n’est pas reconduit.`,
+      "Quelle que soit la durée choisie, votre jauge se renouvelle chaque mois, à la date de votre abonnement, à hauteur de l’enveloppe de votre forfait. Ce qui reste de l’enveloppe à la fin du mois est reporté une fois sur le mois suivant, jusqu’à concurrence d’un mois complet ; au-delà de ce report, le surplus n’est pas cumulé.",
+      "Une jauge en pourcentage indique votre consommation du mois en cours. Nous vous prévenons à 80 %. À 100 %, vous choisissez : attendre le renouvellement, ou ajouter immédiatement un mois d’enveloppe supplémentaire, au prix de votre forfait, sans que cela change votre abonnement ni sa date de renouvellement.",
+      `Un traitement par lots déjà lancé qui atteint 100 % en cours d’exécution n’est pas interrompu sur-le-champ : il est mis en pause pendant ${SURSIS_TACHE_HEURES} heures. Si vous ajoutez de l’enveloppe pendant ce délai, il reprend là où il s’était arrêté ; sinon, ce qui a été produit vous est livré et le reste est abandonné.`,
       <>
-        <strong className="font-semibold text-white">Prix des traitements.</strong> Le prix de chaque
-        type de traitement est affiché dans le Service et sur notre site avant l’exécution. À titre
-        indicatif seulement, et sous réserve de modification, les tarifs par exécution sont de l’ordre
-        de :
+        Au sein d’une Équipe (voir l’article « Équipes et partage »), un membre disposant de son
+        propre forfait payé et actif — l’essai ne poole pas — peut mettre son enveloppe en commun
+        dans le pool de l’Équipe, à condition que le titulaire de l’Équipe ait lui-même un forfait
+        Entreprise actif. On rejoint ou on quitte le pool à tout moment ; en le quittant, on reprend
+        sa part de ce qui reste, calculée au prorata de ce qu’on y a mis.
       </>,
-      { brut: <GrilleTarifaireLegale lang="fr" /> },
-      "Les prix en vigueur sont ceux affichés dans le Service au moment où vous soumettez un Traitement.",
-      {
-        liste: [
-          {
-            // ⚠️ CONTREDIT PAR LE CODE APPLICATIF — relevé le 2026-08-02, non
-            // corrigé ici volontairement : c'est un texte contractuel, et le
-            // réécrire est une décision du juriste, pas de la vitrine.
-            //
-            // `chargeForJob` débite **au lancement**, avant même la création du
-            // Job ; `failJob` et `cancelJob` ne remboursent rien. Trois
-            // affirmations de ce bloc sont donc plus favorables au client que
-            // le produit : « à mesure que le Job progresse, et non à son
-            // lancement », « repris sans nouveau débit », et « relancer sur le
-            // même crédit ». Le débit à la pièce, lui, n'existe que pour le
-            // traitement d'images et le publipostage.
-            //
-            // L'écart a changé de sens : ces clauses étaient réputées plus
-            // dures que le produit, elles sont en réalité plus généreuses — et
-            // elles sont en ligne et indexées depuis le 2026-07-31.
-            terme: "Débit des crédits.",
-            texte:
-              "Les crédits sont débités à mesure que le Job progresse, et non à son lancement : ce qui a été traité est débité, ce qui ne l’a pas été ne l’est pas, et les Résultats déjà produits vous demeurent acquis. Un Job interrompu par une défaillance de notre infrastructure est repris sans nouveau débit. Lorsqu’un Contenu utilisateur invalide ou des instructions erronées empêchent un Job d’aboutir, nous vous en indiquons la cause et vous pouvez corriger puis relancer sur le même crédit. Demeure facturée la capacité de calcul effectivement consommée, y compris lorsque le Résultat obtenu ne vous satisfait pas.",
-          },
-          {
-            terme: "Recharge de crédits.",
-            texte:
-              "L’achat de crédits supplémentaires s’effectue au moyen des modes de paiement offerts dans le Service (notamment PayPal). Les paiements sont traités par des prestataires tiers, selon leurs propres conditions ; nous ne stockons pas les données complètes de vos instruments de paiement.",
-          },
-          {
-            terme: "Remboursements.",
-            texte: (
-              <>
-                Sauf disposition contraire prévue par la loi applicable — notamment la{" "}
-                <em>Loi sur la protection du consommateur</em> du Québec — les crédits achetés ne sont pas
-                remboursables une fois consommés. Les crédits non utilisés peuvent faire l’objet d’un
-                remboursement à notre discrétion ou lorsque la loi l’exige. Pour toute demande, écrivez à{" "}
-                <a href={`mailto:${COURRIEL}`}>
-                  {COURRIEL}
-                </a>
-                {"."}
-              </>
-            ),
-          },
-          {
-            terme: "Taxes.",
-            texte:
-              "Les prix affichés peuvent être exclusifs des taxes applicables (TPS/TVQ). Les taxes requises seront ajoutées le cas échéant.",
-          },
-        ],
-      },
+      `Vous pouvez mettre en pause un abonnement récurrent — ni un engagement de ${dureeMaxMois()} mois payé en une seule fois, ni l’essai — pour une durée de un à trois mois, une fois par période de 12 mois : aucun montant n’est facturé pendant la pause, et votre enveloppe n’est pas perdue — elle vous attend à la reprise.`,
+      `Sur un engagement de ${dureesGarantie("fr")} mois, vous bénéficiez d’une garantie de remboursement intégral de ${GARANTIE_JOURS} jours à compter de la souscription, une seule fois par compte et à condition de n’avoir acheté aucun mois d’enveloppe supplémentaire depuis.`,
+      `Un essai gratuit de ${ESSAI_JOURS} jours, sans carte, vous permet d’utiliser le Service avant de vous engager.`,
+      <>
+        En dehors de cette garantie, la résiliation (voir l’article « Suspension et résiliation »)
+        ne donne lieu à aucun remboursement au prorata : l’accès au Service se poursuit jusqu’à la
+        fin de la période déjà payée.
+      </>,
+      "Les prix affichés sont hors taxes. Les taxes canadiennes applicables, déterminées selon votre province, s’ajoutent au montant indiqué ; elles sont affichées avant le paiement et figurent sur la facture. Si votre adresse de facturation est hors du Canada, aucune taxe canadienne ne s’ajoute au montant indiqué ; il vous revient alors de déclarer et d’acquitter, le cas échéant, les taxes dues dans votre pays.",
     ],
   },
   {
@@ -304,7 +261,7 @@ const SECTIONS: readonly SectionRedigee[] = [
           />
         ),
       },
-      "Nous nous réservons le droit de refuser, d’interrompre ou de supprimer tout Traitement ou Contenu utilisateur qui contreviendrait au présent article, et de suspendre les comptes concernés (article 13).",
+      "Nous nous réservons le droit de refuser, d’interrompre ou de supprimer tout Traitement ou Contenu utilisateur qui contreviendrait au présent article, et de suspendre les comptes concernés (voir l’article « Suspension et résiliation »).",
     ],
   },
   {
@@ -427,7 +384,7 @@ const SECTIONS: readonly SectionRedigee[] = [
           {
             terme: "Effets de la résiliation.",
             texte:
-              "À l’expiration du délai de grâce de 30 jours, votre accès au Service cesse et l’ensemble de votre compte — Contenu utilisateur, Résultats et renseignements de compte — est purgé définitivement, sous réserve des sauvegardes techniques temporaires. Les factures sont conservées six (6) ans pour répondre aux obligations fiscales et comptables ; la politique de confidentialité détaille les durées applicables. Les crédits non utilisés d’un compte fermé pour cause de violation des Conditions peuvent être perdus, dans la mesure permise par la loi. Les dispositions qui, par leur nature, doivent survivre à la résiliation — notamment vos responsabilités quant au Contenu utilisateur (article 8), ainsi que les articles 12, 14, 15, 16 et 18 — demeurent en vigueur.",
+              "À l’expiration du délai de grâce de 30 jours, votre accès au Service cesse et l’ensemble de votre compte — Contenu utilisateur, Résultats et renseignements de compte — est purgé définitivement, sous réserve des sauvegardes techniques temporaires. Les factures sont conservées six (6) ans pour répondre aux obligations fiscales et comptables ; la politique de confidentialité détaille les durées applicables. Les dispositions qui, par leur nature, doivent survivre à la résiliation — notamment vos responsabilités quant au Contenu utilisateur (article « Contenu utilisateur »), ainsi que les articles « Propriété intellectuelle de Cloud OS », « Exclusion de garanties », « Limitation de responsabilité », « Indemnisation » et « Droit applicable et juridiction » — demeurent en vigueur.",
           },
         ],
       },
