@@ -166,6 +166,13 @@ const SECTIONS: readonly SectionFonctions[] = [
         texte:
           "Describe the software stack you need: the assistant proposes a set of containers, explains it to you, then starts it, stops it and shows you its logs.",
       },
+      {
+        // Voir la version française : le mot « preview » est exact, pas modeste.
+        nom: "Mobile preview",
+        texte:
+          "Your desktop on a phone, in the browser: nothing to install, nothing to download. The native app is still in preparation.",
+        lien: { href: "https://mobile.cloudos.ca", libelle: "Open the preview" },
+      },
     ],
   },
   {

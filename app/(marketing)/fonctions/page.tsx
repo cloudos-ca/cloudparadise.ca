@@ -166,6 +166,16 @@ const SECTIONS: readonly SectionFonctions[] = [
         texte:
           "Décrivez la pile logicielle qu’il vous faut : l’assistant propose un assemblage de conteneurs, vous l’explique, puis le démarre, l’arrête et vous en montre les journaux.",
       },
+      {
+        // Aperçu web de l'app mobile (mobile.cloudos.ca) : le MÊME code que l'application, rendu
+        // par react-native-web. Le mot « aperçu » n'est pas de la modestie, c'est exact — ni
+        // notifications push, ni achats in-app, ni accès aux capacités de l'appareil. L'app native
+        // n'est pas encore au point ; annoncer autre chose se paierait au premier téléchargement.
+        nom: "Aperçu mobile",
+        texte:
+          "Votre bureau sur téléphone, dans le navigateur : rien à installer, rien à télécharger. L’application native, elle, est encore en préparation.",
+        lien: { href: "https://mobile.cloudos.ca", libelle: "Ouvrir l’aperçu" },
+      },
     ],
   },
   {
