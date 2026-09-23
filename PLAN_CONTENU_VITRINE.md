@@ -23,7 +23,7 @@ Ces points sont tranchés. Ils ne se rediscutent pas dans les briefs de sections
 | Moteur d'IA | **Auto-hébergé.** Aucune donnée client ne transite par une API externe. |
 | Hébergement | Matériel possédé, dans un local loué à Amos, Québec. |
 | Disponibilité | **Aucune promesse.** Voir §5. |
-| Abonnements | **Actifs depuis le 2026-08-12.** Les crédits restent le message par défaut partout (héros, accueil, closers) ; l'abonnement est présenté comme une option d'économie pour un usage régulier, exclusivement sur `/tarifs#abonnements`. Aucune négation absolue (« sans abonnement », « jamais d'abonnement ») ne doit rester dans la copie — reformuler en « sans abonnement requis » / « aucun abonnement requis », qui reste vrai. Voir §3.6. |
+| Modèle de tarification | **Abonnement, depuis la bascule du 2026-09-23.** Deux forfaits tout inclus en $ CA (Personnel, Entreprise), une jauge d'usage mensuelle, cinq durées d'engagement, un essai de 14 jours sans carte. Les crédits, les packs de recharge, la grille de prix par tâche et les add-ons vendus séparément **n'existent plus** : ni « crédit », ni « recharge », ni « solde », ni « payez ce que vous utilisez » ne doivent réapparaître dans la copie client. Voir §3.6. |
 | Langue | FR par défaut, clés prêtes pour EN. Vouvoiement partout. |
 
 ---
@@ -62,12 +62,12 @@ Sous-titre à élargir : votre poste de travail cloud — calcul lourd, éditeur
 - Les trois piliers : le calcul en langage humain, l'espace de travail complet, la souveraineté.
 - Un aperçu de l'ampleur : les grandes familles d'apps disponibles, avec renvoi vers `/plateforme`.
 - Le processus en quatre étapes (Déposez / Décrivez / On exécute / Récupérez) — il fonctionne, on le garde.
-- Le modèle de crédits en une ligne : 10 $ CA offerts, sans carte, sans abonnement.
+- Le modèle en une ligne : un abonnement tout inclus dès 10 $ CA par mois, essai de 14 jours sans carte.
 - Un renvoi discret vers `/mines` pour le visiteur du secteur.
 
 **Preuves.** Le différenciateur central, formulé simplement : l'IA choisit la méthode, un moteur déterministe calcule le résultat exact. Le résultat n'est jamais inventé. Cette phrase doit être compréhensible par un non-technicien.
 
-**CTA.** « Commencer gratuitement · 10 $ CA offerts, sans carte ».
+**CTA.** « Commencer gratuitement · 14 jours d’essai, sans carte ».
 
 **Ce qu'on ne dit pas.** Aucun compte chiffré de modes. Aucun chiffre de performance. Aucune promesse de disponibilité.
 
@@ -167,18 +167,24 @@ Le point à faire passer : vos fichiers restent dans votre espace, la sauvegarde
 
 ### 3.6 `/tarifs`
 
-**Message-clé.** « Payez ce que vous utilisez. Rien de plus. » Conserver l'existant, qui fonctionne.
+**Refaite le 2026-09-23** — vague 4 de la spec applicative `docs/superpowers/specs/2026-09-17-facturation-forfaits-jauge-design.md`, §8.2. Ce qui suit remplace intégralement le brief « crédits » antérieur, qui décrivait une offre qui n'est plus vendue.
 
-**Information à ajouter.**
-- Le coût s'applique aux facettes, pas seulement aux moteurs.
-- Chaque étape d'un workflow est facturée comme une tâche distincte.
-- Consulter et prévisualiser est gratuit ; seule la génération débite des crédits.
-- Les comptes administrateurs ne sont pas facturés.
-- Programme de parrainage : crédits offerts aux deux parties.
+**Message-clé.** « Un abonnement. Tout est inclus. »
 
-**Information à ajouter (2026-08-12).** Une section `#abonnements`, sous « Ce qui est facturé » et avant les questions, qui présente les trois paliers mensuels (Découverte, Pro, Entreprise) comme une option pour un usage régulier — jamais en tête de page, jamais comme remplacement du modèle par crédits qui reste le message par défaut du héros et des deux closers.
+**Structure livrée.** Héros avec `BandeauConfiance` (prix en $ CA et taxes affichées · données au Québec · Loi 25), puis cinq sections ancrées : `#forfaits`, `#durees`, `#moteurs`, `#garanties`, `#questions`.
 
-**Ce qu'on ne dit pas.** Pas de comparaison de coût par crédit entre l'abonnement ($ US) et les crédits à l'unité ($ CA) — les devises diffèrent et une conversion introduirait un taux à maintenir. Pas de teaser d'abonnement ailleurs que sur `/tarifs`.
+**Information à présenter.**
+- Deux forfaits, Personnel et Entreprise, en dollars canadiens et hors taxes.
+- Cinq durées d'engagement à remise croissante ; **même prix au renouvellement** ; la durée la plus longue est un paiement unique, sans reconduction tacite.
+- « ≈ N tâches par mois », toujours accompagné de « selon le type de tâche ». Jamais présenté comme un quota.
+- Tous les moteurs sont dans le forfait : la section `#moteurs` les nomme, sans aucun prix.
+- Les règles de la jauge : renouvellement mensuel, report une fois plafonné à un mois, avis à 80 %, choix à 100 % (attendre ou ajouter un mois d'enveloppe), sursis d'une tâche par lots déjà lancée, pause de 1 à 3 mois.
+- Essai de 14 jours sans carte et garantie satisfait ou remboursé de 30 jours sur les engagements longs.
+- L'équipe : Entreprise est le titulaire, les collègues rejoignent en Personnel, pool d'enveloppes — **pas de sièges à acheter**. Traité dans la FAQ, pas en section propre.
+
+**Ce qu'on ne dit pas.** Pas de grille de prix par type de tâche : elle n'est plus publique. Pas d'estimateur de budget, pas de solde, pas de recharge, pas de quota chiffré et ferme. L'équivalent en $ US reste une note discrète qui glose le prix de liste, jamais un second prix.
+
+**Garde-fou.** Les prix sont modifiables en admin **sans déploiement**, et la vitrine a déjà divergé deux fois. `lib/offre.test.ts` compare `components/marketing/offre.ts` à `GET /api/v1/pricing` de la production, et `.github/workflows/ci.yml` l'exécute à chaque poussée. Un prix qui bouge côté plateforme sans bouger ici fait rougir la CI : ne pas contourner ce test, le corriger.
 
 ---
 
@@ -212,12 +218,11 @@ Le point à faire passer : vos fichiers restent dans votre espace, la sauvegarde
 | Gestionnaire de téléchargements | `/fonctions` |
 | Titres miniers, forages 3D, rapport d'exploration, données ouvertes, SIG, GPX | `/mines` |
 | Infra possédée, LLM auto-hébergé, IA déterministe, 2FA, isolation, clés API | `/securite` |
-| Crédits, facturation, parrainage | `/tarifs` |
+| Forfaits, jauge, facturation, parrainage | `/tarifs` |
 | ERP (CRM, devis/factures, inventaire, tableau de bord) | `/pme#erp` + `/fonctions` |
 | Studio de jeux, Arcades | `/plateforme#jeux` + `/fonctions` + carte homepage |
 | Commandes vocales (navigation seulement) | `/plateforme#bureau` (carte Spotlight) + `/fonctions` |
 | Courriel/agenda/contacts externes (IMAP, OAuth, CalDAV/CardDAV) | `/plateforme#equipe` + `/fonctions` + `/pme#equipe` |
-| Abonnements | `/tarifs#abonnements` |
 
 ---
 
@@ -227,7 +232,7 @@ Le point à faire passer : vos fichiers restent dans votre espace, la sauvegarde
 
 1. **Vouvoiement** partout.
 2. **Jamais de compte chiffré** de modes, d'apps ou de fonctionnalités. La liste évolue ; le chiffre devient faux et il faut alors le corriger à sept endroits.
-3. **Les crédits restent le message par défaut** ; l'abonnement se présente uniquement sur `/tarifs#abonnements`, jamais comme un remplacement. Aucune négation absolue de l'abonnement (« sans abonnement », « jamais d'abonnement ») ailleurs sur le site — ce serait faux depuis le 2026-08-12.
+3. **L'abonnement est le modèle, et le seul.** Depuis le 2026-09-23, aucune surface client ne parle de crédits, de solde, de recharge ni de prix par tâche. Aucune négation de l'abonnement non plus (« sans abonnement », « sans abonnement requis ») : ce serait faux. L'enveloppe mensuelle se dit « jauge » et s'affiche en pourcentage.
 4. **Aucune promesse de disponibilité** : pas d'engagement de service, pas de pourcentage d'uptime, pas de redondance, pas de certification.
 5. **Aucune fiche technique matérielle.** On vend le principe de souveraineté, jamais les numéros de modèle.
 6. **Ne montrer que ce qui est live** et utilisable par un inconnu sans accompagnement.
