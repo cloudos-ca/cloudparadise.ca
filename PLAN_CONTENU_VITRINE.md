@@ -182,7 +182,7 @@ Le point à faire passer : vos fichiers restent dans votre espace, la sauvegarde
 - La souveraineté appliquée aux conversations clients : elles restent au Québec, le modèle qui les classe tourne sur le même matériel, et nous ne lisons pas les billets.
 - Inclus dans les deux forfaits, dès le prix d'entrée.
 
-**Ce qu'on ne dit pas.** Aucune promesse de gain chiffré (« réduisez vos délais de 40 % ») : on n'a pas la mesure pour la soutenir. Aucun nom de concurrent dans la copie. Pas de compte de fonctionnalités. Le CAPTCHA du portail est un manque assumé côté produit — ne pas laisser entendre le contraire.
+**Ce qu'on ne dit pas.** Aucune promesse de gain chiffré (« réduisez vos délais de 40 % ») : on n'a pas la mesure pour la soutenir. Aucun nom de concurrent dans la copie. Pas de compte de fonctionnalités. Aucune promesse sur la protection du formulaire public du portail : la page décrit ce que le module fait pour vos clients, pas comment il se défend. La règle tient quel que soit l'état du produit — le CAPTCHA, manque connu depuis la vague 1 (spec §7, à traiter au niveau de la plateforme et non de l'app), est en cours d'ajout le 2026-09-23, et une copie qui s'appuierait dessus serait à réécrire au prochain changement. Les mesures en place (limitation de débit, champ piège, plafond par contact non vérifié) relèvent de `/securite` si on décide un jour de les dire, pas de cette page.
 
 ---
 
