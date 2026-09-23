@@ -71,9 +71,27 @@ export const PALIERS: readonly Palier[] = [
     prixMensuel: 10,
     enveloppe: 30,
     tachesParMois: 100,
+    // Les applications de gestion sont nommées, et pas seulement les moteurs :
+    // une PME n'achète pas « des moteurs », elle achète une comptabilité et une
+    // billetterie. L'ERP et le Bureau d'assistance fonctionnent en espace
+    // personnel (`erp/access.ts` : « personal space is fully the user's own »),
+    // sans équipe et sans capacité particulière — ils sont donc bien dans le
+    // forfait d'entrée, et le taire coûtait la moitié de l'argument.
     inclusions: {
-      fr: ["Tous les moteurs", "Rejoindre une équipe et mettre son enveloppe en commun"],
-      en: ["Every engine", "Join a team and pool your allowance"],
+      fr: [
+        "Tous les moteurs de calcul",
+        "Le bureau et ses applications : bureautique, image, vidéo, 3D, SIG",
+        "Gestion d'entreprise : CRM, facturation, comptabilité en partie double",
+        "Bureau d'assistance : billetterie, portail client, courriel, clavardage",
+        "Rejoindre une équipe et mettre son enveloppe en commun",
+      ],
+      en: [
+        "Every compute engine",
+        "The desktop and its applications: office, image, video, 3D, GIS",
+        "Business management: CRM, invoicing, double-entry accounting",
+        "Service Desk: ticketing, customer portal, email, live chat",
+        "Join a team and pool your allowance",
+      ],
     },
     inclus: { desktop: false, hosting: false, teams: false, maxTeamSize: EQUIPE_MAX },
   },
@@ -85,13 +103,13 @@ export const PALIERS: readonly Palier[] = [
     tachesParMois: 650,
     inclusions: {
       fr: [
-        "Tous les moteurs",
+        "Tout ce que contient Personnel",
         "Bac à sable (bureau persistant)",
         "1 site Hébergement Web",
         `Créer une équipe jusqu'à ${EQUIPE_MAX} membres, avec pool`,
       ],
       en: [
-        "Every engine",
+        "Everything in Personal",
         "Sandbox (persistent desktop)",
         "1 Web Hosting site",
         `Create a team of up to ${EQUIPE_MAX} members, with pooling`,

@@ -58,6 +58,10 @@ const CALCUL = { href: "/en/compute", libelle: "See compute" };
 const MINES = { href: "/en/mining", libelle: "See mineral exploration" };
 const TARIFS = { href: "/en/pricing", libelle: "See pricing" };
 const PME = { href: "/en/small-business", libelle: "See small business" };
+const ASSISTANCE = {
+  href: "/en/service-desk",
+  libelle: "See the Service Desk",
+};
 
 /**
  * Le contenu de la page.
@@ -154,6 +158,13 @@ const SECTIONS: readonly SectionFonctions[] = [
         nom: "Code Agent",
         texte:
           "Your Git repositories, a coding plan and an asynchronous interactive loop, in an isolated environment with MCP tools enabled by default.",
+      },
+      {
+        // Voir la version française : la réponse à « oui, mais il me manque tel
+        // outil ».
+        nom: "Container marketplace",
+        texte:
+          "Describe the software stack you need: the assistant proposes a set of containers, explains it to you, then starts it, stops it and shows you its logs.",
       },
     ],
   },
@@ -349,6 +360,61 @@ const SECTIONS: readonly SectionFonctions[] = [
     ],
   },
   {
+    // Voir la version française : le module `desk`, placé après l'ERP parce
+    // qu'il en réutilise le référentiel clients.
+    id: "assistance",
+    surtitre: "Customer support",
+    titre: "Answer your customers, without one more tool.",
+    page: ASSISTANCE,
+    entrees: [
+      {
+        nom: "Tickets",
+        texte:
+          "Public thread and internal notes in the same ticket, readable numbering, manual creation by an agent.",
+      },
+      {
+        nom: "Customer portal",
+        texte:
+          "A page under your name and your colours, where your customers open and follow their requests. They identify themselves through an emailed link — no password, no account to create.",
+      },
+      {
+        nom: "Email channel",
+        texte:
+          "Your IMAP/SMTP mailbox, checked every minute: each email becomes a ticket or a reply, and your answers go back out from your address with their attachments.",
+      },
+      {
+        nom: "Live chat",
+        texte:
+          "A widget to drop onto your site. The first message opens a ticket, the exchange is instant, and a visitor who has left gets the answer by email.",
+      },
+      {
+        nom: "Knowledge base",
+        texte:
+          "Your articles, searchable from the portal and offered to the customer before they open a ticket.",
+      },
+      {
+        nom: "Sorting and draft on arrival",
+        texte:
+          "Every request is classified — priority, language, category — and a suggested reply is prepared for the agent.",
+      },
+      {
+        nom: "Service commitments",
+        texte:
+          "First-reply and resolution deadlines, counted in business hours and paused while waiting on the customer, with alerts and escalation.",
+      },
+      {
+        nom: "Macros",
+        texte:
+          "A canned reply with variables that also acts on the ticket: status, priority, assignee, category, visibility.",
+      },
+      {
+        nom: "Reports and satisfaction",
+        texte:
+          "Volume, median and 90th-percentile delays, load per agent, commitments met. A 1-to-5 survey goes out when a ticket closes and its average feeds the reports.",
+      },
+    ],
+  },
+  {
     id: "hebergement",
     surtitre: "Web Hosting",
     titre: "Your website, hosted with us too.",
@@ -508,6 +574,7 @@ const ANCRES: readonly Ancre[] = [
   { id: "puissance", libelle: { fr: "Calcul", en: "Compute" } },
   { id: "automatisation", libelle: { fr: "Automatiser", en: "Automate" } },
   { id: "erp", libelle: { fr: "Gestion d’entreprise", en: "Business management" } },
+  { id: "assistance", libelle: { fr: "Assistance", en: "Support" } },
   { id: "hebergement", libelle: { fr: "Hébergement Web", en: "Web Hosting" } },
   { id: "equipe", libelle: { fr: "À plusieurs", en: "Together" } },
   { id: "jeux", libelle: { fr: "Jouer", en: "Play" } },

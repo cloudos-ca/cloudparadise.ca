@@ -211,6 +211,21 @@ export const PAGES: readonly PageSite[] = [
     },
   },
   {
+    fr: "/assistance",
+    // Pas `/en/assistance` : l'arbre anglais est en mots anglais, et
+    // « service desk » est le terme cherché — c'est aussi le nom affiché de
+    // l'application côté produit (`desk` : « Bureau d'assistance » / « Service
+    // Desk »), donc le site et le produit disent le même mot.
+    en: "/en/service-desk",
+    priority: 0.8,
+    changeFrequency: "monthly",
+    titre: { fr: "Bureau d'assistance", en: "Service Desk" },
+    resume: {
+      fr: "la billetterie de service à la clientèle — portail client, courriel, clavardage, base de connaissances, engagements de service, rapports.",
+      en: "the customer support ticketing system — customer portal, email, live chat, knowledge base, service commitments, reports.",
+    },
+  },
+  {
     fr: "/fonctions",
     en: "/en/features",
     priority: 0.8,

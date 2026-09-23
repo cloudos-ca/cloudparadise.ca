@@ -19,7 +19,7 @@ Ces points sont tranchés. Ils ne se rediscutent pas dans les briefs de sections
 | Positionnement | **Horizontal.** Cloud OS = poste de travail cloud avec calcul lourd. Pas de bascule vers une identité « logiciel minier ». |
 | Rôle de `/mines` | Page de **soutien à la vente**, pas de conquête SEO. Le visiteur y arrive parce qu'on lui a envoyé le lien. Objectif : prouver en 30 secondes qu'on connaît le métier. |
 | Couverture des facettes | 100 % maintenue, mais répartie selon la fonction de la page (convaincre / rassurer / capter), pas étalée sur 11 pages. |
-| Nombre de pages | 7 pages de contenu. |
+| Nombre de pages | 8 pages de contenu — `/assistance` s'est ajoutée le 2026-09-23, voir §2. |
 | Moteur d'IA | **Auto-hébergé.** Aucune donnée client ne transite par une API externe. |
 | Hébergement | Matériel possédé, dans un local loué à Amos, Québec. |
 | Disponibilité | **Aucune promesse.** Voir §5. |
@@ -37,12 +37,13 @@ Ces points sont tranchés. Ils ne se rediscutent pas dans les briefs de sections
 | `/calcul` | Les moteurs + l'automatisation (workflows, cédules, rapports). Évolution de l'actuelle `/fonctions`. | 3 |
 | `/mines` | Soutien à la vente pour le marché de l'exploration. | 4 |
 | `/securite` | Souveraineté, IA déterministe, isolation. Que du texte. | 5 |
-| `/tarifs` | Crédits, enrichi. | 6 |
-| `/fonctions` | **Référence exhaustive.** Une ligne par facette, ancres profondes. Personne ne la lit au complet. | 7 |
+| `/assistance` | Le Bureau d'assistance : billetterie, portail client, courriel, clavardage, engagements de service. Ajoutée le 2026-09-23 — le module était en production et totalement absent du site. | 6 |
+| `/tarifs` | Les forfaits. | 7 |
+| `/fonctions` | **Référence exhaustive.** Une ligne par facette, ancres profondes. Personne ne la lit au complet. | 8 |
 
 Plus l'existant : `/contact`, `/conditions`, `/confidentialite`.
 
-**Navigation principale : Plateforme · Calcul · Mines · Tarifs.** Quatre entrées, pas de menu déroulant. `/fonctions` et `/securite` vivent dans le pied de page et dans les liens contextuels en fin de section.
+**Navigation principale : Plateforme · Calcul · PME · Fonctions · Tarifs · Blogue.** Pas de menu déroulant. `/mines`, `/securite` et `/assistance` vivent dans le pied de page et dans les liens contextuels en fin de section : la barre est pleine, et une septième entrée y ferait perdre les six autres.
 
 **Pourquoi `/editeurs` et `/collaboration` n'existent pas :** trois pages minces convainquent moins qu'une page forte. On pourra scinder si le trafic le justifie. Jamais l'inverse.
 
@@ -165,7 +166,27 @@ Le point à faire passer : vos fichiers restent dans votre espace, la sauvegarde
 
 ---
 
-### 3.6 `/tarifs`
+### 3.6 `/assistance` — Le Bureau d'assistance
+
+**Ajoutée le 2026-09-23.** Le module `desk` était livré en production depuis des semaines — billetterie multi-locataire, six vagues — et le site n'en disait pas un mot, dans aucune des deux langues. Cette page comble le trou ; `/fonctions#assistance` et `/pme#assistance` y renvoient.
+
+**Message-clé.** « Le service à la clientèle, dans votre bureau. »
+
+**Structure.** Héros, puis cinq sections ancrées : `#canaux`, `#billets`, `#engagements`, `#mesure`, `#souverainete`.
+
+**Information à présenter.**
+- Les quatre canaux d'arrivée : portail client par lien magique, boîte courriel du client, clavardage embarquable, base de connaissances avec déflexion.
+- Ce qui se passe dans un billet : classement et brouillon de réponse à l'arrivée, macros qui agissent sur le billet, fil public et notes internes, répertoire de clients partagé avec l'ERP.
+- Les engagements de service : deux échéances, comptées en heures ouvrables, **en pause pendant l'attente du client**, avec alerte et escalade. C'est l'argument qui distingue du concurrent déjà en place.
+- Ce qui est mesuré, sans promesse chiffrée de résultat.
+- La souveraineté appliquée aux conversations clients : elles restent au Québec, le modèle qui les classe tourne sur le même matériel, et nous ne lisons pas les billets.
+- Inclus dans les deux forfaits, dès le prix d'entrée.
+
+**Ce qu'on ne dit pas.** Aucune promesse de gain chiffré (« réduisez vos délais de 40 % ») : on n'a pas la mesure pour la soutenir. Aucun nom de concurrent dans la copie. Pas de compte de fonctionnalités. Le CAPTCHA du portail est un manque assumé côté produit — ne pas laisser entendre le contraire.
+
+---
+
+### 3.7 `/tarifs`
 
 **Refaite le 2026-09-23** — vague 4 de la spec applicative `docs/superpowers/specs/2026-09-17-facturation-forfaits-jauge-design.md`, §8.2. Ce qui suit remplace intégralement le brief « crédits » antérieur, qui décrivait une offre qui n'est plus vendue.
 
@@ -188,7 +209,7 @@ Le point à faire passer : vos fichiers restent dans votre espace, la sauvegarde
 
 ---
 
-### 3.7 `/fonctions` — Référence exhaustive
+### 3.8 `/fonctions` — Référence exhaustive
 
 **Rôle.** Cette page absorbe toute la couverture résiduelle. Elle sert deux publics : l'évaluateur qui cherche « est-ce qu'ils ont X ? », et l'indexation. Elle n'est pas conçue pour être lue en entier.
 
@@ -220,6 +241,8 @@ Le point à faire passer : vos fichiers restent dans votre espace, la sauvegarde
 | Infra possédée, LLM auto-hébergé, IA déterministe, 2FA, isolation, clés API | `/securite` |
 | Forfaits, jauge, facturation, parrainage | `/tarifs` |
 | ERP (CRM, devis/factures, inventaire, tableau de bord) | `/pme#erp` + `/fonctions` |
+| Bureau d'assistance (billets, portail, courriel, clavardage, base de connaissances, SLA, macros, rapports, satisfaction) | `/assistance` + `/pme#assistance` + `/fonctions#assistance` |
+| Marché de conteneurs (piles décrites en langage naturel) | `/fonctions#applications` |
 | Studio de jeux, Arcades | `/plateforme#jeux` + `/fonctions` + carte homepage |
 | Commandes vocales (navigation seulement) | `/plateforme#bureau` (carte Spotlight) + `/fonctions` |
 | Courriel/agenda/contacts externes (IMAP, OAuth, CalDAV/CardDAV) | `/plateforme#equipe` + `/fonctions` + `/pme#equipe` |
