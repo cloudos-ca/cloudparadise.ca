@@ -1,6 +1,9 @@
 import type { BlogArticle } from "babylovegrowth-next-js-blog";
 import crmForSmallBusinesses from "./crm-for-small-businesses.json";
 import migratingToTheCloud from "./migrating-to-the-cloud.json";
+import onlyofficeVsLibreoffice from "./onlyoffice-vs-libreoffice-for-small-business.json";
+import openSourceSso from "./open-source-sso-which-solution.json";
+import premiereProVsDavinciResolve from "./premiere-pro-vs-davinci-resolve-2026.json";
 import secureFileSharing from "./secure-file-sharing.json";
 import sharedBusinessCalendar from "./shared-business-calendar.json";
 
@@ -63,6 +66,9 @@ export type ArticleTraduit = Pick<
 export const TRADUCTIONS: readonly ArticleTraduit[] = [
   crmForSmallBusinesses,
   migratingToTheCloud,
+  onlyofficeVsLibreoffice,
+  openSourceSso,
+  premiereProVsDavinciResolve,
   secureFileSharing,
   sharedBusinessCalendar,
 ];
