@@ -14,7 +14,7 @@ import {
   openGraphPage,
 } from "@/lib/seo";
 
-const TITRE = "Cloud OS — Your cloud workstation";
+const TITRE = "Cloud OS — Your cloud workstation, hosted in Québec";
 const DESCRIPTION =
   "A complete online desktop: heavy compute in plain language, professional software and team collaboration. Hosted in Québec, nothing to install.";
 

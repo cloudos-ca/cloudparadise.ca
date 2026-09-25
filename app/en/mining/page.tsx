@@ -270,7 +270,7 @@ export default function MinesPageEn() {
                   src="/mines/donnees-ouvertes.jpg"
                   width={2032}
                   height={1096}
-                  alt="The Open data app (French interface): SIGÉOM layers grouped by theme — geology, mineralized showings, mines and projects, geophysics — with import by mining district."
+                  alt="The Open data app (French interface): SIGÉOM layers by theme — geology, mineralized showings, mines and projects, geophysics — with import by mining district."
                 />
               </div>
             </Reveal>

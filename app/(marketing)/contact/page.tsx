@@ -10,7 +10,7 @@ import { emettreJeton } from "@/lib/jetonContact";
 import { cleSiteRecaptcha } from "@/lib/recaptcha";
 import { alternatesBilingues, openGraphPage } from "@/lib/seo";
 
-const TITRE = "Contact — Cloud OS";
+const TITRE = "Contact : service, tarification et projets — Cloud OS";
 const DESCRIPTION =
   "Écrivez-nous : courriel, téléphone et adresse de Cloud OS, à Amos en Abitibi. Une question sur le service, la tarification ou un projet particulier ?";
 

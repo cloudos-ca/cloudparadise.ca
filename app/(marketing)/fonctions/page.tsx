@@ -14,7 +14,7 @@ import { SECTION_Y, SHELL } from "@/components/marketing/tokens";
 import { alternatesBilingues, openGraphPage } from "@/lib/seo";
 import { lienInscription } from "@/lib/site";
 
-const TITRE = "Fonctions — Cloud OS";
+const TITRE = "Fonctions : bureau, applications, calcul, équipe — Cloud OS";
 const DESCRIPTION =
   "Tout ce que le poste de travail sait faire : le bureau, les applications, le calcul, l’automatisation, le travail d’équipe, les mines et la gestion du compte.";
 

@@ -23,7 +23,7 @@ import {
   ROBOTS,
 } from "@/lib/seo";
 
-const TITRE = "Politique de confidentialité — Cloud OS";
+const TITRE = "Politique de confidentialité et Loi 25 — Cloud OS";
 const DESCRIPTION =
   "Comment Cloud OS recueille, utilise et protège les renseignements personnels, conformément à la Loi 25 du Québec. Vos droits et comment les exercer.";
 

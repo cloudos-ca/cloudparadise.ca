@@ -25,7 +25,7 @@ import { SECTION_Y, SHELL } from "@/components/marketing/tokens";
 import { alternatesBilingues, openGraphPage } from "@/lib/seo";
 import { lienInscription } from "@/lib/site";
 
-const TITRE = "Exploration minière au Québec — Cloud OS";
+const TITRE = "Exploration minière au Québec : SIG et forages — Cloud OS";
 const DESCRIPTION =
   "Le poste de travail de l’exploration minière au Québec : titres et échéances, forages en trois dimensions, couches SIGÉOM, export. Conçu en Abitibi.";
 
@@ -269,7 +269,7 @@ export default function MinesPage() {
                   src="/mines/donnees-ouvertes.jpg"
                   width={2032}
                   height={1096}
-                  alt="L’application Données ouvertes : couches SIGÉOM classées par thème — géologie, indices minéralisés, mines et projets, géophysique — et import par district minier."
+                  alt="L’application Données ouvertes : couches SIGÉOM par thème — géologie, indices minéralisés, mines et projets, géophysique — et import par district minier."
                 />
               </div>
             </Reveal>
