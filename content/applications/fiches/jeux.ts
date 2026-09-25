@@ -41,10 +41,9 @@ import type { FicheApplication } from "../types";
  *   itself »). Moteur ScummVM : GPL-3.0-or-later.
  *
  * À vérifier à la relecture :
- * - ⚠️ Beneath a Steel Sky : le lancement d'une partie est décompté du forfait (GAMES). La licence
- *   interdit de « faire payer le jeu lui-même » : le débit paie le conteneur, pas le jeu, mais la
- *   question mérite une décision (GAMES à 0, ou exclure Steel Sky du débit). Le readme est bien
- *   conservé dans l'image (unzip complet), mais n'est pas visible par le joueur.
+ * - Beneath a Steel Sky se lance sans débit depuis le 2026-09-25 (`sansDebit`, src/lib/games/catalog.ts,
+ *   commit 5dcb1c3d du produit) : la licence interdit de « faire payer le jeu lui-même ». Le readme
+ *   est bien conservé dans l'image (unzip complet), mais n'est pas visible par le joueur.
  * - Le prix GAMES réel en production (jobPrices de SystemConfig) : s'il vaut 0, retirer la phrase sur
  *   le décompte.
  * - Que l'hôte de sessions (aws-sessions) et les six images GAME_*_IMAGE sont bien en place en
@@ -107,7 +106,7 @@ export const jeux: FicheApplication = {
         titre: "Ce qu'il faut savoir",
         paragraphes: [
           "Chaque partie est temporaire : quand vous fermez la fenêtre, la partie s'arrête et rien n'est conservé, pas même une sauvegarde faite dans le jeu. Les jeux se jouent depuis un ordinateur, au clavier et à la souris ; ils ne sont pas proposés sur téléphone.",
-          "Chaque partie lancée est décomptée de votre forfait, puisqu'elle occupe un serveur le temps de jouer. Vous pouvez avoir plusieurs jeux différents ouverts en même temps.",
+          "Chaque partie lancée est décomptée de votre forfait, puisqu'elle occupe un serveur le temps de jouer — sauf Beneath a Steel Sky, gratuit comme le veut sa licence. Vous pouvez avoir plusieurs jeux différents ouverts en même temps.",
         ],
       },
     ],
@@ -137,7 +136,7 @@ export const jeux: FicheApplication = {
         titre: "Good to know",
         paragraphes: [
           "Each game session is temporary: when you close the window, the game stops and nothing is kept, not even a save made inside the game. The games are played from a computer, with keyboard and mouse; they are not offered on phones.",
-          "Each game you launch counts against your plan, since it takes up a server while you play. You can have several different games open at the same time.",
+          "Each game you launch counts against your plan, since it takes up a server while you play — except Beneath a Steel Sky, free as its licence requires. You can have several different games open at the same time.",
         ],
       },
     ],
@@ -158,7 +157,7 @@ export const jeux: FicheApplication = {
       },
       {
         question: "Ces jeux sont-ils compris dans l'abonnement ?",
-        reponse: "Oui, dès le forfait Personnel. Chaque partie lancée est décomptée de votre forfait, comme les autres travaux qui occupent un serveur.",
+        reponse: "Oui, dès le forfait Personnel. Chaque partie lancée est décomptée de votre forfait, comme les autres travaux qui occupent un serveur ; Beneath a Steel Sky est l'exception, gratuit.",
       },
     ],
     en: [
@@ -176,7 +175,7 @@ export const jeux: FicheApplication = {
       },
       {
         question: "Are these games included in the subscription?",
-        reponse: "Yes, from the Personal plan. Each game you launch counts against your plan, like other work that takes up a server.",
+        reponse: "Yes, from the Personal plan. Each game you launch counts against your plan, like other work that takes up a server; Beneath a Steel Sky is the exception, and free.",
       },
     ],
   },

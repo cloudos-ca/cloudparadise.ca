@@ -223,13 +223,13 @@ export default function MinesPageEn() {
             <Reveal delay={0.1}>
               <div className="space-y-4 text-[15px] leading-relaxed text-white/85">
                 <p>
-                  The assistant drafts a first version from your project data:
-                  an MRNF statutory work report, sections of an NI 43-101
-                  report.
+                  You describe the project in a form — claims, work done,
+                  results — and the AI drafts a first version: an MRNF
+                  statutory work report, sections of an NI 43-101 report.
                 </p>
                 <p>
-                  You ask it for changes in plain language, you review, you
-                  correct, you sign. PDF export.
+                  Where information is missing, it flags it instead of making
+                  it up. You review, you correct, you sign. PDF export.
                 </p>
               </div>
             </Reveal>

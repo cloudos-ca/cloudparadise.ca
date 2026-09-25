@@ -123,7 +123,7 @@ const EQUIPE: Carte[] = [
     Icone: IconCalendar,
     titre: "Calendar and contacts",
     texte:
-      "Shared calendar, reminders, and sync with an external CalDAV/CardDAV-compatible service.",
+      "Calendar, reminders, and sync with an external CalDAV/CardDAV-compatible service.",
   },
 ];
 

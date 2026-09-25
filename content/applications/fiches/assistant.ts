@@ -36,10 +36,10 @@ import type { FicheApplication } from "../types";
  * - /fonctions (déjà relue) décrit l'Assistant ainsi : « Vous décrivez la tâche en langage courant ;
  *   il monte le plan et le lance. » Ce n'est PAS ce que fait l'app `assistant` : elle ne crée ni ne
  *   lance de Plan (elle peut seulement lister les Plans et annuler une tâche). La phrase de /fonctions
- *   décrit plutôt l'app Plans. À corriger sur /fonctions, ou à éclaircir.
+ *   décrit plutôt l'app Plans. Corrigé sur /fonctions le 2026-09-25.
  * - L'aperçu général injecté dans sa consigne parle encore de « crédits prépayés, 1 crédit = 1 $ »
  *   (PLATFORM_OVERVIEW, system-prompt.ts) : l'Assistant peut donc donner une information de
- *   facturation périmée. À corriger dans le produit.
+ *   facturation périmée. Corrigé dans le produit le 2026-09-25 (commit 5dcb1c3d).
  */
 export const assistant: FicheApplication = {
   id: "assistant",

@@ -30,9 +30,10 @@ import type { FicheApplication } from "../types";
  * un PDF, sans conversation ; et « à partir des données de votre projet » au sens de fichiers lus
  * automatiquement : l'app ne lit que ce que vous saisissez dans le formulaire.
  *
- * À vérifier à la relecture : l'écart avec /mines ci-dessus (corriger /mines, ou vérifier qu'un autre
- * chemin — l'Assistant sur le PDF ? — permet bien de demander des modifications). La mention « compte
- * pour une tâche » : formulation à aligner sur la page /tarifs.
+ * L'écart avec /mines ci-dessus est corrigé sur /mines et /en/mining le 2026-09-25.
+ *
+ * À vérifier à la relecture : la mention « compte pour une tâche », formulation à aligner sur la
+ * page /tarifs.
  */
 export const rapportExploration: FicheApplication = {
   id: "rapport-exploration",

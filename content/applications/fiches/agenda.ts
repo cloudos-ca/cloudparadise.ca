@@ -34,7 +34,8 @@ import type { FicheApplication } from "../types";
  * - /fonctions parle d'« Agenda partagé » : dans le code, les événements sont personnels
  *   (userId) ; aucun calendrier d'équipe. Seul un calendrier partagé sur le serveur CalDAV relié
  *   apparaît chez chacun. D'où `articles: []` (l'article « calendrier partagé » promettrait plus) et
- *   aucune mention de partage dans la fiche.
+ *   aucune mention de partage dans la fiche. « Partagé » retiré de /fonctions, /plateforme, /pme et de
+ *   l'accueil le 2026-09-25.
  * - Pas de création de récurrence dans le formulaire (pas de champ) : la fiche n'en promet pas.
  */
 export const agenda: FicheApplication = {

@@ -81,7 +81,7 @@ const TEXTES = {
       Icone: IconMessage,
       nom: "Collaboration",
       groupe: "communication",
-      ligne: "Messagerie, courriel et agenda partagé.",
+      ligne: "Messagerie, courriel et agenda.",
     },
     jeux: {
       Icone: IconGamepad,
@@ -128,7 +128,7 @@ const TEXTES = {
       Icone: IconMessage,
       nom: "Collaboration",
       groupe: "communication",
-      ligne: "Messaging, email and a shared calendar.",
+      ligne: "Messaging, email and a calendar.",
     },
     jeux: {
       Icone: IconGamepad,

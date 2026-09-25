@@ -278,7 +278,7 @@ export const PME_FR: ContenuPme = {
         cle: "agenda",
         titre: "Agenda et contacts",
         texte:
-          "Agenda partagé et rappels. Synchronisation avec un service externe compatible CalDAV/CardDAV.",
+          "Agenda et rappels. Synchronisation avec un service externe compatible CalDAV/CardDAV.",
       },
     ],
     lien: "Voir la plateforme",
