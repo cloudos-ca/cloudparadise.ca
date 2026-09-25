@@ -77,6 +77,57 @@ export const TAILLE_PAGE = 12;
  */
 const REVALIDATION = process.env.NODE_ENV === "development" ? 10 : 86400;
 
+/** Nouvelles tentatives après un 429, au plus. */
+const REPRISES_MAX = 4;
+/** Plafond d'une attente, en millisecondes, quoi que dise `Retry-After`. */
+const ATTENTE_MAX_MS = 5000;
+
+/**
+ * `fetch`, repris quand l'API répond 429.
+ *
+ * L'API n'accepte que deux requêtes par fenêtre (`ratelimit-limit: 2`) et
+ * répond 429 avec `Retry-After: 1` au-delà (relevé le 2026-09-25) ; une
+ * seconde plus tard, la même requête passe. Après un déploiement, cache de
+ * `fetch` vide, un robot qui parcourt le blogue déclenche des rafales : sans
+ * reprise, la moitié des articles répondait 500 le temps que le cache se
+ * remplisse. On attend donc ce que demande l'API (plafonné), plus un
+ * décalage aléatoire pour que les reprises simultanées ne retombent pas
+ * ensemble, jusqu'à `REPRISES_MAX` fois ; au pire quelques secondes, puis
+ * le 429 remonte (et la page d'article répond 500, voir `articleParSlug`).
+ *
+ * `fetch` est lu à l'appel, pas capturé : c'est celui que Next a enrichi
+ * (cache, `next.revalidate`). Next mémoïse aussi, le temps d'un rendu, les
+ * `GET` identiques : une reprise nue recevrait le même 429, sans jamais
+ * repartir sur le réseau. Chaque reprise porte donc son propre `signal`, ce
+ * qui la sort de la mémoïsation (docs Next, `fetch`, « Memoization ») sans
+ * changer sa clé de cache — un succès est gardé pour les visites suivantes.
+ * `attendre` et `fetchImpl` servent aux tests.
+ */
+export async function fetchAvecReprise(
+  entree: string | URL | Request,
+  init?: RequestInit,
+  {
+    fetchImpl = (e: string | URL | Request, i?: RequestInit) => fetch(e, i),
+    attendre = (ms: number) => new Promise<void>((ok) => setTimeout(ok, ms)),
+    alea = Math.random,
+  }: {
+    fetchImpl?: typeof fetch;
+    attendre?: (ms: number) => Promise<void>;
+    alea?: () => number;
+  } = {},
+): Promise<Response> {
+  for (let reprise = 0; ; reprise++) {
+    const reponse = await fetchImpl(
+      entree,
+      reprise === 0 ? init : { ...init, signal: new AbortController().signal },
+    );
+    if (reponse.status !== 429 || reprise >= REPRISES_MAX) return reponse;
+    const secondes = Number(reponse.headers.get("retry-after"));
+    const base = Number.isFinite(secondes) && secondes > 0 ? secondes * 1000 : 1000;
+    await attendre(Math.min(base, ATTENTE_MAX_MS) + Math.floor(alea() * 500));
+  }
+}
+
 /**
  * Client partagé, créé au premier usage et non à l'import : le constructeur
  * lit la clé dans l'environnement, et un import au build (par exemple depuis
@@ -88,6 +139,7 @@ function clientBlogue(): BlogClient {
     apiKey: process.env.BABYLOVEGROWTH_BLOG_API_KEY,
     baseUrl: process.env.BABYLOVEGROWTH_BLOG_API_URL,
     revalidate: REVALIDATION,
+    fetch: (entree, init) => fetchAvecReprise(entree, init),
   });
   return client;
 }
