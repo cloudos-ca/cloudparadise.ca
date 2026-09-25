@@ -9,7 +9,8 @@ import { articleParSlug } from "@/lib/blogue";
  *
  * Rendu à la demande, comme l'index (voir `lib/blogue.ts`). `articleParSlug`
  * renvoie `null` pour un slug inconnu, non publié ou écrit dans l'autre
- * langue : les trois cas sont un 404.
+ * langue : les trois cas sont un 404. Une panne de l'API sans copie de
+ * secours lève une erreur : la page répond 500, que les moteurs repassent.
  *
  * L'article est lu deux fois par requête (métadonnées, puis page) ; la
  * seconde lecture sort du cache de `fetch`, pas du réseau.

@@ -33,6 +33,9 @@ import { type ArticleTraduit, TRADUCTIONS } from "@/content/blogue/en";
  * site qui semble cassé parce qu'un service tiers a le hoquet. L'erreur est
  * écrite au journal du serveur, une fois par requête, pour qu'on la voie.
  *
+ * Sauf pour une page d'**article** (voir `articleParSlug`) : une panne y
+ * répond 500, pas 404 — un 404 ferait désindexer un article qui existe.
+ *
  * ## Une langue par section
  *
  * Chaque article porte un `languageCode` (`fr`, `en`, parfois régionalisé :
@@ -251,8 +254,8 @@ export function etatDesTraductions(
 }
 
 /**
- * Journalise une panne de lecture sans la propager : voir l'en-tête, « Sans
- * clé, un blogue vide ».
+ * Journalise une panne de lecture : voir l'en-tête, « Sans clé, un blogue
+ * vide ».
  */
 function signaler(contexte: string, erreur: unknown): void {
   const message = erreur instanceof Error ? erreur.message : String(erreur);
@@ -277,6 +280,14 @@ export async function articlesParLangue(
  * Un article par slug, s'il est publié **et** dans la langue de la section ;
  * `null` sinon — la page en fait un 404. En anglais, une traduction du dépôt
  * répond d'abord, sans passer par l'API.
+ *
+ * API en panne (429, 5xx, réseau) : l'erreur remonte et la page répond 500.
+ * Surtout pas `null` : un 404 dit aux moteurs que l'article n'existe plus,
+ * une 5xx qu'il faut repasser. L'API limite sévèrement le débit (429 dès la
+ * troisième requête d'une rafale, relevé le 2026-09-25) : après chaque
+ * déploiement, cache de `fetch` vide, un robot qui parcourait le blogue
+ * voyait des articles existants répondre 404. Seule l'absence de clé reste
+ * un 404 — sans clé, le blogue est vide.
  */
 export async function articleParSlug(
   slug: string,
@@ -286,16 +297,18 @@ export async function articleParSlug(
     const traduction = TRADUCTIONS.find((t) => t.slug === slug);
     if (traduction) return enArticle(traduction);
   }
+  if (!process.env.BABYLOVEGROWTH_BLOG_API_KEY) return null;
+  let article: BlogArticle | null;
   try {
-    const article = await clientBlogue().getArticleBySlug(slug);
-    if (!article?.published || !estDansLangue(article.languageCode, lang)) {
-      return null;
-    }
-    return article;
+    article = await clientBlogue().getArticleBySlug(slug);
   } catch (erreur) {
     signaler(`article « ${slug} »`, erreur);
+    throw erreur;
+  }
+  if (!article?.published || !estDansLangue(article.languageCode, lang)) {
     return null;
   }
+  return article;
 }
 
 /** Slugs et dates des articles publiés, par langue, pour le sitemap du blogue. */
