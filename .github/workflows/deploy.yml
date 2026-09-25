@@ -15,31 +15,40 @@ jobs:
   wake-dev:
     if: github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.head_branch == 'dev'
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 12
     permissions:
       contents: read
     env:
       AWS_ACCESS_KEY_ID: ${{ secrets.AWS_DEV_WAKER_KEY_ID }}
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_DEV_WAKER_SECRET }}
       AWS_DEFAULT_REGION: ca-central-1
-      INSTANCE: ${{ secrets.AWS_DEV_INSTANCE_ID }}
+      # aws-dev est une Spot dans le groupe Auto Scaling `cloudos-dev` (min 0, max 1) depuis le
+      # 2026-09-24 : son identifiant d'instance change à chaque remplacement, et la clé vps-dev-waker
+      # n'a plus que les droits du groupe (cloudparadise_hpc, infra/aws/dev/iam/dev-waker.json). Même
+      # réveil que le job wake-dev de cloudparadise_hpc (.github/workflows/deploy.yml).
+      ASG: cloudos-dev
     steps:
       - name: Démarrer aws-dev si elle dort
         run: |
           set -euo pipefail
-          state() { aws ec2 describe-instances --instance-ids "$INSTANCE" --query 'Reservations[0].Instances[0].State.Name' --output text; }
-          st=$(state)
-          echo "état : $st"
-          for _ in $(seq 1 24); do
-            [ "$st" != stopping ] && break
-            sleep 5
-            st=$(state)
-            echo "état : $st"
+          desired=$(aws autoscaling describe-auto-scaling-groups --auto-scaling-group-names "$ASG" \
+            --query 'AutoScalingGroups[0].DesiredCapacity' --output text)
+          echo "capacité voulue : $desired"
+          if [ "$desired" != 1 ]; then
+            aws autoscaling set-desired-capacity --auto-scaling-group-name "$ASG" --desired-capacity 1
+          fi
+          # Jusqu'à ~8 min : une Spot se lance, démarre, puis passe InService.
+          for _ in $(seq 1 48); do
+            n=$(aws autoscaling describe-auto-scaling-groups --auto-scaling-group-names "$ASG" \
+              --query "length(AutoScalingGroups[0].Instances[?LifecycleState=='InService'])" --output text)
+            echo "instances en service : $n"
+            [ "$n" -ge 1 ] && exit 0
+            sleep 10
           done
-          [ "$st" = running ] || aws ec2 start-instances --instance-ids "$INSTANCE" >/dev/null
-          aws ec2 wait instance-running --instance-ids "$INSTANCE"
+          echo "aws-dev n'est pas passée en service à temps" >&2
+          exit 1
       # Voir cloudos-ca/cloudparadise_hpc .github/workflows/deploy.yml (job wake-dev) : GITHUB_TOKEN
-      # ne peut pas lister les runners (403 org), on attend un temps fixe après instance-running.
+      # ne peut pas lister les runners (403 org), on attend un temps fixe après le passage InService.
       - name: Attendre le démarrage du runner aws-dev-1
         run: sleep 60
 
