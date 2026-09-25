@@ -31,7 +31,7 @@ import { alternatesBilingues, openGraphPage } from "@/lib/seo";
 import { lienInscription } from "@/lib/site";
 import { PALIERS, enDevise } from "@/components/marketing/offre";
 
-const TITRE = "Plateforme — Cloud OS";
+const TITRE = "Plateforme : bureau en ligne et applications — Cloud OS";
 const DESCRIPTION =
   "Un vrai bureau en ligne : fenêtres, dock, fichiers, applications professionnelles et collaboration d’équipe. Comme en local, sans rien installer.";
 

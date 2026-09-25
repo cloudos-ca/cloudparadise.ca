@@ -16,7 +16,7 @@ import { SECTION_Y, SHELL } from "@/components/marketing/tokens";
 import { alternatesBilingues, openGraphPage } from "@/lib/seo";
 import { lienInscription } from "@/lib/site";
 
-const TITRE = "Calcul lourd et rendu 3D — Cloud OS";
+const TITRE = "Calcul lourd et rendu 3D en langage clair — Cloud OS";
 const DESCRIPTION =
   "Un seul endroit pour vos tâches lourdes : documents, données, images et vidéos, web, calcul 3D. Décrivez le résultat ; un moteur déterministe le produit.";
 

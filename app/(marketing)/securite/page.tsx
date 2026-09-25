@@ -9,7 +9,7 @@ import { WindowCard } from "@/components/marketing/WindowCard";
 import { SECTION_Y, SHELL } from "@/components/marketing/tokens";
 import { alternatesBilingues, openGraphPage } from "@/lib/seo";
 
-const TITRE = "Sécurité et hébergement au Québec — Cloud OS";
+const TITRE = "Sécurité et hébergement des données au Québec — Cloud OS";
 const DESCRIPTION =
   "Vos données, notre matériel, au Québec. Le modèle de langage tourne chez nous et un moteur déterministe produit chaque résultat. Isolation par équipe.";
 
