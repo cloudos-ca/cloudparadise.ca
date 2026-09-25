@@ -25,7 +25,7 @@ import { SECTION_Y, SHELL } from "@/components/marketing/tokens";
 import { alternatesBilingues, openGraphPage } from "@/lib/seo";
 import { lienInscription } from "@/lib/site";
 
-const TITRE = "Mineral exploration in Quebec — Cloud OS";
+const TITRE = "Mineral exploration in Quebec: GIS and drilling — Cloud OS";
 const DESCRIPTION =
   "The workstation for mineral exploration in Quebec: titles and expiry dates, drill holes in three dimensions, SIGÉOM layers, export. Built in Abitibi.";
 

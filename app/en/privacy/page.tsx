@@ -23,7 +23,7 @@ import {
   ROBOTS,
 } from "@/lib/seo";
 
-const TITRE = "Privacy Policy — Cloud OS";
+const TITRE = "Privacy Policy and Quebec’s Law 25 — Cloud OS";
 const DESCRIPTION =
   "How Cloud OS collects, uses and protects personal information, in compliance with Quebec’s Law 25. Your rights and how to exercise them.";
 

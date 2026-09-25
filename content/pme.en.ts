@@ -35,7 +35,7 @@ export const PME_EN: ContenuPme = {
   meta: {
     titre: "The workstation for Canadian businesses — Cloud OS",
     description:
-      "Accounting, administration, marketing: the workstation for Canadian businesses, with no IT department. Your data stays in Canada, free trial with no card required.",
+      "Accounting, administration, marketing: the workstation for Canadian businesses, with no IT department. Data stays in Canada, free trial, no card required.",
   },
 
   og: {
