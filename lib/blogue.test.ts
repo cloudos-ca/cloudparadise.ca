@@ -5,6 +5,7 @@ import {
   articlesVisibles,
   corpsSansEntete,
   estDansLangue,
+  fetchAvecReprise,
   lirePage,
   paginer,
 } from "./blogue";
@@ -222,5 +223,77 @@ describe("etatDesTraductions", () => {
       { slug: "retouche", etat: "modifiee", traduction: "touched-up" },
       { slug: "nouveau", etat: "absente" },
     ]);
+  });
+});
+
+describe("fetchAvecReprise", () => {
+  /** Un faux `fetch` qui rend les statuts donnés, dans l'ordre, et compte les appels. */
+  function fauxFetch(statuts: number[], retryAfter: string | null = "1") {
+    let appels = 0;
+    const fetchImpl = (async () => {
+      const statut = statuts[Math.min(appels++, statuts.length - 1)];
+      const headers = statut === 429 && retryAfter ? { "retry-after": retryAfter } : undefined;
+      return new Response(null, { status: statut, headers });
+    }) as typeof fetch;
+    return { fetchImpl, appels: () => appels };
+  }
+  const attentes: number[] = [];
+  const options = (fetchImpl: typeof fetch) => ({
+    fetchImpl,
+    attendre: async (ms: number) => void attentes.push(ms),
+    alea: () => 0,
+  });
+
+  it("rend tout de suite une réponse qui n'est pas un 429", async () => {
+    const f = fauxFetch([200]);
+    const r = await fetchAvecReprise("https://api.test/a", undefined, options(f.fetchImpl));
+    assert.equal(r.status, 200);
+    assert.equal(f.appels(), 1);
+  });
+
+  it("reprend après un 429 en attendant ce que demande Retry-After", async () => {
+    attentes.length = 0;
+    const f = fauxFetch([429, 429, 200], "2");
+    const r = await fetchAvecReprise("https://api.test/a", undefined, options(f.fetchImpl));
+    assert.equal(r.status, 200);
+    assert.equal(f.appels(), 3);
+    assert.deepEqual(attentes, [2000, 2000]);
+  });
+
+  it("attend une seconde sans Retry-After, et plafonne une attente trop longue", async () => {
+    attentes.length = 0;
+    await fetchAvecReprise("https://api.test/a", undefined, options(fauxFetch([429, 200], null).fetchImpl));
+    await fetchAvecReprise("https://api.test/a", undefined, options(fauxFetch([429, 200], "60").fetchImpl));
+    assert.deepEqual(attentes, [1000, 5000]);
+  });
+
+  it("abandonne après quatre reprises et rend le dernier 429", async () => {
+    const f = fauxFetch([429]);
+    const r = await fetchAvecReprise("https://api.test/a", undefined, options(f.fetchImpl));
+    assert.equal(r.status, 429);
+    assert.equal(f.appels(), 5);
+  });
+
+  it("ne reprend pas les autres erreurs", async () => {
+    const f = fauxFetch([503]);
+    const r = await fetchAvecReprise("https://api.test/a", undefined, options(f.fetchImpl));
+    assert.equal(r.status, 503);
+    assert.equal(f.appels(), 1);
+  });
+
+  it("sort chaque reprise de la mémoïsation de Next par un signal propre", async () => {
+    const signaux: (AbortSignal | null | undefined)[] = [];
+    let appels = 0;
+    const fetchImpl = (async (_e: unknown, init?: RequestInit) => {
+      signaux.push(init?.signal);
+      return new Response(null, { status: appels++ < 2 ? 429 : 200 });
+    }) as typeof fetch;
+    const init = { headers: { Accept: "application/json" } };
+    await fetchAvecReprise("https://api.test/a", init, options(fetchImpl));
+    assert.equal(signaux[0], undefined);
+    assert.ok(signaux[1] instanceof AbortSignal);
+    assert.ok(signaux[2] instanceof AbortSignal);
+    assert.notEqual(signaux[1], signaux[2]);
+    assert.equal("signal" in init, false);
   });
 });
