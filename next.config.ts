@@ -52,11 +52,13 @@ const CSP = [
   // widget ne se charge pas, et la case n'apparaît jamais.
   `script-src 'self' 'unsafe-inline'${EVAL_DEV} https://*.googletagmanager.com https://www.google.com https://www.gstatic.com`,
   "style-src 'self' 'unsafe-inline'",
-  // Le host Supabase est celui des images d'articles du blogue (vignettes et
-  // images dans le corps), servies par le stockage de BabyLoveGrowth — relevé
-  // dans `hero_image_url` le 2026-09-17. S'il change, les images du blogue
-  // disparaissent sans erreur visible : c'est ici qu'il faut regarder.
-  "img-src 'self' data: blob: https://*.google-analytics.com https://*.googletagmanager.com https://www.gstatic.com https://csuxjmfbwmkxiegfpljm.supabase.co",
+  // Les images d'articles du blogue (vignettes et images dans le corps) sont
+  // servies par BabyLoveGrowth depuis deux hosts : le stockage Supabase (relevé
+  // le 2026-09-17, encore utilisé par les anciens articles et l'image Cloud OS)
+  // et media.babylovegrowth.ai (les articles publiés depuis le 2026-09-22).
+  // Si un host change, les images du blogue disparaissent sans erreur
+  // visible : c'est ici qu'il faut regarder.
+  "img-src 'self' data: blob: https://*.google-analytics.com https://*.googletagmanager.com https://www.gstatic.com https://csuxjmfbwmkxiegfpljm.supabase.co https://media.babylovegrowth.ai",
   "font-src 'self'",
   "connect-src 'self' https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com https://www.google.com",
   // Le défi reCAPTCHA v2 s'affiche dans une iframe servie par Google : sans
