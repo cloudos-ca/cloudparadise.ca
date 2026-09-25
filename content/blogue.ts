@@ -20,12 +20,12 @@ const LIBELLES = {
   },
   /** `<title>` et description de l'index — lus par les moteurs. */
   titreSeo: {
-    fr: "Blogue — Cloud OS",
-    en: "Blog — Cloud OS",
+    fr: "Blogue Cloud OS : guides du poste de travail en ligne",
+    en: "Cloud OS blog: guides to the online workstation",
   },
   descriptionSeo: {
-    fr: "Articles et guides sur le travail en ligne, le calcul lourd en langage humain et l'hébergement au Québec.",
-    en: "Articles and guides on online work, plain-language heavy compute, and hosting in Québec.",
+    fr: "Articles et guides pratiques sur le poste de travail en ligne, le calcul lourd en langage humain et l'hébergement de vos données au Québec.",
+    en: "Practical articles and guides on the online workstation, plain-language heavy compute, and keeping your data hosted in Quebec.",
   },
   aucunArticle: {
     fr: "Aucun article pour l'instant — revenez bientôt.",
