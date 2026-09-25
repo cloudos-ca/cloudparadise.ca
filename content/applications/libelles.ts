@@ -15,7 +15,7 @@ const LIBELLES = {
   },
   titreSeo: {
     fr: "Applications en ligne, sans installation — Cloud OS",
-    en: "Online apps, nothing to install — Cloud OS",
+    en: "Online apps in your browser, nothing to install — Cloud OS",
   },
   descriptionSeo: {
     fr: "Le catalogue des applications de Cloud OS : bureautique, retouche d'image, montage vidéo, CAO, gestion d'entreprise et géosciences, dans le navigateur.",
