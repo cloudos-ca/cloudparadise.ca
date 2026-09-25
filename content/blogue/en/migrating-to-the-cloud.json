@@ -3,7 +3,7 @@
   "title": "Cloud migration: the method that avoids failure",
   "slug": "migrating-to-the-cloud",
   "hero_image_url": "https://csuxjmfbwmkxiegfpljm.supabase.co/storage/v1/object/public/blog-images/organization-54779/1789659442375_Illustration-isometrique-d-une-migration-cloud-structuree.jpeg",
-  "meta_description": "Succeed at cloud migration: test a landing zone, map your dependencies, and migrate in waves to reduce risk.",
+  "meta_description": "Succeed at cloud migration: test a landing zone first, map your application dependencies, choose a strategy per app, and migrate in waves to reduce risk.",
   "excerpt": "A successful cloud migration rests on three pillars: a landing zone tested before anything is moved, a complete map of application dependencies, and an execution plan in waves rather than a single big-bang cutover.",
   "created_at": "2026-09-17T00:00:00.000Z",
   "updated_at": "2026-09-17T17:30:04.518Z",

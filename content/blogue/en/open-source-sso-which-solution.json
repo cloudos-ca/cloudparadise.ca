@@ -3,7 +3,7 @@
   "title": "Open source SSO: which solution fits your constraints",
   "slug": "open-source-sso-which-solution",
   "hero_image_url": "https://csuxjmfbwmkxiegfpljm.supabase.co/storage/v1/object/public/blog-images/organization-54779/1789920094551_Carte-titre-abstraite-sur-le-choix-SSO.jpeg",
-  "meta_description": "Compare open source single sign-on solutions and choose on protocol, architecture and multi-factor authentication — Keycloak, Authentik, Authelia, Ory and Zitadel.",
+  "meta_description": "Compare open source SSO solutions — Keycloak, Authentik, Authelia, Ory and Zitadel — and choose on protocol, architecture and multi-factor authentication.",
   "excerpt": "Open source SSO: which solution fits your constraints",
   "created_at": "2026-09-20T16:03:15.300Z",
   "updated_at": "2026-09-22T05:30:13.410Z",
@@ -41,7 +41,7 @@
           "@type": "Organization"
         },
         "inLanguage": "en-CA",
-        "description": "Compare open source single sign-on solutions and choose on protocol, architecture and multi-factor authentication — Keycloak, Authentik, Authelia, Ory and Zitadel.",
+        "description": "Compare open source SSO solutions — Keycloak, Authentik, Authelia, Ory and Zitadel — and choose on protocol, architecture and multi-factor authentication.",
         "dateModified": "2026-09-22T05:30:13.410Z",
         "datePublished": "2026-09-20T16:03:15.300Z"
       },
