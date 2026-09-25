@@ -11,20 +11,25 @@ import { LIEN_CONNEXION, lienInscription, PAGES } from "@/lib/site";
 /**
  * Liens de navigation — desktop et menu mobile lisent tous deux ce tableau.
  *
- * Cinq entrées, pas de menu déroulant : les cinq pages qui portent la décision
- * d'achat. `Mines` (un secteur parmi d'autres) et `Sécurité` (souveraineté)
- * sont des entrées secondaires — elles vivent au pied de page et dans les liens
- * de fin de section, on n'encombre pas la barre avec les pages qu'on lit après
- * avoir été convaincu. `Fonctions` garde sa place juste avant `Tarifs` : c'est
+ * Pas de menu déroulant : les pages qui portent la décision d'achat, plus le
+ * blogue. `Sécurité` (souveraineté) reste une entrée secondaire — elle vit au
+ * pied de page et dans les liens de fin de section, on n'encombre pas la barre
+ * avec les pages qu'on lit après avoir été convaincu. `Fonctions` garde sa
+ * place juste avant `Tarifs` : c'est
  * la référence exhaustive, elle sert à comparer avant d'aller voir les prix.
  * Uniquement de vraies pages : jamais d'ancre, la barre s'affiche partout et
  * une ancre y serait un lien bancal.
  *
  * `PME` entre en troisième position le 2026-07-30 : c'est devenu le segment
- * d'acquisition principal, celui qui arrive par la recherche organique. Les
- * mines restent servies, mais démarchées en direct — elles n'ont donc pas
- * besoin de la barre. Rang dans la barre = poids commercial, et l'accueil dit
- * la même chose dans le même ordre (`RenvoiPme` avant `RenvoiMines`).
+ * d'acquisition principal, celui qui arrive par la recherche organique. Rang
+ * dans la barre = poids commercial, et l'accueil dit la même chose dans le même
+ * ordre (`RenvoiPme` avant `RenvoiMines`).
+ *
+ * `Assistance` et `Mines` entrent le 2026-09-25, à la demande : les deux pages
+ * n'étaient joignables que par le pied de page. `Assistance` d'abord — c'est
+ * une fonction comprise dans le forfait, pour tout client ; `Mines` ensuite,
+ * un secteur. Huit entrées : les seuils `bar` et `horloge` (app/globals.css)
+ * ont été remesurés pour elles.
  *
  * `fr` est le chemin français, et il sert de clé : le chemin anglais n'est pas
  * écrit ici, il est retrouvé dans `PAGES` par `hrefNav`. Les deux langues ne
@@ -40,6 +45,9 @@ const NAV = [
   // cherché en anglais canadien — le même raisonnement que celui qui a donné le
   // slug `/en/small-business` plutôt que `/en/smb` (voir `PAGES`, lib/site.ts).
   { libelle: { fr: "PME", en: "Small business" }, fr: "/pme" },
+  // « Service desk » : le slug anglais de la page (`/en/service-desk`).
+  { libelle: { fr: "Assistance", en: "Service desk" }, fr: "/assistance" },
+  { libelle: { fr: "Mines", en: "Mining" }, fr: "/mines" },
   { libelle: { fr: "Fonctions", en: "Features" }, fr: "/fonctions" },
   { libelle: { fr: "Tarifs", en: "Pricing" }, fr: "/tarifs" },
   // En dernier : le blogue informe, il ne vend pas — il ne dispute pas sa
@@ -122,16 +130,22 @@ export function TopBar({ lang = "fr" }: Readonly<{ lang?: Lang }>) {
           : "border-b border-transparent"
       }`}
     >
-      <div className={`${SHELL} flex h-[78px] items-center gap-6`}>
+      {/* Sur téléphone (sous `sm`), la barre ne garde que le logo, « Commencer »
+          et le hamburger. Mesuré le 2026-09-25 : avec la marge du logo, les
+          grands écarts et la loupe, elle réclamait 405px de contenu pour 272 à
+          366px disponibles — la page défilait de côté et le hamburger sortait
+          de l'écran. D'où, sous `sm`, des écarts serrés, pas de marge ni de
+          loupe, et le mot-symbole retiré sous 380px (le symbole reste). */}
+      <div className={`${SHELL} flex h-[78px] items-center gap-3 sm:gap-6`}>
         {/* Le logo ramène à l'accueil — convention attendue de toute barre de
             site, et le seul retour depuis les pages intérieures depuis que
             « Infrastructure » a quitté la navigation.
-            `ml-4` : air supplémentaire par rapport au bord gauche, en plus du
+            `sm:ml-4` : air supplémentaire par rapport au bord gauche, en plus du
             padding de SHELL partagé avec le reste des sections. */}
         <Link
           href={lang === "en" ? "/en" : "/"}
           aria-label={lang === "en" ? "Cloud OS — home" : "Cloud OS — accueil"}
-          className="ml-4 shrink-0 rounded-sm focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
+          className="shrink-0 rounded-sm focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white sm:ml-4"
         >
           {/* Lockup horizontal de la charte : symbole SVG + mot-symbole en
               Archivo — du texte, pas une image, donc net à toute densité et
@@ -144,12 +158,12 @@ export function TopBar({ lang = "fr" }: Readonly<{ lang?: Lang }>) {
               alt=""
               width={202}
               height={98}
-              className="h-8 w-auto"
+              className="h-7 w-auto sm:h-8"
               loading="eager"
             />
             <span
               aria-hidden="true"
-              className="font-display text-[21px] font-extrabold tracking-tight text-white"
+              className="hidden font-display text-[19px] font-extrabold tracking-tight text-white min-[380px]:inline sm:text-[21px]"
             >
               CLOUD <span className="text-cp-yellow">OS</span>
             </span>
@@ -163,7 +177,7 @@ export function TopBar({ lang = "fr" }: Readonly<{ lang?: Lang }>) {
           <ul className="flex items-center gap-5">
             {NAV.map(({ libelle, fr }) => {
               const href = hrefNav(fr, lang);
-              // Égalité stricte, jamais `startsWith` : les six pages sont à
+              // Égalité stricte, jamais `startsWith` : les pages de la nav sont à
               // plat, et un préfixe ferait s'allumer deux entrées le jour où
               // une sous-page arrive.
               const actif = pathname === href;
@@ -172,7 +186,7 @@ export function TopBar({ lang = "fr" }: Readonly<{ lang?: Lang }>) {
                   <a
                     href={href}
                     aria-current={actif ? "page" : undefined}
-                    className={`text-[13px] transition-colors focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white ${
+                    className={`whitespace-nowrap text-[13px] transition-colors focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white ${
                       actif
                         ? "font-medium text-white"
                         : "text-cp-subtle hover:text-white"
@@ -186,7 +200,7 @@ export function TopBar({ lang = "fr" }: Readonly<{ lang?: Lang }>) {
           </ul>
         </nav>
 
-        <div className="ml-auto flex items-center gap-3.5">
+        <div className="ml-auto flex items-center gap-2 sm:gap-3.5">
           {/* Décorative, donc libre de porter l'accent : c'est elle qui fait
               vivre « tout se recolore » dès la barre, sans se faire prendre
               pour une commande de compte comme le faisait l'avatar. */}
@@ -194,7 +208,7 @@ export function TopBar({ lang = "fr" }: Readonly<{ lang?: Lang }>) {
             aria-hidden="true"
             data-cp-accent
             viewBox="0 0 24 24"
-            className="size-4 shrink-0"
+            className="hidden size-4 shrink-0 sm:block"
             fill="none"
             stroke="var(--soft)"
             strokeWidth="2"
@@ -207,9 +221,9 @@ export function TopBar({ lang = "fr" }: Readonly<{ lang?: Lang }>) {
               l'hydratation (voir `useHeureLocale`) et sans `min-w` la barre
               décalerait le sélecteur de langue au premier affichage.
 
-              Visible à partir de `horloge` (960px) et non de `bar` (840px), où
-              la nav apparaît : à cinq entrées, la barre réclame 815px de
-              fenêtre en français sans elle, et 894px avec. Entre les deux,
+              Visible à partir de `horloge` (1180px) et non de `bar` (1130px),
+              où la nav apparaît : à huit entrées, la barre réclame au pire
+              1100px de fenêtre sans elle, et 1147px avec. Entre les deux,
               l'horloge serait donc prise sur la rangée du bouton, qui est la
               seule chose que personne ne doit avoir à chercher. Elle est la
               première à partir parce qu'elle est le seul élément décoratif de
@@ -241,7 +255,7 @@ export function TopBar({ lang = "fr" }: Readonly<{ lang?: Lang }>) {
 
           <a
             href={LIEN_CONNEXION}
-            className="hidden text-[13px] text-cp-subtle transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white bar:inline"
+            className="hidden whitespace-nowrap text-[13px] text-cp-subtle transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white bar:inline"
           >
             {lang === "en" ? "Log in" : "Se connecter"}
           </a>
