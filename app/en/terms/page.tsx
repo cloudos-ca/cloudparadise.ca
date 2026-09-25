@@ -37,7 +37,7 @@ import {
   ROBOTS,
 } from "@/lib/seo";
 
-const TITRE = "Terms of Use — Cloud OS";
+const TITRE = "Cloud OS Terms of Use: rules for our cloud service";
 const DESCRIPTION =
   "Cloud OS Terms of Use: your account and subscription, acceptable use, ownership of your content, warranties, and the governing law.";
 
