@@ -237,6 +237,17 @@ export const PAGES: readonly PageSite[] = [
     },
   },
   {
+    fr: "/applications",
+    en: "/en/apps",
+    priority: 0.8,
+    changeFrequency: "monthly",
+    titre: { fr: "Applications", en: "Apps" },
+    resume: {
+      fr: "le catalogue des applications du poste de travail — une page par application, avec le forfait qui l'inclut.",
+      en: "the workstation app catalogue — one page per app, with the plan that includes it.",
+    },
+  },
+  {
     fr: "/tarifs",
     en: "/en/pricing",
     priority: 0.8,

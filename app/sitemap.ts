@@ -1,4 +1,6 @@
 import type { MetadataRoute } from "next";
+import { FICHES } from "@/content/applications";
+import { cheminFiche } from "@/lib/applications";
 import { EST_PRODUCTION, PAGES, urlSite } from "@/lib/site";
 
 /**
@@ -33,7 +35,16 @@ import { EST_PRODUCTION, PAGES, urlSite } from "@/lib/site";
 export default function sitemap(): MetadataRoute.Sitemap {
   if (!EST_PRODUCTION) return [];
 
-  return PAGES.flatMap(({ fr, en, priority, changeFrequency }) => {
+  // Les fiches du catalogue n'entrent pas dans `PAGES` : une centaine d'URL
+  // tenues à la main n'auraient rien de plus que la liste des fiches elle-même.
+  const fiches = FICHES.map((fiche) => ({
+    fr: cheminFiche(fiche, "fr"),
+    en: cheminFiche(fiche, "en"),
+    priority: 0.6,
+    changeFrequency: "monthly" as const,
+  }));
+
+  return [...PAGES, ...fiches].flatMap(({ fr, en, priority, changeFrequency }) => {
     const languages = { fr: urlSite(fr), en: urlSite(en) };
     return [
       {
