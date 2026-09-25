@@ -9,7 +9,7 @@ import { WindowCard } from "@/components/marketing/WindowCard";
 import { SECTION_Y, SHELL } from "@/components/marketing/tokens";
 import { alternatesBilingues, openGraphPage } from "@/lib/seo";
 
-const TITRE = "Security and hosting in Quebec — Cloud OS";
+const TITRE = "Security and data hosting in Quebec — Cloud OS";
 const DESCRIPTION =
   "Your data, our hardware, in Quebec. The language model runs on our own machines and a deterministic engine produces every result. Isolation per team.";
 

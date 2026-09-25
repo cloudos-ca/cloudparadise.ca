@@ -14,7 +14,7 @@ import { SECTION_Y, SHELL } from "@/components/marketing/tokens";
 import { alternatesBilingues, openGraphPage } from "@/lib/seo";
 import { lienInscription } from "@/lib/site";
 
-const TITRE = "Features — Cloud OS";
+const TITRE = "Features: desktop, apps, compute, teamwork — Cloud OS";
 const DESCRIPTION =
   "The complete list of what the workstation can do: the desktop, applications, compute, automation, teamwork, mineral exploration and account management.";
 

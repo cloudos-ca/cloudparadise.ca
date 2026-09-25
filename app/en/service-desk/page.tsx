@@ -28,7 +28,7 @@ const LANG = "en" as const;
 const PERSONNEL = PALIERS[0];
 
 const TITRE = "Service Desk — customer support hosted in Quebec | Cloud OS";
-const DESCRIPTION = `A complete ticketing system for your customer support: customer portal, email, live chat, knowledge base, service commitments and reports. Included in your plan, from ${enDevise(PERSONNEL.prixMensuel)} a month. Your data stays in Quebec.`;
+const DESCRIPTION = `A complete ticketing system: customer portal, email, live chat, knowledge base, service commitments, reports. Included from ${enDevise(PERSONNEL.prixMensuel)} a month, hosted in Quebec.`;
 
 export const metadata: Metadata = {
   title: TITRE,
