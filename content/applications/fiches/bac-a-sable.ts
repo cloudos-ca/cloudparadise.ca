@@ -18,7 +18,7 @@ import type { FicheApplication } from "../types";
  *
  * À vérifier avant publication : le correctif b3e8c304 (« le forfait Entreprise ouvre le Bac à
  * sable ») est en production. Tant qu'il n'y est pas, un client Entreprise ne peut pas ouvrir ce que
- * la fiche promet. Pas de capture encore : à prendre avec un compte jetable au forfait Entreprise.
+ * la fiche promet.
  */
 export const bacASable: FicheApplication = {
   id: "bac-a-sable",
@@ -145,7 +145,17 @@ export const bacASable: FicheApplication = {
       },
     ],
   },
-  captures: [],
+  captures: [
+    {
+      src: "/applications/bac-a-sable/bac-a-sable-bureau.webp",
+      largeur: 1582,
+      hauteur: 942,
+      alt: {
+        fr: "Le Bac à sable dans Cloud OS : un bureau Linux avec LibreOffice Calc et un terminal ouverts sur le dossier Stockage",
+        en: "The Sandbox in Cloud OS: a Linux desktop with LibreOffice Calc and a terminal open on the Stockage folder",
+      },
+    },
+  ],
   voisines: ["agent-de-code", "writer", "freecad"],
   articles: [],
 };

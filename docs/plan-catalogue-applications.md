@@ -22,8 +22,12 @@ Fait :
   relevés à 1210 et 1260px — **estimés** d'après les chasses de Manrope, à remesurer dans un
   navigateur), dans le pied de page, et `FamillesApps` qui mène au groupe de l'index quand il a une
   fiche.
-- **Lot pilote : huit fiches**, Bac à sable compris (sans capture pour l'instant : il faut un compte
-  jetable au forfait Entreprise).
+- **Lot pilote : huit fiches**, Bac à sable compris.
+- **Captures automatisées** : `npm run captures` (`scripts/captures-applications.ts`, Playwright) crée
+  un compte jetable au forfait Entreprise par `scripts/compte-captures.ts` du produit, capture chaque
+  fiche de sa table `SCENARIOS` et supprime le compte à la fin. Éprouvé sur dev le 2026-09-25 : capture
+  du Bac à sable (Calc et un terminal sur `~/Stockage`), et GIMP refait à l'identique de la capture
+  manuelle. Une nouvelle fiche = une ligne dans `SCENARIOS` (mode d'emploi en tête du script).
 
 Reste :
 
@@ -31,8 +35,8 @@ Reste :
   `main` — qui emporte aussi le correctif `CarteArticle`. Le Bac à sable suppose en production le
   correctif `b3e8c304` du produit (le forfait Entreprise ouvre le Bac à sable).
 - **Vagues de contenu** : les ~50 applications de `A_ECRIRE`.
-- `scripts/captures-applications.ts` (étape 5) n'est pas écrit : les captures du lot pilote ont été
-  prises à la main.
+- Les scénarios de capture des fiches des vagues suivantes (`SCENARIOS`, avec leurs données fictives
+  dans `semerDonnees` de `compte-captures.ts` si besoin).
 
 Objectif : un catalogue public des applications de Cloud OS sur cloudos.ca, dans l'esprit de la
 Logithèque du produit (grille filtrable par catégorie), où **chaque application a sa propre page
