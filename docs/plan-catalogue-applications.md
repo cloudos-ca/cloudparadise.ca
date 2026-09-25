@@ -23,6 +23,7 @@ Le catalogue est **purement informatif**. Il a deux rôles :
 | Rédaction | **Claude rédige, Maxime relit.** Un lot pilote, puis des vagues. |
 | Logos tiers | **Aucun logo.** Des captures du logiciel qui tourne dans Cloud OS, avec son nom et son éditeur cités. |
 | Liens vers l'app | **Aucun.** Une fiche ne mène jamais dans l'application (pas de « Ouvrir dans Cloud OS », pas de lien profond vers l'app). Ses appels à l'action restent sur la vitrine : `/tarifs`, contact, fiches et articles voisins. |
+| Bandeau et pied de page | Ils **gardent** leurs liens « Se connecter » et « Commencer » vers l'app sur les pages du catalogue : la règle « aucun lien vers l'app » vaut pour le contenu des fiches, pas pour la navigation commune du site. |
 | Captures | Un **compte jetable**, créé pour la séance de captures et supprimé ensuite. |
 | Correctif `CarteArticle` | Le correctif « Lire l'article » (commit `0a25165`, déjà sur `dev`) part en production **avec le catalogue**, dans la même PR `dev` → `main`. |
 
@@ -231,6 +232,3 @@ réelle de client à l'écran.
 
 - Les utilitaires sans page : absents de l'index, ou listés sans lien ?
 - Slugs FR des logiciels tiers : le nom seul (`/applications/gimp`) dans les deux langues ?
-- Le bouton d'inscription du bandeau du site (`lienInscription`, qui mène à l'app) reste-t-il
-  affiché sur les pages du catalogue, ou la règle « aucun lien vers l'app » vaut-elle pour toute la
-  page ?
