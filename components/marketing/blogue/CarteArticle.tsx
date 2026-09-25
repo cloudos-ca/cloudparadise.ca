@@ -23,18 +23,16 @@ export function CarteArticle({
   const date = formaterDate(article.created_at, lang);
 
   return (
-    <article className="group flex h-full flex-col overflow-hidden rounded-xl border border-white/10 bg-white/[0.04] transition hover:border-white/20 hover:bg-white/[0.07]">
+    <article className="group relative flex h-full flex-col overflow-hidden rounded-xl border border-white/10 bg-white/[0.04] transition hover:border-white/20 hover:bg-white/[0.07]">
       {article.hero_image_url ? (
-        <Link href={href} tabIndex={-1} aria-hidden="true">
-          {/* eslint-disable-next-line @next/next/no-img-element -- voulu, voir l'en-tête */}
-          <img
-            src={article.hero_image_url}
-            alt=""
-            loading="lazy"
-            decoding="async"
-            className="aspect-[16/9] w-full object-cover"
-          />
-        </Link>
+        // eslint-disable-next-line @next/next/no-img-element -- voulu, voir l'en-tête
+        <img
+          src={article.hero_image_url}
+          alt=""
+          loading="lazy"
+          decoding="async"
+          className="aspect-[16/9] w-full object-cover"
+        />
       ) : null}
       <div className="flex flex-1 flex-col gap-3 p-5">
         {date ? (
@@ -46,9 +44,11 @@ export function CarteArticle({
           </time>
         ) : null}
         <h2 className="font-display text-lg leading-snug font-extrabold tracking-tight text-white">
+          {/* Le lien du titre s'étend à toute la carte (`after:inset-0`) : image,
+              extrait et « Lire l'article » y mènent aussi, sans second lien. */}
           <Link
             href={href}
-            className="rounded-sm outline-offset-4 focus-visible:outline-2 focus-visible:outline-white"
+            className="rounded-sm outline-offset-4 after:absolute after:inset-0 focus-visible:outline-2 focus-visible:outline-white"
           >
             {article.title}
           </Link>
