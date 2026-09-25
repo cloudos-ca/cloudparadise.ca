@@ -194,9 +194,10 @@ export default function PlateformePage() {
 
           <Reveal delay={0.1} className="mt-12">
             <Capture
-              src="/plateforme/bureau.jpg"
-              width={2048}
-              height={760}
+              src="/plateforme/bureau.webp"
+              width={1600}
+              height={594}
+              unoptimized
               alt="Le bureau Cloud OS en cours d’utilisation : la Documentation et les Arcades ouvertes en fenêtres, dock d’applications à gauche et barre inférieure."
               priority
             />
@@ -235,9 +236,10 @@ export default function PlateformePage() {
             2026-09-16 : document de démonstration tapé pour la capture. */}
         <Reveal delay={0.2} className="mt-6">
           <Capture
-            src="/plateforme/writer.jpg"
+            src="/plateforme/writer.webp"
             width={2032}
             height={1096}
+            unoptimized
             alt="Writer, le traitement de texte en ligne : une offre de services en cours de rédaction, barre d’outils complète et panneau de styles."
           />
         </Reveal>
@@ -267,9 +269,10 @@ export default function PlateformePage() {
             la vitrine pose question, remplacer par un recadrage sans tuiles. */}
         <Reveal delay={0.15} className="mt-8">
           <Capture
-            src="/plateforme/arcades.jpg"
-            width={2032}
-            height={968}
+            src="/plateforme/arcades.webp"
+            width={1440}
+            height={686}
+            unoptimized
             alt="L’application Arcades : recherche, salles par catégorie, rangée « Reprendre » du joueur et grille de jeux HTML5."
           />
         </Reveal>
@@ -401,12 +404,16 @@ function Capture({
   height,
   alt,
   priority = false,
+  unoptimized = false,
 }: Readonly<{
   src: string;
   width: number;
   height: number;
   alt: string;
   priority?: boolean;
+  /** Pour un visuel déjà encodé au plus juste : l'optimiseur de Next le
+   *  réencoderait en JPEG q75 et le ferait grossir (cf. les .webp de /plateforme). */
+  unoptimized?: boolean;
 }>) {
   return (
     <div className="overflow-hidden rounded-xl border border-white/10 shadow-[0_24px_50px_-14px_rgba(0,0,0,.55)]">
@@ -416,6 +423,7 @@ function Capture({
         height={height}
         alt={alt}
         priority={priority}
+        unoptimized={unoptimized}
         sizes="(min-width: 1280px) 1216px, 100vw"
         className="h-auto w-full"
       />

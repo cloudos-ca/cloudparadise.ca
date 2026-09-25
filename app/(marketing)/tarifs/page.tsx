@@ -39,7 +39,7 @@ import { lienInscription } from "@/lib/site";
 const REMISE_MAX = Math.max(...DUREES.map((d) => d.remisePct));
 
 const TITRE = "Tarifs : deux forfaits tout inclus — Cloud OS";
-const DESCRIPTION = `Personnel à ${enDevise(PALIERS[0].prixMensuel)}/mois, Entreprise à ${enDevise(PALIERS[1].prixMensuel)}/mois : deux forfaits tout inclus, ${ESSAI_JOURS} jours d’essai gratuit, jusqu’à ${REMISE_MAX} % de remise sur les engagements longs.`;
+const DESCRIPTION = `Forfaits cloud tout inclus dès ${enDevise(PALIERS[0].prixMensuel)}/mois, essai gratuit de ${ESSAI_JOURS} jours sans carte et jusqu’à ${REMISE_MAX} % de remise. Découvrez les offres.`;
 
 export const metadata: Metadata = {
   title: TITRE,

@@ -37,7 +37,7 @@ import {
   ROBOTS,
 } from "@/lib/seo";
 
-const TITRE = "Conditions d’utilisation du poste de travail — Cloud OS";
+const TITRE = "Conditions d’utilisation de Cloud OS : règles du service infonuagique";
 const DESCRIPTION =
   "Conditions d’utilisation de Cloud OS : compte et abonnement, utilisation acceptable, propriété du contenu, garanties et droit applicable.";
 
