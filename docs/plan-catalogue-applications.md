@@ -1,6 +1,38 @@
 # Plan — catalogue des applications sur la vitrine
 
-Rédigé le 2026-09-25. Statut : **proposé**, rien n'est commencé.
+Rédigé le 2026-09-25. Statut : **implémenté** (étapes 1 à 3, lot pilote complet) ; restent la
+relecture des huit fiches et les vagues de contenu.
+
+## Où on en est (2026-09-25)
+
+Fait :
+
+- **Produit** : `GET /api/v1/apps/catalog`, publique (`cloudparadise_hpc`, commit `5920445c`), et le
+  commentaire de `containers/catalog/route.ts` mis à jour.
+- **Données et test anti-divergence** : `content/applications/`, `lib/applications.test.ts`.
+- **Pages** : index `/applications` et `/en/apps` (groupes et barre d'ancres, à la place du filtre
+  `?groupe=` : voir `IndexApplications`), fiches générées au build, JSON-LD, fil d'Ariane, sitemap.
+- **Une image Open Graph par fiche** (`[slug]/opengraph-image.tsx`) : le `<h1>` et l'accroche dans le
+  gabarit du site. Sans la capture : satori ne lit pas le WebP (voir `ogFiche.ts`).
+- **Maillage** : « À lire sur le blogue » sur les fiches, et « Les applications de cet article » sous
+  les articles du blogue (`fichesDeLArticle`), dans les deux langues.
+- **Suivi** : événement GA4 `cta_catalogue` (paramètres `fiche`, `langue`, `destination`) au clic sur
+  les boutons de fin de page du catalogue, seulement après consentement.
+- **Navigation** : « Applications » / « Apps » dans la barre (neuf entrées, seuils `bar` et `horloge`
+  relevés à 1210 et 1260px — **estimés** d'après les chasses de Manrope, à remesurer dans un
+  navigateur), dans le pied de page, et `FamillesApps` qui mène au groupe de l'index quand il a une
+  fiche.
+- **Lot pilote : huit fiches**, Bac à sable compris (sans capture pour l'instant : il faut un compte
+  jetable au forfait Entreprise).
+
+Reste :
+
+- **Relecture** des huit fiches (chacune note en tête ce qui reste à vérifier) avant la PR `dev` →
+  `main` — qui emporte aussi le correctif `CarteArticle`. Le Bac à sable suppose en production le
+  correctif `b3e8c304` du produit (le forfait Entreprise ouvre le Bac à sable).
+- **Vagues de contenu** : les ~50 applications de `A_ECRIRE`.
+- `scripts/captures-applications.ts` (étape 5) n'est pas écrit : les captures du lot pilote ont été
+  prises à la main.
 
 Objectif : un catalogue public des applications de Cloud OS sur cloudos.ca, dans l'esprit de la
 Logithèque du produit (grille filtrable par catégorie), où **chaque application a sa propre page

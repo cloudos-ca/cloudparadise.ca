@@ -11,6 +11,17 @@ import {
 const ID_MESURE = "G-DNL35D2Z78";
 
 /**
+ * Envoie un événement GA4 — sans effet tant que le visiteur n'a pas accepté
+ * les témoins : `gtag` n'existe qu'une fois l'amorce ci-dessous chargée, donc
+ * après le consentement. Aucune file d'attente pour les clics d'avant : ils ne
+ * sont pas mesurés, et c'est le sens même du refus.
+ */
+export function mesurerEvenement(nom: string, parametres: Readonly<Record<string, string>>): void {
+  const gtag = (globalThis as { gtag?: (...args: unknown[]) => void }).gtag;
+  gtag?.("event", nom, parametres);
+}
+
+/**
  * Google Analytics 4 (gtag.js), chargé seulement après un « Accepter »
  * explicite dans la bannière Loi 25 (`PopupLoi25.tsx`) — voir la section 6
  * de /confidentialite. A remplacé Matomo auto-hébergé le 2026-09-17 ; la

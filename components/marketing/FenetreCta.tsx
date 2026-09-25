@@ -6,6 +6,7 @@ import Image from "next/image";
 import { useBoucleActive } from "./useBoucleActive";
 import { BadgeOffre } from "./BadgeOffre";
 import { BoutonCta } from "./BoutonCta";
+import { mesurerEvenement } from "./GoogleAnalytics";
 import { WindowCard } from "./WindowCard";
 import type { Lang } from "./tokens";
 
@@ -35,6 +36,12 @@ type FenetreCtaProps = Readonly<{
    */
   className?: string;
   lang?: Lang;
+  /**
+   * Événement GA4 envoyé au clic sur le bouton ou le lien, avec leur `href`
+   * en paramètre `destination`. Des données, pas une fonction : le closer est
+   * souvent rendu par un composant serveur (le catalogue, par exemple).
+   */
+  mesure?: { evenement: string; parametres: Readonly<Record<string, string>> };
 }>;
 
 /**
@@ -54,6 +61,7 @@ export function FenetreCta({
   badgeSansCarte = true,
   className = "mx-auto max-w-[640px]",
   lang = "fr",
+  mesure,
 }: FenetreCtaProps) {
   const cadre = useRef<HTMLDivElement>(null);
   // Ce composant clôt une vingtaine de pages : sans garde, sa boucle tourne
@@ -99,7 +107,23 @@ export function FenetreCta({
               <BadgeOffre className="mt-6" sansCarte={badgeSansCarte} lang={lang} />
             ) : null}
 
-            <div className="mt-5 flex flex-col items-center gap-3">
+            {/* Un seul écouteur pour le bouton et le lien : le clic remonte de
+                l'un ou de l'autre, et `closest("a")` dit lequel. */}
+            <div
+              className="mt-5 flex flex-col items-center gap-3"
+              onClick={
+                mesure
+                  ? (e) => {
+                      const lienClique = (e.target as Element).closest("a");
+                      if (lienClique)
+                        mesurerEvenement(mesure.evenement, {
+                          ...mesure.parametres,
+                          destination: lienClique.getAttribute("href") ?? "",
+                        });
+                    }
+                  : undefined
+              }
+            >
               <BoutonCta href={bouton.href} taille="lg">
                 {bouton.libelle}
               </BoutonCta>

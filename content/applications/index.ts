@@ -1,4 +1,5 @@
 import { agentDeCode } from "./fiches/agent-de-code";
+import { bacASable } from "./fiches/bac-a-sable";
 import { bureauAssistance } from "./fiches/bureau-assistance";
 import { erp } from "./fiches/erp";
 import { forages3d } from "./fiches/forages-3d";
@@ -32,6 +33,7 @@ export const FICHES: readonly FicheApplication[] = [
   forages3d,
   gimp,
   freecad,
+  bacASable,
 ];
 
 /** Les applications qui auront une fiche. Une fiche rédigée sort d'ici pour entrer dans `FICHES`. */
@@ -91,7 +93,6 @@ export const A_ECRIRE: readonly string[] = [
   "assistant",
   "teams",
   "browser",
-  "persistent-desktop",
   "hosting",
   // Jeux — une seule fiche pour les six, plus l'arcade et le studio
   "games-wesnoth",

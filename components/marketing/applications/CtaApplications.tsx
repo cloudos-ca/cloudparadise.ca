@@ -10,8 +10,12 @@ import { libelleApplications } from "@/content/applications/libelles";
  * et vend, il ne fait pas entrer dans l'app. Le bouton mène aux tarifs, le lien
  * secondaire au contact — les deux restent sur la vitrine. C'est la différence
  * avec `CtaFinal`, dont le bouton crée un compte.
+ *
+ * Chaque clic envoie l'événement GA4 `cta_catalogue` (la fiche, ou `index`,
+ * et la destination) : c'est ce qui mesure ce que le catalogue apporte à la
+ * conversion.
  */
-export function CtaApplications({ lang }: Readonly<{ lang: Lang }>) {
+export function CtaApplications({ lang, fiche }: Readonly<{ lang: Lang; fiche?: string }>) {
   return (
     <section className="relative overflow-x-clip">
       <div className={`${SHELL} ${SECTION_Y}`}>
@@ -27,6 +31,7 @@ export function CtaApplications({ lang }: Readonly<{ lang: Lang }>) {
               href: lang === "en" ? "/en/contact" : "/contact",
               libelle: libelleApplications("nousJoindre", lang),
             }}
+            mesure={{ evenement: "cta_catalogue", parametres: { fiche: fiche ?? "index", langue: lang } }}
           />
         </Reveal>
       </div>

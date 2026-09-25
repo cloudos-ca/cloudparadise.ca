@@ -19,9 +19,9 @@ export function metadonneesIndex(lang: Lang): Metadata {
 }
 
 /**
- * Métadonnées d'une fiche. L'image Open Graph est l'image partagée du site tant
- * que les fiches n'ont pas la leur (une par fiche, tirée de sa capture : étape
- * suivante du plan).
+ * Métadonnées d'une fiche. Pas d'`images` Open Graph : chaque fiche a la sienne
+ * (`[slug]/opengraph-image.tsx`), que Next détecte par convention de fichier —
+ * lui en fixer une ici la court-circuiterait (voir `openGraphPage`).
  */
 export function metadonneesFiche(fiche: FicheApplication, lang: Lang): Metadata {
   const titre = fiche.seo.titre[lang];
@@ -32,6 +32,6 @@ export function metadonneesFiche(fiche: FicheApplication, lang: Lang): Metadata 
     keywords: [...fiche.motsCles[lang]],
     robots: ROBOTS,
     alternates: alternatesBilingues(cheminFiche(fiche, "fr"), cheminFiche(fiche, "en"), lang),
-    openGraph: openGraphPage(titre, description, lang, cheminFiche(fiche, lang), [IMAGE_OG_PARTAGEE]),
+    openGraph: openGraphPage(titre, description, lang, cheminFiche(fiche, lang)),
   };
 }

@@ -3,7 +3,7 @@ import { describe, it } from "node:test";
 import { A_ECRIRE, FICHES, SANS_FICHE } from "../content/applications";
 import { GROUPES } from "../content/applications/types";
 import { TRADUCTIONS } from "../content/blogue/en";
-import { ficheParSlug, fichesParGroupe } from "./applications";
+import { ficheParSlug, fichesDeLArticle, fichesParGroupe } from "./applications";
 
 describe("catalogue des applications", () => {
   it("des clés et des slugs uniques, dans chaque langue", () => {
@@ -76,6 +76,19 @@ describe("catalogue des applications", () => {
     assert.equal(ficheParSlug(f.slug.fr, "fr")?.id, f.id);
     assert.equal(ficheParSlug(f.slug.en, "en")?.id, f.id);
     assert.equal(ficheParSlug("n-existe-pas", "fr"), null);
+  });
+
+  it("un article du blogue retrouve les fiches qui le citent, dans les deux langues", () => {
+    const traduit = (slug: string) => TRADUCTIONS.find((t) => t.source.slug === slug);
+    const fiche = FICHES.find((f) => f.articles.some((a) => traduit(a.slug)));
+    assert.ok(fiche, "aucune fiche ne cite un article traduit : le test n'a plus rien à vérifier");
+    const slugFr = fiche.articles.find((a) => traduit(a.slug))!.slug;
+    const slugEn = traduit(slugFr)!.slug;
+    assert.ok(fichesDeLArticle(slugFr, "fr").some((f) => f.id === fiche.id));
+    assert.ok(fichesDeLArticle(slugEn, "en").some((f) => f.id === fiche.id));
+    assert.deepEqual(fichesDeLArticle("n-existe-pas", "fr"), []);
+    // Un slug français n'est pas un slug anglais : pas de fiche par confusion des langues.
+    if (slugFr !== slugEn) assert.deepEqual(fichesDeLArticle(slugFr, "en"), []);
   });
 
   it("une application du produit est dans une seule des trois listes", () => {

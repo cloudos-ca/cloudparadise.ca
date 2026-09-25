@@ -31,6 +31,9 @@ import { LIEN_CONNEXION, lienInscription, PAGES } from "@/lib/site";
  * un secteur. Huit entrées : les seuils `bar` et `horloge` (app/globals.css)
  * ont été remesurés pour elles.
  *
+ * `Applications` entre le même jour, avec l'ouverture du catalogue : neuf
+ * entrées, et les deux seuils relevés d'autant (voir app/globals.css).
+ *
  * `fr` est le chemin français, et il sert de clé : le chemin anglais n'est pas
  * écrit ici, il est retrouvé dans `PAGES` par `hrefNav`. Les deux langues ne
  * portent plus le même segment (`/plateforme` contre `/en/platform`), donc un
@@ -48,6 +51,10 @@ const NAV = [
   // « Service desk » : le slug anglais de la page (`/en/service-desk`).
   { libelle: { fr: "Assistance", en: "Service desk" }, fr: "/assistance" },
   { libelle: { fr: "Mines", en: "Mining" }, fr: "/mines" },
+  // Le catalogue, avant `Fonctions` : les deux se consultent pour savoir ce
+  // que contient le poste de travail, l'un application par application,
+  // l'autre fonction par fonction.
+  { libelle: { fr: "Applications", en: "Apps" }, fr: "/applications" },
   { libelle: { fr: "Fonctions", en: "Features" }, fr: "/fonctions" },
   { libelle: { fr: "Tarifs", en: "Pricing" }, fr: "/tarifs" },
   // En dernier : le blogue informe, il ne vend pas — il ne dispute pas sa
@@ -221,9 +228,9 @@ export function TopBar({ lang = "fr" }: Readonly<{ lang?: Lang }>) {
               l'hydratation (voir `useHeureLocale`) et sans `min-w` la barre
               décalerait le sélecteur de langue au premier affichage.
 
-              Visible à partir de `horloge` (1180px) et non de `bar` (1130px),
-              où la nav apparaît : à huit entrées, la barre réclame au pire
-              1100px de fenêtre sans elle, et 1147px avec. Entre les deux,
+              Visible à partir de `horloge` (1260px) et non de `bar` (1210px),
+              où la nav apparaît : à neuf entrées, la barre réclame au pire
+              1180px de fenêtre sans elle, et 1227px avec. Entre les deux,
               l'horloge serait donc prise sur la rangée du bouton, qui est la
               seule chose que personne ne doit avoir à chercher. Elle est la
               première à partir parce qu'elle est le seul élément décoratif de

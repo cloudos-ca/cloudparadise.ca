@@ -33,6 +33,8 @@ const LIBELLES = {
   questions: { fr: "Questions fréquentes", en: "Frequently asked questions" },
   voisines: { fr: "Dans le même esprit", en: "Related apps" },
   articles: { fr: "À lire sur le blogue", en: "On the blog" },
+  // Sous un article du blogue : les fiches qui le citent.
+  applicationsDeLArticle: { fr: "Les applications de cet article", en: "Apps from this article" },
   // Pas de durée d'essai ici : le badge de `FenetreCta`, juste dessous, l'annonce déjà.
   cta: {
     fr: "Toutes ces applications sont comprises dans votre forfait, sans supplément par application ni facture à l'usage.",
