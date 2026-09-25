@@ -182,9 +182,16 @@ export function lirePage(valeur: string | undefined): number {
  * paragraphe qui ne contient que l'image de tête (même `src`). Une première
  * image différente reste — c'est une illustration, pas la vignette. Rien
  * n'est touché plus loin dans le texte.
+ *
+ * Les articles plus récents s'ouvrent d'abord par des blocs
+ * `<script type="application/ld+json">` (FAQ), puis le `<h1>` (relevé le
+ * 2026-09-25 : 6 articles sur 9 avaient deux `<h1>`). Ces blocs sont mis de
+ * côté, gardés (les moteurs les lisent) et remis en tête du corps.
  */
 export function corpsSansEntete(html: string, heroImageUrl: string): string {
-  let corps = html.replace(/^\s*<h1\b[^>]*>[\s\S]*?<\/h1>\s*/i, "");
+  const scripts = /^(?:\s*<script\b[^>]*>[\s\S]*?<\/script>)*/i.exec(html)?.[0] ?? "";
+  const reste = html.slice(scripts.length);
+  let corps = reste.replace(/^\s*<h1\b[^>]*>[\s\S]*?<\/h1>\s*/i, "");
   if (heroImageUrl) {
     const src = heroImageUrl.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
     corps = corps.replace(
@@ -192,7 +199,8 @@ export function corpsSansEntete(html: string, heroImageUrl: string): string {
       "",
     );
   }
-  return corps;
+  if (corps === reste) return html;
+  return scripts ? `${scripts}\n${corps}` : corps;
 }
 
 export type Pagination<T> = {

@@ -139,6 +139,18 @@ describe("corpsSansEntete", () => {
       '<p><img src="' + hero + '"></p><p>Texte.</p>',
     );
   });
+
+  it("passe les blocs JSON-LD de tête, les garde, et retire le h1 et l'image qui suivent", () => {
+    const faq = '\n      <script type="application/ld+json">\n      {"@type": "FAQPage"}\n      </script>';
+    const article = '\n<script type="application/ld+json">{"@type": "Article"}</script>';
+    const html = `${faq}${article}\n<h1 id="x">Titre</h1>\n<p><img src="${hero}" alt=""></p>\n<p>Texte.</p>`;
+    assert.equal(corpsSansEntete(html, hero), `${faq}${article}\n<p>Texte.</p>`);
+  });
+
+  it("rend le corps intact s'il n'y a rien à retirer après les scripts", () => {
+    const html = '<script type="application/ld+json">{}</script>\n<p>Intro.</p><h1>Titre</h1>';
+    assert.equal(corpsSansEntete(html, hero), html);
+  });
 });
 
 // --- Traductions du dépôt --------------------------------------------------
