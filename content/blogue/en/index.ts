@@ -1,4 +1,5 @@
 import type { BlogArticle } from "babylovegrowth-next-js-blog";
+import cloudTaskScheduling from "./cloud-task-scheduling.json";
 import crmForSmallBusinesses from "./crm-for-small-businesses.json";
 import migratingToTheCloud from "./migrating-to-the-cloud.json";
 import onlyofficeVsLibreoffice from "./onlyoffice-vs-libreoffice-for-small-business.json";
@@ -6,6 +7,7 @@ import openSourceSso from "./open-source-sso-which-solution.json";
 import premiereProVsDavinciResolve from "./premiere-pro-vs-davinci-resolve-2026.json";
 import secureFileSharing from "./secure-file-sharing.json";
 import sharedBusinessCalendar from "./shared-business-calendar.json";
+import usageBasedCloudPricing from "./usage-based-cloud-pricing.json";
 
 /**
  * Les articles du blogue traduits en anglais — un fichier JSON par article,
@@ -64,6 +66,7 @@ export type ArticleTraduit = Pick<
 };
 
 export const TRADUCTIONS: readonly ArticleTraduit[] = [
+  cloudTaskScheduling,
   crmForSmallBusinesses,
   migratingToTheCloud,
   onlyofficeVsLibreoffice,
@@ -71,4 +74,5 @@ export const TRADUCTIONS: readonly ArticleTraduit[] = [
   premiereProVsDavinciResolve,
   secureFileSharing,
   sharedBusinessCalendar,
+  usageBasedCloudPricing,
 ];
