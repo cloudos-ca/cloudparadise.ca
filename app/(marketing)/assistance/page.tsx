@@ -31,8 +31,8 @@ import { lienInscription } from "@/lib/site";
 const LANG = "fr" as const;
 const PERSONNEL = PALIERS[0];
 
-const TITRE = "Bureau d’assistance — service à la clientèle hébergé au Québec | Cloud OS";
-const DESCRIPTION = `Une billetterie complète pour votre service à la clientèle : portail client, courriel, clavardage, base de connaissances, engagements de service et rapports. Incluse dans votre forfait, dès ${enDevise(PERSONNEL.prixMensuel)} par mois. Vos données restent au Québec.`;
+const TITRE = "Bureau d’assistance hébergé au Québec — Cloud OS";
+const DESCRIPTION = `Billetterie complète : portail client, courriel, clavardage, base de connaissances, engagements de service, rapports. Incluse dès ${enDevise(PERSONNEL.prixMensuel)} par mois, au Québec.`;
 
 export const metadata: Metadata = {
   title: TITRE,

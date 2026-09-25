@@ -38,7 +38,7 @@ import { lienInscription } from "@/lib/site";
  * pour ne pas s'en écarter le jour où une durée change. */
 const REMISE_MAX = Math.max(...DUREES.map((d) => d.remisePct));
 
-const TITRE = "Pricing: two all-inclusive plans — Cloud OS";
+const TITRE = "Pricing: two all-inclusive cloud plans — Cloud OS";
 const DESCRIPTION = `All-inclusive cloud plans from ${enDevise(PALIERS[0].prixMensuel)}/mo, a ${ESSAI_JOURS}-day free trial with no credit card, and up to ${REMISE_MAX}% off. Compare the plans.`;
 
 export const metadata: Metadata = {
