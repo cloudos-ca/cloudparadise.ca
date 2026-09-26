@@ -34,6 +34,10 @@ import { LIEN_CONNEXION, lienInscription, PAGES } from "@/lib/site";
  * `Applications` entre le même jour, avec l'ouverture du catalogue : neuf
  * entrées, et les deux seuils relevés d'autant (voir app/globals.css).
  *
+ * `Assistance` et `Mines` ressortent le soir même : neuf entrées chargeaient
+ * trop la barre. Elles restent au pied de page (Footer.tsx). Sept entrées ; les
+ * seuils `bar` et `horloge` sont redescendus (voir app/globals.css).
+ *
  * `fr` est le chemin français, et il sert de clé : le chemin anglais n'est pas
  * écrit ici, il est retrouvé dans `PAGES` par `hrefNav`. Les deux langues ne
  * portent plus le même segment (`/plateforme` contre `/en/platform`), donc un
@@ -48,9 +52,6 @@ const NAV = [
   // cherché en anglais canadien — le même raisonnement que celui qui a donné le
   // slug `/en/small-business` plutôt que `/en/smb` (voir `PAGES`, lib/site.ts).
   { libelle: { fr: "PME", en: "Small business" }, fr: "/pme" },
-  // « Service desk » : le slug anglais de la page (`/en/service-desk`).
-  { libelle: { fr: "Assistance", en: "Service desk" }, fr: "/assistance" },
-  { libelle: { fr: "Mines", en: "Mining" }, fr: "/mines" },
   // Le catalogue, avant `Fonctions` : les deux se consultent pour savoir ce
   // que contient le poste de travail, l'un application par application,
   // l'autre fonction par fonction.

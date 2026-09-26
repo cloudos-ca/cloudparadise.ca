@@ -53,7 +53,14 @@
    *
    * 840 et non 760 depuis l'entrée de « PME » dans la nav (2026-07-30) ; 1130
    * depuis celle d'« Assistance » et « Mines » (2026-09-25, huit entrées) ;
-   * 1210 depuis celle d'« Applications » (2026-09-25, neuf entrées).
+   * 1210 depuis celle d'« Applications » (2026-09-25, neuf entrées) ;
+   * 1090 depuis le retrait d'« Assistance » et « Mines » (2026-09-25 au soir,
+   * sept entrées, restées au pied de page).
+   *
+   * Mesuré dans un navigateur à sept entrées (Chromium, méthode ci-dessous,
+   * entrée active comprise, horloge masquée, padding px-10) : au pire 980px de
+   * contenu en français (/applications), 936px en anglais (/en/apps), soit
+   * 1060px de fenêtre. 1090 laisse 30px.
    *
    * Neuf entrées : « Applications » coûte 75px de libellé plus 20px d'écart,
    * « Apps » 31px plus 20px — **estimés** d'après les chasses de Manrope à
@@ -89,7 +96,7 @@
    * `header > div` à 400px et lire son `scrollWidth`, qui rend alors la largeur
    * réelle du contenu (retirer le padding horizontal de `header > div`). Voir
    * aussi `--breakpoint-horloge`. */
-  --breakpoint-bar: 1210px;
+  --breakpoint-bar: 1090px;
   /* Seuil de l'horloge de la barre de menu.
    *
    * Distinct de `os` depuis le 2026-07-30. L'horloge coûte 47px (sa largeur
@@ -104,8 +111,10 @@
    * réclame au pire 1067px en anglais, soit 1147px de fenêtre ; 33px de
    * marge. 1260 le même jour, à neuf entrées : au pire 1147px de contenu en
    * français (estimé, voir `--breakpoint-bar`), soit 1227px de fenêtre ; 33px
-   * de marge. */
-  --breakpoint-horloge: 1260px;
+   * de marge. 1140 le soir même, à sept entrées : au pire 1027px de contenu
+   * horloge comprise, en français (mesuré, voir `--breakpoint-bar`), soit
+   * 1107px de fenêtre ; 33px de marge. */
+  --breakpoint-horloge: 1140px;
 }
 
 /* `inline` est requis : ces valeurs pointent vers les variables de next/font. */
