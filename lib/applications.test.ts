@@ -3,7 +3,7 @@ import { describe, it } from "node:test";
 import { A_ECRIRE, FICHES, SANS_FICHE } from "../content/applications";
 import { GROUPES } from "../content/applications/types";
 import { TRADUCTIONS } from "../content/blogue/en";
-import { ficheParSlug, fichesDeLArticle, fichesParGroupe } from "./applications";
+import { ficheParId, ficheParSlug, fichesDeLArticle, fichesParGroupe, fichesPourLeProduit } from "./applications";
 
 describe("catalogue des applications", () => {
   it("des clés et des slugs uniques, dans chaque langue", () => {
@@ -97,6 +97,19 @@ describe("catalogue des applications", () => {
     for (const id of toutes) {
       assert.ok(!vues.has(id), `« ${id} » figure deux fois (FICHES, A_ECRIRE, SANS_FICHE)`);
       vues.add(id);
+    }
+  });
+
+  it("les fiches lues par la Logithèque : sans FAQ ni SEO, voisines en ids du produit", () => {
+    const produit = fichesPourLeProduit();
+    assert.equal(produit.length, FICHES.length);
+    for (const f of produit) {
+      for (const cle of ["faq", "seo", "motsCles", "articles", "slug", "titre"]) {
+        assert.ok(!(cle in f), `${f.id} : « ${cle} » ne part pas vers le produit`);
+      }
+      const attendues = ficheParId(f.id)!.voisines.map((id) => ficheParId(id)?.apps[0]);
+      assert.deepEqual(f.voisines, attendues.filter(Boolean), `${f.id} : voisines`);
+      for (const c of f.captures) assert.match(c.src, /^\/applications\//, `${f.id} : capture hors de public/applications`);
     }
   });
 });
