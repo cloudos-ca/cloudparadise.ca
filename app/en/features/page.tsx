@@ -118,7 +118,7 @@ const SECTIONS: readonly SectionFonctions[] = [
       {
         nom: "Assistant",
         texte:
-          "You describe the task in plain language; it builds the plan and runs it.",
+          "It answers your questions about Cloud OS from the built-in documentation, and opens the right app for you.",
       },
       {
         nom: "Built-in documentation",
@@ -478,7 +478,7 @@ const SECTIONS: readonly SectionFonctions[] = [
       {
         nom: "Calendar and contacts",
         texte:
-          "Shared calendar and reminders. Sync with an external CalDAV/CardDAV-compatible service.",
+          "Calendar and reminders. Sync with an external CalDAV/CardDAV-compatible service.",
       },
     ],
   },

@@ -33,10 +33,12 @@ const LIBELLES = {
   questions: { fr: "Questions fréquentes", en: "Frequently asked questions" },
   voisines: { fr: "Dans le même esprit", en: "Related apps" },
   articles: { fr: "À lire sur le blogue", en: "On the blog" },
+  // Sous un article du blogue : les fiches qui le citent.
+  applicationsDeLArticle: { fr: "Les applications de cet article", en: "Apps from this article" },
   // Pas de durée d'essai ici : le badge de `FenetreCta`, juste dessous, l'annonce déjà.
   cta: {
-    fr: "Toutes ces applications sont comprises dans votre forfait, sans supplément par application ni facture à l'usage.",
-    en: "All these apps come with your plan, with no extra charge per app and no usage-based bill.",
+    fr: "Toutes ces applications sont comprises dans votre forfait, sans frais par application.",
+    en: "All these apps come with your plan, with no fee per app.",
   },
   voirLesTarifs: { fr: "Voir les tarifs", en: "See pricing" },
   nousJoindre: { fr: "Nous joindre", en: "Contact us" },

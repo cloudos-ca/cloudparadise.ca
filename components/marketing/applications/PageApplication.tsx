@@ -171,7 +171,7 @@ export function PageApplication({
           ) : null}
         </div>
       </section>
-      <CtaApplications lang={lang} />
+      <CtaApplications lang={lang} fiche={fiche.id} />
     </>
   );
 }

@@ -36,6 +36,7 @@ const COLONNES = {
     {
       titre: "En savoir plus",
       liens: [
+        { libelle: "Applications", href: "/applications" },
         { libelle: "Fonctions", href: "/fonctions" },
         { libelle: "Sécurité", href: "/securite" },
         // Même cible que la barre de menu : `#` ne faisait que remonter en
@@ -74,6 +75,7 @@ const COLONNES = {
     {
       titre: "Learn more",
       liens: [
+        { libelle: "Apps", href: "/en/apps" },
         { libelle: "Features", href: "/en/features" },
         { libelle: "Security", href: "/en/security" },
         { libelle: "Log in", href: LIEN_CONNEXION },

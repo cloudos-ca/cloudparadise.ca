@@ -288,7 +288,7 @@ export const PME_EN: ContenuPme = {
         cle: "agenda",
         titre: "Calendar and contacts",
         texte:
-          "Shared calendar and reminders. Sync with an external CalDAV/CardDAV-compatible service.",
+          "Calendar and reminders. Sync with an external CalDAV/CardDAV-compatible service.",
       },
     ],
     lien: "See the platform",

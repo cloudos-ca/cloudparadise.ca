@@ -75,6 +75,24 @@ export function articlesDe(fiche: FicheApplication, lang: Lang): { chemin: strin
 }
 
 /**
+ * Le maillage dans l'autre sens : les fiches qui citent un article du blogue,
+ * affichées sous l'article (`PageArticle`).
+ *
+ * Les fiches citent les articles par leur slug FR. Un slug anglais est d'abord
+ * ramené à celui de l'article français qu'il traduit ; un article anglais sans
+ * source dans le dépôt n'est cité par aucune fiche.
+ */
+export function fichesDeLArticle(
+  slug: string,
+  lang: Lang,
+  fiches: readonly FicheApplication[] = FICHES,
+): FicheApplication[] {
+  const slugFr = lang === "fr" ? slug : TRADUCTIONS.find((t) => t.slug === slug)?.source.slug;
+  if (!slugFr) return [];
+  return fiches.filter((f) => f.articles.some((a) => a.slug === slugFr));
+}
+
+/**
  * Le JSON-LD d'une fiche : sa FAQ (`FAQPage`), et ce dont parle la page.
  *
  * Une app du produit se déclare `SoftwareApplication` éditée par Cloud OS. Un

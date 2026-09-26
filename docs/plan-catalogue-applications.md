@@ -1,6 +1,56 @@
 # Plan — catalogue des applications sur la vitrine
 
-Rédigé le 2026-09-25. Statut : **proposé**, rien n'est commencé.
+Rédigé le 2026-09-25. Statut : **implémenté** (étapes 1 à 3, 52 fiches publiées avec leurs captures) ;
+reste la décision sur les fiches retenues (voir « Reste »).
+
+## Où on en est (2026-09-25)
+
+Fait :
+
+- **Produit** : `GET /api/v1/apps/catalog`, publique (`cloudparadise_hpc`, commit `5920445c`), et le
+  commentaire de `containers/catalog/route.ts` mis à jour.
+- **Données et test anti-divergence** : `content/applications/`, `lib/applications.test.ts`.
+- **Pages** : index `/applications` et `/en/apps` (groupes et barre d'ancres, à la place du filtre
+  `?groupe=` : voir `IndexApplications`), fiches générées au build, JSON-LD, fil d'Ariane, sitemap.
+- **Une image Open Graph par fiche** (`[slug]/opengraph-image.tsx`) : le `<h1>` et l'accroche dans le
+  gabarit du site. Sans la capture : satori ne lit pas le WebP (voir `ogFiche.ts`).
+- **Maillage** : « À lire sur le blogue » sur les fiches, et « Les applications de cet article » sous
+  les articles du blogue (`fichesDeLArticle`), dans les deux langues.
+- **Suivi** : événement GA4 `cta_catalogue` (paramètres `fiche`, `langue`, `destination`) au clic sur
+  les boutons de fin de page du catalogue, seulement après consentement.
+- **Navigation** : « Applications » / « Apps » dans la barre (neuf entrées, seuils `bar` et `horloge`
+  relevés à 1210 et 1260px — **estimés** d'après les chasses de Manrope, à remesurer dans un
+  navigateur), dans le pied de page, et `FamillesApps` qui mène au groupe de l'index quand il a une
+  fiche.
+- **Lot pilote : huit fiches**, Bac à sable compris.
+- **Captures automatisées** : `npm run captures` (`scripts/captures-applications.ts`, Playwright) crée
+  un compte jetable au forfait Entreprise par `scripts/compte-captures.ts` du produit, capture chaque
+  fiche de sa table `SCENARIOS` et supprime le compte à la fin. Éprouvé sur dev le 2026-09-25 : capture
+  du Bac à sable (Calc et un terminal sur `~/Stockage`), et GIMP refait à l'identique de la capture
+  manuelle. Une nouvelle fiche = une ligne dans `SCENARIOS` (mode d'emploi en tête du script).
+
+- **Captures de toutes les fiches publiées** (2026-09-25, soir) : un scénario par fiche dans
+  `SCENARIOS` (apps maison, puis logiciels de bureau), rejouables d'un `npm run captures`. Le compte
+  jetable (`camille.demo@forages-boreal.test`) arrive avec tout ce que les captures montrent : une
+  campagne de forage fictive (classeur, présentation, CSV, son, vidéo, photos, SVG), une équipe de cinq
+  et sa conversation, un workflow, un tableau de bord, des cédules, des titres miniers, des romans du
+  domaine public, un projet KiCad (voir l'en-tête de `compte-captures.ts` du produit). Aucune capture ne
+  dépend d'un calcul ; celles qui montrent l'IA (Assistant, Studio de jeux, Marketplace) sont à relire à
+  chaque séance, la réponse change d'une fois à l'autre.
+
+Reste :
+
+- **Relecture** des fiches (chacune note en tête ce qui reste à vérifier) avant la PR `dev` → `main` —
+  qui emporte aussi le correctif `CarteArticle`. Le Bac à sable suppose en production le correctif
+  `b3e8c304` du produit (le forfait Entreprise ouvre le Bac à sable).
+- **Fiches retenues dans `A_ECRIRE`** : Montage vidéo (licence Remotion), Ardour (son non vérifié),
+  **IntelliJ IDEA et PyCharm** — rebâtis en arm64 par le produit, ils démarrent, mais leur binaire
+  Community ouvre les « JetBrains Community Edition Terms » (Apache 2.0 + plugins propriétaires) : à
+  valider pour un usage hébergé, ou recompiler l'IDE depuis les sources. Les huit autres logiciels rebâtis
+  en arm64 le 2026-09-25 (Audacity, digiKam, Krita, ONLYOFFICE, OpenShot, Shotcut, Zotero, Blender) sont
+  revenus dans `FICHES`, avec leurs captures.
+- **Hébergement Web** : la capture suppose un forfait Entreprise qui inclut l'hébergement
+  (`SubscriptionPlan.includesHosting`, vrai en production, posé sur dev le 2026-09-25).
 
 Objectif : un catalogue public des applications de Cloud OS sur cloudos.ca, dans l'esprit de la
 Logithèque du produit (grille filtrable par catégorie), où **chaque application a sa propre page

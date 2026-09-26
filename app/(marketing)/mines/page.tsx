@@ -222,13 +222,15 @@ export default function MinesPage() {
             <Reveal delay={0.1}>
               <div className="space-y-4 text-[15px] leading-relaxed text-white/85">
                 <p>
-                  L’assistant rédige un premier jet à partir des données de
-                  votre projet : rapport de travaux statutaires MRNF, sections
-                  d’un rapport NI 43-101.
+                  Vous décrivez le projet dans un formulaire — titres visés,
+                  travaux réalisés, résultats — et l’IA en rédige un premier
+                  jet : rapport de travaux statutaires MRNF, sections d’un
+                  rapport NI 43-101.
                 </p>
                 <p>
-                  Vous lui demandez les modifications en langage courant, vous
-                  révisez, vous corrigez, vous signez. Export PDF.
+                  Là où une information manque, elle le signale au lieu de
+                  l’inventer. Vous révisez, vous corrigez, vous signez.
+                  Export PDF.
                 </p>
               </div>
             </Reveal>

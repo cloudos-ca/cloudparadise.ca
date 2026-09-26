@@ -2,8 +2,11 @@ import type { BlogArticle } from "babylovegrowth-next-js-blog";
 import Link from "next/link";
 import { BreadcrumbJsonLd } from "@/components/marketing/BreadcrumbJsonLd";
 import { HreflangLinks } from "@/components/marketing/HreflangLinks";
+import { CarteApplication } from "@/components/marketing/applications/CarteApplication";
 import { LECTURE, SECTION_Y, SHELL, type Lang } from "@/components/marketing/tokens";
+import { libelleApplications } from "@/content/applications/libelles";
 import { libelleBlogue } from "@/content/blogue";
+import { fichesDeLArticle } from "@/lib/applications";
 import { CHEMIN_BLOGUE, corpsSansEntete, jumeaux } from "@/lib/blogue";
 import { ArticleJsonLd } from "./ArticleJsonLd";
 import { formaterDate } from "./dates";
@@ -23,6 +26,10 @@ import { formaterDate } from "./dates";
  * sans pendant ne déclare rien : un hreflang vers un 404 est une erreur
  * Search Console, et même le `x-default` supposerait une version française
  * qu'un article anglais venu de l'API n'a pas.
+ *
+ * Sous l'article, les fiches du catalogue qui le citent (`fichesDeLArticle`) :
+ * le maillage blogue → catalogue, pendant de la section « À lire sur le
+ * blogue » des fiches.
  */
 export function PageArticle({
   article,
@@ -30,6 +37,7 @@ export function PageArticle({
 }: Readonly<{ article: BlogArticle; lang: Lang }>) {
   const index = CHEMIN_BLOGUE[lang];
   const pendant = jumeaux(article.slug, lang);
+  const fiches = fichesDeLArticle(article.slug, lang);
   const publie = formaterDate(article.created_at, lang);
   const misAJour =
     article.updated_at && article.updated_at !== article.created_at
@@ -97,6 +105,21 @@ export function PageArticle({
             }}
           />
         </article>
+
+        {fiches.length > 0 ? (
+          <section className="mt-14">
+            <h2 className="font-display text-xl font-extrabold tracking-tight text-cp-heading">
+              {libelleApplications("applicationsDeLArticle", lang)}
+            </h2>
+            <ul className="mt-5 grid list-none grid-cols-1 gap-6 p-0 sm:grid-cols-2 lg:grid-cols-3">
+              {fiches.map((fiche) => (
+                <li key={fiche.id} className="min-w-0">
+                  <CarteApplication fiche={fiche} lang={lang} />
+                </li>
+              ))}
+            </ul>
+          </section>
+        ) : null}
       </div>
     </section>
   );

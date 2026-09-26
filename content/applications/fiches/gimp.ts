@@ -8,8 +8,9 @@ import type { FicheApplication } from "../types";
  *   (src/lib/marketplace/desktop-apps-catalog.ts) ; ordinateur seulement
  *   (`desktopOnly`, app-registry.tsx).
  * - Un fichier importé depuis Fichiers s'ouvre directement dans GIMP
- *   (`openCmd: "gimp"`, importFilesToDesktopAppAction) ; jusqu'à 20 fichiers
- *   par import.
+ *   (`openCmd: "gimp"`, importFilesToDesktopAppAction). La fenêtre d'import prend un fichier à la
+ *   fois et reste ouverte (desktopApps.importDialogHint) : le plafond de 20 fichiers de l'action
+ *   n'est pas atteignable d'un coup depuis l'interface (corrigé le 2026-09-25).
  * - « Enregistrer » renvoie les fichiers créés ou modifiés dans Fichiers, chacun
  *   comme un nouveau fichier : l'original n'est pas écrasé
  *   (exportDesktopAppFilesAction).
@@ -65,7 +66,7 @@ export const gimp: FicheApplication = {
           "Vous choisissez des images dans l'application Fichiers, et elles s'ouvrent directement dans GIMP. Une fois le travail fait, vous les renvoyez dans Fichiers.",
         ],
         points: [
-          "Jusqu'à 20 fichiers envoyés vers GIMP d'un coup.",
+          "Plusieurs fichiers importés à la suite, sans refermer la fenêtre d'import.",
           "Chaque fichier renvoyé arrive comme un nouveau fichier : l'original n'est jamais écrasé.",
           "Vos fichiers sont hébergés au Québec.",
         ],
@@ -91,7 +92,7 @@ export const gimp: FicheApplication = {
           "You pick images in the Files app, and they open straight in GIMP. Once the work is done, you send them back to Files.",
         ],
         points: [
-          "Up to 20 files sent to GIMP at once.",
+          "Several files imported one after another, without closing the import window.",
           "Every file sent back arrives as a new file: the original is never overwritten.",
           "Your files are hosted in Québec.",
         ],
@@ -112,7 +113,7 @@ export const gimp: FicheApplication = {
       },
       {
         question: "GIMP est-il compris dans l'abonnement ?",
-        reponse: "Oui, dès le forfait Personnel, comme les autres logiciels du bureau. Il n'y a pas de supplément par application.",
+        reponse: "Oui, dès le forfait Personnel, comme les autres logiciels du bureau. Il n'y a pas de frais par application : chaque ouverture compte comme une tâche dans l'enveloppe de votre forfait.",
       },
       {
         question: "Mes images originales risquent-elles d'être écrasées ?",
@@ -126,7 +127,7 @@ export const gimp: FicheApplication = {
       },
       {
         question: "Is GIMP included in the subscription?",
-        reponse: "Yes, from the Personal plan, like the other desktop software. There is no extra charge per app.",
+        reponse: "Yes, from the Personal plan, like the other desktop software. There is no fee per app: each launch counts as one task in your plan's allowance.",
       },
       {
         question: "Could my original images be overwritten?",

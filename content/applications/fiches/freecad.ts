@@ -98,7 +98,7 @@ export const freecad: FicheApplication = {
       },
       {
         question: "FreeCAD est-il compris dans l'abonnement ?",
-        reponse: "Oui, dès le forfait Personnel, comme les autres logiciels du bureau. Il n'y a pas de supplément par application.",
+        reponse: "Oui, dès le forfait Personnel, comme les autres logiciels du bureau. Il n'y a pas de frais par application : chaque ouverture compte comme une tâche dans l'enveloppe de votre forfait.",
       },
       {
         question: "Mes fichiers originaux risquent-ils d'être écrasés ?",
@@ -112,7 +112,7 @@ export const freecad: FicheApplication = {
       },
       {
         question: "Is FreeCAD included in the subscription?",
-        reponse: "Yes, from the Personal plan, like the other desktop software. There is no extra charge per app.",
+        reponse: "Yes, from the Personal plan, like the other desktop software. There is no fee per app: each launch counts as one task in your plan's allowance.",
       },
       {
         question: "Could my original files be overwritten?",
