@@ -138,3 +138,28 @@ export function jsonLdFiche(fiche: FicheApplication, lang: Lang, url: string): R
       };
   return fiche.faq[lang].length > 0 ? [sujet, faq] : [sujet];
 }
+
+/**
+ * Une fiche telle que la lit la Logithèque du produit (`GET /api/applications`) : le texte de la page,
+ * sans ce qui ne sert qu'à vendre ou à référencer — ni FAQ, ni titre SEO, ni mots-clés, ni articles.
+ *
+ * Les voisines sont traduites en ids du produit (la première app de chaque fiche citée) : la Logithèque
+ * les ouvre par ces ids, elle ne connaît pas les clés de fiche. Les captures gardent leur chemin
+ * relatif (`/applications/…`) : le produit les résout contre l'origine d'où il a lu la fiche.
+ */
+export type FicheProduit = Pick<FicheApplication, "id" | "apps" | "nom" | "accroche" | "tiers" | "corps" | "captures"> & {
+  voisines: string[];
+};
+
+export function fichesPourLeProduit(fiches: readonly FicheApplication[] = FICHES): FicheProduit[] {
+  return fiches.map((f) => ({
+    id: f.id,
+    apps: f.apps,
+    nom: f.nom,
+    accroche: f.accroche,
+    ...(f.tiers ? { tiers: f.tiers } : {}),
+    corps: f.corps,
+    captures: f.captures,
+    voisines: voisinesDe(f).flatMap((v) => (v.apps[0] ? [v.apps[0]] : [])),
+  }));
+}
