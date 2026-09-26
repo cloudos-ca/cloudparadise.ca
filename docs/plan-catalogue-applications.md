@@ -1,7 +1,7 @@
 # Plan — catalogue des applications sur la vitrine
 
-Rédigé le 2026-09-25. Statut : **implémenté** (étapes 1 à 3, lot pilote complet) ; restent la
-relecture des huit fiches et les vagues de contenu.
+Rédigé le 2026-09-25. Statut : **implémenté** (étapes 1 à 3, 52 fiches publiées avec leurs captures) ;
+reste la décision sur les fiches retenues (voir « Reste »).
 
 ## Où on en est (2026-09-25)
 
@@ -29,14 +29,28 @@ Fait :
   du Bac à sable (Calc et un terminal sur `~/Stockage`), et GIMP refait à l'identique de la capture
   manuelle. Une nouvelle fiche = une ligne dans `SCENARIOS` (mode d'emploi en tête du script).
 
+- **Captures de toutes les fiches publiées** (2026-09-25, soir) : un scénario par fiche dans
+  `SCENARIOS` (apps maison, puis logiciels de bureau), rejouables d'un `npm run captures`. Le compte
+  jetable (`camille.demo@forages-boreal.test`) arrive avec tout ce que les captures montrent : une
+  campagne de forage fictive (classeur, présentation, CSV, son, vidéo, photos, SVG), une équipe de cinq
+  et sa conversation, un workflow, un tableau de bord, des cédules, des titres miniers, des romans du
+  domaine public, un projet KiCad (voir l'en-tête de `compte-captures.ts` du produit). Aucune capture ne
+  dépend d'un calcul ; celles qui montrent l'IA (Assistant, Studio de jeux, Marketplace) sont à relire à
+  chaque séance, la réponse change d'une fois à l'autre.
+
 Reste :
 
-- **Relecture** des huit fiches (chacune note en tête ce qui reste à vérifier) avant la PR `dev` →
-  `main` — qui emporte aussi le correctif `CarteArticle`. Le Bac à sable suppose en production le
-  correctif `b3e8c304` du produit (le forfait Entreprise ouvre le Bac à sable).
-- **Vagues de contenu** : les ~50 applications de `A_ECRIRE`.
-- Les scénarios de capture des fiches des vagues suivantes (`SCENARIOS`, avec leurs données fictives
-  dans `semerDonnees` de `compte-captures.ts` si besoin).
+- **Relecture** des fiches (chacune note en tête ce qui reste à vérifier) avant la PR `dev` → `main` —
+  qui emporte aussi le correctif `CarteArticle`. Le Bac à sable suppose en production le correctif
+  `b3e8c304` du produit (le forfait Entreprise ouvre le Bac à sable).
+- **Fiches retenues dans `A_ECRIRE`** : Montage vidéo (licence Remotion), Ardour (son non vérifié),
+  **IntelliJ IDEA et PyCharm** — rebâtis en arm64 par le produit, ils démarrent, mais leur binaire
+  Community ouvre les « JetBrains Community Edition Terms » (Apache 2.0 + plugins propriétaires) : à
+  valider pour un usage hébergé, ou recompiler l'IDE depuis les sources. Les huit autres logiciels rebâtis
+  en arm64 le 2026-09-25 (Audacity, digiKam, Krita, ONLYOFFICE, OpenShot, Shotcut, Zotero, Blender) sont
+  revenus dans `FICHES`, avec leurs captures.
+- **Hébergement Web** : la capture suppose un forfait Entreprise qui inclut l'hébergement
+  (`SubscriptionPlan.includesHosting`, vrai en production, posé sur dev le 2026-09-25).
 
 Objectif : un catalogue public des applications de Cloud OS sur cloudos.ca, dans l'esprit de la
 Logithèque du produit (grille filtrable par catégorie), où **chaque application a sa propre page

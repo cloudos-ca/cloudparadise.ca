@@ -187,7 +187,17 @@ export const plans: FicheApplication = {
       },
     ],
   },
-  captures: [],
+  captures: [
+    {
+      src: "/applications/plans/plans-modes.webp",
+      largeur: 1582,
+      hauteur: 942,
+      alt: {
+        fr: "Plans dans Cloud OS : choisir le mode de calcul d'une tâche lancée sur un fichier CSV",
+        en: "Plans in Cloud OS: choosing the compute mode for a task run on a CSV file",
+      },
+    },
+  ],
   voisines: ["workflows", "planification", "rapports", "assistant"],
   articles: [
     { slug: "planification-de-taches-cloud", titre: "Planification de tâches cloud : souveraineté et automatisation pour PME" },

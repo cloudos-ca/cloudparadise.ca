@@ -156,7 +156,17 @@ export const rapports: FicheApplication = {
       },
     ],
   },
-  captures: [],
+  captures: [
+    {
+      src: "/applications/rapports/rapports-tableau-de-bord.webp",
+      largeur: 1582,
+      hauteur: 942,
+      alt: {
+        fr: "Rapports dans Cloud OS : un tableau de bord construit sur un fichier CSV",
+        en: "Reports in Cloud OS: a dashboard built on a CSV file",
+      },
+    },
+  ],
   voisines: ["plans", "planification", "tableur", "workflows"],
   articles: [],
 };

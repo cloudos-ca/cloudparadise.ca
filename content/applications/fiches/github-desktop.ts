@@ -141,7 +141,17 @@ export const githubDesktop: FicheApplication = {
       },
     ],
   },
-  captures: [],
+  captures: [
+    {
+      src: "/applications/github-desktop/github-desktop-accueil.webp",
+      largeur: 1582,
+      hauteur: 942,
+      alt: {
+        fr: "GitHub Desktop dans Cloud OS : l'accueil, avant la connexion à un compte GitHub",
+        en: "GitHub Desktop in Cloud OS: the welcome screen, before signing in to a GitHub account",
+      },
+    },
+  ],
   voisines: ["vscodium", "agent-de-code"],
   articles: [],
 };

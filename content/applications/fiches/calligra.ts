@@ -174,7 +174,17 @@ export const calligra: FicheApplication = {
       },
     ],
   },
-  captures: [],
+  captures: [
+    {
+      src: "/applications/calligra/calligra-suite.webp",
+      largeur: 1582,
+      hauteur: 942,
+      alt: {
+        fr: "Calligra dans Cloud OS : les applications de la suite, prêtes à lancer",
+        en: "Calligra in Cloud OS: the suite's applications, ready to launch",
+      },
+    },
+  ],
   voisines: ["libreoffice", "onlyoffice", "writer"],
   articles: [],
 };

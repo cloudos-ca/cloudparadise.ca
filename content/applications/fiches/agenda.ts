@@ -159,7 +159,17 @@ export const agenda: FicheApplication = {
       },
     ],
   },
-  captures: [],
+  captures: [
+    {
+      src: "/applications/agenda/agenda-mois.webp",
+      largeur: 1582,
+      hauteur: 942,
+      alt: {
+        fr: "L'Agenda de Cloud OS : le mois en cours, avec des rendez-vous et les cédules superposées",
+        en: "The Cloud OS Calendar: the current month, with appointments and scheduled runs overlaid",
+      },
+    },
+  ],
   voisines: ["carnet-adresses", "courriel", "planification"],
   articles: [],
 };

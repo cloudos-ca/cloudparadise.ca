@@ -164,7 +164,17 @@ export const messagerie: FicheApplication = {
       },
     ],
   },
-  captures: [],
+  captures: [
+    {
+      src: "/applications/messagerie/messagerie-equipe.webp",
+      largeur: 1582,
+      hauteur: 942,
+      alt: {
+        fr: "Messagerie dans Cloud OS : la conversation du groupe d'une équipe",
+        en: "Messaging in Cloud OS: a team group conversation",
+      },
+    },
+  ],
   voisines: ["equipes", "courriel", "agenda"],
   articles: [],
 };

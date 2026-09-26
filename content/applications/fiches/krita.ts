@@ -4,7 +4,7 @@ import type { FicheApplication } from "../types";
  * Krita — ÉBAUCHE, à relire avant publication.
  *
  * Faits vérifiés dans le produit (cloudparadise_hpc) le 2026-09-25 :
- * - Krita est l'image `linuxserver/krita`, diffusée dans une fenêtre du bureau
+ * - Krita est l'image `infra/kasm-images/apps/krita` du produit (arm64, 2026-09-25 : LinuxServer.io ne publie `linuxserver/krita` qu'en amd64), diffusée dans une fenêtre du bureau
  *   (src/lib/marketplace/desktop-apps-catalog.ts) ; ordinateur seulement (`desktopOnly`, comme
  *   tous les logiciels de bureau, app-registry.tsx).
  * - Un fichier importé depuis Fichiers s'ouvre directement dans Krita (`openCmd: "krita"`,
@@ -146,7 +146,17 @@ export const krita: FicheApplication = {
       },
     ],
   },
-  captures: [],
+  captures: [
+    {
+      src: "/applications/krita/krita-illustration.webp",
+      largeur: 1582,
+      hauteur: 942,
+      alt: {
+        fr: "Krita dans Cloud OS : une illustration ouverte depuis Fichiers",
+        en: "Krita in Cloud OS: an illustration opened from Files",
+      },
+    },
+  ],
   voisines: ["gimp", "retouche-image", "inkscape"],
   articles: [],
 };

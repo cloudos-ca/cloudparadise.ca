@@ -145,7 +145,17 @@ export const titresMiniers: FicheApplication = {
       },
     ],
   },
-  captures: [],
+  captures: [
+    {
+      src: "/applications/titres-miniers/titres-miniers-echeances.webp",
+      largeur: 1582,
+      hauteur: 942,
+      alt: {
+        fr: "Titres miniers dans Cloud OS : les claims suivis et leurs échéances",
+        en: "Mining Claims in Cloud OS: tracked claims and their deadlines",
+      },
+    },
+  ],
   voisines: ["forages-3d", "donnees-ouvertes", "rapport-exploration"],
   articles: [],
 };

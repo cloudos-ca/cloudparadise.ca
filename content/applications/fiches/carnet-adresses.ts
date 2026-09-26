@@ -164,7 +164,17 @@ export const carnetAdresses: FicheApplication = {
       },
     ],
   },
-  captures: [],
+  captures: [
+    {
+      src: "/applications/carnet-adresses/carnet-contact.webp",
+      largeur: 1582,
+      hauteur: 942,
+      alt: {
+        fr: "Le Carnet d'adresses de Cloud OS : la fiche d'un contact",
+        en: "The Cloud OS Address Book: a contact's details",
+      },
+    },
+  ],
   voisines: ["courriel", "agenda", "messagerie"],
   articles: [],
 };

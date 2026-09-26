@@ -4,7 +4,7 @@ import type { FicheApplication } from "../types";
  * Zotero — ÉBAUCHE, à relire avant publication.
  *
  * Faits vérifiés dans le produit (cloudparadise_hpc) le 2026-09-25 :
- * - Zotero est l'image `linuxserver/zotero`, diffusée dans une fenêtre du bureau
+ * - Zotero est l'image `infra/kasm-images/apps/zotero` du produit (arm64, 2026-09-25 : LinuxServer.io ne publie `linuxserver/zotero` qu'en amd64), diffusée dans une fenêtre du bureau
  *   (src/lib/marketplace/desktop-apps-catalog.ts) ; ordinateur seulement (`desktopOnly`).
  * - PAS d'`openCmd` : un fichier importé depuis Fichiers est seulement copié dans le dossier
  *   « Stockage » de l'application ; on l'importe ensuite soi-même dans Zotero (Fichier > Importer).
@@ -142,7 +142,17 @@ export const zotero: FicheApplication = {
       },
     ],
   },
-  captures: [],
+  captures: [
+    {
+      src: "/applications/zotero/zotero-bibliotheque.webp",
+      largeur: 1582,
+      hauteur: 942,
+      alt: {
+        fr: "Zotero dans Cloud OS : une bibliothèque de romans québécois et la notice de l'un d'eux",
+        en: "Zotero in Cloud OS: a library of Québec novels and the record of one of them",
+      },
+    },
+  ],
   voisines: ["calibre", "writer", "libreoffice"],
   articles: [],
 };

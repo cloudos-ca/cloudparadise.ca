@@ -141,7 +141,17 @@ export const kicad: FicheApplication = {
       },
     ],
   },
-  captures: [],
+  captures: [
+    {
+      src: "/applications/kicad/kicad-circuit.webp",
+      largeur: 1582,
+      hauteur: 942,
+      alt: {
+        fr: "KiCad dans Cloud OS : le circuit imprimé d'un projet de démonstration",
+        en: "KiCad in Cloud OS: the circuit board of a demo project",
+      },
+    },
+  ],
   voisines: ["freecad", "vscodium", "agent-de-code"],
   articles: [],
 };

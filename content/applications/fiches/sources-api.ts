@@ -150,7 +150,17 @@ export const sourcesApi: FicheApplication = {
       },
     ],
   },
-  captures: [],
+  captures: [
+    {
+      src: "/applications/sources-api/sources-api-fournisseurs.webp",
+      largeur: 1582,
+      hauteur: 942,
+      alt: {
+        fr: "Sources de données dans Cloud OS : les fournisseurs d'API qu'on peut activer",
+        en: "Data Sources in Cloud OS: the API providers you can enable",
+      },
+    },
+  ],
   voisines: ["workflows", "plans", "rapports"],
   articles: [],
 };

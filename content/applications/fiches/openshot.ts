@@ -4,7 +4,7 @@ import type { FicheApplication } from "../types";
  * OpenShot — ÉBAUCHE, à relire avant publication.
  *
  * Faits vérifiés dans le produit (cloudparadise_hpc) le 2026-09-25 :
- * - OpenShot est l'image `linuxserver/openshot`, diffusée dans une fenêtre du bureau
+ * - OpenShot est l'image `infra/kasm-images/apps/openshot` du produit (arm64, 2026-09-25 : LinuxServer.io ne publie `linuxserver/openshot` qu'en amd64), diffusée dans une fenêtre du bureau
  *   (src/lib/marketplace/desktop-apps-catalog.ts, « Montage vidéo simple et rapide ») ; ordinateur
  *   seulement (`desktopOnly`, app-registry.tsx). Forfait : `personnel` (GET /api/v1/apps/catalog).
  * - Un fichier importé depuis Fichiers s'ouvre directement dans OpenShot (`openCmd: "openshot-qt"`,
@@ -165,7 +165,17 @@ export const openshot: FicheApplication = {
       },
     ],
   },
-  captures: [],
+  captures: [
+    {
+      src: "/applications/openshot/openshot-projet.webp",
+      largeur: 1582,
+      hauteur: 942,
+      alt: {
+        fr: "OpenShot dans Cloud OS : une vidéo importée depuis Fichiers",
+        en: "OpenShot in Cloud OS: a video imported from Files",
+      },
+    },
+  ],
   voisines: ["kdenlive", "shotcut", "audacity"],
   articles: [
     { slug: "premiere-pro-vs-davinci-resolve", titre: "Premiere Pro vs DaVinci Resolve : quel logiciel choisir en 2026 ?" },

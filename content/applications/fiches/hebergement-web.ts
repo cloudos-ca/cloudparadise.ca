@@ -180,7 +180,17 @@ export const hebergementWeb: FicheApplication = {
       },
     ],
   },
-  captures: [],
+  captures: [
+    {
+      src: "/applications/hebergement-web/hebergement-modeles.webp",
+      largeur: 1582,
+      hauteur: 942,
+      alt: {
+        fr: "Hébergement dans Cloud OS : créer un site à partir d'un modèle",
+        en: "Hosting in Cloud OS: creating a site from a template",
+      },
+    },
+  ],
   voisines: ["courriel", "bac-a-sable", "equipes"],
   articles: [
     { slug: "migration-vers-le-cloud", titre: "Migration vers le cloud : la méthode qui évite les échecs" },

@@ -4,12 +4,13 @@ import type { FicheApplication } from "../types";
  * ONLYOFFICE — ÉBAUCHE, à relire avant publication.
  *
  * Faits vérifiés dans le produit (cloudparadise_hpc) le 2026-09-25 :
- * - ONLYOFFICE est l'image `linuxserver/onlyoffice`, diffusée dans une fenêtre du bureau
+ * - ONLYOFFICE est l'image `infra/kasm-images/apps/onlyoffice` du produit (arm64, 2026-09-25 : LinuxServer.io ne publie `linuxserver/onlyoffice` qu'en amd64), diffusée dans une fenêtre du bureau
  *   (src/lib/marketplace/desktop-apps-catalog.ts, libellé « ONLYOFFICE », « Suite bureautique
  *   compatible Microsoft Office ») ; ordinateur seulement (`desktopOnly`).
  * - L'image installe ONLYOFFICE Desktop Editors, la version de bureau (paquet
  *   onlyoffice-desktopeditors des publications de github.com/ONLYOFFICE/DesktopEditors : Dockerfile
- *   de github.com/linuxserver/docker-onlyoffice, lu le 2026-09-25).
+ *   de github.com/linuxserver/docker-onlyoffice, lu le 2026-09-25 ; l'image arm64 du produit installe le même
+ *   paquet, le `.deb` officiel d'ONLYOFFICE).
  * - Un fichier importé depuis Fichiers s'ouvre directement dans l'éditeur
  *   (`openCmd: "onlyoffice-desktopeditors"`, importFilesToDesktopAppAction) ; jusqu'à 20 fichiers
  *   par import (MAX_IMPORT_FILES).
@@ -160,7 +161,17 @@ export const onlyoffice: FicheApplication = {
       },
     ],
   },
-  captures: [],
+  captures: [
+    {
+      src: "/applications/onlyoffice/onlyoffice-classeur.webp",
+      largeur: 1582,
+      hauteur: 942,
+      alt: {
+        fr: "ONLYOFFICE dans Cloud OS : un classeur Excel et ses formules, importé depuis Fichiers",
+        en: "ONLYOFFICE in Cloud OS: an Excel workbook and its formulas, imported from Files",
+      },
+    },
+  ],
   voisines: ["libreoffice", "writer", "tableur", "calligra"],
   articles: [
     { slug: "onlyoffice-vs-libreoffice", titre: "OnlyOffice vs LibreOffice : quelle suite choisir pour votre PME ?" },

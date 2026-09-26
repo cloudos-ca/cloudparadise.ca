@@ -169,7 +169,17 @@ export const libreoffice: FicheApplication = {
       },
     ],
   },
-  captures: [],
+  captures: [
+    {
+      src: "/applications/libreoffice/libreoffice-impress.webp",
+      largeur: 1582,
+      hauteur: 942,
+      alt: {
+        fr: "LibreOffice Impress dans Cloud OS : une présentation PowerPoint importée depuis Fichiers",
+        en: "LibreOffice Impress in Cloud OS: a PowerPoint presentation imported from Files",
+      },
+    },
+  ],
   voisines: ["writer", "tableur", "onlyoffice", "calligra"],
   articles: [
     { slug: "onlyoffice-vs-libreoffice", titre: "OnlyOffice vs LibreOffice : quelle suite choisir pour votre PME ?" },

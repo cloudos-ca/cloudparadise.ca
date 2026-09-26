@@ -161,7 +161,17 @@ export const donneesOuvertes: FicheApplication = {
       },
     ],
   },
-  captures: [],
+  captures: [
+    {
+      src: "/applications/donnees-ouvertes/donnees-ouvertes-couches.webp",
+      largeur: 1582,
+      hauteur: 942,
+      alt: {
+        fr: "Données ouvertes dans Cloud OS : les couches géoscientifiques du Québec, prêtes à importer",
+        en: "Open Data in Cloud OS: Québec's geoscience layers, ready to import",
+      },
+    },
+  ],
   voisines: ["forages-3d", "titres-miniers", "rapport-exploration", "rapports"],
   articles: [],
 };

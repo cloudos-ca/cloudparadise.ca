@@ -130,7 +130,17 @@ export const navigateur: FicheApplication = {
       },
     ],
   },
-  captures: [],
+  captures: [
+    {
+      src: "/applications/navigateur/navigateur-site.webp",
+      largeur: 1582,
+      hauteur: 942,
+      alt: {
+        fr: "Le Navigateur de Cloud OS : une session de navigation isolée, dans le nuage",
+        en: "The Cloud OS Browser: an isolated browsing session, in the cloud",
+      },
+    },
+  ],
   voisines: ["bac-a-sable", "fichiers", "courriel"],
   articles: [],
 };

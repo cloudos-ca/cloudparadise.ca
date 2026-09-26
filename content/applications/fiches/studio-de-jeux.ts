@@ -178,7 +178,17 @@ export const studioDeJeux: FicheApplication = {
       },
     ],
   },
-  captures: [],
+  captures: [
+    {
+      src: "/applications/studio-de-jeux/studio-de-jeux-accueil.webp",
+      largeur: 1582,
+      hauteur: 942,
+      alt: {
+        fr: "Le Studio de jeux de Cloud OS : décrire le jeu qu'on veut créer",
+        en: "The Cloud OS Game Studio: describing the game you want to build",
+      },
+    },
+  ],
   voisines: ["arcades", "jeux", "agent-de-code"],
   articles: [],
 };

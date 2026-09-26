@@ -4,7 +4,7 @@ import type { FicheApplication } from "../types";
  * Audacity — ÉBAUCHE, à relire avant publication.
  *
  * Faits vérifiés dans le produit (cloudparadise_hpc) le 2026-09-25 :
- * - Audacity est l'image `linuxserver/audacity`, diffusée dans une fenêtre du bureau
+ * - Audacity est l'image `infra/kasm-images/apps/audacity` du produit (arm64, 2026-09-25 : LinuxServer.io ne publie `linuxserver/audacity` qu'en amd64), diffusée dans une fenêtre du bureau
  *   (src/lib/marketplace/desktop-apps-catalog.ts, « Enregistrement et édition audio ») ; ordinateur
  *   seulement (`desktopOnly`, app-registry.tsx). Forfait : `personnel` (GET /api/v1/apps/catalog).
  * - Un fichier importé depuis Fichiers s'ouvre directement dans Audacity (`openCmd: "audacity"`,
@@ -30,7 +30,7 @@ import type { FicheApplication } from "../types";
  * - L'ÉCOUTE : que le son d'Audacity parvient bien au navigateur par le flux KasmVNC. La fiche ne le
  *   promet pas explicitement, mais un éditeur audio sans écoute serait peu utile : à tester avant
  *   publication.
- * - L'export MP3 intégré (Audacity 3.x embarque l'encodeur ; dépend de la version de l'image).
+ * - L'export MP3 intégré (Audacity 3.x embarque l'encodeur ; l'image arm64 installe Audacity 3.7.3 de Debian trixie).
  */
 export const audacity: FicheApplication = {
   id: "audacity",
@@ -168,7 +168,17 @@ export const audacity: FicheApplication = {
       },
     ],
   },
-  captures: [],
+  captures: [
+    {
+      src: "/applications/audacity/audacity-piste.webp",
+      largeur: 1582,
+      hauteur: 942,
+      alt: {
+        fr: "Audacity dans Cloud OS : une piste audio importée depuis Fichiers",
+        en: "Audacity in Cloud OS: an audio track imported from Files",
+      },
+    },
+  ],
   voisines: ["audio", "openshot"],
   articles: [],
 };

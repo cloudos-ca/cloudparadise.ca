@@ -156,7 +156,17 @@ export const assistant: FicheApplication = {
       },
     ],
   },
-  captures: [],
+  captures: [
+    {
+      src: "/applications/assistant/assistant-reponse.webp",
+      largeur: 1582,
+      hauteur: 942,
+      alt: {
+        fr: "L'Assistant de Cloud OS répond à une question sur l'utilisation du bureau",
+        en: "The Cloud OS Assistant answering a question about using the desktop",
+      },
+    },
+  ],
   voisines: ["agent-de-code", "fichiers", "equipes"],
   articles: [],
 };

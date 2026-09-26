@@ -150,7 +150,17 @@ export const calibre: FicheApplication = {
       },
     ],
   },
-  captures: [],
+  captures: [
+    {
+      src: "/applications/calibre/calibre-bibliotheque.webp",
+      largeur: 1582,
+      hauteur: 942,
+      alt: {
+        fr: "Calibre dans Cloud OS : une bibliothèque de romans québécois du domaine public",
+        en: "Calibre in Cloud OS: a library of public-domain Québec novels",
+      },
+    },
+  ],
   voisines: ["zotero", "writer", "libreoffice"],
   articles: [],
 };

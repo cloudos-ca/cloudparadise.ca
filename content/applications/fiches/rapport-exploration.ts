@@ -166,7 +166,17 @@ export const rapportExploration: FicheApplication = {
       },
     ],
   },
-  captures: [],
+  captures: [
+    {
+      src: "/applications/rapport-exploration/rapport-exploration-formulaire.webp",
+      largeur: 1582,
+      hauteur: 942,
+      alt: {
+        fr: "Le Rapport d'exploration de Cloud OS : les faits d'une campagne, avant la rédaction du brouillon",
+        en: "The Cloud OS Exploration Report: a campaign's facts, before the draft is written",
+      },
+    },
+  ],
   voisines: ["titres-miniers", "forages-3d", "donnees-ouvertes"],
   articles: [],
 };

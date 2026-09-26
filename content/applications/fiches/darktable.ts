@@ -190,7 +190,17 @@ export const darktable: FicheApplication = {
       },
     ],
   },
-  captures: [],
+  captures: [
+    {
+      src: "/applications/darktable/darktable-chambre-noire.webp",
+      largeur: 1582,
+      hauteur: 942,
+      alt: {
+        fr: "Darktable dans Cloud OS : une photo ouverte en chambre noire",
+        en: "Darktable in Cloud OS: a photo open in the darkroom",
+      },
+    },
+  ],
   voisines: ["rawtherapee", "digikam", "gimp", "retouche-image"],
   articles: [],
 };

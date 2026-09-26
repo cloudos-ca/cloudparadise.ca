@@ -160,7 +160,17 @@ export const tableur: FicheApplication = {
       },
     ],
   },
-  captures: [],
+  captures: [
+    {
+      src: "/applications/tableur/tableur-classeur.webp",
+      largeur: 1582,
+      hauteur: 942,
+      alt: {
+        fr: "Calc dans Cloud OS : un classeur Excel avec son graphique, ouvert depuis Fichiers",
+        en: "Calc in Cloud OS: an Excel workbook with its chart, opened from Files",
+      },
+    },
+  ],
   voisines: ["writer", "presentation", "libreoffice", "erp"],
   articles: [
     { slug: "onlyoffice-vs-libreoffice", titre: "OnlyOffice vs LibreOffice : quelle suite choisir pour votre PME ?" },

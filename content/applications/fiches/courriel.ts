@@ -169,7 +169,17 @@ export const courriel: FicheApplication = {
       },
     ],
   },
-  captures: [],
+  captures: [
+    {
+      src: "/applications/courriel/courriel-lier.webp",
+      largeur: 1582,
+      hauteur: 942,
+      alt: {
+        fr: "Courriel dans Cloud OS : lier une boîte existante, sur n'importe quel serveur",
+        en: "Mail in Cloud OS: linking an existing mailbox, on any server",
+      },
+    },
+  ],
   voisines: ["carnet-adresses", "agenda", "messagerie", "bureau-assistance"],
   articles: [],
 };

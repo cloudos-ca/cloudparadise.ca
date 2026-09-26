@@ -166,7 +166,17 @@ export const equipes: FicheApplication = {
       },
     ],
   },
-  captures: [],
+  captures: [
+    {
+      src: "/applications/equipes/equipes-membres.webp",
+      largeur: 1582,
+      hauteur: 942,
+      alt: {
+        fr: "Équipes dans Cloud OS : une équipe de cinq membres et ses réglages",
+        en: "Teams in Cloud OS: a five-member team and its settings",
+      },
+    },
+  ],
   voisines: ["fichiers", "messagerie", "agenda", "plans"],
   articles: [
     { slug: "partage-de-fichiers-securise", titre: "Partage de fichiers sécurisé : ce que les équipes doivent exiger" },

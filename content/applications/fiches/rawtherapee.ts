@@ -180,7 +180,17 @@ export const rawtherapee: FicheApplication = {
       },
     ],
   },
-  captures: [],
+  captures: [
+    {
+      src: "/applications/rawtherapee/rawtherapee-editeur.webp",
+      largeur: 1582,
+      hauteur: 942,
+      alt: {
+        fr: "RawTherapee dans Cloud OS : une photo dans l'éditeur, avec son histogramme",
+        en: "RawTherapee in Cloud OS: a photo in the editor, with its histogram",
+      },
+    },
+  ],
   voisines: ["darktable", "digikam", "gimp"],
   articles: [],
 };

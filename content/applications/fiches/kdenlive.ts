@@ -153,7 +153,17 @@ export const kdenlive: FicheApplication = {
       },
     ],
   },
-  captures: [],
+  captures: [
+    {
+      src: "/applications/kdenlive/kdenlive-montage.webp",
+      largeur: 1582,
+      hauteur: 942,
+      alt: {
+        fr: "Kdenlive dans Cloud OS : une vidéo posée sur la ligne de temps, avec sa piste son",
+        en: "Kdenlive in Cloud OS: a video on the timeline, with its audio track",
+      },
+    },
+  ],
   voisines: ["shotcut", "openshot", "audacity"],
   articles: [
     { slug: "premiere-pro-vs-davinci-resolve", titre: "Premiere Pro vs DaVinci Resolve : quel logiciel choisir en 2026 ?" },

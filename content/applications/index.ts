@@ -1,18 +1,23 @@
 import { agenda } from "./fiches/agenda";
+import { blender } from "./fiches/blender";
+import { zotero } from "./fiches/zotero";
+import { shotcut } from "./fiches/shotcut";
+import { openshot } from "./fiches/openshot";
+import { onlyoffice } from "./fiches/onlyoffice";
+import { krita } from "./fiches/krita";
+import { digikam } from "./fiches/digikam";
+import { audacity } from "./fiches/audacity";
 import { agentDeCode } from "./fiches/agent-de-code";
 import { arcades } from "./fiches/arcades";
 import { assistant } from "./fiches/assistant";
-import { audacity } from "./fiches/audacity";
 import { audio } from "./fiches/audio";
 import { bacASable } from "./fiches/bac-a-sable";
-import { blender } from "./fiches/blender";
 import { bureauAssistance } from "./fiches/bureau-assistance";
 import { calibre } from "./fiches/calibre";
 import { calligra } from "./fiches/calligra";
 import { carnetAdresses } from "./fiches/carnet-adresses";
 import { courriel } from "./fiches/courriel";
 import { darktable } from "./fiches/darktable";
-import { digikam } from "./fiches/digikam";
 import { donneesOuvertes } from "./fiches/donnees-ouvertes";
 import { equipes } from "./fiches/equipes";
 import { erp } from "./fiches/erp";
@@ -23,26 +28,20 @@ import { gimp } from "./fiches/gimp";
 import { githubDesktop } from "./fiches/github-desktop";
 import { hebergementWeb } from "./fiches/hebergement-web";
 import { inkscape } from "./fiches/inkscape";
-import { intellijIdea } from "./fiches/intellij-idea";
 import { jeux } from "./fiches/jeux";
 import { kdenlive } from "./fiches/kdenlive";
 import { kicad } from "./fiches/kicad";
-import { krita } from "./fiches/krita";
 import { libreoffice } from "./fiches/libreoffice";
 import { marketplace } from "./fiches/marketplace";
 import { messagerie } from "./fiches/messagerie";
 import { navigateur } from "./fiches/navigateur";
-import { onlyoffice } from "./fiches/onlyoffice";
-import { openshot } from "./fiches/openshot";
 import { planification } from "./fiches/planification";
 import { plans } from "./fiches/plans";
 import { presentation } from "./fiches/presentation";
-import { pycharm } from "./fiches/pycharm";
 import { rapportExploration } from "./fiches/rapport-exploration";
 import { rapports } from "./fiches/rapports";
 import { rawtherapee } from "./fiches/rawtherapee";
 import { retoucheImage } from "./fiches/retouche-image";
-import { shotcut } from "./fiches/shotcut";
 import { sourcesApi } from "./fiches/sources-api";
 import { studioDeJeux } from "./fiches/studio-de-jeux";
 import { tableur } from "./fiches/tableur";
@@ -51,7 +50,6 @@ import { titresMiniers } from "./fiches/titres-miniers";
 import { vscodium } from "./fiches/vscodium";
 import { workflows } from "./fiches/workflows";
 import { writer } from "./fiches/writer";
-import { zotero } from "./fiches/zotero";
 import type { FicheApplication } from "./types";
 
 /**
@@ -97,7 +95,6 @@ export const FICHES: readonly FicheApplication[] = [
   githubDesktop,
   hebergementWeb,
   inkscape,
-  intellijIdea,
   jeux,
   kdenlive,
   kicad,
@@ -111,7 +108,6 @@ export const FICHES: readonly FicheApplication[] = [
   planification,
   plans,
   presentation,
-  pycharm,
   rapportExploration,
   rapports,
   rawtherapee,
@@ -147,6 +143,13 @@ export const A_ECRIRE: readonly string[] = [
   "desktop-vscode",
   "desktop-wps-office",
   "desktop-obsidian",
+  // Fiches écrites, retenues : le binaire Community de JetBrains (rebâti en arm64 par le produit le
+  // 2026-09-25, infra/kasm-images/apps) ouvre au lancement les « JetBrains Community Edition Terms » —
+  // Apache 2.0 PLUS des plugins propriétaires fournis gratuitement. Les fiches s'appuyaient sur le paquet
+  // Arch compilé depuis les sources, pur Apache 2.0. À publier une fois ces conditions validées pour un
+  // usage hébergé, ou l'IDE recompilé depuis les sources.
+  "desktop-intellij-idea",
+  "desktop-pycharm",
 ];
 
 /** Les applications sans fiche : des utilitaires du bureau, qui ne se vendent pas seuls. */

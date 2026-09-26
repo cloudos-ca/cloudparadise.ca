@@ -166,7 +166,17 @@ export const arcades: FicheApplication = {
       },
     ],
   },
-  captures: [],
+  captures: [
+    {
+      src: "/applications/arcades/arcades-recherche.webp",
+      largeur: 1582,
+      hauteur: 942,
+      alt: {
+        fr: "Arcades dans Cloud OS : une recherche de jeux de sudoku dans le catalogue",
+        en: "Arcades in Cloud OS: searching the catalogue for sudoku games",
+      },
+    },
+  ],
   voisines: ["jeux", "studio-de-jeux"],
   articles: [],
 };

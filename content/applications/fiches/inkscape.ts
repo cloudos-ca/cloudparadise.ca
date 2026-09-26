@@ -180,7 +180,17 @@ export const inkscape: FicheApplication = {
       },
     ],
   },
-  captures: [],
+  captures: [
+    {
+      src: "/applications/inkscape/inkscape-vectoriel.webp",
+      largeur: 1582,
+      hauteur: 942,
+      alt: {
+        fr: "Inkscape dans Cloud OS : une illustration vectorielle, une forme sélectionnée",
+        en: "Inkscape in Cloud OS: a vector illustration with a shape selected",
+      },
+    },
+  ],
   voisines: ["gimp", "krita", "retouche-image"],
   articles: [],
 };

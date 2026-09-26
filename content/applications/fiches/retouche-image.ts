@@ -158,7 +158,17 @@ export const retoucheImage: FicheApplication = {
       },
     ],
   },
-  captures: [],
+  captures: [
+    {
+      src: "/applications/retouche-image/retouche-image-minipaint.webp",
+      largeur: 1582,
+      hauteur: 942,
+      alt: {
+        fr: "miniPaint dans Cloud OS : une image ouverte depuis Fichiers pour la retouche par calques",
+        en: "miniPaint in Cloud OS: an image opened from Files for layer-based editing",
+      },
+    },
+  ],
   voisines: ["gimp", "krita", "fichiers"],
   articles: [],
 };

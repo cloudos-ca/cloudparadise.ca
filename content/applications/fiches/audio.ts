@@ -85,7 +85,7 @@ export const audio: FicheApplication = {
         titre: "Ce qu'il faut savoir",
         paragraphes: [
           "Le résultat est toujours enregistré en WAV, un format sans perte, plus lourd qu'un MP3. L'éditeur s'utilise depuis un ordinateur ; il n'est pas proposé sur téléphone.",
-          "Pour enregistrer ou mixer plusieurs pistes, Cloud OS propose aussi Audacity et Ardour, des logiciels audio complets, dans une fenêtre du même bureau.",
+          "Pour enregistrer ou mixer plusieurs pistes, Cloud OS propose aussi Audacity, un logiciel audio complet, dans une fenêtre du même bureau.",
         ],
       },
     ],
@@ -112,7 +112,7 @@ export const audio: FicheApplication = {
         titre: "Good to know",
         paragraphes: [
           "The result is always saved as WAV, a lossless format that is larger than an MP3. The editor is used from a computer; it is not offered on phones.",
-          "To record or mix several tracks, Cloud OS also offers Audacity and Ardour, full audio applications, in a window of the same desktop.",
+          "To record or mix several tracks, Cloud OS also offers Audacity, a full audio application, in a window of the same desktop.",
         ],
       },
     ],
@@ -147,7 +147,17 @@ export const audio: FicheApplication = {
       },
     ],
   },
-  captures: [],
-  voisines: ["audacity"],
+  captures: [
+    {
+      src: "/applications/audio/audio-selection.webp",
+      largeur: 1582,
+      hauteur: 942,
+      alt: {
+        fr: "L'éditeur audio de Cloud OS : la forme d'onde d'une piste, un passage sélectionné",
+        en: "The Cloud OS audio editor: a track's waveform with a passage selected",
+      },
+    },
+  ],
+  voisines: ["audacity", "kdenlive"],
   articles: [],
 };

@@ -157,7 +157,17 @@ export const marketplace: FicheApplication = {
       },
     ],
   },
-  captures: [],
+  captures: [
+    {
+      src: "/applications/marketplace/marketplace-conception.webp",
+      largeur: 1582,
+      hauteur: 942,
+      alt: {
+        fr: "Marketplace dans Cloud OS : l'IA propose une pile de conteneurs pour un projet décrit en français",
+        en: "Marketplace in Cloud OS: the AI proposes a container stack for a project described in plain language",
+      },
+    },
+  ],
   voisines: ["hebergement-web", "bac-a-sable", "agent-de-code"],
   articles: [],
 };

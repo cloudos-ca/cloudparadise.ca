@@ -149,7 +149,17 @@ export const terminal: FicheApplication = {
       },
     ],
   },
-  captures: [],
+  captures: [
+    {
+      src: "/applications/terminal/terminal-fichiers.webp",
+      largeur: 1582,
+      hauteur: 942,
+      alt: {
+        fr: "Le Terminal de Cloud OS : les fichiers de l'espace, au clavier",
+        en: "The Cloud OS Terminal: the space's files, from the keyboard",
+      },
+    },
+  ],
   voisines: ["erp", "agent-de-code", "bac-a-sable", "workflows"],
   articles: [],
 };

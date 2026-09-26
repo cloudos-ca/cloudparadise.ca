@@ -175,7 +175,17 @@ export const fichiers: FicheApplication = {
       },
     ],
   },
-  captures: [],
+  captures: [
+    {
+      src: "/applications/fichiers/fichiers-dossiers.webp",
+      largeur: 1582,
+      hauteur: 942,
+      alt: {
+        fr: "Fichiers dans Cloud OS : les dossiers et documents de l'espace personnel",
+        en: "Files in Cloud OS: the folders and documents of the personal space",
+      },
+    },
+  ],
   voisines: ["writer", "equipes", "bac-a-sable", "gimp"],
   articles: [
     { slug: "partage-de-fichiers-securise", titre: "Partage de fichiers sécurisé : ce que les équipes doivent exiger" },

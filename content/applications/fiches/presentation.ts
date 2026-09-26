@@ -156,7 +156,17 @@ export const presentation: FicheApplication = {
       },
     ],
   },
-  captures: [],
+  captures: [
+    {
+      src: "/applications/presentation/presentation-diapos.webp",
+      largeur: 1582,
+      hauteur: 942,
+      alt: {
+        fr: "Impress dans Cloud OS : une présentation PowerPoint ouverte depuis Fichiers",
+        en: "Impress in Cloud OS: a PowerPoint presentation opened from Files",
+      },
+    },
+  ],
   voisines: ["writer", "tableur", "libreoffice", "onlyoffice"],
   articles: [
     { slug: "onlyoffice-vs-libreoffice", titre: "OnlyOffice vs LibreOffice : quelle suite choisir pour votre PME ?" },

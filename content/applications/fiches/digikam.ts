@@ -15,7 +15,7 @@ import type { FicheApplication } from "../types";
  * temps d'une séance, et dit comment garder étiquettes et notes (les écrire dans les fichiers).
  *
  * Faits vérifiés dans le produit (cloudparadise_hpc) le 2026-09-25 :
- * - Image `linuxserver/digikam`, diffusée dans une fenêtre du bureau ; description du produit :
+ * - Image `infra/kasm-images/apps/digikam` du produit (arm64, 2026-09-25 : LinuxServer.io ne publie `linuxserver/digikam` qu'en amd64), diffusée dans une fenêtre du bureau ; description du produit :
  *   « Gestion et retouche de collections de photos » (src/lib/marketplace/desktop-apps-catalog.ts) ;
  *   ordinateur seulement (`desktopOnly`, app-registry.tsx).
  * - PAS d'`openCmd` : un fichier importé est copié dans le dossier « Stockage » de l'application
@@ -189,7 +189,17 @@ export const digikam: FicheApplication = {
       },
     ],
   },
-  captures: [],
+  captures: [
+    {
+      src: "/applications/digikam/digikam-collection.webp",
+      largeur: 1582,
+      hauteur: 942,
+      alt: {
+        fr: "digiKam dans Cloud OS : une collection de photos",
+        en: "digiKam in Cloud OS: a photo collection",
+      },
+    },
+  ],
   voisines: ["darktable", "rawtherapee", "gimp", "fichiers"],
   articles: [],
 };

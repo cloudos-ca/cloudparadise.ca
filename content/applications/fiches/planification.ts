@@ -153,7 +153,17 @@ export const planification: FicheApplication = {
       },
     ],
   },
-  captures: [],
+  captures: [
+    {
+      src: "/applications/planification/cedules-calendrier.webp",
+      largeur: 1582,
+      hauteur: 942,
+      alt: {
+        fr: "Cédules dans Cloud OS : un rapport et un workflow planifiés chaque semaine, vus au calendrier",
+        en: "Schedules in Cloud OS: a report and a workflow scheduled weekly, in calendar view",
+      },
+    },
+  ],
   voisines: ["plans", "workflows", "rapports", "agenda"],
   articles: [
     { slug: "planification-de-taches-cloud", titre: "Planification de tâches cloud : souveraineté et automatisation pour PME" },

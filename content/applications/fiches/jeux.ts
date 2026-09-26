@@ -179,7 +179,17 @@ export const jeux: FicheApplication = {
       },
     ],
   },
-  captures: [],
+  captures: [
+    {
+      src: "/applications/jeux/jeux-wesnoth.webp",
+      largeur: 1582,
+      hauteur: 942,
+      alt: {
+        fr: "La Bataille pour Wesnoth dans Cloud OS : le menu principal du jeu",
+        en: "The Battle for Wesnoth in Cloud OS: the game's main menu",
+      },
+    },
+  ],
   voisines: ["arcades", "studio-de-jeux"],
   articles: [],
 };

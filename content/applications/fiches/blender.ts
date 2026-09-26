@@ -7,7 +7,8 @@ import type { FicheApplication } from "../types";
  * (src/lib/blender/, src/components/os/apps/blender-editor/) et sa propre mécanique.
  *
  * Faits vérifiés dans le produit (cloudparadise_hpc) le 2026-09-25 :
- * - Le vrai Blender (5.2.0, téléchargé de download.blender.org) dans une image KasmVNC, un conteneur
+ * - Le vrai Blender (4.0.2, paquet Ubuntu arm64 depuis le 2026-09-25 : blender.org ne publie que du x86_64,
+ *   qui ne tournait pas sur les hôtes Graviton) dans une image KasmVNC, un conteneur
  *   par session, diffusé dans une fenêtre du bureau (infra/kasm-images/blender-kasm/Dockerfile ;
  *   src/lib/blender/docker.ts).
  * - Il s'ouvre À PARTIR d'un fichier .blend de Fichiers, et seulement d'un .blend (erreur
@@ -33,7 +34,7 @@ import type { FicheApplication } from "../types";
  *
  * À vérifier à la relecture :
  * - Que la production lance bien l'image sans GPU (sinon la phrase sur l'affichage 3D est trop
- *   prudente) et que la version est toujours Blender 5.2 (non citée dans la fiche).
+ *   prudente). La version (4.0) n'est pas citée dans la fiche : elle suit le paquet Ubuntu.
  * - Que les plans de rendu 3D ont des agents RENDER en ligne en production, et ce qu'ils coûtent en
  *   crédits de calcul : la fiche les cite sans rien promettre sur les délais.
  * - Le libellé de la fonction « Pack Resources » dans l'interface française de Blender 5.2.
@@ -174,7 +175,17 @@ export const blender: FicheApplication = {
       },
     ],
   },
-  captures: [],
+  captures: [
+    {
+      src: "/applications/blender/blender-modele.webp",
+      largeur: 1582,
+      hauteur: 942,
+      alt: {
+        fr: "Blender dans Cloud OS : un modèle 3D de jumelles ouvert depuis Fichiers",
+        en: "Blender in Cloud OS: a 3D model of binoculars opened from Files",
+      },
+    },
+  ],
   voisines: ["freecad", "plans"],
   articles: [],
 };

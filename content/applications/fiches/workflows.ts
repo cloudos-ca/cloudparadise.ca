@@ -162,7 +162,17 @@ export const workflows: FicheApplication = {
       },
     ],
   },
-  captures: [],
+  captures: [
+    {
+      src: "/applications/workflows/workflows-editeur.webp",
+      largeur: 1582,
+      hauteur: 942,
+      alt: {
+        fr: "Workflows dans Cloud OS : une suite de traitements enchaînés, prête à lancer",
+        en: "Workflows in Cloud OS: a chain of processing steps, ready to run",
+      },
+    },
+  ],
   voisines: ["plans", "planification", "rapports"],
   articles: [
     { slug: "planification-de-taches-cloud", titre: "Planification de tâches cloud : souveraineté et automatisation pour PME" },

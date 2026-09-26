@@ -132,7 +132,17 @@ export const vscodium: FicheApplication = {
       },
     ],
   },
-  captures: [],
+  captures: [
+    {
+      src: "/applications/vscodium/vscodium-code.webp",
+      largeur: 1582,
+      hauteur: 942,
+      alt: {
+        fr: "VSCodium dans Cloud OS : un script Python ouvert depuis Fichiers",
+        en: "VSCodium in Cloud OS: a Python script opened from Files",
+      },
+    },
+  ],
   voisines: ["agent-de-code", "github-desktop", "bac-a-sable"],
   articles: [],
 };
