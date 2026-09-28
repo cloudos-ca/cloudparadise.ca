@@ -10,6 +10,11 @@ incomplet : le balayage qui l'avait produit manquait les passages séparés par 
 insécables. L'inventaire ci-dessous est exhaustif — seize passages, vérifiés sur les pages
 publiées.
 
+**Complété le 2026-09-28** avec les trois articles publiés depuis (`meilleur-cloud-securise`,
+`iaas-vs-paas`, `blender-dans-le-cloud`), relevés au moment de leur traduction anglaise : six
+passages de plus, dont un en FAQ. Ils sont déjà corrigés dans les versions anglaises
+(`content/blogue/en/`) ; seul le français reste à reprendre chez BabyLoveGrowth.
+
 ## Les faits morts
 
 | Ce qui est écrit | Ce qui est vrai |
@@ -205,6 +210,115 @@ enrichis Google) :**
 
 Rien à corriger.
 
+## meilleur-cloud-securise — 4 passages
+
+**Remplacer :**
+
+> Cloud OS garde vos données et vos traitements sur des serveurs détenus au Québec, avec un moteur
+> déterministe qui produit des résultats reproductibles plutôt qu'approximatifs, à un tarif
+> transparent, facturé à la tâche ou par abonnement.
+
+**Par :**
+
+> Cloud OS garde vos données et vos traitements sur des serveurs détenus au Québec, avec un moteur
+> déterministe qui produit des résultats reproductibles plutôt qu'approximatifs, dans un abonnement
+> tout compris et transparent, en dollars canadiens.
+
+**Remplacer :**
+
+> Consultez la page tarifs pour comparer le plan Découverte à 10 CAD par mois et le plan Entreprise
+> à 60 CAD par mois.
+
+**Par :**
+
+> Consultez la page tarifs pour comparer les deux forfaits tout compris : Personnel à 10 $ CA par
+> mois et Entreprise à 60 $ CA par mois, chacun avec une enveloppe d'usage mensuelle suivie par une
+> jauge.
+
+**Remplacer :**
+
+> Lancez un essai sur votre propre cas métier, puis vérifiez la reproductibilité des résultats
+> obtenus.
+
+**Par :**
+
+> Lancez l'essai de 14 jours, sans carte, sur votre propre cas métier, puis vérifiez la
+> reproductibilité des résultats obtenus.
+
+*(Pas faux tel quel : c'est la précision qui manque.)*
+
+**Remplacer (réponse de la FAQ « Combien coûte… » — elle alimente aussi les données
+structurées) :**
+
+> Cloud OS propose le plan Découverte à 10 CAD par mois, le plan Entreprise à 60 CAD par mois, et
+> l'Hébergement Web à 9 CAD par mois, selon la page tarifaire du fournisseur. Le modèle repose sur
+> un abonnement ou des crédits prépayés facturés à la tâche.
+
+**Par :**
+
+> Cloud OS propose deux forfaits tout compris, en dollars canadiens : Personnel à 10 $ CA par mois
+> et Entreprise à 60 $ CA par mois, ainsi que l'Hébergement Web à partir de 9 $ CA par mois. Chaque
+> forfait comprend une enveloppe d'usage mensuelle, suivie par une jauge plutôt que facturée à la
+> tâche, et un essai de 14 jours sans carte permet de commencer.
+
+*(Ce passage apparaît deux fois dans l'article, avec des apostrophes différentes — corriger les
+deux occurrences.)*
+
+La phrase « Décomposez le coût total : abonnement ou crédits, transferts de données… » reste : c'est
+un conseil général sur les fournisseurs, pas une description de notre offre.
+
+## iaas-vs-paas — 2 passages
+
+**Remplacer (liste « Pourquoi Cloud OS ») :**
+
+> Une tarification basée sur la consommation réelle, plutôt qu'un investissement fixe dans du
+> matériel serveur.
+
+**Par :**
+
+> Un abonnement mensuel tout compris, avec une jauge d'usage, plutôt qu'un investissement fixe dans
+> du matériel serveur.
+
+**Remplacer :**
+
+> Le plan Découverte de Cloud OS, à 10 CAD par mois, permet justement de tester cette approche sans
+> engagement lourd, avant de considérer le plan Entreprise si les besoins grandissent.
+
+**Par :**
+
+> Cloud OS propose deux forfaits tout compris, Personnel à 10 $ CA par mois et Entreprise à 60 $ CA
+> par mois, chacun avec une enveloppe d'usage mensuelle. L'essai de 14 jours, sans carte, permet
+> justement de tester cette approche sans engagement lourd, et le forfait Entreprise, qui comprend
+> aussi le Bac à sable, prend le relais si les besoins grandissent.
+
+*(Le lien « plan Découverte de Cloud OS » pointe vers /tarifs : garder le lien sur « deux forfaits
+tout compris ».)*
+
+## blender-dans-le-cloud — rien de faux, deux précisions facultatives
+
+L'article ne nomme aucun forfait mort, mais reste vague là où la version anglaise est précise :
+
+**Remplacer :**
+
+> Cloud OS regroupe ses services dans deux formules principales sur sa page tarifs : un plan de base
+> accessible et un plan plus complet pour les besoins d'entreprise.
+
+**Par :**
+
+> Cloud OS regroupe ses services dans deux forfaits tout compris sur sa page tarifs : Personnel, à
+> 10 $ CA par mois, et Entreprise, à 60 $ CA par mois. Chacun comprend une enveloppe d'usage
+> mensuelle avec une jauge : le rendu 3D et le calcul GPU y sont puisés, sans facture à part.
+
+**Remplacer :**
+
+> …et les conditions tarifaires applicables à votre volume d'usage.
+
+**Par :**
+
+> …et l'enveloppe mensuelle du forfait qui convient à votre volume d'usage.
+
+*(La formule d'origine laisse entendre une facturation au volume.)*
+
 ---
 
 ## Vérifier après coup
@@ -212,16 +326,18 @@ Rien à corriger.
 ```bash
 for s in calendrier-partage-entreprise crm-pour-pme migration-vers-le-cloud \
          onlyoffice-vs-libreoffice partage-de-fichiers-securise \
-         premiere-pro-vs-davinci-resolve sso-open-source; do
+         premiere-pro-vs-davinci-resolve sso-open-source \
+         meilleur-cloud-securise iaas-vs-paas blender-dans-le-cloud; do
   curl -s -L "https://cloudparadise.ca/blogue/$s" \
-    | sed -E 's/<[^>]+>/ /g' | sed 's/\xc2\xa0/ /g' | tr '.' '\n' \
-    | grep -iE "à la tâche|par tâche|à l.unité|plan Découverte|plan Pro|Bac à sable à|grille de crédits|\\\$ ?US" \
+    | sed -E 's/<[^>]+>/ /g' | sed 's/\xc2\xa0/ /g' | tr -s ' ' | tr '.' '\n' \
+    | grep -iE "à la tâche|par tâche|à l.unité|plan Découverte|plan Pro|Bac à sable à|grille de crédits|crédits prépayés|consommation réelle|\\\$ ?US" \
     | sed "s|^|$s : |"
 done
 ```
 
 Sortie vide = tous les articles sont à jour. Le balayage normalise les espaces insécables :
-c'est ce qui manquait au premier relevé.
+c'est ce qui manquait au premier relevé. Il réduit aussi les espaces multiples, que le retrait des
+balises laisse quand un lien coupe une expression (« plan  Découverte » dans `iaas-vs-paas`).
 
 Deux familles de faux positifs à ignorer dans cette sortie : les prix en $US de
 `premiere-pro-vs-davinci-resolve` qui sont ceux d'Adobe et de Blackmagic, et le mot
