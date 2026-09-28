@@ -35,7 +35,7 @@ export const metadata: Metadata = {
   openGraph: openGraphPage(TITRE, DESCRIPTION, "en", "/en/privacy", [IMAGE_OG_PARTAGEE]),
 };
 
-const MAJ = "September 17, 2026";
+const MAJ = "September 28, 2026";
 
 /** The designated privacy officer under Law 25, s. 3.1. */
 const RESPONSABLE = "Maxime Murray";
@@ -214,7 +214,7 @@ const SECTIONS: readonly SectionRedigee[] = [
             // souveraineté qu'elle affaiblit sans raison.
             terme: "Audience measurement:",
             texte:
-              "we use Google Analytics, a service of Google LLC: browsing data on this site (pages visited, referrer, device, truncated IP address) is transmitted to Google, which processes it on its own servers, including outside Quebec. This measurement covers the marketing site only: the application carries none. Tracking only starts after your explicit consent (see section 6).",
+              "we use Google Analytics and Google Ads, two services of Google LLC: browsing data on this site (pages visited, referrer, device, truncated IP address) is transmitted to Google, which processes it on its own servers, including outside Quebec. This measurement covers the marketing site only: the application carries none. Tracking only starts after your explicit consent (see section 6).",
           },
         ],
       },
@@ -226,7 +226,7 @@ const SECTIONS: readonly SectionRedigee[] = [
     blocs: [
       "Your information (account, database, files, job results) and processing by the AI assistant are hosted on infrastructure operated by Cloud OS, located in Amos, Quebec, Canada.",
       "Unlike a model relying on external cloud services, the vast majority of processing takes place on our own infrastructure and is not disclosed outside Quebec.",
-      "Two disclosures are likely to result in processing outside Quebec: payment processing by PayPal, and audience measurement of the marketing site by Google Analytics (only after your consent, see section 6). Law 25 requires, before any disclosure of personal information outside Quebec, a privacy impact assessment to verify that the information will benefit from adequate protection. This assessment is underway for both providers, and the disclosures are governed by their applicable terms pending its completion.",
+      "Two disclosures are likely to result in processing outside Quebec: payment processing by PayPal, and audience and ad-conversion measurement of the marketing site by Google Analytics and Google Ads (only after your consent, see section 6). Law 25 requires, before any disclosure of personal information outside Quebec, a privacy impact assessment to verify that the information will benefit from adequate protection. This assessment is underway for both providers, and the disclosures are governed by their applicable terms pending its completion.",
     ],
   },
   {
@@ -238,11 +238,16 @@ const SECTIONS: readonly SectionRedigee[] = [
           {
             terme: "Audience measurement — Google Analytics.",
             texte:
-              "We use Google Analytics 4, a service of Google LLC, to know which pages of this site are visited, how often, where visits come from, and which outbound links are clicked. Google sets cookies for this purpose (_ga, _ga_*), lasting at most two years, and receives the corresponding browsing data, which it processes on its own servers, including outside Quebec. Measurement stops at this site: the application carries no audience-measurement tool. We do not use this information for advertising purposes and have enabled neither Google signals nor ads personalization.",
+              "We use Google Analytics 4, a service of Google LLC, to know which pages of this site are visited, how often, where visits come from, and which outbound links are clicked. Google sets cookies for this purpose (_ga, _ga_*), lasting at most two years, and receives the corresponding browsing data, which it processes on its own servers, including outside Quebec. Measurement stops at this site: the application carries no audience-measurement tool.",
+          },
+          {
+            terme: "Ad conversion measurement — Google Ads.",
+            texte:
+              "We use the Google Ads tag, a service of Google LLC, to measure the effectiveness of our ads: whether a visit coming from a Google ad leads to an action on this site (for example a click to sign up or a contact form submission). Google sets advertising cookies for this purpose (including _gcl_au), lasting at most 90 days, and receives the corresponding browsing data, which it processes on its own servers, including outside Quebec. Like audience measurement, it covers the marketing site only.",
           },
         ],
       },
-      "This tracking only starts once you click “Accept” in the banner shown on your first visit. If you click “Decline”, or make no choice, no audience-measurement cookie is set. You can change your mind at any time by clearing the browsing data stored for this site in your browser settings, which will show the banner again.",
+      "This tracking only starts once you click “Accept” in the banner shown on your first visit. If you click “Decline”, or make no choice, no audience-measurement or advertising cookie is set. You can change your mind at any time by clearing the browsing data stored for this site in your browser settings, which will show the banner again.",
     ],
   },
   {

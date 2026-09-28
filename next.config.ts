@@ -21,8 +21,8 @@ import type { NextConfig } from "next";
  * la recoloration du thème (`--acc`, `--soft`, `--sky`) repose sur des
  * attributs `style=""` en ligne dans de nombreux composants.
  *
- * Seuls tiers autorisés : les hôtes de Google Analytics 4 (gtag.js), listés
- * d'après le guide « Content Security Policy » de la plateforme Google tag —
+ * Seuls tiers autorisés : les hôtes de Google Analytics 4 et de Google Ads
+ * (gtag.js), listés d'après le guide « Content Security Policy » de la plateforme Google tag —
  * le chargeur vient de googletagmanager.com, les mesures partent en `fetch`
  * ou en balise image vers google-analytics.com et analytics.google.com, avec
  * des sous-domaines régionaux (`region1.`…) d'où les jokers. Ils ont remplacé
@@ -50,7 +50,9 @@ const CSP = [
   // www.google.com et www.gstatic.com : le script du défi reCAPTCHA v2 du
   // formulaire de contact (`components/marketing/Recaptcha.tsx`). Sans eux le
   // widget ne se charge pas, et la case n'apparaît jamais.
-  `script-src 'self' 'unsafe-inline'${EVAL_DEV} https://*.googletagmanager.com https://www.google.com https://www.gstatic.com`,
+  // www.googleadservices.com et googleads.g.doubleclick.net : la balise Google
+  // Ads (AW-…, voir GoogleAnalytics.tsx), d'après le guide CSP de Google tag.
+  `script-src 'self' 'unsafe-inline'${EVAL_DEV} https://*.googletagmanager.com https://www.google.com https://www.gstatic.com https://www.googleadservices.com https://googleads.g.doubleclick.net`,
   "style-src 'self' 'unsafe-inline'",
   // Les images d'articles du blogue (vignettes et images dans le corps) sont
   // servies par BabyLoveGrowth depuis deux hosts : le stockage Supabase (relevé
@@ -58,12 +60,14 @@ const CSP = [
   // et media.babylovegrowth.ai (les articles publiés depuis le 2026-09-22).
   // Si un host change, les images du blogue disparaissent sans erreur
   // visible : c'est ici qu'il faut regarder.
-  "img-src 'self' data: blob: https://*.google-analytics.com https://*.googletagmanager.com https://www.gstatic.com https://csuxjmfbwmkxiegfpljm.supabase.co https://media.babylovegrowth.ai",
+  "img-src 'self' data: blob: https://*.google-analytics.com https://*.googletagmanager.com https://www.gstatic.com https://googleads.g.doubleclick.net https://www.google.com https://www.google.ca https://csuxjmfbwmkxiegfpljm.supabase.co https://media.babylovegrowth.ai",
   "font-src 'self'",
-  "connect-src 'self' https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com https://www.google.com",
+  "connect-src 'self' https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com https://www.google.com https://www.google.ca https://www.googleadservices.com https://googleads.g.doubleclick.net https://pagead2.googlesyndication.com",
   // Le défi reCAPTCHA v2 s'affiche dans une iframe servie par Google : sans
   // cette entrée, `frame-src 'none'` la bloque et la case reste vide.
-  "frame-src https://www.google.com",
+  // td.doubleclick.net et www.googletagmanager.com : iframes de mesure de
+  // la balise Google Ads.
+  "frame-src https://www.google.com https://td.doubleclick.net https://www.googletagmanager.com",
   "object-src 'none'",
   "base-uri 'self'",
   "form-action 'self'",
