@@ -11,6 +11,13 @@ import {
 const ID_MESURE = "G-DNL35D2Z78";
 
 /**
+ * Balise Google Ads du compte Cloud OS (mesure des conversions des campagnes).
+ * Même chargeur gtag.js que GA4 : un second `config` suffit, et elle hérite
+ * donc de la même porte de consentement Loi 25 (rien ne part avant « Accepter »).
+ */
+const ID_GOOGLE_ADS = "AW-18480512547";
+
+/**
  * Envoie un événement GA4 — sans effet tant que le visiteur n'a pas accepté
  * les témoins : `gtag` n'existe qu'une fois l'amorce ci-dessous chargée, donc
  * après le consentement. Aucune file d'attente pour les clics d'avant : ils ne
@@ -61,7 +68,8 @@ export function GoogleAnalytics() {
   if (!actif) return null;
 
   // Deux scripts, dans l'ordre du snippet officiel : le chargeur externe,
-  // puis l'amorce inline qui déclare `dataLayer` et configure la propriété.
+  // puis l'amorce inline qui déclare `dataLayer` et configure les deux
+  // destinations (GA4 et Google Ads) — un seul chargeur sert les deux.
   // `afterInteractive` pour les deux — la mesure n'a rien à faire avant
   // l'hydratation. Le domaine des témoins reste en `auto` (défaut de gtag) :
   // il retombe sur `cloudos.ca`, donc apex et www comptent comme un seul site.
@@ -77,6 +85,7 @@ export function GoogleAnalytics() {
           function gtag(){dataLayer.push(arguments);}
           gtag("js", new Date());
           gtag("config", "${ID_MESURE}");
+          gtag("config", "${ID_GOOGLE_ADS}");
         `}
       </Script>
     </>

@@ -35,7 +35,7 @@ export const metadata: Metadata = {
   openGraph: openGraphPage(TITRE, DESCRIPTION, "fr", "/confidentialite", [IMAGE_OG_PARTAGEE]),
 };
 
-const MAJ = "17 septembre 2026";
+const MAJ = "28 septembre 2026";
 
 /** Le responsable désigné au sens de la Loi 25, art. 3.1. */
 const RESPONSABLE = "Maxime Murray";
@@ -218,7 +218,7 @@ const SECTIONS: readonly SectionRedigee[] = [
             // souveraineté qu'elle affaiblit sans raison.
             terme: "Mesure d’audience :",
             texte:
-              "nous utilisons Google Analytics, un service de Google LLC : les données de navigation sur ce site (pages consultées, provenance, appareil, adresse IP tronquée) sont transmises à Google, qui les traite sur ses propres serveurs, situés notamment hors Québec. Cette mesure ne porte que sur le site vitrine : l’application n’en comporte aucune. Le suivi ne démarre qu’après votre consentement explicite (voir la section 6).",
+              "nous utilisons Google Analytics et Google Ads, deux services de Google LLC : les données de navigation sur ce site (pages consultées, provenance, appareil, adresse IP tronquée) sont transmises à Google, qui les traite sur ses propres serveurs, situés notamment hors Québec. Cette mesure ne porte que sur le site vitrine : l’application n’en comporte aucune. Le suivi ne démarre qu’après votre consentement explicite (voir la section 6).",
           },
         ],
       },
@@ -230,7 +230,7 @@ const SECTIONS: readonly SectionRedigee[] = [
     blocs: [
       "Vos renseignements (compte, base de données, fichiers, résultats de tâches) et le traitement par l’assistant d’IA sont hébergés sur l’infrastructure exploitée par Cloud OS, située à Amos (Québec), Canada.",
       "À la différence d’un modèle reposant sur des services infonuagiques externes, la très grande majorité des traitements se déroule sur notre propre infrastructure et ne fait pas l’objet d’une communication hors Québec.",
-      "Deux communications sont susceptibles d’entraîner un traitement hors Québec : le traitement des paiements par PayPal, et la mesure d’audience du site vitrine par Google Analytics (uniquement après votre consentement, voir la section 6). La Loi 25 exige, avant toute communication de renseignements personnels hors Québec, une évaluation des facteurs relatifs à la vie privée afin de vérifier que les renseignements bénéficieront d’une protection adéquate. Cette évaluation est en cours pour ces deux prestataires, et les communications sont encadrées par leurs conditions applicables en attendant sa finalisation.",
+      "Deux communications sont susceptibles d’entraîner un traitement hors Québec : le traitement des paiements par PayPal, et la mesure d’audience et des conversions publicitaires du site vitrine par Google Analytics et Google Ads (uniquement après votre consentement, voir la section 6). La Loi 25 exige, avant toute communication de renseignements personnels hors Québec, une évaluation des facteurs relatifs à la vie privée afin de vérifier que les renseignements bénéficieront d’une protection adéquate. Cette évaluation est en cours pour ces deux prestataires, et les communications sont encadrées par leurs conditions applicables en attendant sa finalisation.",
     ],
   },
   {
@@ -242,11 +242,16 @@ const SECTIONS: readonly SectionRedigee[] = [
           {
             terme: "Mesure d’audience — Google Analytics.",
             texte:
-              "Nous utilisons Google Analytics 4, un service de Google LLC, pour savoir quelles pages de ce site sont consultées, en quel nombre, d’où viennent les visites et quels liens sortants sont cliqués. Google dépose pour cela des témoins (_ga, _ga_*) d’une durée maximale de deux ans et reçoit les données de navigation correspondantes, qu’il traite sur ses propres serveurs, notamment hors Québec. La mesure s’arrête à ce site : l’application ne comporte aucun outil de mesure d’audience. Nous n’utilisons pas ces renseignements à des fins publicitaires et n’avons activé ni les signaux Google ni la personnalisation des annonces.",
+              "Nous utilisons Google Analytics 4, un service de Google LLC, pour savoir quelles pages de ce site sont consultées, en quel nombre, d’où viennent les visites et quels liens sortants sont cliqués. Google dépose pour cela des témoins (_ga, _ga_*) d’une durée maximale de deux ans et reçoit les données de navigation correspondantes, qu’il traite sur ses propres serveurs, notamment hors Québec. La mesure s’arrête à ce site : l’application ne comporte aucun outil de mesure d’audience.",
+          },
+          {
+            terme: "Mesure des conversions publicitaires — Google Ads.",
+            texte:
+              "Nous utilisons la balise Google Ads, un service de Google LLC, pour mesurer l’efficacité de nos annonces : savoir si une visite venue d’une annonce Google aboutit à une action sur ce site (par exemple un clic vers l’inscription ou l’envoi du formulaire de contact). Google dépose pour cela des témoins publicitaires (notamment _gcl_au) d’une durée maximale de 90 jours et reçoit les données de navigation correspondantes, qu’il traite sur ses propres serveurs, notamment hors Québec. Comme la mesure d’audience, elle ne porte que sur le site vitrine.",
           },
         ],
       },
-      "Ce suivi ne démarre qu’après que vous ayez cliqué « Accepter » dans la bannière affichée à votre première visite. Si vous cliquez « Refuser », ou si vous ne faites aucun choix, aucun témoin de mesure d’audience n’est déposé. Vous pouvez changer d’avis en tout temps en effaçant les données de navigation stockées pour ce site depuis les paramètres de votre navigateur, ce qui réaffichera la bannière.",
+      "Ce suivi ne démarre qu’après que vous ayez cliqué « Accepter » dans la bannière affichée à votre première visite. Si vous cliquez « Refuser », ou si vous ne faites aucun choix, aucun témoin de mesure d’audience ni publicitaire n’est déposé. Vous pouvez changer d’avis en tout temps en effaçant les données de navigation stockées pour ce site depuis les paramètres de votre navigateur, ce qui réaffichera la bannière.",
     ],
   },
   {

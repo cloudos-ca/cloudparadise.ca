@@ -1,6 +1,9 @@
 import type { BlogArticle } from "babylovegrowth-next-js-blog";
+import bestSecureCloud from "./best-secure-cloud.json";
+import blenderInTheCloud from "./blender-in-the-cloud.json";
 import cloudTaskScheduling from "./cloud-task-scheduling.json";
 import crmForSmallBusinesses from "./crm-for-small-businesses.json";
+import iaasVsPaas from "./iaas-vs-paas.json";
 import migratingToTheCloud from "./migrating-to-the-cloud.json";
 import onlyofficeVsLibreoffice from "./onlyoffice-vs-libreoffice-for-small-business.json";
 import openSourceSso from "./open-source-sso-which-solution.json";
@@ -66,8 +69,11 @@ export type ArticleTraduit = Pick<
 };
 
 export const TRADUCTIONS: readonly ArticleTraduit[] = [
+  bestSecureCloud,
+  blenderInTheCloud,
   cloudTaskScheduling,
   crmForSmallBusinesses,
+  iaasVsPaas,
   migratingToTheCloud,
   onlyofficeVsLibreoffice,
   openSourceSso,
