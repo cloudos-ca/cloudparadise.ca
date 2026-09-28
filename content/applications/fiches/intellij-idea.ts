@@ -3,33 +3,36 @@ import type { FicheApplication } from "../types";
 /**
  * IntelliJ IDEA Community — ÉBAUCHE, à relire avant publication.
  *
- * LICENCE — le verdict « publiable » dépend de l'image. `linuxserver/intellij-idea` installe le paquet
- * Arch `intellij-idea-community-edition` (2026.2.3 au 2026-09-25), qu'Arch compile depuis le code
- * source ouvert de JetBrains (github.com/JetBrains/intellij-community), sous licence Apache-2.0 : aucune
- * restriction d'usage hébergé. Ce n'est NI la distribution unifiée NI l'édition Ultimate de JetBrains,
- * qui relèvent de leurs conditions commerciales. Si l'image passait un jour au binaire unifié de
- * JetBrains, cette fiche et l'offre elle-même seraient à reprendre (relire le Dockerfile de
- * github.com/linuxserver/docker-intellij-idea à chaque mise à jour majeure).
+ * LICENCE — publication décidée par Maxime le 2026-09-28. L'image est bâtie par le produit pour arm64
+ * (cloudparadise_hpc, infra/kasm-images/apps/intellij-idea/Dockerfile) : binaire Community 2025.2.6.3 téléchargé
+ * chez JetBrains (download.jetbrains.com/idea/ideaIC-*.tar.gz), la dernière édition Community — JetBrains l'a fondue dans ses
+ * produits unifiés, sous licence propriétaire, à partir de la 2025.3. Au lancement, ce binaire affiche
+ * les « JetBrains Community Edition Terms » : code sous Apache 2.0, plus quelques plugins propriétaires
+ * fournis gratuitement. D'où `tiers.licence`, et une fiche qui ne dit plus « compilée depuis les
+ * sources » ni « logiciel libre » tout court. Ce n'est NI la distribution unifiée NI l'édition
+ * Ultimate. Si l'image passait un jour au binaire unifié, la fiche et l'offre seraient à reprendre.
  *
  * Marque : « IntelliJ IDEA » et « JetBrains » sont des marques de JetBrains, employées seulement pour
  * désigner le logiciel ; aucun logo, aucune affiliation suggérée (question dédiée dans la FAQ). Aucune
  * fonction Ultimate citée (pas de Spring, frameworks web, bases de données, profileur).
  *
- * Faits vérifiés le 2026-09-25 :
- * - Image `linuxserver/intellij-idea` (src/lib/marketplace/desktop-apps-catalog.ts), fenêtre du
- *   bureau, ordinateur seulement (`desktopOnly`, app-registry.tsx).
- * - Le paquet Arch dépend de `java-environment-openjdk=21` : un JDK OpenJDK 21 est installé avec
- *   l'IDE (archlinux.org/packages).
+ * Faits vérifiés le 2026-09-25, image revue le 2026-09-28 :
+ * - Image locale `intellij-idea` (imageLocale, src/lib/marketplace/desktop-apps-catalog.ts), fenêtre du bureau,
+ *   ordinateur seulement (`desktopOnly`, app-registry.tsx).
+ * - Un JDK OpenJDK 21 (paquet Debian `openjdk-21-jdk`) est installé avec l'IDE, et Git aussi.
  * - PAS d'`openCmd` (IDE : on ouvre un projet, pas un fichier) : l'import depuis Fichiers dépose les
  *   fichiers dans ~/Stockage sans les ouvrir. Le renvoi vers Fichiers n'est PAS récursif
  *   (listStorageFiles) : un projet Maven/Gradle, fait de sous-dossiers, ne revient pas tel quel. D'où
  *   le passage sur Git.
  * - Session temporaire (RAM), démontée à la fermeture.
+ * - Capture du 2026-09-28 (dev) : conditions JetBrains à accepter à chaque lancement (session neuve),
+ *   puis « Data Sharing » (Don't Send). L'OpenJDK 21 est DÉTECTÉ mais pas posé comme SDK du projet
+ *   (« Project JDK is not defined » → Setup SDK) : la fiche le dit. Notifications « IntelliJ IDEA 2025.3
+ *   available » et invitation à la version unifiée : la fiche dit de les ignorer.
  * - Forfait : `personnel` (GET /api/v1/apps/catalog).
  *
  * À vérifier à la relecture :
- * - Git présent dans l'image : il figure dans les paquets de l'étape finale de
- *   linuxserver/docker-baseimage-selkies (branche arch), mais pas essayé ; accès réseau sortant
+ * - Git installé dans l'image (Dockerfile) mais pas essayé ; accès réseau sortant
  *   (clone/push, téléchargement des dépendances Maven/Gradle) pas essayé non plus.
  * - Ouvrir le logiciel débite l'enveloppe (chargeForJob « MARKETPLACE ») : pas de « sans supplément ».
  */
@@ -39,8 +42,8 @@ export const intellijIdea: FicheApplication = {
   slug: { fr: "intellij-idea", en: "intellij-idea" },
   nom: { fr: "IntelliJ IDEA Community", en: "IntelliJ IDEA Community" },
   tiers: {
-    editeur: "JetBrains (édition Community, compilée par Arch Linux)",
-    licence: "Apache-2.0",
+    editeur: "JetBrains (édition Community 2025.2)",
+    licence: "Apache-2.0, avec les JetBrains Community Edition Terms",
     site: "https://github.com/JetBrains/intellij-community",
   },
   titre: {
@@ -55,13 +58,13 @@ export const intellijIdea: FicheApplication = {
       en: "IntelliJ IDEA Community online: Java IDE — Cloud OS",
     },
     description: {
-      fr: "Programmez en Java et en Kotlin avec l'édition libre d'IntelliJ IDEA, dans le navigateur : JDK déjà installé, rien sur votre poste, hébergé au Québec.",
-      en: "Write Java and Kotlin with the free, open-source edition of IntelliJ IDEA, right in your browser: JDK already installed, nothing on your computer.",
+      fr: "Programmez en Java et en Kotlin avec l'édition gratuite d'IntelliJ IDEA, dans le navigateur : JDK déjà installé, rien sur votre poste, hébergé au Québec.",
+      en: "Write Java and Kotlin with the free Community edition of IntelliJ IDEA, right in your browser: JDK already installed, nothing on your computer.",
     },
   },
   accroche: {
-    fr: "L'édition libre d'IntelliJ IDEA, avec un JDK déjà installé, dans votre navigateur.",
-    en: "The open-source edition of IntelliJ IDEA, with a JDK already installed, in your browser.",
+    fr: "L'édition gratuite d'IntelliJ IDEA, avec un JDK déjà installé, dans votre navigateur.",
+    en: "The free Community edition of IntelliJ IDEA, with a JDK already installed, in your browser.",
   },
   motsCles: {
     fr: ["intellij idea en ligne", "ide java en ligne", "intellij community", "intellij sans installation", "programmer en java dans le navigateur"],
@@ -70,10 +73,10 @@ export const intellijIdea: FicheApplication = {
   corps: {
     fr: [
       {
-        titre: "L'édition libre d'IntelliJ IDEA",
+        titre: "L'édition gratuite d'IntelliJ IDEA",
         paragraphes: [
-          "IntelliJ IDEA est un environnement de développement pour Java et Kotlin : complétion et analyse du code, refactorisation, débogueur, exécution des tests, projets Maven et Gradle. Cloud OS diffuse son édition libre (Community), compilée à partir du code source ouvert publié par JetBrains, sous licence Apache 2.0.",
-          "Un JDK (OpenJDK 21) est installé avec l'IDE : vous créez un projet et le compilez tout de suite. Les fonctions réservées à l'édition payante de JetBrains ne font pas partie de cette édition.",
+          "IntelliJ IDEA est un environnement de développement pour Java et Kotlin : complétion et analyse du code, refactorisation, débogueur, exécution des tests, projets Maven et Gradle. Cloud OS diffuse son édition gratuite (Community), dans sa dernière version, 2025.2 : son code est publié par JetBrains sous licence Apache 2.0.",
+          "Un JDK (OpenJDK 21) est installé avec l'IDE : IntelliJ IDEA le détecte, vous le choisissez comme SDK du projet et vous compilez. Les fonctions réservées à l'édition payante de JetBrains ne font pas partie de cette édition.",
         ],
       },
       {
@@ -87,15 +90,16 @@ export const intellijIdea: FicheApplication = {
         titre: "Ce qu'il faut savoir",
         paragraphes: [
           "La session d'IntelliJ IDEA est temporaire : ce qui n'est ni renvoyé dans Fichiers ni poussé dans votre dépôt disparaît à la fermeture, réglages et dépendances téléchargées compris. IntelliJ IDEA s'utilise depuis un ordinateur ; il n'est pas proposé sur téléphone.",
+          "À chaque ouverture, IntelliJ IDEA affiche les conditions d'utilisation de l'édition Community de JetBrains, à accepter pour continuer. L'IDE propose aussi de passer à la version unifiée de JetBrains : ce n'est pas l'édition diffusée par Cloud OS, ignorez ces invitations.",
         ],
       },
     ],
     en: [
       {
-        titre: "The open-source edition of IntelliJ IDEA",
+        titre: "The free Community edition of IntelliJ IDEA",
         paragraphes: [
-          "IntelliJ IDEA is a development environment for Java and Kotlin: code completion and analysis, refactoring, a debugger, test running, Maven and Gradle projects. Cloud OS runs its free, open-source edition (Community), built from the source code JetBrains publishes under the Apache 2.0 licence.",
-          "A JDK (OpenJDK 21) is installed with the IDE: you create a project and build it right away. Features reserved for JetBrains' paid edition are not part of this edition.",
+          "IntelliJ IDEA is a development environment for Java and Kotlin: code completion and analysis, refactoring, a debugger, test running, Maven and Gradle projects. Cloud OS runs its free edition (Community), in its latest release, 2025.2: JetBrains publishes its code under the Apache 2.0 licence.",
+          "A JDK (OpenJDK 21) is installed with the IDE: IntelliJ IDEA detects it, you pick it as the project SDK and you build. Features reserved for JetBrains' paid edition are not part of this edition.",
         ],
       },
       {
@@ -109,6 +113,7 @@ export const intellijIdea: FicheApplication = {
         titre: "Good to know",
         paragraphes: [
           "An IntelliJ IDEA session is temporary: anything neither sent back to Files nor pushed to your repository is gone when it closes, settings and downloaded dependencies included. IntelliJ IDEA is used from a computer; it is not offered on phones.",
+          "Each time it opens, IntelliJ IDEA shows the JetBrains terms for the Community edition, which you accept to continue. The IDE also offers to move to JetBrains' unified version: that is not the edition Cloud OS provides, so ignore those prompts.",
         ],
       },
     ],
@@ -117,11 +122,11 @@ export const intellijIdea: FicheApplication = {
     fr: [
       {
         question: "Quelle édition d'IntelliJ IDEA est proposée ?",
-        reponse: "L'édition libre (Community), compilée à partir du code source ouvert de JetBrains, sous licence Apache 2.0. Les fonctions de l'édition payante n'y sont pas.",
+        reponse: "L'édition gratuite (Community) 2025.2, la dernière publiée par JetBrains, dont le code est sous licence Apache 2.0. Les fonctions de l'édition payante n'y sont pas.",
       },
       {
         question: "Cloud OS est-il lié à JetBrains ?",
-        reponse: "Non. Cloud OS diffuse tel quel ce logiciel libre, compilé à partir de son code source ouvert. Cloud OS n'est ni affilié à JetBrains ni approuvé par JetBrains.",
+        reponse: "Non. Cloud OS diffuse tel quel ce logiciel, dans la version gratuite distribuée par JetBrains. Cloud OS n'est ni affilié à JetBrains ni approuvé par JetBrains.",
       },
       {
         question: "Mon projet est-il conservé après la fermeture ?",
@@ -135,11 +140,11 @@ export const intellijIdea: FicheApplication = {
     en: [
       {
         question: "Which edition of IntelliJ IDEA is offered?",
-        reponse: "The free, open-source edition (Community), built from JetBrains' open-source code under the Apache 2.0 licence. The paid edition's features are not included.",
+        reponse: "The free edition (Community) 2025.2, the last one JetBrains released, whose code is under the Apache 2.0 licence. The paid edition's features are not included.",
       },
       {
         question: "Is Cloud OS connected to JetBrains?",
-        reponse: "No. Cloud OS runs this open-source software as is, built from its public source code. Cloud OS is not affiliated with or endorsed by JetBrains.",
+        reponse: "No. Cloud OS runs this software as is, in the free version distributed by JetBrains. Cloud OS is not affiliated with or endorsed by JetBrains.",
       },
       {
         question: "Is my project kept after closing?",
@@ -151,7 +156,17 @@ export const intellijIdea: FicheApplication = {
       },
     ],
   },
-  captures: [],
+  captures: [
+    {
+      src: "/applications/intellij-idea/intellij-idea-code.webp",
+      largeur: 1582,
+      hauteur: 942,
+      alt: {
+        fr: "IntelliJ IDEA Community dans Cloud OS : une classe Java importée depuis Fichiers",
+        en: "IntelliJ IDEA Community in Cloud OS: a Java class imported from Files",
+      },
+    },
+  ],
   voisines: ["pycharm", "vscodium", "github-desktop", "agent-de-code"],
   articles: [],
 };

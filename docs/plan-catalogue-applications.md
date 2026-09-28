@@ -43,12 +43,16 @@ Reste :
 - **Relecture** des fiches (chacune note en tête ce qui reste à vérifier) avant la PR `dev` → `main` —
   qui emporte aussi le correctif `CarteArticle`. Le Bac à sable suppose en production le correctif
   `b3e8c304` du produit (le forfait Entreprise ouvre le Bac à sable).
-- **Fiches retenues dans `A_ECRIRE`** : Montage vidéo (licence Remotion), Ardour (son non vérifié),
-  **IntelliJ IDEA et PyCharm** — rebâtis en arm64 par le produit, ils démarrent, mais leur binaire
-  Community ouvre les « JetBrains Community Edition Terms » (Apache 2.0 + plugins propriétaires) : à
-  valider pour un usage hébergé, ou recompiler l'IDE depuis les sources. Les huit autres logiciels rebâtis
-  en arm64 le 2026-09-25 (Audacity, digiKam, Krita, ONLYOFFICE, OpenShot, Shotcut, Zotero, Blender) sont
-  revenus dans `FICHES`, avec leurs captures.
+- **Fiches retenues dans `A_ECRIRE`** : Montage vidéo (licence Remotion, relue le 2026-09-28 : gratuite
+  jusqu'à trois personnes seulement, silencieuse sur un éditeur hébergé — à trancher) et Ardour (le pont son
+  existe, mais l'écoute de bout en bout sur dev n'est pas faite). Les huit autres logiciels rebâtis en arm64
+  le 2026-09-25 (Audacity, digiKam, Krita, ONLYOFFICE, OpenShot, Shotcut, Zotero, Blender) sont revenus dans
+  `FICHES`, avec leurs captures.
+- **2026-09-28** : **IntelliJ IDEA et PyCharm** publiés (décision de Maxime : les « JetBrains Community
+  Edition Terms » conviennent à l'usage hébergé), fiches corrigées — binaire Community 2025.2 de JetBrains,
+  plus « compilé par Arch » — et captures prises (conditions acceptées, « Don't Send », fichier importé).
+  **Enregistreur** et **Caméra**, nouveaux au produit, passent de `SANS_FICHE` à `FICHES`, avec captures
+  (données semées par `compte-captures.ts` : dossiers « Enregistrements » et « Caméra »).
 - **Hébergement Web** : la capture suppose un forfait Entreprise qui inclut l'hébergement
   (`SubscriptionPlan.includesHosting`, vrai en production, posé sur dev le 2026-09-25).
 

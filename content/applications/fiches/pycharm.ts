@@ -3,31 +3,35 @@ import type { FicheApplication } from "../types";
 /**
  * PyCharm Community — ÉBAUCHE, à relire avant publication.
  *
- * LICENCE — le verdict « publiable » dépend de l'image. `linuxserver/pycharm` installe le paquet Arch
- * `pycharm-community-edition` (2026.2.3 au 2026-09-25), qu'Arch compile depuis le code source ouvert
- * de JetBrains (github.com/JetBrains/intellij-community), sous licence Apache-2.0 : aucune restriction
- * d'usage hébergé. Ce n'est NI la distribution unifiée NI l'édition Professional de JetBrains, qui
- * relèvent de leurs conditions commerciales. Si l'image passait un jour au binaire unifié de JetBrains,
- * cette fiche et l'offre elle-même seraient à reprendre (relire le Dockerfile de
- * github.com/linuxserver/docker-pycharm à chaque mise à jour majeure).
+ * LICENCE — publication décidée par Maxime le 2026-09-28. L'image est bâtie par le produit pour arm64
+ * (cloudparadise_hpc, infra/kasm-images/apps/pycharm/Dockerfile) : binaire Community 2025.2.6.2 téléchargé
+ * chez JetBrains (download.jetbrains.com/python/pycharm-community-*.tar.gz), la dernière édition Community — JetBrains l'a fondue dans ses
+ * produits unifiés, sous licence propriétaire, à partir de la 2025.3. Au lancement, ce binaire affiche
+ * les « JetBrains Community Edition Terms » : code sous Apache 2.0, plus quelques plugins propriétaires
+ * fournis gratuitement. D'où `tiers.licence`, et une fiche qui ne dit plus « compilée depuis les
+ * sources » ni « logiciel libre » tout court. Ce n'est NI la distribution unifiée NI l'édition
+ * Professional. Si l'image passait un jour au binaire unifié, la fiche et l'offre seraient à reprendre.
  *
  * Marque : « PyCharm » et « JetBrains » sont des marques de JetBrains, employées seulement pour
  * désigner le logiciel ; aucun logo, aucune affiliation suggérée (question dédiée dans la FAQ). Aucune
  * fonction Professional citée (pas de Django/Flask, bases de données, Jupyter, développement web).
  *
- * Faits vérifiés le 2026-09-25 :
- * - Image `linuxserver/pycharm` (src/lib/marketplace/desktop-apps-catalog.ts), fenêtre du bureau,
+ * Faits vérifiés le 2026-09-25, image revue le 2026-09-28 :
+ * - Image locale `pycharm` (imageLocale, src/lib/marketplace/desktop-apps-catalog.ts), fenêtre du bureau,
  *   ordinateur seulement (`desktopOnly`, app-registry.tsx).
- * - Le paquet Arch dépend de `python` : Python 3 est installé avec l'IDE (archlinux.org/packages).
+ * - Python 3 (`python3`, `python3-venv`, `python3-pip`, paquets Debian) est installé avec l'IDE, et Git aussi.
  * - PAS d'`openCmd` (IDE : on ouvre un projet, pas un fichier) : l'import depuis Fichiers dépose les
  *   fichiers dans ~/Stockage sans les ouvrir. Le renvoi vers Fichiers n'est PAS récursif
  *   (listStorageFiles) : un projet avec sous-dossiers ne revient pas tel quel. D'où le passage sur Git.
  * - Session temporaire (RAM), démontée à la fermeture.
+ * - Capture du 2026-09-28 (dev) : conditions JetBrains à accepter à chaque lancement (session neuve),
+ *   puis « Data Sharing » (Don't Send). Python 3.13 posé d'office comme interpréteur du projet.
+ *   Bulle, onglet « What's New » et bouton « Update Now » vers le PyCharm unifié (propriétaire, un mois
+ *   de Pro) : la fiche dit de les ignorer.
  * - Forfait : `personnel` (GET /api/v1/apps/catalog).
  *
  * À vérifier à la relecture :
- * - Git présent dans l'image : il figure dans les paquets de l'étape finale de
- *   linuxserver/docker-baseimage-selkies (branche arch), mais pas essayé ; accès réseau sortant
+ * - Git installé dans l'image (Dockerfile) mais pas essayé ; accès réseau sortant
  *   (clone/push) pas essayé non plus.
  * - Ouvrir le logiciel débite l'enveloppe (chargeForJob « MARKETPLACE ») : pas de « sans supplément ».
  */
@@ -37,8 +41,8 @@ export const pycharm: FicheApplication = {
   slug: { fr: "pycharm", en: "pycharm" },
   nom: { fr: "PyCharm Community", en: "PyCharm Community" },
   tiers: {
-    editeur: "JetBrains (édition Community, compilée par Arch Linux)",
-    licence: "Apache-2.0",
+    editeur: "JetBrains (édition Community 2025.2)",
+    licence: "Apache-2.0, avec les JetBrains Community Edition Terms",
     site: "https://github.com/JetBrains/intellij-community",
   },
   titre: {
@@ -53,13 +57,13 @@ export const pycharm: FicheApplication = {
       en: "PyCharm Community online: Python IDE, no install — Cloud OS",
     },
     description: {
-      fr: "Programmez en Python avec l'édition libre de PyCharm, directement dans le navigateur : Python déjà installé, rien sur votre poste, hébergé au Québec.",
-      en: "Write Python with the free, open-source edition of PyCharm, right in your browser: Python already installed, nothing on your computer, hosted in Québec.",
+      fr: "Programmez en Python avec l'édition gratuite de PyCharm, directement dans le navigateur : Python déjà installé, rien sur votre poste, hébergé au Québec.",
+      en: "Write Python with the free Community edition of PyCharm, right in your browser: Python already installed, nothing on your computer, hosted in Québec.",
     },
   },
   accroche: {
-    fr: "L'édition libre de PyCharm, avec Python déjà installé, dans votre navigateur.",
-    en: "The open-source edition of PyCharm, with Python already installed, in your browser.",
+    fr: "L'édition gratuite de PyCharm, avec Python déjà installé, dans votre navigateur.",
+    en: "The free Community edition of PyCharm, with Python already installed, in your browser.",
   },
   motsCles: {
     fr: ["pycharm en ligne", "ide python en ligne", "pycharm community", "pycharm sans installation", "programmer en python dans le navigateur"],
@@ -68,9 +72,9 @@ export const pycharm: FicheApplication = {
   corps: {
     fr: [
       {
-        titre: "L'édition libre de PyCharm",
+        titre: "L'édition gratuite de PyCharm",
         paragraphes: [
-          "PyCharm est un environnement de développement Python : éditeur avec complétion et vérification du code, refactorisation, débogueur, exécution des tests, environnements virtuels. Cloud OS diffuse son édition libre (Community), compilée à partir du code source ouvert publié par JetBrains, sous licence Apache 2.0.",
+          "PyCharm est un environnement de développement Python : éditeur avec complétion et vérification du code, refactorisation, débogueur, exécution des tests, environnements virtuels. Cloud OS diffuse son édition gratuite (Community), dans sa dernière version, 2025.2 : son code est publié par JetBrains sous licence Apache 2.0.",
           "Python 3 est installé avec l'IDE : vous créez un projet et l'exécutez tout de suite, sans rien préparer. Les fonctions réservées à l'édition payante de JetBrains ne font pas partie de cette édition.",
         ],
       },
@@ -85,14 +89,15 @@ export const pycharm: FicheApplication = {
         titre: "Ce qu'il faut savoir",
         paragraphes: [
           "La session de PyCharm est temporaire : ce qui n'est ni renvoyé dans Fichiers ni poussé dans votre dépôt disparaît à la fermeture, réglages et paquets installés compris. PyCharm s'utilise depuis un ordinateur ; il n'est pas proposé sur téléphone.",
+          "À chaque ouverture, PyCharm affiche les conditions d'utilisation de l'édition Community de JetBrains, à accepter pour continuer. L'IDE propose aussi de passer au PyCharm unifié de JetBrains : ce n'est pas l'édition diffusée par Cloud OS, ignorez ces invitations.",
         ],
       },
     ],
     en: [
       {
-        titre: "The open-source edition of PyCharm",
+        titre: "The free Community edition of PyCharm",
         paragraphes: [
-          "PyCharm is a Python development environment: an editor with code completion and inspections, refactoring, a debugger, test running, virtual environments. Cloud OS runs its free, open-source edition (Community), built from the source code JetBrains publishes under the Apache 2.0 licence.",
+          "PyCharm is a Python development environment: an editor with code completion and inspections, refactoring, a debugger, test running, virtual environments. Cloud OS runs its free edition (Community), in its latest release, 2025.2: JetBrains publishes its code under the Apache 2.0 licence.",
           "Python 3 is installed with the IDE: you create a project and run it right away, with no setup. Features reserved for JetBrains' paid edition are not part of this edition.",
         ],
       },
@@ -107,6 +112,7 @@ export const pycharm: FicheApplication = {
         titre: "Good to know",
         paragraphes: [
           "A PyCharm session is temporary: anything neither sent back to Files nor pushed to your repository is gone when it closes, settings and installed packages included. PyCharm is used from a computer; it is not offered on phones.",
+          "Each time it opens, PyCharm shows the JetBrains terms for the Community edition, which you accept to continue. The IDE also offers to move to JetBrains' unified PyCharm: that is not the edition Cloud OS provides, so ignore those prompts.",
         ],
       },
     ],
@@ -115,11 +121,11 @@ export const pycharm: FicheApplication = {
     fr: [
       {
         question: "Quelle édition de PyCharm est proposée ?",
-        reponse: "L'édition libre (Community), compilée à partir du code source ouvert de JetBrains, sous licence Apache 2.0. Les fonctions de l'édition payante n'y sont pas.",
+        reponse: "L'édition gratuite (Community) 2025.2, la dernière publiée par JetBrains, dont le code est sous licence Apache 2.0. Les fonctions de l'édition payante n'y sont pas.",
       },
       {
         question: "Cloud OS est-il lié à JetBrains ?",
-        reponse: "Non. Cloud OS diffuse tel quel ce logiciel libre, compilé à partir de son code source ouvert. Cloud OS n'est ni affilié à JetBrains ni approuvé par JetBrains.",
+        reponse: "Non. Cloud OS diffuse tel quel ce logiciel, dans la version gratuite distribuée par JetBrains. Cloud OS n'est ni affilié à JetBrains ni approuvé par JetBrains.",
       },
       {
         question: "Mon projet est-il conservé après la fermeture ?",
@@ -133,11 +139,11 @@ export const pycharm: FicheApplication = {
     en: [
       {
         question: "Which edition of PyCharm is offered?",
-        reponse: "The free, open-source edition (Community), built from JetBrains' open-source code under the Apache 2.0 licence. The paid edition's features are not included.",
+        reponse: "The free edition (Community) 2025.2, the last one JetBrains released, whose code is under the Apache 2.0 licence. The paid edition's features are not included.",
       },
       {
         question: "Is Cloud OS connected to JetBrains?",
-        reponse: "No. Cloud OS runs this open-source software as is, built from its public source code. Cloud OS is not affiliated with or endorsed by JetBrains.",
+        reponse: "No. Cloud OS runs this software as is, in the free version distributed by JetBrains. Cloud OS is not affiliated with or endorsed by JetBrains.",
       },
       {
         question: "Is my project kept after closing?",
@@ -149,7 +155,17 @@ export const pycharm: FicheApplication = {
       },
     ],
   },
-  captures: [],
+  captures: [
+    {
+      src: "/applications/pycharm/pycharm-code.webp",
+      largeur: 1582,
+      hauteur: 942,
+      alt: {
+        fr: "PyCharm Community dans Cloud OS : un script Python importé depuis Fichiers",
+        en: "PyCharm Community in Cloud OS: a Python script imported from Files",
+      },
+    },
+  ],
   voisines: ["intellij-idea", "vscodium", "agent-de-code"],
   articles: [],
 };
