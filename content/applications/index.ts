@@ -14,11 +14,13 @@ import { audio } from "./fiches/audio";
 import { bacASable } from "./fiches/bac-a-sable";
 import { bureauAssistance } from "./fiches/bureau-assistance";
 import { calibre } from "./fiches/calibre";
+import { camera } from "./fiches/camera";
 import { calligra } from "./fiches/calligra";
 import { carnetAdresses } from "./fiches/carnet-adresses";
 import { courriel } from "./fiches/courriel";
 import { darktable } from "./fiches/darktable";
 import { donneesOuvertes } from "./fiches/donnees-ouvertes";
+import { enregistreur } from "./fiches/enregistreur";
 import { equipes } from "./fiches/equipes";
 import { erp } from "./fiches/erp";
 import { fichiers } from "./fiches/fichiers";
@@ -28,6 +30,7 @@ import { gimp } from "./fiches/gimp";
 import { githubDesktop } from "./fiches/github-desktop";
 import { hebergementWeb } from "./fiches/hebergement-web";
 import { inkscape } from "./fiches/inkscape";
+import { intellijIdea } from "./fiches/intellij-idea";
 import { jeux } from "./fiches/jeux";
 import { kdenlive } from "./fiches/kdenlive";
 import { kicad } from "./fiches/kicad";
@@ -38,6 +41,7 @@ import { navigateur } from "./fiches/navigateur";
 import { planification } from "./fiches/planification";
 import { plans } from "./fiches/plans";
 import { presentation } from "./fiches/presentation";
+import { pycharm } from "./fiches/pycharm";
 import { rapportExploration } from "./fiches/rapport-exploration";
 import { rapports } from "./fiches/rapports";
 import { rawtherapee } from "./fiches/rawtherapee";
@@ -81,11 +85,13 @@ export const FICHES: readonly FicheApplication[] = [
   bureauAssistance,
   calibre,
   calligra,
+  camera,
   carnetAdresses,
   courriel,
   darktable,
   digikam,
   donneesOuvertes,
+  enregistreur,
   equipes,
   erp,
   fichiers,
@@ -95,6 +101,7 @@ export const FICHES: readonly FicheApplication[] = [
   githubDesktop,
   hebergementWeb,
   inkscape,
+  intellijIdea,
   jeux,
   kdenlive,
   kicad,
@@ -108,6 +115,7 @@ export const FICHES: readonly FicheApplication[] = [
   planification,
   plans,
   presentation,
+  pycharm,
   rapportExploration,
   rapports,
   rawtherapee,
@@ -131,10 +139,16 @@ export const FICHES: readonly FicheApplication[] = [
  */
 export const A_ECRIRE: readonly string[] = [
   // Fiche écrite (fiches/montage-video.ts), retenue : l'éditeur vidéo est un fork de clip-js, qui
-  // dépend de Remotion — licence d'entreprise payante au-delà de trois personnes.
+  // dépend de Remotion. Licence relue le 2026-09-28 (github.com/remotion-dev/remotion, LICENSE.md) :
+  // gratuite pour un particulier, un OBNL ou une entreprise de trois personnes au plus, sinon licence
+  // d'entreprise ; elle interdit aussi de revendre « your own derivate of Remotion » et ne dit rien
+  // d'un éditeur hébergé offert à des clients. Doute non levé : à trancher (licence achetée, accord
+  // écrit de Remotion, ou éditeur sans Remotion) avant de publier.
   "video-editor",
   // Fiche écrite (fiches/ardour.ts), retenue : l'écoute du son à travers la session n'est pas
-  // vérifiée, et sans son la fiche ne tient pas.
+  // vérifiée, et sans son la fiche ne tient pas. Le pont son existe depuis le 2026-09-26
+  // (cloudparadise_hpc, infra/stream-bridge), mais sa recette de bout en bout sur dev, à l'oreille
+  // (plan 2026-09-26-son-et-micro, tâche 10 étape 3), n'est pas cochée au 2026-09-28.
   "desktop-ardour",
   // Licences qui interdisent l'offre hébergée : pas de fiche, et à retirer du produit lui-même.
   // VS Code : binaire Microsoft (« provide the software as a stand-alone offering for others to
@@ -143,13 +157,6 @@ export const A_ECRIRE: readonly string[] = [
   "desktop-vscode",
   "desktop-wps-office",
   "desktop-obsidian",
-  // Fiches écrites, retenues : le binaire Community de JetBrains (rebâti en arm64 par le produit le
-  // 2026-09-25, infra/kasm-images/apps) ouvre au lancement les « JetBrains Community Edition Terms » —
-  // Apache 2.0 PLUS des plugins propriétaires fournis gratuitement. Les fiches s'appuyaient sur le paquet
-  // Arch compilé depuis les sources, pur Apache 2.0. À publier une fois ces conditions validées pour un
-  // usage hébergé, ou l'IDE recompilé depuis les sources.
-  "desktop-intellij-idea",
-  "desktop-pycharm",
 ];
 
 /** Les applications sans fiche : des utilitaires du bureau, qui ne se vendent pas seuls. */
@@ -160,9 +167,4 @@ export const SANS_FICHE: readonly string[] = [
   "calculator",
   "documentation",
   "monitor",
-  // Ajoutées au produit le 2026-09-28, groupe `system` dans /api/v1/apps/catalog : des accessoires
-  // du bureau (micro, webcam), comme la calculatrice. L'Enregistreur transcrit aussi : s'il devient
-  // un argument de vente, il passera dans A_ECRIRE.
-  "recorder",
-  "camera",
 ];

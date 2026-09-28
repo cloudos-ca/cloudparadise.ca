@@ -286,6 +286,19 @@ const MAISON: Scenario[] = [
     },
   },
   {
+    // La Caméra ouvre le viseur et demande la caméra (boîte du bureau) : on la refuse — le Chromium du script
+    // n'a pas de caméra — et on capture la galerie, semée par compte-captures.ts (« Caméra »).
+    fiche: "camera", app: "camera", titre: "Caméra", nom: "camera-galerie",
+    alt: alt("La Caméra de Cloud OS : la galerie des photos et d'une vidéo, rangées dans Fichiers", "The Cloud OS Webcam app: the gallery of photos and a video, stored in Files"),
+    avant: async (fenetre, page) => {
+      const refuser = page.getByRole("button", { name: "Refuser", exact: true });
+      await refuser.waitFor({ timeout: 10_000 }).then(() => refuser.click()).catch(() => undefined);
+      await fenetre.getByRole("button", { name: "Galerie", exact: true }).click();
+      await fenetre.getByRole("button", { name: /^Photo 2026-09-27/ }).first().waitFor({ timeout: 30_000 });
+      await dormir(4000); // les vignettes (images et première image de la vidéo) se chargent
+    },
+  },
+  {
     fiche: "audio", app: "files", titre: "Fichiers", nom: "audio-selection",
     alt: alt("L'éditeur audio de Cloud OS : la forme d'onde d'une piste, un passage sélectionné", "The Cloud OS audio editor: a track's waveform with a passage selected"),
     avant: async (fichiers, page) => {
@@ -311,6 +324,15 @@ const MAISON: Scenario[] = [
     fiche: "donnees-ouvertes", app: "open-data", titre: "Données ouvertes", nom: "donnees-ouvertes-couches",
     alt: alt("Données ouvertes dans Cloud OS : les couches géoscientifiques du Québec, prêtes à importer", "Open Data in Cloud OS: Québec's geoscience layers, ready to import"),
     avant: async (fenetre) => { await fenetre.getByText("Indices — Or (Au)").first().click(); await dormir(2000); },
+  },
+  {
+    fiche: "enregistreur", app: "recorder", titre: "Enregistreur", nom: "enregistreur-transcription",
+    alt: alt("L'Enregistreur de Cloud OS : un compte rendu de réunion enregistré, et sa transcription", "The Cloud OS Recorder: a recorded site meeting and its transcript"),
+    avant: async (fenetre) => {
+      await fenetre.getByText("Réunion de chantier Lac-Vert.mp3", { exact: true }).first().click();
+      await fenetre.getByText(/Point rapide sur la campagne/).waitFor({ timeout: 30_000 });
+      await dormir(2000);
+    },
   },
   {
     fiche: "equipes", app: "teams", titre: "Équipes", nom: "equipes-membres",
@@ -659,8 +681,56 @@ const BUREAU: Scenario[] = [
     },
   },
   // --- Les logiciels rebâtis en arm64 par le produit (infra/kasm-images/apps, blender-kasm), 2026-09-25.
-  // IntelliJ IDEA et PyCharm n'ont pas de scénario : leur binaire Community ouvre au lancement des
-  // conditions JetBrains à accepter (plugins propriétaires inclus), voir A_ECRIRE.
+  {
+    fiche: "intellij-idea", app: "desktop-intellij-idea", titre: "IntelliJ IDEA", nom: "intellij-idea-code",
+    alt: alt("IntelliJ IDEA Community dans Cloud OS : une classe Java importée depuis Fichiers", "IntelliJ IDEA Community in Cloud OS: a Java class imported from Files"),
+    flux: { pret: PRET }, repos: 8000,
+    avant: async (fenetre, page) => {
+      await dormir(40_000);
+      await clic(fenetre, page, 29, 606); // « I confirm… » des JetBrains Community Edition Terms
+      await dormir(1500);
+      await clic(fenetre, page, 1057, 633); // « Continue »
+      await dormir(8000);
+      await clic(fenetre, page, 907, 633); // « Don't Send » : pas de statistiques envoyées à JetBrains
+      await dormir(15_000);
+      await importer("ResumeSondages.java", ["analyse-sondages"])(fenetre);
+      await dormir(3000);
+      await clic(fenetre, page, 628, 268); // « Open » de l'accueil
+      await dormir(4000);
+      await page.keyboard.press("Control+A");
+      await taper(page, `/config/Stockage/ResumeSondages.java\n`);
+      await dormir(30_000);
+      await clic(fenetre, page, 1038, 146); // « Setup SDK » du bandeau « Project JDK is not defined »
+      await dormir(8000);
+      await clic(fenetre, page, 885, 174); // « 21 Java 21.0.12 » : l'OpenJDK 21 de l'image, détecté
+      await dormir(20_000);
+    },
+  },
+  {
+    fiche: "pycharm", app: "desktop-pycharm", titre: "PyCharm", nom: "pycharm-code",
+    alt: alt("PyCharm Community dans Cloud OS : un script Python importé depuis Fichiers", "PyCharm Community in Cloud OS: a Python script imported from Files"),
+    flux: { pret: PRET }, repos: 8000,
+    avant: async (fenetre, page) => {
+      await dormir(40_000);
+      await clic(fenetre, page, 29, 606); // « I confirm… » des JetBrains Community Edition Terms
+      await dormir(1500);
+      await clic(fenetre, page, 1057, 633); // « Continue »
+      await dormir(8000);
+      await clic(fenetre, page, 907, 633); // « Don't Send » : pas de statistiques envoyées à JetBrains
+      await dormir(15_000);
+      await importer("resume_sondages.py", ["analyse-sondages"])(fenetre);
+      await dormir(3000);
+      await clic(fenetre, page, 670, 268); // « Open » de l'accueil
+      await dormir(4000);
+      await page.keyboard.press("Control+A");
+      await taper(page, `/config/Stockage/resume_sondages.py\n`);
+      await dormir(30_000);
+      await clic(fenetre, page, 976, 357); // « Skip » : la bulle qui pousse vers le PyCharm unifié (propriétaire)
+      await dormir(2000);
+      await clic(fenetre, page, 665, 118); // ferme l'onglet « What's New in PyCharm »
+      await dormir(20_000); // l'indexation
+    },
+  },
   {
     fiche: "audacity", app: "desktop-audacity", titre: "Audacity", nom: "audacity-piste",
     alt: alt("Audacity dans Cloud OS : une piste audio importée depuis Fichiers", "Audacity in Cloud OS: an audio track imported from Files"),
