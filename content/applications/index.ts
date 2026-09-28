@@ -160,4 +160,9 @@ export const SANS_FICHE: readonly string[] = [
   "calculator",
   "documentation",
   "monitor",
+  // Ajoutées au produit le 2026-09-28, groupe `system` dans /api/v1/apps/catalog : des accessoires
+  // du bureau (micro, webcam), comme la calculatrice. L'Enregistreur transcrit aussi : s'il devient
+  // un argument de vente, il passera dans A_ECRIRE.
+  "recorder",
+  "camera",
 ];
