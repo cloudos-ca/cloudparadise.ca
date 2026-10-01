@@ -24,6 +24,7 @@ import {
   IconSearch,
   IconSparkles,
   IconUsers,
+  IconVideo,
   IconWindow,
 } from "@/components/marketing/icons";
 import { SECTION_Y, SHELL } from "@/components/marketing/tokens";
@@ -112,6 +113,12 @@ const EQUIPE: Carte[] = [
     Icone: IconMessage,
     titre: "Messaging",
     texte: "Channels, direct messages, presence.",
+  },
+  {
+    Icone: IconVideo,
+    titre: "Meetings",
+    texte:
+      "Video meetings for up to 25 people, guests by link, screen sharing, transcribed recordings.",
   },
   {
     Icone: IconMail,
@@ -250,7 +257,7 @@ export default function PlateformePageEn() {
         id="equipe"
         surtitre="The team"
         titre="The same desktop, together."
-        texte="Create team desktops, invite whoever you want, approve access. Messaging, email and calendar are already inside."
+        texte="Create team desktops, invite whoever you want, approve access. Messaging, video meetings, email and calendar are already inside."
         cartes={EQUIPE}
       />
 
@@ -361,7 +368,7 @@ function SectionAncre({
           </p>
         </Reveal>
 
-        <Reveal delay={0.1} className="mt-10 grid gap-3.5 sm:grid-cols-2">
+        <Reveal delay={0.1} className="mt-10 grid gap-3.5 sm:grid-cols-2 sm:[&>*:last-child:nth-child(odd)]:col-span-2">
           {cartes.map(({ Icone, titre, texte }) => (
             <div
               key={titre}

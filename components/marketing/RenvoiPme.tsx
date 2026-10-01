@@ -37,7 +37,7 @@ const TEXTES = {
     // phrase qui fait le plus de travail — elle ne pouvait pas disparaître.
     titre: "Le poste de travail des PME québécoises.",
     texte:
-      "Sans département informatique. Vos documents, vos chiffres et vos médias dans le même espace de travail. Vous décrivez ce que vous voulez obtenir, le calcul se fait chez nous — rien à installer, personne à embaucher.",
+      "Sans département informatique. Vos documents, vos chiffres et vos médias dans le même espace de travail. Vous décrivez ce que vous voulez obtenir, le calcul se fait en ligne — rien à installer, personne à embaucher.",
     // Les trois métiers de la page, puis les quatre fenêtres de la section
     // « À plusieurs ». Sans les articles des sur-titres : une pastille nomme,
     // elle ne fait pas de phrase.
@@ -58,7 +58,7 @@ const TEXTES = {
     eyebrow: "Small business",
     titre: "The workstation for Canadian businesses.",
     texte:
-      "No IT department required. Your documents, your numbers and your media in one workspace. Describe what you want back — the heavy work runs on our hardware. Nothing to install, nobody to hire.",
+      "No IT department required. Your documents, your numbers and your media in one workspace. Describe what you want back — the heavy work runs online. Nothing to install, nobody to hire.",
     etiquettes: [
       "Accounting",
       "Administration",

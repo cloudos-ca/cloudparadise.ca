@@ -15,6 +15,13 @@ publiées.
 passages de plus, dont un en FAQ. Ils sont déjà corrigés dans les versions anglaises
 (`content/blogue/en/`) ; seul le français reste à reprendre chez BabyLoveGrowth.
 
+**Complété le 2026-10-01** de la même façon avec `meilleur-agenda-en-ligne`, `cad-a-distance` et
+`publier-api-internes` : six passages faux, une phrase à retirer (lien placé) et trois précisions
+facultatives.
+
+**Complété le 2026-10-01 (bis)** par une seconde famille de faits morts, qui touche douze articles :
+l'hébergement et l'IA. Voir la section « Hébergement et IA » en fin de relevé.
+
 ## Les faits morts
 
 | Ce qui est écrit | Ce qui est vrai |
@@ -220,9 +227,12 @@ Rien à corriger.
 
 **Par :**
 
-> Cloud OS garde vos données et vos traitements sur des serveurs détenus au Québec, avec un moteur
-> déterministe qui produit des résultats reproductibles plutôt qu'approximatifs, dans un abonnement
-> tout compris et transparent, en dollars canadiens.
+> Cloud OS héberge vos données au Canada, dans la région de Montréal, avec un moteur déterministe
+> qui produit des résultats reproductibles plutôt qu'approximatifs, dans un abonnement tout compris
+> et transparent, en dollars canadiens.
+
+*(Remplacement revu le 2026-10-01 : « serveurs détenus au Québec » est faux depuis la migration —
+voir la section « Hébergement et IA » plus bas.)*
 
 **Remplacer :**
 
@@ -319,6 +329,371 @@ L'article ne nomme aucun forfait mort, mais reste vague là où la version angla
 
 *(La formule d'origine laisse entendre une facturation au volume.)*
 
+## meilleur-agenda-en-ligne — 4 passages, une précision facultative
+
+**Remplacer** le tableau des plans :
+
+> | Découverte | 10 $ par mois | Indépendants et petites équipes qui testent l'environnement |
+> | Entreprise | 60 $ par mois | PME avec besoins d'intégration et d'automatisation |
+> | Hébergement Web | 9 $ par mois | Entreprises qui veulent héberger leur site en parallèle |
+
+**Par :**
+
+> | Personnel | 10 $ CA par mois | Travailleurs autonomes et utilisateurs individuels qui découvrent l'environnement |
+> | Entreprise | 60 $ CA par mois | PME avec une équipe (jusqu'à 25 membres) et des besoins d'intégration et d'automatisation |
+> | Hébergement Web | 9 $ CA par mois | Entreprises qui veulent héberger leur site en parallèle (un site est inclus dans Entreprise) |
+
+*(Personnel ne permet pas de créer une équipe, seulement d'en rejoindre une : « petites équipes »
+est retiré de sa ligne.)*
+
+**Remplacer :**
+
+> Consultez la page tarifs pour comparer les plans Découverte et Entreprise selon la taille de votre
+> équipe.
+
+**Par :**
+
+> Consultez la page tarifs pour comparer les forfaits Personnel et Entreprise selon la taille de
+> votre équipe.
+
+**Remplacer :**
+
+> Le mode de tarification qui convient à votre usage, abonnement mensuel ou paiement à l'usage.
+
+**Par :**
+
+> Le forfait qui convient à votre usage, Personnel ou Entreprise, et la durée d'engagement.
+
+*(Cloud OS n'a pas de paiement à l'usage. La mention générique de la checklist du début de
+l'article, qui parle des fournisseurs en général, reste juste.)*
+
+**Remplacer :**
+
+> …détaille comment Cloud OS gère les données de forage et les calculs GESTIM.
+
+**Par :**
+
+> …détaille comment Cloud OS gère les données de forage, les titres miniers et les couches GESTIM.
+
+*(GESTIM n'offre aucun service interrogeable : Cloud OS en affiche les couches, il ne fait pas de
+« calculs GESTIM ».)*
+
+**Remplacer (facultatif, rien de faux) :**
+
+> (consultez le site de Cloud OS pour les détails sur ces plans)
+
+**Par :**
+
+> (les deux forfaits commencent par un essai gratuit de 14 jours, sans carte ; consultez le site de
+> Cloud OS pour le détail)
+
+*(À noter aussi : le paragraphe « Sources » cite une « fiche Google Calendar sur Capterra » et un
+« cadre canadien sur la souveraineté numérique » absents des liens de l'article. La version
+anglaise cite ce qui est réellement lié : la fiche Beesbusy sur Capterra, le comparatif G2 et le
+guide du gouvernement du Canada sur les risques de sécurité et de vie privée.)*
+
+## cad-a-distance — 2 passages, deux précisions facultatives
+
+**Remplacer** (dans « En bref ») :
+
+> La solution Cloud OS propose un calcul reproductible et sécurisé, hébergé au Québec, avec des
+> plans d'abonnement à partir de 10 € par mois pour tester la plateforme avant un déploiement
+> complet.
+
+**Par :**
+
+> La solution Cloud OS propose un calcul reproductible et sécurisé, hébergé au Québec, avec deux
+> forfaits tout compris à partir de 10 $ CA par mois et un essai gratuit de 14 jours pour tester la
+> plateforme avant un déploiement complet.
+
+*(Prix en euros.)*
+
+**Remplacer :**
+
+> Le calcul lourd et le rendu 3D peuvent se payer à la tâche, sans capital immobilisé dans du
+> matériel.
+
+**Par :**
+
+> Le calcul lourd et le rendu 3D sont puisés dans l'enveloppe mensuelle du forfait, avec une jauge
+> qui dit où vous en êtes : pas de facture à la tâche, ni de capital immobilisé dans du matériel.
+
+**Remplacer (facultatif, imprécis plutôt que faux) :**
+
+> Des plans d'abonnement démarrent à 10 $ par mois, avec des options plus avancées disponibles,
+> détaillés sur la page tarifs.
+
+**Par :**
+
+> Deux forfaits tout compris : Personnel à 10 $ CA par mois et Entreprise à 60 $ CA par mois, avec
+> un essai gratuit de 14 jours sans carte, détaillés sur la page tarifs.
+
+**Remplacer (facultatif, dans la FAQ : corps et fiche FAQ) :**
+
+> Des plans d'abonnement démarrent à 10 $ par mois et peuvent aller plus haut, détaillés sur la
+> page tarifs.
+
+**Par :**
+
+> Cloud OS propose deux forfaits tout compris : Personnel à 10 $ CA par mois et Entreprise à 60 $ CA
+> par mois, chacun avec une enveloppe d'usage mensuelle suivie par une jauge, détaillés sur la page
+> tarifs. L'essai gratuit de 14 jours se fait sans carte.
+
+## publier-api-internes — une précision, une phrase à retirer
+
+L'article ne nomme aucun forfait mort, mais sa dernière section laisse entendre que Cloud OS
+héberge les services et les API des clients.
+
+**Remplacer :**
+
+> Pour une PME qui veut héberger ses services sans gérer d'infrastructure séparée, des plans
+> d'abonnement adaptés offrent un point de départ simple pour centraliser bureautique,
+> collaboration et automatisation de tâches lourdes dans un même espace.
+
+**Par :**
+
+> Cloud OS n'est pas une passerelle d'API : le forfait Entreprise comprend un Bac à sable, un
+> bureau persistant où votre équipe construit et teste un service avant de le publier, à côté de
+> la bureautique, de la collaboration et de l'automatisation des tâches lourdes. Deux forfaits tout
+> compris, Personnel à 10 $ CA par mois et Entreprise à 60 $ CA par mois, chacun avec son
+> enveloppe mensuelle et sa jauge, et un essai de 14 jours sans carte.
+
+**Retirer :**
+
+> Pour des exemples concrets d'intégration de contrats API, la ressource SynaptixPlatform illustre
+> des pratiques de gouvernance applicables aux API internes.
+
+*(Le lien mène à l'accueil d'un éditeur polonais d'automatisation industrielle, sans rapport avec
+la gouvernance d'API : vraisemblablement un lien placé. La version anglaise ne reprend pas la
+phrase.)*
+
+## Hébergement et IA — passages devenus faux avec la migration (relevé du 2026-10-01)
+
+Depuis la migration de septembre 2026, Cloud OS n'héberge plus rien sur du matériel qui lui
+appartient : les données sont chez un fournisseur infonuagique, au Canada (région de Montréal), et
+l'IA comme le calcul GPU passent par des services tiers, hors Québec. La règle, fixée le 2026-10-01
+dans `PLAN_CONTENU_VITRINE.md` : écrire « données hébergées au Canada, dans la région de
+Montréal », jamais « serveurs détenus », « traitements au Québec », « exclusivement au Québec » ni
+« ne quittent jamais » ; aucun nom de fournisseur dans les articles (c'est la politique de
+confidentialité qui les nomme). Les versions anglaises sont déjà corrigées.
+
+« Hébergé au Québec » ou « infrastructure québécoise », dit des **données**, reste vrai (la région de
+Montréal est au Québec) : ces mentions-là ne sont pas relevées.
+
+### cad-a-distance — 2 passages
+
+**Remplacer :**
+
+> L'hébergement peut se faire sur des serveurs détenus au Québec, ce qui importe pour les PME
+> manipulant des plans confidentiels ou des données de forage sensibles.
+
+**Par :**
+
+> Les données sont hébergées au Canada, dans la région de Montréal, ce qui importe pour les PME
+> manipulant des plans confidentiels ou des données de forage sensibles.
+
+**Remplacer :**
+
+> Cloud OS héberge exclusivement ses serveurs au Québec, ce qui répond aux exigences de souveraineté
+> pour les données sensibles.
+
+**Par :**
+
+> Cloud OS héberge ses données au Canada, dans la région de Montréal, sur des volumes chiffrés, et sa
+> politique de confidentialité nomme chaque sous-traitant et le lieu où il traite les données.
+
+*(Dans la FAQ : corps de l'article et fiche FAQ.)*
+
+### calendrier-partage-entreprise — 1 passage
+
+**Remplacer :**
+
+> …avec vos données qui restent sur des serveurs détenus localement plutôt que dispersées chez
+> plusieurs fournisseurs étrangers.
+
+**Par :**
+
+> …avec vos données hébergées au Canada plutôt que dispersées chez plusieurs fournisseurs.
+
+### iaas-vs-paas — 1 passage
+
+**Remplacer :**
+
+> Le maintien des données et des traitements sur une infrastructure détenue et hébergée au Québec,
+> un enjeu de souveraineté numérique…
+
+**Par :**
+
+> Le maintien des données au Canada, dans la région de Montréal, un enjeu de souveraineté
+> numérique…
+
+### meilleur-agenda-en-ligne — 1 passage
+
+**Remplacer :**
+
+> …avec un moteur déterministe qui garantit des résultats constants, et des serveurs hébergés
+> localement.
+
+**Par :**
+
+> …avec un moteur déterministe qui garantit des résultats constants, et des données hébergées au
+> Canada.
+
+### meilleur-cloud-securise — 2 passages (plus le remplacement revu plus haut)
+
+**Remplacer :**
+
+> Cloud OS héberge ses données et traitements exclusivement au Québec, un critère qui répond
+> directement aux exigences de vérification de souveraineté décrites plus haut.
+
+**Par :**
+
+> Cloud OS héberge ses données au Canada, dans la région de Montréal, sur des volumes chiffrés, et
+> sa politique de confidentialité nomme chaque sous-traitant et le lieu où il traite les données —
+> exactement ce que cherchent les vérifications de souveraineté décrites plus haut.
+
+**Remplacer :**
+
+> Hébergement et traitement des données sur des serveurs détenus au Québec.
+
+**Par :**
+
+> Données hébergées au Canada, dans la région de Montréal, sur des volumes chiffrés.
+
+### migration-vers-le-cloud — 1 passage
+
+**Remplacer :**
+
+> Cloud OS répond à cette préoccupation en gardant les traitements sur une infrastructure détenue
+> localement à Québec, avec une tarification qui suit l'usage réel plutôt qu'un engagement fixe et
+> surdimensionné.
+
+**Par :**
+
+> Cloud OS répond à cette préoccupation en hébergeant vos données au Canada, dans la région de
+> Montréal, avec un abonnement tout compris et une jauge d'usage mensuelle plutôt qu'un
+> investissement de départ surdimensionné.
+
+*(Deux faits morts dans la même phrase : l'hébergement, et la « tarification qui suit l'usage réel », absente du relevé tarifaire plus haut. « à Québec » désigne d'ailleurs la ville, ce qui n'a jamais été vrai.)*
+
+### onlyoffice-vs-libreoffice — 2 passages
+
+**Remplacer :**
+
+> …avec vos fichiers et vos traitements hébergés sur une infrastructure détenue au Québec.
+
+**Par :**
+
+> …avec vos fichiers hébergés au Canada, dans la région de Montréal.
+
+**Remplacer :**
+
+> …et les données ne quittent jamais l'infrastructure québécoise.
+
+**Par :**
+
+> …et ses fichiers restent hébergés au Canada.
+
+### planification-de-taches-cloud — 2 passages
+
+**Remplacer :**
+
+> Cloud OS : la planification pilotée par IA, exécutée localement
+
+**Par :**
+
+> Cloud OS : la planification pilotée par IA, données hébergées au Canada
+
+*(Titre de section : penser à l'entrée correspondante de la table des matières.)*
+
+**Remplacer :**
+
+> …et vos données restent hébergées sur des serveurs détenus au Québec.
+
+**Par :**
+
+> …et vos données restent hébergées au Canada, dans la région de Montréal.
+
+### premiere-pro-vs-davinci-resolve — 2 passages
+
+**Remplacer :**
+
+> …avec des données traitées sur une infrastructure hébergée au Québec, un critère qui compte pour
+> les PME régionales soucieuses de souveraineté numérique.
+
+**Par :**
+
+> …avec vos fichiers hébergés au Canada, un critère qui compte pour les PME régionales soucieuses
+> de souveraineté numérique.
+
+**Remplacer :**
+
+> …exécuter le calcul directement sur une infrastructure québécoise règle une partie du problème
+> logistique tout en gardant vos données sous souveraineté locale.
+
+**Par :**
+
+> …exécuter le calcul dans le cloud, à côté de fichiers hébergés au Canada, règle une partie du
+> problème logistique.
+
+*(Le calcul GPU ne s'exécute pas au Québec.)*
+
+### publier-api-internes — 1 passage
+
+**Remplacer :**
+
+> Cloud OS centralise ce travail dans un poste de travail cloud où les traitements restent sur des
+> serveurs détenus et hébergés au Québec, avec un moteur déterministe…
+
+**Par :**
+
+> Cloud OS centralise ce travail dans un poste de travail cloud dont les données sont hébergées au
+> Canada, dans la région de Montréal, avec un moteur déterministe…
+
+### sso-open-source — 2 passages
+
+**Remplacer :**
+
+> …directement dans un environnement cloud hébergé sur des serveurs détenus au Québec, sans
+> installation locale…
+
+**Par :**
+
+> …directement dans un environnement cloud dont les données sont hébergées au Canada, dans la
+> région de Montréal, sans installation locale…
+
+**Remplacer :**
+
+> Vos données et vos traitements restent sur cette infrastructure locale, ce qui répond directement
+> à la préoccupation de souveraineté numérique…
+
+**Par :**
+
+> Vos données restent hébergées au Canada, ce qui répond directement à la préoccupation de
+> souveraineté numérique…
+
+### tarification-a-lusage-cloud — 2 passages
+
+**Remplacer :**
+
+> Les données et les traitements demeurent sur des serveurs détenus et hébergés localement, ce qui
+> répond directement à la question de souveraineté…
+
+**Par :**
+
+> Les données demeurent hébergées au Canada, dans la région de Montréal, ce qui répond directement
+> à la question de souveraineté…
+
+**Remplacer :**
+
+> Vos données et vos traitements restent sur une infrastructure hébergée au Québec, un point qui
+> compte particulièrement…
+
+**Par :**
+
+> Vos données restent hébergées au Canada, dans la région de Montréal, un point qui compte
+> particulièrement…
+
 ---
 
 ## Vérifier après coup
@@ -327,10 +702,12 @@ L'article ne nomme aucun forfait mort, mais reste vague là où la version angla
 for s in calendrier-partage-entreprise crm-pour-pme migration-vers-le-cloud \
          onlyoffice-vs-libreoffice partage-de-fichiers-securise \
          premiere-pro-vs-davinci-resolve sso-open-source \
-         meilleur-cloud-securise iaas-vs-paas blender-dans-le-cloud; do
+         meilleur-cloud-securise iaas-vs-paas blender-dans-le-cloud \
+         meilleur-agenda-en-ligne cad-a-distance publier-api-internes \
+         planification-de-taches-cloud tarification-a-lusage-cloud; do
   curl -s -L "https://cloudparadise.ca/blogue/$s" \
     | sed -E 's/<[^>]+>/ /g' | sed 's/\xc2\xa0/ /g' | tr -s ' ' | tr '.' '\n' \
-    | grep -iE "à la tâche|par tâche|à l.unité|plan Découverte|plan Pro|Bac à sable à|grille de crédits|crédits prépayés|consommation réelle|\\\$ ?US" \
+    | grep -iE "à la tâche|par tâche|à l.unité|paiement à l.usage|plans? Découverte|plan Pro|€|SynaptixPlatform|détenu|exclusivement|ne quittent jamais|exécutée localement|hébergés localement|Bac à sable à|grille de crédits|crédits prépayés|consommation réelle|\\\$ ?US" \
     | sed "s|^|$s : |"
 done
 ```
@@ -342,4 +719,7 @@ balises laisse quand un lien coupe une expression (« plan  Découverte » dans 
 Deux familles de faux positifs à ignorer dans cette sortie : les prix en $US de
 `premiere-pro-vs-davinci-resolve` qui sont ceux d'Adobe et de Blackmagic, et le mot
 « Découverte » de `migration-vers-le-cloud`, qui y désigne la phase de *discovery* d'un projet de
-migration et non l'ancien forfait.
+migration et non l'ancien forfait. S'y ajoute « tarification à la tâche ou abonnement fixe » dans
+la grille de questions de `cad-a-distance` : une question à poser à n'importe quel fournisseur, pas
+une affirmation sur Cloud OS. Le tableau des plans de `meilleur-agenda-en-ligne` (« Découverte »
+seul dans une cellule) échappe au motif : le vérifier à l'œil.

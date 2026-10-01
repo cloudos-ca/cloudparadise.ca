@@ -1,4 +1,5 @@
 import type { BlogArticle } from "babylovegrowth-next-js-blog";
+import bestOnlineCalendar from "./best-online-calendar.json";
 import bestSecureCloud from "./best-secure-cloud.json";
 import blenderInTheCloud from "./blender-in-the-cloud.json";
 import cloudTaskScheduling from "./cloud-task-scheduling.json";
@@ -8,6 +9,8 @@ import migratingToTheCloud from "./migrating-to-the-cloud.json";
 import onlyofficeVsLibreoffice from "./onlyoffice-vs-libreoffice-for-small-business.json";
 import openSourceSso from "./open-source-sso-which-solution.json";
 import premiereProVsDavinciResolve from "./premiere-pro-vs-davinci-resolve-2026.json";
+import publishingInternalApis from "./publishing-internal-apis.json";
+import remoteCad from "./remote-cad.json";
 import secureFileSharing from "./secure-file-sharing.json";
 import sharedBusinessCalendar from "./shared-business-calendar.json";
 import usageBasedCloudPricing from "./usage-based-cloud-pricing.json";
@@ -69,6 +72,7 @@ export type ArticleTraduit = Pick<
 };
 
 export const TRADUCTIONS: readonly ArticleTraduit[] = [
+  bestOnlineCalendar,
   bestSecureCloud,
   blenderInTheCloud,
   cloudTaskScheduling,
@@ -78,6 +82,8 @@ export const TRADUCTIONS: readonly ArticleTraduit[] = [
   onlyofficeVsLibreoffice,
   openSourceSso,
   premiereProVsDavinciResolve,
+  publishingInternalApis,
+  remoteCad,
   secureFileSharing,
   sharedBusinessCalendar,
   usageBasedCloudPricing,

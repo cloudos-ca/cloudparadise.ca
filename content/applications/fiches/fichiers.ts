@@ -55,8 +55,8 @@ export const fichiers: FicheApplication = {
       en: "Online file storage, hosted in Québec — Cloud OS",
     },
     description: {
-      fr: "Rangez, ouvrez et partagez vos fichiers en équipe dans le navigateur : dossiers, recherche dans le contenu, corbeille. Vos données restent au Québec.",
-      en: "Store, open and share your files with your team in the browser: folders, search inside documents, a trash bin. Your data stays in Québec.",
+      fr: "Rangez, ouvrez et partagez vos fichiers en équipe dans le navigateur : dossiers, recherche dans le contenu, corbeille. Vos fichiers sont hébergés au Québec.",
+      en: "Store, open and share your files with your team in the browser: folders, search inside documents, a trash bin. Your files are hosted in Québec.",
     },
   },
   accroche: {
@@ -96,7 +96,7 @@ export const fichiers: FicheApplication = {
         ],
       },
       {
-        titre: "Vos données restent au Québec",
+        titre: "Vos fichiers, hébergés au Québec",
         paragraphes: [
           "Vos fichiers sont stockés sur l'infrastructure de Cloud OS, hébergée au Québec. Fichiers est compris dès le forfait Personnel, comme les applications qui s'en servent : bureautique, retouche d'image, montage vidéo et logiciels de bureau.",
         ],
@@ -130,7 +130,7 @@ export const fichiers: FicheApplication = {
         ],
       },
       {
-        titre: "Your data stays in Québec",
+        titre: "Your files, hosted in Québec",
         paragraphes: [
           "Your files are stored on the Cloud OS infrastructure, hosted in Québec. Files is included from the Personal plan, like the apps that use it: office, image editing, video editing and desktop software.",
         ],

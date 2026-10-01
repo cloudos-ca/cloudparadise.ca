@@ -62,7 +62,7 @@ export function questionsDe(lang: Lang): readonly { q: string; r: string }[] {
       },
       {
         q: "Where is my data?",
-        r: "In Quebec, on our servers. Your files remain yours, including after cancellation: you can retrieve them.",
+        r: "In Quebec, in the Montreal region, on encrypted disks. Your files remain yours, including after cancellation: you can retrieve them.",
       },
     ];
   }
@@ -97,7 +97,7 @@ export function questionsDe(lang: Lang): readonly { q: string; r: string }[] {
     },
     {
       q: "Où sont mes données ?",
-      r: "Au Québec, sur nos serveurs. Vos fichiers restent les vôtres, y compris après une résiliation : vous pouvez les récupérer.",
+      r: "Au Québec, dans la région de Montréal, sur des disques chiffrés. Vos fichiers restent les vôtres, y compris après une résiliation : vous pouvez les récupérer.",
     },
   ];
 }

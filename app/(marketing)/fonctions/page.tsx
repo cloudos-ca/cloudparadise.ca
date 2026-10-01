@@ -131,6 +131,11 @@ const SECTIONS: readonly SectionFonctions[] = [
           "Dans le bureau et par courriel : tâche terminée, échéance qui approche.",
       },
       {
+        nom: "Son et micro",
+        texte:
+          "Volume général et volume par application, choix du micro, des haut-parleurs et de la caméra. Le micro et la caméra ne s'ouvrent que pour les applications que vous autorisez ; le micro sert aussi dans les logiciels de bureau, comme Audacity et Ardour.",
+      },
+      {
         nom: "Moniteur",
         texte: "Le suivi de vos tâches et leurs journaux, en direct.",
       },
@@ -151,6 +156,8 @@ const SECTIONS: readonly SectionFonctions[] = [
       { nom: "Image", texte: "Retouche rapide et édition par calques." },
       { nom: "Vidéo", texte: "Montage et encodage dans le navigateur." },
       { nom: "Audio", texte: "Montage et traitement du son." },
+      { nom: "Enregistreur", texte: "Mémos vocaux et réunions enregistrés au micro, sur ordinateur ou téléphone, avec leur transcription." },
+      { nom: "Caméra", texte: "Photos et vidéos prises avec votre webcam ou votre téléphone, rangées aussitôt dans vos fichiers." },
       { nom: "3D", texte: "Blender, streamé en session éphémère." },
       { nom: "SIG", texte: "QGIS Desktop, streamé en session éphémère." },
       { nom: "Lecteur PDF", texte: "Vos PDF s’ouvrent dans le bureau." },
@@ -212,7 +219,7 @@ const SECTIONS: readonly SectionFonctions[] = [
       {
         nom: libelleDe("Mémo vocal", "fr"),
         texte:
-          "Déposez un enregistrement, récupérez le texte — brut, sous-titré (SRT/WebVTT), en français ou dans une autre langue détectée automatiquement. Tourne sur notre infrastructure, jamais un service tiers.",
+          "Déposez un enregistrement, récupérez le texte — brut, sous-titré (SRT/WebVTT), en français ou dans une autre langue détectée automatiquement. La transcription tourne sur nos serveurs au Canada, sans service de transcription externe.",
       },
       {
         nom: libelleDe("Source de données", "fr"),
@@ -228,7 +235,7 @@ const SECTIONS: readonly SectionFonctions[] = [
     // servi. Aucune fiche technique matérielle, règle du plan de contenu.
     id: "puissance",
     surtitre: "Le calcul",
-    titre: "Le calcul exact tourne chez nous.",
+    titre: "Le calcul exact, sans machine à acheter.",
     page: CALCUL,
     entrees: [
       {
@@ -238,7 +245,7 @@ const SECTIONS: readonly SectionFonctions[] = [
       },
       {
         nom: libelleDe("Rendu 3D", "fr"),
-        texte: "Vos scènes calculées sur GPU ; vous récupérez le rendu.",
+        texte: "Vos scènes .blend rendues avec Cycles ; vous récupérez l’image ou la séquence.",
       },
       {
         nom: libelleDe("Impression 3D", "fr"),
@@ -454,7 +461,7 @@ const SECTIONS: readonly SectionFonctions[] = [
       {
         nom: "Migration",
         texte:
-          "Connecteur SSH/SFTP générique pour rapatrier un site déjà hébergé ailleurs.",
+          "Import depuis votre hébergeur actuel par SSH, SFTP ou cPanel.",
       },
       {
         nom: "Outils d’administration",
@@ -475,6 +482,7 @@ const SECTIONS: readonly SectionFonctions[] = [
           "Plusieurs bureaux, partage entre équipes, invitations et approbation des accès.",
       },
       { nom: "Messagerie", texte: "Canaux, messages directs, présence." },
+      { nom: "Réunions", texte: "Réunions vidéo jusqu'à 25 personnes, invités sans compte par lien, partage d'écran, planification dans l'Agenda, enregistrement avec transcription et compte rendu." },
       {
         nom: "Courriel",
         texte:

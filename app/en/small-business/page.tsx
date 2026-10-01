@@ -26,6 +26,7 @@ import {
   IconRefresh,
   IconSearch,
   IconUsers,
+  IconVideo,
 } from "@/components/marketing/icons";
 import { SECTION_Y, SHELL, type Lang } from "@/components/marketing/tokens";
 import { alternatesBilingues, openGraphPage } from "@/lib/seo";
@@ -53,9 +54,9 @@ import {
  * l'intention de recherche mieux que le sigle `smb`, qui est du jargon.
  *
  * **Toute la copie vit dans `content/pme.en.ts`**, et rien dans ce fichier — et
- * elle ne traduit pas le français. Le français vend la proximité (nos serveurs
- * sont dans votre région), l'anglais la souveraineté (vos données ne sortent
- * pas du pays). Même fait, argument inversé. Voir l'en-tête de `content/pme.ts`
+ * elle ne traduit pas le français. Le français vend la proximité (vos données
+ * sont hébergées au Québec), l'anglais la souveraineté (vos données restent au
+ * Canada). Même fait, argument inversé. Voir l'en-tête de `content/pme.ts`
  * pour le pourquoi de deux fichiers plutôt qu'un objet `{ fr, en }`.
  */
 
@@ -92,6 +93,7 @@ const ANCRES: readonly Ancre[] = C.ancres.map(({ id, libelle }) => ({
 const ICONES_EQUIPE: Record<CleCarteEquipe, typeof IconUsers> = {
   bureaux: IconUsers,
   messagerie: IconMessage,
+  reunions: IconVideo,
   courriel: IconMail,
   agenda: IconCalendar,
 };
@@ -262,7 +264,7 @@ export default function SmallBusinessPage() {
             </p>
           </Reveal>
 
-          <Reveal delay={0.1} className="mt-10 grid gap-3.5 sm:grid-cols-2">
+          <Reveal delay={0.1} className="mt-10 grid gap-3.5 sm:grid-cols-2 sm:[&>*:last-child:nth-child(odd)]:col-span-2">
             {C.equipe.cartes.map(({ cle, titre, texte }) => {
               const Icone = ICONES_EQUIPE[cle];
               return (

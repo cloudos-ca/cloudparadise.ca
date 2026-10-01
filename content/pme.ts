@@ -9,9 +9,9 @@ import { PME_EN, PME_EN_PRET } from "./pme.en";
  * **Pourquoi un fichier de contenu par langue plutôt qu'un objet bilingue.**
  * Partout ailleurs sur le site, le texte vit dans des objets `{ fr, en }` :
  * c'est le bon outil quand les deux versions disent la même chose. Ici elles ne
- * la disent pas. Le marché québécois s'achète sur la proximité (les serveurs
- * sont dans votre région, la Loi 25), le marché canadien sur la souveraineté
- * (vos données ne sortent pas du Canada, PIPEDA). Un objet bilingue mettrait
+ * la disent pas. Le marché québécois s'achète sur la proximité (les données
+ * sont hébergées au Québec, la Loi 25), le marché canadien sur la souveraineté
+ * (vos données restent au Canada, PIPEDA). Un objet bilingue mettrait
  * ces deux arguments côte à côte sur la même ligne et laisserait croire que
  * l'un est la traduction de l'autre — la première personne qui corrigerait le
  * français « corrigerait » l'anglais dans la foulée. Deux fichiers séparés
@@ -41,7 +41,7 @@ export type Journal = { titre: string; logs: readonly string[] };
  * pictogramme voulu, la page fait la correspondance. C'est aussi ce qui empêche
  * les deux fichiers de langue de diverger sur autre chose que du texte.
  */
-export type CleCarteEquipe = "bureaux" | "messagerie" | "courriel" | "agenda";
+export type CleCarteEquipe = "bureaux" | "messagerie" | "reunions" | "courriel" | "agenda";
 export type ClePointBudget = "offert" | "traite" | "consulter";
 export type CleCarteErp =
   | "crm"

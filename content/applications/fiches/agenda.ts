@@ -25,18 +25,24 @@ import type { FicheApplication } from "../types";
  *   pas dans l'Agenda, mais on peut y armer un rappel (setEventReminderAction, dav.recurringEvent).
  * - Spotlight trouve un événement et ouvre l'Agenda sur son mois (readSearchFocus, agenda-app.tsx).
  * - Forfait : `personnel` (GET /api/v1/apps/catalog en production).
+ * - Depuis le 2026-09-30 (Réunions, lot 3, cloudparadise_hpc dbf74aff, 169d07ca) : case « Réunion vidéo »
+ *   dans Nouvel événement (agenda.meeting.toggle). L'événement devient une réunion planifiée, avec
+ *   invités internes (l'événement arrive dans leur Agenda) et externes (courriel avec .ics, réponse
+ *   Oui / Peut-être / Non) ; badge « Réunion vidéo », bouton Rejoindre. Un événement ordinaire reste
+ *   personnel. Vérifié à origin/main le 2026-10-01.
  *
  * À vérifier à la relecture :
  * - L'écriture vers un calendrier CalDAV relié : le code la gère (lib/dav/write.ts, phase « push »
  *   de lib/dav/sync.ts), mais le texte des Paramètres dit encore « La synchronisation est descendante
  *   pour l'instant : les éléments externes sont affichés en lecture seule ». La fiche ne promet donc
  *   que l'affichage des calendriers externes. À trancher dans l'app, puis à ajouter si ça marche.
- * - /fonctions parle d'« Agenda partagé » : dans le code, les événements sont personnels
- *   (userId) ; aucun calendrier d'équipe. Seul un calendrier partagé sur le serveur CalDAV relié
+ * - /fonctions parlait d'« Agenda partagé » : dans le code, les événements ordinaires sont personnels
+ *   (userId) ; aucun calendrier d'équipe — seule une « Réunion vidéo » a des invités. Seul un calendrier partagé sur le serveur CalDAV relié
  *   apparaît chez chacun. D'où `articles: []` (l'article « calendrier partagé » promettrait plus) et
  *   aucune mention de partage dans la fiche. « Partagé » retiré de /fonctions, /plateforme, /pme et de
  *   l'accueil le 2026-09-25.
- * - Pas de création de récurrence dans le formulaire (pas de champ) : la fiche n'en promet pas.
+ * - Pas de création de récurrence pour un événement ordinaire (pas de champ) : la fiche n'en promet pas.
+ *   La récurrence d'une réunion se règle dans Réunions (« Planifier ») : c'est la fiche Réunions qui en parle.
  */
 export const agenda: FicheApplication = {
   id: "agenda",
@@ -81,6 +87,12 @@ export const agenda: FicheApplication = {
         ],
       },
       {
+        titre: "Une réunion vidéo, depuis l'Agenda",
+        paragraphes: [
+          "Cochez « Réunion vidéo » en créant un événement : il devient une réunion, avec son lien. Ajoutez vos invités par leur nom ou leur adresse courriel ; un collègue qui utilise Cloud OS la trouve dans son propre Agenda, les autres reçoivent une invitation par courriel et répondent en un clic. À l'heure dite, le bouton Rejoindre vous mène dans la salle.",
+        ],
+      },
+      {
         titre: "Vos calendriers externes, dans la même grille",
         paragraphes: [
           "Reliez votre serveur de calendrier depuis les Paramètres : il suffit souvent de votre adresse courriel, l'adresse du serveur est trouvée pour vous. Les calendriers compatibles CalDAV, comme ceux d'iCloud ou de Fastmail, apparaissent alors dans l'Agenda, chacun avec sa couleur et une case pour l'afficher ou le masquer.",
@@ -104,6 +116,12 @@ export const agenda: FicheApplication = {
           "“Remind me”: a notification in Cloud OS at the time of the event.",
           "An event's location, or its recurrence, shows right in the day's cell.",
           "Spotlight search finds an event and opens the Agenda on the right month.",
+        ],
+      },
+      {
+        titre: "A video meeting, from the Agenda",
+        paragraphes: [
+          "Tick “Video meeting” when you create an event: it becomes a meeting, with its link. Add your guests by name or email address; a colleague who uses Cloud OS finds it in their own Agenda, others get an email invitation and answer in one click. When it's time, the Join button takes you into the room.",
         ],
       },
       {
@@ -170,6 +188,6 @@ export const agenda: FicheApplication = {
       },
     },
   ],
-  voisines: ["carnet-adresses", "courriel", "planification"],
+  voisines: ["reunions", "carnet-adresses", "courriel", "planification"],
   articles: [],
 };

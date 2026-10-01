@@ -13,11 +13,11 @@ import type { FicheApplication } from "../types";
  *   Fichiers les fichiers nouveaux ou modifiés de ce dossier, chacun comme un nouveau fichier
  *   (exportDesktopAppFilesAction). Renvoi non récursif.
  * - Session temporaire, sur un espace en mémoire (appfiles-session.ts, reaper.ts).
- * - PAS D'ENREGISTREMENT AU MICRO : la fenêtre du logiciel est une iframe d'une autre origine dont
- *   l'attribut `allow` ne donne que « clipboard-read; clipboard-write; fullscreen »
- *   (src/components/os/apps/marketplace/desktop-app-window.tsx) — le navigateur refuse donc le micro.
- *   La fiche le dit et positionne Audacity sur l'édition de fichiers existants, malgré la description
- *   du catalogue du produit (« Enregistrement et édition audio »).
+ * - MICRO ET SON (depuis le 2026-09-26, 64078b46 ; confirmé en production par le client le
+ *   2026-10-01) : bouton « Ouvrir le micro » dans la fenêtre, accord demandé à la première ouverture
+ *   (Toujours / Cette fois / Refuser), micro qui se ferme avec la fenêtre ; choix du micro et des
+ *   haut-parleurs dans Paramètres › Son ; volume par application dans la barre des tâches.
+ *   La fiche ne dit plus que l'enregistrement est impossible.
  * - Éditeur et licence : Audacity Team (Muse Group) ; GPL-3.0 (LICENSE.txt du dépôt audacity/audacity :
  *   « Audacity is released under the GNU General Public License version 3 »).
  *
@@ -27,9 +27,6 @@ import type { FicheApplication } from "../types";
  *
  * À vérifier à la relecture :
  * - Que le pont fichiers (MARKETPLACE_APPFILES) est actif en production.
- * - L'ÉCOUTE : que le son d'Audacity parvient bien au navigateur par le flux KasmVNC. La fiche ne le
- *   promet pas explicitement, mais un éditeur audio sans écoute serait peu utile : à tester avant
- *   publication.
  * - L'export MP3 intégré (Audacity 3.x embarque l'encodeur ; l'image arm64 installe Audacity 3.7.3 de Debian trixie).
  */
 export const audacity: FicheApplication = {
@@ -50,13 +47,13 @@ export const audacity: FicheApplication = {
       en: "Audacity online: edit audio files, no install — Cloud OS",
     },
     description: {
-      fr: "Coupez, nettoyez et convertissez vos fichiers audio avec Audacity dans le navigateur : rien à installer, vos fichiers restent dans votre espace au Québec.",
-      en: "Cut, clean up and convert your audio files with Audacity in your browser: nothing to install, and your files stay in your own space in Québec.",
+      fr: "Enregistrez, coupez, nettoyez et convertissez vos fichiers audio avec Audacity dans le navigateur : rien à installer, vos fichiers hébergés au Québec.",
+      en: "Record, cut, clean up and convert your audio files with Audacity in your browser: nothing to install, and your files hosted in Québec.",
     },
   },
   accroche: {
-    fr: "L'éditeur audio libre le plus connu, pour couper, nettoyer et convertir vos sons.",
-    en: "The best-known free audio editor, to cut, clean up and convert your recordings.",
+    fr: "L'éditeur audio libre le plus connu, pour enregistrer, couper, nettoyer et convertir vos sons.",
+    en: "The best-known free audio editor, to record, cut, clean up and convert your audio.",
   },
   motsCles: {
     fr: ["audacity en ligne", "audacity sans installation", "éditer un fichier audio en ligne", "couper un fichier audio", "réduire le bruit d'un enregistrement"],
@@ -75,6 +72,7 @@ export const audacity: FicheApplication = {
         titre: "Le vrai Audacity, dans une fenêtre du bureau",
         paragraphes: [
           "Dans Cloud OS, c'est le logiciel lui-même qui tourne, dans une fenêtre de votre bureau en ligne. Rien à installer sur le poste, aucune mise à jour à suivre, et le même Audacity sur chaque ordinateur d'où vous vous connectez.",
+          "Vous entendez ce que vous montez, et vous enregistrez avec le micro de votre ordinateur : un bouton de la fenêtre l'ouvre, après votre accord, et il se ferme avec elle. Le micro utilisé se choisit dans les Paramètres, et le volume d'Audacity se règle à part dans la barre des tâches.",
         ],
       },
       {
@@ -91,7 +89,6 @@ export const audacity: FicheApplication = {
       {
         titre: "Ce qu'il faut savoir",
         paragraphes: [
-          "Dans Cloud OS, Audacity sert à éditer des fichiers audio existants : l'enregistrement par le micro de votre ordinateur n'y est pas disponible. Enregistrez d'abord sur votre appareil, puis versez le fichier dans Fichiers.",
           "La session d'Audacity est temporaire : exportez votre travail dans le dossier « Stockage » et renvoyez-le dans Fichiers avant de fermer la fenêtre. Audacity s'utilise depuis un ordinateur ; il n'est pas proposé sur téléphone.",
         ],
       },
@@ -108,6 +105,7 @@ export const audacity: FicheApplication = {
         titre: "The real Audacity, in a desktop window",
         paragraphes: [
           "In Cloud OS, the software itself runs in a window of your online desktop. Nothing to install on your computer, no updates to keep up with, and the same Audacity on every computer you sign in from.",
+          "You hear what you edit, and you record with your computer's microphone: a button in the window opens it once you agree, and it closes with the window. You pick which microphone to use in Settings, and Audacity's volume has its own control in the taskbar.",
         ],
       },
       {
@@ -124,7 +122,6 @@ export const audacity: FicheApplication = {
       {
         titre: "Good to know",
         paragraphes: [
-          "In Cloud OS, Audacity is for editing existing audio files: recording from your computer's microphone is not available there. Record on your device first, then upload the file to Files.",
           "An Audacity session is temporary: export your work to the “Stockage” folder and send it back to Files before closing the window. Audacity is used from a computer; it is not offered on phones.",
         ],
       },
@@ -138,7 +135,7 @@ export const audacity: FicheApplication = {
       },
       {
         question: "Puis-je enregistrer ma voix directement dans Audacity ?",
-        reponse: "Pas dans Cloud OS : le micro de votre ordinateur n'est pas relié au logiciel. Enregistrez sur votre appareil, versez le fichier dans Fichiers, puis ouvrez-le dans Audacity pour le monter et le nettoyer.",
+        reponse: "Oui. Ouvrez le micro avec le bouton de la fenêtre d'Audacity et donnez votre accord : la prise arrive directement sur la piste. Exportez ensuite le résultat dans le dossier « Stockage » pour le renvoyer dans Fichiers.",
       },
       {
         question: "Audacity ou Ardour : lequel choisir ?",
@@ -156,7 +153,7 @@ export const audacity: FicheApplication = {
       },
       {
         question: "Can I record my voice directly in Audacity?",
-        reponse: "Not in Cloud OS: your computer's microphone is not connected to the software. Record on your device, upload the file to Files, then open it in Audacity to edit and clean it up.",
+        reponse: "Yes. Open the microphone with the button in the Audacity window and give your consent: the take lands straight on the track. Then export the result to the “Stockage” folder to send it back to Files.",
       },
       {
         question: "Audacity or Ardour: which should I choose?",
@@ -179,6 +176,6 @@ export const audacity: FicheApplication = {
       },
     },
   ],
-  voisines: ["audio", "openshot"],
+  voisines: ["ardour", "audio", "openshot"],
   articles: [],
 };

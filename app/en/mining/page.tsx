@@ -42,7 +42,7 @@ const ANCRES: readonly Ancre[] = [
   { id: "rapports", libelle: { fr: "Les rapports", en: "Reports" } },
   { id: "donnees-ouvertes", libelle: { fr: "Données ouvertes", en: "Open data" } },
   { id: "sig", libelle: { fr: "Le SIG", en: "GIS" } },
-  { id: "ancrage", libelle: { fr: "L’ancrage local", en: "Local hosting" } },
+  { id: "ancrage", libelle: { fr: "L’ancrage local", en: "Local roots" } },
 ];
 
 type OperationSig = {
@@ -323,22 +323,25 @@ export default function MinesPageEn() {
         </div>
       </section>
 
-      {/* 6 — L'ancrage local */}
+      {/* 6 — L'ancrage local : l'équipe à Amos, les données dans la région de
+          Montréal depuis la migration de septembre 2026. */}
       <section id="ancrage" className="relative scroll-mt-24">
         <div className={`${SHELL} ${SECTION_Y}`}>
           <div className="grid gap-8 os:grid-cols-[2fr_3fr] os:items-start os:gap-12">
             <Reveal>
-              <SurTitre>Local hosting</SurTitre>
-              <TitreSection>Your servers are in your own region.</TitreSection>
+              <SurTitre>Local roots</SurTitre>
+              <TitreSection>A team in Abitibi, your data in Quebec.</TitreSection>
             </Reveal>
             <Reveal delay={0.1}>
               <div className="space-y-4 text-[15px] leading-relaxed text-white/85">
                 <p>
-                  Our servers are in the same region as your projects: Amos,
-                  Val-d’Or, Rouyn-Noranda.
+                  Cloud OS is a company from Amos. The exploration workstation
+                  was designed here, next door to the projects around Amos,
+                  Val-d’Or and Rouyn-Noranda.
                 </p>
                 <p>
-                  The hardware belongs to Cloud OS, in Quebec, in Abitibi.
+                  Your drill holes, your titles and your reports are hosted in
+                  Quebec, in the Montreal region, on encrypted disks.
                 </p>
               </div>
             </Reveal>

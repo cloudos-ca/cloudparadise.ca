@@ -42,7 +42,7 @@ const ANCRES: readonly Ancre[] = [
   { id: "rapports", libelle: { fr: "Les rapports", en: "Reports" } },
   { id: "donnees-ouvertes", libelle: { fr: "Données ouvertes", en: "Open data" } },
   { id: "sig", libelle: { fr: "Le SIG", en: "GIS" } },
-  { id: "ancrage", libelle: { fr: "L’ancrage local", en: "Local hosting" } },
+  { id: "ancrage", libelle: { fr: "L’ancrage local", en: "Local roots" } },
 ];
 
 type OperationSig = {
@@ -324,23 +324,26 @@ export default function MinesPage() {
         </div>
       </section>
 
-      {/* 6 — L'ancrage local */}
+      {/* 6 — L'ancrage local. Depuis la migration de septembre 2026, les
+          serveurs ne sont plus en Abitibi mais dans la région de Montréal :
+          l'ancrage, c'est l'équipe à Amos, pas le matériel. */}
       <section id="ancrage" className="relative scroll-mt-24">
         <div className={`${SHELL} ${SECTION_Y}`}>
           <div className="grid gap-8 os:grid-cols-[2fr_3fr] os:items-start os:gap-12">
             <Reveal>
               <SurTitre>L’ancrage local</SurTitre>
-              <TitreSection>Vos serveurs sont dans votre région.</TitreSection>
+              <TitreSection>Une équipe en Abitibi, vos données au Québec.</TitreSection>
             </Reveal>
             <Reveal delay={0.1}>
               <div className="space-y-4 text-[15px] leading-relaxed text-white/85">
                 <p>
-                  Nos serveurs sont dans la même région que vos projets : Amos,
-                  Val-d’Or, Rouyn-Noranda.
+                  Cloud OS est une entreprise d’Amos. Le poste de travail de
+                  l’exploration a été conçu ici, à côté des projets d’Amos, de
+                  Val-d’Or et de Rouyn-Noranda.
                 </p>
                 <p>
-                  Le matériel appartient à Cloud OS, au Québec, en
-                  Abitibi.
+                  Vos forages, vos titres et vos rapports sont hébergés au
+                  Québec, dans la région de Montréal, sur des disques chiffrés.
                 </p>
               </div>
             </Reveal>

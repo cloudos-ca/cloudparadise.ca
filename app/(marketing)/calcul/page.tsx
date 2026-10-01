@@ -55,7 +55,7 @@ const GESTES: readonly Geste[] = [
     factures: ["Documents"],
     titre: "Convertir, chercher, classer.",
     texte:
-      "Vous déposez vos fichiers et vous décrivez le résultat voulu. Le contenu ne quitte jamais votre espace.",
+      "Vous déposez vos fichiers et vous décrivez le résultat voulu. Vos fichiers restent stockés dans votre espace.",
     exemples: [
       { entree: "200 contrats PDF", sortie: "un tableur avec toutes les dates d’échéance" },
       {
@@ -111,13 +111,15 @@ const GESTES: readonly Geste[] = [
     factures: ["Calcul GPU", "Rendu 3D", "Impression 3D", "Simulation"],
     // « La puissance, à la demande » promettait une quantité de puissance que
     // les plafonds réels démentent. Ce que la machine fait bien se dit en type
-    // de charge — court, déterministe, double précision — et non en matériel :
-    // aucune fiche technique, c'est une règle du plan de contenu.
-    titre: "Du calcul exact, sur notre matériel.",
+    // de charge — court, déterministe — et non en matériel : aucune fiche
+    // technique, c'est une règle du plan de contenu. Plus de « double
+    // précision » : le calcul GPU du produit tourne en FP32 (septembre 2026),
+    // ni de « notre matériel » (décision du client, 2026-10-01).
+    titre: "Du calcul exact, sans machine à acheter.",
     texte:
-      "Des tâches courtes et déterministes : simulation, rendu, calcul scientifique en double précision. Le matériel tourne chez nous ; vous récupérez le résultat.",
+      "Des tâches courtes et déterministes : simulation, rendu, calcul scientifique. Vous décrivez la tâche ; le résultat revient dans vos fichiers.",
     exemples: [
-      { entree: "une scène Blender", sortie: "le rendu final, calculé sur GPU" },
+      { entree: "une scène Blender", sortie: "le rendu final, calculé par Cycles" },
       { entree: "un modèle 3D", sortie: "un fichier prêt pour l’impression" },
       {
         entree: "des paramètres, sans aucun fichier",

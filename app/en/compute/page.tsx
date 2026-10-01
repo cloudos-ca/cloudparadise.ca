@@ -55,7 +55,7 @@ const GESTES: readonly Geste[] = [
     factures: ["Documents"],
     titre: "Convert, search, organize.",
     texte:
-      "You drop in your files and describe the result you want. The content never leaves your space.",
+      "You drop in your files and describe the result you want. Your files stay stored in your space.",
     exemples: [
       { entree: "200 PDF contracts", sortie: "a spreadsheet with every due date" },
       {
@@ -111,13 +111,15 @@ const GESTES: readonly Geste[] = [
     factures: ["Calcul GPU", "Rendu 3D", "Impression 3D", "Simulation"],
     // « Power, on demand » promettait une quantité de puissance que les
     // plafonds réels démentent. Ce que la machine fait bien se dit en type de
-    // charge — court, déterministe, double précision — et non en matériel :
-    // aucune fiche technique, c'est une règle du plan de contenu.
-    titre: "Exact compute, on our hardware.",
+    // charge — court, déterministe — et non en matériel : aucune fiche
+    // technique, c'est une règle du plan de contenu. Plus de « double
+    // precision » (le GPU du produit tourne en FP32) ni de « our hardware »
+    // (décision du client, 2026-10-01).
+    titre: "Exact compute, no machine to buy.",
     texte:
-      "Short, deterministic tasks: simulation, rendering, scientific computing in double precision. The hardware runs on our side; you collect the result.",
+      "Short, deterministic tasks: simulation, rendering, scientific computing. You describe the task; the result comes back to your files.",
     exemples: [
-      { entree: "a Blender scene", sortie: "the final render, computed on GPU" },
+      { entree: "a Blender scene", sortie: "the final render, computed with Cycles" },
       { entree: "a 3D model", sortie: "a file ready to print" },
       {
         entree: "parameters, with no file at all",

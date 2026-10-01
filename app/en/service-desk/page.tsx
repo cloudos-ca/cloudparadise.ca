@@ -293,14 +293,13 @@ export default function ServiceDeskPage() {
             <Reveal delay={0.1} className="space-y-4">
               <p className="text-sm leading-relaxed text-white/85">
                 A ticket often holds what a customer has that is most sensitive:
-                their file, their invoice, their problem. Those exchanges live on
-                our own hardware, in a room in Quebec — not with an American
-                provider, not on rented capacity.
+                their file, their invoice, their problem. Those exchanges are
+                hosted in Canada, in the Montreal region, on encrypted disks.
               </p>
               <p className="text-sm leading-relaxed text-white/85">
-                The language model that classifies your tickets and prepares
-                your drafts runs on that same hardware. The content of your
-                customers’ conversations is sent to no third-party AI provider.
+                The AI classifies your tickets and prepares your drafts; it never
+                replies on its own. Every reply goes out after you have read it
+                over.
               </p>
               <p className="rounded-xl border border-white/[0.08] bg-white/[0.03] px-5 py-4 text-sm text-white/85">
                 Your tickets are yours:{" "}

@@ -128,7 +128,7 @@ type AppDistante = { id: string; kind: "native" | "desktop"; group: string; plan
  * exemple, avant que la route n'y soit déployée.
  */
 const URL_CATALOGUE =
-  process.env.CATALOGUE_APPS_URL ?? "https://app.cloudparadise.cloud/api/v1/apps/catalog";
+  process.env.CATALOGUE_APPS_URL ?? "https://app.cloudos.ca/api/v1/apps/catalog";
 
 describe("catalogue vs produit", () => {
   it("les applications et leurs forfaits sont ceux de /api/v1/apps/catalog", async (t) => {

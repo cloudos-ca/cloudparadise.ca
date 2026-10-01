@@ -11,7 +11,7 @@ import { alternatesBilingues, openGraphPage } from "@/lib/seo";
 
 const TITRE = "Security and data hosting in Quebec — Cloud OS";
 const DESCRIPTION =
-  "Your data, our hardware, in Quebec. The language model runs on our own machines and a deterministic engine produces every result. Isolation per team.";
+  "Your data hosted in Quebec, encrypted and backed up daily. AI plans the work; a deterministic engine produces every result. Isolation per team.";
 
 export const metadata: Metadata = {
   title: TITRE,
@@ -37,12 +37,12 @@ export default function SecuritePageEn() {
           <Reveal className="max-w-2xl">
             <SurTitre>Security</SurTitre>
             <h1 className="mt-2 font-display text-[2rem] leading-[1.1] font-extrabold tracking-[-0.02em] text-white sm:text-[2.6rem] os:text-[3rem]">
-              Your data, our hardware,
+              Your data,
               <br />
-              in Quebec.
+              hosted in Quebec.
             </h1>
             <p className="mt-6 max-w-[56ch] text-[17px] leading-relaxed text-white/85">
-              Four things we can state without hedging.
+              Three things we can state without hedging.
             </p>
             <div className="mt-7">
               <BoutonCta href="/en/contact" taille="lg">
@@ -54,37 +54,22 @@ export default function SecuritePageEn() {
       </section>
 
       {/* 1 — L'hébergement */}
-      <Section2Col surtitre="Hosting" titre="Our own hardware, not someone else’s.">
+      {/* Même périmètre que la page française : données au Canada, chiffrées ;
+          aucune promesse de matériel à nous ni de modèle qui tourne chez nous
+          (décision du client, 2026-10-01). */}
+      <Section2Col surtitre="Hosting" titre="In Canada, encrypted, backed up.">
         <div className="space-y-4 text-[15px] leading-relaxed text-white/85">
           <p>
-            Our servers are in Quebec, in our own premises, on hardware that
-            belongs to Cloud OS.
+            Your files, your database and your results are hosted in Canada, in
+            the Montreal region.
           </p>
           <p>
-            This is not capacity rented from a foreign cloud provider: your
-            files sit on disks we own.
+            The disks are encrypted and backed up every day, in the same region.
           </p>
         </div>
       </Section2Col>
 
-      {/* 2 — L'intelligence artificielle */}
-      <Section2Col
-        surtitre="Artificial intelligence"
-        titre="The model runs on our machines."
-      >
-        <div className="space-y-4 text-[15px] leading-relaxed text-white/85">
-          <p>
-            The language model that reads your requests runs on Cloud OS
-            hardware, in Quebec.
-          </p>
-          <p>
-            Your files and your requests are never sent to a third-party
-            artificial intelligence provider.
-          </p>
-        </div>
-      </Section2Col>
-
-      {/* 3 — Le calcul : la section principale, plus d'espace + appui visuel */}
+      {/* 2 — Le calcul : la section principale, plus d'espace + appui visuel */}
       <section className="relative">
         <div className={`${SHELL} ${SECTION_Y}`}>
           <Reveal className="max-w-2xl">
@@ -154,7 +139,7 @@ export default function SecuritePageEn() {
         </div>
       </section>
 
-      {/* 4 — Les accès (prose, comme le reste de la page — pas de puces) */}
+      {/* 3 — Les accès (prose, comme le reste de la page — pas de puces) */}
       <Section2Col surtitre="Access" titre="Everyone in their own space.">
         {/* Voir la note du miroir français : la 2FA par courriel est un
             plancher, pas un argument de vente. */}

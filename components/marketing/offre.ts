@@ -81,6 +81,7 @@ export const PALIERS: readonly Palier[] = [
       fr: [
         "Tous les moteurs de calcul",
         "Le bureau et ses applications : bureautique, image, vidéo, 3D, SIG",
+        "Réunions vidéo avec invités, enregistrement et transcription",
         "Gestion d'entreprise : CRM, facturation, comptabilité en partie double",
         "Bureau d'assistance : billetterie, portail client, courriel, clavardage",
         "Rejoindre une équipe et mettre son enveloppe en commun",
@@ -88,6 +89,7 @@ export const PALIERS: readonly Palier[] = [
       en: [
         "Every compute engine",
         "The desktop and its applications: office, image, video, 3D, GIS",
+        "Video meetings with guests, recording and transcription",
         "Business management: CRM, invoicing, double-entry accounting",
         "Service Desk: ticketing, customer portal, email, live chat",
         "Join a team and pool your allowance",

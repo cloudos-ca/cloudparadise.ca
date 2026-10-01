@@ -131,6 +131,11 @@ const SECTIONS: readonly SectionFonctions[] = [
           "In the desktop and by email: task finished, deadline approaching.",
       },
       {
+        nom: "Sound and microphone",
+        texte:
+          "Master volume and per-app volume, your choice of microphone, speakers and camera. The microphone and camera only open for the apps you allow; the microphone also works in desktop software such as Audacity and Ardour.",
+      },
+      {
         nom: "Monitor",
         texte: "Live tracking of your tasks and their logs.",
       },
@@ -151,6 +156,8 @@ const SECTIONS: readonly SectionFonctions[] = [
       { nom: "Image", texte: "Quick retouching and layer-based editing." },
       { nom: "Video", texte: "Editing and encoding in the browser." },
       { nom: "Audio", texte: "Sound editing and processing." },
+      { nom: "Recorder", texte: "Voice memos and meetings recorded from the microphone, on a computer or a phone, with their transcript." },
+      { nom: "Webcam", texte: "Photos and videos from your webcam or phone, saved straight to your files." },
       { nom: "3D", texte: "Blender, streamed in an ephemeral session." },
       { nom: "GIS", texte: "QGIS Desktop, streamed in an ephemeral session." },
       { nom: "PDF reader", texte: "Your PDFs open in the desktop." },
@@ -211,7 +218,7 @@ const SECTIONS: readonly SectionFonctions[] = [
       {
         nom: libelleDe("Mémo vocal", "en"),
         texte:
-          "Drop a recording, get back the text — plain, subtitled (SRT/WebVTT), in French or another auto-detected language. Runs on our own infrastructure, never a third-party service.",
+          "Drop a recording, get back the text — plain, subtitled (SRT/WebVTT), in French or another auto-detected language. Transcription runs on our servers in Canada, with no outside transcription service.",
       },
       {
         nom: libelleDe("Source de données", "en"),
@@ -227,7 +234,7 @@ const SECTIONS: readonly SectionFonctions[] = [
     // servi. Aucune fiche technique matérielle, règle du plan de contenu.
     id: "puissance",
     surtitre: "The compute",
-    titre: "Exact compute runs on our side.",
+    titre: "Exact compute, no machine to buy.",
     page: CALCUL,
     entrees: [
       {
@@ -237,7 +244,7 @@ const SECTIONS: readonly SectionFonctions[] = [
       },
       {
         nom: libelleDe("Rendu 3D", "en"),
-        texte: "Your scenes computed on GPU; you collect the render.",
+        texte: "Your .blend scenes rendered with Cycles; you collect the image or sequence.",
       },
       {
         nom: libelleDe("Impression 3D", "en"),
@@ -449,7 +456,7 @@ const SECTIONS: readonly SectionFonctions[] = [
       {
         nom: "Migration",
         texte:
-          "Generic SSH/SFTP connector to bring in a site already hosted elsewhere.",
+          "Import from your current host over SSH, SFTP or cPanel.",
       },
       {
         nom: "Admin tools",
@@ -470,6 +477,7 @@ const SECTIONS: readonly SectionFonctions[] = [
           "Several desktops, sharing between teams, invitations and access approval.",
       },
       { nom: "Messaging", texte: "Channels, direct messages, presence." },
+      { nom: "Meetings", texte: "Video meetings for up to 25 people, guests join by link with no account, screen sharing, scheduling from the Agenda, recordings with a transcript and minutes." },
       {
         nom: "Email",
         texte:

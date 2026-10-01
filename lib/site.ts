@@ -59,13 +59,13 @@ export const EST_PRODUCTION =
  * Trois adresses, trois rôles :
  *   - `cloudos.ca` — la vitrine publique (l'ancien `cloudparadise.ca`
  *     y redirige en 301, voir `next.config.ts`) ;
- *   - `app.cloudparadise.cloud` — l'application (voir `APP_URL`) ;
+ *   - `app.cloudos.ca` — l'application (voir `APP_URL`) ; l'ancien
+ *     `app.cloudparadise.cloud` y renvoie en 307 depuis le 2026-09-28 ;
  *   - `cloudparadise.dev` — cet environnement-ci.
  *
- * Une extension par rôle. Le `.ca` est celui du public ; le `.cloud` reste le
- * domaine de service de l'application, ce n'est donc pas un domaine à faire
- * disparaître ; le développement a désormais le sien, `cloudparadise.dev`, et
- * n'habite plus `dev.cloudparadise.cloud`.
+ * Le `.ca` sert le public, vitrine comme application ; le `.cloud` ne garde que
+ * la redirection de l'ancien nom de l'application ; le développement a le sien,
+ * `cloudparadise.dev`, et n'habite plus `dev.cloudparadise.cloud`.
  *
  * La forme canonique est l'apex, sans `www` — c'est ce vers quoi la
  * redirection `www` pointe déjà (`next.config.ts`), et il faut que les deux
@@ -95,7 +95,7 @@ export const SITE_URL = EST_PRODUCTION
  * recopiée dans une vingtaine de `href` à travers les deux locales, et c'est ça
  * le problème qu'on règle ici, pas l'environnement.
  */
-export const APP_URL = "https://app.cloudparadise.cloud";
+export const APP_URL = "https://app.cloudos.ca";
 
 /** Connexion à un compte existant — barre de menu, menu mobile, pied de page. */
 export const LIEN_CONNEXION = `${APP_URL}/login`;
@@ -109,10 +109,11 @@ export const LIEN_CONNEXION = `${APP_URL}/login`;
  * valeur dans les deux langues — l'application enregistre déjà la langue à
  * l'inscription, la dédoubler ici ne ferait que diviser les compteurs.
  *
- * **Cette donnée n'existe pas encore.** L'événement d'inscription ne retient
- * aujourd'hui que la méthode et la langue, et le paramètre est jeté. Les liens
- * sont prêts ; la capture reste à faire côté applicatif, confirmation de
- * courriel comprise. Ne pas présenter la traçabilité comme disponible avant.
+ * L'application capte le paramètre depuis le 2026-08-02
+ * (`src/lib/analytics/signup-source.ts` du dépôt applicatif) : écrit sur le
+ * compte dès sa création par mot de passe — la confirmation de courriel ne le
+ * perd donc plus — et porté par un témoin à travers l'aller-retour OAuth
+ * (Google, Microsoft). La valeur y est normalisée (`[a-z0-9_-]`, 64 caractères).
  *
  * Aucun encodage n'est appliqué : les sources sont des identifiants écrits ici,
  * en minuscules sans accent ni espace. Une valeur qui aurait besoin d'être
@@ -265,8 +266,8 @@ export const PAGES: readonly PageSite[] = [
     changeFrequency: "monthly",
     titre: { fr: "Sécurité", en: "Security" },
     resume: {
-      fr: "hébergement au Québec sur du matériel appartenant à l'entreprise, modèle de langage exécuté sur place, calcul déterministe, isolation des accès.",
-      en: "hosted in Québec on hardware the company owns, language model run on site, deterministic compute, access isolation.",
+      fr: "données hébergées au Québec (région de Montréal) sur des disques chiffrés et sauvegardés, calcul déterministe, isolation des accès.",
+      en: "data hosted in Québec (Montreal region) on encrypted, backed-up disks, deterministic compute, access isolation.",
     },
   },
   {
