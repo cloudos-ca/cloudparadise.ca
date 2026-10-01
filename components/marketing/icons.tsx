@@ -354,6 +354,15 @@ export function IconCalendar(props: IconProps) {
   );
 }
 
+export function IconVideo(props: IconProps) {
+  return (
+    <Glyph {...props}>
+      <path d="M15 10l4.553-2.276A1 1 0 0 1 21 8.618v6.764a1 1 0 0 1-1.447.894L15 14z" />
+      <rect x="3" y="6" width="12" height="12" rx="2" />
+    </Glyph>
+  );
+}
+
 export function IconGamepad(props: IconProps) {
   return (
     <Glyph {...props}>

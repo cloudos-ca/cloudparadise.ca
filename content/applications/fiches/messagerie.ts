@@ -23,8 +23,13 @@ import type { FicheApplication } from "../types";
  * - S'ouvre aussi en panneau latéral du Courriel (mail-app.tsx). Pas `desktopOnly`. Forfait
  *   Personnel (GET /api/v1/apps/catalog).
  *
+ * - Bouton « Lancer une réunion » (messaging.startMeeting, cloudparadise_hpc bfa8e164) : crée une salle
+ *   Réunions et poste sa carte dans la conversation ; les membres du canal entrent sans salle d'attente
+ *   (isRoomMember). Vérifié à origin/main le 2026-10-01.
+ *
  * Volontairement absent : envoi de fichiers ou d'images (le message n'a qu'un `body` texte), appels
- * audio ou vidéo, notification par courriel (la notification est dans le bureau seulement).
+ * audio ou vidéo qui sonnent (la voix et la vidéo passent par une salle Réunions), notification par
+ * courriel (la notification est dans le bureau seulement).
  *
  * À vérifier à la relecture : la recherche de personnes porte sur tous les comptes actifs de la
  * plateforme (pas seulement l'équipe) ; la fiche le dit sobrement (« un autre utilisateur de Cloud
@@ -66,6 +71,7 @@ export const messagerie: FicheApplication = {
         titre: "Messages directs et canaux",
         paragraphes: [
           "La Messagerie de Cloud OS réunit deux façons d'échanger. Le message direct, d'abord : vous retrouvez un autre utilisateur de Cloud OS par son nom ou son adresse, et la conversation s'ouvre. Le canal, ensuite : un groupe nommé, où plusieurs personnes discutent d'un même sujet.",
+          "Pour passer à la voix et à la vidéo, « Lancer une réunion » ouvre une salle Réunions et en dépose le lien dans la conversation : les membres du canal y entrent directement.",
         ],
         points: [
           "Un canal personnel, où vous invitez qui vous voulez.",
@@ -98,6 +104,7 @@ export const messagerie: FicheApplication = {
         titre: "Direct messages and channels",
         paragraphes: [
           "Cloud OS Messaging brings together two ways to talk. The direct message, first: you find another Cloud OS user by name or address, and the conversation opens. The channel, next: a named group where several people discuss the same topic.",
+          "To switch to voice and video, “Start a meeting” opens a Meetings room and drops its link into the conversation: channel members walk straight in.",
         ],
         points: [
           "A personal channel, where you invite whoever you want.",
@@ -175,6 +182,6 @@ export const messagerie: FicheApplication = {
       },
     },
   ],
-  voisines: ["equipes", "courriel", "agenda"],
+  voisines: ["equipes", "reunions", "courriel", "agenda"],
   articles: [],
 };

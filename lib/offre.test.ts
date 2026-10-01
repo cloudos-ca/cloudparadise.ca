@@ -85,7 +85,7 @@ describe("offre vs production", () => {
   it("les prix, enveloppes, durées, essai et garantie sont ceux de /api/v1/pricing", async (t) => {
     let reponse: Response;
     try {
-      reponse = await fetch("https://app.cloudparadise.cloud/api/v1/pricing", { signal: AbortSignal.timeout(15_000) });
+      reponse = await fetch("https://app.cloudos.ca/api/v1/pricing", { signal: AbortSignal.timeout(15_000) });
     } catch (err) {
       // Seule une erreur de transport (réseau absent, délai dépassé) est ignorée : elle ne dit
       // rien de l'état de la production, seulement de la joignabilité depuis ici.

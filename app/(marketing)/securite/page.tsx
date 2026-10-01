@@ -11,7 +11,7 @@ import { alternatesBilingues, openGraphPage } from "@/lib/seo";
 
 const TITRE = "Sécurité et hébergement des données au Québec — Cloud OS";
 const DESCRIPTION =
-  "Vos données, notre matériel, au Québec. Le modèle de langage tourne chez nous et un moteur déterministe produit chaque résultat. Isolation par équipe.";
+  "Vos données hébergées au Québec, chiffrées et sauvegardées chaque jour. L’IA planifie, un moteur déterministe produit chaque résultat. Isolation par équipe.";
 
 export const metadata: Metadata = {
   title: TITRE,
@@ -37,12 +37,12 @@ export default function SecuritePage() {
           <Reveal className="max-w-2xl">
             <SurTitre>Sécurité</SurTitre>
             <h1 className="mt-2 font-display text-[2rem] leading-[1.1] font-extrabold tracking-[-0.02em] text-white sm:text-[2.6rem] os:text-[3rem]">
-              Vos données, notre matériel,
+              Vos données,
               <br />
-              au Québec.
+              hébergées au Québec.
             </h1>
             <p className="mt-6 max-w-[56ch] text-[17px] leading-relaxed text-white/85">
-              Quatre choses que nous pouvons affirmer sans détour.
+              Trois choses que nous pouvons affirmer sans détour.
             </p>
             <div className="mt-7">
               <BoutonCta href="/contact" taille="lg">
@@ -54,37 +54,25 @@ export default function SecuritePage() {
       </section>
 
       {/* 1 — L'hébergement */}
-      <Section2Col surtitre="L’hébergement" titre="Notre matériel, pas celui d’un autre.">
+      {/* Ce que la page affirme est borné à ce qui est vrai depuis la migration
+          de septembre 2026 : les données sont au Canada (région de Montréal),
+          chiffrées. L'IA et le calcul GPU passent par des fournisseurs
+          spécialisés : aucune promesse de « matériel à nous » ni de « modèle
+          qui tourne chez nous » (décision du client, 2026-10-01). */}
+      <Section2Col surtitre="L’hébergement" titre="Au Canada, chiffré, sauvegardé.">
         <div className="space-y-4 text-[15px] leading-relaxed text-white/85">
           <p>
-            Nos serveurs sont au Québec, dans un local, sur du matériel qui
-            appartient à Cloud OS.
+            Vos fichiers, votre base de données et vos résultats sont hébergés
+            au Canada, dans la région de Montréal.
           </p>
           <p>
-            Ce n’est pas de la capacité louée chez un fournisseur infonuagique
-            étranger : vos fichiers reposent sur des disques que nous possédons.
+            Les disques sont chiffrés, et sauvegardés chaque jour dans la même
+            région.
           </p>
         </div>
       </Section2Col>
 
-      {/* 2 — L'intelligence artificielle */}
-      <Section2Col
-        surtitre="L’intelligence artificielle"
-        titre="Le modèle tourne chez nous."
-      >
-        <div className="space-y-4 text-[15px] leading-relaxed text-white/85">
-          <p>
-            Le modèle de langage qui lit vos demandes s’exécute sur le matériel
-            de Cloud OS, au Québec.
-          </p>
-          <p>
-            Vos fichiers et vos demandes ne sont jamais envoyés à un fournisseur
-            d’intelligence artificielle tiers.
-          </p>
-        </div>
-      </Section2Col>
-
-      {/* 3 — Le calcul : la section principale, plus d'espace + appui visuel */}
+      {/* 2 — Le calcul : la section principale, plus d'espace + appui visuel */}
       <section className="relative">
         <div className={`${SHELL} ${SECTION_Y}`}>
           <Reveal className="max-w-2xl">
@@ -156,7 +144,7 @@ export default function SecuritePage() {
         </div>
       </section>
 
-      {/* 4 — Les accès (prose, comme le reste de la page — pas de puces) */}
+      {/* 3 — Les accès (prose, comme le reste de la page — pas de puces) */}
       <Section2Col surtitre="Les accès" titre="Chacun chez soi.">
         {/* La 2FA par courriel est présentée comme un plancher, jamais comme un
             argument : c'est le plus faible des seconds facteurs, et un acheteur

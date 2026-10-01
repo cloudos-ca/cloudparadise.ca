@@ -48,8 +48,8 @@ const TEXTES = {
         Icone: IconLock,
         titre: "Vos données, au Québec",
         texte:
-          "Notre modèle de langage tourne sur notre matériel, dans un local au Québec. Vos fichiers ne sont jamais envoyés à un fournisseur d’intelligence artificielle tiers.",
-        lien: "La souveraineté",
+          "Vos fichiers et vos résultats sont hébergés au Québec, sur des disques chiffrés et sauvegardés chaque jour. L’IA planifie ; un moteur déterministe calcule.",
+        lien: "La sécurité",
         href: "/securite",
       },
     ] as Pilier[],
@@ -78,8 +78,8 @@ const TEXTES = {
         Icone: IconLock,
         titre: "Your data, in Québec",
         texte:
-          "Our language model runs on our own hardware, in a facility in Québec. Your files are never sent to a third-party AI provider.",
-        lien: "On sovereignty",
+          "Your files and results are hosted in Québec, on encrypted disks backed up every day. AI plans the work; a deterministic engine computes it.",
+        lien: "On security",
         href: "/security",
       },
     ] as Pilier[],

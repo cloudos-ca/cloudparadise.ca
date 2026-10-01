@@ -26,6 +26,7 @@ import {
   IconRefresh,
   IconSearch,
   IconUsers,
+  IconVideo,
 } from "@/components/marketing/icons";
 import { SECTION_Y, SHELL, type Lang } from "@/components/marketing/tokens";
 import { alternatesBilingues, openGraphPage } from "@/lib/seo";
@@ -92,6 +93,7 @@ const ANCRES: readonly Ancre[] = C.ancres.map(({ id, libelle }) => ({
 const ICONES_EQUIPE: Record<CleCarteEquipe, typeof IconUsers> = {
   bureaux: IconUsers,
   messagerie: IconMessage,
+  reunions: IconVideo,
   courriel: IconMail,
   agenda: IconCalendar,
 };
@@ -262,7 +264,7 @@ export default function PmePage() {
             </p>
           </Reveal>
 
-          <Reveal delay={0.1} className="mt-10 grid gap-3.5 sm:grid-cols-2">
+          <Reveal delay={0.1} className="mt-10 grid gap-3.5 sm:grid-cols-2 sm:[&>*:last-child:nth-child(odd)]:col-span-2">
             {C.equipe.cartes.map(({ cle, titre, texte }) => {
               const Icone = ICONES_EQUIPE[cle];
               return (

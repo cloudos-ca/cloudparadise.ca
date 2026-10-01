@@ -5,11 +5,11 @@ import type { ContenuPme } from "./pme";
  * La copie anglaise de /pme — PME canadiennes.
  *
  * **Ce n'est pas la traduction de `pme.fr.ts`, et deux blocs le montrent.** Le
- * français s'adresse à des PME québécoises et vend la **proximité** : nos
- * serveurs sont dans la même région que vous. L'anglais s'adresse à une PME de
+ * français s'adresse à des PME québécoises et vend la **proximité** : vos
+ * données sont hébergées au Québec. L'anglais s'adresse à une PME de
  * Toronto ou de Vancouver, pour qui « au Québec » n'est pas un argument mais
- * une coordonnée — il vend donc la **souveraineté** : vos données ne sortent
- * pas du pays. Même fait, argument inversé. Le segment (bloc 1) et l'ancrage
+ * une coordonnée — il vend donc la **souveraineté** : vos données sont
+ * hébergées au Canada. Même fait, argument inversé. Le segment (bloc 1) et l'ancrage
  * (bloc 8) divergent complètement ; les sept autres disent la même chose
  * autrement.
  *
@@ -24,8 +24,8 @@ import type { ContenuPme } from "./pme";
  * aussi des identifiants — `libelleDe()` en tire le libellé anglais tout seul.
  *
  * **Aucune mention de PIPEDA, de conformité, de certification ou d'audit.**
- * Décision du client, et elle est juste : « nos serveurs sont au Canada et vos
- * fichiers ne partent pas chez un tiers » est un fait vérifiable ; « PIPEDA
+ * Décision du client, et elle est juste : « vos données sont hébergées au
+ * Canada, chiffrées » est un fait vérifiable ; « PIPEDA
  * compliant » est une revendication juridique — et sous PIPEDA, l'hébergement
  * au Canada n'est justement pas ce qui détermine la conformité. Les deux ne se
  * déduisent pas l'un de l'autre. Cette mention appartient au même lot que la
@@ -56,7 +56,7 @@ export const PME_EN: ContenuPme = {
       "No IT department required.",
     ],
     texte:
-      "Your documents, your numbers and your media in one workspace. Describe what you want back — the heavy work runs on our hardware. Nothing to install, nobody to hire.",
+      "Your documents, your numbers and your media in one workspace. Describe what you want back — the heavy work runs online. Nothing to install, nobody to hire.",
     cta: "Book a demo",
     lienCompte: "Create your account",
   },
@@ -113,7 +113,7 @@ export const PME_EN: ContenuPme = {
       factures: ["Documents"],
       titre: "Your files, finally searchable.",
       texte:
-        "Your files stay in your workspace. You describe the result you want; the contents never leave.",
+        "Your files stay stored in your workspace. You describe the result you want; it comes back there.",
       transformations: [
         {
           entree: "200 contracts in PDF",
@@ -230,7 +230,7 @@ export const PME_EN: ContenuPme = {
     surtitre: "Customer support",
     titre: "And for answering your customers.",
     texte:
-      "A complete ticketing system, in the same desktop and on the same customer directory as your invoicing. Your exchanges with your customers stay in Quebec, like everything else.",
+      "A complete ticketing system, in the same desktop and on the same customer directory as your invoicing. Your exchanges with your customers are hosted in Quebec, like everything else.",
     cartes: [
       {
         cle: "portail",
@@ -265,7 +265,7 @@ export const PME_EN: ContenuPme = {
     surtitre: "Your team",
     titre: "One workspace, your whole team.",
     texte:
-      "Create team workspaces, invite who you want, approve access. Chat, email and calendar are already in there.",
+      "Create team workspaces, invite who you want, approve access. Chat, video meetings, email and calendar are already in there.",
     cartes: [
       {
         cle: "bureaux",
@@ -277,6 +277,12 @@ export const PME_EN: ContenuPme = {
         cle: "messagerie",
         titre: "Messaging",
         texte: "Channels, direct messages, presence.",
+      },
+      {
+        cle: "reunions",
+        titre: "Meetings",
+        texte:
+          "Video meetings for up to 25 people: your clients join by link, with no account. Recordings with a transcript and minutes.",
       },
       {
         cle: "courriel",
@@ -328,8 +334,8 @@ export const PME_EN: ContenuPme = {
     surtitre: "Your data",
     titre: "Your data stays in Canada.",
     paragraphes: [
-      "Our servers are in Quebec, in a room, on hardware Cloud OS owns. This isn’t rented capacity from a foreign cloud provider — your files sit on disks we hold.",
-      "The language model that reads your requests runs on that same hardware. Your files and your requests are never sent to a third-party AI provider, and they never leave the country — which matters when the files are your clients’.",
+      "Your files, your documents and your results are hosted in Canada, in the Montreal region. The disks are encrypted and backed up every day, in the same region.",
+      "Every team works in a walled-off space: your files are visible only to the people you invite — which matters when the files are your clients’.",
     ],
     lien: "See security",
   },

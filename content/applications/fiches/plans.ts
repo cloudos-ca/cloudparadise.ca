@@ -72,8 +72,8 @@ export const plans: FicheApplication = {
     },
   },
   accroche: {
-    fr: "Déposez un fichier, décrivez le résultat : la tâche tourne sur nos serveurs.",
-    en: "Drop a file, describe the result: the task runs on our servers.",
+    fr: "Déposez un fichier, décrivez le résultat : la tâche tourne en ligne.",
+    en: "Drop a file, describe the result: the task runs online.",
   },
   motsCles: {
     fr: ["analyser un fichier excel en ligne", "synthèse de pdf avec citations", "traitement de fichiers par lots", "ocr et conversion de documents en ligne"],
@@ -84,7 +84,7 @@ export const plans: FicheApplication = {
       {
         titre: "Un plan, c'est une tâche que Cloud OS fait pour vous",
         paragraphes: [
-          "Dans Cloud OS, un plan est une tâche de calcul : vous partez d'un fichier de votre espace — ou d'aucun fichier — et vous décrivez le résultat voulu. La tâche tourne sur nos serveurs, pas sur votre ordinateur, et le résultat revient dans vos Fichiers.",
+          "Dans Cloud OS, un plan est une tâche de calcul : vous partez d'un fichier de votre espace — ou d'aucun fichier — et vous décrivez le résultat voulu. La tâche tourne en ligne, pas sur votre ordinateur, et le résultat revient dans vos Fichiers.",
           "Le plus court chemin : déposer un fichier dans Plans. Un tableur CSV ou Excel devient une analyse de données, avec un rapport PDF et un classeur Excel. Un PDF ou un document Word devient une synthèse dont chaque affirmation cite sa page.",
         ],
       },
@@ -118,7 +118,7 @@ export const plans: FicheApplication = {
       {
         titre: "A plan is a task Cloud OS does for you",
         paragraphes: [
-          "In Cloud OS, a plan is a compute task: you start from a file in your space — or from no file at all — and describe the result you want. The task runs on our servers, not on your computer, and the result comes back to your Files.",
+          "In Cloud OS, a plan is a compute task: you start from a file in your space — or from no file at all — and describe the result you want. The task runs online, not on your computer, and the result comes back to your Files.",
           "The quickest way: drop a file into Plans. A CSV or Excel spreadsheet becomes a data analysis, with a PDF report and an Excel workbook. A PDF or Word document becomes a summary in which every statement cites its page.",
         ],
       },

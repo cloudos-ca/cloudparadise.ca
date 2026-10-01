@@ -303,8 +303,10 @@ export default function AssistancePage() {
         </div>
       </section>
 
-      {/* 5 — Vos données. L'argument décisif contre Zoho, Freshdesk et
-          Zendesk, et le seul qu'aucun d'eux ne peut copier. */}
+      {/* 5 — Vos données. Hébergées au Canada (région de Montréal) ; depuis la
+          migration de septembre 2026, plus de promesse de « notre matériel »
+          ni de modèle de langage qui tourne chez nous (décision du client,
+          2026-10-01). */}
       <section id="souverainete" className="relative scroll-mt-24">
         <div className={`${SHELL} ${SECTION_Y}`}>
           <div className="grid gap-8 os:grid-cols-[2fr_3fr] os:items-start os:gap-12">
@@ -315,15 +317,13 @@ export default function AssistancePage() {
             <Reveal delay={0.1} className="space-y-4">
               <p className="text-sm leading-relaxed text-white/85">
                 Un billet contient souvent ce qu’un client a de plus sensible :
-                son dossier, sa facture, son problème. Ces échanges vivent sur
-                notre matériel, dans un local au Québec — pas chez un
-                fournisseur américain, pas sur de la capacité louée.
+                son dossier, sa facture, son problème. Ces échanges sont hébergés
+                au Canada, dans la région de Montréal, sur des disques chiffrés.
               </p>
               <p className="text-sm leading-relaxed text-white/85">
-                Le modèle de langage qui classe vos billets et prépare vos
-                brouillons tourne sur ce même matériel. Le contenu des
-                conversations de vos clients n’est envoyé à aucun fournisseur
-                d’intelligence artificielle tiers.
+                L’intelligence artificielle classe vos billets et prépare vos
+                brouillons ; elle ne répond jamais seule. Chaque réponse part
+                après votre relecture.
               </p>
               <p className="rounded-xl border border-white/[0.08] bg-white/[0.03] px-5 py-4 text-sm text-white/85">
                 Vos billets sont les vôtres :{" "}

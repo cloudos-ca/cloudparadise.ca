@@ -4,9 +4,10 @@ import type { ContenuPme } from "./pme";
 /**
  * La copie française de /pme — PME québécoises.
  *
- * **L'ancrage est la proximité**, pas la souveraineté : les serveurs sont dans
- * la même région que vous, sur du matériel qui nous appartient. L'anglais
- * retournera l'argument (les données ne sortent pas du Canada) parce qu'il
+ * **L'ancrage est la proximité**, pas la souveraineté : vos données sont
+ * hébergées au Québec (région de Montréal depuis la migration de septembre
+ * 2026 — plus de « matériel qui nous appartient », décision du client du
+ * 2026-10-01). L'anglais retourne l'argument (les données restent au Canada) parce qu'il
  * s'adresse à un marché pancanadien pour qui « au Québec » n'est pas un
  * argument de vente mais une précision géographique. Voir l'en-tête de
  * `pme.ts` pour le pourquoi de deux fichiers plutôt qu'un objet bilingue.
@@ -43,7 +44,7 @@ export const PME_FR: ContenuPme = {
       "Sans département informatique.",
     ],
     texte:
-      "Vos documents, vos chiffres et vos médias dans le même espace de travail. Vous décrivez ce que vous voulez obtenir, le calcul se fait chez nous — rien à installer, personne à embaucher.",
+      "Vos documents, vos chiffres et vos médias dans le même espace de travail. Vous décrivez ce que vous voulez obtenir, le calcul se fait en ligne — rien à installer, personne à embaucher.",
     cta: "Réservez une démo",
     lienCompte: "Créez votre compte",
   },
@@ -102,7 +103,7 @@ export const PME_FR: ContenuPme = {
       factures: ["Documents"],
       titre: "Vos dossiers, enfin cherchables.",
       texte:
-        "Vos fichiers restent dans votre espace. Vous décrivez le résultat voulu ; le contenu ne sort jamais.",
+        "Vos fichiers restent stockés dans votre espace. Vous décrivez le résultat voulu ; il y revient.",
       transformations: [
         {
           entree: "200 contrats PDF",
@@ -220,7 +221,7 @@ export const PME_FR: ContenuPme = {
     surtitre: "Le service à la clientèle",
     titre: "Et pour répondre à vos clients.",
     texte:
-      "Une billetterie complète, dans le même bureau et sur le même répertoire de clients que votre facturation. Vos échanges avec vos clients restent au Québec, comme le reste.",
+      "Une billetterie complète, dans le même bureau et sur le même répertoire de clients que votre facturation. Vos échanges avec vos clients sont hébergés au Québec, comme le reste.",
     cartes: [
       {
         cle: "portail",
@@ -255,7 +256,7 @@ export const PME_FR: ContenuPme = {
     surtitre: "À plusieurs",
     titre: "Le même bureau, toute l’équipe.",
     texte:
-      "Créez des bureaux d’équipe, invitez qui vous voulez, approuvez les accès. La discussion, le courriel et l’agenda sont déjà dedans.",
+      "Créez des bureaux d’équipe, invitez qui vous voulez, approuvez les accès. La discussion, les réunions vidéo, le courriel et l’agenda sont déjà dedans.",
     cartes: [
       {
         cle: "bureaux",
@@ -267,6 +268,12 @@ export const PME_FR: ContenuPme = {
         cle: "messagerie",
         titre: "Messagerie",
         texte: "Canaux, messages directs, présence.",
+      },
+      {
+        cle: "reunions",
+        titre: "Réunions",
+        texte:
+          "Réunions vidéo jusqu’à 25 personnes : vos clients entrent par un lien, sans compte. Enregistrement avec transcription et compte rendu.",
       },
       {
         cle: "courriel",
@@ -315,10 +322,10 @@ export const PME_FR: ContenuPme = {
   donnees: {
     id: "donnees",
     surtitre: "Vos données",
-    titre: "Au Québec, sur notre matériel.",
+    titre: "Au Québec, chiffrées, sauvegardées.",
     paragraphes: [
-      "Nos serveurs sont au Québec, dans un local, sur du matériel qui appartient à Cloud OS. Ce n’est pas de la capacité louée chez un fournisseur infonuagique étranger.",
-      "Le modèle de langage qui lit vos demandes s’exécute sur notre matériel. Vos fichiers et vos demandes ne sont jamais envoyés à un fournisseur d’intelligence artificielle tiers — un point qui compte quand vous manipulez des dossiers clients.",
+      "Vos fichiers, vos documents et vos résultats sont hébergés au Québec, dans la région de Montréal. Les disques sont chiffrés et sauvegardés chaque jour, dans la même région.",
+      "Chaque équipe travaille dans un espace cloisonné : vos dossiers ne sont visibles que des personnes que vous y invitez — un point qui compte quand vous manipulez des dossiers clients.",
     ],
     lien: "Voir la sécurité",
   },

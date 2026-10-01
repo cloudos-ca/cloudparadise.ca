@@ -46,6 +46,7 @@ import { rapportExploration } from "./fiches/rapport-exploration";
 import { rapports } from "./fiches/rapports";
 import { rawtherapee } from "./fiches/rawtherapee";
 import { retoucheImage } from "./fiches/retouche-image";
+import { reunions } from "./fiches/reunions";
 import { sourcesApi } from "./fiches/sources-api";
 import { studioDeJeux } from "./fiches/studio-de-jeux";
 import { tableur } from "./fiches/tableur";
@@ -120,6 +121,7 @@ export const FICHES: readonly FicheApplication[] = [
   rapports,
   rawtherapee,
   retoucheImage,
+  reunions,
   shotcut,
   sourcesApi,
   studioDeJeux,
@@ -138,9 +140,6 @@ export const FICHES: readonly FicheApplication[] = [
  * Ce qui reste ici au 2026-09-25 n'attend plus la rédaction mais une décision :
  */
 export const A_ECRIRE: readonly string[] = [
-  // Réunions (visio Chime SDK, invités par lien), en production le 2026-09-29 (cloudparadise_hpc #41) :
-  // fiche à rédiger, avec capture d'une salle (grille, partage d'écran) et de la page invité.
-  "meetings",
   // Fiche écrite (fiches/montage-video.ts), retenue : l'éditeur vidéo est un fork de clip-js, qui
   // dépend de Remotion. Licence relue le 2026-09-28 (github.com/remotion-dev/remotion, LICENSE.md) :
   // gratuite pour un particulier, un OBNL ou une entreprise de trois personnes au plus, sinon licence
