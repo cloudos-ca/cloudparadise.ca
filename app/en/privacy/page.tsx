@@ -35,7 +35,7 @@ export const metadata: Metadata = {
   openGraph: openGraphPage(TITRE, DESCRIPTION, "en", "/en/privacy", [IMAGE_OG_PARTAGEE]),
 };
 
-const MAJ = "September 28, 2026";
+const MAJ = "October 1, 2026";
 
 /** The designated privacy officer under Law 25, s. 3.1. */
 const RESPONSABLE = "Maxime Murray";
@@ -80,7 +80,7 @@ const SECTIONS: readonly SectionRedigee[] = [
           {
             terme: "Exchanges with the planning assistant.",
             texte:
-              "The content you enter in the AI planning chat to refine a job. This content is processed by an AI model self-hosted on Cloud OS’s infrastructure; it is not sent to any third-party AI provider (see sections 2 and 4).",
+              "The content you enter in the AI planning chat to refine a job. This content is processed by an AI model operated by our subcontractor OVHcloud (see sections 2, 4 and 5).",
           },
           {
             terme: "Messages exchanged in internal messaging.",
@@ -110,7 +110,7 @@ const SECTIONS: readonly SectionRedigee[] = [
           {
             terme: "AI planning assistance:",
             texte:
-              "processing your input in the planning chat, using a self-hosted model, to suggest job plans to you.",
+              "processing your input in the planning chat, using an AI model operated by our subcontractor OVHcloud, to suggest job plans to you.",
           },
           {
             terme: "Billing:",
@@ -132,7 +132,7 @@ const SECTIONS: readonly SectionRedigee[] = [
           },
         ],
       },
-      "We do not use your files or your results to train models, nor for advertising profiling purposes. Since the AI model used for the planning assistant is self-hosted, your exchanges are also never used to train a third party’s models. We do not reuse any information for a purpose incompatible with those above without your consent.",
+      "We do not use your files or your results to train models, nor for advertising profiling purposes. We do not reuse any information for a purpose incompatible with those above without your consent.",
       <>
         <strong className="font-semibold text-white">
           Automated processing.
@@ -172,19 +172,33 @@ const SECTIONS: readonly SectionRedigee[] = [
     titre: "Disclosure to third parties",
     blocs: [
       "We do not sell any personal information.",
-      "A significant part of our infrastructure is self-hosted by Cloud OS (application hosting, database, file storage, service email delivery, and the AI model). These processing activities therefore do not involve any third-party provider.",
-      "We use a limited number of subcontractors (service providers) who process information on our behalf, solely under our instructions and subject to confidentiality and security commitments:",
+      "Cloud OS operates the Service on infrastructure rented from cloud providers. We use a limited number of subcontractors (service providers) who process information on our behalf, solely under our instructions:",
       {
         liste: [
+          {
+            terme: "Infrastructure hosting — Amazon Web Services (AWS).",
+            texte:
+              "The application, the database, file storage and job results are hosted with Amazon Web Services, in its Canada region (Montreal, Quebec), on encrypted volumes. Video meetings (audio, video and screen sharing) go through the Amazon Chime SDK service, in the same region, where their recordings are also kept.",
+          },
+          {
+            terme: "Entry point and email — OVHcloud.",
+            texte:
+              "The Service’s entry point, which receives encrypted connections before passing them to the application, and our mail server, which sends service emails, are hosted with OVHcloud, in Quebec (Canada).",
+          },
+          {
+            terme: "Artificial intelligence — OVHcloud AI Endpoints.",
+            texte:
+              "The Service’s AI features (planning assistant, Assistant, document and image analysis, search across your documents, image generation, meeting summaries) send the content each request needs to AI models hosted by OVHcloud, whose service is operated in France.",
+          },
+          {
+            terme: "GPU compute — RunPod.",
+            texte:
+              "Compute jobs that require a graphics card (GPU) run at RunPod (Runpod, Inc., United States): the job’s code and input data are sent there to run it. The data centre used is not fixed and may be outside Canada.",
+          },
           {
             terme: "Payment — PayPal.",
             texte:
               "Payment processing for your subscription is handled by PayPal. Card or payment account details are entered and processed directly by PayPal; we only receive confirmation of the transaction.",
-          },
-          {
-            terme: "Physical hosting of the infrastructure.",
-            texte:
-              "Our servers are operated directly by Cloud OS, on our own business premises located at 238, 1st Avenue West, Amos, Quebec — no third-party data centre is involved.",
           },
         ],
       },
@@ -194,17 +208,22 @@ const SECTIONS: readonly SectionRedigee[] = [
           {
             terme: "AI planning assistant:",
             texte:
-              "the model is self-hosted on our servers. Content you enter there is not shared with any third party (in particular, not with OpenAI).",
+              "content you enter there is sent to OVHcloud for processing, and to no other AI provider (in particular, not to OpenAI).",
           },
           {
             terme: "Transactional email:",
             texte:
-              "service emails (confirmations, resets, alerts) are sent using our own mail server, without relying on a third-party sending service.",
+              "service emails (confirmations, resets, alerts) are sent using our own mail server, hosted with OVHcloud in Quebec, without relying on a third-party sending service.",
           },
           {
             terme: "File hosting and storage:",
             texte:
-              "the database and files are hosted on our own infrastructure (self-hosted object storage), not with a third-party cloud provider.",
+              "the database and files are hosted with Amazon Web Services, in its Canada region (Montreal), on encrypted volumes.",
+          },
+          {
+            terme: "Contact form:",
+            texte:
+              "the form on the Contact page is protected by Google reCAPTCHA, a service of Google LLC, which receives your IP address and technical data from your browser for this purpose, and processes them on its own servers, including outside Quebec.",
           },
           {
             // La portée est dite ici et à la section 6 : cette politique couvre
@@ -224,9 +243,26 @@ const SECTIONS: readonly SectionRedigee[] = [
   {
     titre: "Hosting and data location",
     blocs: [
-      "Your information (account, database, files, job results) and processing by the AI assistant are hosted on infrastructure operated by Cloud OS, located in Amos, Quebec, Canada.",
-      "Unlike a model relying on external cloud services, the vast majority of processing takes place on our own infrastructure and is not disclosed outside Quebec.",
-      "Two disclosures are likely to result in processing outside Quebec: payment processing by PayPal, and audience and ad-conversion measurement of the marketing site by Google Analytics and Google Ads (only after your consent, see section 6). Law 25 requires, before any disclosure of personal information outside Quebec, a privacy impact assessment to verify that the information will benefit from adequate protection. This assessment is underway for both providers, and the disclosures are governed by their applicable terms pending its completion.",
+      "Your information (account, database, files, job results, meeting recordings) is hosted in Canada, with Amazon Web Services, in its Montreal region (Quebec). The Service’s entry point and our mail server are hosted with OVHcloud, in Quebec.",
+      "The following disclosures are likely to result in processing outside Quebec:",
+      {
+        liste: [
+          {
+            texte:
+              "processing of your requests by OVHcloud’s AI models, operated in France;",
+          },
+          {
+            texte:
+              "running GPU compute jobs at RunPod, whose data centre is not fixed and may be outside Canada, notably in the United States;",
+          },
+          { texte: "payment processing by PayPal;" },
+          {
+            texte:
+              "audience and ad-conversion measurement of the marketing site by Google Analytics and Google Ads (only after your consent, see section 6), and protection of the contact form by Google reCAPTCHA.",
+          },
+        ],
+      },
+      "Law 25 requires, before any disclosure of personal information outside Quebec, a privacy impact assessment to verify that the information will benefit from adequate protection. This assessment is underway for PayPal and Google, whose disclosures are governed by their applicable terms pending its completion. Disclosures to OVHcloud and RunPod are governed by the applicable terms of those providers.",
     ],
   },
   {

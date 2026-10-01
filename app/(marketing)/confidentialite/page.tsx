@@ -35,7 +35,7 @@ export const metadata: Metadata = {
   openGraph: openGraphPage(TITRE, DESCRIPTION, "fr", "/confidentialite", [IMAGE_OG_PARTAGEE]),
 };
 
-const MAJ = "28 septembre 2026";
+const MAJ = "1er octobre 2026";
 
 /** Le responsable désigné au sens de la Loi 25, art. 3.1. */
 const RESPONSABLE = "Maxime Murray";
@@ -80,7 +80,7 @@ const SECTIONS: readonly SectionRedigee[] = [
           {
             terme: "Échanges avec l’assistant de planification.",
             texte:
-              "Le contenu que vous saisissez dans le chat de planification par IA afin d’affiner une tâche. Ce contenu est traité par un modèle d’intelligence artificielle auto-hébergé sur l’infrastructure de Cloud OS ; il n’est transmis à aucun fournisseur d’IA tiers (voir sections 2 et 4).",
+              "Le contenu que vous saisissez dans le chat de planification par IA afin d’affiner une tâche. Ce contenu est traité par un modèle d’intelligence artificielle exploité par notre sous-traitant OVHcloud (voir sections 2, 4 et 5).",
           },
           {
             terme: "Messages échangés dans la messagerie interne.",
@@ -110,7 +110,7 @@ const SECTIONS: readonly SectionRedigee[] = [
           {
             terme: "Assistance de planification par IA :",
             texte:
-              "traiter vos saisies dans le chat de planification, au moyen d’un modèle auto-hébergé, pour vous proposer des plans de tâche.",
+              "traiter vos saisies dans le chat de planification, au moyen d’un modèle d’IA exploité par notre sous-traitant OVHcloud, pour vous proposer des plans de tâche.",
           },
           {
             terme: "Facturation :",
@@ -134,7 +134,7 @@ const SECTIONS: readonly SectionRedigee[] = [
           },
         ],
       },
-      "Nous n’utilisons pas vos fichiers ni vos résultats pour entraîner des modèles ni à des fins de profilage publicitaire. Le modèle d’IA utilisé pour l’assistant de planification étant auto-hébergé, vos échanges ne servent pas non plus à entraîner des modèles d’un tiers. Nous ne réutilisons aucun renseignement à une fin incompatible avec celles ci-dessus sans votre consentement.",
+      "Nous n’utilisons pas vos fichiers ni vos résultats pour entraîner des modèles ni à des fins de profilage publicitaire. Nous ne réutilisons aucun renseignement à une fin incompatible avec celles ci-dessus sans votre consentement.",
       <>
         <strong className="font-semibold text-white">
           Traitement automatisé.
@@ -176,19 +176,33 @@ const SECTIONS: readonly SectionRedigee[] = [
     titre: "Communication à des tiers",
     blocs: [
       "Nous ne vendons aucun renseignement personnel.",
-      "Une part importante de notre infrastructure est auto-hébergée par Cloud OS (hébergement applicatif, base de données, stockage des fichiers, envoi des courriels de service et modèle d’intelligence artificielle). Ces traitements ne font donc pas intervenir de fournisseur tiers.",
-      "Nous faisons appel à un nombre limité de sous-traitants (fournisseurs de services) qui traitent des renseignements pour notre compte, uniquement selon nos instructions et sous des engagements de confidentialité et de sécurité :",
+      "Cloud OS exploite le Service sur une infrastructure louée auprès de fournisseurs infonuagiques. Nous faisons appel à un nombre limité de sous-traitants (fournisseurs de services) qui traitent des renseignements pour notre compte, uniquement selon nos instructions :",
       {
         liste: [
+          {
+            terme: "Hébergement de l’infrastructure — Amazon Web Services (AWS).",
+            texte:
+              "L’application, la base de données, le stockage des fichiers et les résultats de tâches sont hébergés chez Amazon Web Services, dans sa région du Canada (Montréal, Québec), sur des volumes chiffrés. Les réunions vidéo (son, image et partage d’écran) passent par le service Amazon Chime SDK, dans la même région, où sont aussi conservés leurs enregistrements.",
+          },
+          {
+            terme: "Point d’entrée et courriel — OVHcloud.",
+            texte:
+              "Le point d’entrée du Service, qui reçoit les connexions chiffrées avant de les transmettre à l’application, et notre serveur de messagerie, qui envoie les courriels de service, sont hébergés chez OVHcloud, au Québec (Canada).",
+          },
+          {
+            terme: "Intelligence artificielle — OVHcloud AI Endpoints.",
+            texte:
+              "Les fonctions d’IA du Service (assistant de planification, Assistant, analyse de documents et d’images, recherche dans vos documents, génération d’images, comptes rendus de réunion) transmettent le contenu nécessaire à chaque requête aux modèles d’IA hébergés par OVHcloud, dont le service est exploité en France.",
+          },
+          {
+            terme: "Calcul sur GPU — RunPod.",
+            texte:
+              "Les tâches de calcul qui exigent une carte graphique (GPU) sont exécutées chez RunPod (Runpod, Inc., États-Unis) : le code et les données d’entrée de la tâche y sont transmis pour son exécution. Le centre de données utilisé n’est pas fixé et peut se trouver hors du Canada.",
+          },
           {
             terme: "Paiement — PayPal.",
             texte:
               "Le traitement des paiements de l’abonnement est confié à PayPal. Les renseignements de carte ou de compte de paiement sont saisis et traités directement par PayPal ; nous en recevons uniquement la confirmation de la transaction.",
-          },
-          {
-            terme: "Hébergement physique de l’infrastructure.",
-            texte:
-              "Nos serveurs sont exploités par Cloud OS directement, dans nos propres locaux d’affaires situés au 238, 1ère Avenue Ouest, Amos (Québec) — aucun centre de données tiers n’intervient.",
           },
         ],
       },
@@ -198,17 +212,22 @@ const SECTIONS: readonly SectionRedigee[] = [
           {
             terme: "Assistant de planification par IA :",
             texte:
-              "le modèle est auto-hébergé sur nos serveurs. Le contenu que vous y saisissez n’est communiqué à aucun tiers (notamment pas à OpenAI).",
+              "le contenu que vous y saisissez est communiqué à OVHcloud pour son traitement, et à aucun autre fournisseur d’IA (notamment pas à OpenAI).",
           },
           {
             terme: "Courriel transactionnel :",
             texte:
-              "les courriels de service (confirmations, réinitialisations, alertes) sont envoyés au moyen de notre propre serveur de messagerie, sans recourir à un service d’envoi tiers.",
+              "les courriels de service (confirmations, réinitialisations, alertes) sont envoyés au moyen de notre propre serveur de messagerie, hébergé chez OVHcloud au Québec, sans recourir à un service d’envoi tiers.",
           },
           {
             terme: "Hébergement et stockage des fichiers :",
             texte:
-              "la base de données et les fichiers sont hébergés sur notre propre infrastructure (stockage objet auto-hébergé), et non chez un fournisseur infonuagique tiers.",
+              "la base de données et les fichiers sont hébergés chez Amazon Web Services, dans la région du Canada (Montréal), sur des volumes chiffrés.",
+          },
+          {
+            terme: "Formulaire de contact :",
+            texte:
+              "le formulaire de la page Contact est protégé par Google reCAPTCHA, un service de Google LLC, qui reçoit pour cela votre adresse IP et des données techniques de votre navigateur, et les traite sur ses propres serveurs, situés notamment hors Québec.",
           },
           {
             // La portée est dite ici et à la section 6 : cette politique couvre
@@ -228,9 +247,26 @@ const SECTIONS: readonly SectionRedigee[] = [
   {
     titre: "Hébergement et localisation des données",
     blocs: [
-      "Vos renseignements (compte, base de données, fichiers, résultats de tâches) et le traitement par l’assistant d’IA sont hébergés sur l’infrastructure exploitée par Cloud OS, située à Amos (Québec), Canada.",
-      "À la différence d’un modèle reposant sur des services infonuagiques externes, la très grande majorité des traitements se déroule sur notre propre infrastructure et ne fait pas l’objet d’une communication hors Québec.",
-      "Deux communications sont susceptibles d’entraîner un traitement hors Québec : le traitement des paiements par PayPal, et la mesure d’audience et des conversions publicitaires du site vitrine par Google Analytics et Google Ads (uniquement après votre consentement, voir la section 6). La Loi 25 exige, avant toute communication de renseignements personnels hors Québec, une évaluation des facteurs relatifs à la vie privée afin de vérifier que les renseignements bénéficieront d’une protection adéquate. Cette évaluation est en cours pour ces deux prestataires, et les communications sont encadrées par leurs conditions applicables en attendant sa finalisation.",
+      "Vos renseignements (compte, base de données, fichiers, résultats de tâches, enregistrements de réunions) sont hébergés au Canada, chez Amazon Web Services, dans sa région de Montréal (Québec). Le point d’entrée du Service et notre serveur de messagerie sont hébergés chez OVHcloud, au Québec.",
+      "Les communications suivantes sont susceptibles d’entraîner un traitement hors Québec :",
+      {
+        liste: [
+          {
+            texte:
+              "le traitement de vos requêtes par les modèles d’IA d’OVHcloud, exploités en France ;",
+          },
+          {
+            texte:
+              "l’exécution des tâches de calcul sur GPU chez RunPod, dont le centre de données n’est pas fixé et peut se trouver hors du Canada, notamment aux États-Unis ;",
+          },
+          { texte: "le traitement des paiements par PayPal ;" },
+          {
+            texte:
+              "la mesure d’audience et des conversions publicitaires du site vitrine par Google Analytics et Google Ads (uniquement après votre consentement, voir la section 6), et la protection du formulaire de contact par Google reCAPTCHA.",
+          },
+        ],
+      },
+      "La Loi 25 exige, avant toute communication de renseignements personnels hors Québec, une évaluation des facteurs relatifs à la vie privée afin de vérifier que les renseignements bénéficieront d’une protection adéquate. Cette évaluation est en cours pour PayPal et Google, dont les communications sont encadrées par leurs conditions applicables en attendant sa finalisation. Les communications à OVHcloud et à RunPod sont encadrées par les conditions applicables de ces prestataires.",
     ],
   },
   {
