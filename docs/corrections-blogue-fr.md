@@ -19,6 +19,9 @@ passages de plus, dont un en FAQ. Ils sont déjà corrigés dans les versions an
 `publier-api-internes` : six passages faux, une phrase à retirer (lien placé) et trois précisions
 facultatives.
 
+**Complété le 2026-10-01 (bis)** par une seconde famille de faits morts, qui touche douze articles :
+l'hébergement et l'IA. Voir la section « Hébergement et IA » en fin de relevé.
+
 ## Les faits morts
 
 | Ce qui est écrit | Ce qui est vrai |
@@ -224,9 +227,12 @@ Rien à corriger.
 
 **Par :**
 
-> Cloud OS garde vos données et vos traitements sur des serveurs détenus au Québec, avec un moteur
-> déterministe qui produit des résultats reproductibles plutôt qu'approximatifs, dans un abonnement
-> tout compris et transparent, en dollars canadiens.
+> Cloud OS héberge vos données au Canada, dans la région de Montréal, avec un moteur déterministe
+> qui produit des résultats reproductibles plutôt qu'approximatifs, dans un abonnement tout compris
+> et transparent, en dollars canadiens.
+
+*(Remplacement revu le 2026-10-01 : « serveurs détenus au Québec » est faux depuis la migration —
+voir la section « Hébergement et IA » plus bas.)*
 
 **Remplacer :**
 
@@ -461,6 +467,233 @@ héberge les services et les API des clients.
 la gouvernance d'API : vraisemblablement un lien placé. La version anglaise ne reprend pas la
 phrase.)*
 
+## Hébergement et IA — passages devenus faux avec la migration (relevé du 2026-10-01)
+
+Depuis la migration de septembre 2026, Cloud OS n'héberge plus rien sur du matériel qui lui
+appartient : les données sont chez un fournisseur infonuagique, au Canada (région de Montréal), et
+l'IA comme le calcul GPU passent par des services tiers, hors Québec. La règle, fixée le 2026-10-01
+dans `PLAN_CONTENU_VITRINE.md` : écrire « données hébergées au Canada, dans la région de
+Montréal », jamais « serveurs détenus », « traitements au Québec », « exclusivement au Québec » ni
+« ne quittent jamais » ; aucun nom de fournisseur dans les articles (c'est la politique de
+confidentialité qui les nomme). Les versions anglaises sont déjà corrigées.
+
+« Hébergé au Québec » ou « infrastructure québécoise », dit des **données**, reste vrai (la région de
+Montréal est au Québec) : ces mentions-là ne sont pas relevées.
+
+### cad-a-distance — 2 passages
+
+**Remplacer :**
+
+> L'hébergement peut se faire sur des serveurs détenus au Québec, ce qui importe pour les PME
+> manipulant des plans confidentiels ou des données de forage sensibles.
+
+**Par :**
+
+> Les données sont hébergées au Canada, dans la région de Montréal, ce qui importe pour les PME
+> manipulant des plans confidentiels ou des données de forage sensibles.
+
+**Remplacer :**
+
+> Cloud OS héberge exclusivement ses serveurs au Québec, ce qui répond aux exigences de souveraineté
+> pour les données sensibles.
+
+**Par :**
+
+> Cloud OS héberge ses données au Canada, dans la région de Montréal, sur des volumes chiffrés, et sa
+> politique de confidentialité nomme chaque sous-traitant et le lieu où il traite les données.
+
+*(Dans la FAQ : corps de l'article et fiche FAQ.)*
+
+### calendrier-partage-entreprise — 1 passage
+
+**Remplacer :**
+
+> …avec vos données qui restent sur des serveurs détenus localement plutôt que dispersées chez
+> plusieurs fournisseurs étrangers.
+
+**Par :**
+
+> …avec vos données hébergées au Canada plutôt que dispersées chez plusieurs fournisseurs.
+
+### iaas-vs-paas — 1 passage
+
+**Remplacer :**
+
+> Le maintien des données et des traitements sur une infrastructure détenue et hébergée au Québec,
+> un enjeu de souveraineté numérique…
+
+**Par :**
+
+> Le maintien des données au Canada, dans la région de Montréal, un enjeu de souveraineté
+> numérique…
+
+### meilleur-agenda-en-ligne — 1 passage
+
+**Remplacer :**
+
+> …avec un moteur déterministe qui garantit des résultats constants, et des serveurs hébergés
+> localement.
+
+**Par :**
+
+> …avec un moteur déterministe qui garantit des résultats constants, et des données hébergées au
+> Canada.
+
+### meilleur-cloud-securise — 2 passages (plus le remplacement revu plus haut)
+
+**Remplacer :**
+
+> Cloud OS héberge ses données et traitements exclusivement au Québec, un critère qui répond
+> directement aux exigences de vérification de souveraineté décrites plus haut.
+
+**Par :**
+
+> Cloud OS héberge ses données au Canada, dans la région de Montréal, sur des volumes chiffrés, et
+> sa politique de confidentialité nomme chaque sous-traitant et le lieu où il traite les données —
+> exactement ce que cherchent les vérifications de souveraineté décrites plus haut.
+
+**Remplacer :**
+
+> Hébergement et traitement des données sur des serveurs détenus au Québec.
+
+**Par :**
+
+> Données hébergées au Canada, dans la région de Montréal, sur des volumes chiffrés.
+
+### migration-vers-le-cloud — 1 passage
+
+**Remplacer :**
+
+> Cloud OS répond à cette préoccupation en gardant les traitements sur une infrastructure détenue
+> localement à Québec, avec une tarification qui suit l'usage réel plutôt qu'un engagement fixe et
+> surdimensionné.
+
+**Par :**
+
+> Cloud OS répond à cette préoccupation en hébergeant vos données au Canada, dans la région de
+> Montréal, avec un abonnement tout compris et une jauge d'usage mensuelle plutôt qu'un
+> investissement de départ surdimensionné.
+
+*(Deux faits morts dans la même phrase : l'hébergement, et la « tarification qui suit l'usage réel », absente du relevé tarifaire plus haut. « à Québec » désigne d'ailleurs la ville, ce qui n'a jamais été vrai.)*
+
+### onlyoffice-vs-libreoffice — 2 passages
+
+**Remplacer :**
+
+> …avec vos fichiers et vos traitements hébergés sur une infrastructure détenue au Québec.
+
+**Par :**
+
+> …avec vos fichiers hébergés au Canada, dans la région de Montréal.
+
+**Remplacer :**
+
+> …et les données ne quittent jamais l'infrastructure québécoise.
+
+**Par :**
+
+> …et ses fichiers restent hébergés au Canada.
+
+### planification-de-taches-cloud — 2 passages
+
+**Remplacer :**
+
+> Cloud OS : la planification pilotée par IA, exécutée localement
+
+**Par :**
+
+> Cloud OS : la planification pilotée par IA, données hébergées au Canada
+
+*(Titre de section : penser à l'entrée correspondante de la table des matières.)*
+
+**Remplacer :**
+
+> …et vos données restent hébergées sur des serveurs détenus au Québec.
+
+**Par :**
+
+> …et vos données restent hébergées au Canada, dans la région de Montréal.
+
+### premiere-pro-vs-davinci-resolve — 2 passages
+
+**Remplacer :**
+
+> …avec des données traitées sur une infrastructure hébergée au Québec, un critère qui compte pour
+> les PME régionales soucieuses de souveraineté numérique.
+
+**Par :**
+
+> …avec vos fichiers hébergés au Canada, un critère qui compte pour les PME régionales soucieuses
+> de souveraineté numérique.
+
+**Remplacer :**
+
+> …exécuter le calcul directement sur une infrastructure québécoise règle une partie du problème
+> logistique tout en gardant vos données sous souveraineté locale.
+
+**Par :**
+
+> …exécuter le calcul dans le cloud, à côté de fichiers hébergés au Canada, règle une partie du
+> problème logistique.
+
+*(Le calcul GPU ne s'exécute pas au Québec.)*
+
+### publier-api-internes — 1 passage
+
+**Remplacer :**
+
+> Cloud OS centralise ce travail dans un poste de travail cloud où les traitements restent sur des
+> serveurs détenus et hébergés au Québec, avec un moteur déterministe…
+
+**Par :**
+
+> Cloud OS centralise ce travail dans un poste de travail cloud dont les données sont hébergées au
+> Canada, dans la région de Montréal, avec un moteur déterministe…
+
+### sso-open-source — 2 passages
+
+**Remplacer :**
+
+> …directement dans un environnement cloud hébergé sur des serveurs détenus au Québec, sans
+> installation locale…
+
+**Par :**
+
+> …directement dans un environnement cloud dont les données sont hébergées au Canada, dans la
+> région de Montréal, sans installation locale…
+
+**Remplacer :**
+
+> Vos données et vos traitements restent sur cette infrastructure locale, ce qui répond directement
+> à la préoccupation de souveraineté numérique…
+
+**Par :**
+
+> Vos données restent hébergées au Canada, ce qui répond directement à la préoccupation de
+> souveraineté numérique…
+
+### tarification-a-lusage-cloud — 2 passages
+
+**Remplacer :**
+
+> Les données et les traitements demeurent sur des serveurs détenus et hébergés localement, ce qui
+> répond directement à la question de souveraineté…
+
+**Par :**
+
+> Les données demeurent hébergées au Canada, dans la région de Montréal, ce qui répond directement
+> à la question de souveraineté…
+
+**Remplacer :**
+
+> Vos données et vos traitements restent sur une infrastructure hébergée au Québec, un point qui
+> compte particulièrement…
+
+**Par :**
+
+> Vos données restent hébergées au Canada, dans la région de Montréal, un point qui compte
+> particulièrement…
+
 ---
 
 ## Vérifier après coup
@@ -470,10 +703,11 @@ for s in calendrier-partage-entreprise crm-pour-pme migration-vers-le-cloud \
          onlyoffice-vs-libreoffice partage-de-fichiers-securise \
          premiere-pro-vs-davinci-resolve sso-open-source \
          meilleur-cloud-securise iaas-vs-paas blender-dans-le-cloud \
-         meilleur-agenda-en-ligne cad-a-distance publier-api-internes; do
+         meilleur-agenda-en-ligne cad-a-distance publier-api-internes \
+         planification-de-taches-cloud tarification-a-lusage-cloud; do
   curl -s -L "https://cloudparadise.ca/blogue/$s" \
     | sed -E 's/<[^>]+>/ /g' | sed 's/\xc2\xa0/ /g' | tr -s ' ' | tr '.' '\n' \
-    | grep -iE "à la tâche|par tâche|à l.unité|paiement à l.usage|plans? Découverte|plan Pro|€|SynaptixPlatform|Bac à sable à|grille de crédits|crédits prépayés|consommation réelle|\\\$ ?US" \
+    | grep -iE "à la tâche|par tâche|à l.unité|paiement à l.usage|plans? Découverte|plan Pro|€|SynaptixPlatform|détenu|exclusivement|ne quittent jamais|exécutée localement|hébergés localement|Bac à sable à|grille de crédits|crédits prépayés|consommation réelle|\\\$ ?US" \
     | sed "s|^|$s : |"
 done
 ```

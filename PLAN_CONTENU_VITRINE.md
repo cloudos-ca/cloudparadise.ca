@@ -20,8 +20,8 @@ Ces points sont tranchés. Ils ne se rediscutent pas dans les briefs de sections
 | Rôle de `/mines` | Page de **soutien à la vente**, pas de conquête SEO. Le visiteur y arrive parce qu'on lui a envoyé le lien. Objectif : prouver en 30 secondes qu'on connaît le métier. |
 | Couverture des facettes | 100 % maintenue, mais répartie selon la fonction de la page (convaincre / rassurer / capter), pas étalée sur 11 pages. |
 | Nombre de pages | 8 pages de contenu — `/assistance` s'est ajoutée le 2026-09-23, voir §2. |
-| Moteur d'IA | **Auto-hébergé.** Aucune donnée client ne transite par une API externe. |
-| Hébergement | Matériel possédé, dans un local loué à Amos, Québec. |
+| Moteur d'IA | **Aucune affirmation sur son emplacement** (décision du 2026-10-01). Depuis la migration de septembre 2026, l'IA est un service tiers (OVHcloud AI Endpoints, exploité en France) et le calcul GPU passe par RunPod. La copie marketing ne dit ni « auto-hébergé », ni « tourne chez nous », ni « jamais envoyé à un fournisseur d'IA tiers ». L'argument qui reste : l'IA choisit le moteur, un moteur déterministe calcule. |
+| Hébergement | **Données hébergées au Canada, dans la région de Montréal, chiffrées** (décision du 2026-10-01 ; remplace « matériel possédé à Amos », faux depuis la migration vers AWS `ca-central-1` de septembre 2026). Aucun nom de fournisseur dans la copie marketing ; la politique de confidentialité, elle, nomme les sous-traitants (AWS, OVHcloud, RunPod, PayPal, Google) et dit où chacun traite les données. Ni « notre matériel », ni « Amos », ni « pas de cloud tiers loué ». |
 | Disponibilité | **Aucune promesse.** Voir §5. |
 | Modèle de tarification | **Abonnement, depuis la bascule du 2026-09-23.** Deux forfaits tout inclus en $ CA (Personnel, Entreprise), une jauge d'usage mensuelle, cinq durées d'engagement, un essai de 14 jours sans carte. Les crédits, les packs de recharge, la grille de prix par tâche et les add-ons vendus séparément **n'existent plus** : ni « crédit », ni « recharge », ni « solde », ni « payez ce que vous utilisez » ne doivent réapparaître dans la copie client. Voir §3.6. |
 | Langue | FR par défaut, clés prêtes pour EN. Vouvoiement partout. |
@@ -140,7 +140,7 @@ Le point à faire passer : vos fichiers restent dans votre espace, la sauvegarde
 - Rapport d'exploration : brouillon assisté de rapport de travaux statutaires MRNF et de sections NI 43-101, export PDF.
 - Données ouvertes : import des couches SIGÉOM et MERN par district minier.
 - SIG : reprojection NAD83 UTM 17/18N et MTM, desurvey, anomalies géochimiques, ombrage et courbes de niveau, export GPX pour Garmin sur le terrain, éditeur QGIS en ligne.
-- Ancrage local assumé : Amos, Val-d'Or, Rouyn-Noranda. Les serveurs sont dans la même ville que le client — c'est un argument, pas une excuse.
+- Ancrage local assumé : une équipe en Abitibi, qui connaît Amos, Val-d'Or et Rouyn-Noranda. Les serveurs, eux, ne sont plus en Abitibi : les données sont hébergées au Canada, dans la région de Montréal (décision du 2026-10-01).
 
 **CTA.** « Réservez une démo » vers un formulaire ciblé. Le second CTA d'essai gratuit est secondaire ici.
 
@@ -150,11 +150,11 @@ Le point à faire passer : vos fichiers restent dans votre espace, la sauvegarde
 
 ### 3.5 `/securite` — Souveraineté et confiance
 
-**Message-clé.** « Vos données, notre matériel, au Québec. »
+**Message-clé.** « Vos données au Canada, chiffrées. » *(Avant le 2026-10-01 : « Vos données, notre matériel, au Québec. » — faux depuis la migration vers AWS.)*
 
 **Information à présenter — les quatre affirmations défendables.**
-1. Hébergement au Québec sur du matériel possédé. Pas de cloud tiers loué.
-2. Le modèle de langage tourne sur nos machines. Aucune donnée client ne transite par une API externe.
+1. Données hébergées au Canada, dans la région de Montréal, sur des volumes chiffrés. Pas de nom de fournisseur ici : c'est la politique de confidentialité qui les nomme.
+2. *(Retiré le 2026-10-01 : « le modèle de langage tourne sur nos machines ». L'IA et le calcul GPU sont des services tiers ; on ne dit rien de leur emplacement sur cette page, et on renvoie à la politique de confidentialité.)*
 3. L'IA route et planifie ; un moteur déterministe calcule. L'IA n'exécute jamais de commande arbitraire, les accès SQL sont en lecture seule, et le résultat n'est jamais généré par le modèle.
 4. Isolation par utilisateur et par équipe, authentification à deux facteurs par courriel, jetons de session hachés, clés API à portée limitée avec expiration.
 
@@ -162,7 +162,7 @@ Le point à faire passer : vos fichiers restent dans votre espace, la sauvegarde
 
 **CTA.** « Parlez à un humain ».
 
-**Ce qu'on ne dit pas — important.** Aucune mention de disponibilité garantie, d'engagement de service chiffré, de redondance, de reprise après sinistre, ni de certification. Un local loué n'est pas une colocation : pas de génératrice, pas de refroidissement redondant, un seul lien réseau. Le silence sur ces sujets est la posture correcte tant que l'infrastructure n'est pas en colocation. Aucune référence non plus au modèle précis des processeurs, de la mémoire ou des cartes graphiques.
+**Ce qu'on ne dit pas — important.** Aucune mention de disponibilité garantie, d'engagement de service chiffré, de redondance, de reprise après sinistre, ni de certification. Le silence sur ces sujets reste la posture correcte même chez un fournisseur infonuagique : une promesse publiée engage Cloud OS, pas le fournisseur. Aucune référence non plus au modèle précis des processeurs, de la mémoire ou des cartes graphiques.
 
 ---
 
@@ -179,7 +179,7 @@ Le point à faire passer : vos fichiers restent dans votre espace, la sauvegarde
 - Ce qui se passe dans un billet : classement et brouillon de réponse à l'arrivée, macros qui agissent sur le billet, fil public et notes internes, répertoire de clients partagé avec l'ERP.
 - Les engagements de service : deux échéances, comptées en heures ouvrables, **en pause pendant l'attente du client**, avec alerte et escalade. C'est l'argument qui distingue du concurrent déjà en place.
 - Ce qui est mesuré, sans promesse chiffrée de résultat.
-- La souveraineté appliquée aux conversations clients : elles restent au Québec, le modèle qui les classe tourne sur le même matériel, et nous ne lisons pas les billets.
+- La confidentialité appliquée aux conversations clients : elles sont hébergées au Canada, et nous ne lisons pas les billets. *(Depuis le 2026-10-01, plus de « le modèle qui les classe tourne sur le même matériel » : le classement passe par l'IA tierce.)*
 - Inclus dans les deux forfaits, dès le prix d'entrée.
 
 **Ce qu'on ne dit pas.** Aucune promesse de gain chiffré (« réduisez vos délais de 40 % ») : on n'a pas la mesure pour la soutenir. Aucun nom de concurrent dans la copie. Pas de compte de fonctionnalités. Aucune promesse sur la protection du formulaire public du portail : la page décrit ce que le module fait pour vos clients, pas comment il se défend. La règle tient quel que soit l'état du produit — le CAPTCHA, manque connu depuis la vague 1 (spec §7, à traiter au niveau de la plateforme et non de l'app), est en cours d'ajout le 2026-09-23, et une copie qui s'appuierait dessus serait à réécrire au prochain changement. Les mesures en place (limitation de débit, champ piège, plafond par contact non vérifié) relèvent de `/securite` si on décide un jour de les dire, pas de cette page.
@@ -238,7 +238,7 @@ Le point à faire passer : vos fichiers restent dans votre espace, la sauvegarde
 | Workflows, cédules, rapports | `/calcul` |
 | Gestionnaire de téléchargements | `/fonctions` |
 | Titres miniers, forages 3D, rapport d'exploration, données ouvertes, SIG, GPX | `/mines` |
-| Infra possédée, LLM auto-hébergé, IA déterministe, 2FA, isolation, clés API | `/securite` |
+| Données au Canada (région de Montréal), IA déterministe, 2FA, isolation, clés API | `/securite` |
 | Forfaits, jauge, facturation, parrainage | `/tarifs` |
 | ERP (CRM, devis/factures, inventaire, tableau de bord) | `/pme#erp` + `/fonctions` |
 | Bureau d'assistance (billets, portail, courriel, clavardage, base de connaissances, SLA, macros, rapports, satisfaction) | `/assistance` + `/pme#assistance` + `/fonctions#assistance` |
@@ -257,7 +257,7 @@ Le point à faire passer : vos fichiers restent dans votre espace, la sauvegarde
 2. **Jamais de compte chiffré** de modes, d'apps ou de fonctionnalités. La liste évolue ; le chiffre devient faux et il faut alors le corriger à sept endroits.
 3. **L'abonnement est le modèle, et le seul.** Depuis le 2026-09-23, aucune surface client ne parle de crédits, de solde, de recharge ni de prix par tâche. Aucune négation de l'abonnement non plus (« sans abonnement », « sans abonnement requis ») : ce serait faux. L'enveloppe mensuelle se dit « jauge » et s'affiche en pourcentage.
 4. **Aucune promesse de disponibilité** : pas d'engagement de service, pas de pourcentage d'uptime, pas de redondance, pas de certification.
-5. **Aucune fiche technique matérielle.** On vend le principe de souveraineté, jamais les numéros de modèle.
+5. **Aucune fiche technique matérielle.** On vend le principe (données au Canada, calcul déterministe), jamais les numéros de modèle ni les noms de fournisseurs.
 6. **Ne montrer que ce qui est live** et utilisable par un inconnu sans accompagnement.
 7. **Prix : source unique.** Toute valeur monétaire vient du fichier de tarification centralisé. Aucun prix écrit en dur dans une page.
 8. **Sobriété des effets** — instruction client. Un effet visuel doit expliquer quelque chose pour mériter sa place.
@@ -269,7 +269,7 @@ Le point à faire passer : vos fichiers restent dans votre espace, la sauvegarde
 
 À régler avant ou pendant la construction.
 
-1. **Vérification des appels externes résiduels.** Confirmer dans le code qu'aucun appel n'atteint une API externe — pas seulement pour le routage, mais aussi pour la génération d'images, l'assistant, la recherche sémantique et la classification automatique. Ce sont les endroits où une intégration reste souvent branchée après la migration du moteur principal. L'affirmation « aucune donnée chez un tiers » ne peut être publiée avant cette vérification.
-2. **Politique de confidentialité à refaire.** Le brouillon existant était structuré autour d'un sous-traitant externe et de l'obligation d'évaluation des facteurs relatifs à la vie privée qui en découlait. Avec un modèle auto-hébergé, cette section disparaît et la politique devient plus simple et plus forte. À reprendre, puis à faire valider par un juriste.
+1. **Vérification des appels externes résiduels.** Confirmer dans le code qu'aucun appel n'atteint une API externe — pas seulement pour le routage, mais aussi pour la génération d'images, l'assistant, la recherche sémantique et la classification automatique. Ce sont les endroits où une intégration reste souvent branchée après la migration du moteur principal. L'affirmation « aucune donnée chez un tiers » ne peut être publiée avant cette vérification. **Tranché le 2026-10-01 : elle est fausse** — l'IA passe par OVHcloud AI Endpoints (France), le calcul GPU par RunPod, l'hébergement par AWS. Elle ne doit plus apparaître.
+2. **Politique de confidentialité à refaire.** Le brouillon existant était structuré autour d'un sous-traitant externe et de l'obligation d'évaluation des facteurs relatifs à la vie privée qui en découlait. Avec un modèle auto-hébergé, cette section disparaît et la politique devient plus simple et plus forte. À reprendre, puis à faire valider par un juriste. **Mise à jour du 2026-10-01 :** l'IA n'est plus auto-hébergée ; la politique nomme désormais ses sous-traitants (AWS, OVHcloud, RunPod) et les communications hors Québec qui en découlent. L'évaluation des facteurs relatifs à la vie privée pour OVHcloud et RunPod reste à faire valider par un juriste, et la politique de l'application (`src/lib/legal/content.ts`) doit être alignée.
 3. **Captures d'écran.** `/plateforme` et `/mines` ne fonctionnent pas sans visuels réels du bureau et des apps. À produire avant la rédaction finale de ces deux pages.
 4. **Liste des facettes.** Établir une liste figée, relue à chaque version, plutôt que d'importer le registre d'apps de l'application — les deux dépôts sont séparés.
