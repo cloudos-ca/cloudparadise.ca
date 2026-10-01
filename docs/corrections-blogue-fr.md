@@ -15,6 +15,10 @@ publiées.
 passages de plus, dont un en FAQ. Ils sont déjà corrigés dans les versions anglaises
 (`content/blogue/en/`) ; seul le français reste à reprendre chez BabyLoveGrowth.
 
+**Complété le 2026-10-01** de la même façon avec `meilleur-agenda-en-ligne`, `cad-a-distance` et
+`publier-api-internes` : six passages faux, une phrase à retirer (lien placé) et trois précisions
+facultatives.
+
 ## Les faits morts
 
 | Ce qui est écrit | Ce qui est vrai |
@@ -319,6 +323,144 @@ L'article ne nomme aucun forfait mort, mais reste vague là où la version angla
 
 *(La formule d'origine laisse entendre une facturation au volume.)*
 
+## meilleur-agenda-en-ligne — 4 passages, une précision facultative
+
+**Remplacer** le tableau des plans :
+
+> | Découverte | 10 $ par mois | Indépendants et petites équipes qui testent l'environnement |
+> | Entreprise | 60 $ par mois | PME avec besoins d'intégration et d'automatisation |
+> | Hébergement Web | 9 $ par mois | Entreprises qui veulent héberger leur site en parallèle |
+
+**Par :**
+
+> | Personnel | 10 $ CA par mois | Travailleurs autonomes et utilisateurs individuels qui découvrent l'environnement |
+> | Entreprise | 60 $ CA par mois | PME avec une équipe (jusqu'à 25 membres) et des besoins d'intégration et d'automatisation |
+> | Hébergement Web | 9 $ CA par mois | Entreprises qui veulent héberger leur site en parallèle (un site est inclus dans Entreprise) |
+
+*(Personnel ne permet pas de créer une équipe, seulement d'en rejoindre une : « petites équipes »
+est retiré de sa ligne.)*
+
+**Remplacer :**
+
+> Consultez la page tarifs pour comparer les plans Découverte et Entreprise selon la taille de votre
+> équipe.
+
+**Par :**
+
+> Consultez la page tarifs pour comparer les forfaits Personnel et Entreprise selon la taille de
+> votre équipe.
+
+**Remplacer :**
+
+> Le mode de tarification qui convient à votre usage, abonnement mensuel ou paiement à l'usage.
+
+**Par :**
+
+> Le forfait qui convient à votre usage, Personnel ou Entreprise, et la durée d'engagement.
+
+*(Cloud OS n'a pas de paiement à l'usage. La mention générique de la checklist du début de
+l'article, qui parle des fournisseurs en général, reste juste.)*
+
+**Remplacer :**
+
+> …détaille comment Cloud OS gère les données de forage et les calculs GESTIM.
+
+**Par :**
+
+> …détaille comment Cloud OS gère les données de forage, les titres miniers et les couches GESTIM.
+
+*(GESTIM n'offre aucun service interrogeable : Cloud OS en affiche les couches, il ne fait pas de
+« calculs GESTIM ».)*
+
+**Remplacer (facultatif, rien de faux) :**
+
+> (consultez le site de Cloud OS pour les détails sur ces plans)
+
+**Par :**
+
+> (les deux forfaits commencent par un essai gratuit de 14 jours, sans carte ; consultez le site de
+> Cloud OS pour le détail)
+
+*(À noter aussi : le paragraphe « Sources » cite une « fiche Google Calendar sur Capterra » et un
+« cadre canadien sur la souveraineté numérique » absents des liens de l'article. La version
+anglaise cite ce qui est réellement lié : la fiche Beesbusy sur Capterra, le comparatif G2 et le
+guide du gouvernement du Canada sur les risques de sécurité et de vie privée.)*
+
+## cad-a-distance — 2 passages, deux précisions facultatives
+
+**Remplacer** (dans « En bref ») :
+
+> La solution Cloud OS propose un calcul reproductible et sécurisé, hébergé au Québec, avec des
+> plans d'abonnement à partir de 10 € par mois pour tester la plateforme avant un déploiement
+> complet.
+
+**Par :**
+
+> La solution Cloud OS propose un calcul reproductible et sécurisé, hébergé au Québec, avec deux
+> forfaits tout compris à partir de 10 $ CA par mois et un essai gratuit de 14 jours pour tester la
+> plateforme avant un déploiement complet.
+
+*(Prix en euros.)*
+
+**Remplacer :**
+
+> Le calcul lourd et le rendu 3D peuvent se payer à la tâche, sans capital immobilisé dans du
+> matériel.
+
+**Par :**
+
+> Le calcul lourd et le rendu 3D sont puisés dans l'enveloppe mensuelle du forfait, avec une jauge
+> qui dit où vous en êtes : pas de facture à la tâche, ni de capital immobilisé dans du matériel.
+
+**Remplacer (facultatif, imprécis plutôt que faux) :**
+
+> Des plans d'abonnement démarrent à 10 $ par mois, avec des options plus avancées disponibles,
+> détaillés sur la page tarifs.
+
+**Par :**
+
+> Deux forfaits tout compris : Personnel à 10 $ CA par mois et Entreprise à 60 $ CA par mois, avec
+> un essai gratuit de 14 jours sans carte, détaillés sur la page tarifs.
+
+**Remplacer (facultatif, dans la FAQ : corps et fiche FAQ) :**
+
+> Des plans d'abonnement démarrent à 10 $ par mois et peuvent aller plus haut, détaillés sur la
+> page tarifs.
+
+**Par :**
+
+> Cloud OS propose deux forfaits tout compris : Personnel à 10 $ CA par mois et Entreprise à 60 $ CA
+> par mois, chacun avec une enveloppe d'usage mensuelle suivie par une jauge, détaillés sur la page
+> tarifs. L'essai gratuit de 14 jours se fait sans carte.
+
+## publier-api-internes — une précision, une phrase à retirer
+
+L'article ne nomme aucun forfait mort, mais sa dernière section laisse entendre que Cloud OS
+héberge les services et les API des clients.
+
+**Remplacer :**
+
+> Pour une PME qui veut héberger ses services sans gérer d'infrastructure séparée, des plans
+> d'abonnement adaptés offrent un point de départ simple pour centraliser bureautique,
+> collaboration et automatisation de tâches lourdes dans un même espace.
+
+**Par :**
+
+> Cloud OS n'est pas une passerelle d'API : le forfait Entreprise comprend un Bac à sable, un
+> bureau persistant où votre équipe construit et teste un service avant de le publier, à côté de
+> la bureautique, de la collaboration et de l'automatisation des tâches lourdes. Deux forfaits tout
+> compris, Personnel à 10 $ CA par mois et Entreprise à 60 $ CA par mois, chacun avec son
+> enveloppe mensuelle et sa jauge, et un essai de 14 jours sans carte.
+
+**Retirer :**
+
+> Pour des exemples concrets d'intégration de contrats API, la ressource SynaptixPlatform illustre
+> des pratiques de gouvernance applicables aux API internes.
+
+*(Le lien mène à l'accueil d'un éditeur polonais d'automatisation industrielle, sans rapport avec
+la gouvernance d'API : vraisemblablement un lien placé. La version anglaise ne reprend pas la
+phrase.)*
+
 ---
 
 ## Vérifier après coup
@@ -327,10 +469,11 @@ L'article ne nomme aucun forfait mort, mais reste vague là où la version angla
 for s in calendrier-partage-entreprise crm-pour-pme migration-vers-le-cloud \
          onlyoffice-vs-libreoffice partage-de-fichiers-securise \
          premiere-pro-vs-davinci-resolve sso-open-source \
-         meilleur-cloud-securise iaas-vs-paas blender-dans-le-cloud; do
+         meilleur-cloud-securise iaas-vs-paas blender-dans-le-cloud \
+         meilleur-agenda-en-ligne cad-a-distance publier-api-internes; do
   curl -s -L "https://cloudparadise.ca/blogue/$s" \
     | sed -E 's/<[^>]+>/ /g' | sed 's/\xc2\xa0/ /g' | tr -s ' ' | tr '.' '\n' \
-    | grep -iE "à la tâche|par tâche|à l.unité|plan Découverte|plan Pro|Bac à sable à|grille de crédits|crédits prépayés|consommation réelle|\\\$ ?US" \
+    | grep -iE "à la tâche|par tâche|à l.unité|paiement à l.usage|plans? Découverte|plan Pro|€|SynaptixPlatform|Bac à sable à|grille de crédits|crédits prépayés|consommation réelle|\\\$ ?US" \
     | sed "s|^|$s : |"
 done
 ```
@@ -342,4 +485,7 @@ balises laisse quand un lien coupe une expression (« plan  Découverte » dans 
 Deux familles de faux positifs à ignorer dans cette sortie : les prix en $US de
 `premiere-pro-vs-davinci-resolve` qui sont ceux d'Adobe et de Blackmagic, et le mot
 « Découverte » de `migration-vers-le-cloud`, qui y désigne la phase de *discovery* d'un projet de
-migration et non l'ancien forfait.
+migration et non l'ancien forfait. S'y ajoute « tarification à la tâche ou abonnement fixe » dans
+la grille de questions de `cad-a-distance` : une question à poser à n'importe quel fournisseur, pas
+une affirmation sur Cloud OS. Le tableau des plans de `meilleur-agenda-en-ligne` (« Découverte »
+seul dans une cellule) échappe au motif : le vérifier à l'œil.
