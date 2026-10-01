@@ -133,7 +133,7 @@ const SECTIONS: readonly SectionFonctions[] = [
       {
         nom: "Sound and microphone",
         texte:
-          "Master volume and per-app volume, your choice of microphone, speakers and camera. The microphone and camera only open for the apps you allow.",
+          "Master volume and per-app volume, your choice of microphone, speakers and camera. The microphone and camera only open for the apps you allow; the microphone also works in desktop software such as Audacity and Ardour.",
       },
       {
         nom: "Monitor",

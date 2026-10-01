@@ -1,7 +1,7 @@
 import type { FicheApplication } from "../types";
 
 /**
- * Ardour — ÉBAUCHE, à relire avant publication (et à tester : voir plus bas).
+ * Ardour — publiée le 2026-10-01, une fois le son et le micro confirmés en production par le client.
  *
  * Faits vérifiés dans le produit (cloudparadise_hpc) le 2026-09-25 :
  * - Ardour est l'image `linuxserver/ardour`, diffusée dans une fenêtre du bureau
@@ -16,18 +16,17 @@ import type { FicheApplication } from "../types";
  *   appfiles-session.ts). Or une session Ardour est un DOSSIER : elle ne revient pas dans Fichiers.
  *   La fiche ne promet donc que le renvoi des fichiers exportés (le mixage).
  * - Session temporaire, sur un espace en mémoire (appfiles-session.ts, reaper.ts).
- * - Pas d'enregistrement au micro : iframe d'une autre origine sans permission « microphone »
- *   (desktop-app-window.tsx). Même chose pour une interface audio ou un clavier MIDI branchés sur le
- *   poste : rien ne les relie au conteneur.
+ * - MICRO ET SON (depuis le 2026-09-26, 64078b46 ; confirmé en production par le client le
+ *   2026-10-01) : bouton « Ouvrir le micro » dans la fenêtre, accord demandé à la première ouverture,
+ *   micro choisi dans Paramètres › Son parmi les entrées que voit le navigateur — une interface audio
+ *   y figure comme un micro. Un clavier MIDI n'est relié par rien : la fiche le dit.
  * - Éditeur et licence : Paul Davis et la communauté Ardour ; GPL-2.0-or-later (COPYING du dépôt
  *   Ardour/ardour).
  *
  * Positionnement (anti-cannibalisation) : Ardour = station audionumérique (DAW) multipiste —
  * arranger, mixer, automatiser, exporter un mixage. Audacity = éditer un fichier audio.
  *
- * À vérifier à la relecture — IMPORTANT, à tester avant publication :
- * - L'ÉCOUTE : que le son d'Ardour parvient au navigateur par le flux KasmVNC, et qu'Ardour démarre
- *   avec un moteur audio utilisable dans le conteneur. Sans écoute, cette fiche ne tient pas.
+ * À vérifier à la relecture :
  * - Que le pont fichiers (MARKETPLACE_APPFILES) est actif en production.
  * - La tenue d'une session chargée dans le plafond par défaut de 2 Go de RAM et 1,5 processeur
  *   (compose-validate.ts).
@@ -79,6 +78,7 @@ export const ardour: FicheApplication = {
         titre: "Le vrai Ardour, dans une fenêtre du bureau",
         paragraphes: [
           "Dans Cloud OS, c'est le logiciel lui-même qui tourne, dans une fenêtre de votre bureau en ligne. Rien à installer ni à configurer sur le poste, aucune mise à jour à suivre, et le même Ardour sur chaque ordinateur d'où vous vous connectez.",
+          "Vous entendez votre mixage, et vous enregistrez avec le micro de votre ordinateur : un bouton de la fenêtre l'ouvre, après votre accord, et il se ferme avec elle. Le micro utilisé se choisit dans les Paramètres ; une interface audio reconnue par votre navigateur y figure aussi.",
         ],
       },
       {
@@ -95,7 +95,7 @@ export const ardour: FicheApplication = {
       {
         titre: "Ce qu'il faut savoir",
         paragraphes: [
-          "Ardour sert ici à arranger et à mixer des pistes déjà enregistrées : le micro, une interface audio ou un clavier MIDI branchés sur votre ordinateur ne sont pas reliés au logiciel.",
+          "Le son fait l'aller-retour par Internet : comptez un léger décalage à l'enregistrement, et recalez la prise sur la ligne de temps au besoin. Un clavier MIDI branché sur votre ordinateur n'est pas relié au logiciel.",
           "La session est temporaire, et seuls les fichiers placés directement dans le dossier « Stockage » reviennent dans Fichiers : exportez-y votre mixage avant de fermer la fenêtre. Ardour s'utilise depuis un ordinateur ; il n'est pas proposé sur téléphone.",
         ],
       },
@@ -112,6 +112,7 @@ export const ardour: FicheApplication = {
         titre: "The real Ardour, in a desktop window",
         paragraphes: [
           "In Cloud OS, the software itself runs in a window of your online desktop. Nothing to install or configure on your computer, no updates to keep up with, and the same Ardour on every computer you sign in from.",
+          "You hear your mix, and you record with your computer's microphone: a button in the window opens it once you agree, and it closes with the window. You pick which microphone to use in Settings; an audio interface your browser recognizes shows up there too.",
         ],
       },
       {
@@ -128,7 +129,7 @@ export const ardour: FicheApplication = {
       {
         titre: "Good to know",
         paragraphes: [
-          "Here, Ardour is for arranging and mixing tracks that are already recorded: a microphone, audio interface or MIDI keyboard plugged into your computer is not connected to the software.",
+          "Sound makes a round trip over the internet: expect a slight delay when recording, and nudge the take into place on the timeline if needed. A MIDI keyboard plugged into your computer is not connected to the software.",
           "The session is temporary, and only files placed directly in the “Stockage” folder go back to Files: export your mix there before closing the window. Ardour is used from a computer; it is not offered on phones.",
         ],
       },
@@ -142,7 +143,7 @@ export const ardour: FicheApplication = {
       },
       {
         question: "Puis-je enregistrer des instruments ou ma voix dans Ardour ?",
-        reponse: "Pas dans Cloud OS : le micro et les interfaces audio de votre ordinateur ne sont pas reliés au logiciel. Enregistrez vos prises sur votre appareil, versez-les dans Fichiers, puis arrangez-les et mixez-les dans Ardour.",
+        reponse: "Oui, par le micro : ouvrez-le avec le bouton de la fenêtre d'Ardour et donnez votre accord. Une interface audio reconnue par votre navigateur peut servir de micro, au choix dans les Paramètres. Les claviers MIDI, eux, ne sont pas reliés.",
       },
       {
         question: "Ardour ou Audacity : lequel choisir ?",
@@ -160,7 +161,7 @@ export const ardour: FicheApplication = {
       },
       {
         question: "Can I record instruments or my voice in Ardour?",
-        reponse: "Not in Cloud OS: your computer's microphone and audio interfaces are not connected to the software. Record your takes on your device, upload them to Files, then arrange and mix them in Ardour.",
+        reponse: "Yes, through the microphone: open it with the button in the Ardour window and give your consent. An audio interface your browser recognizes can serve as the microphone, chosen in Settings. MIDI keyboards, however, are not connected.",
       },
       {
         question: "Ardour or Audacity: which should I choose?",

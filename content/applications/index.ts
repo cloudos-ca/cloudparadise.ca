@@ -7,6 +7,7 @@ import { onlyoffice } from "./fiches/onlyoffice";
 import { krita } from "./fiches/krita";
 import { digikam } from "./fiches/digikam";
 import { audacity } from "./fiches/audacity";
+import { ardour } from "./fiches/ardour";
 import { agentDeCode } from "./fiches/agent-de-code";
 import { arcades } from "./fiches/arcades";
 import { assistant } from "./fiches/assistant";
@@ -78,6 +79,7 @@ export const FICHES: readonly FicheApplication[] = [
   agenda,
   agentDeCode,
   arcades,
+  ardour,
   assistant,
   audacity,
   audio,
@@ -147,11 +149,6 @@ export const A_ECRIRE: readonly string[] = [
   // d'un éditeur hébergé offert à des clients. Doute non levé : à trancher (licence achetée, accord
   // écrit de Remotion, ou éditeur sans Remotion) avant de publier.
   "video-editor",
-  // Fiche écrite (fiches/ardour.ts), retenue : l'écoute du son à travers la session n'est pas
-  // vérifiée, et sans son la fiche ne tient pas. Le pont son existe depuis le 2026-09-26
-  // (cloudparadise_hpc, infra/stream-bridge), mais sa recette de bout en bout sur dev, à l'oreille
-  // (plan 2026-09-26-son-et-micro, tâche 10 étape 3), n'est pas cochée au 2026-09-28.
-  "desktop-ardour",
   // Licences qui interdisent l'offre hébergée : pas de fiche, et à retirer du produit lui-même.
   // VS Code : binaire Microsoft (« provide the software as a stand-alone offering for others to
   // use » interdit) ; WPS Office : EULA personnelle, SaaS interdit ; Obsidian : « make any of them

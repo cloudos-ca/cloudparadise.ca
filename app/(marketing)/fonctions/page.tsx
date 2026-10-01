@@ -133,7 +133,7 @@ const SECTIONS: readonly SectionFonctions[] = [
       {
         nom: "Son et micro",
         texte:
-          "Volume général et volume par application, choix du micro, des haut-parleurs et de la caméra. Le micro et la caméra ne s'ouvrent que pour les applications que vous autorisez.",
+          "Volume général et volume par application, choix du micro, des haut-parleurs et de la caméra. Le micro et la caméra ne s'ouvrent que pour les applications que vous autorisez ; le micro sert aussi dans les logiciels de bureau, comme Audacity et Ardour.",
       },
       {
         nom: "Moniteur",
